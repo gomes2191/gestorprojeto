@@ -144,7 +144,7 @@ class UserLogin
 		// Verifica se o ID existe
 		if ( empty( $user_id ) ){
 			$this->logged_in = false;
-			$this->login_error = 'User do not exists.';
+			$this->login_error = 'Usuário não existe ou você não sabe mais o nome do seu usuário.';
 		
 			// Desconfigura qualquer sessão que possa existir sobre o usuário
 			$this->logout();
@@ -217,7 +217,7 @@ class UserLogin
 			$this->logged_in = false;
 			
 			// A senha não bateu
-			$this->login_error = 'Password does not match.';
+			$this->login_error = 'Esta não é a senha deste usuário, parece que algo esta errado.';
 		
 			// Remove tudo
 			$this->logout();
