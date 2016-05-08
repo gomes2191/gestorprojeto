@@ -1,6 +1,6 @@
 <?php if ( ! defined('ABSPATH')) exit; ?>
 
-<div class="wrap">
+<div class="row">
 
 <?php
 // Carrega todos os métodos do modelo
@@ -85,4 +85,4 @@ $lista = $modelo->get_user_list();
 	</tbody>
 </table>
 
-</div> <!-- .wrap -->
+</div> <!-- /row  -->
