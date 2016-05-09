@@ -1,6 +1,6 @@
 <?php if ( ! defined('ABSPATH')) exit; ?>
 
-<div class="wrap">
+<div class="row">
 
 <?php
 // Carrega todos os métodos do modelo
@@ -61,28 +61,28 @@ $lista = $modelo->get_user_list();
 			<th>Edição</th>
 		</tr>
 	</thead>
-			
+
 	<tbody>
-			
+
 		<?php foreach ($lista as $fetch_userdata): ?>
 
 			<tr>
-			
+
 				<td> <?php echo $fetch_userdata['user_id'] ?> </td>
 				<td> <?php echo $fetch_userdata['user'] ?> </td>
 				<td> <?php echo $fetch_userdata['user_name'] ?> </td>
 				<td> <?php echo implode( ',', unserialize( $fetch_userdata['user_permissions'] ) ) ?> </td>
-				
-				<td> 
+
+				<td>
 					<a href="<?php echo HOME_URI ?>/user-register/index/edit/<?php echo $fetch_userdata['user_id'] ?>">Edit</a>
 					<a href="<?php echo HOME_URI ?>/user-register/index/del/<?php echo $fetch_userdata['user_id'] ?>">Delete</a>
 				</td>
 
 			</tr>
-			
+
 		<?php endforeach;?>
-			
+
 	</tbody>
 </table>
 
-</div> <!-- .wrap -->
+</div> <!-- /row  -->
