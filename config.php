@@ -6,6 +6,9 @@
 	// Caminho para a raiz
 	define( 'ABSPATH', dirname( __FILE__ ) );
 
+	// Nome do site
+	define('NOME_SITE', 'Odonto V - ');
+
 	// Caminho para a pasta de uploads
 	define( 'UP_ABSPATH', ABSPATH . '/views/_uploads' );
 

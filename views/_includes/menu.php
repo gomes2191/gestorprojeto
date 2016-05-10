@@ -1,8 +1,5 @@
-
-	<?php if ( ! defined('ABSPATH')) exit; ?>
-
+  <?php if ( ! defined('ABSPATH')) exit; ?>
 	<?php if ( $this->login_required && ! $this->logged_in ) return; ?>
-
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -20,7 +17,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="<?php echo HOME_URI;?>">Home</a></li>
             <li><a href="<?php echo HOME_URI;?>/agenda/">Agenda</a></li>
-            <li><a href="<?php echo HOME_URI;?>/exemplo/">Exemplo básico</a></li>
+            <!--<li><a href="<?php echo HOME_URI;?>/exemplo/">Exemplo básico</a></li>-->
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -37,7 +34,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<?php echo HOME_URI;?>/login/">Logar-se</a></li>
             <li><a href="<?php echo HOME_URI;?>/user-register/">User Register</a></li>
-            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+            <!--<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
           </ul>
         </div><!--/.nav-collapse -->
       </div>
