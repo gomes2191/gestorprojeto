@@ -70,7 +70,7 @@
     ?>
 
     <!-- Agenda bibliotecas js -->
-    <script src="<?php echo HOME_URI;?>/_agenda/js/es-ES.js"></script>
+    <script src="<?php echo HOME_URI;?>/_agenda/js/pt-BR.js"></script>
     <script src="<?php echo HOME_URI;?>/_agenda/js/moment.js"></script>
     <script src="<?php echo HOME_URI;?>/_agenda/js/bootstrap-datetimepicker.js"></script>
     <script src="<?php echo HOME_URI;?>/_agenda/js/bootstrap-datetimepicker.es.js"></script>
@@ -146,7 +146,7 @@
 
 
                         // definimos el idioma por defecto
-                        language: 'es-ES',
+                        language: 'pt-BR',
 
                         //Template de nuestro calendario
                         tmpl_path: '<?=HOME_URI ?>/_agenda/tmpls/', 
