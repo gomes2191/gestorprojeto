@@ -167,6 +167,7 @@
 
                         onAfterEventsLoad: function(events)
                         {
+          
                                 if(!events)
                                 {
                                         return;
