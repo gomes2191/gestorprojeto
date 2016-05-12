@@ -63,7 +63,7 @@
                 $conexion->query($query); 
 
                 // redireccionamos a nuestro calendario
-                header("Location: HOME_URI"); 
+                header(" Location: HOME_URI "); 
             }
         }
 
