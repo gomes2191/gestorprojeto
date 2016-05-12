@@ -25,7 +25,7 @@
 	define( 'DB_USER', 'root' );
 
 	// Senha do DB
-	define( 'DB_PASSWORD', 'libre' );
+	define( 'DB_PASSWORD', 'Vectra' );
 
 	// Charset da conexão PDO
 	define( 'DB_CHARSET', 'utf8' );
