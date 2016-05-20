@@ -1,11 +1,11 @@
 <?php
 /**
- * TutsupMVC - Gerencia Models, Controllers e Views
+ * OdontoVision - Gerencia Models, Controllers e Views
  *
- * @package TutsupMVC
+ * @package OdontoVision
  * @since 0.1
  */
-class TutsupMVC
+class OdontoVision
 {
 
 	/**
@@ -185,4 +185,4 @@ class TutsupMVC
 	
 	} // get_url_data
 	
-} // class TutsupMVC
+} // class OdontoVision

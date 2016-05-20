@@ -2,7 +2,7 @@
 /**
  * Modelo para gerenciar notícias
  *
- * @package TutsupMVC
+ * @package OdontoVision
  * @since 0.1
  */
 class NoticiasAdmModel extends MainModel
@@ -190,13 +190,15 @@ class NoticiasAdmModel extends MainModel
 	 * @since 0.1
 	 * @access public
 	 */
-	public function insere_noticia() {
+	public function insere_noticia() 
+	{
 	
 		/* 
 		Verifica se algo foi postado e se está vindo do form que tem o campo
 		insere_noticia.
 		*/
-		if ( 'POST' != $_SERVER['REQUEST_METHOD'] || empty( $_POST['insere_noticia'] ) ) {
+		if ( 'POST' != $_SERVER['REQUEST_METHOD'] || empty( $_POST['insere_noticia'] ) ) 
+		{
 			return;
 		}
 		

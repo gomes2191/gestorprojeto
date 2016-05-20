@@ -5,7 +5,7 @@
  * Manipula os dados de usuários, faz login e logout, verifica permissões e 
  * redireciona página para usuários logados.
  *
- * @package TutsupMVC
+ * @package OdontoVision
  * @since 0.1
  */
 class UserLogin

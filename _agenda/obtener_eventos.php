@@ -23,7 +23,7 @@
 require_once 'config.php'; 
 
 // Sentencia sql para traer los eventos desde la base de datos
-$sql="SELECT * FROM eventos"; 
+$sql="SELECT * FROM agenda"; 
 
 // Verificamos si existe un dato
 if ($conexion->query($sql)->num_rows)
@@ -57,8 +57,8 @@ if ($conexion->query($sql)->num_rows)
     else
     {
         // Si no existen eventos mostramos este mensaje.
-        echo "No hay datos"; 
+        echo "Não há dados"; 
     }
 
 
-?>
+
