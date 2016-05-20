@@ -1,4 +1,5 @@
 <?php
+
 	/**
 	 * Configuração geral
 	 */
@@ -19,13 +20,13 @@
 	define( 'HOSTNAME', 'localhost' );
 
 	// Nome do DB
-	define( 'DB_NAME', 'tutsup' );
+	define( 'DB_NAME', 'ov' );
 
 	// Usuário do DB
 	define( 'DB_USER', 'root' );
 
 	// Senha do DB
-	define( 'DB_PASSWORD', 'Vectra' );
+	define( 'DB_PASSWORD', 'libre' );
 
 	// Charset da conexão PDO
 	define( 'DB_CHARSET', 'utf8' );
@@ -35,8 +36,8 @@
 
 	/**
 	 * Não edite daqui em diante
-	 */
+	**/
 
 	// Carrega o loader, que vai carregar a aplicação inteira
-	require_once ABSPATH . '/loader.php';
+	require_once (ABSPATH . '/loader.php');
 

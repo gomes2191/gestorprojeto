@@ -2,7 +2,7 @@
 /**
  * Classe para registros de usuários
  *
- * @package TutsupMVC
+ * @package OdontoVision
  * @since 0.1
  */
 

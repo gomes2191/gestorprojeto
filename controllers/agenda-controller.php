@@ -2,7 +2,7 @@
 /**
  * UserRegisterController - Controller de exemplo
  *
- * @package TutsupMVC
+ * @package OdontoVision
  * @since 0.1
  */
 class AgendaController extends MainController
@@ -15,6 +15,7 @@ class AgendaController extends MainController
 	 *
 	 * @access public
 	 */
+	
 	public $login_required = false;
 
 	/**

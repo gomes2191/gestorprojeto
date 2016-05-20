@@ -4,7 +4,7 @@
  *
  * 
  *
- * @package TutsupMVC
+ * @package OdontoVision
  * @since 0.1
  */
 class MainModel

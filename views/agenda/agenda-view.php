@@ -3,7 +3,7 @@
 
     <?php
         // Definimos nuestra zona horaria
-        date_default_timezone_set("America/Santiago");
+        date_default_timezone_set("America/Sao_Paulo");
 
         // incluimos el archivo de funciones
         require_once('_agenda/funciones.php');
@@ -16,7 +16,11 @@
         {
 
             // Si se ha enviado verificamos que no vengan vacios
+<<<<<<< HEAD
             if ($_POST['from']!="" AND $_POST['to']!="")
+=======
+            if ($_POST['from']!= "" AND $_POST['to'] !="") 
+>>>>>>> 9f8c97ab05d601ff35c4dee212fd2ec418b1fb19
             {
 
                 // Recibimos el fecha de inicio y la fecha final desde el form
@@ -27,43 +31,52 @@
                 $final  = _formatear($_POST['to']);
 
                 // Recibimos el fecha de inicio y la fecha final desde el form
-
                 $inicio_normal = $_POST['from'];
 
                 // y la formateamos con la funcion _formatear
                 $final_normal  = $_POST['to'];
 
-                // Recibimos los demas datos desde el form
+                // Outros recebem dados do formulário
                 $titulo = evaluar($_POST['title']);
 
-                // y con la funcion evaluar
+                // e avaliar a função
                 $body   = evaluar($_POST['event']);
 
-                // reemplazamos los caracteres no permitidos
+                // Substituimos os caracteres ilegais
                 $clase  = evaluar($_POST['class']);
 
-                // insertamos el evento
-                $query="INSERT INTO eventos VALUES(null,'$titulo','$body','','$clase','$inicio','$final','$inicio_normal','$final_normal')";
+                // Inserimos o evento
+                $query = "INSERT INTO agenda VALUES(null,'$titulo','$body','','$clase','$inicio','$final','$inicio_normal','$final_normal ');
 
-                // Ejecutamos nuestra sentencia sql
+                # Executamos nossas sequencia sql
                 $conexion->query($query);
 
-                // Obtenemos el ultimo id insetado
-                $im=$conexion->query("SELECT MAX(id) AS id FROM eventos");
+                # Obtemos o ultimo id inserido
+                $im = $conexion->query("SELECT MAX(id) AS id FROM agenda ");
+
                 $row = $im->fetch_row();
+
                 $id = trim($row[0]);
 
-                // para generar el link del evento
-                $link = HOME_URI."_agenda/descripcion_evento.php?id=$id";
+                // Gera o link de um evento
+                $link = HOME_URI." _agenda/descripcion_evento.php?id = $id ";
 
-                // y actualizamos su link
-                $query="UPDATE eventos SET url = '$link' WHERE id = $id";
+                // Aqui atualizamos nosso link
+                $query=" UPDATE agenda SET url = '$link' WHERE id = $id ";
 
+<<<<<<< HEAD
                 // Ejecutamos nuestra sentencia sql
                 $conexion->query($query);
 
                 // redireccionamos a nuestro calendario
                 header(" Location: HOME_URI ");
+=======
+                 Executamos nossa sequencia sql
+                $conexion->query($query); 
+
+                // Redirecionamos para nosso calendario
+                header(" Location: HOME_URI "); 
+>>>>>>> 9f8c97ab05d601ff35c4dee212fd2ec418b1fb19
             }
         }
 
@@ -136,7 +149,7 @@
                         modal_type:'iframe',
 
                         //obtenemos los eventos de la base de datos
-                        events_source: '<?=HOME_URI ?>/_agenda/obtener_eventos.php',
+                        events_source: '<?= HOME_URI ?>/_agenda/obtener_eventos.php',
 
                         // mostramos el calendario en el mes
                         view: 'month',
