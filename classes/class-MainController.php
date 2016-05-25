@@ -72,13 +72,8 @@ class MainController extends UserLogin
 	public function __construct ( $parametros = array() ) {
 
 		// Instancia do DB
-<<<<<<< HEAD
-		$this->db = new TutsupDB();
-
-=======
 		$this->db = new OdontoVisionDB();
-		
->>>>>>> 9f8c97ab05d601ff35c4dee212fd2ec418b1fb19
+
 		// Phpass
 		$this->phpass = new PasswordHash(8, false);
 
