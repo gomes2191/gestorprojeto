@@ -69,21 +69,30 @@ class MainController extends UserLogin
 	 * @since 0.1
 	 * @access public
 	 */
-	public function __construct ( $parametros = array() ) {
+	public function __construct ( $parametros = array() ) 
+        {
 
+<<<<<<< HEAD
 		// Instancia do DB
 		$this->db = new OdontoVisionDB();
 
 		// Phpass
 		$this->phpass = new PasswordHash(8, false);
+=======
+            // Instancia do DB
+            $this->db = new OdontoVisionDB();
 
-		// Parâmetros
-		$this->parametros = $parametros;
+            // Phpass
+            $this->phpass = new PasswordHash(8, false);
+>>>>>>> 014f90ad97eec921b57dd2a9dad0f3ffe92c2a37
 
-		// Verifica o login
-		$this->check_userlogin();
+            // Parâmetros
+            $this->parametros = $parametros;
 
-	} // __construct
+            // Verifica o login
+            $this->check_userlogin();
+
+	} # __construct
 
 	/**
 	 * Load model
@@ -93,45 +102,48 @@ class MainController extends UserLogin
 	 * @since 0.1
 	 * @access public
 	 */
-	public function load_model( $model_name = false ) {
+	public function load_model( $model_name = false ) 
+        {
 
-		// Um arquivo deverá ser enviado
-		if ( ! $model_name ) return;
+            // Um arquivo deverá ser enviado
+            if ( ! $model_name ) return;
 
-		// Garante que o nome do modelo tenha letras minúsculas
-		$model_name =  strtolower( $model_name );
+            // Garante que o nome do modelo tenha letras minúsculas
+            $model_name =  strtolower( $model_name );
 
-		// Inclui o arquivo
-		$model_path = ABSPATH . '/models/' . $model_name . '.php';
+            // Inclui o arquivo
+            $model_path = ABSPATH . '/models/' . $model_name . '.php';
 
-		// Verifica se o arquivo existe
-		if ( file_exists( $model_path ) ) {
+            // Verifica se o arquivo existe
+            if ( file_exists( $model_path ) ) 
+            {
 
-			// Inclui o arquivo
-			require_once $model_path;
+                // Inclui o arquivo
+                require_once $model_path;
 
-			// Remove os caminhos do arquivo (se tiver algum)
-			$model_name = explode('/', $model_name);
+                // Remove os caminhos do arquivo (se tiver algum)
+                $model_name = explode('/', $model_name);
 
-			// Pega só o nome final do caminho
-			$model_name = end( $model_name );
+                // Pega só o nome final do caminho
+                $model_name = end( $model_name );
 
-			// Remove caracteres inválidos do nome do arquivo
-			$model_name = preg_replace( '/[^a-zA-Z0-9]/is', '', $model_name );
+                // Remove caracteres inválidos do nome do arquivo
+                $model_name = preg_replace( '/[^a-zA-Z0-9]/is', '', $model_name );
 
-			// Verifica se a classe existe
-			if ( class_exists( $model_name ) ) {
+                // Verifica se a classe existe
+                if ( class_exists( $model_name ) ) 
+                {
 
-				// Retorna um objeto da classe
-				return new $model_name( $this->db, $this );
+                    // Retorna um objeto da classe
+                    return new $model_name( $this->db, $this );
 
-			}
+                }
 
-			// The end :)
-			return;
+                // The end :)
+                return;
 
-		} // load_model
+            }
 
-	} // load_model
+	} // Fim :) Class load_model
 
-} // class MainController
+} // Fim :) class MainController
