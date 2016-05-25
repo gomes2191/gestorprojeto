@@ -46,9 +46,9 @@
 
                 # Executamos nossas sequencia sql
                 $conexion->query($query);
-
+                    
                 # Obtemos o ultimo id inserido
-                $im = $conexion->query("SELECT MAX(id) AS id FROM agenda ");
+                $im = $conexion-> query("SELECT MAX(id) AS id FROM agenda ");
 
                 $row = $im->fetch_row();
 
@@ -117,8 +117,8 @@
                             </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
-    <script src="<?php echo HOME_URI;?>/_agenda/js/underscore-min.js"></script>
-    <script src="<?php echo HOME_URI;?>/_agenda/js/calendar.js"></script>
+    <script src="<?php echo HOME_URI; ?>/_agenda/js/underscore-min.js"></script>
+    <script src="<?php echo HOME_URI; ?>/_agenda/js/calendar.js"></script>
     <script type="text/javascript">
         (function($){
                 //creamos la fecha actual
