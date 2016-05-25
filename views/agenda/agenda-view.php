@@ -12,11 +12,15 @@
         //require_once '_agenda/config.php';
 
         // Verificamos si se ha enviado el campo con name from
-        if (isset($_POST['from'])) 
+        if (isset($_POST['from']))
         {
 
             // Si se ha enviado verificamos que no vengan vacios
+<<<<<<< HEAD
+            if ($_POST['from']!="" AND $_POST['to']!="")
+=======
             if ($_POST['from']!= "" AND $_POST['to'] !="") 
+>>>>>>> 9f8c97ab05d601ff35c4dee212fd2ec418b1fb19
             {
 
                 // Recibimos el fecha de inicio y la fecha final desde el form
@@ -60,11 +64,19 @@
                 // Aqui atualizamos nosso link
                 $query=" UPDATE agenda SET url = '$link' WHERE id = $id ";
 
+<<<<<<< HEAD
+                // Ejecutamos nuestra sentencia sql
+                $conexion->query($query);
+
+                // redireccionamos a nuestro calendario
+                header(" Location: HOME_URI ");
+=======
                  Executamos nossa sequencia sql
                 $conexion->query($query); 
 
                 // Redirecionamos para nosso calendario
                 header(" Location: HOME_URI "); 
+>>>>>>> 9f8c97ab05d601ff35c4dee212fd2ec418b1fb19
             }
         }
 
@@ -109,7 +121,7 @@
                     <div class="modal-dialog">
                             <div class="modal-content">
                                     <div class="modal-body" style="height: 400px">
-                                        <p>One fine body&hellip;</p>
+                                        <p>One fine body &hellip;</p>
                                     </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -150,25 +162,25 @@
                         language: 'pt-BR',
 
                         //Template de nuestro calendario
-                        tmpl_path: '<?=HOME_URI ?>/_agenda/tmpls/', 
+                        tmpl_path: '<?=HOME_URI ?>/_agenda/tmpls/',
                         tmpl_cache: false,
 
 
                         // Hora de inicio
-                        time_start: '08:00', 
+                        time_start: '08:00',
 
                         // y Hora final de cada dia
-                        time_end: '22:00',   
+                        time_end: '22:00',
 
                         // intervalo de tiempo entre las hora, en este caso son 30 minutos
-                        time_split: '30',    
+                        time_split: '30',
 
                         // Definimos un ancho del 100% a nuestro calendario
-                        width: '100%', 
+                        width: '100%',
 
                         onAfterEventsLoad: function(events)
                         {
-          
+
                                 if(!events)
                                 {
                                         return;
@@ -198,7 +210,7 @@
 
 
                 // id del div donde se mostrara el calendario
-                var calendar = $('#calendar').calendar(options); 
+                var calendar = $('#calendar').calendar(options);
 
                 $('.btn-group button[data-calendar-nav]').each(function()
                 {
