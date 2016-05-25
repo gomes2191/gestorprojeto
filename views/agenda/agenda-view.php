@@ -1,4 +1,4 @@
-	<?php if ( ! defined('ABSPATH')) exit; ?>
+    <?php if ( ! defined('ABSPATH')) exit; ?>
 
 
     <?php
@@ -16,18 +16,13 @@
         {
 
             // Si se ha enviado verificamos que no vengan vacios
-<<<<<<< HEAD
-            if ($_POST['from']!="" AND $_POST['to']!="")
-=======
-            if ($_POST['from']!= "" AND $_POST['to'] !="") 
->>>>>>> 9f8c97ab05d601ff35c4dee212fd2ec418b1fb19
+            if ($_POST['from']!= "" AND $_POST['to'] != "")                
             {
 
                 // Recibimos el fecha de inicio y la fecha final desde el form
-
                 $inicio = _formatear($_POST['from']);
+                
                 // y la formateamos con la funcion _formatear
-
                 $final  = _formatear($_POST['to']);
 
                 // Recibimos el fecha de inicio y la fecha final desde el form
@@ -46,13 +41,13 @@
                 $clase  = evaluar($_POST['class']);
 
                 // Inserimos o evento
-                $query = "INSERT INTO agenda VALUES(null,'$titulo','$body','','$clase','$inicio','$final','$inicio_normal','$final_normal ');
+                $query = "INSERT INTO agenda VALUES(null, '$titulo','$body','','$clase','$inicio','$final','$inicio_normal','$final_normal')"; 
 
-                # Executamos nossas sequencia sql
+                // Executamos nosa sequencia SQL
                 $conexion->query($query);
                     
-                # Obtemos o ultimo id inserido
-                $im = $conexion-> query("SELECT MAX(id) AS id FROM agenda ");
+                // Obtemos o ultimo id inserido
+                $im = $conexion->query("SELECT MAX(id) AS id FROM agenda ");
 
                 $row = $im->fetch_row();
 
@@ -64,19 +59,11 @@
                 // Aqui atualizamos nosso link
                 $query=" UPDATE agenda SET url = '$link' WHERE id = $id ";
 
-<<<<<<< HEAD
-                // Ejecutamos nuestra sentencia sql
-                $conexion->query($query);
-
-                // redireccionamos a nuestro calendario
-                header(" Location: HOME_URI ");
-=======
-                 Executamos nossa sequencia sql
+                // Executamos nossa sequencia sql
                 $conexion->query($query); 
 
                 // Redirecionamos para nosso calendario
                 header(" Location: HOME_URI "); 
->>>>>>> 9f8c97ab05d601ff35c4dee212fd2ec418b1fb19
             }
         }
 
