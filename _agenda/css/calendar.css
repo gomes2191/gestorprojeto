@@ -272,7 +272,8 @@
 #cal-day-box #cal-day-panel-hour {
   position: absolute;
   width: 100%;
-  margin-left: -60px;
+  margin-left: -44px;
+  margin-top: 45px;
   z-index: -1;
 }
 #cal-day-box .day-event {
