@@ -251,7 +251,7 @@
 
                     <br>
 
-                    <label for="tipo">Tipo de evento</label>
+                    <label for="tipo">Tipo de consultas:</label>
                     <select class="form-control" name="class" id="tipo">
                         <option value="event-info">Informacion</option>
                         <option value="event-success">Exito</option>
