@@ -1,11 +1,11 @@
 <?php
 /**
- * UserRegisterController - Controller de exemplo
+ * DentistaController - Controlde de Dentistas
  *
  * @package OdontoVision
  * @since 0.1
  */
-class AgendaController extends MainController
+class DentistaController extends MainController
 {
 
 	/**
@@ -32,7 +32,7 @@ class AgendaController extends MainController
 	 */
 	public function index() {
 		// Page title
-		$this->title = ' Agenda';
+		$this->title = ' Dentista';
 
 		// Verifica se o usuário está logado
 		if ( ! $this->logged_in ) {
@@ -61,7 +61,7 @@ class AgendaController extends MainController
 		// Parametros da função
 		$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
 		// Carrega o modelo para este view
-		$modelo = $this->load_model('agenda/agenda-model');
+		$modelo = $this->load_model('dentista/dentista-model');
 
 		/** Carrega os arquivos do view **/
 		// /views/_includes/header.php
@@ -71,7 +71,7 @@ class AgendaController extends MainController
 		require ABSPATH . '/views/_includes/menu.php';
 
 		// /views/user-register/index.php
-		require ABSPATH . '/views/agenda/agenda-view.php';
+		require ABSPATH . '/views/dentista/dentista-view.php';
 
 		// /views/_includes/footer.php
 		require ABSPATH . '/views/_includes/footer.php';
