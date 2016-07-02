@@ -19,11 +19,10 @@
             <li><a href="<?php echo HOME_URI;?>/agenda/">AGENDA</a></li>
             <!--<li><a href="<?php echo HOME_URI;?>/exemplo/">Exemplo básico</a></li>-->
 
-
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> ARQUIVOS <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Dentista</a></li>
+                <li><a href="<?php echo HOME_URI;?>/dentista/">Dentista</a></li>
                 <li><a href="<?php echo HOME_URI;?>/noticias/">Pacientes</a></li>
                 <li><a href="<?php echo HOME_URI;?>/noticias/adm/">Funcionarios</a></li>
                 <li role="separator" class="divider"></li>
@@ -48,6 +47,8 @@
                 <li><a href="<?php echo HOME_URI;?>/noticias/adm/">Notícias Admin</a></li>-->
               </ul>
             </li>
+            <li class="active"><a href="<?php echo HOME_URI;?>">UTILITÁRIOS</a></li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<?php echo HOME_URI;?>/login/">Logar-se</a></li>
