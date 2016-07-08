@@ -14,6 +14,9 @@
 
     <title><?php echo NOME_SITE.$this->title; ?></title>
 
+    <!-- My style -->
+    <link rel="stylesheet" href="<?php echo HOME_URI;?>/views/_css/style.css">
+    
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<?php echo HOME_URI;?>/views/_css/bootstrap.min.css">
 
