@@ -18,16 +18,6 @@ class MainController extends UserLogin
     public $db;
 
     /**
-     * $phpass
-     *
-     * Classe phpass
-     *
-     * @see http://www.openwall.com/phpass/
-     * @access public
-     */
-    public $phpass;
-
-    /**
      * $title
      *
      * Título das páginas
@@ -74,9 +64,6 @@ class MainController extends UserLogin
 
         // Instancia do DB
         $this->db = new OdontoVisionDB();
-
-        // Phpass
-        $this->phpass = new PasswordHash(8, false);
 
         // Parâmetros
         $this->parametros = $parametros;

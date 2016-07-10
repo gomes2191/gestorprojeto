@@ -153,76 +153,89 @@ class UserLogin
 		}
 		
 		// Confere se a senha enviada pelo usuário bate com o hash do BD
-		if ( $this->phpass->CheckPassword( $user_password, $fetch['user_password'] ) ) {
+		if ( password_verify( $user_password, $fetch['user_password'] ) ) 
+                {
+                    
+                     //Verifica se é necessário gerar novo hash
+                    if (password_needs_rehash($fetch['user_password'], PASSWORD_DEFAULT)) 
+                    {
+                        //Atualizar valor do hash na base de dados...
+                        $fetch['user_password'] = password_hash($user_password, PASSWORD_DEFAULT);
+                     }
 			
-			// Se for uma sessão, verifica se a sessão bate com a sessão do BD
-			if ( session_id() != $fetch['user_session_id'] && ! $post ) { 
-				$this->logged_in = false;
-				$this->login_error = 'Wrong session ID.';
-				
-				// Desconfigura qualquer sessão que possa existir sobre o usuário
-				$this->logout();
-			
-				return;
-			}
-			
-			// Se for um post
-			if ( $post ) {
-				// Recria o ID da sessão
-				session_regenerate_id();
-				$session_id = session_id();
-				
-				// Envia os dados de usuário para a sessão
-				$_SESSION['userdata'] = $fetch;
-				
-				// Atualiza a senha
-				$_SESSION['userdata']['user_password'] = $user_password;
-				
-				// Atualiza o ID da sessão
-				$_SESSION['userdata']['user_session_id'] = $session_id;
-				
-				// Atualiza o ID da sessão na base de dados
-				$query = $this->db->query(
-					'UPDATE users SET user_session_id = ? WHERE user_id = ?',
-					array( $session_id, $user_id )
-				);
-			}
-				
-			// Obtém um array com as permissões de usuário
-			$_SESSION['userdata']['user_permissions'] = unserialize( $fetch['user_permissions'] );
+                    // Se for uma sessão, verifica se a sessão bate com a sessão do BD
+                    if ( session_id() != $fetch['user_session_id'] && ! $post ) 
+                    { 
+                        $this->logged_in = false;
+                        $this->login_error = 'Wrong session ID.';
 
-			// Configura a propriedade dizendo que o usuário está logado
-			$this->logged_in = true;
+                        // Desconfigura qualquer sessão que possa existir sobre o usuário
+                        $this->logout();
+
+                        return;
+                    }
 			
-			// Configura os dados do usuário para $this->userdata
-			$this->userdata = $_SESSION['userdata'];
-			
-			// Verifica se existe uma URL para redirecionar o usuário
-			if ( isset( $_SESSION['goto_url'] ) ) {
-				// Passa a URL para uma variável
-				$goto_url = urldecode( $_SESSION['goto_url'] );
+                    // Se for um post
+                    if ( $post ) 
+                    {
+                        // Recria o ID da sessão
+                        session_regenerate_id();
+                        $session_id = session_id();
+
+                        // Envia os dados de usuário para a sessão
+                        $_SESSION['userdata'] = $fetch;
+
+                        // Atualiza a senha
+                        $_SESSION['userdata']['user_password'] = $user_password;
+
+                        // Atualiza o ID da sessão
+                        $_SESSION['userdata']['user_session_id'] = $session_id;
+
+                        // Atualiza o ID da sessão na base de dados
+                        $query = $this->db->query(
+                                'UPDATE users SET user_session_id = ? WHERE user_id = ?',
+                                array( $session_id, $user_id )
+                        );
+                    }
 				
-				// Remove a sessão com a URL
-				unset( $_SESSION['goto_url'] );
-				
-				// Redireciona para a página
-				echo '<meta http-equiv="Refresh" content="0; url=' . $goto_url . '">';
-				echo '<script type="text/javascript">window.location.href = "' . $goto_url . '";</script>';
-				//header( 'location: ' . $goto_url );
-			}
+                    // Obtém um array com as permissões de usuário
+                    $_SESSION['userdata']['user_permissions'] = unserialize( $fetch['user_permissions'] );
+
+                    // Configura a propriedade dizendo que o usuário está logado
+                    $this->logged_in = true;
+
+                    // Configura os dados do usuário para $this->userdata
+                    $this->userdata = $_SESSION['userdata'];
 			
-			return;
-		} else {
-			// O usuário não está logado
-			$this->logged_in = false;
+                    // Verifica se existe uma URL para redirecionar o usuário
+                    if ( isset( $_SESSION['goto_url'] ) ) 
+                    {
+                        // Passa a URL para uma variável
+                        $goto_url = urldecode( $_SESSION['goto_url'] );
+
+                        // Remove a sessão com a URL
+                        unset( $_SESSION['goto_url'] );
+
+                        // Redireciona para a página
+                        echo '<meta http-equiv="Refresh" content="0; url=' . $goto_url . '">';
+                        echo '<script type="text/javascript">window.location.href = "' . $goto_url . '";</script>';
+                        //header( 'location: ' . $goto_url );
+                    }
 			
-			// A senha não bateu
-			$this->login_error = 'Esta não é a senha deste usuário, parece que algo esta errado.';
-		
-			// Remove tudo
-			$this->logout();
-		
-			return;
+                    return;
+		} 
+                else 
+                {
+                    // O usuário não está logado
+                    $this->logged_in = false;
+
+                    // A senha não bateu
+                    $this->login_error = 'Esta não é a senha deste usuário, parece que algo esta errado.';
+
+                    // Remove tudo
+                    $this->logout();
+
+                    return;
 		}
 	}
 	

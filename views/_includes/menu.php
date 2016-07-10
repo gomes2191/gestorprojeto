@@ -5,7 +5,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -20,12 +20,12 @@
             <!--<li><a href="<?php echo HOME_URI;?>/exemplo/">Exemplo básico</a></li>-->
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> ARQUIVOS <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" > ARQUIVOS <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="<?php echo HOME_URI;?>/dentista/">Dentista</a></li>
                 <li><a href="<?php echo HOME_URI;?>/noticias/">Pacientes</a></li>
                 <li><a href="<?php echo HOME_URI;?>/noticias/adm/">Funcionarios</a></li>
-                <li role="separator" class="divider"></li>
+                <li class="divider"></li>
                 <li class="dropdown-header">OUTROS DEPARTAMENTOS</li>
                 <li><a href="#">Fornecedores</a></li>
                 <li><a href="#">Patrimônio</a></li>
@@ -36,7 +36,7 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FINANCEIRO <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >FINANCEIRO <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Contas a Pagar</a></li>
                 <li><a href="#">Contas a Receber</a></li>

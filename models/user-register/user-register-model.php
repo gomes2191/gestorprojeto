@@ -118,10 +118,11 @@ class UserRegisterModel
 		
 		// Precisaremos de uma instância da classe Phpass
 		// veja http://www.openwall.com/phpass/
-		$password_hash = new PasswordHash(8, FALSE);
+		//$password_hash = new PasswordHash(8, FALSE);
 		
 		// Cria o hash da senha
-		$password = $password_hash->HashPassword( $this->form_data['user_password'] );
+		//$password = $password_hash->HashPassword( $this->form_data['user_password'] ); antiga
+                $password = password_hash( $this->form_data['user_password'], PASSWORD_DEFAULT ); //nova
 		
 		// Verifica se as permissões tem algum valor inválido: 
 		// 0 a 9, A a Z e , . - _
