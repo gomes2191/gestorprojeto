@@ -15,8 +15,8 @@ class DentistaController extends MainController
 	 *
 	 * @access public
 	 */
-	
-	public $login_required = false;
+
+	public $login_required = '';
 
 	/**
 	 * $permission_required
@@ -25,7 +25,7 @@ class DentistaController extends MainController
 	 *
 	 * @access public
 	 */
-	public $permission_required = 'user-register';
+	//public $permission_required = 'user-register';
 
 	/**
 	 * Carrega a página "/views/user-register/index.php"
@@ -35,7 +35,7 @@ class DentistaController extends MainController
 		$this->title = ' Dentista';
 
 		// Verifica se o usuário está logado
-		if ( ! $this->logged_in ) {
+		/*if ( ! $this->logged_in ) {
 
 			// Se não; garante o logout
 			$this->logout();
@@ -46,7 +46,7 @@ class DentistaController extends MainController
 			// Garante que o script não vai passar daqui
 			return;
 
-		}
+		}*/
 
 		// Verifica se o usuário tem a permissão para acessar essa página
 		if (!$this->check_permissions($this->permission_required, $this->userdata['user_permissions'])) {

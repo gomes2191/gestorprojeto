@@ -9,10 +9,10 @@
 
     // Nome do site
     define('NOME_SITE', 'Odonto V - ');
-    
+
     // Idioma do sistema
     define('LANG', 'pt_BR');
-    
+
     // Caminho para a pasta de uploads
     define('UP_ABSPATH', ABSPATH . '/views/_uploads');
 
@@ -23,7 +23,7 @@
     define('HOSTNAME', 'localhost');
 
     // Nome do DB
-    define('DB_NAME', 'ov');
+    define('DB_NAME', 'migration_ov');
 
     // Usuário do DB
     define('DB_USER', 'root');
@@ -42,4 +42,3 @@
      * */
     // Carrega o loader, que vai carregar a aplicação inteira
     require_once (ABSPATH . '/loader.php');
-

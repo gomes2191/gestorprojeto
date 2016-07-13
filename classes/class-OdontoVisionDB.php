@@ -328,5 +328,10 @@ class OdontoVisionDB
 		// The end :)
 		return;
 	} // delete
+        
+        // Metodo para pegar o id da ultima inserção na tabela    
+        public function lastInsertId(){
+        return $this->pdo->lastInsertId();
+    }
 	
 } // Class OdontoVisionDB

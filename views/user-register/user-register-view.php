@@ -7,30 +7,48 @@
         $modelo->get_register_form(chk_array($parametros, 1));
         $modelo->del_user($parametros);
     ?>
-    <div class="col-md-12">
-        <div class="panel panel-primary"> <!-- Start panel cad -->
-            <div class="panel-heading">
-                <h3 class="panel-title text-center"><b>TELA DE CADASTRO</b></h3>
-            </div> 
-            <div class="panel-body">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center">ODONTO V - Tela de cadastro</h3>
+          </div>
+          <div class="panel-body">
                 <form method="post" action="">
-                    <div class="form-group">
-                        <label for="name">Nome:</label>
-                        <input type="text" name="user_name" placeholder="name" value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_name'));
-                        ?>" class="form-control" id="name" >
 
-                    </div>
+                  <?php echo ($modelo->form_msg); ?>
+                    
                     <div class="form-group">
-                        <label for="user">Usuario:</label>
-                        <input type="text" name="user"  class="form-control" placeholder="Usuario" id="user" value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user'));
+                        <label for="clinic_name">Nome da clinica:</label>
+                        <input type="text" name="clinic_name" placeholder="Nome da clinica..." value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'clinic_name'));
+                        ?>" class="form-control" id="clinic_name" >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="user_name">Seu nome:</label>
+                        <input type="text" name="user_name" placeholder="Nome do responsavel pelo cadastro..." value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'user_name'));
+                        ?>" class="form-control" id="user_name" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_email">Email:</label>
+                        <input type="text" name="user_email" placeholder="Email para contato..." value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'user_email'));
+                        ?>" class="form-control" id="user_email" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_user">Seu usuário:</label>
+                        <input type="text" name="user_user"  class="form-control" placeholder="Usuário a ser utilizado para entrar no sistema..." id="user_user" value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'user_user'));
                         ?>" >
                     </div>
 
                     <div class="form-group">
-                        <label for="password"> Senha: </label>
-                        <input type="password" name="user_password" class="form-control" placeholder="Senha" id="password" value="<?php
+                        <label for="user_password"> Senha: </label>
+                        <input type="password" name="user_password" class="form-control" placeholder="Sua senha para entrar no sistema.." id="user_password" value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'user_password'));
                         ?>" >
                     </div>
@@ -41,13 +59,12 @@
                         echo htmlentities(chk_array($modelo->form_data, 'user_permissions'));
                         ?>" >
                     </div>
-
-                    <?php echo $modelo->form_msg; ?>
-                    <button type="submit" class="btn btn-default">Salvar</button>
+                    <button type="submit" class="btn btn-primary">Efetuar cadastro</button>
                     <a href="<?php echo HOME_URI . '/user-register'; ?>">New user</a>
                 </form>
-            </div> 
-        </div> <!-- / End panel cad -->
+            </div>
+          <div class="panel-footer"></div>
+        </div>
         <?php
             // Lista os usuários
             $lista = $modelo->get_user_list();
@@ -73,13 +90,13 @@
                                 <?php echo $fetch_userdata['user_id'] ?>
                             </th>
                             <td>
-                                <?php echo $fetch_userdata['user_name'] ?>                                
+                                <?php echo $fetch_userdata['user_name'] ?>
                             </td>
                             <td>
-                                <?php echo $fetch_userdata['user'] ?>                               
+                                <?php echo $fetch_userdata['user_user'] ?>
                             </td>
                             <td>
-                                <?php echo implode(',', unserialize($fetch_userdata['user_permissions'])) ?> 
+                                <?php echo implode(',', unserialize($fetch_userdata['user_permissions'])) ?>
                             </td>
                             <td>
                                 <a href="<?php echo HOME_URI ?>/user-register/index/edit/<?php echo $fetch_userdata['user_id'] ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
@@ -102,4 +119,5 @@
             </table>
         </div> <!-- /End start panel -->
     </div>
+    <div class="col-md-2"></div>
 </div> <!-- /row  -->
