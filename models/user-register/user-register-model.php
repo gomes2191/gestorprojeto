@@ -1,359 +1,347 @@
 <?php
+
 /**
  * Classe para registros de usuários
  *
  * @package OdontoVision
  * @since 0.1
  */
+class UserRegisterModel {
 
-class UserRegisterModel
-{
+    /**
+     * $form_data
+     *
+     * Os dados do formulário de envio.
+     *
+     * @access public
+     */
+    public $form_data;
 
-	/**
-	 * $form_data
-	 *
-	 * Os dados do formulário de envio.
-	 *
-	 * @access public
-	 */
-	public $form_data;
+    /**
+     * $form_msg
+     *
+     * As mensagens de feedback para o usuário.
+     *
+     * @access public
+     */
+    public $form_msg;
 
-	/**
-	 * $form_msg
-	 *
-	 * As mensagens de feedback para o usuário.
-	 *
-	 * @access public
-	 */
-	public $form_msg;
+    /**
+     * $db
+     *
+     * O objeto da nossa conexão PDO
+     *
+     * @access public
+     */
+    public $db;
 
-	/**
-	 * $db
-	 *
-	 * O objeto da nossa conexão PDO
-	 *
-	 * @access public
-	 */
-	public $db;
+    /**
+     * Construtor
+     *
+     * Carrega  o DB.
+     *
+     * @since 0.1
+     * @access public
+     */
+    public function __construct($db = false) {
+        $this->db = $db;
+    }
 
-	/**
-	 * Construtor
-	 *
-	 * Carrega  o DB.
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
+    /**
+     * Valida o formulário de envio
+     *
+     * Este método pode inserir ou atualizar dados dependendo do campo de
+     * usuário.
+     *
+     * @since 0.1
+     * @access public
+     * */
+    public function validate_register_form() {
 
-	public function __construct( $db = false )
-	{
-		$this->db = $db;
-	}
+        // Configura os dados do formulário
+        $this->form_data = array();
 
-	/**
-	 * Valida o formulário de envio
-	 *
-	 * Este método pode inserir ou atualizar dados dependendo do campo de
-	 * usuário.
-	 *
-	 * @since 0.1
-	 * @access public
-	 **/
-	public function validate_register_form ()
-	{
+        // Verifica se algo foi postado
+        if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST)) {
 
-		// Configura os dados do formulário
-		$this->form_data = array();
+            // Faz o loop dos dados do post
+            foreach ($_POST as $key => $value) {
+                // Configura os dados do post para a propriedade $form_data
+                // e remove todo e qualquer tipo de tags que venham a ser passsado nos campos
+                $this->form_data[$key] = filter_var($value, FILTER_SANITIZE_STRING);
 
-		// Verifica se algo foi postado
-		if ( 'POST' == $_SERVER['REQUEST_METHOD'] && ! empty ( $_POST ) )
-		{
+                // Nós não permitiremos nenhum campos em branco
+                if (empty($value)) {
 
-			// Faz o loop dos dados do post
-			foreach ( $_POST as $key => $value )
-			{
-				// Configura os dados do post para a propriedade $form_data
-				// e remove todo e qualquer tipo de tags que venham a ser passsado nos campos
-				$this->form_data[$key] = filter_var($value, FILTER_SANITIZE_STRING);
+                    // Configura a mensagem
+                    $this->form_msg = '<p class="form_error">There are empty fields. Data has not been sent.</p>';
 
-				// Nós não permitiremos nenhum campos em branco
-				if ( empty( $value ) )
-				{
+                    // Termina
+                    return;
+                }
+            }
+        } else {
+            // Termina se nada foi enviado
+            return;
+        }
 
-					// Configura a mensagem
-					$this->form_msg = '<p class="form_error">There are empty fields. Data has not been sent.</p>';
+        // Verifica se a propriedade $form_data foi preenchida
+        if (empty($this->form_data)) {
+            return;
+        }
 
-					// Termina
-					return;
+        // Verifica se o usuário existe
+        $db_check_user = $this->db->query(
+                'SELECT * FROM `users` WHERE `user_user` = ?', array(
+            chk_array($this->form_data, 'user_user')
+                )
+        );
 
-				}
+        // Verifica se a consulta foi realizada com sucesso
+        if (!$db_check_user) {
+            $this->form_msg = '<p class="form_error">Internal error.</p>';
+            return;
+        }
 
-			}
+        // Obtém os dados da base de dados MySQL
+        $fetch_user = $db_check_user->fetch();
 
-		}
-		else
-		{
-			// Termina se nada foi enviado
-			return;
-		}
-
-		// Verifica se a propriedade $form_data foi preenchida
-		if( empty( $this->form_data ) )
-		{
-			return;
-		}
-
-		// Verifica se o usuário existe
-		$db_check_user = $this->db->query (
-			'SELECT * FROM `users` WHERE `user_user` = ?',
-			array(
-				chk_array( $this->form_data, 'user_user')
-			)
-		);
-
-		// Verifica se a consulta foi realizada com sucesso
-		if ( ! $db_check_user )
-		{
-			$this->form_msg = '<p class="form_error">Internal error.</p>';
-			return;
-		}
-
-		// Obtém os dados da base de dados MySQL
-		$fetch_user = $db_check_user->fetch();
-
-		// Configura o ID do usuário
-		$user_id = $fetch_user['user_id'];
-
-		// Converte a senha enviada através do formulário para o hash (Criptografa) com API PHP
-		// passando a hash para a variável $password
-                $password = password_hash( $this->form_data['user_password'], PASSWORD_DEFAULT );
-
-		// Pega o valor email do formulario e verifica se é um email se for email retorna
-		// o valor do email para variável $user_email se não retorna o valor false para a variável
-		$user_email = (filter_var($this->form_data['user_email'], FILTER_VALIDATE_EMAIL));
-
-		if($user_email == false)
-		{
-			$this->form_msg = '<span> Email digitado não e válido.</span>';
-			return;
-		}
-                
-                
-                //Variaveis para inserção na base de dados
-                $role_id = 1; // Onde 1 é adm e 2 user
-                $user_status = 1; // Onde 1 e usuario ativo e 2 não ativo;
-              
-                
-		// Verifica se as permissões tem algum valor inválido:
-		// 0 a 9, A a Z e , . - _
-		if ( preg_match( '/[^0-9A-Za-z\,\.\-\_\s ]/is', $this->form_data['user_permissions'] ) )
-		{
-			$this->form_msg = '<p class="form_error">Use just letters, numbers and a comma for permissions.</p>';
-			return;
-		}
-                
-		// Faz um trim nas permissões
-		$permissions = array_map('trim', explode(',', $this->form_data['user_permissions']));
+        if ($fetch_user['user_email'] == chk_array($this->form_data, 'user_email')){
+            echo '<b>O Email que vc digitou já esta cadastrado na nossa base de dados.</b>';
+        } else {
+            echo 'Não';
+        }
 
 
-		// Remove permissões duplicadas
-		$permissions = array_unique( $permissions );
 
-		// Remove valores em branco
-		$permissions = array_filter( $permissions );
+        // Configura o ID do usuário
+        $user_id = $fetch_user['user_id'];
 
-		// Serializa as permissões
-		$permissions = serialize( $permissions );
-                
-		// Se o ID do usuário não estiver vazio, atualiza os dados
-		if ( ! empty( $user_id ) )
-		{
-			$query = $this->db->update('users', 'user_id', $user_id, array(
-				'user_name' => chk_array( $this->form_data, 'user_name'),
-                                'user_email'=> $user_email,
-                                'user_password' => $password,
-				'user_session_id' => md5(time()),
-				'user_permissions' => $permissions,
-                                'user_role_id' => $role_id,
-                                'user_status'=> $user_status,
-			));
+        // Converte a senha enviada através do formulário para o hash (Criptografa) com API PHP
+        // passando a hash para a variável $password
+        $password = password_hash($this->form_data['user_password'], PASSWORD_DEFAULT);
 
-			// Verifica se a consulta está OK e configura a mensagem
-			if ( ! $query )
-			{
-				$this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
+        // Pega o valor email do formulario e verifica se é um email se for email retorna
+        // o valor do email para variável $user_email se não retorna o valor false para a variável
+        $user_email = (filter_var($this->form_data['user_email'], FILTER_VALIDATE_EMAIL));
 
-				// Termina
-				return;
-			}
-			else
-			{
-				$this->form_msg = '<p class="form_success">User successfully updated.</p>';
+//        if ($user_email == false) {
+//            $this->form_msg = '<span> Email digitado não e válido.</span>';
+//            return;
+//        }
 
-				// Termina
-				return;
-			}
-		}
-                // Se o ID do usuário estiver vazio, insere os dados
-		else
-		{
-                        //  --->                   
-                        // insere o nome da clinica (revisar)
-			$this->db->insert('clinics',  array(
-                            'clinic_name' => chk_array( $this->form_data, 'clinic_name'),
-			));
-                        
-                        $user_clinic_id = $this->db->lastInsertId(); 
-                        // <----
-                        
-			// Executa a consulta
-			$query = $this->db->insert('users',  array(
-                            'user_user' => chk_array( $this->form_data, 'user_user'),
-                            'user_name' => chk_array( $this->form_data, 'user_name'),
-                            'user_email'=> $user_email,
-                            'user_password' => $password,
-                            'user_session_id' => md5(time()),
-                            'user_permissions' => $permissions,
-                            'user_clinic_id'=> $user_clinic_id,
-                            'user_role_id' => $role_id,
-                            'user_status'=> $user_status,
-			));
 
-			// Verifica se a consulta está OK e configura a mensagem
-			if ( ! $query ) {
-				$this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
+        //Variaveis para inserção na base de dados
+        $role_id = 1; // Onde 1 é adm e 2 user
+        $user_status = 1; // Onde 1 e usuario ativo e 2 não ativo;
+        // Verifica se as permissões tem algum valor inválido:
+        // 0 a 9, A a Z e , . - _
+        if (preg_match('/[^0-9A-Za-z\,\.\-\_\s ]/is', $this->form_data['user_permissions'])) {
+            $this->form_msg = '<p class="form_error">Use just letters, numbers and a comma for permissions.</p>';
+            return;
+        }
 
-				// Termina
-				return;
-			}
-			else
-			{
-				$this->form_msg = '<p class="form_success">User successfully registered.</p>';
+        // Faz um trim nas permissões
+        $permissions = array_map('trim', explode(',', $this->form_data['user_permissions']));
 
-				// Termina
-				return;
-			}
-		}
-	} // validate_register_form
 
-	/**
-	 * Obtém os dados do formulário
-	 *
-	 * Obtém os dados para usuários registrados
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function get_register_form ( $user_id = false )
-	{
+        // Remove permissões duplicadas
+        $permissions = array_unique($permissions);
 
-		// O ID de usuário que vamos pesquisar
-		$s_user_id = false;
+        // Remove valores em branco
+        $permissions = array_filter($permissions);
 
-		// Verifica se você enviou algum ID para o método
-		if ( ! empty( $user_id ) ) {
-			$s_user_id = (int)$user_id;
-		}
+        // Serializa as permissões
+        $permissions = serialize($permissions);
 
-		// Verifica se existe um ID de usuário
-		if ( empty( $s_user_id ) ) {
-			return;
-		}
+        // Se o ID do usuário não estiver vazio, atualiza os dados
+        if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email'] ) {
+            $query = $this->db->update('users', 'user_id', $user_id, array(
+                'user_name' => chk_array($this->form_data, 'user_name'),
+                //'user_email' => $user_email,
+                'user_password' => $password,
+                'user_session_id' => md5(time()),
+                'user_permissions' => $permissions,
+                'user_role_id' => $role_id,
+                'user_status' => $user_status,
+            ));
 
-		// Verifica na base de dados
-		$query = $this->db->query('SELECT * FROM `users` WHERE `user_id` = ?', array( $s_user_id ));
+            // Verifica se a consulta está OK e configura a mensagem
+            if (!$query) {
+                $this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
 
-		// Verifica a consulta
-		if ( ! $query ) {
-			$this->form_msg = '<p class="form_error">Usuário não existe.</p>';
-			return;
-		}
+                // Termina
+                return;
+            } else {
+                $this->form_msg = '<p class="form_success">User successfully updated.</p>';
 
-		// Obtém os dados da consulta
-		$fetch_userdata = $query->fetch();
+                // Termina
+                return;
+            }
+        }
 
-		// Verifica se os dados da consulta estão vazios
-		if ( empty( $fetch_userdata ) ) {
-			$this->form_msg = '<p class="form_error">User do not exists.</p>';
-			return;
-		}
+        // Se o ID do usuário estiver vazio, insere os dados
+        else {
+            //  --->                   
+            // insere o nome da clinica (revisar)
+            $this->db->insert('clinics', array(
+                'clinic_name' => chk_array($this->form_data, 'clinic_name'),
+            ));
 
-		// Configura os dados do formulário
-		foreach ( $fetch_userdata as $key => $value ) {
-			$this->form_data[$key] = $value;
-		}
+            $user_clinic_id = $this->db->lastInsertId();
+            // <----
+            // Executa a consulta
+            $query = $this->db->insert('users', array(
+                //'user_user' => chk_array($this->form_data, 'user_user'),
+                'user_name' => chk_array($this->form_data, 'user_name'),
+                'user_email' => $user_email,
+                'user_password' => $password,
+                'user_session_id' => md5(time()),
+                'user_permissions' => $permissions,
+                'user_clinic_id' => $user_clinic_id,
+                'user_role_id' => $role_id,
+                'user_status' => $user_status,
+            ));
 
-		// Por questões de segurança, a senha só poderá ser atualizada
-		$this->form_data['user_password'] = null;
+            // Verifica se a consulta está OK e configura a mensagem
+            if (!$query) {
+                $this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
 
-		// Remove a serialização das permissões
-		$this->form_data['user_permissions'] = unserialize($this->form_data['user_permissions']);
+                // Termina
+                return;
+            } else {
+                $this->form_msg = '<p class="form_success">User successfully registered.</p>';
 
-		// Separa as permissões por vírgula
-		$this->form_data['user_permissions'] = implode(',', $this->form_data['user_permissions']);
-	} // get_register_form
+                // Termina
+                return;
+            }
+        }
+    }
 
-	/**
-	 * Apaga usuários
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function del_user ( $parametros = array() ) {
+// validate_register_form
 
-		// O ID do usuário
-		$user_id = null;
+    /**
+     * Obtém os dados do formulário
+     *
+     * Obtém os dados para usuários registrados
+     *
+     * @since 0.1
+     * @access public
+     * */
+    public function get_register_form($user_id = false) {
 
-		// Verifica se existe o parâmetro "del" na URL
-		if ( chk_array( $parametros, 0 ) == 'del' ) {
+        // O ID de usuário que vamos pesquisar
+        $s_user_id = false;
 
-			// Mostra uma mensagem de confirmação
-			echo '<p class="alert">Tem certeza que deseja apagar este valor?</p>';
-			echo '<p><a href="' . $_SERVER['REQUEST_URI'] . '/confirma">Sim</a> |
+        // Verifica se você enviou algum ID para o método
+        if (!empty($user_id)) {
+            $s_user_id = (int) $user_id;
+        }
+
+        // Verifica se existe um ID de usuário
+        if (empty($s_user_id)) {
+            return;
+        }
+
+        // Verifica na base de dados
+        $query = $this->db->query('SELECT * FROM `users` WHERE `user_id` = ?', array($s_user_id));
+
+        // Verifica a consulta
+        if (!$query) {
+            $this->form_msg = '<p class="form_error">Usuário não existe.</p>';
+            return;
+        }
+
+        // Obtém os dados da consulta
+        $fetch_userdata = $query->fetch();
+
+        // Verifica se os dados da consulta estão vazios
+        if (empty($fetch_userdata)) {
+            $this->form_msg = '<p class="form_error">User do not exists.</p>';
+            return;
+        }
+
+        // Configura os dados do formulário
+        foreach ($fetch_userdata as $key => $value) {
+            $this->form_data[$key] = $value;
+        }
+
+        // Por questões de segurança, a senha só poderá ser atualizada
+        $this->form_data['user_password'] = null;
+
+        // Remove a serialização das permissões
+        $this->form_data['user_permissions'] = unserialize($this->form_data['user_permissions']);
+
+        // Separa as permissões por vírgula
+        $this->form_data['user_permissions'] = implode(',', $this->form_data['user_permissions']);
+    }
+
+// get_register_form
+
+    /**
+     * Apaga usuários
+     *
+     * @since 0.1
+     * @access public
+     */
+    public function del_user($parametros = array()) {
+
+        // O ID do usuário
+        $user_id = null;
+
+        // Verifica se existe o parâmetro "del" na URL
+        if (chk_array($parametros, 0) == 'del') {
+
+            // Mostra uma mensagem de confirmação
+            echo '<p class="alert">Tem certeza que deseja apagar este valor?</p>';
+            echo '<p><a href="' . $_SERVER['REQUEST_URI'] . '/confirma">Sim</a> |
 			<a href="' . HOME_URI . '/user-register">Não</a> </p>';
 
-			// Verifica se o valor do parâmetro é um número
-			if (
-				is_numeric( chk_array( $parametros, 1 ) )
-				&& chk_array( $parametros, 2 ) == 'confirma'
-			) {
-				// Configura o ID do usuário a ser apagado
-				$user_id = chk_array( $parametros, 1 );
-			}
-		}
+            // Verifica se o valor do parâmetro é um número
+            if (
+                    is_numeric(chk_array($parametros, 1)) && chk_array($parametros, 2) == 'confirma'
+            ) {
+                // Configura o ID do usuário a ser apagado
+                $user_id = chk_array($parametros, 1);
+            }
+        }
 
-		// Verifica se o ID não está vazio
-		if ( !empty( $user_id ) ) {
+        // Verifica se o ID não está vazio
+        if (!empty($user_id)) {
 
-			// O ID precisa ser inteiro
-			$user_id = (int)$user_id;
+            // O ID precisa ser inteiro
+            $user_id = (int) $user_id;
 
-			// Deleta o usuário
-			$query = $this->db->delete('users', 'user_id', $user_id);
+            // Deleta o usuário
+            $query = $this->db->delete('users', 'user_id', $user_id);
 
-			// Redireciona para a página de registros
-			echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/user-register/">';
-			echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
-			return;
-		}
-	} // del_user
+            // Redireciona para a página de registros
+            echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/user-register/">';
+            echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
+            return;
+        }
+    }
 
-	/**
-	 * Obtém a lista de usuários
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function get_user_list() {
+// del_user
 
-		// Simplesmente seleciona os dados na base de dados
-		$query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
+    /**
+     * Obtém a lista de usuários
+     *
+     * @since 0.1
+     * @access public
+     */
+    public function get_user_list() {
 
-		// Verifica se a consulta está OK
-		if ( ! $query ) {
-			return array();
-		}
-		// Preenche a tabela com os dados do usuário
-		return $query->fetchAll();
-	} // get_user_list	
+        // Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
+
+        // Verifica se a consulta está OK
+        if (!$query) {
+            return array();
+        }
+        // Preenche a tabela com os dados do usuário
+        return $query->fetchAll();
+    }
+
+// get_user_list	
 }

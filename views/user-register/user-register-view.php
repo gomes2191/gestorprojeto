@@ -11,7 +11,7 @@
     <div class="col-md-8">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title text-center">ODONTO V - Tela de cadastro</h3>
+            <h3 class="panel-title text-center">BETA - Tela de cadastro</h3>
           </div>
           <div class="panel-body">
                 <form method="post" action="">
@@ -34,17 +34,17 @@
 
                     <div class="form-group">
                         <label for="user_email">Email:</label>
-                        <input type="text" name="user_email" placeholder="Email para contato..." value="<?php
+                        <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'user_email'));
                         ?>" class="form-control" id="user_email" >
                     </div>
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="user_user">Seu usuário:</label>
                         <input type="text" name="user_user"  class="form-control" placeholder="Usuário a ser utilizado para entrar no sistema..." id="user_user" value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'user_user'));
                         ?>" >
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <label for="user_password"> Senha: </label>
