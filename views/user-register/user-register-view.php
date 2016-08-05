@@ -60,7 +60,7 @@
                         ?>" >
                     </div>
                     <button type="submit" class="btn btn-primary">Efetuar cadastro</button>
-                    <a href="<?php echo HOME_URI . '/user-register'; ?>">New user</a>
+                    <!--<a href="<?php echo HOME_URI . '/user-register'; ?>">New user</a>-->
                 </form>
             </div>
           <div class="panel-footer"></div>
@@ -93,7 +93,7 @@
                                 <?php echo $fetch_userdata['user_name'] ?>
                             </td>
                             <td>
-                                <?php echo $fetch_userdata['user_user'] ?>
+                                <?php echo $fetch_userdata['user_email'] ?>
                             </td>
                             <td>
                                 <?php echo implode(',', unserialize($fetch_userdata['user_permissions'])) ?>

@@ -92,8 +92,8 @@ class UserRegisterModel {
 
         // Verifica se o usuário existe
         $db_check_user = $this->db->query(
-                'SELECT * FROM `users` WHERE `user_user` = ?', array(
-            chk_array($this->form_data, 'user_user')
+                'SELECT * FROM `users` WHERE `user_email` = ?', array(
+            chk_array($this->form_data, 'user_email')
                 )
         );
 
@@ -106,14 +106,6 @@ class UserRegisterModel {
         // Obtém os dados da base de dados MySQL
         $fetch_user = $db_check_user->fetch();
 
-        if ($fetch_user['user_email'] == chk_array($this->form_data, 'user_email')){
-            echo '<b>O Email que vc digitou já esta cadastrado na nossa base de dados.</b>';
-        } else {
-            echo 'Não';
-        }
-
-
-
         // Configura o ID do usuário
         $user_id = $fetch_user['user_id'];
 
@@ -125,10 +117,10 @@ class UserRegisterModel {
         // o valor do email para variável $user_email se não retorna o valor false para a variável
         $user_email = (filter_var($this->form_data['user_email'], FILTER_VALIDATE_EMAIL));
 
-//        if ($user_email == false) {
-//            $this->form_msg = '<span> Email digitado não e válido.</span>';
-//            return;
-//        }
+        if ($user_email == false) {
+            $this->form_msg = '<span> Email digitado não e válido.</span>';
+            return;
+        }
 
 
         //Variaveis para inserção na base de dados
@@ -154,35 +146,82 @@ class UserRegisterModel {
         // Serializa as permissões
         $permissions = serialize($permissions);
 
-        // Se o ID do usuário não estiver vazio, atualiza os dados
-        if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email'] ) {
-            $query = $this->db->update('users', 'user_id', $user_id, array(
-                'user_name' => chk_array($this->form_data, 'user_name'),
-                //'user_email' => $user_email,
-                'user_password' => $password,
-                'user_session_id' => md5(time()),
-                'user_permissions' => $permissions,
-                'user_role_id' => $role_id,
-                'user_status' => $user_status,
-            ));
+        /*
+          // Se o ID do usuário não estiver vazio, atualiza os dados
+          if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email'] ) {
+          $query = $this->db->update('users', 'user_id', $user_id, array(
+          'user_name' => chk_array($this->form_data, 'user_name'),
+          'user_email' => $user_email,
+          'user_password' => $password,
+          'user_session_id' => md5(time()),
+          'user_permissions' => $permissions,
+          'user_role_id' => $role_id,
+          'user_status' => $user_status,
+          ));
 
-            // Verifica se a consulta está OK e configura a mensagem
-            if (!$query) {
-                $this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
+          // Verifica se a consulta está OK e configura a mensagem
+          if (!$query) {
+          $this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
 
-                // Termina
-                return;
-            } else {
-                $this->form_msg = '<p class="form_success">User successfully updated.</p>';
+          // Termina
+          return;
+          } else {
+          $this->form_msg = '<p class="form_success">User successfully updated.</p>';
 
-                // Termina
-                return;
-            }
-        }
+          // Termina
+          return;
+          }
+          }
 
-        // Se o ID do usuário estiver vazio, insere os dados
-        else {
-            //  --->                   
+          // Se o ID do usuário estiver vazio, insere os dados
+          else {
+          //  --->
+          // insere o nome da clinica (revisar)
+          $this->db->insert('clinics', array(
+          'clinic_name' => chk_array($this->form_data, 'clinic_name'),
+          ));
+
+          $user_clinic_id = $this->db->lastInsertId();
+          // <----
+          // Executa a consulta
+          $query = $this->db->insert('users', array(
+          //'user_user' => chk_array($this->form_data, 'user_user'),
+          'user_name' => chk_array($this->form_data, 'user_name'),
+          'user_email' => $user_email,
+          'user_password' => $password,
+          'user_session_id' => md5(time()),
+          'user_permissions' => $permissions,
+          'user_clinic_id' => $user_clinic_id,
+          'user_role_id' => $role_id,
+          'user_status' => $user_status,
+          ));
+
+          // Verifica se a consulta está OK e configura a mensagem
+          if (!$query) {
+          $this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
+
+          // Termina
+          return;
+          } else {
+          $this->form_msg = '<p class="form_success">User successfully registered.</p>';
+
+          // Termina
+          return;
+          }
+          } */
+
+        // Verifica se o email digitado já existe na base de dados
+        if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
+
+            $this->form_msg = '
+                <div class="alert alert-danger alert-dismissible fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Opa! algo errado aconteceu.</strong> O email que você usou já se encontra na nossa base de dados.
+                </div>';
+            
+        } else {
             // insere o nome da clinica (revisar)
             $this->db->insert('clinics', array(
                 'clinic_name' => chk_array($this->form_data, 'clinic_name'),
@@ -215,7 +254,7 @@ class UserRegisterModel {
                 // Termina
                 return;
             }
-        }
+        } // End insert
     }
 
 // validate_register_form
@@ -320,9 +359,9 @@ class UserRegisterModel {
             echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
             return;
         }
-    }
+    }// del_user
 
-// del_user
+
 
     /**
      * Obtém a lista de usuários
@@ -330,7 +369,7 @@ class UserRegisterModel {
      * @since 0.1
      * @access public
      */
-    public function get_user_list() {
+    public function get_user_list() { 
 
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
@@ -341,7 +380,6 @@ class UserRegisterModel {
         }
         // Preenche a tabela com os dados do usuário
         return $query->fetchAll();
-    }
-
-// get_user_list	
+    } // End get_user_list
+	
 }
