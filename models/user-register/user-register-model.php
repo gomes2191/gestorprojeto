@@ -214,7 +214,7 @@ class UserRegisterModel {
         if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
 
             $this->form_msg = '
-                <div class="alert alert-danger alert-dismissible fade in">
+                <div class="alert alert-warnig alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
