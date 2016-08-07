@@ -53,12 +53,12 @@
                         ?>" >
                     </div>
 
-                    <div class="form-group">
+                <!--<div class="form-group">
                         <label for="permission"><b>Permissions</b> <small>(Separate permissions using commas)</small></label>
                         <input type="text" name="user_permissions" class="form-control" placeholder="permission" id="permission" value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'user_permissions'));
                         ?>" >
-                    </div>
+                    </div>-->
                     <button type="submit" class="btn btn-primary">Efetuar cadastro</button>
                     <!--<a href="<?php echo HOME_URI . '/user-register'; ?>">New user</a>-->
                 </form>

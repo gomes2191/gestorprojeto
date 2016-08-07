@@ -74,7 +74,13 @@ class UserRegisterModel {
                 if (empty($value)) {
 
                     // Configura a mensagem
-                    $this->form_msg = '<p class="form_error">There are empty fields. Data has not been sent.</p>';
+                    $this->form_msg = '
+                    <div class="alert alert-warning alert-dismissible fade in">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Opa!</strong> Você deixou campos em brancos.
+                    </div> ';
 
                     // Termina
                     return;
@@ -118,7 +124,12 @@ class UserRegisterModel {
         $user_email = (filter_var($this->form_data['user_email'], FILTER_VALIDATE_EMAIL));
 
         if ($user_email == false) {
-            $this->form_msg = '<span> Email digitado não e válido.</span>';
+            $this->form_msg = '<div class="alert alert-warning alert-dismissible fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Opa!</strong> Este email não é válido.
+                </div>';
             return;
         }
 
@@ -126,7 +137,7 @@ class UserRegisterModel {
         //Variaveis para inserção na base de dados
         $role_id = 1; // Onde 1 é adm e 2 user
         $user_status = 1; // Onde 1 e usuario ativo e 2 não ativo;
-        // Verifica se as permissões tem algum valor inválido:
+        /*// Verifica se as permissões tem algum valor inválido:
         // 0 a 9, A a Z e , . - _
         if (preg_match('/[^0-9A-Za-z\,\.\-\_\s ]/is', $this->form_data['user_permissions'])) {
             $this->form_msg = '<p class="form_error">Use just letters, numbers and a comma for permissions.</p>';
@@ -144,7 +155,7 @@ class UserRegisterModel {
         $permissions = array_filter($permissions);
 
         // Serializa as permissões
-        $permissions = serialize($permissions);
+        $permissions = serialize($permissions);*/
 
         /*
           // Se o ID do usuário não estiver vazio, atualiza os dados
@@ -218,7 +229,7 @@ class UserRegisterModel {
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <strong>Opa! algo errado aconteceu.</strong> O email que você usou já se encontra na nossa base de dados.
+                <strong>Opa!</strong> O email que você usou já se encontra na nossa base de dados.
                 </div>';
             
         } else {
@@ -228,15 +239,14 @@ class UserRegisterModel {
             ));
 
             $user_clinic_id = $this->db->lastInsertId();
-            // <----
+            
             // Executa a consulta
             $query = $this->db->insert('users', array(
                 //'user_user' => chk_array($this->form_data, 'user_user'),
                 'user_name' => chk_array($this->form_data, 'user_name'),
                 'user_email' => $user_email,
                 'user_password' => $password,
-                'user_session_id' => md5(time()),
-                'user_permissions' => $permissions,
+                'user_session_id' => md5(time()),                
                 'user_clinic_id' => $user_clinic_id,
                 'user_role_id' => $role_id,
                 'user_status' => $user_status,
