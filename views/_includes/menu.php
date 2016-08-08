@@ -15,7 +15,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo HOME_URI;?>">INÍCIO</a></li>
+            <li><a href="<?php echo HOME_URI;?>/">INÍCIO</a></li>
             <li><a href="<?php echo HOME_URI;?>/agenda/">AGENDA</a></li>
             <!--<li><a href="<?php echo HOME_URI;?>/exemplo/">Exemplo básico</a></li>-->
 
