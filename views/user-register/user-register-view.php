@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 
-<div class="row">
+<div class="row-fluid">
     <?php
         // Carrega todos os métodos do modelo
         $modelo->validate_register_form();
@@ -22,7 +22,7 @@
                         <label for="clinic_name">Nome da clinica:</label>
                         <input type="text" name="clinic_name" placeholder="Nome da clinica..." value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'clinic_name'));
-                        ?>" class="form-control" id="clinic_name" >
+                        ?>" class="form-control" id="clinic_name" required >
                     </div>
                     
                     <div class="form-group">
@@ -69,14 +69,15 @@
             // Lista os usuários
             $lista = $modelo->get_user_list();
         ?>
-        <div class="panel panel-default"> <!-- Start panel -->
-            <div class="panel-heading panel-primary text-center"><b><?= Translate::t('dMsg_2'); ?></b></div>
-            <table class="table table-hover  table-text-center">
+        <div class="panel panel-primary"> <!-- Start panel -->
+            <div class="panel-heading text-center"><?= Translate::t('dMsg_2'); ?></div>
+            
+            <table class="table table-hover  table-text-center table-responsive">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th><?= Translate::t('dMsg_3'); ?></th>
-                        <th><?= Translate::t('dMsg_4'); ?></th>
+                        <!--<th><?= Translate::t('dMsg_4'); ?></th>-->
                         <th><?= Translate::t('dMsg_5'); ?></th>
                         <th><?= Translate::t('dMsg_6'); ?></th>
                         <th><?= Translate::t('dMsg_7'); ?></th>
@@ -86,37 +87,38 @@
                 <tbody>
                     <?php foreach ($lista as $fetch_userdata): ?>
                         <tr>
-                            <th scope="row">
+                            <td>
                                 <?php echo $fetch_userdata['user_id'] ?>
-                            </th>
+                            </td>
                             <td>
                                 <?php echo $fetch_userdata['user_name'] ?>
                             </td>
                             <td>
                                 <?php echo $fetch_userdata['user_email'] ?>
                             </td>
-                            <td>
+                            <!--<td>
                                 <?php echo implode(',', unserialize($fetch_userdata['user_permissions'])) ?>
-                            </td>
+                            </td>-->
                             <td>
                                 <a href="<?php echo HOME_URI ?>/user-register/index/edit/<?php echo $fetch_userdata['user_id'] ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-edit"></span>
                                 </a>
                             </td>
                             <td>
                                 <a href="<?php echo HOME_URI ?>/user-register/index/del/<?php echo $fetch_userdata['user_id'] ?>" class="btn btn-sx btn-danger" title="<?= Translate::t('dMsg_11'); ?>" >
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
                             <td>
                                 <a href="#" class="btn btn-sx btn-success"  title="<?= Translate::t('dMsg_12'); ?>" >
-                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-info-sign"></span>
                                 </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <div class="panel-footer"></div>
         </div> <!-- /End start panel -->
     </div>
     <div class="col-md-2"></div>
