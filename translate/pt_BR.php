@@ -9,7 +9,7 @@
         'dMsg_1'=>'Achar usuário no sistema...',
         'dMsg_2'=>'USUÁRIOS CADASTRADOS NO SISTEMA.',      
         'dMsg_3'=>'Nome',
-        'dMsg_4'=>'Sobrenome',
+        'dMsg_4'=>'Email',
         'dMsg_5'=>'Usuário',
         'dMsg_6'=>'Editar',
         'dMsg_7'=>'Excluir',
