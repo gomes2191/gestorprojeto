@@ -224,14 +224,12 @@ class UserRegisterModel {
         // Verifica se o email digitado já existe na base de dados
         if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
 
-            $this->form_msg = '
-                <div class="alert alert-warnig alert-dismissible fade in">
+            $this->form_msg = '<div class="alert alert-warning alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <strong>Opa!</strong> O email que você usou já se encontra na nossa base de dados.
+                <strong>Opa!</strong> Email já se encontra na nossa base de dados.
                 </div>';
-            
         } else {
             // insere o nome da clinica (revisar)
             $this->db->insert('clinics', array(
@@ -259,7 +257,12 @@ class UserRegisterModel {
                 // Termina
                 return;
             } else {
-                $this->form_msg = '<p class="form_success">User successfully registered.</p>';
+                $this->form_msg = '<div class="alert alert-warning alert-dismissible fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Sucesso!</strong> Usuário cadastrado com sucesso.
+                </div>';
 
                 // Termina
                 return;
@@ -318,11 +321,11 @@ class UserRegisterModel {
         // Por questões de segurança, a senha só poderá ser atualizada
         $this->form_data['user_password'] = null;
 
-        // Remove a serialização das permissões
+        /*// Remove a serialização das permissões
         $this->form_data['user_permissions'] = unserialize($this->form_data['user_permissions']);
 
         // Separa as permissões por vírgula
-        $this->form_data['user_permissions'] = implode(',', $this->form_data['user_permissions']);
+        $this->form_data['user_permissions'] = implode(',', $this->form_data['user_permissions']);*/
     }
 
 // get_register_form
@@ -340,11 +343,29 @@ class UserRegisterModel {
 
         // Verifica se existe o parâmetro "del" na URL
         if (chk_array($parametros, 0) == 'del') {
+            
+            
+            echo '
+   <div class="modal in fade" tabindex="-1" role="dialog" id="mymodal">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Remoção de usuário</h4>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja remover este usuário? não sera possivel reverter isso.
+      </div>
+      <div class="modal-footer">
+        
+        <a href="' . HOME_URI . '/user-register/" class="btn btn-primary">Não</a>
+                      <a href="' . $_SERVER['REQUEST_URI'] . '/confirma" class="btn btn-danger">Sim</a>
 
-            // Mostra uma mensagem de confirmação
-            echo '<p class="alert">Tem certeza que deseja apagar este valor?</p>';
-            echo '<p><a href="' . $_SERVER['REQUEST_URI'] . '/confirma">Sim</a> |
-			<a href="' . HOME_URI . '/user-register">Não</a> </p>';
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+            ';
 
             // Verifica se o valor do parâmetro é um número
             if (

@@ -105,7 +105,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="<?php echo HOME_URI ?>/user-register/index/del/<?php echo $fetch_userdata['user_id'] ?>" class="btn btn-sx btn-danger" title="<?= Translate::t('dMsg_11'); ?>" >
+                                <a id="btn-del-cad" data-toggle="modal" data-target="mymodal" href="<?php echo HOME_URI ?>/user-register/index/del/<?php echo $fetch_userdata['user_id'] ?>" class="btn btn-sx btn-danger" title="<?= Translate::t('dMsg_11'); ?>" >
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
