@@ -1,5 +1,7 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 
+
+
 <div class="row-fluid">
     <?php
         // Carrega todos os métodos do modelo
@@ -105,14 +107,14 @@
                                 </a>
                             </td>
                             <td>
-                                <a id="btn-del-cad" data-toggle="modal" data-target="mymodal" href="<?php echo HOME_URI ?>/user-register/index/del/<?php echo $fetch_userdata['user_id'] ?>" class="btn btn-sx btn-danger" title="<?= Translate::t('dMsg_11'); ?>" >
+                                <button class="btn btn-sx btn-danger openBtn" data-toggle="modal" data-target="myModal"  title="<?= Translate::t('dMsg_11'); ?>" >
                                     <span class="glyphicon glyphicon-trash"></span>
-                                </a>
+                                </button>
                             </td>
                             <td>
-                                <a href="#" class="btn btn-sx btn-success"  title="<?= Translate::t('dMsg_12'); ?>" >
+                                <button class="btn btn-sx btn-success"  title="<?= Translate::t('dMsg_12'); ?>" >
                                     <span class="glyphicon glyphicon-info-sign"></span>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -120,6 +122,28 @@
             </table>
             <div class="panel-footer"></div>
         </div> <!-- /End start panel -->
+        
+        <div class="modal in fade"  role="dialog" id="myModal">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Remoção de usuário</h4>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza que deseja remover este usuário? não sera possivel reverter isso.
+                    </div>
+                    <div class="modal-footer">
+
+                        <a href="<?php echo HOME_URI; ?>/user-register/" class="btn btn-primary">Não remover</a>
+                        <a href="<?php echo HOME_URI ?>/user-register/index/del/<?php echo $fetch_userdata['user_id'] ?>/confirma " class="btn btn-danger" >Remover</a>
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        
+
     </div>
     <div class="col-md-2"></div>
 </div> <!-- /row  -->

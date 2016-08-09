@@ -257,7 +257,7 @@ class UserRegisterModel {
                 // Termina
                 return;
             } else {
-                $this->form_msg = '<div class="alert alert-warning alert-dismissible fade in">
+                $this->form_msg = '<div class="alert alert-success alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -309,7 +309,10 @@ class UserRegisterModel {
 
         // Verifica se os dados da consulta estão vazios
         if (empty($fetch_userdata)) {
-            $this->form_msg = '<p class="form_error">User do not exists.</p>';
+            // Redireciona para a página de registros
+            echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/user-register/">';
+            echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
+            //$this->form_msg = '<p class="form_error">User do not exists.</p>';
             return;
         }
 
@@ -344,29 +347,8 @@ class UserRegisterModel {
         // Verifica se existe o parâmetro "del" na URL
         if (chk_array($parametros, 0) == 'del') {
             
+            //Era aqui
             
-            echo '
-   <div class="modal in fade" tabindex="-1" role="dialog" id="mymodal">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Remoção de usuário</h4>
-      </div>
-      <div class="modal-body">
-        Tem certeza que deseja remover este usuário? não sera possivel reverter isso.
-      </div>
-      <div class="modal-footer">
-        
-        <a href="' . HOME_URI . '/user-register/" class="btn btn-primary">Não</a>
-                      <a href="' . $_SERVER['REQUEST_URI'] . '/confirma" class="btn btn-danger">Sim</a>
-
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-            ';
-
             // Verifica se o valor do parâmetro é um número
             if (
                     is_numeric(chk_array($parametros, 1)) && chk_array($parametros, 2) == 'confirma'
