@@ -52,7 +52,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<?php echo HOME_URI;?>/login/">Logar-se</a></li>
-            <li><a class="<?php  ?>" href="<?php echo HOME_URI;?>/user-register/">Registrar usuario</a></li>
+            <li><a class="<?php  ?>" href="<?php echo HOME_URI;?>/user-register/">Cadastro</a></li>
             <!--<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
           </ul>
         </div><!--/.nav-collapse -->
