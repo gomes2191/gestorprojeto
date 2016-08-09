@@ -17,7 +17,22 @@
   
   	$('.modal-body').load('/render/62805',function(result){
 	    $('#myModal').modal({show:true});
-	});
-  
-	
-});
+	});	
+    });
+    
+    // Formulario cadastro de usuarios
+    jQuery("#cpf").mask("999.999.999-99");
+    
+    jQuery("#rg").mask("9.999.999");
+    
+    jQuery("#nascimento").mask("99/99/9999");
+    
+    jQuery("#cep").mask("99999-999");
+    
+    jQuery("#tel").mask("(99) 9999-9999");
+    
+    jQuery("#cel").mask("(99) 99999-9999");
+    
+    jQuery("#hora").mask("99:99");
+    
+    

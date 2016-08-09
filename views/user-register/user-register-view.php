@@ -4,32 +4,34 @@
 
 <div class="row-fluid">
     <?php
-        // Carrega todos os métodos do modelo
-        $modelo->validate_register_form();
-        $modelo->get_register_form(chk_array($parametros, 1));
-        $modelo->del_user($parametros);
+    // Carrega todos os métodos do modelo
+    $modelo->validate_register_form();
+    $modelo->get_register_form(chk_array($parametros, 1));
+    $modelo->del_user($parametros);
     ?>
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-0"></div>
+    <div class="col-md-12">
         <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title text-center">BETA - Tela de cadastro</h3>
-          </div>
-          <div class="panel-body">
-                <form method="post" action="">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">Cadastro de novos usuários</h3>
+            </div>
+            <div class="panel-body">
 
-                  <?php echo ($modelo->form_msg); ?>
-                    
+                <form method="post" action="" role="form">
+
+                    <?php echo ($modelo->form_msg); ?>
+                    <fieldset>
+                        <legend>Informações pessoais</legend>
                     <div class="form-group">
                         <label for="clinic_name">Nome da clinica:</label>
                         <input type="text" name="clinic_name" placeholder="Nome da clinica..." value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'clinic_name'));
                         ?>" class="form-control" id="clinic_name" required >
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="user_name">Seu nome:</label>
-                        <input type="text" name="user_name" placeholder="Nome do responsavel pelo cadastro..." value="<?php
+                        <label for="user_name">Nome:</label>
+                        <input type="text" name="user_name" placeholder="Digite aqui o nome completo do usuário... " value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'user_name'));
                         ?>" class="form-control" id="user_name" >
                     </div>
@@ -44,8 +46,8 @@
                     <!--<div class="form-group">
                         <label for="user_user">Seu usuário:</label>
                         <input type="text" name="user_user"  class="form-control" placeholder="Usuário a ser utilizado para entrar no sistema..." id="user_user" value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_user'));
-                        ?>" >
+                    echo htmlentities(chk_array($modelo->form_data, 'user_user'));
+                    ?>" >
                     </div>-->
 
                     <div class="form-group">
@@ -55,75 +57,83 @@
                         ?>" >
                     </div>
 
-                <!--<div class="form-group">
-                        <label for="permission"><b>Permissions</b> <small>(Separate permissions using commas)</small></label>
-                        <input type="text" name="user_permissions" class="form-control" placeholder="permission" id="permission" value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_permissions'));
-                        ?>" >
-                    </div>-->
-                    <button type="submit" class="btn btn-primary">Efetuar cadastro</button>
-                    <!--<a href="<?php echo HOME_URI . '/user-register'; ?>">New user</a>-->
+                    <div class="row form-compact">
+                        <div class="form-group col-md-2 col-sm-4 col-xs-12">  
+                            <label for="cpf">CPF:</label>
+                            <input id="cpf" name="cpf" class="form-control" type="text"> 
+                        </div>
+                        <div class="form-group col-md-2 col-sm-4 col-xs-12">
+                            <label for="rg">RG:</label>
+                            <input id="rg" name="rg" class="form-control" type="text"> 
+                        </div>
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="ssn">Data de nascimento:</label>
+                            <input id="nascimento" name="nascimento" class="form-control" type="text"> 
+                        </div>
+                        
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="race">Sexo:</label>
+                            <select name="race" class="form-control"> 
+                                <option>Masculino</option>
+                                <option>Feminino</option>
+                                <option>Homosexual</option>
+                                <option>Travesti</option>
+                                
+                            </select>
+                        </div>
+                        
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="tel">Telefone casa:</label>
+                            <input id="tel" name="tel" class="form-control" type="text"> 
+                        </div>
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="cel">Celular:</label>
+                            <input id="cel" name="cel" class="form-control" type="text"> 
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <div class="row form-compact">
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Nome do pai:</label>
+                            <input name="pai" class="form-control" type="text"> 
+                        </div>
+                        
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="mae">Nome da mãe:</label>
+                            <input name="mae" class="form-control" type="text"> 
+                        </div>
+                        
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="endereco">Endereço:</label>
+                            <input name="endereco" class="form-control" type="text"> 
+                        </div>
+                        
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="bairro">Bairro:</label>
+                            <input name="bairro" class="form-control" type="text"> 
+                        </div>
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="cidade">Cidade:</label>
+                            <input name="cidade" class="form-control" type="text"> 
+                        </div>
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="estado">Estado:</label>
+                            <input name="estado" class="form-control" type="text"> 
+                        </div>
+                    </div>
+                    <br>
+                    
+                    </fieldset>
+                    <button type="submit" class="btn btn-primary">Cadastra <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i></button>
+                    <a href="<?php echo HOME_URI ?>/users/" class="btn btn-primary">Usuarios cadastrados <i class="glyphicon glyphicon-user" aria-hidden="true"></i></a>
+
                 </form>
             </div>
-          <div class="panel-footer"></div>
-        </div>
-        <?php
-            // Lista os usuários
-            $lista = $modelo->get_user_list();
-        ?>
-        <div class="panel panel-primary"> <!-- Start panel -->
-            <div class="panel-heading text-center"><?= Translate::t('dMsg_2'); ?></div>
-            
-            <table class="table table-hover  table-text-center table-responsive">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th><?= Translate::t('dMsg_3'); ?></th>
-                        <!--<th><?= Translate::t('dMsg_4'); ?></th>-->
-                        <th><?= Translate::t('dMsg_5'); ?></th>
-                        <th><?= Translate::t('dMsg_6'); ?></th>
-                        <th><?= Translate::t('dMsg_7'); ?></th>
-                        <th><?= Translate::t('dMsg_8'); ?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($lista as $fetch_userdata): ?>
-                        <tr>
-                            <td>
-                                <?php echo $fetch_userdata['user_id'] ?>
-                            </td>
-                            <td>
-                                <?php echo $fetch_userdata['user_name'] ?>
-                            </td>
-                            <td>
-                                <?php echo $fetch_userdata['user_email'] ?>
-                            </td>
-                            <!--<td>
-                                <?php echo implode(',', unserialize($fetch_userdata['user_permissions'])) ?>
-                            </td>-->
-                            <td>
-                                <a href="<?php echo HOME_URI ?>/user-register/index/edit/<?php echo $fetch_userdata['user_id'] ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sx btn-danger openBtn" data-toggle="modal" data-target="myModal"  title="<?= Translate::t('dMsg_11'); ?>" >
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-sx btn-success"  title="<?= Translate::t('dMsg_12'); ?>" >
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                </button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
             <div class="panel-footer"></div>
-        </div> <!-- /End start panel -->
-        
-        <div class="modal in fade"  role="dialog" id="myModal">
+        </div>
+        <div class="modal in fade"  role="dialog" id="myModal"> <!-- Modal start -->
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -141,9 +151,7 @@
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        
-
+        </div><!-- Modal end -->
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-0"></div>
 </div> <!-- /row  -->

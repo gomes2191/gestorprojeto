@@ -3,3 +3,27 @@
     text-align: center !important;
     vertical-align: middle !important;
 }
+
+
+
+
+
+.form-compact {
+  font-size: 0.8em;
+  margin-bottom: 8px;
+}
+
+.form-compact .form-control {
+  padding: 2px 2px;
+  height: 24px;
+  font-size:1em;
+  
+}
+.form-compact label {
+  margin-bottom: 1px;
+}
+.form-compact .form-group
+{
+  margin-bottom:0px;
+}
+

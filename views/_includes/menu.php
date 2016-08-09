@@ -1,5 +1,5 @@
-  <?php if ( ! defined('ABSPATH')) exit; ?>
-	<?php if ( $this->login_required && ! $this->logged_in ) return; ?>
+<?php if ( ! defined('ABSPATH')) exit; ?>
+<?php if ( $this->login_required && ! $this->logged_in ) return; ?>
 
     <!-- Fixed navbar -->
     <nav class="navbar-default navbar-fixed-top">
@@ -15,14 +15,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="<?php echo HOME_URI;?>/">INÍCIO</a></li>
-            <li><a href="<?php echo HOME_URI;?>/agenda/">AGENDA</a></li>
+            <li><a href="<?php echo HOME_URI;?>/"><i class="glyphicon glyphicon-home" aria-hidden="true"></i></a></li>
+            <li><a href="<?php echo HOME_URI;?>/agenda/">Agenda</a></li>
             <!--<li><a href="<?php echo HOME_URI;?>/exemplo/">Exemplo básico</a></li>-->
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" > ARQUIVOS <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" > Arquivos <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo HOME_URI;?>/dentista/">Dentista</a></li>
+                <li><a href="<?php echo HOME_URI;?>/users/">Usuários</a></li>
                 <li><a href="<?php echo HOME_URI;?>/noticias/">Pacientes</a></li>
                 <li><a href="<?php echo HOME_URI;?>/noticias/adm/">Funcionarios</a></li>
                 <li class="divider"></li>
@@ -36,7 +36,7 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >FINANCEIRO <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Financeiro <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Contas a Pagar</a></li>
                 <li><a href="#">Contas a Receber</a></li>
@@ -47,7 +47,7 @@
                 <li><a href="<?php echo HOME_URI;?>/noticias/adm/">Notícias Admin</a></li>-->
               </ul>
             </li>
-            <li><a href="<?php echo HOME_URI;?>">UTILITÁRIOS</a></li>
+            <li><a href="<?php echo HOME_URI;?>">Utilitario</a></li>
 
           </ul>
           <ul class="nav navbar-nav navbar-right">

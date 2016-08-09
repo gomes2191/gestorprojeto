@@ -6,7 +6,7 @@
  * @since 0.1
  */
 
-class DentistaModel
+class UsersModel
 {
 
 	/**
@@ -299,16 +299,16 @@ class DentistaModel
 	 * @since 0.1
 	 * @access public
 	 */
-	public function get_user_list() {
-	
-		// Simplesmente seleciona os dados na base de dados 
-		$query = $this->db->query('SELECT * FROM `users` ORDER BY user_id DESC');
-		
-		// Verifica se a consulta está OK
-		if ( ! $query ) {
-			return array();
-		}
-		// Preenche a tabela com os dados do usuário
-		return $query->fetchAll();
-	} // get_user_list
+	 public function get_user_list() { 
+
+        // Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
+
+        // Verifica se a consulta está OK
+        if (!$query) {
+            return array();
+        }
+        // Preenche a tabela com os dados do usuário
+        return $query->fetchAll();
+    } // End get_user_list
 }
