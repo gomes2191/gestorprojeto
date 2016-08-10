@@ -17,7 +17,7 @@
     define('UP_ABSPATH', ABSPATH . '/views/_uploads');
 
     // URL da home
-    define('HOME_URI', 'http://127.0.0.1/sov');
+    define('HOME_URI', 'http://10.67.198.239/sov');
 
     // Nome do host da base de dados
     define('HOSTNAME', 'localhost');
