@@ -31,11 +31,11 @@
 
                     <div class="form-group">
                         <!--<label for="user_name">Seu nome:</label>-->
-                        <input type="text" name="user_name" class="form-control clinic" id="user_name"
+                        <input type="text" name="user_name" class="form-control vazio" id="user_name"
                         placeholder="Seu nome completo..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_name'));?>"
                         data-placement="top"  data-trigger="manual" data-content="Digite um nome válido Ex: João Carlos"
-                        data-validation="custom" data-validation-regexp="^([A-Z]{1}[a-z\s]{2,40})$"
-                        data-validation="required" data-validation-error-msg="Nome digitado de forma incorreta.">
+                        data-validation="custom" data-validation-regexp="^([A-z0-9]{1,40})$"
+                        data-validation="required" data-validation-error-msg="Não é permitido campos em brancos.">
                     </div>
 
                     <div class="form-group">
@@ -50,23 +50,22 @@
                     <div class="form-group">
                         <!--<label for="user_password"> Senha: </label>-->
                         <input type="password" name="user_password" class="form-control pass" id="user_password"
-                        placeholder="Sua senha..." value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_password'));?>"
+                        placeholder="Sua senha..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password'));?>"
                         data-placement="top"  data-trigger="manual" data-content="A senha deve conter no minimo 6 caracteres com letras maiusculas e numeros"
                         data-validation="custom" data-validation-regexp="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                         data-validation="required" data-validation-error-msg="Digite uma senha válida.">
                     </div>
                     <div class="form-group">
                         <!--<label for="user_password"> Senha: </label>-->
-                        <input type="password" name="user_password" class="form-control pass" id="user_password"
-                        placeholder="Repita sua senha..." value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_password'));?>"
+                        <input type="password" name="repeat" class="form-control pass" id="user_password"
+                        placeholder="Repita sua senha..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password'));?>"
                         data-placement="top"  data-trigger="manual" data-content="A senha deve conter no minimo 6 caracteres com letras maiusculas e numeros"
                         data-validation="custom" data-validation-regexp="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-                        data-validation="required" data-validation-error-msg="Digite uma senha válida.">
+                        data-validation="required" data-validation-error-msg="Digite uma senha válida." 
+                        data-validation-confirm="user_password">
                     </div>
-
-
+                    
+                   
                     <button type="submit" class="btn btn-primary">Efetuar cadastro</button>
                     <!--<a href="<?php echo HOME_URI . '/user-register'; ?>">New user</a>-->
                     <p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not valid. </p>
