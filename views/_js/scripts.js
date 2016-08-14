@@ -35,12 +35,21 @@ jQuery("#cel").mask("(99) 99999-9999");
 
 jQuery("#hora").mask("99:99");
 
- $.validate({
-    modules : 'location, date, security, file',
-    onModulesLoaded : function() {
-      $('#country').suggestCountry();
-    }
-  });
+// Formulario cadastro validação form validator
+$.validate({
+  modules : 'security',
+  onModulesLoaded : function() {
+    var optionalConfig = {
+      fontSize: '12pt',
+      fontWeight: 'normal',
+      padding: '3px',
+      bad : 'Muito fraca',
+      weak : 'Fraco',
+      good : 'Forte',
+      strong : 'Muito forte'
+      
+    };
 
-  // Restrict presentation length
-  $('#presentation').restrictLength( $('#pres-max-length') );
+    $('input[name="user_password"]').displayPasswordStrength(optionalConfig);
+  }
+});
