@@ -10,7 +10,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="<?php echo HOME_URI;?>/favicon.ico">
 
     <title><?php echo NOME_SITE.$this->title; ?></title>
 
@@ -41,14 +41,15 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="<?php echo HOME_URI;?>/views/_js/jquery.min.js"></script>    
     <script src="<?php echo HOME_URI;?>/views/_js/bootstrap.min.js"></script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="<?php echo HOME_URI;?>/views/_js/ie-emulation-modes-warning.js"></script>
     <script src="<?php echo HOME_URI;?>/views/_js/jquery.maskedinput.js"></script>
-    <script src="<?php echo HOME_URI;?>/views/_js/jquery.form-validator.min.js"></script>
+    <script src="<?php echo HOME_URI;?>/views/_js/form-validator/jquery.form-validator.min.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>-->
    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

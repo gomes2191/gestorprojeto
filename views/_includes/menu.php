@@ -2,7 +2,7 @@
 <?php if ( $this->login_required && ! $this->logged_in ) return; ?>
 
     <!-- Fixed navbar -->
-    <nav class="navbar-default navbar-fixed-top">
+    <nav class="navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
@@ -11,7 +11,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><strong>BETA</strong></a>
+            <a class="navbar-brand" href="#"><img src="<?php echo HOME_URI;?>/logo.png" style="margin-top: -5px;" width="100"><strong></strong></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -51,7 +51,7 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="<?php echo HOME_URI;?>/login/">Logar-se</a></li>
+            <li><a href="<?php echo HOME_URI;?>/login/">LOGAR-SE</a></li>
             
             <!--<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
           </ul>

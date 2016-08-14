@@ -21,9 +21,16 @@
             
         </form>
         
+        <hr>
         
-        <a href="<?php echo HOME_URI; ?>/user-register/" class="btn btn-primary">Adicionar usuário <i class="glyphicon glyphicon-user" aria-hidden="true"></i></a>
+        <div class="input-group-sm">
+            <a href="<?php echo HOME_URI; ?>/user-register/" title="Adiciona um usuário no sistema." class="btn btn-primary btn-group-sm">Adicionar usuário <i class="glyphicon glyphicon-user" aria-hidden="true"></i></a>
+            
+        </div>
+        <br>
+                
         
+         
         
         <?php
             // Lista os usuários

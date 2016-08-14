@@ -8,7 +8,7 @@
     define('ABSPATH', dirname(__FILE__));
 
     // Nome do site
-    define('NOME_SITE', 'Odonto V - ');
+    define('NOME_SITE', 'Odonto C - ');
 
     // Idioma do sistema
     define('LANG', 'pt_BR');
