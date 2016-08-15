@@ -76,12 +76,27 @@
     <script src="<?php echo HOME_URI;?>/_agenda/js/bootstrap-datetimepicker.es.js"></script>
     <!-- Final agenda js -->
 
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div style="margin: 0px; padding: 0px;" class="page-header"><h2></h2></div>
+    
+        
+    
+    <div class="row-fluid">
+        
+        <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+            <div style="margin: 0px; padding: 0px;" class="page-header">
+                <h2  style="margin: 0px 0px 5px 0px; padding: 0px;"></h2>
+            </div>
             <div class="pull-left form-inline">
                 <br>
+                <button title="click para agendar sua consulta" class="btn btn-success" data-toggle='modal' data-target='#add_evento'>
+                    Agendar consulta <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                </button><span>&nbsp;</span>
+            </div>
+           
+            <div class="pull-left form-inline">
+                <br>
+                
                 <div class="btn-group">
                     <button class="btn btn-primary" data-calendar-nav="prev">
                         <i class="fa fa-backward" aria-hidden="true"></i>
@@ -99,29 +114,83 @@
                 </div>
 
             </div>
-            <div class="pull-right form-inline">
-                <br>
-                <button class="btn btn-success" data-toggle='modal' data-target='#add_evento'>Agendar consulta <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-</button>
-            </div>
- 
+                <div class="form-inline">
+                    <label class=" control-label" for="selectbasic">Dentista:</label>
+                    <select id="selectbasic" name="selectbasic" class="form-control">
+                        <option value="1">Dr. Janaina</option>
+                        <option value="2">Dr. Joao</option>
+                        <option value="3">Dr. Melisa</option>
+                    </select>
+                </div>          
+                
+              
+                
+                </div>
+            
+            
+            
         </div>
-       
-        <div class="col-md-1"></div>
+           
+            <div class="row">
+                            <div class="col-md-12">
+                        <div id="calendar"></div> <!-- Aqui se mostrara nuestro calendario -->
+                            </div>
+            </div>
+        </div>
+        
           
-    </div>
                   
 
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <div id="calendar"></div> <!-- Aqui se mostrara nuestro calendario -->
-                        <br><br>
+                
+                    
+        <br>            
+        
+        <div class="col-md-4">
+            
+	<!--refresh widget-->
+        <div class="panel-agenda panel panel-default">
+          <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>Agendamentos</div>
+          <div class="panel-body panel-refresh">
+         	<div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
+           
+            1 - Nada
+             
+              
+          </div>
+        </div>
+    <!--refresh widget-->
+    
+    
+    <!--refresh widget-->
+        <div class="panel-agenda panel panel-default">
+          <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>Agenda de horários</div>
+          <div class="panel-body panel-refresh">
+         	<div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
+           
+            1 - Nada
+             
+              
+          </div>
+        </div>
+    <!--refresh widget-->
+
+        
+        </div>
                         
-                    </div>
-                    <div class="col-md-1"></div>
                         
-                </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+</div>
+    
+<!--    Parei de formatar aqui-->
+                        
+                
 
                 <!--ventana modal para el calendario-->
                 <div class="modal fade" id="events-modal">
@@ -252,7 +321,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">
-            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+            <i  class="fa fa-calendar-plus-o" aria-hidden="true"></i>
             AGENDAMENTO DE CONSULTAS
         </h4>
       </div>
@@ -260,8 +329,10 @@
         <form action="" method="post">
                     <label for="from">Começa as:</label>
                     <div class='input-group date' id='from'>
-                        <input type='text' id="from" name="from" class="form-control" readonly />
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        <input type='text' id="from" name="from" class="form-control" placeholder="Ex: 16/08/2016 11:41" title="Adicione clicando na agenda ao lado." readonly />
+                        <span class="input-group-addon">
+                            <i style="color: #43ac6a;" class="fa fa-calendar-plus-o" title="Adiciona horário de início." aria-hidden="true"></i>
+                        </span>
                     </div>
 
                     <br>
@@ -269,9 +340,21 @@
                     <label for="to">Termina as:</label>
                     <div class='input-group date' id='to'>
                         <input type='text' name="to" id="to" class="form-control" readonly />
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        <span class="input-group-addon">
+                            <i style="color: #43ac6a;" class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                        </span>
                     </div>
 
+                    <br>
+                    
+                    <div class="form-group">
+  <label class=" control-label" for="selectbasic">Dentista:</label>
+    <select id="selectbasic" name="selectbasic" class="form-control">
+      <option value="1">Dr. Janaina</option>
+      <option value="2">Dr. Joao</option>
+      <option value="3">Dr. Melisa</option>
+    </select>
+</div>
                     <br>
 
                     <label for="tipo">Procedimento:</label>
@@ -283,13 +366,16 @@
                         <option value="event-special">Orçamento</option>
                     </select>
 
+                    
                     <br>
-
+                    
 
                     <label for="title">Paciente:</label>
-                    <input type="text" required autocomplete="off" name="title" class="form-control" id="title" placeholder="Nome do paciente...">
+                        <input type="text" required autocomplete="off" name="title" class="form-control" id="title" placeholder="Nome do paciente...">
 
                     <br>
+                    
+ 
 
 
                     <label for="body">Descrição da consulta:</label>
@@ -317,4 +403,8 @@
   </div>
 </div>
 </div>
-                </div>
+
+        
+        
+       
+               
