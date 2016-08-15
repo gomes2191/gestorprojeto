@@ -25,7 +25,7 @@ class AgendaController extends MainController
 	 *
 	 * @access public
 	 */
-	public $permission_required = 'user-register';
+//        public $permission_required = 'user-register';
 
 	/**
 	 * Carrega a página "/views/user-register/index.php"
@@ -35,28 +35,28 @@ class AgendaController extends MainController
 		$this->title = ' Agenda';
 
 		// Verifica se o usuário está logado
-		if ( ! $this->logged_in ) {
+//		if ( ! $this->logged_in ) {
+//
+//			// Se não; garante o logout
+//			$this->logout();
+//
+//			// Redireciona para a página de login
+//			$this->goto_login();
+//
+//			// Garante que o script não vai passar daqui
+//			return;
+//
+//		}
 
-			// Se não; garante o logout
-			$this->logout();
-
-			// Redireciona para a página de login
-			$this->goto_login();
-
-			// Garante que o script não vai passar daqui
-			return;
-
-		}
-
-		// Verifica se o usuário tem a permissão para acessar essa página
-		if (!$this->check_permissions($this->permission_required, $this->userdata['user_permissions'])) {
-
-			// Exibe uma mensagem
-			echo 'Você não tem permissões para acessar essa página.';
-
-			// Finaliza aqui
-			return;
-		}
+//		// Verifica se o usuário tem a permissão para acessar essa página
+//		if (!$this->check_permissions($this->permission_required, $this->userdata['user_permissions'])) {
+//
+//			// Exibe uma mensagem
+//			echo 'Você não tem permissões para acessar essa página.';
+//
+//			// Finaliza aqui
+//			return;
+//		}
 
 		// Parametros da função
 		$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();

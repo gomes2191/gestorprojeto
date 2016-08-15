@@ -76,31 +76,46 @@
     <script src="<?php echo HOME_URI;?>/_agenda/js/bootstrap-datetimepicker.es.js"></script>
     <!-- Final agenda js -->
 
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div style="margin: 0px; padding: 0px;" class="page-header"><h2></h2></div>
+            <div class="pull-left form-inline">
+                <br>
+                <div class="btn-group">
+                    <button class="btn btn-primary" data-calendar-nav="prev"><< Anterior</button>
+                    <button class="btn" data-calendar-nav="today">Hoje</button>
+                    <button class="btn btn-primary" data-calendar-nav="next">Próximo >></button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-warning" data-calendar-view="year">Ano</button>
+                    <button class="btn btn-warning active" data-calendar-view="month">Mês</button>
+                    <button class="btn btn-warning" data-calendar-view="week">Semana</button>
+                    <button class="btn btn-warning" data-calendar-view="day">Dia</button>
+                </div>
+
+            </div>
+            <div class="pull-right form-inline">
+                <br>
+                <button class="btn btn-info" data-toggle='modal' data-target='#add_evento'>Nova consulta</button>
+            </div>
+ 
+        </div>
+       
+        <div class="col-md-1"></div>
+          
+    </div>
+                  
+
                 <div class="row">
-                        <div class="page-header"><h2>AGENDA DE CONSULTAS</h2></div>
-                                <div class="pull-left form-inline"><br>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" data-calendar-nav="prev"><< Anterior</button>
-                                            <button class="btn" data-calendar-nav="today">Hoje</button>
-                                            <button class="btn btn-primary" data-calendar-nav="next">Próximo >></button>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-warning" data-calendar-view="year">Ano</button>
-                                            <button class="btn btn-warning active" data-calendar-view="month">Mês</button>
-                                            <button class="btn btn-warning" data-calendar-view="week">Semana</button>
-                                            <button class="btn btn-warning" data-calendar-view="day">Dia</button>
-                                        </div>
-
-                                </div>
-                                    <div class="pull-right form-inline"><br>
-                                        <button class="btn btn-info" data-toggle='modal' data-target='#add_evento'>Nova consulta</button>
-                                    </div>
-
-                </div><hr>
-
-                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
                         <div id="calendar"></div> <!-- Aqui se mostrara nuestro calendario -->
                         <br><br>
+                        
+                    </div>
+                    <div class="col-md-1"></div>
+                        
                 </div>
 
                 <!--ventana modal para el calendario-->
@@ -294,3 +309,4 @@
   </div>
 </div>
 </div>
+                </div>
