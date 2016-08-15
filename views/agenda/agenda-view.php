@@ -83,9 +83,13 @@
             <div class="pull-left form-inline">
                 <br>
                 <div class="btn-group">
-                    <button class="btn btn-primary" data-calendar-nav="prev"><< Anterior</button>
+                    <button class="btn btn-primary" data-calendar-nav="prev">
+                        <i class="fa fa-backward" aria-hidden="true"></i>
+                    </button>
                     <button class="btn" data-calendar-nav="today">Hoje</button>
-                    <button class="btn btn-primary" data-calendar-nav="next">Próximo >></button>
+                    <button class="btn btn-primary" data-calendar-nav="next">
+                        <i class="fa fa-forward" aria-hidden="true"></i>
+                    </button>
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-warning" data-calendar-view="year">Ano</button>
@@ -97,7 +101,8 @@
             </div>
             <div class="pull-right form-inline">
                 <br>
-                <button class="btn btn-info" data-toggle='modal' data-target='#add_evento'>Nova consulta</button>
+                <button class="btn btn-success" data-toggle='modal' data-target='#add_evento'>Agendar consulta <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+</button>
             </div>
  
         </div>
@@ -246,11 +251,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Inserir nova consulta</h4>
+        <h4 class="modal-title" id="myModalLabel">
+            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+            AGENDAMENTO DE CONSULTAS
+        </h4>
       </div>
       <div class="modal-body">
         <form action="" method="post">
-                    <label for="from">Inicio</label>
+                    <label for="from">Começa as:</label>
                     <div class='input-group date' id='from'>
                         <input type='text' id="from" name="from" class="form-control" readonly />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -258,7 +266,7 @@
 
                     <br>
 
-                    <label for="to">Final</label>
+                    <label for="to">Termina as:</label>
                     <div class='input-group date' id='to'>
                         <input type='text' name="to" id="to" class="form-control" readonly />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -266,26 +274,26 @@
 
                     <br>
 
-                    <label for="tipo">Tipo de consultas:</label>
+                    <label for="tipo">Procedimento:</label>
                     <select class="form-control" name="class" id="tipo">
-                        <option value="event-info">Informacion</option>
-                        <option value="event-success">Exito</option>
-                        <option value="event-important">Importantante</option>
-                        <option value="event-warning">Advertencia</option>
-                        <option value="event-special">Especial</option>
+                        <option value="event-info">Canal</option>
+                        <option value="event-success">Obturação</option>
+                        <option value="event-important">Implante</option>
+                        <option value="event-warning">Limpeza</option>
+                        <option value="event-special">Orçamento</option>
                     </select>
 
                     <br>
 
 
-                    <label for="title">Título</label>
-                    <input type="text" required autocomplete="off" name="title" class="form-control" id="title" placeholder="Introduce un título">
+                    <label for="title">Paciente:</label>
+                    <input type="text" required autocomplete="off" name="title" class="form-control" id="title" placeholder="Nome do paciente...">
 
                     <br>
 
 
-                    <label for="body">Consulta</label>
-                    <textarea id="body" name="event" required class="form-control" rows="3"></textarea>
+                    <label for="body">Descrição da consulta:</label>
+                    <textarea id="body" name="event" required class="form-control" rows="3" placeholder="Descreva aqui informações extras da consultas..."></textarea>
 
     <script type="text/javascript">
         $(function () {

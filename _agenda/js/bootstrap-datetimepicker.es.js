@@ -12,11 +12,11 @@
     }
 }(function (moment) {
     return moment.lang('es', {
-        months : "enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre".split("_"),
-        monthsShort : "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
+        months : "Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julio_Agosto_Setembro_Outubro_Novembro_Dezembro".split("_"),
+        monthsShort : "Jan._Fev._Mar._Abr._Mai._Jun._Jul._Ago._Set._Out._Nov._Dez.".split("_"),
         weekdays : "domingo_lunes_martes_miércoles_jueves_viernes_sábado".split("_"),
         weekdaysShort : "dom._lun._mar._mié._jue._vie._sáb.".split("_"),
-        weekdaysMin : "Do_Lu_Ma_Mi_Ju_Vi_Sá".split("_"),
+        weekdaysMin : "Dom_Seg_Ter_Qua_Qui_Sex_Sáb".split("_"),
         longDateFormat : {
             LT : "H:mm",
             L : "DD/MM/YYYY",
