@@ -114,8 +114,10 @@
                 </div>
 
             </div>
+                
                 <div class="form-inline">
-                    <label class=" control-label" for="selectbasic">Dentista:</label>
+                    <span>&nbsp;</span><label class=" control-label" for="selectbasic">Dentista:</label>
+                    <br>
                     <select id="selectbasic" name="selectbasic" class="form-control">
                         <option value="1">Dr. Janaina</option>
                         <option value="2">Dr. Joao</option>
@@ -130,7 +132,7 @@
             
             
         </div>
-           
+            <span><br></span>
             <div class="row">
                             <div class="col-md-12">
                         <div id="calendar"></div> <!-- Aqui se mostrara nuestro calendario -->
