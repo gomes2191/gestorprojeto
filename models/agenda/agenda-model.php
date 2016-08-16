@@ -83,6 +83,8 @@ class AgendaModel
 				}			
 			
 			}
+                        
+                        var_dump($this->form_data);die;
 		
 		} else {
 		

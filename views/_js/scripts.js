@@ -101,3 +101,28 @@ $(document).ready(function(){
   	completed:function(ele){ele.html("This is the new data after refresh..")}
   });
 });
+
+
+// Agenda popup inserção
+ $(function () {
+    $('#from').datetimepicker({
+        language: 'pt-BR',
+        format: 'dd/mm/yyyy hh:ii',
+        autoclose: true,
+        todayBtn: true,
+        minuteStep: 1,
+        pickerPosition: 'bottom-left',
+        minDate: new Date()
+    });
+    
+    $('#to').datetimepicker({
+        language: 'pt-BR',
+        format: 'dd/mm/yyyy hh:ii',
+        autoclose: true,
+        todayBtn: true,
+        minuteStep: 1,
+        pickerPosition: 'bottom-left',
+        minDate: new Date()
+    });
+});
+
