@@ -84,7 +84,7 @@ class AgendaModel
 			
 			}
                         
-                        var_dump($this->form_data);die;
+                        //var_dump($this->form_data);die;
 		
 		} else {
 		
@@ -98,7 +98,7 @@ class AgendaModel
 			return;
 		}
 		
-		// Verifica se o usuário existe
+		/* // Verifica se o usuário existe
 		$db_check_user = $this->db->query (
 			'SELECT * FROM `users` WHERE `user` = ?', 
 			array( 
@@ -168,17 +168,18 @@ class AgendaModel
 				return;
 			}
 		// Se o ID do usuário estiver vazio, insere os dados
-		} else {
+		}*/  
 		
 			// Executa a consulta 
-			$query = $this->db->insert('users', array(
-				'user' => chk_array( $this->form_data, 'user'), 
-				'user_password' => $password, 
-				'user_name' => chk_array( $this->form_data, 'user_name'), 
-				'user_session_id' => md5(time()), 
-				'user_permissions' => $permissions, 
+			$query = $this->db->insert('agendas', array(
+				'agenda_start' => chk_array( $this->form_data, 'agenda_start'), 
+				'agenda_end' => chk_array($this->form_data, 'agenda_end'), 
+				
+				
+				
 			));
-			
+                        print($this->form_data['from']);
+			die();
 			// Verifica se a consulta está OK e configura a mensagem
 			if ( ! $query ) {
 				$this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
@@ -191,7 +192,7 @@ class AgendaModel
 				// Termina
 				return;
 			}
-		}
+		
 	} // validate_register_form
 	
 	/**
