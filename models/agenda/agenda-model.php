@@ -172,8 +172,8 @@ class AgendaModel
 		
 			// Executa a consulta 
 			$query = $this->db->insert('agendas', array(
-				'agenda_start' => chk_array( $this->form_data, 'agenda_start'), 
-				'agenda_end' => chk_array($this->form_data, 'agenda_end'), 
+				'agenda_start' => chk_array( $this->form_data, 'from'), 
+				'agenda_end' => chk_array($this->form_data, 'to'), 
 				
 				
 				
