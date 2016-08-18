@@ -7,7 +7,7 @@
         $modelo->get_register_form(chk_array($parametros, 1));
         $modelo->del_user($parametros);
     ?>
-    
+
     <!-- Agenda bibliotecas js -->
     <script src="<?php echo HOME_URI; ?>/_agenda/js/pt-BR.js"></script>
     <script src="<?php echo HOME_URI; ?>/_agenda/js/moment.js"></script>
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <br>            
+    <br>
     <div class="col-md-4">
 
         <!--refresh widget-->
@@ -126,7 +126,7 @@
             var yyyy = date.getFullYear().toString();
             var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
             var dd  = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
-                
+
 
             //establecemos los valores del calendario
             var options = {
@@ -266,17 +266,29 @@
                     <br>
 
                     <div class="form-group">
+                        <label class=" control-label" for="tipo">Tipo de urgencia: </label>
+                        <select id="tipo" name="agenda_class" class="form-control">
+                            <option value="event-info">Media</option>
+                            <option value="event-success">Normal</option>
+                            <option value="event-important">Urgente</option>
+                            <option value="event-warning">Advertencia</option>
+                            <option value="event-special">Especial</option>
+                        </select>
+                    </div>
+
+                    <!-- <div class="form-group">
                         <label class=" control-label" for="selectbasic">Dentista:</label>
                         <select id="selectbasic" name="sel_dent" class="form-control">
                             <option value="1">Dr. Janaina</option>
                             <option value="2">Dr. Joao</option>
                             <option value="3">Dr. Melisa</option>
                         </select>
-                    </div>
+                    </div> -->
+
                     <br>
 
                     <label for="tipo">Procedimento:</label>
-                    <select class="form-control" name="slect_proced" id="tipo">
+                    <select class="form-control" name="agenda_proced" id="tipo">
                         <option value="event-info">Canal</option>
                         <option value="event-success">Obturação</option>
                         <option value="event-important">Implante</option>
@@ -289,7 +301,7 @@
 
 
                     <label for="title">Paciente:</label>
-                    <input type="text" required autocomplete="off" name="paciente" class="form-control" id="title" placeholder="Nome do paciente...">
+                    <input type="text" required autocomplete="off" name="agenda_pac" class="form-control" id="title" placeholder="Nome do paciente...">
 
                     <br>
 
@@ -297,7 +309,7 @@
 
 
                     <label for="body">Descrição da consulta:</label>
-                    <textarea id="body" name="descricao" required class="form-control" rows="3" placeholder="Descreva aqui informações extras da consultas..."></textarea>
+                    <textarea id="body" name="agenda_desc" required class="form-control" rows="3" placeholder="Descreva aqui informações extras da consultas..."></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
@@ -307,8 +319,3 @@
         </div>
     </div>
 </div>
-
-        
-        
-       
-               
