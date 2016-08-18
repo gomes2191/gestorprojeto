@@ -86,7 +86,7 @@ class AgendaModel
 
 
 			}
-			// Recibimos el fecha de inicio y la fecha final desde el form
+                        
 			$agenda_start = _formatear($this->form_data['from']);
 			 // y la formateamos con la funcion _formatear
 			$agenda_end  = _formatear($this->form_data['to']);
