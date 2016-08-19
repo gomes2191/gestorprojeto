@@ -79,51 +79,15 @@ class AgendaModel
 					$this->form_msg = '<p class="form_error">There are empty fields. Data has not been sent.</p>';
 					// Termina
 					return;
-
-
-
-				}
-
-
-			}
-                        
-			$agenda_start = _formatear($this->form_data['from']);
-			 // y la formateamos con la funcion _formatear
-			$agenda_end  = _formatear($this->form_data['to']);
-
-			 // Recibimos el fecha de inicio y la fecha final desde el form
-
-			 $agenda_start_normal = ($this->form_data['from']);
-
-
-
-			 // y la formateamos con la funcion _formatear
-			 $agenda_end_normal  = ($this->form_data['to']);
-
-			 // reemplazamos los caracteres no permitidos
-			 $agenda_class  = evaluar($this->form_data['agenda_class']);
-
-
-
-			 // Recibimos los demas datos desde el form
-			 $agenda_pac = evaluar($this->form_data['agenda_pac']);
-
-			 // y con la funcion evaluar
-			 $agenda_desc   = evaluar($this->form_data['agenda_desc']);
-
-			 	 echo $agenda_pac;die;
-
-
-
-
-
+				} //Verifica campos em branco
+			} //Faz lop dos dados do post
 
 		} else {
 
 			// Termina se nada foi enviado
 			return;
 
-		}
+		}// Finaliza se nada foi enviado
 
 		// Verifica se a propriedade $form_data foi preenchida
 		if( empty( $this->form_data ) ) {
@@ -202,14 +166,41 @@ class AgendaModel
 		// Se o ID do usuário estiver vazio, insere os dados
 		}*/
 
-			// Executa a consulta
-			$query = $this->db->insert('agendas', array(
-				'agenda_start' => chk_array( $this->form_data, 'from'),
-				'agenda_end' => chk_array($this->form_data, 'to'),
+                
+                
+                        $agenda_start = _formatar($this->form_data['from']);
+			 // e reformatar o funcion _formatar
+			$agenda_end  = _formatar($this->form_data['to']);
+//			 // Recebemos a data de início e a data de término da forma
+//			 $agenda_start_normal = ($this->form_data['from']);
+//			 // e reformatar o funcion _formatar
+//			 $agenda_end_normal  = ($this->form_data['to']);
+			 // substituir caracteres ilegais
+			 $agenda_class  = avaliar($this->form_data['agenda_class']);
+			 // Outros receber dados do form
+                         
+                          // e com function avaliar
+                         $agenda_proc = avaliar($this->form_data['agenda_proc']);
+			 $agenda_pac = avaliar($this->form_data['agenda_pac']);
+			 $agenda_desc   = avaliar($this->form_data['agenda_desc']);
 
-
-
-			));
+//                         var_dump($this->form_data);die;
+                        
+                        
+			// Executa a inserção na basse de dados.
+			$query = $this->db->insert('agendas', 
+                            ['agenda_start' => $agenda_start,
+                            'agenda_end' => $agenda_end,
+                            'agenda_start_normal'=> chk_array($this->form_data, 'from'),
+                            'agenda_end_normal'=> chk_array($this->form_data, 'to'),
+                            'agenda_class'=>$agenda_class,
+                            'agenda_proc'=>$agenda_proc,
+                            'agenda_pac'=>$agenda_pac,
+                            'agenda_desc'=>$agenda_desc
+                            ]);
+                        
+                      
+                        
 			// Verifica se a consulta está OK e configura a mensagem
 			if ( ! $query ) {
 				$this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
@@ -332,10 +323,10 @@ class AgendaModel
 	 * @since 0.1
 	 * @access public
 	 */
-	public function get_user_list() {
+	public function get_agenda_list() {
 
 		// Simplesmente seleciona os dados na base de dados
-		$query = $this->db->query('SELECT * FROM `users` ORDER BY user_id DESC');
+		$query = $this->db->query('SELECT * FROM `agendas` ORDER BY agenda_id DESC');
 
 		// Verifica se a consulta está OK
 		if ( ! $query ) {
@@ -343,5 +334,5 @@ class AgendaModel
 		}
 		// Preenche a tabela com os dados do usuário
 		return $query->fetchAll();
-	} // get_user_list
+	} // get_agenda_list
 }

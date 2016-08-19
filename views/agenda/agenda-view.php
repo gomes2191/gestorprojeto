@@ -15,6 +15,12 @@
     <script src="<?php echo HOME_URI; ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
     <!-- Final agenda js -->
 
+    
+    <?php $listar = $modelo->get_agenda_list();?>
+    
+    
+    <?php foreach ($listar as $fetch_agendadata): ?>
+    
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-12">
@@ -27,7 +33,8 @@
                         Agendar consulta <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                     </button><span>&nbsp;</span>
                 </div>
-
+<?php echo $fetch_agendadata['agenda_id']; ?>
+                
                 <div class="pull-left form-inline">
                     <br>
 
@@ -103,7 +110,7 @@
         <!--refresh widget-->
     </div>
 </div>
-
+<?php endforeach; ?>
 <!--ventana modal para el calendario-->
 <div class="modal fade in" id="events-modal">
     <div class="modal-dialog">
@@ -266,7 +273,7 @@
                     <br>
 
                     <div class="form-group">
-                        <label class=" control-label" for="tipo">Tipo de urgencia: </label>
+                        <label class="control-label" for="tipo">Tipo de urgencia: </label>
                         <select id="tipo" name="agenda_class" class="form-control">
                             <option value="event-info">Media</option>
                             <option value="event-success">Normal</option>
@@ -284,11 +291,10 @@
                             <option value="3">Dr. Melisa</option>
                         </select>
                     </div> -->
-
+                    
                     <br>
-
                     <label for="tipo">Procedimento:</label>
-                    <select class="form-control" name="agenda_proced" id="tipo">
+                    <select class="form-control" name="agenda_proc" id="tipo">
                         <option value="event-info">Canal</option>
                         <option value="event-success">Obturação</option>
                         <option value="event-important">Implante</option>
@@ -300,20 +306,24 @@
                     <br>
 
 
-                    <label for="title">Paciente:</label>
-                    <input type="text" required autocomplete="off" name="agenda_pac" class="form-control" id="title" placeholder="Nome do paciente...">
+                    <label for="paciente">Paciente:</label>
+                    <input type="text" required autocomplete="off" name="agenda_pac" class="form-control" id="paciente" placeholder="Nome do paciente...">
 
                     <br>
 
 
 
 
-                    <label for="body">Descrição da consulta:</label>
-                    <textarea id="body" name="agenda_desc" required class="form-control" rows="3" placeholder="Descreva aqui informações extras da consultas..."></textarea>
+                    <label for="desc">Descrição da consulta:</label>
+                    <textarea id="desc" name="agenda_desc" required class="form-control" rows="3" placeholder="Descreva aqui informações extras da consultas..."></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
-                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Gravar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <i class="fa fa-times"></i>Cancelar
+                </button>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-check"></i> Gravar
+                </button>
                 </form>
             </div>
         </div>
