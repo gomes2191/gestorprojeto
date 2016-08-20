@@ -19,9 +19,6 @@
     
     <!-- My icon fon -->
     <link rel="stylesheet" href="<?php echo HOME_URI;?>/views/font-awesome-4.6.3/css/font-awesome.min.css">
-    <!--<link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>-->
-    
-    
     
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<?php echo HOME_URI;?>/views/_css/bootstrap.min.css">

@@ -15,15 +15,11 @@
     <script src="<?php echo HOME_URI; ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
     <!-- Final agenda js -->
 
-    
-    <?php $listar = $modelo->get_agenda_list();?>
-    
-    
-    <?php foreach ($listar as $fetch_agendadata): ?>
-    
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-12">
+                
+                <?= $id = $modelo->get_ultimo_id(); ?>
                 <div style="margin: 0px; padding: 0px;" class="page-header">
                     <h2  style="margin: 0px 0px 5px 0px; padding: 0px;"></h2>
                 </div>
@@ -33,7 +29,7 @@
                         Agendar consulta <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                     </button><span>&nbsp;</span>
                 </div>
-<?php echo $fetch_agendadata['agenda_id']; ?>
+
                 
                 <div class="pull-left form-inline">
                     <br>
@@ -66,20 +62,12 @@
                         <option>4</option>
                     </select>
                 </div>
-
-
-
             </div>
-
-
-
-
-
         </div>
         <span><br></span>
         <div class="row">
             <div class="col-md-12">
-                <div id="calendar"></div> <!-- Aqui se mostrara nuestro calendario -->
+                <div id="calendar"></div> <!-- Aqui será exibido nosso calendario -->
             </div>
         </div>
     </div>
@@ -91,10 +79,6 @@
             <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>Agendamentos</div>
             <div class="panel-body panel-refresh">
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
-
-                Vázio
-
-
             </div>
         </div>
         <!--refresh widget-->
@@ -104,13 +88,12 @@
             <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>Agenda de horários</div>
             <div class="panel-body panel-refresh">
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
-                Vázio
+                
             </div>
         </div>
         <!--refresh widget-->
     </div>
 </div>
-<?php endforeach; ?>
 <!--ventana modal para el calendario-->
 <div class="modal fade in" id="events-modal">
     <div class="modal-dialog">
@@ -128,51 +111,51 @@
 <script src="<?php echo HOME_URI; ?>/_agenda/js/calendar.js"></script>
 <script type="text/javascript">
     (function($){
-            //creamos la fecha actual
+            //Criamos a data atual
             var date = new Date();
             var yyyy = date.getFullYear().toString();
             var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
             var dd  = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
 
 
-            //establecemos los valores del calendario
+            //Estabelecemos os valores do calendario
             var options = {
 
-                // definimos que los eventos se mostraran en ventana modal
-                    modal: '#events-modal',
+                // Definimos que os eventos aparecerão em uma janelo modal
+                modal: '#events-modal',
 
-                    // dentro de un iframe
-                    modal_type:'iframe',
+                // Dentro de um iframe
+                modal_type:'iframe',
 
-                    //obtenemos los eventos de la base de datos
-                    events_source: '<?= HOME_URI; ?>/_agenda/obtener_eventos.php',
+                //Obtemos os eventos da base de dados
+                events_source: '<?= $modelo->get_agenda_consulta(); ?>',
 
-                    // mostramos el calendario en el mes
-                    view: 'month',
+                // Mostramos o calendário no mês
+                view: 'month',
 
-                    // y dia actual
-                    day: yyyy+"-"+mm+"-"+dd,
-
-
-                    // definimos el idioma por defecto
-                    language: 'pt-BR',
-
-                    //Template de nuestro calendario
-                    tmpl_path: '<?= HOME_URI; ?>/_agenda/tmpls/',
-                    tmpl_cache: false,
+                // No dia atual
+                day: yyyy+"-"+mm+"-"+dd,
 
 
-                    // Hora de inicio
-                    time_start: '08:00',
+                // Definimos o idioma padrão
+                language: 'pt-BR',
 
-                    // y Hora final de cada dia
-                    time_end: '22:00',
+                //Template de nosso calendario
+                tmpl_path: '<?= HOME_URI; ?>/_agenda/tmpls/',
+                tmpl_cache: false,
 
-                    // intervalo de tiempo entre las hora, en este caso son 30 minutos
-                    time_split: '30',
 
-                    // Definimos un ancho del 100% a nuestro calendario
-                    width: '100%',
+                // Hora de inicio
+                time_start: '08:00',
+
+                // Hora final de cada dia
+                time_end: '22:00',
+
+                // Intervalo de tempo entre as horas, neste são 30 minutos
+                time_split: '30',
+
+                // Definimos uma largura de 100% no calendário
+                width: '100%',
 
                     onAfterEventsLoad: function(events)
                     {
@@ -205,7 +188,7 @@
             };
 
 
-            // id del div donde se mostrara el calendario
+            // Id da div onde mostrara o calendario
             var calendar = $('#calendar').calendar(options);
 
             $('.btn-group button[data-calendar-nav]').each(function()

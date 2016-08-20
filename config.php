@@ -1,8 +1,6 @@
 <?php
 
-    /**
-     * Configuração geral
-     **/
+    /* Configuração geral */
 
     // Caminho para a raiz
     define('ABSPATH', dirname(__FILE__));
@@ -17,18 +15,18 @@
     define('UP_ABSPATH', ABSPATH . '/views/_uploads');
 
     // URL da home
-    define('HOME_URI', 'http://127.0.0.1/sov');
+    define('HOME_URI', 'http://127.0.0.1/soc');
 
     // Nome do host da base de dados
     define('HOSTNAME', 'localhost');
 
-    // Nome do DB
+    // Nome do banco
     define('DB_NAME', 'migration_ov');
 
-    // Usuário do DB
+    // Usuário do banco
     define('DB_USER', 'root');
 
-    // Senha do DB
+    // Senha do banco
     define('DB_PASSWORD', 'libre');
 
     // Charset da conexão PDO

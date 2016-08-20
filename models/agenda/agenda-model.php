@@ -199,6 +199,23 @@ class AgendaModel
                             'agenda_desc'=>$agenda_desc
                             ]);
                         
+                        // Simplesmente seleciona os dados na base de dados
+                        $exec_id = $this->db->query('SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas`');
+                        $row = $exec_id->fetch();
+                        $id = trim($row[0]);
+                        // para generar el link del evento
+                        $link = HOME_URI."descripcion_evento.php?id=$id";
+
+                        // y actualizamos su link
+                        $query="UPDATE eventos SET url = '$link' WHERE id = $id";
+
+                        // Ejecutamos nuestra sentencia sql
+                        $conexion->query($query); 
+
+                        // redireccionamos a nuestro calendario
+                        header("Location:$base_url"); 
+                        
+                        
                       
                         
 			// Verifica se a consulta está OK e configura a mensagem
@@ -316,8 +333,52 @@ class AgendaModel
 			return;
 		}
 	} // del_user
+        
+        
+        /**
+	 * Obtém as consultas 
+	 *
+	 * @get_agenda_consulta
+	 * @access public
+	 */
+        public function get_agenda_consulta() {
 
-	/**
+            // Simplesmente seleciona os dados na base de dados
+            $query = $this->db->query('SELECT * FROM `agendas`');
+
+            // Verifica se a consulta está OK
+            if (!$query) {
+                return array();
+            }
+            
+            $consulta = $query->fetchAll();
+            if($consulta){
+                // Transformamos os dados encontrados na base de dados em formato json
+             echo json_encode(
+                    array(
+                        "success" => 1,
+                        "result" => $consulta
+                    )
+            );
+                
+            }else{
+                echo 'Vazio';
+            }
+                
+    } // @get_agenda_consulta
+    
+     public function get_ultimo_id() {
+        // Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query('SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas`');
+         
+        $row = $query->fetch();
+        $id = trim($row[0]);
+        
+        return $id;
+        
+     } // @get_ultimo_id
+
+    /**
 	 * Obtém a lista de usuários
 	 *
 	 * @since 0.1
