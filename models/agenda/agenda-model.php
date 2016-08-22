@@ -205,7 +205,7 @@ class AgendaModel
                         $id = trim($row[0]);
                         
                         // Gera o link do evento
-                        $link = HOME_URI."/_agenda/descripcion_evento.php?id=$id";
+                        $link = HOME_URI."/_agenda/get_descricao.php?id=$id";
 
                         // Atualizamos nosso $link
                         $this->db->query("UPDATE `agendas` SET `agenda_url` = '$link' WHERE `agenda_id` = $id");

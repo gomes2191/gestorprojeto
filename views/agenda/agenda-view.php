@@ -7,9 +7,7 @@
         $modelo->get_register_form(chk_array($parametros, 1));
         $modelo->del_user($parametros);
         
-        $modelo->get_agenda_consulta();
-        
-        
+        //$modelo->get_agenda_consulta(); 
     ?>
 
     <!-- Agenda bibliotecas js -->
@@ -74,6 +72,20 @@
                 <div id="calendar"></div> <!-- Aqui será exibido nosso calendario -->
             </div>
         </div>
+        <br>
+     <div class="progress">
+  <div class="progress-bar progress-bar-success" style="width: 10%">
+    <span class="sr-only">35% Complete (success)</span>
+    Tratamento
+  </div>
+  <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 10%">
+    <span class="sr-only">20% Complete (warning)</span>
+  </div>
+  <div class="progress-bar progress-bar-danger" style="width: 10%">
+    <span class="sr-only">10% Complete (danger)</span>
+  </div>
+</div>
+        
     </div>
     <br>
     <div class="col-md-4">
@@ -133,7 +145,7 @@
                 modal_type: 'ajax',
 
                 //Obtemos os eventos da base de dados
-                events_source: '<?= HOME_URI; ?>/_agenda/obtener_eventos.php',
+                events_source: '<?= HOME_URI; ?>/_agenda/get_consulta.php',
 
                 // Mostramos o calendário no mês
                 view: 'month',
@@ -153,9 +165,9 @@
                 // Hora de inicio
                 time_start: '08:00',
                 // Hora final de cada dia
-                time_end: '22:00',
+                time_end: '17:00',
                 // Intervalo de tempo entre as horas, neste são 30 minutos
-                time_split: '30',
+                time_split: '5',
 
                 // Definimos uma largura de 100% no calendário
                 width: '100%',
@@ -259,7 +271,7 @@
                     <br>
 
                     <div class="form-group">
-                        <label class="control-label" for="tipo">Tipo de urgencia: </label>
+                        <label class="control-label" for="tipo">Marcadores: </label>
                         <select id="tipo" name="agenda_class" class="form-control">
                             <option value="event-info">Media</option>
                             <option value="event-success">Normal</option>
@@ -281,11 +293,11 @@
                     <br>
                     <label for="tipo">Procedimento:</label>
                     <select class="form-control" name="agenda_proc" id="tipo">
-                        <option value="event-info">Canal</option>
-                        <option value="event-success">Obturação</option>
-                        <option value="event-important">Implante</option>
-                        <option value="event-warning">Limpeza</option>
-                        <option value="event-special">Orçamento</option>
+                        <option value="Canal">Canal</option>
+                        <option value="Obturação">Obturação</option>
+                        <option value="Implante">Implante</option>
+                        <option value="Limpeza">Limpeza</option>
+                        <option value="Orçamento">Orçamento</option>
                     </select>
 
 
