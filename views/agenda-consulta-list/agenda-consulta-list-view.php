@@ -1,12 +1,18 @@
-<?php
+<?php if (!defined('ABSPATH')) exit; ?>
 
+<div class="row-fluid">
+   
+ //incluimos nuestro archivo config
+    include 'config.php'; 
 
-    
+    // Incluimos nuestro archivo de funciones
+    include 'funciones.php';
+
     // Obtenemos el id del evento
-    $id  = evaluar($_GET['agenda_id']);
+    $id  = evaluar($_GET['id']);
 
     // y lo buscamos en la base de dato
-    $this->db->query("SELECT * FROM `agendas` WHERE `agenda_id`=$id");
+    $bd  = $conexion->query("SELECT * FROM eventos WHERE id=$id");
 
     // Obtenemos los datos
     $row = $bd->fetch_assoc();
@@ -39,20 +45,17 @@ if (isset($_POST['eliminar_evento']))
 }
  ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title><?=$titulo?></title>
-</head>
-<body>
+
+<!--	<meta charset="UTF-8">
+	<title><?=$titulo?></title>-->
 	 <h3><?=$titulo?></h3>
 	 <hr>
      <b>Fecha inicio:</b> <?=$inicio?>
      <b>Fecha termino:</b> <?=$final?>
  	<p><?=$evento?></p>
-</body>
-<form action="" method="post">
-    <button type="submit" class="btn btn-danger" name="eliminar_evento">Eliminar</button>
-</form>
-</html>
+        <form action="" method="post">
+            <button type="submit" class="btn btn-danger" name="eliminar_evento">Eliminar</button>
+        </form>
+
+    Teste
+</div>

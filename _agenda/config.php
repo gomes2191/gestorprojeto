@@ -1,10 +1,29 @@
 <?php
 
+/**
+**
+**  BY iCODEART
+**
+**********************************************************************
+**                      REDES SOCIALES                            ****
+**********************************************************************
+**                                                                ****
+** FACEBOOK: https://www.facebook.com/icodeart                    ****
+** TWIITER: https://twitter.com/icodeart                          ****
+** YOUTUBE: https://www.youtube.com/c/icodeartdeveloper           ****
+** GITHUB: https://github.com/icodeart                            ****
+** TELEGRAM: https://telegram.me/icodeart                         ****
+** EMAIL: info@icodeart.com                                       ****
+**                                                                ****
+**********************************************************************
+**********************************************************************
+**/
+
 // Datos de conexion a la base de datos
-//$servidor='localhost';
-//$usuario='root';
-//$pass='';
-//$bd='eventos';
+$servidor='localhost';
+$usuario='root';
+$pass='libre';
+$bd='migration_sov';
 
 // Nos conectamos a la base de datos
 $conexion = new mysqli($servidor, $usuario, $pass, $bd);	
@@ -18,6 +37,6 @@ if ($conexion->connect_errno) {
 }
 
 // Url donde estara el proyecto, debe terminar con un "/" al final
-$base_url="http://localhost/calendario/";
+$base_url="http://localhost/soc/";
 
 ?>

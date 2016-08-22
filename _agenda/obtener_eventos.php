@@ -1,64 +1,25 @@
-<?php
+<?PHP
 
-/**
-**
-**  BY iCODEART
-**
-**********************************************************************
-**                      REDES SOCIALES                            ****
-**********************************************************************
-**                                                                ****
-** FACEBOOK: https://www.facebook.com/icodeart                    ****
-** TWIITER: https://twitter.com/icodeart                          ****
-** YOUTUBE: https://www.youtube.com/c/icodeartdeveloper           ****
-** GITHUB: https://github.com/icodeart                            ****
-** TELEGRAM: https://telegram.me/icodeart                         ****
-** EMAIL: info@icodeart.com                                       ****
-**                                                                ****
-**********************************************************************
-**********************************************************************
-**/
+$db    = new PDO('mysql:host=localhost;dbname=migration_ov;charset=utf8', 'root', 'libre');
+// Pega todos os dados da tabela agendas.
+        $query = $db->query(' SELECT * FROM `agendas` ');
 
-// Incluimos nuestro archivo config
-require_once 'config.php'; 
-
-// Sentencia sql para traer los eventos desde la base de datos
-$sql="SELECT * FROM agenda"; 
-
-// Verificamos si existe un dato
-if ($conexion->query($sql)->num_rows)
-{ 
-
-    // creamos un array
-    $datos = array(); 
-
-    //guardamos en un array multidimensional todos los datos de la consulta
-    $i=0; 
-
-    // Ejecutamos nuestra sentencia sql
-    $e = $conexion->query($sql); 
-
-    while($row=$e->fetch_array()) // realizamos un ciclo while para traer los eventos encontrados en la base de dato
-    {
-        // Alimentamos el array con los datos de los eventos
-        $datos[$i] = $row; 
-        $i++;
-    }
-
-    // Transformamos los datos encontrado en la BD al formato JSON
-        echo json_encode(
-                array(
-                    "success" => 1,
-                    "result" => $datos
-                )
+        // Verifica se a consulta foi realizada com sucesso.
+        if (!$query) {
+            return [];
+        }
+        
+        foreach ($query as $row){
+            $out[] = array(
+                'id'    => $row['agenda_id'],
+                'title' => $row['agenda_pac'],
+                'url'   => $row['agenda_url'],
+                'body'  => $row['agenda_desc'],
+                'class' => $row['agenda_class'],
+                'start' => $row['agenda_start'],
+                'end'   => $row['agenda_end']
             );
-
-    }
-    else
-    {
-        // Si no existen eventos mostramos este mensaje.
-        echo "Não há dados"; 
-    }
-
-
-
+            
+        }
+        echo json_encode(array('success' => 1, 'result' => $out));
+        exit;  

@@ -6,6 +6,10 @@
         $modelo->validate_register_form();
         $modelo->get_register_form(chk_array($parametros, 1));
         $modelo->del_user($parametros);
+        
+        $modelo->get_agenda_consulta();
+        
+        
     ?>
 
     <!-- Agenda bibliotecas js -->
@@ -19,7 +23,7 @@
         <div class="row">
             <div class="col-md-12">
                 
-                <?= $id = $modelo->get_ultimo_id(); ?>
+                
                 <div style="margin: 0px; padding: 0px;" class="page-header">
                     <h2  style="margin: 0px 0px 5px 0px; padding: 0px;"></h2>
                 </div>
@@ -123,18 +127,19 @@
 
                 // Definimos que os eventos aparecerão em uma janelo modal
                 modal: '#events-modal',
+                modal_title: 'Cadastro de consulta',
 
                 // Dentro de um iframe
-                modal_type:'iframe',
+                modal_type: 'ajax',
 
                 //Obtemos os eventos da base de dados
-                events_source: '<?= $modelo->get_agenda_consulta(); ?>',
+                events_source: '<?= HOME_URI; ?>/_agenda/obtener_eventos.php',
 
                 // Mostramos o calendário no mês
                 view: 'month',
 
                 // No dia atual
-                day: yyyy+"-"+mm+"-"+dd,
+                day: 'now',
 
 
                 // Definimos o idioma padrão
@@ -147,10 +152,8 @@
 
                 // Hora de inicio
                 time_start: '08:00',
-
                 // Hora final de cada dia
                 time_end: '22:00',
-
                 // Intervalo de tempo entre as horas, neste são 30 minutos
                 time_split: '30',
 

@@ -267,16 +267,15 @@
 }
 #cal-day-box #cal-day-panel {
   position: relative;
-  padding-left: 42px;
+  padding-left: 60px;
 }
 #cal-day-box #cal-day-panel-hour {
   position: absolute;
   width: 100%;
-  margin-left: -44px;
-  margin-top: 45px;
-  z-index: -1;
+  margin-left: -60px;
 }
 #cal-day-box .day-event {
+  position: relative;
   max-width: 200px;
   overflow: hidden;
 }
@@ -485,10 +484,15 @@ span[data-cal-date]:hover {
 #cal-slide-content {
   padding: 20px;
   color: #ffffff;
-  background-color: steelblue;
+  background-image: url("../img/dark_wood.png");
+  -webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
 }
 #cal-slide-tick {
   background-image: url("../img/tick.png?2");
+}
+#cal-slide-content:hover {
+  background-color: transparent;
 }
 #cal-slide-content a.event-item {
   color: #ffffff;

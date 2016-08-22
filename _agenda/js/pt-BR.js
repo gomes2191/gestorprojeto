@@ -2,25 +2,23 @@ if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
 window.calendar_languages['pt-BR'] = {
-	error_noview:     'Calendario: Vista {0} não encontrada',
-	error_dateformat: 'Calendario: Formato de data inválido {0}. deve ser "agora" ou "yyyy-mm-dd"',
-	error_loadurl:    'Calendario: URL de carga de consultas não configurada',
-	error_where:      'Calendario: Endereço de navegação errado {0}. Os valores corretos são "next" o "prev" o "today"',
-	error_timedevide: 'Calendario: Parâmetro para o separador de hora deve dividir 60 por um inteiro. Por exemplo 10, 15, 30',
+	error_noview:     'Calendar: View {0} not found',
+	error_dateformat: 'Calendar: Formato de data inválido {0}. Deve ser "now" ou "yyyy-mm-dd"',
+	error_loadurl:    'Calendar: URL de carregamento de eventos não está atribuida',
+	error_where:      'Calendar: Direção de navegação errada {0}. Só pode ser "next", "prev" ou "today"',
+	error_timedevide: 'Calendário: parâmetro para o separador de hora deve dividir 60 por um número inteiro. Por exemplo, 10, 15, 30',
 
-	no_events_in_day: 'Não há consultas para hoje',
-
-	title_year:  'Ano {0}',
-	title_month: '{0} {1}',
-	title_week:  'Semana {0} o {1}',
-	title_day:   '{0} {1} {2} {3}',
+	title_year:  '{0}',
+	title_month: '{0} de {1}',
+	title_week:  '{1} - Semana {0}',
+	title_day:   '{0}, {1} de {2} de {3}',
 
 	week:        'Semana {0}',
-	all_day:     'Todo o dia',
+	all_day:     'Durante todo o dia',
 	time:        'Tempo',
-	events:      'Todas as consultas',
-	before_time: 'Tempo antes da fila final',
-	after_time:  'Finalmente, depois de uma fita adesiva temporária',
+	events:      'Desenvolvimentos',
+	before_time: 'Tempo antes da fita final',
+	after_time:  'End depois de uma fita temporária',
 
 	m0:  'Janeiro',
 	m1:  'Fevereiro',
@@ -56,20 +54,19 @@ window.calendar_languages['pt-BR'] = {
 	d5: 'Sexta',
 	d6: 'Sábado',
 
-	easter:       'Páscoa',
-	easterMonday: 'Segunda-feira de Páscoa',
+	easter:       'Easter',
+	easterMonday: 'Easter Monday',
 
-	first_day: 1,
+	first_day: 2,
 
 	holidays: {
-		'01-01':    "Confraternização universal",
-		'06-01':    "Dia de Reis",
-		'09-02':    "Carnaval",
-		'10-02':    "Cinzas",
-		'25-03':    "Paixão de Cristo",
-		'easter':   "Páscoa",
-		'easter+1': "Segunda-feira de Páscoa",
-		'01-05':    "Dia do Trabalhador",
-		'25-12':    "Natal"
+		'01-01': "Ano Novo",
+		'21-04': "Dia de Tiradentes",
+		'01-05': "Dia do Trabalhador",
+		'07-09': "Dia da Independência",
+		'12-10': "Nossa Senhora Aparecida",
+		'02-11': "Dia de Finados",
+		'15-11': "Proclamação da República",
+		'25-12': "Natal"
 	}
 };

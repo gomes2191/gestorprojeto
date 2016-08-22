@@ -203,20 +203,12 @@ class AgendaModel
                         $exec_id = $this->db->query('SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas`');
                         $row = $exec_id->fetch();
                         $id = trim($row[0]);
-                        // para generar el link del evento
-                        $link = HOME_URI."descripcion_evento.php?id=$id";
-
-                        // y actualizamos su link
-                        $query="UPDATE eventos SET url = '$link' WHERE id = $id";
-
-                        // Ejecutamos nuestra sentencia sql
-                        $conexion->query($query); 
-
-                        // redireccionamos a nuestro calendario
-                        header("Location:$base_url"); 
                         
-                        
-                      
+                        // Gera o link do evento
+                        $link = HOME_URI."/_agenda/descripcion_evento.php?id=$id";
+
+                        // Atualizamos nosso $link
+                        $this->db->query("UPDATE `agendas` SET `agenda_url` = '$link' WHERE `agenda_id` = $id");
                         
 			// Verifica se a consulta está OK e configura a mensagem
 			if ( ! $query ) {
@@ -343,29 +335,37 @@ class AgendaModel
 	 */
         public function get_agenda_consulta() {
 
-            // Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query('SELECT * FROM `agendas`');
+        // Pega todos os dados da tabela agendas.
+        $query = $this->db->query(' SELECT * FROM `agendas` ');
 
-            // Verifica se a consulta está OK
-            if (!$query) {
-                return array();
-            }
-            
-            $consulta = $query->fetchAll();
-            if($consulta){
-                // Transformamos os dados encontrados na base de dados em formato json
-             echo json_encode(
-                    array(
-                        "success" => 1,
-                        "result" => $consulta
-                    )
+        // Verifica se a consulta foi realizada com sucesso.
+        if (!$query) {
+            return [];
+        }
+        
+        foreach ($query as $row){
+            $out[] = array(
+                'id' => $row['agenda_id'],
+                'title' => $row['agenda_pac'],
+                'url' => $row['agenda_url'],
+                'class' => $row['agenda_class'],
+                'start' => $row['agenda_start'],
+                'end' => $row['agenda_end']
             );
-                
-            }else{
-                echo 'Vazio';
-            }
-                
+            
+        }
+        echo json_encode(array('success' => 1, 'result' => $out));
+        //exit;  
     } // @get_agenda_consulta
+    
+    
+    public function set_event (){
+        
+        
+        
+        
+        
+    }
     
      public function get_ultimo_id() {
         // Simplesmente seleciona os dados na base de dados

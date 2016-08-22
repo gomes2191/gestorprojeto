@@ -102,8 +102,6 @@ if (isset($_POST['from']))
         <link rel="stylesheet" href="<?=$base_url?>css/bootstrap-datetimepicker.min.css" />
         <script src="<?=$base_url?>js/bootstrap-datetimepicker.es.js"></script>
     </head>
-
-</head>
 <body style="background: white;">
 
         <div class="container">
