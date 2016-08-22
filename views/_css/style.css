@@ -1,3 +1,12 @@
+
+.navbar-default {
+    background-color: #dff0d8 !important;
+    border-color: #dff0d8;
+     box-shadow: 0px 2px 3px #dff0d8 !important;
+    -webkit-box-shadow: 0px 2px 3px #dff0d8 !important;
+    border-bottom: 1px solid #ffffff !important;
+}
+
 /* Incluimos aqui a fonte do site */
 /* latin */
 @font-face {
@@ -11,14 +20,6 @@
 /* Define a fonte do sistema @font-family */
 *{
     font-family: 'Abel', sans-serif;
-}
-
-
-/* Formatação topo */
-.navbar-fixed-top {
-    box-shadow: 0px 2px 3px #43ac6a !important;
-    -webkit-box-shadow: 0px 2px 3px #43ac6a !important;
-    border-bottom: 1px solid #ffffff !important;
 }
 
 .panel{
