@@ -4,14 +4,15 @@ $db = new PDO('mysql:host=localhost;dbname=migration_ov;charset=utf8', 'root', '
 // Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
 function avaliar($valor) {
     $nopermitido = array("'", '\\', '<', '>', "\"");
-    $valor = str_replace($nopermitido, "", $valor);
+    $valor_1 = str_replace($nopermitido, "", $valor);
 
-    $valor = filter_var($valor, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-    return $valor;
+    $valor_2 = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+    return $valor_2;
 }
 
 // Obtenemos el id del evento
-$id = avaliar($_GET['id']);
+/* @var $id type */
+$id = \avaliar($_GET['id']);
 
 
 // Buscamos na base de dados as informações necessaria

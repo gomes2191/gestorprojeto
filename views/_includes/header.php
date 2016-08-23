@@ -1,5 +1,7 @@
 
-<?php if ( ! defined('ABSPATH')) exit; ?>
+<?php if ( ! defined('ABSPATH')) exit; 
+\error_reporting(E_ALL | E_STRICT);
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
