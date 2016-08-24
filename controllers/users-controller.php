@@ -32,7 +32,7 @@ class UsersController extends MainController
 	 */
 	public function index() {
 		// Page title
-		$this->title = ' Usuarios';
+		$this->title = ' usuários';
 
 		// Verifica se o usuário está logado
 		/*if ( ! $this->logged_in ) {

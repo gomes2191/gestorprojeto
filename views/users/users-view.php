@@ -24,7 +24,7 @@
         <hr>
         
         <div class="input-group-sm">
-            <a href="<?php echo HOME_URI; ?>/user-register/" title="Adiciona um usuário no sistema." class="btn btn-primary btn-group-sm">Adicionar usuário <i class="glyphicon glyphicon-user" aria-hidden="true"></i></a>
+            <a href="<?php echo HOME_URI; ?>/user-register/" title="Adiciona um usuário no sistema." class="btn btn-primary btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar usuário </a>
         </div>
         <br>
                 
@@ -33,12 +33,14 @@
         
         <?php
             // Lista os usuários
-            $lista = $modelo->get_user_list();
+            ($lista = $modelo->get_user_list());
+            
         ?>
-        <div class="panel panel-primary"> <!-- Start panel -->
+        <div class="panel"> <!-- Start panel -->
             <div class="panel-heading text-center"><?= Translate::t('dMsg_2'); ?></div>
             
             <table class="table table-hover  table-text-center table-responsive">
+                <?php if ($lista): ?>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -51,6 +53,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <?php foreach ($lista as $fetch_userdata): ?>
                         <tr>
                             <td>
@@ -81,10 +84,17 @@
                             </td>
                         </tr>
                     <?php endforeach; ?>
+                    <?php
+                      else:
+                        echo '<tr><td><b>Não a usuário cadastrado no sistema.</b></td></tr>';
+                      endif;
+                    ?>
                 </tbody>
             </table>
             <div class="panel-footer"></div>
         </div> <!-- /End start panel -->
+           
+
         
         <div class="modal in fade"  role="dialog" id="myModal">
             <div class="modal-dialog modal-sm" role="document">

@@ -12,7 +12,7 @@ function avaliar($valor) {
 
 // Obtenemos el id del evento
 /* @var $id type */
-$id = \avaliar($_GET['id']);
+$id = avaliar($_GET['id']);
 
 
 // Buscamos na base de dados as informações necessaria

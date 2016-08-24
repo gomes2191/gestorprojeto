@@ -35,9 +35,11 @@ jQuery("#cel").mask("(99) 99999-9999");
 
 jQuery("#hora").mask("99:99");
 
+//jQuery("#cro").mask("*********");
+
 // Formulario cadastro validação form validator
 $.validate({
-  modules : 'security',
+  modules : 'security, brazil',
   onModulesLoaded : function() {
     var optionalConfig = {
       fontSize: '12pt',
