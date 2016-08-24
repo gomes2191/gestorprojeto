@@ -15,12 +15,15 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-              <li><a href="<?php echo HOME_URI;?>/" title="Página inicial"><i class="glyphicon glyphicon-home" aria-hidden="true"></i></a></li>
-            <li><a href="<?php echo HOME_URI;?>/agenda/" title="Agenda"><i class="glyphicon glyphicon-calendar" aria-hidden="true"></i></a></li>
+              <li><a href="<?php echo HOME_URI;?>/" title="Página inicial"><i class="glyphicon glyphicon-home" aria-hidden="true"></i> HOME</a></li>
+            <li><a href="<?php echo HOME_URI;?>/agenda/" title="Agenda"><i class="fa fa-calendar" aria-hidden="true"></i> AGENDA</a></li>
             <!--<li><a href="<?php echo HOME_URI;?>/exemplo/">Exemplo básico</a></li>-->
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" ><i class="glyphicon glyphicon-th-list" aria-hidden="true"></i> <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >
+                  <i class="fa fa-university" aria-hidden="true"></i>
+                  EMPRESA<span class="caret"></span>
+              </a>
               <ul class="dropdown-menu">
                 <li><a href="<?php echo HOME_URI;?>/users/">Usuários</a></li>
                 <li><a href="<?php echo HOME_URI;?>/noticias/">Pacientes</a></li>
@@ -36,7 +39,7 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" ><i class="glyphicon glyphicon-usd" aria-hidden="true"></i><span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" ><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i> FINANCEIRO<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Contas a Pagar</a></li>
                 <li><a href="#">Contas a Receber</a></li>
@@ -51,7 +54,7 @@
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="<?php echo HOME_URI;?>/login/"><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i></a></li>
+            <li><a href="<?php echo HOME_URI;?>/login/"><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i> LOGAR-SE</a></li>
             
             <!--<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
           </ul>
