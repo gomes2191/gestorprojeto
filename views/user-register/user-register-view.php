@@ -53,15 +53,15 @@
                         
                         <div class="form-group col-md-2 col-sm-4 col-xs-12">  
                             <label for="cpf">CPF:</label>
-                            <input id="cpf" name="cpf" class="form-control" type="text"> 
+                            <input id="cpf" name="cpf" class="form-control" type="text" placeholder="000.000.000-00"> 
                         </div>
                         <div class="form-group col-md-2 col-sm-4 col-xs-12">
                             <label for="rg">RG:</label>
-                            <input id="rg" name="rg" class="form-control" type="text"> 
+                            <input id="rg" name="rg" class="form-control" type="text" placeholder="0.000.000"> 
                         </div>
                         <div class="form-group col-md-2 col-sm-4 col-xs-12">
                             <label for="ssn">Data de nascimento:</label>
-                            <input id="nascimento" name="nascimento" class="form-control" type="text"> 
+                            <input id="nascimento" name="nascimento" class="form-control" type="text" placeholder="00/00/0000"> 
                         </div>
                         
                         <div class="form-group col-md-2 col-sm-4 col-xs-12">
@@ -69,8 +69,6 @@
                             <select name="race" class="form-control"> 
                                 <option>Masculino</option>
                                 <option>Feminino</option>
-                                <option>Homosexual</option>
-                                <option>Travesti</option>
                             </select>
                         </div>
                     </div>
@@ -78,45 +76,45 @@
                     <div class="row form-compact">
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="tel">Telefone casa:</label>
-                            <input id="tel" name="tel" class="form-control" type="text"> 
+                            <input id="tel" name="tel" class="form-control" type="text" placeholder="(00) 0000-0000"> 
                         </div>
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="cel">Celular:</label>
-                            <input id="cel" name="cel" class="form-control" type="text"> 
+                            <input id="cel" name="cel" class="form-control" type="text" placeholder="(00) 00000-0000"> 
                         </div>
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="pai">Nome do pai:</label>
-                            <input name="pai" class="form-control" type="text"> 
+                            <input name="pai" class="form-control" type="text" placeholder="Aqui nome do pai..."> 
                         </div>
                         
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="mae">Nome da mãe:</label>
-                            <input name="mae" class="form-control" type="text"> 
+                            <input name="mae" class="form-control" type="text" placeholder="Aqui nome da mãe..."> 
                         </div>
                         
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="endereco">Endereço:</label>
-                            <input name="endereco" class="form-control" type="text"> 
+                            <input name="endereco" class="form-control" type="text" placeholder="Digite aqui o endereço..."> 
                         </div>
                         
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="bairro">Bairro:</label>
-                            <input name="bairro" class="form-control" type="text"> 
+                            <input name="bairro" class="form-control" type="text" placeholder="Digite aqui o baiiro..."> 
                         </div>
                         
                     </div>
                     <div class="row form-compact">
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="cidade">Cidade:</label>
-                            <input name="cidade" class="form-control" type="text"> 
+                            <input name="cidade" class="form-control" type="text" placeholder="Digite aqui a cidade..."> 
                         </div>
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="estado">Estado:</label>
-                            <input name="estado" class="form-control" type="text"> 
+                            <input name="estado" class="form-control" type="text" placeholder="Digite aqui o Estado..."> 
                         </div>
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
                             <label for="pai">CEP:</label>
-                            <input id="cep" name="pai" class="form-control" type="text"> 
+                            <input id="cep" name="pai" class="form-control" type="text" placeholder="00000-000"> 
                         </div>
                         
                         
@@ -209,7 +207,6 @@
                                 <option value="24">Saúde Coletiva</option>                 
                             </select>
                         </div>
-                       
                     </div>
                     
                     <div class="row form-compact">
@@ -225,13 +222,71 @@
                             </select>
                         </div>
                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
-                            <label for="pai">Nome do pai:</label>
-                            <input name="pai" class="form-control" type="text"> 
+                            <label for="pai">início de atividades  na clínica:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa"> 
                         </div>
-                        
+                         <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Fim de atividades na clínica:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa"> 
+                        </div>
+                        </div>
+                    
+                    
+                    
+                    </fieldset>
+                    <fieldset>
+                    <legend>Horário de Atendimento</legend>
+                    <div class="row form-compact">
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Domingo:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                            <br>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                        </div>
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Segunda-feira:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                            <br>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                        </div>
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Terça-feira:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                            <br>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                        </div> 
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Quarta-feira:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                            <br>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                        </div> 
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Quinta-feira:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                            <br>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                        </div> 
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Sexta-feira:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                            <br>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                        </div> 
+                    </div>
+                    
+                    <div class="row form-compact">
+                        <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                            <label for="pai">Sábado:</label>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                            <br>
+                            <input name="pai" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                        </div> 
                         
                     </div>
-                    <hr>
+                    </fieldset>
+                    <fieldset>
+                    <legend>Informações de login</legend>
                      <div class="row form-compact">
                          <div class="form-group col-md-4 col-sm-2 col-xs-6">
                             <label for="user_email">Email este será o usuário:</label>

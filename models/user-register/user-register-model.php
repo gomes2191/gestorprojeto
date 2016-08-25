@@ -69,6 +69,8 @@ class UserRegisterModel {
                 // Configura os dados do post para a propriedade $form_data
                 // e remove todo e qualquer tipo de tags que venham a ser passsado nos campos
                 $this->form_data[$key] = filter_var($value, FILTER_SANITIZE_STRING);
+                
+                
 
                 // Nós não permitiremos nenhum campos em branco
                 if (empty($value)) {
@@ -95,7 +97,7 @@ class UserRegisterModel {
         if (empty($this->form_data)) {
             return;
         }
-
+        
         // Verifica se o usuário existe
         $db_check_user = $this->db->query(
                 'SELECT * FROM `users` WHERE `user_email` = ?', array(

@@ -30,7 +30,7 @@
         
         
         
-        	<div class="panel panel-success">
+        	<div class="panel panel-primary">
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title">
                                     <img src="<?php echo HOME_URI;?>/logo.png" style="margin-top: -5px;" width="100">

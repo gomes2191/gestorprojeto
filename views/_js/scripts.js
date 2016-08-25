@@ -35,6 +35,10 @@ jQuery("#cel").mask("(99) 99999-9999");
 
 jQuery("#hora").mask("99:99");
 
+jQuery("#from-input").mask("99/99/9999 99:99");
+
+jQuery("#to-input").mask("99/99/9999 99:99");
+
 //jQuery("#cro").mask("*********");
 
 // Formulario cadastro validação form validator
