@@ -1,52 +1,8 @@
 
-.navbar-default {
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6bba70+0,6bba70+100;Green+Flat+%234 */
-background: rgb(107,186,112); /* Old browsers */
-background: -moz-linear-gradient(top,  rgba(107,186,112,1) 0%, rgba(107,186,112,1) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top,  rgba(107,186,112,1) 0%,rgba(107,186,112,1) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom,  rgba(107,186,112,1) 0%,rgba(107,186,112,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6bba70', endColorstr='#6bba70',GradientType=0 ); /* IE6-9 */
 
-     box-shadow: 0px 2px 3px #dff0d8 !important;
-    -webkit-box-shadow: 0px 2px 3px #dff0d8 !important;
-    border-bottom: 1px solid #ccc !important;
-}
-
-/*Panel formatação*/
-.panel-primary>.panel-heading {
-    background-color: #6bba70 !important;
-    border-color: #6bba70 !important;
-}
-
-.panel-primary {
-    border-color: #6bba70 !important;
-}
-
-.navbar-default .navbar-nav>li>a {
-    color: #F2F2F2 !important;
-    
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-    color: #fff !important;
-    /*text-decoration: underline !important;*/
-}
-
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
-    color: #FFF !important;
-    background: #59B15E !important;
-}
-
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-    color: #737373 !important;
-    background: #fff !important;
-}
-
-
-.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
-   
-    background-color: #3c9a5f !important;
-    
+/*Formatação campos horarios de atendimentos*/
+#dom-1, #dom-2, #seg-1, #seg-2, #ter-1, #ter-2, #qua-1, #qua-2, #qui-1, #qui-2, #sex-1, #sex-2, #sab-1, #sab-2{
+  text-align: center;
 }
 
 /* Incluimos aqui a fonte do site */
@@ -64,23 +20,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6bba70', end
     font-family: 'Abel', sans-serif;
 }
 
-.panel{
-    box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-}
-
-
-.table-text-center th, td
-{
-    text-align: center !important;
-    vertical-align: middle !important;
-}
 
 
 
 
 
+
+/* Inputs formatação extra */
 .form-compact {
   font-size: 0.8em;
   margin-bottom: 8px;
@@ -88,33 +34,30 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6bba70', end
 
 .form-compact .form-control {
   padding: 2px 2px;
-  height: 24px;
-  font-size:1em;
-  
+  height: auto;
+  font-size:1.2em;
+  text-align: center;
+
 }
 .form-compact label {
   margin-bottom: 1px;
 }
 .form-compact .form-group
 {
-  margin-bottom:0px;
+  margin-bottom: 0px;
 }
 
-
-/*Cores*/
-
-.green{
-    color: #3c9a5f !important;
-    background-color: #3c9a5f !important;
-    
+/*  Input border radius*/
+.form-control{
+    border-radius: 2px !important;
 }
 
-/*Agenda*/
+/* Agenda correções */
 .panel-refresh {
  height:250px;
  position:relative;
 }
- 
+
 .refresh-container {
  position:absolute;
  top:0;
@@ -130,7 +73,3 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6bba70', end
  padding: 30px;
  opacity: 0.8;
 }
-
-
-/*Agenda select*/
-
