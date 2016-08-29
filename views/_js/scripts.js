@@ -43,7 +43,7 @@ $('#tel-cel').inputmask({
 mask: '(99) 99999-9999'
 });
 
-$("#nascimento, #ini-ativi, #fim-ativi").inputmask({
+$("#nasc, #ini-ativi, #fim-ativi").inputmask({
 mask: '99/99/9999'
 });
 
@@ -51,6 +51,18 @@ $("#dom-1, #dom-2, #seg-1, #seg-2, #ter-1, #ter-2, #qua-1, #qua-2, #qui-1, #qui-
 .inputmask({
 mask: '99:99'
 });
+
+$('.uf').inputmask({
+mask: 'aa'
+});
+
+
+$('#from, #to').inputmask({
+mask: '99/99/9999 99:99'
+});
+
+
+
 
 // Agenda mascara
 
@@ -129,7 +141,7 @@ $(document).ready(function(){
 
 // Agenda popup inserção
  $(function () {
-    $('#from').datetimepicker({
+    $('#from, #to').datetimepicker({
         language: 'pt-BR',
         format: 'dd/mm/yyyy hh:ii',
         autoclose: true,
@@ -137,15 +149,5 @@ $(document).ready(function(){
         minuteStep: 1,
         pickerPosition: 'bottom-left',
         minDate: new Date()
-    });
-
-    $('#to').datetimepicker({
-        language: 'pt-BR',
-        format: 'dd/mm/yyyy hh:ii',
-        autoclose: true,
-        todayBtn: true,
-        minuteStep: 1,
-        pickerPosition: 'bottom-left',
-        minDate: new Date()
-    });
+    }); 
 });

@@ -7,6 +7,7 @@
     $modelo->get_register_form(chk_array($parametros, 1));
     $modelo->del_user($parametros);
     ?>
+     
     <div class="col-md-0"></div>
     <div class="col-md-12">
         <h4 class="text-center">CADASTRO DE PESSOAL</h4>
@@ -22,14 +23,17 @@
             <div class="row form-compact">
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
-                        <div class="fileinput-preview thumbnail"  data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                        <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
+                            <img src="<?= HOME_URI ?>/views/img/padrao.png" alt="...">
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                         <div>
-                            <span class="btn btn-default btn-file"><span class="fileinput-new">Escolher foto</span>
-                                <span class="fileinput-exists">Mudar foto</span>
-                                <input type="file" id="fileUpload" name="foto">
+                            <span class="btn btn-default btn-file">
+                                <span class="fileinput-new">Selecionar imagem</span>
+                                <span class="fileinput-exists">Alterar</span>
+                                <input type="file" name="img-perfil">
                             </span>
                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
-
                         </div>
                     </div>
                 </div>
@@ -43,32 +47,20 @@
                 echo htmlentities(chk_array($modelo->form_data, 'clinic_name'));
                 ?>" class="form-control" id="clinic_name" required >
                                     </div>-->
-
-
-
-
-
                 <!--<div class="form-group">
                     <label for="user_user">Seu usuário:</label>
                     <input type="text" name="user_user"  class="form-control" placeholder="Usuário a ser utilizado para entrar no sistema..." id="user_user" value="<?php
                 echo htmlentities(chk_array($modelo->form_data, 'user_user'));
                 ?>" >
                 </div>-->
-
-
-
-
-
-
                 <div class="row form-compact">
                     <div class="form-group col-md-4 col-sm-4 col-xs-12">
                         <label for="user_name">Nome:</label>
-                        <input type="text" name="user_name" placeholder="Digite aqui o nome completo do usuário... " value="<?php
+                        <input type="text" name="user_name" placeholder="Nome completo... " value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'user_name'));
                         ?>" class="form-control" id="user_name" 
                                data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
-                               data-validation-help="Digite um nome com (3) ou mais caracteres."
-                               >
+                               data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
                     </div>
 
@@ -83,9 +75,11 @@
                         <input id="rg" name="rg" class="form-control" type="text" placeholder="0.000.000">
                         <br>
                     </div>
+
+
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="nascimento">Data de nascimento:</label>
-                        <input id="nascimento" name="nascimento" class="form-control" type="text" placeholder="dd/mm/aaaa">
+                            <input id="nasc" name="nasc" class="form-control" type="text" placeholder="dd/mm/aaaa" >
                         <br>
                     </div>
 
@@ -112,40 +106,41 @@
                         <br>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-4 col-sm-4 col-xs-6">
                         <label for="name-pai">Nome do pai:</label>
-                        <input name="name-pai" class="form-control" type="text" placeholder="Aqui nome do pai...">
+                        <input name="name-pai" class="form-control" type="text" placeholder="Nome do pai...">
                         <br>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-4 col-sm-4 col-xs-6">
                         <label for="name-mae">Nome da mãe:</label>
-                        <input name="name-mae" class="form-control" type="text" placeholder="Aqui nome da mãe...">
+                        <input name="name-mae" class="form-control" type="text" placeholder="Nome da mãe...">
                         <br>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
+
+
+
+                </div>
+                <div class="row form-compact">
+                    <div class="form-group col-md-4 col-sm-4 col-xs-6">
                         <label for="endereco">Endereço:</label>
-                        <input name="endereco" class="form-control" type="text" placeholder="Digite aqui o endereço...">
+                        <input name="endereco" class="form-control" type="text" placeholder="Endereço...">
 
                     </div>
 
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="bairro">Bairro:</label>
-                        <input name="bairro" class="form-control" type="text" placeholder="Digite aqui o baiiro...">
+                        <input name="bairro" class="form-control" type="text" placeholder="Bairro...">
                     </div>
-
-
-                </div>
-                <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="cidade">Cidade:</label>
-                        <input name="cidade" class="form-control" type="text" placeholder="Digite aqui a cidade...">
+                        <input name="cidade" class="form-control" type="text" placeholder="Cidade...">
 
                     </div>
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-1 col-sm-4 col-xs-6">
                         <label for="estado">UF:</label>
-                        <input name="estado" class="form-control" type="text" placeholder="Digite aqui o Estado...">
+                        <input name="estado" class="form-control uf" type="text" placeholder="UF">
                         <br>
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
@@ -153,6 +148,10 @@
                         <input id="cep" name="cep" class="form-control" type="text" placeholder="00000-000">
 
                     </div>
+
+                </div>
+
+                <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="esp-1">Área de especialização 1:</label>
                         <select name="esp-1" class="form-control" id="esp-1">
@@ -245,9 +244,6 @@
                         </select>
 
                     </div>
-                </div>
-
-                <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-2 col-xs-6">
                         <label for="cro">CRO:</label>
                         <input id="cro" name="cro" class="form-control" type="text" placeholder="DF-AAA-000">
@@ -263,13 +259,19 @@
                         <br>
                     </div>
 
+
+                </div>
+
+                <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="ini-ativi">início de atividades  na clínica:</label>
-                        <input name="ini-ativi" id="ini-ativi" class="form-control" type="text" placeholder="dd/mm/aaaa">                            </div>
+                        <input name="ini-ativi" id="ini-ativi" class="form-control" type="text" placeholder="dd/mm/aaaa">                            
+                    </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="fim-ativi">Fim de atividades na clínica:</label>
                         <input name="fim-ativi" id="fim-ativi" class="form-control" type="text" placeholder="dd/mm/aaaa">
                     </div>
+
                 </div>
             </fieldset>
 
@@ -278,7 +280,7 @@
             <fieldset>
                 <legend>Horário de Atendimento</legend>
                 <div class="row form-compact">
-                    <div class="form-group col-md-1 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="dom-1">Domingo:</label>
                         <input name="dom-1" id="dom-1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
@@ -286,7 +288,7 @@
                         <br>
                     </div>
 
-                    <div class="form-group col-md-1 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="seg-1">Segunda-feira:</label>
                         <input name="seg-1" id="seg-1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
@@ -294,7 +296,7 @@
                         <br>
                     </div>
 
-                    <div class="form-group col-md-1 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="ter-1">Terça-feira:</label>
                         <input name="ter-1" id="ter-1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
@@ -302,7 +304,7 @@
                         <br>
                     </div>
 
-                    <div class="form-group col-md-1 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="qua-1">Quarta-feira:</label>
                         <input name="qua-1" id="qua-1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
@@ -310,7 +312,7 @@
                         <br>
                     </div>
 
-                    <div class="form-group col-md-1 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="qui-1">Quinta-feira:</label>
                         <input name="qui-1" id="qui-1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
@@ -318,7 +320,7 @@
                         <br>
                     </div>
 
-                    <div class="form-group col-md-1 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="sex-1">Sexta-feira:</label>
                         <input name="sex-1" id="sex-1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
@@ -329,14 +331,12 @@
                 </div>
 
                 <div class="row form-compact">
-                    <div class="form-group col-md-1 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="sab-1">Sábado:</label>
                         <input name="sab-1" id="sab-1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
                         <input name="sab-2" id="sab-2" class="form-control" type="text" placeholder="hh:mm">
-
                     </div>
-
                 </div>
             </fieldset>
             <hr>
@@ -352,18 +352,16 @@
                     <div class="form-group col-md-3 col-sm-3 col-xs-6">
                         <label for="user_password"> Senha: </label>
                         <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..."
-                               value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>"
-                               >
-
+                               value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
                     </div>
                 </div>
                 <br>
             </fieldset>
-            <button type="submit" class="btn btn-primary" title="Cadastrar" >Cadastra
+            <button type="submit" class="btn btn-default" title="Cadastrar" >Cadastra
                 <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
             </button>
-            <a href="<?php echo HOME_URI ?>/users/" class="btn btn-primary">Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i></a>
-            <button type="reset" class="btn btn-success">Limpar <i class="glyphicon glyphicon-erase" aria-hidden="true"></i></button>
+            <a href="<?php echo HOME_URI ?>/users/" class="btn btn-default">Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i></a>
+            <button type="reset" class="btn btn-warning">Limpar <i class="glyphicon glyphicon-erase" aria-hidden="true"></i></button>
         </form>
 
     </div>

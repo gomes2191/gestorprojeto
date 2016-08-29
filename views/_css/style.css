@@ -33,12 +33,14 @@
 }
 
 .form-compact .form-control {
-  padding: 2px 2px;
-  height: auto;
+  /*padding: 2px 2px;*/
+  /*height: auto;*/
   font-size:1.2em;
   text-align: center;
 
 }
+
+
 .form-compact label {
   margin-bottom: 1px;
 }
@@ -48,9 +50,9 @@
 }
 
 /*  Input border radius*/
-.form-control{
+/*.form-control{
     border-radius: 2px !important;
-}
+}*/
 
 /* Agenda correções */
 .panel-refresh {

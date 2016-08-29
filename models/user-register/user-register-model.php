@@ -62,7 +62,7 @@ class UserRegisterModel {
         $this->form_data = array();
 
         // Verifica se algo foi postado
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST)) {
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
 
             // Faz o loop dos dados do post
             foreach ($_POST as $key => $value) {
@@ -70,23 +70,29 @@ class UserRegisterModel {
                 // e remove todo e qualquer tipo de tags que venham a ser passsado nos campos
                 $this->form_data[$key] = filter_var($value, FILTER_SANITIZE_STRING);
                 
-                
-
-                // Nós não permitiremos nenhum campos em branco
-                if (empty($value)) {
-
-                    // Configura a mensagem
-                    $this->form_msg = '
-                    <div class="alert alert-warning alert-dismissible fade in">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Opa!</strong> Você deixou campos em brancos.
-                    </div> ';
-
-                    // Termina
-                    return;
+                if($this->form_data['user_name'] == '')  {
+                    
+                    print 'erro';
+                    
                 }
+
+
+
+//                // Nós não permitiremos nenhum campos em branco
+//                if (empty($value)) {
+//
+//                    // Configura a mensagem
+//                    $this->form_msg = '
+//                    <div class="alert alert-warning alert-dismissible fade in">
+//                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+//                            <span aria-hidden="true">&times;</span>
+//                        </button>
+//                        <strong>Opa!</strong> Você deixou campos em brancos.
+//                    </div> ';
+//
+//                    // Termina
+//                    return;
+//                }
             }
         } else {
             // Termina se nada foi enviado

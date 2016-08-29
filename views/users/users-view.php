@@ -24,7 +24,7 @@
         <hr>
         
         <div class="input-group-sm">
-            <a href="<?php echo HOME_URI; ?>/user-register/" title="Adiciona um usuário no sistema." class="btn btn-primary btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar usuário </a>
+            <a href="<?php echo HOME_URI; ?>/user-register/" title="Adiciona um usuário no sistema." class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar usuário </a>
         </div>
         <br>
                 

@@ -250,7 +250,7 @@
                     <div class="form-group">
                         <label for="from">Começa as:</label>
                         <div class='input-group date' id='from'>
-                            <input type='text' class="form-control" id="from-input"  name="from" placeholder="00/00/0000 00:00" />
+                            <input type='text' class="form-control" id="from"  name="from" placeholder="00/00/0000 00:00" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -260,7 +260,7 @@
                     <div class="form-group">
                         <label for="to">Termina as:</label>
                         <div class='input-group date' id='to'>
-                            <input type='text' class="form-control" id="to-input" name="to" placeholder="00/00/0000 00:00" />
+                            <input type='text' class="form-control" id="to" name="to" placeholder="00/00/0000 00:00" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
