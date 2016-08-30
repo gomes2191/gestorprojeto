@@ -495,19 +495,18 @@ class UserRegisterModel {
         );
         
         // Cria a imagem sobrescrevendo a anterior
-             switch ($tipo_imagem)
-        {
-            case 'image/jpeg':
-              imagejpeg( $image_new, $tmp_imagem);
-            break;
-            case 'image/gif':
-                imagegif( $image_new, $tmp_imagem);
-            break;
-            case 'image/png':
-                imagepng( $image_new, $tmp_imagem);
-            break;
-            default:
-                die('Invalid image type');
+             switch ($tipo_imagem){
+				    case 'image/jpeg':
+				      	imagejpeg( $image_new, $tmp_imagem);
+				    break;
+				    case 'image/gif':
+				        imagegif( $image_new, $tmp_imagem);
+				    break;
+				    case 'image/png':
+				        imagepng( $image_new, $tmp_imagem);
+				    break;
+				    default:
+				        die('Invalid image type');
         }
         
        // Remove as imagens temporárias
