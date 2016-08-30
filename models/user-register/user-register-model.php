@@ -430,20 +430,96 @@ class UserRegisterModel {
         }
         
         // Configura os dados da imagem
-        $imagem = $_FILES['img_perfil'];
-
+        $imagem_atri = $_FILES['img_perfil'];
+        
+        
         // Nome e extensão
-        $nome_imagem = strtolower($imagem['name']);
-        $ext_imagem = explode('.', $nome_imagem);
-        $ext_imagem = end($ext_imagem);
-        $nome_imagem = preg_replace('/[^a-zA-Z0-9]/', '', $nome_imagem);
-        $nome_imagem .= '_' . mt_rand() . '.' . $ext_imagem;
+        $nome_imagem    = strtolower($imagem_atri['name']);
+        $ext_imagem     = explode('.', $nome_imagem);
+        $ext_imagem     = end($ext_imagem);
+        $nome_imagem    = preg_replace('/[^a-zA-Z0-9]/', '', $nome_imagem);
+        $nome_imagem   .= '_' . mt_rand() . '.' . $ext_imagem;
 
         // Tipo, nome temporário, erro e tamanho
-        $tipo_imagem = $imagem['type'];
-        $tmp_imagem = $imagem['tmp_name'];
-        $erro_imagem = $imagem['error'];
-        $tamanho_imagem = $imagem['size'];
+        $tipo_imagem = $imagem_atri['type'];
+        $tmp_imagem = $imagem_atri['tmp_name'];
+        $erro_imagem = $imagem_atri['error'];
+        $tamanho_imagem = $imagem_atri['size'];
+       
+        
+        // Meu metodo do sistema -------------->
+        // Retorna o identificador da imagem
+        
+        
+        
+
+        switch ($tipo_imagem)
+        {
+            case 'image/jpeg':
+               $image_format = imagecreatefromjpeg($tmp_imagem);
+            break;
+            case 'image/gif':
+               $image_format = imagecreatefromgif($tmp_imagem);
+            break;
+            case 'image/png':
+               $image_format = imagecreatefrompng($tmp_imagem);
+            break;
+            default:
+                die('Invalid image type');
+        }
+                        
+        
+        // Cria duas variáveis com a largura e altura da imagem
+        list( $largura, $altura ) = getimagesize( $tmp_imagem );
+        
+        // Nova largura e altura
+        $proporcao = 0.5;
+        $nova_largura = $largura * $proporcao;
+        $nova_altura = $altura * $proporcao;
+        
+        // Cria uma nova imagem em branco
+        $image_new = imagecreatetruecolor( $nova_largura, $nova_altura );
+        
+        // Copia a imagem para a nova imagem com o novo tamanho
+        imagecopyresampled(
+            $image_new, // Nova imagem 
+            $image_format, // Imagem original
+            0, // Coordenada X da nova imagem
+            0, // Coordenada Y da nova imagem 
+            0, // Coordenada X da imagem 
+            0, // Coordenada Y da imagem  
+            $nova_largura, // Nova largura
+            $nova_altura, // Nova altura
+            $largura, // Largura original
+            $altura // Altura original
+        );
+        
+        // Cria a imagem sobrescrevendo a anterior
+             switch ($tipo_imagem)
+        {
+            case 'image/jpeg':
+              imagejpeg( $image_new, $tmp_imagem);
+            break;
+            case 'image/gif':
+                imagegif( $image_new, $tmp_imagem);
+            break;
+            case 'image/png':
+                imagepng( $image_new, $tmp_imagem);
+            break;
+            default:
+                die('Invalid image type');
+        }
+        
+       // Remove as imagens temporárias
+        imagedestroy($image_format);
+        imagedestroy($image_new);
+ 
+        
+        // Fim meu metodo -->
+        
+        
+        
+         
 
         // Os mime types permitidos
         $permitir_tipos = array(
