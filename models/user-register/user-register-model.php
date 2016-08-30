@@ -69,12 +69,8 @@ class UserRegisterModel {
                 // Configura os dados do post para a propriedade $form_data
                 // e remove todo e qualquer tipo de tags que venham a ser passsado nos campos
                 $this->form_data[$key] = filter_var($value, FILTER_SANITIZE_STRING);
-                
-                if($this->form_data['user_name'] == '')  {
-                    
-                    print 'erro';
-                    
-                }
+
+
 
 
 
@@ -104,6 +100,22 @@ class UserRegisterModel {
             return;
         }
         
+        // Teste envio de imagem----->
+        
+        // Tenta enviar a imagem
+        $imagem = $this->upload_imagem();
+
+        // Verifica se a imagem foi enviada
+        if ( ! $imagem ) {
+                return;		
+        }
+
+        // Insere a imagem em $_POST
+        $_POST['img_perfil'] = $imagem;
+        
+        /// Fim teste de envio de imagem --->
+
+
         // Verifica se o usuário existe
         $db_check_user = $this->db->query(
                 'SELECT * FROM `users` WHERE `user_email` = ?', array(
@@ -402,5 +414,63 @@ class UserRegisterModel {
         // Preenche a tabela com os dados do usuário
         return $query->fetchAll();
     } // End get_user_list
+    
+    
+    /**
+    * Envia a imagem
+    *
+    * @since 0.1
+    * @access public
+    */
+    public function upload_imagem() {
+
+        // Verifica se o arquivo da imagem existe
+        if (empty($_FILES['img_perfil'])) {
+            return;
+        }
+        
+        // Configura os dados da imagem
+        $imagem = $_FILES['img_perfil'];
+
+        // Nome e extensão
+        $nome_imagem = strtolower($imagem['name']);
+        $ext_imagem = explode('.', $nome_imagem);
+        $ext_imagem = end($ext_imagem);
+        $nome_imagem = preg_replace('/[^a-zA-Z0-9]/', '', $nome_imagem);
+        $nome_imagem .= '_' . mt_rand() . '.' . $ext_imagem;
+
+        // Tipo, nome temporário, erro e tamanho
+        $tipo_imagem = $imagem['type'];
+        $tmp_imagem = $imagem['tmp_name'];
+        $erro_imagem = $imagem['error'];
+        $tamanho_imagem = $imagem['size'];
+
+        // Os mime types permitidos
+        $permitir_tipos = array(
+            'image/bmp',
+            'image/x-windows-bmp',
+            'image/gif',
+            'image/jpeg',
+            'image/pjpeg',
+            'image/png',
+        );
+
+        // Verifica se o mimetype enviado é permitido
+        if (!in_array($tipo_imagem, $permitir_tipos)) {
+            // Retorna uma mensagem
+            $this->form_msg = '<p class="error">Você deve enviar uma imagem.</p>';
+            return;
+        }
+
+        // Tenta mover o arquivo enviado
+        if (!move_uploaded_file($tmp_imagem, UP_ABSPATH . '/img/perfil/' . $nome_imagem)) {
+            // Retorna uma mensagem
+            $this->form_msg = '<p class="error">Erro ao enviar imagem.</p>';
+            return;
+        }
+
+        // Retorna o nome da imagem
+        return $nome_imagem;
+    } // upload_imagem
 	
 }

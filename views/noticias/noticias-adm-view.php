@@ -42,7 +42,7 @@ $modelo->sem_limite = true;
 			<tr>
 				<td>
 					Imagem: <br>
-					<input type="file" name="noticia_imagem" value="" />
+					<input type="file" name="noticia_imagem" >
 				</td>
 			</tr>
 			<tr>

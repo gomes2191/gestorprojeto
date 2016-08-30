@@ -12,16 +12,18 @@
     <div class="col-md-12">
         <h4 class="text-center">CADASTRO DE PESSOAL</h4>
 
-        <form method="post" role="form" class="validate-form">
+        <form enctype="multipart/form-data" method="post" role="form" class="validate-form">
 
             <?php
-            echo $modelo->form_msg;
-            var_dump($modelo->form_data);
+                echo $modelo->form_msg;
+                $modelo->form_data;
             ?>
 
 
             <div class="row form-compact">
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                    
+                    
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
                             <img src="<?= HOME_URI ?>/views/img/padrao.png" alt="...">
@@ -31,14 +33,14 @@
                             <span class="btn btn-default btn-file">
                                 <span class="fileinput-new">Selecionar imagem</span>
                                 <span class="fileinput-exists">Alterar</span>
-                                <input type="file" name="img-perfil">
+                                <input type="file"  name="img_perfil" >
                             </span>
                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                         </div>
                     </div>
                 </div>
             </div>
-
+            
             <fieldset>
                 <legend>Informações cadastrais</legend>
                 <!--                    <div class="form-group">
