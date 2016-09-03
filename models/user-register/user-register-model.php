@@ -99,20 +99,20 @@ class UserRegisterModel {
         if (empty($this->form_data)) {
             return;
         }
-        
+
         // Teste envio de imagem----->
-        
+
         // Tenta enviar a imagem
         $imagem = $this->upload_imagem();
 
         // Verifica se a imagem foi enviada
         if ( ! $imagem ) {
-                return;		
+                return;
         }
 
         // Insere a imagem em $_POST
         $_POST['img_perfil'] = $imagem;
-        
+
         /// Fim teste de envio de imagem --->
 
 
@@ -257,14 +257,14 @@ class UserRegisterModel {
             ));
 
             $user_clinic_id = $this->db->lastInsertId();
-            
+
             // Executa a consulta
             $query = $this->db->insert('users', array(
                 //'user_user' => chk_array($this->form_data, 'user_user'),
                 'user_name' => chk_array($this->form_data, 'user_name'),
                 'user_email' => $user_email,
                 'user_password' => $password,
-                'user_session_id' => md5(time()),                
+                'user_session_id' => md5(time()),
                 'user_clinic_id' => $user_clinic_id,
                 'user_role_id' => $role_id,
                 'user_status' => $user_status,
@@ -366,9 +366,9 @@ class UserRegisterModel {
 
         // Verifica se existe o parâmetro "del" na URL
         if (chk_array($parametros, 0) == 'del') {
-            
+
             //Era aqui
-            
+
             // Verifica se o valor do parâmetro é um número
             if (
                     is_numeric(chk_array($parametros, 1)) && chk_array($parametros, 2) == 'confirma'
@@ -402,7 +402,7 @@ class UserRegisterModel {
      * @since 0.1
      * @access public
      */
-    public function get_user_list() { 
+    public function get_user_list() {
 
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
@@ -414,138 +414,150 @@ class UserRegisterModel {
         // Preenche a tabela com os dados do usuário
         return $query->fetchAll();
     } // End get_user_list
-    
-    
+
+
     /**
     * Envia a imagem
     *
     * @since 0.1
     * @access public
     */
-    public function upload_imagem() {
+   public function upload_imagem() {
+
+
+        /*
+         * @var $imagem_atri recebe os valores referente a imagem.
+         * @var $erro_imagem recebe o valor referente ao erro "0" não ouve erro maior que zero ouve erro.
+         */
+        $imagem_atri = $_FILES['img_perfil'];
+        $erro_imagem = $imagem_atri['error'];
 
         // Verifica se o arquivo da imagem existe
-        if (empty($_FILES['img_perfil'])) {
+        if ($erro_imagem > 0) {
+
+            // Destroi as variáveis não utilizadas
+            unset($imagem_atri);
+            unset($erro_imagem);
             return;
+        } else {
+            
+            $tipo_imagem = $imagem_atri['type'];
+            
+            if(){
+            /* Aqui pegamos alguns atributos da imagem
+             * 
+             * @var $nome_imagem variável que recebe o nome da imagem.
+             * @var $ext_imagem variável que recebe a extensão da imagem.
+             *
+             */
+            $temp_name = strtolower($imagem_atri['name']);
+            $temp_ext = explode('.', $temp_name);
+            $ext_imagem = \end($temp_ext);
+            $nome_imagem = preg_replace('/&([a-z])[a-z]+;/i', '', htmlentities($temp_name));
+            $nome_imagem .= mt_rand() . '.' . $ext_imagem;
+
+            // Destroy as variáveis que não serão mais utilizadas
+            unset($temp_name);
+            unset($temp_ext);
+
+            // Tipo, nome temporário, erro e tamanho
+            
+            $tmp_imagem = $imagem_atri['tmp_name'];
+            //$erro_imagem = $imagem_atri['error'];
+            //$tamanho_imagem = $imagem_atri['size'];
+            
+            /*
+             * Verifca o tipo da imagem e cria um novo stream de imagem GD
+             */ 
+            switch ($tipo_imagem) {
+                case 'image/jpeg':
+                    $image_format = imagecreatefromjpeg($tmp_imagem);
+                    break;
+                case 'image/gif':
+                    $image_format = imagecreatefromgif($tmp_imagem);
+                    break;
+                case 'image/png':
+                    $image_format = imagecreatefrompng($tmp_imagem);
+                    break;
+                default:
+                    return $this->form_msg = 'Imagem adicionada não suportada pelo sistema';
+            }
+
+
+            // Cria duas variáveis com a largura e altura da imagem
+            list( $largura, $altura ) = getimagesize($tmp_imagem);
+
+            // Nova largura e altura
+            //$proporcao = 0.5;
+            //$nova_largura = $largura * $proporcao;
+            //$nova_altura = $altura * $proporcao;
+            $nova_largura = 150;
+            $nova_altura = 150;
+
+            // Cria uma nova imagem em branco
+            $image_new = imagecreatetruecolor($nova_largura, $nova_altura);
+
+            // Copia a imagem para a nova imagem com o novo tamanho
+            imagecopyresampled(
+                    $image_new, // Nova imagem
+                    $image_format, // Imagem original
+                    0, // Coordenada X da nova imagem
+                    0, // Coordenada Y da nova imagem
+                    0, // Coordenada X da imagem
+                    0, // Coordenada Y da imagem
+                    $nova_largura, // Nova largura
+                    $nova_altura, // Nova altura
+                    $largura, // Largura original
+                    $altura // Altura original
+            );
+
+            // Cria a imagem sobrescrevendo a anterior
+            switch ($tipo_imagem) {
+                case 'image/jpeg':
+                    imagejpeg($image_new, $tmp_imagem);
+                    break;
+                case 'image/gif':
+                    imagegif($image_new, $tmp_imagem);
+                    break;
+                case 'image/png':
+                    imagepng($image_new, $tmp_imagem);
+                    break;
+                default:
+                    die('O formato de imagem enviado não e permitido');
+            }
+
+            // Remove as imagens temporárias
+            imagedestroy($image_format);
+            imagedestroy($image_new);
+
+
+            // Fim meu metodo -->
+            // Os mime types permitidos
+            $permitir_tipos = array(
+                'image/bmp',
+                'image/x-windows-bmp',
+                'image/gif',
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+            );
+
+            // Verifica se o mimetype enviado é permitido
+            if (!in_array($tipo_imagem, $permitir_tipos)) {
+                // Retorna uma mensagem
+                $this->form_msg = '<p class="error">Você deve enviar uma imagem.</p>';
+                return;
+            }
+
+            // Tenta mover o arquivo enviado
+            if (!move_uploaded_file($tmp_imagem, UP_ABSPATH . '/img/perfil/' . $nome_imagem)) {
+                // Retorna uma mensagem
+                $this->form_msg = '<p class="error">Erro ao enviar imagem.</p>';
+                return;
+            }
+            // Retorna o nome da imagem
+            return $nome_imagem;
+            }
         }
-        
-        // Configura os dados da imagem
-        $imagem_atri = $_FILES['img_perfil'];
-        
-        
-        // Nome e extensão
-        $nome_imagem    = strtolower($imagem_atri['name']);
-        $ext_imagem     = explode('.', $nome_imagem);
-        $ext_imagem     = end($ext_imagem);
-        $nome_imagem    = preg_replace('/[^a-zA-Z0-9]/', '', $nome_imagem);
-        $nome_imagem   .= '_' . mt_rand() . '.' . $ext_imagem;
-
-        // Tipo, nome temporário, erro e tamanho
-        $tipo_imagem = $imagem_atri['type'];
-        $tmp_imagem = $imagem_atri['tmp_name'];
-        $erro_imagem = $imagem_atri['error'];
-        $tamanho_imagem = $imagem_atri['size'];
-       
-        
-        // Meu metodo do sistema -------------->
-        // Retorna o identificador da imagem
-        
-        
-        
-
-        switch ($tipo_imagem)
-        {
-            case 'image/jpeg':
-               $image_format = imagecreatefromjpeg($tmp_imagem);
-            break;
-            case 'image/gif':
-               $image_format = imagecreatefromgif($tmp_imagem);
-            break;
-            case 'image/png':
-               $image_format = imagecreatefrompng($tmp_imagem);
-            break;
-            default:
-                die('Invalid image type');
-        }
-                        
-        
-        // Cria duas variáveis com a largura e altura da imagem
-        list( $largura, $altura ) = getimagesize( $tmp_imagem );
-        
-        // Nova largura e altura
-        $proporcao = 0.5;
-        $nova_largura = $largura * $proporcao;
-        $nova_altura = $altura * $proporcao;
-        
-        // Cria uma nova imagem em branco
-        $image_new = imagecreatetruecolor( $nova_largura, $nova_altura );
-        
-        // Copia a imagem para a nova imagem com o novo tamanho
-        imagecopyresampled(
-            $image_new, // Nova imagem 
-            $image_format, // Imagem original
-            0, // Coordenada X da nova imagem
-            0, // Coordenada Y da nova imagem 
-            0, // Coordenada X da imagem 
-            0, // Coordenada Y da imagem  
-            $nova_largura, // Nova largura
-            $nova_altura, // Nova altura
-            $largura, // Largura original
-            $altura // Altura original
-        );
-        
-        // Cria a imagem sobrescrevendo a anterior
-             switch ($tipo_imagem){
-				    case 'image/jpeg':
-				      	imagejpeg( $image_new, $tmp_imagem);
-				    break;
-				    case 'image/gif':
-				        imagegif( $image_new, $tmp_imagem);
-				    break;
-				    case 'image/png':
-				        imagepng( $image_new, $tmp_imagem);
-				    break;
-				    default:
-				        die('Invalid image type');
-        }
-        
-       // Remove as imagens temporárias
-        imagedestroy($image_format);
-        imagedestroy($image_new);
- 
-        
-        // Fim meu metodo -->
-        
-        
-        
-         
-
-        // Os mime types permitidos
-        $permitir_tipos = array(
-            'image/bmp',
-            'image/x-windows-bmp',
-            'image/gif',
-            'image/jpeg',
-            'image/pjpeg',
-            'image/png',
-        );
-
-        // Verifica se o mimetype enviado é permitido
-        if (!in_array($tipo_imagem, $permitir_tipos)) {
-            // Retorna uma mensagem
-            $this->form_msg = '<p class="error">Você deve enviar uma imagem.</p>';
-            return;
-        }
-
-        // Tenta mover o arquivo enviado
-        if (!move_uploaded_file($tmp_imagem, UP_ABSPATH . '/img/perfil/' . $nome_imagem)) {
-            // Retorna uma mensagem
-            $this->form_msg = '<p class="error">Erro ao enviar imagem.</p>';
-            return;
-        }
-
-        // Retorna o nome da imagem
-        return $nome_imagem;
-    } // upload_imagem
-	
+    }// upload_imagem
 }
