@@ -1,7 +1,16 @@
-$('#popoverOption').popover({ trigger: "hover" });
 
-// Alerta tela de cadastro empresa
-$(".alert").delay(200).addClass("in").fadeOut(9000);
+// Mensagens do sistemas
+$(document).ready( function(){
+    //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
+    $(".alert").hide();
+    $(".alert").alert();
+    $(".alert").fadeTo(8500, 2000).slideUp(800, function(){
+    $(".alert").slideUp(800);
+    });
+    
+    // Popup alerta
+    $('#popoverOption').popover({ trigger: "hover" });
+});
 
 // Faz com que o menu selecionado fique ativo =====>
 var url = window.location;

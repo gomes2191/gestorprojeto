@@ -18,8 +18,6 @@
                 echo $modelo->form_msg;
                 $modelo->form_data;
             ?>
-
-
             <div class="row form-compact">
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
                     
