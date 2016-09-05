@@ -8,8 +8,8 @@
     $modelo->del_user($parametros);
     ?>
      
-    <div class="col-md-0"></div>
-    <div class="col-md-12">
+    <div class="col-md-0 col-xs-0"></div>
+    <div class="col-md-12  col-xs-12">
         <h4 class="text-center">CADASTRO DE PESSOAL</h4>
 
         <form enctype="multipart/form-data" method="post" role="form" class="validate-form">
@@ -18,8 +18,6 @@
                 echo $modelo->form_msg;
                 $modelo->form_data;
             ?>
-
-
             <div class="row form-compact">
                 <div class="form-group col-md-4 col-sm-4 col-xs-12">
                     
@@ -359,13 +357,22 @@
                 </div>
                 <br>
             </fieldset>
-            <button type="submit" class="btn btn-default" title="Cadastrar" >Cadastra
-                <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
-            </button>
-            <a href="<?php echo HOME_URI ?>/users/" class="btn btn-default">Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i></a>
-            <button type="reset" class="btn btn-warning">Limpar <i class="glyphicon glyphicon-erase" aria-hidden="true"></i></button>
+            <div class="btn-group">
+                <button id="teste" type="submit" class="btn btn-default" title="Cadastrar" >Cadastra
+                    <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
+                </button>
+                
+                <a href="<?php echo HOME_URI ?>/users/" class="btn btn-default">
+                    Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i>
+                </a>
+                
+                <button type="reset" class="btn btn-warning">Limpar 
+                    <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
+                </button>
+            </div>
+            
         </form>
 
     </div>
-    <div class="col-md-0"></div>
+    <div class="col-md-0 col-xs-0"></div>
 </div> <!-- /row  -->
