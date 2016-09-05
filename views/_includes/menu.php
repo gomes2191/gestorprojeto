@@ -15,7 +15,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-              <li><a href="<?= HOME_URI; ?>/" title="Página inicial"><i class="glyphicon glyphicon-home" aria-hidden="true"></i> HOME</a></li>
+            <li><a href="<?= HOME_URI; ?>/" title="Página inicial"><i class="glyphicon glyphicon-home" aria-hidden="true"></i> HOME</a></li>
             <li><a href="<?= HOME_URI; ?>/agenda/" title="Agenda"><i class="fa fa-calendar" aria-hidden="true"></i> AGENDA</a></li>
             <!--<li><a href="<?= HOME_URI; ?>/exemplo/">Exemplo básico</a></li>-->
 
@@ -25,7 +25,7 @@
                   EMPRESA<span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="<?= HOME_URI; ?>/users/">Usuários</a></li>
+                <li><a href="<?= HOME_URI; ?>/users/">Controle de pessoal</a></li>
                 <li><a href="<?= HOME_URI; ?>/noticias/">Pacientes</a></li>
                 <li><a href="<?= HOME_URI; ?>/noticias/adm/">Funcionarios</a></li>
                 <li class="divider"></li>
@@ -50,6 +50,8 @@
                 <li><a href="<?= HOME_URI; ?>/noticias/adm/">Notícias Admin</a></li>-->
               </ul>
             </li>
+            
+            <li><a href="<?= HOME_URI; ?>/user-register/" title="Cadastro de pessoal"><i class="fa fa-user-plus" aria-hidden="true"></i> Cadastro de pessoal</a></li>
             <!--<li><a href="<?= HOME_URI; ?>">UTILITÁRIO</a></li>-->
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -61,4 +63,4 @@
       </div>
     </nav> <!-- Fixed navbar end -->
 
-    <div class="container"> <!-- Inicio conteudo -->
+    <div class="container-fluid"> <!-- Inicio conteudo -->

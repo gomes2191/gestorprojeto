@@ -1,15 +1,15 @@
 
 // Mensagens do sistemas
-$(document).ready( function(){
+$(document).ready(function () {
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
     $(".alert").hide();
     $(".alert").alert();
-    $(".alert").fadeTo(8500, 2000).slideUp(800, function(){
-    $(".alert").slideUp(800);
+    $(".alert").fadeTo(8500, 2000).slideUp(800, function () {
+        $(".alert").slideUp(800);
     });
-    
+
     // Popup alerta
-    $('#popoverOption').popover({ trigger: "hover" });
+    $('#popoverOption').popover({trigger: "hover"});
 });
 
 // Faz com que o menu selecionado fique ativo =====>
@@ -30,45 +30,49 @@ $('.openBtn').click(function () {
     });
 });
 
-// Form cad pessoal mascara
-$("#cpf").inputmask({
-mask: '999.999.999-99'
+// Mascara formulario cadastro de pessoal
+$(document).ready(function () {
+
+    $("#cpf").inputmask({
+        mask: '999.999.999-99'
+    });
+
+
+    $('#rg').inputmask({
+        mask: '9.999.999'
+    });
+
+    $('#cep').inputmask({
+        mask: '99999-999'
+    });
+
+    $('#tel-casa').inputmask({
+        mask: '(99) 9999-9999'
+    });
+
+    $('#tel-cel').inputmask({
+        mask: '(99) 99999-9999'
+    });
+
+    $("#nasc, #ini-ativi, #fim-ativi").inputmask({
+        mask: '99/99/9999'
+    });
+
+    $("#dom-1, #dom-2, #seg-1, #seg-2, #ter-1, #ter-2, #qua-1, #qua-2, #qui-1, #qui-2, #sex-1, #sex-2, #sab-1, #sab-2").inputmask({
+        mask: '99:99'
+    });
+
+    $('.uf').inputmask({
+        mask: 'aa'
+    });
+
+
+    $('#from, #to').inputmask({
+        mask: '99/99/9999 99:99'
+    });
+
 });
 
-
-$('#rg').inputmask({
-mask: '9.999.999'
-});
-
-$('#cep').inputmask({
-mask: '99999-999'
-});
-
-$('#tel-casa').inputmask({
-mask: '(99) 9999-9999'
-});
-
-$('#tel-cel').inputmask({
-mask: '(99) 99999-9999'
-});
-
-$("#nasc, #ini-ativi, #fim-ativi").inputmask({
-mask: '99/99/9999'
-});
-
-$("#dom-1, #dom-2, #seg-1, #seg-2, #ter-1, #ter-2, #qua-1, #qua-2, #qui-1, #qui-2, #sex-1, #sex-2, #sab-1, #sab-2")
-.inputmask({
-mask: '99:99'
-});
-
-$('.uf').inputmask({
-mask: 'aa'
-});
-
-
-$('#from, #to').inputmask({
-mask: '99/99/9999 99:99'
-});
 
 
 
@@ -141,7 +145,7 @@ $.fn.refreshMe = function(opts){
 
 $(document).ready(function(){
 
-  $('#refresh1').refreshMe({
+  $('#teste').refreshMe({
     started:function(ele){ele.html("Getting new data..")},
   	completed:function(ele){ele.html("This is the new data after refresh..")}
   });
@@ -149,7 +153,9 @@ $(document).ready(function(){
 
 
 // Agenda popup inserção
- $(function () {
+
+
+ $(document).ready(function () {
     $('#from, #to').datetimepicker({
         language: 'pt-BR',
         format: 'dd/mm/yyyy hh:ii',

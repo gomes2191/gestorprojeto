@@ -102,7 +102,7 @@ class UserRegisterModel {
 
 
         // Tenta enviar a imagem
-        $imagem = $this->upload_imagem();
+       var_dump ($imagem = $this->upload_imagem()); 
 
         // Verifica se a imagem foi enviada
         if ( ! $imagem ) {
@@ -470,8 +470,9 @@ class UserRegisterModel {
                 $temp_name = strtolower($imagem_atri['name']);
                 $temp_ext = explode('.', $temp_name);
                 $ext_imagem = \end($temp_ext);
-                $nome_imagem = preg_replace('/&([a-z])[a-z]+;/i', '', htmlentities($temp_name));
-                $nome_imagem .= mt_rand() . '.' . $ext_imagem;
+                //$nome_imagem = preg_replace('/\s+/', '/[^-\.\w]+/', '', htmlentities($temp_name));
+                //$nome_imagem .= mt_rand() . '.' . $ext_imagem;
+                $nome_imagem = md5(uniqid(time())).'.'.$ext_imagem;
 
                 // Destroy as variáveis que não serão mais utilizadas
                 unset($temp_name);
@@ -539,7 +540,7 @@ class UserRegisterModel {
                         imagepng($image_new, $tmp_imagem);
                         break;
                     default:
-                        die('O formato de imagem enviado não e permitido');
+                        break;
                 }
 
                 // Remove as imagens temporárias
