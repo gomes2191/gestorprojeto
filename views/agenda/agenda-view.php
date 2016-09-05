@@ -1,15 +1,14 @@
-<?php if (!defined('ABSPATH')) exit; ?>
+<?php 
+    if (!defined('ABSPATH')) exit; 
+     // Carrega todos os métodos do modelo
+    $modelo->validate_register_form();
+    $modelo->get_register_form(chk_array($parametros, 1));
+    $modelo->del_user($parametros);
+
+    //$modelo->get_agenda_consulta(); 
+?>
 
 <div class="row-fluid">
-    <?php
-        // Carrega todos os métodos do modelo
-        $modelo->validate_register_form();
-        $modelo->get_register_form(chk_array($parametros, 1));
-        $modelo->del_user($parametros);
-        
-        //$modelo->get_agenda_consulta(); 
-    ?>
-
     <!-- Agenda bibliotecas js -->
     <script src="<?php echo HOME_URI; ?>/_agenda/js/pt-BR.js"></script>
     <script src="<?php echo HOME_URI; ?>/_agenda/js/moment.js"></script>
@@ -17,9 +16,10 @@
     <script src="<?php echo HOME_URI; ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
     <!-- Final agenda js -->
 
-    <div class="col-md-8">
+    <div class="col-md-1 col-xs-1"></div>
+    <div class="col-md-7 col-xs-7">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12">
                 
                 
                 <div style="margin: 0px; padding: 0px;" class="page-header">
@@ -68,7 +68,7 @@
         </div>
         <span><br></span>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12">
                 <div id="calendar"></div> <!-- Aqui será exibido nosso calendario -->
             </div>
         </div>
@@ -88,13 +88,18 @@
         
     </div>
     <br>
-    <div class="col-md-4">
+    
+    <div class="col-md-3 col-xs-3">
 
         <!--refresh widget-->
         <div class="panel-agenda panel panel-default">
             <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>Agendamentos</div>
             <div class="panel-body panel-refresh">
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
+                
+                <div class="refresh-data"> 
+              	
+              </div>
             </div>
         </div>
         <!--refresh widget-->
@@ -105,10 +110,13 @@
             <div class="panel-body panel-refresh">
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
                 
+              
+                
             </div>
         </div>
         <!--refresh widget-->
     </div>
+    <div class="col-md-1 col-xs-1"></div>
 </div>
 <!--ventana modal para el calendario-->
 <div class="modal fade in" id="events-modal">

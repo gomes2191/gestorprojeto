@@ -1,4 +1,14 @@
 
+
+
+$('#user-register-btn').on('click', function() {
+    var $this = $(this);
+  $this.button('loading');
+    setTimeout(function() {
+       $this.button('reset');
+   }, 1000);
+});
+
 // Mensagens do sistemas
 $(document).ready(function () {
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
@@ -66,20 +76,12 @@ $(document).ready(function () {
         mask: 'aa'
     });
 
-
+    // Agenda mascara
     $('#from, #to').inputmask({
         mask: '99/99/9999 99:99'
     });
 
 });
-
-
-
-
-
-// Agenda mascara
-
-
 //------------------> End mask
 
 // Formulario cadastro validação form validator
@@ -102,16 +104,13 @@ $.validate({
 });
 
 
-
-
-
 //Pagina agenda
 $.fn.refreshMe = function(opts){
 
       var $this = this,
           defaults = {
             ms:1500,
-            parentSelector:'.panel-agenda',
+            parentSelector:'.panel',
             started:function(){},
             completed:function(){}
           },
@@ -145,16 +144,14 @@ $.fn.refreshMe = function(opts){
 
 $(document).ready(function(){
 
-  $('#teste').refreshMe({
-    started:function(ele){ele.html("Getting new data..")},
-  	completed:function(ele){ele.html("This is the new data after refresh..")}
+  $('#refresh1').refreshMe({
+    started:function(ele){ele.html("Atualizando...")},
+  	completed:function(ele){ele.html("O quadro foi atualizado...")}
   });
 });
 
 
 // Agenda popup inserção
-
-
  $(document).ready(function () {
     $('#from, #to').datetimepicker({
         language: 'pt-BR',

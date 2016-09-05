@@ -50,7 +50,6 @@
     <script src="<?= HOME_URI;?>/views/_js/ie-emulation-modes-warning.js"></script>
     <script src="<?= HOME_URI;?>/views/_js/jasny-bootstrap.min.js"></script>
     <script src="<?= HOME_URI;?>/views/_js/form-validator/jquery.form-validator.min.js"></script>
-    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>-->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

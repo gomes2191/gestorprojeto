@@ -1,18 +1,20 @@
-<?php if (!defined('ABSPATH')) exit; ?>
+<?php if (!defined('ABSPATH')) exit; 
 
-<div class="row-fluid">
-    <?php
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
     $modelo->get_register_form(chk_array($parametros, 1));
     $modelo->del_user($parametros);
-    ?>
-     
-    <div class="col-md-0 col-xs-0"></div>
-    <div class="col-md-12  col-xs-12">
+?>
+
+
+<p id="resultado"></p>
+<div class="row-fluid">  
+    <div class="col-md-1 col-xs-1"></div>
+    <div class="col-md-10  col-xs-10">
         <h4 class="text-center">CADASTRO DE PESSOAL</h4>
 
-        <form enctype="multipart/form-data" method="post" role="form" class="validate-form">
+        <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
+            
 
             <?php
                 echo $modelo->form_msg;
@@ -132,12 +134,14 @@
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="bairro">Bairro:</label>
                         <input name="bairro" class="form-control" type="text" placeholder="Bairro...">
+                        <br>
                     </div>
+                    
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="cidade">Cidade:</label>
                         <input name="cidade" class="form-control" type="text" placeholder="Cidade...">
-
                     </div>
+                    
                     <div class="form-group col-md-1 col-sm-4 col-xs-6">
                         <label for="estado">UF:</label>
                         <input name="estado" class="form-control uf" type="text" placeholder="UF">
@@ -212,6 +216,7 @@
                             <option value="23">Radiologia Odontologica e Imaginologia</option>
                             <option value="24">Saúde Coletiva</option>
                         </select>
+                        <br>
 
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
@@ -247,7 +252,7 @@
                     <div class="form-group col-md-2 col-sm-2 col-xs-6">
                         <label for="cro">CRO:</label>
                         <input id="cro" name="cro" class="form-control" type="text" placeholder="DF-AAA-000">
-
+                        <br>
                     </div>
 
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
@@ -258,7 +263,6 @@
                         </select>
                         <br>
                     </div>
-
 
                 </div>
 
@@ -358,21 +362,24 @@
                 <br>
             </fieldset>
             <div class="btn-group">
-                <button id="teste" type="submit" class="btn btn-default" title="Cadastrar" >Cadastra
+                <button id="user-register-btn" type="submit" class="btn btn-default" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >Cadastra
                     <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
                 </button>
-                
+            </div>
+            <div class="btn-group">
                 <a href="<?php echo HOME_URI ?>/users/" class="btn btn-default">
                     Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i>
                 </a>
+            </div>
+            <div class="btn-group">
                 
                 <button type="reset" class="btn btn-warning">Limpar 
                     <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
                 </button>
             </div>
             
+            
         </form>
-
     </div>
-    <div class="col-md-0 col-xs-0"></div>
+    <div class="col-md-1 col-xs-1"></div>
 </div> <!-- /row  -->
