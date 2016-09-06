@@ -155,6 +155,11 @@ $(document).ready(function(){
  $(document).ready(function () {
     $('#from, #to').datetimepicker({
         language: 'pt-BR',
+        clearBtn: true,
+        beforeShowMonth: true,
+        immediateUpdates: true,
+        inputs: true,
+        weekStart: true,
         format: 'dd/mm/yyyy hh:ii',
         autoclose: true,
         todayBtn: true,
