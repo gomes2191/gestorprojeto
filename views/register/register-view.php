@@ -1,16 +1,20 @@
-<?php if (!defined('ABSPATH')) exit; ?>
+<?php 
+    if (!defined('ABSPATH')) exit;
+    
+    // Carrega todos os métodos do modelo
+    $modelo->validate_register_form();
+    $modelo->get_register_form(chk_array($parametros, 1));
+    $modelo->del_user($parametros);
+?>
 
 
 
 <div class="row-fluid">
-    <?php
-        // Carrega todos os métodos do modelo
-        $modelo->validate_register_form();
-        $modelo->get_register_form(chk_array($parametros, 1));
-        $modelo->del_user($parametros);
-    ?>
-    <div class="col-md-8"> <h4>Seja Bem-vindo</h4></div>
-    <div class="col-md-4">
+    <div class="col-md-1 col-md-1"></div>
+    <div class="col-md-6 col-sm-6"> 
+        <h4>Seja Bem-vindo</h4>
+    </div>
+    <div class="col-md-4 col-sm-4">
         <div class="panel ">
           <div class="panel-heading">
             <h3 class="panel-title text-center">Cadastra-se</h3>
@@ -89,4 +93,5 @@
             <div class="panel-footer"> <small>Veja nosso contrato de prestação de serviço. <a href="#" title="Leia nosso termo de uso"> Leia-me</a></small> </div>
         </div>
     </div>
-</div> <!-- /row  -->
+    <div class="col-md-1 col-md-1"></div>
+</div> <!-- /row fluid  -->
