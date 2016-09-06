@@ -143,7 +143,6 @@ $.fn.refreshMe = function(opts){
 }/* end function refreshMe */
 
 $(document).ready(function(){
-
   $('#refresh1').refreshMe({
     started:function(ele){ele.html("Atualizando...")},
   	completed:function(ele){ele.html("O quadro foi atualizado...")}
