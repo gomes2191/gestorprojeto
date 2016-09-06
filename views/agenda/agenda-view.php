@@ -1,12 +1,14 @@
 <?php
-if (!defined('ABSPATH'))
-    exit;
-// Carrega todos os métodos do modelo
-$modelo->validate_register_form();
-$modelo->get_register_form(chk_array($parametros, 1));
-$modelo->del_user($parametros);
+    if (!defined('ABSPATH')){
+        exit;
+    }
+    
+    // Carrega todos os métodos do modelo
+    $modelo->validate_register_form();
+    $modelo->get_register_form(chk_array($parametros, 1));
+    $modelo->del_user($parametros);
 
-//$modelo->get_agenda_consulta(); 
+    //$modelo->get_agenda_consulta(); 
 ?>
 
 <div class="row-fluid">
@@ -21,107 +23,60 @@ $modelo->del_user($parametros);
     <div class="col-md-7 col-sm-7">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                
                 <!--refresh widget-->
-        <div>
-            <div class="agenda-date">
-                    <h5></h5>
-            </div>
-            <div style="background-color: rgb(245, 245, 245); padding: 4px; border-radius: 3px;" >
-                
-                 <div class="btn-group">
-                
-                    <button title="click para agendar sua consulta" class="btn btn-sm btn-default" data-toggle='modal' data-target='#add_evento'>
-                        AGENDAR CONSULTA <i class="fa fa-calendar-plus-o" aria-hidden="false"></i>
-                    </button>
-               
-
-
-                                   
-
-                    
-
-                    
-                        <button class="btn btn-sm btn-primary" data-calendar-nav="prev">
-                            <i class="fa fa-backward" aria-hidden="true"></i>
-                        </button>
-                    
-                    
-                    
-                        <button class="btn btn-sm btn-default" data-calendar-nav="today">Hoje</button>
-                   
-                    
-                
-                    <button class="btn btn-sm btn-primary" data-calendar-nav="next">
-                        <i class="fa fa-forward" aria-hidden="true"></i>
-                    </button>
-               
-                    
-                
-                    <button class="btn btn-sm btn-warning" data-calendar-view="year">Ano</button>
-                
-                
-                
-                    <button class="btn btn-sm btn-warning active" data-calendar-view="month">Mês</button>
-               
-                
-               
-                    <button class="btn btn-sm btn-warning" data-calendar-view="week">Semana</button>
-               
-               
-                    <button class="btn btn-sm btn-warning" data-calendar-view="day">Dia</button>
-                
-                
-                
-                    <select class="btn-sm btn-default" id="sel1">
-                        <option selected>Selecione</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
+                <div>
+                    <div class="agenda-date">
+                        <h5></h5>
+                    </div>
+                    <div style="background-color: rgb(245, 245, 245); padding: 4px; border-radius: 3px;" >
+                        <div class="btn-group">
+                            <button title="click para agendar sua consulta" class="btn btn-sm btn-default" data-toggle='modal' data-target='#add_evento'>
+                                AGENDAR CONSULTA <i class="fa fa-calendar-plus-o" aria-hidden="false"></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary" data-calendar-nav="prev">
+                                <i class="fa fa-backward" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-sm btn-default" data-calendar-nav="today">Hoje</button>
+                            <button class="btn btn-sm btn-primary" data-calendar-nav="next">
+                                <i class="fa fa-forward" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning" data-calendar-view="year">Ano</button>
+                            <button class="btn btn-sm btn-warning active" data-calendar-view="month">Mês</button>
+                            <button class="btn btn-sm btn-warning" data-calendar-view="week">Semana</button>
+                            <button class="btn btn-sm btn-warning" data-calendar-view="day">Dia</button>
+                            <select class="btn-sm btn-default" id="sel1">
+                                <option selected>Selecione</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-               
-        </div>
                 <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div id="calendar"></div> <!-- Aqui será exibido nosso calendario -->
-            </div>
-        </div>
-        <br>
-        <div class="progress">
-            <div class="progress-bar progress-bar-success" style="width: 10%">
-                <span class="sr-only">35% Complete (success)</span>
-                Tratamento
-            </div>
-            <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 10%">
-                <span class="sr-only">20% Complete (warning)</span>
-            </div>
-            <div class="progress-bar progress-bar-danger" style="width: 10%">
-                <span class="sr-only">10% Complete (danger)</span>
-            </div>
-        </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div id="calendar"></div> <!-- Aqui será exibido nosso calendario -->
+                    </div>
+                </div>
+                <br>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: 10%">
+                        <span class="sr-only">35% Complete (success)</span>
+                        Tratamento
+                    </div>
+                    <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 10%">
+                        <span class="sr-only">20% Complete (warning)</span>
+                    </div>
+                    <div class="progress-bar progress-bar-danger" style="width: 10%">
+                        <span class="sr-only">10% Complete (danger)</span>
+                    </div>
+                </div>
 
+            </div>
+        </div>
     </div>
-
-
-
-            </div>
-        </div>
-        <!--refresh widget-->
-                
-                
-               
-                
-                         
-            
-        
-        
-        
-    
-
+    <!--refresh widget-->
     <div class="col-md-3 col-sm-3">
-
         <!--refresh widget-->
         <div class="panel-agenda panel panel-default">
             <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>Agendamentos</div>
@@ -140,9 +95,6 @@ $modelo->del_user($parametros);
             <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>Agenda de horários</div>
             <div class="panel-body panel-refresh">
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
-
-
-
             </div>
         </div>
         <!--refresh widget-->
@@ -274,10 +226,11 @@ $modelo->del_user($parametros);
                 <form action="" method="post">
 
 
+
                     <div class="form-group">
                         <label for="from">Começa as:</label>
                         <div class='input-group date' id='from'>
-                            <input type='text' class="form-control" id="from"  name="from" placeholder="00/00/0000 00:00" />
+                            <input type='text' class="form-control from"  name="from" placeholder="00/00/0000 00:00" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -287,7 +240,7 @@ $modelo->del_user($parametros);
                     <div class="form-group">
                         <label for="to">Termina as:</label>
                         <div class='input-group date' id='to'>
-                            <input type='text' class="form-control" id="to" name="to" placeholder="00/00/0000 00:00" />
+                            <input type='text' class="form-control to" name="to" placeholder="00/00/0000 00:00" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -321,22 +274,21 @@ $modelo->del_user($parametros);
                         <label for="desc">Descrição da consulta:</label>
                         <textarea id="desc" name="agenda_desc" required class="form-control" rows="3" placeholder="Descreva aqui informações extras da consultas..."></textarea>
                     </div>
-            </div>
-            <div class="modal-footer">
-                
-                <div class="btn-group">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                        <i class="fa fa-times"></i>Cancelar
-                    </button>
-                </div>
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-check"></i> Gravar
-                    </button>
-                </div>
-                
-            </form>
+
+                    <div class="modal-footer">
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                <i class="fa fa-times"></i>Cancelar
+                            </button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-check"></i> Gravar
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>

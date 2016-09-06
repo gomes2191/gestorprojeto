@@ -60,13 +60,17 @@ window.calendar_languages['pt-BR'] = {
 	first_day: 2,
 
 	holidays: {
-		'01-01': "Ano Novo",
-		'21-04': "Dia de Tiradentes",
-		'01-05': "Dia do Trabalhador",
-		'07-09': "Dia da Independência",
-		'12-10': "Nossa Senhora Aparecida",
-		'02-11': "Dia de Finados",
-		'15-11': "Proclamação da República",
-		'25-12': "Natal"
+		'01-01': "Feriado Ano Novo",
+                '09-02': "Feriado Carnaval",
+                '25-03': "Feriado Sexta-feira da Paixão",
+                '27-03': "Feriado Páscoa",
+		'21-04': "Feriado Dia de Tiradentes",
+		'01-05': "Feriado Dia do Trabalhador",
+                '26-05': "Feriado Corpus Christi",
+		'07-09': "Feriado Dia da Independência",
+		'12-10': "Feriado Nossa Senhora Aparecida",
+		'02-11': "Feriado Dia de Finados",
+		'15-11': "Feriado Proclamação da República",
+		'25-12': "Feriado Natal"
 	}
 };

@@ -77,7 +77,7 @@ $(document).ready(function () {
     });
 
     // Agenda mascara
-    $('#from, #to').inputmask({
+    $('.from, .to').inputmask({
         mask: '99/99/9999 99:99'
     });
 
@@ -152,7 +152,7 @@ $(document).ready(function(){
 
 // Agenda popup inserção
  $(document).ready(function () {
-    $('#from, #to').datetimepicker({
+    $("#from, #to").datetimepicker({
         language: 'pt-BR',
         clearBtn: true,
         beforeShowMonth: true,
@@ -167,3 +167,5 @@ $(document).ready(function(){
         minDate: new Date()
     }); 
 });
+
+// nova implementação

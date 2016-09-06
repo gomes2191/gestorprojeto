@@ -1,3 +1,8 @@
+
+
+
+
+
 <?php
 $db = new PDO('mysql:host=localhost;dbname=migration_ov;charset=utf8', 'root', 'libre');
 
@@ -16,7 +21,7 @@ $id = avaliar($_GET['id']);
 
 
 // Buscamos na base de dados as informações necessaria
-$fetch_result = $db->query("SELECT * FROM  agendas WHERE `agenda_id`= $id LIMIT 1");
+$fetch_result = $db->query("SELECT * FROM  `agendas` WHERE `agenda_id`= $id LIMIT 1");
 
 // Obtemos os dados relacionado aquele id
 $row = $fetch_result->fetch(PDO::FETCH_ASSOC);
@@ -37,17 +42,64 @@ $inicio = $row['agenda_start_normal'];
 // Fecha Termino
 $final = $row['agenda_end_normal'];
 
+var_dump($_POST);
 // Eliminar evento
-if (isset($_POST['eliminar_evento'])) {
-    $id = avaliar($_GET['id']);
-    $sql = "DELETE FROM eventos WHERE id = $id";
-    if ($conexion->query($sql)) {
+if (isset($_POST['eliminar'])) {
+    $sql = "DELETE FROM `agendas` WHERE `agenda_id` = $id";
+    
+    if ($db->query($sql)) {
         echo "Evento eliminado";
     } else {
         echo "El evento no se pudo eliminar";
     }
 }
+
 ?>
+
+
+<script>
+$(document).ready(function() {
+
+    // process the form
+    $('#form-calendar').submit(function(event) {
+        
+ 
+        // get the form data
+        // there are many ways to get this data using jQuery (you can use the class or id also)
+        var formData = {
+            'eliminar'            : $('button[name=eliminar]').val()
+            //'email'             : $('input[name=email]').val(),
+            //'superheroAlias'    : $('input[name=superheroAlias]').val()
+        };
+
+        // process the form
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'get_descricao.php', // the url where we want to POST
+            data        : formData, // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+            encode          : true
+             
+        })
+        
+        
+        
+            // using the done promise callback
+            .done(function(data) {
+               
+
+                // log data to the console so we can see
+                console.log(data); 
+
+                // here we will handle errors and validation messages
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+    });
+   
+});
+</script>
 
 <p>
 <b>Paciente:</b><br> <?= $agenda_pac ?>
@@ -65,12 +117,12 @@ if (isset($_POST['eliminar_evento'])) {
 <hr>
 <b>Inicio:</b> <mark><?= $inicio ?></mark> <b>Terminio:</b> <mark><?= $final ?></mark> 
 
-<form action="" method="post">
+<form id="form-calendar" action="" method="post">
 
 <br>
     <!-- Single button -->
     <div class="btn-group">
-        <button type="submit" class="btn btn-sm btn-danger" name="eliminar_evento"> 
+        <button type="submit" class="btn btn-sm btn-danger deleta" name="eliminar"> 
             <i class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></i> 
             Eliminar  
         </button>
@@ -82,4 +134,6 @@ if (isset($_POST['eliminar_evento'])) {
         </button>
     </div>
 </form>
+
+
 
