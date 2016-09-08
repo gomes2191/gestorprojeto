@@ -1,4 +1,4 @@
- <h3 style="text-align: center;">OV - ODONTO VISION SISTEMA ODONTOLÓGICO </h3>
+ <h3 style="text-align: center;">OC - ODONTO CONTROL SISTEMA ODONTOLÓGICO </h3>
  
  Este é um sistema Odontológico que visa atender a rotina de uma clínica odontologica ele esta em constante desenvolvimento
  para que futuramente possa entrar em produção.
