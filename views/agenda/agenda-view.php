@@ -7,16 +7,17 @@
     $modelo->validate_register_form();
     $modelo->get_register_form(chk_array($parametros, 1));
     $modelo->del_user($parametros);
-
-    //$modelo->get_agenda_consulta(); 
+    
+    
 ?>
 
-<div class="row-fluid">
+
+<div class="row-fluid"> 
     <!-- Agenda bibliotecas js -->
-    <script src="<?php echo HOME_URI; ?>/_agenda/js/pt-BR.js"></script>
-    <script src="<?php echo HOME_URI; ?>/_agenda/js/moment.js"></script>
-    <script src="<?php echo HOME_URI; ?>/_agenda/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="<?php echo HOME_URI; ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
+    <script src="<?= HOME_URI ?>/_agenda/js/pt-BR.js"></script>
+    <script src="<?= HOME_URI ?>/_agenda/js/moment.js"></script>
+    <script src="<?= HOME_URI ?>/_agenda/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="<?= HOME_URI ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
     <!-- Final agenda js -->
 
     <div class="col-md-1 col-sm-1"></div>
@@ -101,22 +102,45 @@
     </div>
     <div class="col-md-1 col-sm-1"></div>
 </div>
+
 <!--ventana modal para el calendario-->
 <div class="modal fade in" id="events-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body" style="height: 400px">
-                <p>One fine body &hellip;</p>
+                
+               
+                <?php
+                
+                   
+
+
+
+
+               var_dump($modelo->get_agenda_list());
+                    
+                ?>
+               dsdsd
+                
+                
             </div>
+            
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+                
+                
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<script src="<?php echo HOME_URI; ?>/_agenda/js/underscore-min.js"></script>
-<script src="<?php echo HOME_URI; ?>/_agenda/js/calendar.js"></script>
+
+
+<script src="<?= HOME_URI; ?>/_agenda/js/underscore-min.js"></script>
+<script src="<?= HOME_URI; ?>/_agenda/js/calendar.js"></script>
 <script type="text/javascript">
+  
     (function ($) {
         //Criamos a data atual
         var date = new Date();
@@ -133,7 +157,7 @@
             // Dentro de um iframe
             modal_type: 'ajax',
             //Obtemos os eventos da base de dados
-            events_source: '<?= HOME_URI; ?>/_agenda/get_consulta.php',
+            events_source: '<?= HOME_URI; ?>/_agenda/return_json.php',
             // Mostramos o calendário no mês
             view: 'month',
             // No dia atual

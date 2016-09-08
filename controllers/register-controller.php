@@ -79,6 +79,4 @@ class RegisterController extends MainController {
     }
 
 // index
-}
-
-// class home
+}// class home

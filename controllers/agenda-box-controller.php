@@ -1,5 +1,5 @@
 <?php
-class ExemploController extends MainController
+class AgendaBoxController extends MainController
 {
 	// URL: dominio.com/exemplo/
 	public function index() {
@@ -9,7 +9,7 @@ class ExemploController extends MainController
                 $modelo = $this->load_model('agenda/agenda-model');
 		
 		// Carrega o view
-		require_once ABSPATH . '/views/exemplo/exemplo-view.php';
+		require_once ABSPATH . '/views/agenda/agenda-box-view.php';
 	}
 	
 	// URL: dominio.com/exemplo/outra-acao

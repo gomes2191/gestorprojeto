@@ -1,9 +1,11 @@
-<?PHP
+<?php   
 
-$db    = new PDO('mysql:host=localhost;dbname=migration_ov;charset=utf8', 'root', 'libre');
-// Pega todos os dados da tabela agendas.
+        $host  = $_SERVER['HTTP_HOST'];
+
+        $db = new PDO('mysql:host=localhost;dbname=migration_ov;charset=utf8', 'root', 'libre');
+        // Pega todos os dados da tabela agendas.
         $query = $db->query(' SELECT * FROM `agendas` ');
-
+        
         // Verifica se a consulta foi realizada com sucesso.
         if (!$query) {
             return [];
@@ -22,4 +24,5 @@ $db    = new PDO('mysql:host=localhost;dbname=migration_ov;charset=utf8', 'root'
             
         }
         echo json_encode(array('success' => 1, 'result' => $out));
-        exit;  
+        exit;
+        

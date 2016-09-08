@@ -29,7 +29,6 @@
 
 	// Funções globais
 	require_once (ABSPATH.'/functions/global-functions.php');
-        require_once (ABSPATH.'/functions/tools.php');
 
 	// Carrega a aplicação
 	$odonto_vision = new OdontoVision();

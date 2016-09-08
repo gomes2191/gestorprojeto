@@ -2,12 +2,12 @@
 
 
   // Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
-  function avaliar($valor)
+  function avaliar($valor_ini)
   {
     $nopermitido = array("'",'\\','<','>',"\"");
-    $valor = str_replace($nopermitido, "", $valor);
+    $valor_1 = str_replace($nopermitido, "", $valor_ini);
 
-    $valor = filter_var($valor, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+    $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
     return $valor;
 
   }

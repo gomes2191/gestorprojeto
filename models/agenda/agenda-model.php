@@ -168,21 +168,21 @@ class AgendaModel
 
                 
                 
-                        $agenda_start = _formatar($this->form_data['from']);
+                        $agenda_start   = $this->_formatar($this->form_data['from']);
 			 // e reformatar o funcion _formatar
-			$agenda_end  = _formatar($this->form_data['to']);
+			$agenda_end     = $this->_formatar($this->form_data['to']);
 //			 // Recebemos a data de início e a data de término da forma
 //			 $agenda_start_normal = ($this->form_data['from']);
 //			 // e reformatar o funcion _formatar
 //			 $agenda_end_normal  = ($this->form_data['to']);
 			 // substituir caracteres ilegais
-			 $agenda_class  = avaliar($this->form_data['agenda_class']);
+			 $agenda_class  = $this->avaliar($this->form_data['agenda_class']);
 			 // Outros receber dados do form
                          
                           // e com function avaliar
-                         $agenda_proc = avaliar($this->form_data['agenda_proc']);
-			 $agenda_pac = avaliar($this->form_data['agenda_pac']);
-			 $agenda_desc   = avaliar($this->form_data['agenda_desc']);
+                         $agenda_proc = $this->avaliar($this->form_data['agenda_proc']);
+			 $agenda_pac = $this->avaliar($this->form_data['agenda_pac']);
+			 $agenda_desc   = $this->avaliar($this->form_data['agenda_desc']);
 
 //                         var_dump($this->form_data);die;
                         
@@ -205,7 +205,8 @@ class AgendaModel
                         $id = trim($row[0]);
                         
                         // Gera o link do evento
-                        $link = HOME_URI."/_agenda/get_descricao.php?id=$id";
+                        //$link = HOME_URI."/_agenda/return_descricao.php?id=$id";
+                        $link = HOME_URI."/agenda-box?id=$id";
 
                         // Atualizamos nosso $link
                         $this->db->query("UPDATE `agendas` SET `agenda_url` = '$link' WHERE `agenda_id` = $id");
@@ -333,7 +334,7 @@ class AgendaModel
 	 * @get_agenda_consulta
 	 * @access public
 	 */
-        public function get_agenda_consulta() {
+        public function return_json_consulta() {
 
         // Pega todos os dados da tabela agendas.
         $query = $this->db->query(' SELECT * FROM `agendas` ');
@@ -345,17 +346,18 @@ class AgendaModel
         
         foreach ($query as $row){
             $out[] = array(
-                'id' => $row['agenda_id'],
-                'title' => $row['agenda_pac'],
-                'url' => $row['agenda_url'],
-                'class' => $row['agenda_class'],
-                'start' => $row['agenda_start'],
-                'end' => $row['agenda_end']
+                'id'        => $row['agenda_id'],
+                'title'     => $row['agenda_pac'],
+                'url'       => $row['agenda_url'],
+                'body'      => $row['agenda_desc'],
+                'class'     => $row['agenda_class'],
+                'start'     => $row['agenda_start'],
+                'end'       => $row['agenda_end']
             );
             
         }
-        echo json_encode(array('success' => 1, 'result' => $out));
-        //exit;  
+        return json_encode($out);
+        
     } // @get_agenda_consulta
     
     
@@ -378,16 +380,18 @@ class AgendaModel
         
      } // @get_ultimo_id
 
-    /**
+        /*
 	 * Obtém a lista de usuários
 	 *
 	 * @since 0.1
 	 * @access public
 	 */
-	public function get_agenda_list() {
-
+	public function get_agenda_list($id = NULL) {
+                
+                
+                
 		// Simplesmente seleciona os dados na base de dados
-		$query = $this->db->query('SELECT * FROM `agendas` ORDER BY agenda_id DESC');
+		$query = $this->db->query("SELECT * FROM  `agendas` WHERE `agenda_id`=$id");
 
 		// Verifica se a consulta está OK
 		if ( ! $query ) {
@@ -396,4 +400,21 @@ class AgendaModel
 		// Preenche a tabela com os dados do usuário
 		return $query->fetchAll();
 	} // get_agenda_list
+        
+        
+
+      // Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
+    public function avaliar($valor_ini) {
+        $nopermitido = array("'", '\\', '<', '>', "\"");
+        $valor_1 = str_replace($nopermitido, "", $valor_ini);
+
+        $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+        return $valor;
+    }
+
+    // Microtime formatar uma data para adicionar o evento, tipo 1401517498985.
+    public function _formatar($fecha) {
+        return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
+    }
+
 }
