@@ -283,15 +283,17 @@ class AgendaModel
 	} // get_register_form
 
 	/**
-	 * Apaga usuários
+	 * @param funtion del_evento() responsavel por eliminar eventos
 	 *
 	 * @since 0.1
 	 * @access public
 	 */
-	public function del_user ( $parametros = array() ) {
+	public function del_evento ( $parametros = array() ) {
 
-		// O ID do usuário
-		$user_id = null;
+		/*
+                 *  O ID do evento
+                 */
+		$evento_id = null;
 
 		// Verifica se existe o parâmetro "del" na URL
 		if ( chk_array( $parametros, 0 ) == 'del' ) {
@@ -307,15 +309,15 @@ class AgendaModel
 				&& chk_array( $parametros, 2 ) == 'confirma'
 			) {
 				// Configura o ID do usuário a ser apagado
-				$user_id = chk_array( $parametros, 1 );
+				$evento_id = chk_array( $parametros, 1 );
 			}
 		}
 
 		// Verifica se o ID não está vazio
-		if ( !empty( $user_id ) ) {
+		if ( !empty( $evento_id ) ) {
 
 			// O ID precisa ser inteiro
-			$user_id = (int)$user_id;
+			$evento_id = (int)$evento_id;
 
 			// Deleta o usuário
 			$query = $this->db->delete('users', 'user_id', $user_id);
@@ -325,16 +327,16 @@ class AgendaModel
 			echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
 			return;
 		}
-	} // del_user
+	} //---> / del_evento() 
         
         
         /**
 	 * Obtém as consultas 
 	 *
-	 * @get_agenda_consulta
+	 * @return_json_evento
 	 * @access public
 	 */
-        public function return_json_consulta() {
+        public function return_json_evento() {
 
         // Pega todos os dados da tabela agendas.
         $query = $this->db->query(' SELECT * FROM `agendas` ');
@@ -360,15 +362,6 @@ class AgendaModel
         
     } // @get_agenda_consulta
     
-    
-    public function set_event (){
-        
-        
-        
-        
-        
-    }
-    
      public function get_ultimo_id() {
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query('SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas`');
@@ -386,7 +379,7 @@ class AgendaModel
 	 * @since 0.1
 	 * @access public
 	 */
-	public function get_agenda_list($id = NULL) {
+	public function get_evento_list($id = NULL) {
                 
                 
                 

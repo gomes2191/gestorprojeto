@@ -35,11 +35,18 @@
         <link rel="stylesheet" href="<?= HOME_URI; ?>/views/_css/navbar-fixed-top.css">
 
         <!-- Agenda bibliotecas css -->
-        
-        <link rel="stylesheet" href="<?= HOME_URI; ?>/_agenda/css/calendar.css">
+        <?php
+            if($this->title == ' Agenda'){
 
-        <link rel="stylesheet" href="<?= HOME_URI; ?>/_agenda/css/bootstrap-datetimepicker.min.css">
+                echo '<link rel="stylesheet" href="'.HOME_URI. '/_agenda/css/calendar.css">';
+                
+                echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/bootstrap-datetimepicker.min.css">';
+
+            }
+        ?>
         <!-- Final agenda css -->
+        
+       
         
         <!-- Bootstrap core JavaScript
         ================================================== -->

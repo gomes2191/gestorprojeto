@@ -2,11 +2,11 @@
     if (!defined('ABSPATH')){
         exit;
     }
-    
+    $agenda = TRUE;
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
     $modelo->get_register_form(chk_array($parametros, 1));
-    $modelo->del_user($parametros);
+    $modelo->del_evento($parametros);
     
     
 ?>
@@ -110,17 +110,6 @@
             <div class="modal-body" style="height: 400px">
                 
                
-                <?php
-                
-                   
-
-
-
-
-               var_dump($modelo->get_agenda_list());
-                    
-                ?>
-               dsdsd
                 
                 
             </div>

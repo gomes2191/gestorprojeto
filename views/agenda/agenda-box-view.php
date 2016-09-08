@@ -7,7 +7,7 @@
     
     echo $id;
 
-    $row = $modelo->get_agenda_list($id);
+    $row = $modelo->get_evento_list($id);
 
     // Paciente 
     $agenda_pac = $row[0]['agenda_pac'];
@@ -56,7 +56,7 @@
     <hr>
     <b>Inicio:</b> <mark><?= $inicio ?></mark> <b>Terminio:</b> <mark><?= $final ?></mark> 
 
-    <form id="form-calendar" action="" method="post">
+    <form id="ajax_form" action="" method="post">
 
         <br>
         <!-- Single button -->
@@ -73,6 +73,10 @@
             </button>
         </div>
     </form>
+    
+    
+    
+    
 </div>
 
 
