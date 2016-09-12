@@ -273,10 +273,9 @@
   position: absolute;
   width: 100%;
   margin-left: -60px;
-  margin-top: 30px;
-  z-index: -1;
 }
 #cal-day-box .day-event {
+  position: relative;
   max-width: 200px;
   overflow: hidden;
 }
@@ -460,15 +459,7 @@ span[data-cal-date]:hover {
   font-size: 1.9em;
 }
 .cal-day-holiday span[data-cal-date] {
-    color: #FF0000;
-    font-weight: bold;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    padding: 10px;
-    background-color: #8cdb66;
-    -webkit-box-shadow: 2px 3px 5px 0 #3d3d3d;
-    box-shadow: 1px 2px 5px 0 #3d3d3d;
+  color: #800080;
 }
 .cal-day-weekend span[data-cal-date] {
   color: darkred;
@@ -493,10 +484,15 @@ span[data-cal-date]:hover {
 #cal-slide-content {
   padding: 20px;
   color: #ffffff;
-  background-color: steelblue;
+  background-image: url("../img/dark_wood.png");
+  -webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
 }
 #cal-slide-tick {
   background-image: url("../img/tick.png?2");
+}
+#cal-slide-content:hover {
+  background-color: transparent;
 }
 #cal-slide-content a.event-item {
   color: #ffffff;

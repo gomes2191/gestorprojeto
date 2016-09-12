@@ -2,11 +2,15 @@
     if (!defined('ABSPATH')){
         exit;
     }
-    $agenda = TRUE;
+    
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
     $modelo->get_register_form(chk_array($parametros, 1));
-    $modelo->del_evento($parametros);
+    $modelo->del_evento();
+    $result = "<script>document.write(variaveljs)</script>";
+    
+    
+    
     
     
 ?>
@@ -107,19 +111,52 @@
 <div class="modal fade in" id="events-modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body" style="height: 400px">
+            <div class="modal-body" style="height: 400px" >
+                
+                <?php
+                    
+                    var_dump($_GET);
+                    
+      
+                   
+                ?>
                 
                
                 
+<!--                <script>
+                    
+                    $(function(){
+                        
+                            $( 'a.event-item, a.event' ).click(function(){
+
+                            urlAntiga = window.document.location.href;
+
+                            // Pega o valor do link clicado
+                            var  URLnova = this.href;
+                            alert(URLnova);
+                        
+                            if(URLnova !== urlAntiga){
+
+                                // Sobrescreve o link atual com o novo link e redireciona para o novo link
+                                $(window.document.location).attr('href', URLnova);
+                                
+                                
+                            }                                               
+                        });
+                    
+                    });
+                    
+                    
+                    
+                </script>-->
                 
             </div>
             
             <div class="modal-footer">
+                
                 <div class="btn-group">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
-                
-                
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -129,22 +166,25 @@
 <script src="<?= HOME_URI; ?>/_agenda/js/underscore-min.js"></script>
 <script src="<?= HOME_URI; ?>/_agenda/js/calendar.js"></script>
 <script type="text/javascript">
-  
-    (function ($) {
+    
+    
+    (function($) {
+
+	"use strict";
+        
         //Criamos a data atual
         var date = new Date();
         var yyyy = date.getFullYear().toString();
         var mm = (date.getMonth() + 1).toString().length == 1 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
         var dd = (date.getDate()).toString().length == 1 ? "0" + (date.getDate()).toString() : (date.getDate()).toString();
 
-
-        //Estabelecemos os valores do calendario
-        var options = {
+	var options = {
             // Definimos que os eventos aparecerão em uma janelo modal
             modal: '#events-modal',
+            async: false,
             modal_title: 'Cadastro de consulta',
             // Dentro de um iframe
-            modal_type: 'ajax',
+            modal_type: 'modal',
             //Obtemos os eventos da base de dados
             events_source: '<?= HOME_URI; ?>/_agenda/return_json.php',
             // Mostramos o calendário no mês
@@ -161,69 +201,88 @@
             // Hora final de cada dia
             time_end: '17:00',
             // Intervalo de tempo entre as horas, neste são 30 minutos
-            time_split: '5',
+            time_split: '10',
             // Definimos uma largura de 100% no calendário
             width: '100%',
-            onAfterEventsLoad: function (events)
-            {
+		onAfterEventsLoad: function(events) {
+			if(!events) {
+				return;
+			}
+			var list = $('#eventlist');
+			list.html('');
 
-                if (!events)
-                {
-                    return;
-                }
-                var list = $('#eventlist');
-                list.html('');
+			$.each(events, function(key, val) {
+				$(document.createElement('li'))
+					.html('<a href="' + val.url + '">' + val.title + '</a>')
+					.appendTo(list);
+			});
+		},
+		onAfterViewLoad: function(view) {
+			$('.agenda-date h5').text(this.getTitle());
+			$('.btn-group button').removeClass('active');
+			$('button[data-calendar-view="' + view + '"]').addClass('active');
+		},
+		classes: {
+			months: {
+				general: 'label'
+			}
+		}
+	};
 
-                $.each(events, function (key, val)
-                {
-                    $(document.createElement('li'))
-                            .html('<a href="' + val.url + '">' + val.title + '</a>')
-                            .appendTo(list);
-                });
-            },
-            onAfterViewLoad: function (view)
-            {
-                $('.agenda-date h5').text(this.getTitle());
-                $('.btn-group button').removeClass('active');
-                $('button[data-calendar-view="' + view + '"]').addClass('active');
-            },
-            classes: {
-                months: {
-                    general: 'label'
-                }
-            }
-        };
+	var calendar = $('#calendar').calendar(options);
 
+	$('.btn-group button[data-calendar-nav]').each(function() {
+		var $this = $(this);
+		$this.click(function() {
+			calendar.navigate($this.data('calendar-nav'));
+		});
+	});
 
-        // Id da div onde mostrara o calendario
-        var calendar = $('#calendar').calendar(options);
+	$('.btn-group button[data-calendar-view]').each(function() {
+		var $this = $(this);
+		$this.click(function() {
+			calendar.view($this.data('calendar-view'));
+		});
+	});
 
-        $('.btn-group button[data-calendar-nav]').each(function ()
-        {
-            var $this = $(this);
-            $this.click(function ()
-            {
-                calendar.navigate($this.data('calendar-nav'));
-            });
-        });
+	$('#first_day').change(function(){
+		var value = $(this).val();
+		value = value.length ? parseInt(value) : null;
+		calendar.setOptions({first_day: value});
+		calendar.view();
+	});
 
-        $('.btn-group button[data-calendar-view]').each(function ()
-        {
-            var $this = $(this);
-            $this.click(function ()
-            {
-                calendar.view($this.data('calendar-view'));
-            });
-        });
+	$('#language').change(function(){
+		calendar.setLanguage($(this).val());
+		calendar.view();
+	});
 
-        $('#first_day').change(function ()
-        {
-            var value = $(this).val();
-            value = value.length ? parseInt(value) : null;
-            calendar.setOptions({first_day: value});
-            calendar.view();
-        });
-    }(jQuery));
+	$('#events-in-modal').change(function(){
+		var val = $(this).is(':checked') ? $(this).val() : null;
+		calendar.setOptions({modal: val});
+	});
+	$('#format-12-hours').change(function(){
+		var val = $(this).is(':checked') ? true : false;
+		calendar.setOptions({format12: val});
+		calendar.view();
+	});
+	$('#show_wbn').change(function(){
+		var val = $(this).is(':checked') ? true : false;
+		calendar.setOptions({display_week_numbers: val});
+		calendar.view();
+	});
+	$('#show_wb').change(function(){
+		var val = $(this).is(':checked') ? true : false;
+		calendar.setOptions({weekbox: val});
+		calendar.view();
+	});
+	$('#events-modal .modal-header, #events-modal .modal-footer').click(function(e){
+		//e.preventDefault();
+		//e.stopPropagation();
+	});
+}(jQuery));
+  
+    
 </script>
 
 <div class="modal fade" id="add_evento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">

@@ -3,9 +3,8 @@
         exit;
     }
     
+    //Verifica se existe caractres especiais no id
     $id = $modelo->avaliar($_GET['id']);
-    
-    echo $id;
 
     $row = $modelo->get_evento_list($id);
 
@@ -24,18 +23,19 @@
     // Fecha Termino
     $final = $row[0]['agenda_end_normal'];
     
-    var_dump($_POST);
-    // Eliminar evento
-    if (isset($_POST['eliminar'])) {
-        $sql = "DELETE FROM `agendas` WHERE `agenda_id` = $id";
-
-        if ($db->query($sql)) {
-            echo "Consulta eliminada";
-        } else {
-            echo "Não foi eliminado";
-        }
+    
+    if ( isset($del_evento)) {
+        
+        $modelo->del_evento($id);
+           
     }
+	
+    
+    
 ?>
+
+
+
 
 <div>
     <p>
@@ -54,31 +54,99 @@
         <?= $agenda_desc ?>
     </p>
     <hr>
-    <b>Inicio:</b> <mark><?= $inicio ?></mark> <b>Terminio:</b> <mark><?= $final ?></mark> 
-
-    <form id="ajax_form" action="" method="post">
-
-        <br>
-        <!-- Single button -->
-        <div class="btn-group">
-            <button type="submit" class="btn btn-sm btn-danger deleta" name="eliminar"> 
-                <i class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></i> 
-                Eliminar  
-            </button>
-        </div>
-        <div class="btn-group">
-            <button type="submit" class="btn btn-sm btn-primary right" name="editar"> 
-                <i class="glyphicon glyphicon-edit" aria-hidden="true"></i> 
-                Editar  
-            </button>
-        </div>
-    </form>
-    
-    
-    
-    
+    <b>Início:</b> <mark><?= $inicio ?></mark> <b>Término:</b> <mark><?= $final ?></mark>
 </div>
 
+<!-- TESTE AJAX -->
 
+<p class="texto"> DOM not carregado...</p>
+
+<div class="trigger">Trigger</div>
+<div class="result"></div>
+<div class="log"></div>
+
+<!-- TESTE AJAX -->
+
+<form id="form-agenda-ajax">
+    <div class="btn-group">
+        <input type='hidden' id="metodo" value='del'>
+    <!--<button id="deletar" class="btn btn-sx btn-danger" title="Deletar" >
+            <span class="glyphicon glyphicon-trash">Deletar</span>
+        </button>-->
+        
+        <input id="deletar" class="btn btn-sx btn-danger" type="submit" value="Deletar">
+    </div>
+</form>
+
+
+<script>
+    
+//    TESTE AJAX 
+
+
+$( document ).ajaxComplete( function(){
+    $('.log').text('Ajax completado..');
+});
+
+
+    $('.trigger').click( function(){
+        $('.result').load('../valida.html');
+    });
+    
+    $(function (){
+        
+        $('.texto').text('Carregado DOM...');
+        
+    });
+    
+    
+    
+    
+//    TESTE AJAX 
+    
+    
+    $( function (){
+        
+        $('#form-agenda-ajax').submit(
+           function(e){
+               e.preventDefault();
+
+              
+
+               if($('#deletar').val() == 'Processando...') {
+                   return (false);
+
+               }
+
+               $('#deletar').val('Processando...');
+
+               $.ajax({
+                   url: '',
+                   type: 'post',
+                   dataType: 'html',
+                   data: {'metodo': $('#metodo').val()}
+
+
+               }).done(function(data){
+
+                    alert(data);
+
+                   $('#deletar').val('Deletar');
+                   $('#metodo').val('');
+
+
+               });
+        
+        });
+    
+        
+    } );
+        
+    
+  
+  
+  
+    
+</script>
 
 

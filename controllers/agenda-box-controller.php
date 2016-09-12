@@ -15,5 +15,7 @@ class AgendaBoxController extends MainController
 	// URL: dominio.com/exemplo/outra-acao
 	public function OutraAcao() {
 		// Inclua seus models e views aqui
+                require_once ABSPATH . 'manipula.ajax.php';
+                
 	}
 }

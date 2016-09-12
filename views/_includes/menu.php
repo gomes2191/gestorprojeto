@@ -16,7 +16,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="<?= HOME_URI; ?>/" title="Página inicial"><i class="glyphicon glyphicon-home" aria-hidden="true"></i> HOME</a></li>
-            <li><a href="<?= HOME_URI; ?>/agenda/" title="Agenda"><i class="fa fa-calendar" aria-hidden="true"></i> AGENDA</a></li>
+            <li><a href="<?= HOME_URI; ?>/agenda" title="Agenda"><i class="fa fa-calendar" aria-hidden="true"></i> AGENDA</a></li>
             <!--<li><a href="<?= HOME_URI; ?>/exemplo/">Exemplo básico</a></li>-->
 
             <li class="dropdown">

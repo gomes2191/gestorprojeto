@@ -27,15 +27,10 @@
             <a href="<?php echo HOME_URI; ?>/user-register/" title="Adiciona um usuário no sistema." class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar usuário </a>
         </div>
         <br>
-                
+          
+        <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
+        <?php $lista = $modelo->get_user_list();?>
         
-         
-        
-        <?php
-            // Lista os usuários
-            ($lista = $modelo->get_user_list());
-            
-        ?>
         <div class="panel"> <!-- Start panel -->
             <div class="panel-heading text-center"><?= Translate::t('dMsg_2'); ?></div>
             
@@ -109,7 +104,7 @@
                     <div class="modal-footer">
 
                         <a href="<?php echo HOME_URI; ?>/user-register/" class="btn btn-primary">Não remover</a>
-                        <a href="<?php echo HOME_URI ?>/user-register/index/del/<?php echo $fetch_userdata['user_id'] ?>/confirma " class="btn btn-danger" >Remover</a>
+                        <a href="<?= HOME_URI ?>/users/index/del/<?= $fetch_userdata['user_id'] ?>/confirma" class="btn btn-danger" >Remover</a>
 
                     </div>
                 </div><!-- /.modal-content -->

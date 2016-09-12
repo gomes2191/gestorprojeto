@@ -206,7 +206,7 @@ class AgendaModel
                         
                         // Gera o link do evento
                         //$link = HOME_URI."/_agenda/return_descricao.php?id=$id";
-                        $link = HOME_URI."/agenda-box?id=$id";
+                        $link = HOME_URI.'/agenda?id='.$id;
 
                         // Atualizamos nosso $link
                         $this->db->query("UPDATE `agendas` SET `agenda_url` = '$link' WHERE `agenda_id` = $id");
@@ -282,37 +282,14 @@ class AgendaModel
 		$this->form_data['user_permissions'] = implode(',', $this->form_data['user_permissions']);
 	} // get_register_form
 
-	/**
+	/*
 	 * @param funtion del_evento() responsavel por eliminar eventos
 	 *
 	 * @since 0.1
 	 * @access public
-	 */
-	public function del_evento ( $parametros = array() ) {
-
-		/*
-                 *  O ID do evento
-                 */
-		$evento_id = null;
-
-		// Verifica se existe o parâmetro "del" na URL
-		if ( chk_array( $parametros, 0 ) == 'del' ) {
-
-			// Mostra uma mensagem de confirmação
-			echo '<p class="alert">Tem certeza que deseja apagar este valor?</p>';
-			echo '<p><a href="' . $_SERVER['REQUEST_URI'] . '/confirma">Sim</a> |
-			<a href="' . HOME_URI . '/user-register">Não</a> </p>';
-
-			// Verifica se o valor do parâmetro é um número
-			if (
-				is_numeric( chk_array( $parametros, 1 ) )
-				&& chk_array( $parametros, 2 ) == 'confirma'
-			) {
-				// Configura o ID do usuário a ser apagado
-				$evento_id = chk_array( $parametros, 1 );
-			}
-		}
-
+        */
+	public function del_evento ($evento_id = NULL) {
+            
 		// Verifica se o ID não está vazio
 		if ( !empty( $evento_id ) ) {
 
@@ -320,14 +297,19 @@ class AgendaModel
 			$evento_id = (int)$evento_id;
 
 			// Deleta o usuário
-			$query = $this->db->delete('users', 'user_id', $user_id);
-
+			$this->db->delete('agendas', 'agenda_id', $evento_id);
+                        
+                        
+                        
 			// Redireciona para a página de registros
-			echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/user-register/">';
+			echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/agenda">';
 			echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
 			return;
-		}
-	} //---> / del_evento() 
+                }else{
+                    echo $evento_id;
+                }
+                
+	} //---> fim del_evento() 
         
         
         /**
