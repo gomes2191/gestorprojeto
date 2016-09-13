@@ -6,9 +6,7 @@
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
     $modelo->get_register_form(chk_array($parametros, 1));
-    $modelo->del_evento();
-    $result = "<script>document.write(variaveljs)</script>";
-    
+    $modelo->del_evento($parametros);
     
     
     
@@ -110,45 +108,15 @@
 <!--ventana modal para el calendario-->
 <div class="modal fade in" id="events-modal">
     <div class="modal-dialog">
+        
         <div class="modal-content">
-            <div class="modal-body" style="height: 400px" >
-                
-                <?php
-                    
-                    var_dump($_GET);
-                    
-      
-                   
-                ?>
-                
-               
-                
-<!--                <script>
-                    
-                    $(function(){
-                        
-                            $( 'a.event-item, a.event' ).click(function(){
-
-                            urlAntiga = window.document.location.href;
-
-                            // Pega o valor do link clicado
-                            var  URLnova = this.href;
-                            alert(URLnova);
-                        
-                            if(URLnova !== urlAntiga){
-
-                                // Sobrescreve o link atual com o novo link e redireciona para o novo link
-                                $(window.document.location).attr('href', URLnova);
-                                
-                                
-                            }                                               
-                        });
-                    
-                    });
-                    
-                    
-                    
-                </script>-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                    <i  class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
+                    INFORMAÇÕES SOBRE A CONSULTA
+                </h4>
+            </div>
+            <div class="modal-body" >
                 
             </div>
             
@@ -184,7 +152,7 @@
             async: false,
             modal_title: 'Cadastro de consulta',
             // Dentro de um iframe
-            modal_type: 'modal',
+            modal_type: 'ajax',
             //Obtemos os eventos da base de dados
             events_source: '<?= HOME_URI; ?>/_agenda/return_json.php',
             // Mostramos o calendário no mês
@@ -295,28 +263,28 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <form action="" method="post">
+                <form id="agenda-form-modal-cad" action="" method="post">
 
 
 
                     <div class="form-group">
                         <label for="from">Começa as:</label>
-                        <div class='input-group date' id='from'>
-                            <input type='text' class="form-control from"  name="from" placeholder="00/00/0000 00:00" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                        <div class="input-group date form_date col-md-5" id='from'>
+                            <input class="form-control from" size="16" type="text" value="" name="from" placeholder="dd/mm/aaaa hh:mm">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
+                        
                     </div>
 
                     <div class="form-group">
                         <label for="to">Termina as:</label>
-                        <div class='input-group date' id='to'>
-                            <input type='text' class="form-control to" name="to" placeholder="00/00/0000 00:00" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                        <div class="input-group date form_date col-md-5" id='to' >
+                            <input class="form-control to" size="16" type="text" value="" name="to" placeholder="dd/mm/aaaa hh:mm">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
+                        
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="tipo">Marcadores: </label>
@@ -355,7 +323,7 @@
                             </button>
                         </div>
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-success">
+                            <button id="cad-agenda-modal" type="submit" class="btn btn-success">
                                 <i class="fa fa-check"></i> Gravar
                             </button>
                         </div>
@@ -364,3 +332,4 @@
             </div>
         </div>
     </div>
+</div>

@@ -199,6 +199,9 @@ class AgendaModel
                             'agenda_desc'=>$agenda_desc
                             ]);
                         
+                        
+                       
+                        
                         // Simplesmente seleciona os dados na base de dados
                         $exec_id = $this->db->query('SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas`');
                         $row = $exec_id->fetch();
@@ -206,7 +209,7 @@ class AgendaModel
                         
                         // Gera o link do evento
                         //$link = HOME_URI."/_agenda/return_descricao.php?id=$id";
-                        $link = HOME_URI.'/agenda?id='.$id;
+                        $link = HOME_URI."/agenda-box?ag=$id";
 
                         // Atualizamos nosso $link
                         $this->db->query("UPDATE `agendas` SET `agenda_url` = '$link' WHERE `agenda_id` = $id");
@@ -221,6 +224,7 @@ class AgendaModel
 				$this->form_msg = '<p class="form_success">User successfully registered.</p>';
 
 				// Termina
+                                echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/agenda">';
 				return;
 			}
 
@@ -288,28 +292,36 @@ class AgendaModel
 	 * @since 0.1
 	 * @access public
         */
-	public function del_evento ($evento_id = NULL) {
+	public function del_evento ( $parametros = array() ) {
             
+            
+            var_dump($parametros);
+
+		// O ID do evento
+		$evento_id = null;
+		
+		// Verifica se existe o parâmetro "del" na URL
+		if ( chk_array( $parametros, 0 ) == 'del' ) {
+
+			
+                    $evento_id = chk_array( $parametros, 1 );
+		}
+		
 		// Verifica se o ID não está vazio
 		if ( !empty( $evento_id ) ) {
-
+		
 			// O ID precisa ser inteiro
-			$evento_id = (int)$evento_id;
-
-			// Deleta o usuário
-			$this->db->delete('agendas', 'agenda_id', $evento_id);
-                        
-                        
-                        
-			// Redireciona para a página de registros
+			$evento_id = (int) $evento_id;
+			
+			// Deleta o evento
+			$query = $this->db->delete('agendas', 'agenda_id', $evento_id);
+			
+			// Redireciona de volta para a página
 			echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/agenda">';
-			echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
+			echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/agenda";</script>';
 			return;
-                }else{
-                    echo $evento_id;
-                }
-                
-	} //---> fim del_evento() 
+		}
+	} // del_user
         
         
         /**
@@ -391,5 +403,26 @@ class AgendaModel
     public function _formatar($fecha) {
         return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
     }
+    
+    
+    function get_links($url) { 
+
+    // Create a new DOM Document to hold our webpage structure 
+    $xml = new DOMDocument(); 
+
+    // Load the url's contents into the DOM 
+    $xml->loadHTMLFile($url); 
+
+    // Empty array to hold all links to return 
+    $links = array(); 
+
+    //Loop through each <a> tag in the dom and add it to the link array 
+    foreach($xml->getElementsByTagName('a') as $link) { 
+        $links[] = array('url' => $link->getAttribute('href'), 'text' => $link->nodeValue); 
+    } 
+
+    //Return the links 
+    return $links; 
+} 
 
 }

@@ -140,7 +140,7 @@ $.fn.refreshMe = function(opts){
         return false;
       })//click
 
-}/* end function refreshMe */
+}
 
 $(document).ready(function(){
   $('#refresh1').refreshMe({
@@ -149,23 +149,30 @@ $(document).ready(function(){
   });
 });
 
+/* end function refreshMe */
+
 
 // Agenda popup inserção
- $(document).ready(function () {
-    $("#from, #to").datetimepicker({
-        language: 'pt-BR',
-        clearBtn: true,
-        beforeShowMonth: true,
-        immediateUpdates: true,
-        inputs: true,
-        weekStart: true,
-        format: 'dd/mm/yyyy hh:ii',
-        autoclose: true,
-        todayBtn: true,
-        minuteStep: 1,
-        pickerPosition: 'bottom-left',
-        minDate: new Date()
-    }); 
-});
-
-// nova implementação
+    $(function(){
+        $("#from, #to").datetimepicker({
+            language: 'pt-BR',
+            showMeridian: 'day',
+            todayHighlight: true,
+            viewSelect: 'day',
+            clearBtn: true,
+            beforeShowMonth: true,
+            weekStart: true,
+            format: 'dd/mm/yyyy hh:ii',
+            autoclose: true,
+            todayBtn: true,
+            minuteStep: 1,
+            pickerPosition: 'bottom-left',
+            minDate: new Date()
+        });
+        
+    });
+     
+     
+     //Teste de ajax
+     
+      

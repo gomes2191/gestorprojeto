@@ -14,3 +14,9 @@
 
 
         }
+        
+        
+        
+            $html1 = $_GET['id'];
+            
+            echo $html1;

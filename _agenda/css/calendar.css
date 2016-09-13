@@ -332,19 +332,19 @@
   margin-top: 3px;
 }
 .event-important {
-  background-color: #ad2121;
+  background-color: #c71c22;
 }
 .event-info {
   background-color: #1e90ff;
 }
 .event-warning {
-  background-color: #e3bc08;
+  background-color: #dd5600;
 }
 .event-inverse {
   background-color: #1b1b1b;
 }
 .event-success {
-  background-color: #006400;
+  background-color: #73a839;
 }
 .event-special {
   background-color: #800080;
