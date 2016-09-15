@@ -51,7 +51,7 @@
               </ul>
             </li>
             
-            <li><a href="<?= HOME_URI; ?>/user-register/" title="Cadastro de pessoal"><i class="fa fa-user-plus" aria-hidden="true"></i> Cadastro de pessoal</a></li>
+            <li><a href="<?= HOME_URI; ?>/user-register/" title="Cadastro de pessoal"><i class="fa fa-user-plus" aria-hidden="true"></i> CADASTRO DE PESSOAL</a></li>
             <!--<li><a href="<?= HOME_URI; ?>">UTILITÁRIO</a></li>-->
           </ul>
           <ul class="nav navbar-nav navbar-right">

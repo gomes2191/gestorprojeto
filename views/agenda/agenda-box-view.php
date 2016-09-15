@@ -64,7 +64,8 @@
 <br>
     <div class="btn-group">
         
-        <a href="<?= HOME_URI ?>/agenda/index/del/<?= $id ?>" id="deletar" class="btn btn-sx btn-danger" title="Deletar" >
-            <span class="glyphicon glyphicon-trash">Deletar</span>
+        <a href="<?= HOME_URI ?>/agenda/index/del/<?= $id ?>" id="deletar" class="btn btn-sm btn-danger" title="Deletar" >
+            <span class="glyphicon glyphicon-trash"> REMOVER</span>
+            
         </a>
     </div>

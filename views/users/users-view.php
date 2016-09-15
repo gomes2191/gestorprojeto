@@ -52,13 +52,13 @@
                     <?php foreach ($lista as $fetch_userdata): ?>
                         <tr>
                             <td>
-                                <?php echo $fetch_userdata['user_id'] ?>
+                                <?= $fetch_userdata['user_id'] ?>
                             </td>
                             <td>
-                                <?php echo $fetch_userdata['user_name'] ?>
+                                <?= $fetch_userdata['user_name'] ?>
                             </td>
                             <td>
-                                <?php echo $fetch_userdata['user_email'] ?>
+                                <?= $fetch_userdata['user_email'] ?>
                             </td>
                             
                             <td>

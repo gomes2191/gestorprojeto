@@ -366,19 +366,13 @@ class AgendaModel
         return $id;
         
      } // @get_ultimo_id
-
-        /*
-	 * Obtém a lista de usuários
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function get_evento_list($id = NULL) {
-                
-                
-                
+     
+     
+     
+     
+     public function get_listar() {
 		// Simplesmente seleciona os dados na base de dados
-		$query = $this->db->query("SELECT * FROM  `agendas` WHERE `agenda_id`=$id");
+		$query = $this->db->query( " SELECT * FROM  `agendas` " );
 
 		// Verifica se a consulta está OK
 		if ( ! $query ) {
@@ -386,7 +380,41 @@ class AgendaModel
 		}
 		// Preenche a tabela com os dados do usuário
 		return $query->fetchAll();
-	} // get_agenda_list
+	} // get_listar
+
+        /*
+	 * Obtém a lista de usuários
+	 *
+	 * @since 0.1
+	 * @access public
+	 */
+	public function get_total_linhas() {
+		// Simplesmente seleciona os dados na base de dados
+		$query = $this->db->query("SELECT * FROM  `agendas` ");
+
+		// Verifica se a consulta está OK
+		if ( ! $query ) {
+			return array();
+		}
+                
+                $count_fetchall = count($query->fetchAll());
+                
+		// Preenche a tabela com os dados do usuário
+		return $count_fetchall;
+                
+	} // get_total_linhas
+        
+        public function get_pagination($quanti_pagina = NULL, $pagina = NULL) {
+		// Simplesmente seleciona os dados na base de dados
+		$query = $this->db->query( " SELECT * FROM  `agendas` LIMIT $pagina, $quanti_pagina " );
+
+		// Verifica se a consulta está OK
+		if ( ! $query ) {
+			return array();
+		}
+		// Preenche a tabela com os dados do usuário
+		return $query->fetchAll();
+	} // get_pagination
         
         
 
@@ -404,25 +432,4 @@ class AgendaModel
         return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
     }
     
-    
-    function get_links($url) { 
-
-    // Create a new DOM Document to hold our webpage structure 
-    $xml = new DOMDocument(); 
-
-    // Load the url's contents into the DOM 
-    $xml->loadHTMLFile($url); 
-
-    // Empty array to hold all links to return 
-    $links = array(); 
-
-    //Loop through each <a> tag in the dom and add it to the link array 
-    foreach($xml->getElementsByTagName('a') as $link) { 
-        $links[] = array('url' => $link->getAttribute('href'), 'text' => $link->nodeValue); 
-    } 
-
-    //Return the links 
-    return $links; 
-} 
-
 }

@@ -6,10 +6,18 @@
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
     $modelo->get_register_form(chk_array($parametros, 1));
+    $listar = $modelo->get_listar();
     $modelo->del_evento($parametros);
+    $total_rows = $modelo->get_total_linhas();
     
+    var_dump($total_rows);
+    // Define o numero de itens por página
+    $quanti_pagina = 8;
     
+    // Pega a página atual
+    $pagina = intval($_GET['pagina']);
     
+   $num_paginas = ceil($total_rows / $quanti_pagina);
     
 ?>
 
@@ -81,14 +89,56 @@
     <!--refresh widget-->
     <div class="col-md-3 col-sm-3">
         <!--refresh widget-->
-        <div class="panel-agenda panel panel-default">
-            <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>Agendamentos</div>
-            <div class="panel-body panel-refresh">
+        <div class="panel-agenda panel  panel-default">
+            <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>AGENDAMENTOS DO DIA</div>
+            <div class="panel-body  panel-refresh">
+                <?php 
+                    if ($listar): 
+                    foreach ($listar as $fetch_event_data) :
+               ?>
+                
+                
+                <ul class="list-group list-table">
+                    <li class=" list-group-item list-group-item-info">
+                        <i class="fa fa-calendar-check-o"></i> 
+                        <?= $fetch_event_data['agenda_start_normal']; ?>
+                         <a href="#"><?= $fetch_event_data['agenda_pac']; ?></a>
+                         <?= $fetch_event_data['agenda_proc']; ?>
+                       
+                    </li>
+                     
+                    
+                </ul>
+                
+                <?php endforeach; endif;   ?>
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
 
                 <div class="refresh-data"> 
 
                 </div>
+            </div>
+            <div class="panel-footer"> 
+                <nav aria-label="...">
+                <ul class="pagination pagination-sm">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <?php for($i = 0; $i<$num_paginas; $i++){ ?>
+                  <li class="page-item"><a href="agenda?pagina=<?php echo $i; ?>"><?php echo $i+1;?></a></li>
+                  <?php } ?>
+                 
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            
             </div>
         </div>
         <!--refresh widget-->
