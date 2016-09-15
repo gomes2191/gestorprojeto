@@ -385,7 +385,13 @@ class AgendaModel
 		return $query->fetchAll();
 	} // get_listar
         
-        public function get_pagination($quanti_pagina = NULL, $pagina = NULL) {
+        public function get_pagination( $pagina = NULL, $quanti_pagina = NULL ) {
+            
+                if(( $pagina == FALSE ) OR ($quanti_pagina == FALSE) ){
+                    $pagina = NULL;
+                    $quanti_pagina = NULL;
+                    
+                }
 		// Simplesmente seleciona os dados na base de dados
 		$query = $this->db->query( " SELECT * FROM  `agendas` LIMIT $pagina, $quanti_pagina " );
 

@@ -11,6 +11,7 @@
     $modelo->del_evento($parametros);
     
     
+    
     var_dump($total_rows);
     // Define o numero de itens por página
     $quanti_pagina = 2;
@@ -22,6 +23,8 @@
     
     
    $num_paginas = ceil($total_rows / $quanti_pagina);
+   
+   $modelo->get_pagination($pagina, $quanti_pagina);
     
 ?>
 
