@@ -149,12 +149,12 @@
 	var options = {
             // Definimos que os eventos aparecerão em uma janelo modal
             modal: '#events-modal',
-            async: false,
+            async: true,
             modal_title: 'Cadastro de consulta',
             // Dentro de um iframe
             modal_type: 'ajax',
             //Obtemos os eventos da base de dados
-            events_source: '<?= HOME_URI; ?>/_agenda/return_json.php',
+            events_source: '<?= HOME_URI; ?>/agenda/return-json',
             // Mostramos o calendário no mês
             view: 'month',
             // No dia atual
