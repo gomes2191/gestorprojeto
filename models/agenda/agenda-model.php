@@ -209,7 +209,7 @@ class AgendaModel
                         
                         // Gera o link do evento
                         //$link = HOME_URI."/_agenda/return_descricao.php?id=$id";
-                        $link = HOME_URI."/agenda-box?ag=$id";
+                        $link = HOME_URI."/agenda/box-visao?ag=$id";
 
                         // Atualizamos nosso $link
                         $this->db->query("UPDATE `agendas` SET `agenda_url` = '$link' WHERE `agenda_id` = $id");
@@ -315,10 +315,12 @@ class AgendaModel
 			
 			// Deleta o evento
 			$query = $this->db->delete('agendas', 'agenda_id', $evento_id);
+                        $this->form_msg = 'Brasil ';
 			
 			// Redireciona de volta para a página
 			echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/agenda">';
 			echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/agenda";</script>';
+                        
 			return;
 		}
 	} // del_user
@@ -352,7 +354,8 @@ class AgendaModel
             );
             
         }
-        return json_encode($out);
+         echo json_encode(array('success' => 1, 'result' => $out));
+         exit;
         
     } // @get_agenda_consulta
     

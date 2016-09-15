@@ -9,8 +9,6 @@
     
 ?>
 
-
-
 <div class="row-fluid">
     <div class="col-md-1 col-md-1"></div>
     <div class="col-md-6 col-sm-6"> 
@@ -24,7 +22,7 @@
           <div class="panel-body">
                 <form role="form" method="post" action="">
 
-                  <?php echo ($modelo->form_msg); ?>
+                  <?= $modelo->form_msg ?>
 
                     <div class="form-group has-feedback has-feedback-left ">
                         <!--<label for="clinic_name">Nome da clinica:</label>-->
