@@ -7,26 +7,201 @@
     $modelo->validate_register_form();
     $modelo->get_register_form(chk_array($parametros, 1));
     $listar = $modelo->get_listar();
-    $total_rows = count($modelo->get_listar());
+    //$total_rows = count($modelo->get_listar());
     $modelo->del_evento($parametros);
     
     
+    //var_dump($modelo->get_pagination());
     
-    var_dump($total_rows);
-    // Define o numero de itens por página
-    $quanti_pagina = 2;
-    
-    // Pega a página atual
-    if(isset($_GET['pagina'])){
-        $pagina = intval($_GET['pagina']);
-    }
-    
-    
-   $num_paginas = ceil($total_rows / $quanti_pagina);
-   
-   $modelo->get_pagination($pagina, $quanti_pagina);
     
 ?>
+
+
+
+
+<script>
+    
+                var paginador;
+		var totalPaginas;
+		var itemsPorPagina = 2;
+		var numerosPorPagina = 2;
+
+		function creaPaginador(totalItems)
+		{
+			paginador = $(".pagination");
+
+			totalPaginas = Math.ceil(totalItems/itemsPorPagina);
+
+			$('<li><a href="#" class="first_link"><</a></li>').appendTo(paginador);
+			$('<li><a href="#" class="prev_link">«</a></li>').appendTo(paginador);
+
+			var pag = 0;
+			while(totalPaginas > pag)
+			{
+				$('<li><a href="#" class="page_link">'+(pag+1)+'</a></li>').appendTo(paginador);
+				pag++;
+			}
+
+
+			if(numerosPorPagina > 1)
+			{
+				$(".page_link").hide();
+				$(".page_link").slice(0,numerosPorPagina).show();
+			}
+
+			$('<li><a href="#" class="next_link">»</a></li>').appendTo(paginador);
+			$('<li><a href="#" class="last_link">></a></li>').appendTo(paginador);
+
+			paginador.find(".page_link:first").addClass("active");
+			paginador.find(".page_link:first").parents("li").addClass("active");
+
+			paginador.find(".prev_link").hide();
+
+			paginador.find("li .page_link").click(function()
+			{
+				var irpagina =$(this).html().valueOf()-1;
+				cargaPagina(irpagina);
+				return false;
+			});
+
+			paginador.find("li .first_link").click(function()
+			{
+				var irpagina =0;
+				cargaPagina(irpagina);
+				return false;
+			});
+
+			paginador.find("li .prev_link").click(function()
+			{
+				var irpagina =parseInt(paginador.data("pag")) -1;
+				cargaPagina(irpagina);
+				return false;
+			});
+
+			paginador.find("li .next_link").click(function()
+			{
+				var irpagina =parseInt(paginador.data("pag")) +1;
+				cargaPagina(irpagina);
+				return false;
+			});
+
+			paginador.find("li .last_link").click(function()
+			{
+				var irpagina =totalPaginas -1;
+				cargaPagina(irpagina);
+				return false;
+			});
+
+			cargaPagina(0);
+
+
+
+
+		}
+
+		function cargaPagina(pagina)
+		{
+			var desde = pagina * itemsPorPagina;
+
+			$.ajax({
+				data:{"param1":"dame","limit":itemsPorPagina,"offset":desde},
+				type:"GET",
+				dataType:"json",
+				url: '<?= HOME_URI; ?>/agenda/json-pagination'
+			}).done(function(data,textStatus,jqXHR){
+
+				var lista = data.lista;
+
+				$("#miTabla").html("");
+
+				$.each(lista, function(ind, elem){
+
+					$("<tr>"+
+						"<td>"+elem.agenda_id+"</td>"+
+						"<td>"+elem.agenda_pac+"</td>"+
+						"<td>"+elem.agenda_proc+"</td>"+
+						"<td>"+elem.agenda_desc+"</td>"+
+						"</tr>").appendTo($("#miTabla"));
+
+
+				});			
+
+
+			}).fail(function(jqXHR,textStatus,textError){
+                                alert(textError);
+				alert("Error al realizar la peticion dame".textError);
+
+			});
+
+			if(pagina >= 1)
+			{
+				paginador.find(".prev_link").show();
+
+			}
+			else
+			{
+				paginador.find(".prev_link").hide();
+			}
+
+
+			if(pagina <(totalPaginas- numerosPorPagina))
+			{
+				paginador.find(".next_link").show();
+			}else
+			{
+				paginador.find(".next_link").hide();
+			}
+
+			paginador.data("pag",pagina);
+
+			if(numerosPorPagina>1)
+			{
+				$(".page_link").hide();
+				if(pagina < (totalPaginas- numerosPorPagina))
+				{
+					$(".page_link").slice(pagina,numerosPorPagina + pagina).show();
+				}
+				else{
+					if(totalPaginas > numerosPorPagina)
+						$(".page_link").slice(totalPaginas- numerosPorPagina).show();
+					else
+						$(".page_link").slice(0).show();
+
+				}
+			}
+
+			paginador.children().removeClass("active");
+			paginador.children().eq(pagina+2).addClass("active");
+
+
+		}
+
+
+		$(function()
+		{
+
+			$.ajax({
+
+				data:{"param1":"cuantos"},
+				type:"GET",
+				dataType:"json",
+				url:'<?= HOME_URI; ?>/agenda/json-pagination'
+			}).done(function(data,textStatus,jqXHR){
+				var total = data.total;
+
+				creaPaginador(total);
+
+
+			}).fail(function(jqXHR,textStatus,textError){
+				alert("Error al realizar la peticion cuantos".textError);
+
+			});
+
+
+
+		});
+
+</script>
 
 
 <div class="row-fluid"> 
@@ -117,6 +292,11 @@
                     
                 </ul>
                 
+                <tbody id="miTabla">
+
+                </tbody>
+                
+                
                 <?php endforeach; endif;   ?>
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
 
@@ -126,23 +306,8 @@
             </div>
             <div class="panel-footer"> 
                 <nav aria-label="...">
-                <ul class="pagination pagination-sm">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <?php for($i = 0; $i < $num_paginas; $i++){ ?>
-                  <li class="page-item"><a href="agenda?pagina=<?= $i; ?>"><?= $i + 1; ?></a></li>
-                  <?php } ?>
-                 
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
+                <ul class="pagination pagination-sm" id="paginador">
+                  
                 </ul>
               </nav>
             
