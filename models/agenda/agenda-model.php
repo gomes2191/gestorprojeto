@@ -384,28 +384,6 @@ class AgendaModel
 		// Preenche a tabela com os dados do usuário
 		return $query->fetchAll();
 	} // get_listar
-
-        /*
-	 * Obtém a lista de usuários
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function get_total_linhas() {
-		// Simplesmente seleciona os dados na base de dados
-		$query = $this->db->query("SELECT * FROM  `agendas` ");
-
-		// Verifica se a consulta está OK
-		if ( ! $query ) {
-			return array();
-		}
-                
-                $count_fetchall = count($query->fetchAll());
-                
-		// Preenche a tabela com os dados do usuário
-		return $count_fetchall;
-                
-	} // get_total_linhas
         
         public function get_pagination($quanti_pagina = NULL, $pagina = NULL) {
 		// Simplesmente seleciona os dados na base de dados

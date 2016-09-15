@@ -7,15 +7,19 @@
     $modelo->validate_register_form();
     $modelo->get_register_form(chk_array($parametros, 1));
     $listar = $modelo->get_listar();
+    $total_rows = count($modelo->get_listar());
     $modelo->del_evento($parametros);
-    $total_rows = $modelo->get_total_linhas();
+    
     
     var_dump($total_rows);
     // Define o numero de itens por página
-    $quanti_pagina = 8;
+    $quanti_pagina = 2;
     
     // Pega a página atual
-    $pagina = intval($_GET['pagina']);
+    if(isset($_GET['pagina'])){
+        $pagina = intval($_GET['pagina']);
+    }
+    
     
    $num_paginas = ceil($total_rows / $quanti_pagina);
     
@@ -126,8 +130,8 @@
                       <span class="sr-only">Previous</span>
                     </a>
                   </li>
-                  <?php for($i = 0; $i<$num_paginas; $i++){ ?>
-                  <li class="page-item"><a href="agenda?pagina=<?php echo $i; ?>"><?php echo $i+1;?></a></li>
+                  <?php for($i = 0; $i < $num_paginas; $i++){ ?>
+                  <li class="page-item"><a href="agenda?pagina=<?= $i; ?>"><?= $i + 1; ?></a></li>
                   <?php } ?>
                  
                   <li class="page-item">

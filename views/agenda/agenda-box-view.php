@@ -13,7 +13,7 @@
             $id = $modelo->avaliar($_GET['ag']);
             
             // Metodo que armazena o evento especifico um vetor
-            $row = $modelo->get_evento_list($id);
+            $row = $modelo->get_listar($id);
 
             // Paciente 
             $agenda_pac = $row[0]['agenda_pac'];
@@ -61,14 +61,10 @@
 
 <br>
     <div class="btn-group">
-<<<<<<< HEAD
         
         <a href="<?= HOME_URI ?>/agenda/index/del/<?= $id ?>" id="deletar" class="btn btn-sm btn-danger" title="Deletar" >
             <span class="glyphicon glyphicon-trash"> REMOVER</span>
-            
-=======
-        <a href="<?= HOME_URI ?>/agenda/index/del/<?= $id ?>" id="deletar" class="btn btn-sx btn-danger" title="Deletar" >
-            <span class="glyphicon glyphicon-trash">Deletar</span>
->>>>>>> 2658161a4792e9a7e70f6858ecc9b7e7e6075551
         </a>
+            
+
     </div>
