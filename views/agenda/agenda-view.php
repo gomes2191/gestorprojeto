@@ -23,8 +23,8 @@
     
                 var paginador;
 		var totalPaginas;
-		var itemsPorPagina = 2;
-		var numerosPorPagina = 2;
+		var itemsPorPagina = 3;
+		var numerosPorPagina = 3;
 
 		function creaPaginador(totalItems)
 		{
@@ -116,12 +116,10 @@
 
 				$.each(lista, function(ind, elem){
 
-					$("<tr>"+
-						"<td>"+elem.agenda_id+"</td>"+
-						"<td>"+elem.agenda_pac+"</td>"+
-						"<td>"+elem.agenda_proc+"</td>"+
-						"<td>"+elem.agenda_desc+"</td>"+
-						"</tr>").appendTo($("#miTabla"));
+					$(
+                                            "<li class='list-group-item list-group-item-info'>"+elem.agenda_id+' - '+elem.agenda_pac+' - '+elem.agenda_proc+' - '+elem.agenda_desc+"</li>"
+						
+                                        ).appendTo($("#miTabla"));
 
 
 				});			
@@ -274,30 +272,18 @@
         <div class="panel-agenda panel  panel-default">
             <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>AGENDAMENTOS DO DIA</div>
             <div class="panel-body  panel-refresh">
-                <?php 
-                    if ($listar): 
-                    foreach ($listar as $fetch_event_data) :
-               ?>
+              
                 
                 
-                <ul class="list-group list-table">
-                    <li class=" list-group-item list-group-item-info">
-                        <i class="fa fa-calendar-check-o"></i> 
-                        <?= $fetch_event_data['agenda_start_normal']; ?>
-                         <a href="#"><?= $fetch_event_data['agenda_pac']; ?></a>
-                         <?= $fetch_event_data['agenda_proc']; ?>
-                       
-                    </li>
+                <ul id="miTabla" class="list-group list-table">
+                  
                      
                     
                 </ul>
-                
-                <tbody id="miTabla">
-
-                </tbody>
+               
                 
                 
-                <?php endforeach; endif;   ?>
+               
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
 
                 <div class="refresh-data"> 
