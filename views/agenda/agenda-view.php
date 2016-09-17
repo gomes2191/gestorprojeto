@@ -112,14 +112,14 @@
 
 				var lista = data.lista;
 
-				$("#miTabla").html("");
+				$("#listConsul").html("");
 
 				$.each(lista, function(ind, elem){
 
 					$(
                                             "<li class='list-group-item list-group-item-info'>"+elem.agenda_id+' - '+elem.agenda_pac+' - '+elem.agenda_proc+' - '+elem.agenda_desc+"</li>"
 						
-                                        ).appendTo($("#miTabla"));
+                                        ).appendTo($("#listConsul"));
 
 
 				});			
@@ -275,14 +275,9 @@
               
                 
                 
-                <ul id="miTabla" class="list-group list-table">
-                  
-                     
-                    
+                <ul id="listConsul" class="list-group">
+                       
                 </ul>
-               
-                
-                
                
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
 
