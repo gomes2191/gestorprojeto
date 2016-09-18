@@ -39,7 +39,7 @@
             $jsondataperson["agenda_id"] = $fila["agenda_id"];
             $jsondataperson["agenda_pac"] = $fila["agenda_pac"];
             $jsondataperson["agenda_proc"] = $fila["agenda_proc"];
-            $jsondataperson["agenda_desc"] = $fila["agenda_desc"];
+            $jsondataperson["agenda_start_normal"] = $fila["agenda_start_normal"];
 
             $jsondataList [] = $jsondataperson;
         }

@@ -1,4 +1,8 @@
-	<?php if ( ! defined('ABSPATH')) exit; ?>
+	<?php 
+            if ( ! defined('ABSPATH')){
+                exit();
+            } 
+        ?>
 
 
 
@@ -9,11 +13,11 @@
     <!--<script>window.jQuery || document.write('<script src="<?php echo HOME_URI;?>/views/_js/jquery.min.js"><\/script>')</script>-->
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="<?php echo HOME_URI;?>/views/_js/ie10-viewport-bug-workaround.js"></script>
+    <script src="<?= HOME_URI; ?>/views/_js/ie10-viewport-bug-workaround.js"></script>
     
     <!-- Javascript customizado ===================================================== --> 
     
-    <script src="<?php echo HOME_URI;?>/views/_js/scripts.js"></script>
+    <script src="<?= HOME_URI; ?>/views/_js/scriptsFooter.js"></script>
 
   </body>
 </html>

@@ -294,9 +294,6 @@ class AgendaModel extends MainModel
         */
 	public function del_evento ( $parametros = array() ) {
             
-            
-            var_dump($parametros);
-
 		// O ID do evento
 		$evento_id = null;
 		

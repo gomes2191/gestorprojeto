@@ -1,11 +1,14 @@
 <?php
     if (!defined('ABSPATH')) {
-        die();
+        exit();
         
     } 
-//     var_dump($_SERVER['REQUEST_METHOD']);
+     //var_dump($_SERVER['REQUEST_METHOD']);
     
-    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    //if($_SERVER['REQUEST_METHOD'] == 'GET')
+        if($_SERVER['REQUEST_METHOD'] == 'GET')
+        
+        {
         $modelo->return_json_evento();
         
     }else{
