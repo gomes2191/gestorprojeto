@@ -2,9 +2,11 @@
 /**
  * MainModel - Modelo geral
  *
- * 
+ * Essa classe servirá para manter os métodos que poderão ser utilizados em todos os modelos, ou seja, 
+ * ela o ajuda a manter a reutilização de código sempre ativa.
  *
- * @package OdontoVision
+ * 
+ * @package OdontoControl
  * @since 0.1
  */
 class MainModel
@@ -121,5 +123,15 @@ class MainModel
 		return $nova_data;
 	
 	} // inverte_data
+
+
+	// Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
+    public function avaliar( $valor_ini ) {
+        $nopermitido = array("'", '\\', '<', '>', "\"");
+        $valor_1 = str_replace($nopermitido, "", $valor_ini);
+
+        $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+        return $valor;
+    }
 
 } // MainModel

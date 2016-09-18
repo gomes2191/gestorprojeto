@@ -104,4 +104,17 @@ class AgendaController extends MainController
         require_once ABSPATH . '/views/agenda/json-return-view.php';
     }// box-visao
     
+    // URL: dominio.com/exemplo/box-visao
+    public function JsonPagination() {
+        // Inclua seus models e views aqui
+        
+        
+        // Carrega o modelo
+        //$modelo = $this->load_model('exemplo/exemplo-model');
+        $modelo = $this->load_model('agenda/agenda-model');
+
+        // Carrega o view
+        require_once ABSPATH . '/views/agenda/json-pagination-view.php';
+    }// box-visao
+    
 } // AgendaController

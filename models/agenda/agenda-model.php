@@ -6,7 +6,7 @@
  * @since 0.1
  */
 
-class AgendaModel
+class AgendaModel extends MainModel
 {
 
 	/**
@@ -294,9 +294,6 @@ class AgendaModel
         */
 	public function del_evento ( $parametros = array() ) {
             
-            
-            var_dump($parametros);
-
 		// O ID do evento
 		$evento_id = null;
 		
@@ -373,46 +370,17 @@ class AgendaModel
      
      
      
-     public function get_listar() {
-		// Simplesmente seleciona os dados na base de dados
-		$query = $this->db->query( " SELECT * FROM  `agendas` " );
+    public function get_listar() {
+        // Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query( " SELECT * FROM  `agendas` " );
 
-		// Verifica se a consulta está OK
-		if ( ! $query ) {
-			return array();
-		}
-		// Preenche a tabela com os dados do usuário
-		return $query->fetchAll();
-	} // get_listar
-        
-        public function get_pagination( $pagina = NULL, $quanti_pagina = NULL ) {
-            
-                if(( $pagina == FALSE ) OR ($quanti_pagina == FALSE) ){
-                    $pagina = NULL;
-                    $quanti_pagina = NULL;
-                    
-                }
-		// Simplesmente seleciona os dados na base de dados
-		$query = $this->db->query( " SELECT * FROM  `agendas` LIMIT $pagina, $quanti_pagina " );
-
-		// Verifica se a consulta está OK
-		if ( ! $query ) {
-			return array();
-		}
-		// Preenche a tabela com os dados do usuário
-		return $query->fetchAll();
-	} // get_pagination
-        
-        
-
-      // Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
-    public function avaliar($valor_ini) {
-        $nopermitido = array("'", '\\', '<', '>', "\"");
-        $valor_1 = str_replace($nopermitido, "", $valor_ini);
-
-        $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-        return $valor;
-    }
+        // Verifica se a consulta está OK
+        if ( ! $query ) {
+                return array();
+        }
+        // Preenche a tabela com os dados do usuário
+        return $query->fetchAll();
+    } // get_listar
 
     // Microtime formatar uma data para adicionar o evento, tipo 1401517498985.
     public function _formatar($fecha) {

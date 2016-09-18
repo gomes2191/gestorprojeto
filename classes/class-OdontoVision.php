@@ -120,13 +120,22 @@ class OdontoVision
 			return;
 		} // method_exists
 		
-		// Sem ação, chamamos o método index
+		/*// Sem ação, chamamos o método index
 		if ( ! $this->acao && method_exists( $this->controlador, 'index' ) ) {
 			$this->controlador->index( $this->parametros );		
 			
 			// FIM :)
 			return;
 		} // ! $this->acao 
+                */
+                
+                // Sem ação, chamamos o método index
+                if ( ( ! $this->acao || ($this->acao && !method_exists( $this->controlador, $this->acao ))) && method_exists( $this->controlador, 'index' ) ){
+                    $this->controlador->index( $this->parametros );
+                    
+                    // FIM :)
+                    return;
+                } // ! $this->acao                      
 		
 		// Página não encontrada
 		require_once ABSPATH . $this->not_found;
