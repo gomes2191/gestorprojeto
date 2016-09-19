@@ -42,6 +42,8 @@
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/_agenda/css/calendar.css">';
                 
                 echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/bootstrap-datetimepicker.min.css">';
+                
+                
 
             }
         ?>
@@ -54,6 +56,7 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="<?= HOME_URI; ?>/views/_js/jquery.min.js"></script>
         <script src="<?= HOME_URI; ?>/views/_js/bootstrap.min.js"></script>
+        
         
         
         <!-- Biblioteca de futuro upgrade de agenda -->

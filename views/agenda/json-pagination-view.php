@@ -1,40 +1,31 @@
 <?php
-   
-    
-$jsondata = [];
-$jsondataList = [];
 
-
-
-//TESTE
-
-if ($_GET['param1'] == "cuantos") {
-
-    $resultado = $modelo->db->query( ' SELECT COUNT(*) total FROM `agendas` ' );
-
-
-    $fila = $resultado->fetch(PDO::FETCH_ASSOC);
-
-    $jsondata['total'] = $fila['total'];
-} elseif ($_GET["param1"] == "dame") {
-
-    $resultado2 = $modelo->db->query( ' SELECT * FROM `agendas` LIMIT ' .$_GET['limit']. " OFFSET " .$_GET['offset']);
-
-
-    while ($fila = $resultado2->fetch(PDO::FETCH_ASSOC)) {
-        $jsondataperson = [];
-        $jsondataperson["agenda_id"] = $fila["agenda_id"];
-        $jsondataperson["agenda_pac"] = $fila["agenda_pac"];
-        $jsondataperson["agenda_proc"] = $fila["agenda_proc"];
-        $jsondataperson["agenda_desc"] = $fila["agenda_desc"];
-
-        $jsondataList [] = $jsondataperson;
+    // Evita que o arquivo seja acessdado diretamente.
+    if (!defined('ABSPATH')) {
+        exit();
     }
 
-    $jsondata['lista'] = array_values($jsondataList);
-}
+    /*
+     * Simpesmente verifica se existe os parametros e executa a rotina
+     * 
+     */
+    if ($_GET['param1'] == 'cuantos') {
+        $param1 = 'cuantos';
+        $modelo->jsonPagination($param1);
+        exit();
+        
+    } elseif ($_GET['param1'] == 'dame') {
+        
+        $param1 = 'dame';
 
+        $limit = $modelo->avaliar($_GET['limit']);
+        $offset = $modelo->avaliar($_GET['offset']);
+        
+        $modelo->jsonPagination($param1, $limit, $offset);
+        exit();
+       
 
-
-
-echo json_encode($jsondata);
+    }else{
+        exit();
+    }
+   

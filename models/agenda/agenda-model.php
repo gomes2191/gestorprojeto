@@ -6,7 +6,7 @@
  * @since 0.1
  */
 
-class AgendaModel
+class AgendaModel extends MainModel
 {
 
 	/**
@@ -294,9 +294,6 @@ class AgendaModel
         */
 	public function del_evento ( $parametros = array() ) {
             
-            
-            var_dump($parametros);
-
 		// O ID do evento
 		$evento_id = null;
 		
@@ -373,86 +370,56 @@ class AgendaModel
      
      
      
-     public function get_listar() {
-		// Simplesmente seleciona os dados na base de dados
-		$query = $this->db->query( " SELECT * FROM  `agendas` " );
+    public function get_listar() {
+        // Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query( " SELECT * FROM  `agendas` " );
 
-		// Verifica se a consulta está OK
-		if ( ! $query ) {
-			return array();
-		}
-		// Preenche a tabela com os dados do usuário
-		return $query->fetchAll();
-	} // get_listar
-        
-        public function get_pagination() {
-            
-            
-                $jsondata = [];
-                $jsondataList = [];
-                
-                
-                
-                //TESTE
-                
-                if($_GET['param1']== "cuantos" )
-	{
-
-		$resultado = $this->db->query( " SELECT COUNT(*) total FROM `agendas` " );
-
-
-		$fila = $resultado->fetch(PDO::FETCH_ASSOC);
-
-		$jsondata['total'] = $fila['total'];
-	}
-	elseif($_GET["param1"]=="dame")
-	{
-                
-		$resultado2 = $this->db->query("SELECT * FROM agendas LIMIT ".  $this->db->real_escape_string($_GET['limit'])." OFFSET ".$this->db->real_escape_string($_GET["offset"]));
-
-		
-		while($fila = $resultado2->fetch(PDO::FETCH_ASSOC))
-		{
-			$jsondataperson = [];
-			$jsondataperson["agenda_id"] = $fila["agenda_id"];
-			$jsondataperson["agenda_pac"] = $fila["agenda_pac"];
-			$jsondataperson["agenda_proc"] = $fila["agenda_proc"];
-			$jsondataperson["agenda_desc"] = $fila["agenda_desc"];
-
-			$jsondataList [] = $jsondataperson;
-
-		}
-
-		$jsondata["lista"] = array_values($jsondataList);
-	}
-                
-        
-        
-       
-        echo json_encode($jsondata);
-        
-                
-                //TESTE
-                
-            
-                
-		
-	} // get_pagination
-        
-        
-
-      // Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
-    public function avaliar($valor_ini) {
-        $nopermitido = array("'", '\\', '<', '>', "\"");
-        $valor_1 = str_replace($nopermitido, "", $valor_ini);
-
-        $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-        return $valor;
-    }
+        // Verifica se a consulta está OK
+        if ( ! $query ) {
+                return array();
+        }
+        // Preenche a tabela com os dados do usuário
+        return $query->fetchAll();
+    } // get_listar
 
     // Microtime formatar uma data para adicionar o evento, tipo 1401517498985.
     public function _formatar($fecha) {
         return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
     }
     
+    
+    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL ) {
+
+        $jsondata = [];
+        $jsondataList = [];
+
+        if ($param1 == 'cuantos') {
+
+            $resultado = $this->db->query(' SELECT COUNT(*) total FROM `agendas` ');
+
+
+            $fila = $resultado->fetch();
+
+            $jsondata['total'] = $fila['total'];
+        } elseif ($param1 == 'dame') {
+
+            $resultadoT = $this->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
+
+
+            while ($fila = $resultadoT->fetch()) {
+                $jsondataperson = [];
+                $jsondataperson['agenda_id'] = $fila['agenda_id'];
+                $jsondataperson['agenda_pac'] = $fila['agenda_pac'];
+                $jsondataperson['agenda_proc'] = $fila['agenda_proc'];
+                $jsondataperson['agenda_start_normal'] = $fila['agenda_start_normal'];
+
+                $jsondataList [] = $jsondataperson;
+            }
+
+            $jsondata['lista'] = array_values($jsondataList);
+        }
+
+        echo json_encode($jsondata);
+    }
+
 }
