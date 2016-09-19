@@ -107,7 +107,7 @@
 				$.each(lista, function(ind, elem){
 
 					$(
-                                            "<li class='list-group-item list-group-item-info'>"+'<b>Nome: </b>'+elem.agenda_pac+' <b>Procedimento: </b>'+elem.agenda_proc+' <b>Horario: </b>'+elem.agenda_start_normal+"</li>"
+                                            "<li class='list-group-item list-group-item-info'>"+'<a href="#"  data-event-id="'+elem.agenda_id+'">'+'<b>Nome: </b>'+elem.agenda_pac+' <b>Procedimento: </b>'+elem.agenda_proc+' <b>Horario: </b>'+elem.agenda_start_normal+'</a>'+"</li>"
 						
                                         ).appendTo($("#listConsul"));
 

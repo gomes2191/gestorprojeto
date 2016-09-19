@@ -5,45 +5,27 @@
         exit();
     }
 
-    //$modelo->db->set_charset("utf8");
-
-    $jsondata = [];
-    $jsondataList = [];
-
-
-
-
     /*
      * Simpesmente verifica se existe os parametros e executa a rotina
      * 
      */
-    if ($_GET['param1'] == "cuantos") {
-
-        $resultado = $modelo->db->query(' SELECT COUNT(*) total FROM `agendas` ');
-
-
-        $fila = $resultado->fetch(PDO::FETCH_ASSOC);
-
-        $jsondata['total'] = $fila['total'];
+    if ($_GET['param1'] == 'cuantos') {
+        $param1 = 'cuantos';
+        $modelo->jsonPagination($param1);
+        exit();
+        
     } elseif ($_GET['param1'] == 'dame') {
+        
+        $param1 = 'dame';
 
         $limit = $modelo->avaliar($_GET['limit']);
         $offset = $modelo->avaliar($_GET['offset']);
+        
+        $modelo->jsonPagination($param1, $limit, $offset);
+        exit();
+       
 
-
-        $resultadoT = $modelo->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
-
-
-        while ($fila = $resultadoT->fetch()) {
-            $jsondataperson = [];
-            $jsondataperson["agenda_id"] = $fila["agenda_id"];
-            $jsondataperson["agenda_pac"] = $fila["agenda_pac"];
-            $jsondataperson["agenda_proc"] = $fila["agenda_proc"];
-            $jsondataperson["agenda_start_normal"] = $fila["agenda_start_normal"];
-
-            $jsondataList [] = $jsondataperson;
-        }
-
-        $jsondata['lista'] = array_values($jsondataList);
+    }else{
+        exit();
     }
-    echo json_encode($jsondata);
+   

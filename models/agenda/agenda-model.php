@@ -387,4 +387,39 @@ class AgendaModel extends MainModel
         return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
     }
     
+    
+    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL ) {
+
+        $jsondata = [];
+        $jsondataList = [];
+
+        if ($param1 == 'cuantos') {
+
+            $resultado = $this->db->query(' SELECT COUNT(*) total FROM `agendas` ');
+
+
+            $fila = $resultado->fetch();
+
+            $jsondata['total'] = $fila['total'];
+        } elseif ($param1 == 'dame') {
+
+            $resultadoT = $this->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
+
+
+            while ($fila = $resultadoT->fetch()) {
+                $jsondataperson = [];
+                $jsondataperson['agenda_id'] = $fila['agenda_id'];
+                $jsondataperson['agenda_pac'] = $fila['agenda_pac'];
+                $jsondataperson['agenda_proc'] = $fila['agenda_proc'];
+                $jsondataperson['agenda_start_normal'] = $fila['agenda_start_normal'];
+
+                $jsondataList [] = $jsondataperson;
+            }
+
+            $jsondata['lista'] = array_values($jsondataList);
+        }
+
+        echo json_encode($jsondata);
+    }
+
 }
