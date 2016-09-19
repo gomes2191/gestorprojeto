@@ -190,6 +190,7 @@
 				var total = data.total;
 
 				creaPaginador(total);
+                                alert(total);
 
 
 			}).fail(function(jqXHR,textStatus,textError){
