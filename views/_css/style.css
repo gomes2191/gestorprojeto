@@ -74,3 +74,14 @@
  padding: 30px;
  opacity: 0.8;
 }
+
+
+
+/* DataPicker estilização dos campos do calendario */
+th.today {
+    color: forestgreen !important;
+}
+
+th.clear {
+    color: crimson !important;
+}

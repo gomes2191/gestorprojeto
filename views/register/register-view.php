@@ -22,7 +22,7 @@
           <div class="panel-body">
                 <form role="form" method="post" action="">
 
-                  <?= $modelo->form_msg ?>
+                  <?= $modelo->form_msg; ?>
 
                     <div class="form-group has-feedback has-feedback-left ">
                         <!--<label for="clinic_name">Nome da clinica:</label>-->

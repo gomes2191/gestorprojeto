@@ -12,10 +12,10 @@ $('#user-register-btn').on('click', function() {
 // Mensagens do sistemas
 $(document).ready(function () {
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
-    $(".alert").hide();
-    $(".alert").alert();
-    $(".alert").fadeTo(8500, 2000).slideUp(800, function () {
-        $(".alert").slideUp(800);
+    $(".alertH").hide();
+    $(".alertH").alert();
+    $(".alertH").fadeTo(8500, 2000).slideUp(800, function () {
+        $(".alertH").slideUp(800);
     });
 
     // Popup alerta

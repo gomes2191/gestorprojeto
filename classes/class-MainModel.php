@@ -125,7 +125,7 @@ class MainModel
 	} // inverte_data
 
 
-	// Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
+    // Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
     public function avaliar( $valor_ini ) {
         $nopermitido = array("'", '\\', '<', '>', "\"");
         $valor_1 = str_replace($nopermitido, "", $valor_ini);

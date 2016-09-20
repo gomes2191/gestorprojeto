@@ -10,7 +10,13 @@
         // Agenda paginador de eventos
   
   
-  $(function(){
+  
+  
+  
+  
+   $(function(){
+      
+          
                 var paginador;
 		var totalPaginas;
 		var itemsPorPagina = 3;
@@ -107,7 +113,7 @@
 				$.each(lista, function(ind, elem){
 
 					$(
-                                            "<li class='list-group-item list-group-item-info'>"+'<a href="#"  data-event-id="'+elem.agenda_id+'">'+'<b>Nome: </b>'+elem.agenda_pac+' <b>Procedimento: </b>'+elem.agenda_proc+' <b>Horario: </b>'+elem.agenda_start_normal+'</a>'+"</li>"
+                                            "<li class='list-group-item list-group-item-info'>"+'<i class="glyphicon glyphicon-certificate"></i>'+'<b> Nome: </b>'+elem.agenda_pac+' <b>Procedimento: </b>'+elem.agenda_proc+' <b>Horario: </b>'+elem.agenda_start_normal+"</li>"
 						
                                         ).appendTo($("#listConsul"));
 
@@ -117,57 +123,68 @@
 
 			}).fail(function(jqXHR,textStatus,textError){
                                 alert(textError);
-				alert("Error al realizar la peticion dame".textError);
+				
 
 			});
 
-			if(pagina >= 1)
+			if(pagina > 0)
 			{
-				paginador.find(".prev_link").show();
+                            
+                                paginador.find(".prev_link").show();
+                            
+                                
 
 			}
 			else
 			{
-				paginador.find(".prev_link").hide();
+                             paginador.find(".prev_link").hide();
+                             
+                               
 			}
 
 
-			if(pagina <(totalPaginas- numerosPorPagina))
+			if(pagina < (totalPaginas- numerosPorPagina))
 			{
 				paginador.find(".next_link").show();
 			}else
 			{
 				paginador.find(".next_link").hide();
+                               
 			}
 
 			paginador.data("pag",pagina);
 
-			if(numerosPorPagina>1)
+			if(numerosPorPagina > 1)
 			{
-				$(".page_link").hide();
-				if(pagina < (totalPaginas- numerosPorPagina))
-				{
-					$(".page_link").slice(pagina,numerosPorPagina + pagina).show();
-				}
-				else{
-					if(totalPaginas > numerosPorPagina)
-						$(".page_link").slice(totalPaginas- numerosPorPagina).show();
-					else
-						$(".page_link").slice(0).show();
+                            
+                            $(".page_link").hide();
+                            if(pagina < (totalPaginas- numerosPorPagina))
+                            {
+                                    $(".page_link").slice(pagina,numerosPorPagina + pagina).show();
 
-				}
+                            }
+                            else{
+                                    if(totalPaginas > numerosPorPagina)
+                                            $(".page_link").slice(totalPaginas- numerosPorPagina).show();
+                                    else
+                                            $(".page_link").slice(0).show();
+
+
+                            }
+                               
+                                    
+                               
+                                
 			}
 
 			paginador.children().removeClass("active");
-			paginador.children().eq(pagina+2).addClass("active");
+			paginador.children().eq(pagina + 2).addClass("active");
 
 
 		}
 
 
-		$(function()
-		{
-
+		$(function(){
 			$.ajax({
 
 				data:{"param1":"cuantos"},
@@ -178,12 +195,25 @@
 				var total = data.total;
 
 				creaPaginador(total);
+                                
+                                if(total == '0' ){
+                                   $('.paginadorAgenda').html('<i class="glyphicon glyphicon-info-sign"></i> Olá, ainda não a agendamentos');  
+                                   $('.panel-footer').hide();  
+                                   
+                                }else{
+                                 
+                                   $('.paginadorAgenda').hide();
+                                }
+                                
+                                
 
 
 			}).fail(function(jqXHR,textStatus,textError){
 				alert("Error al realizar la peticion cuantos".textError);
 
 			});
+                        
+                        
 
 
 
@@ -194,5 +224,11 @@
        
   
       
-  });
+  });   
+  
+  
+          
+          
+   
+                
                 

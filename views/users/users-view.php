@@ -62,7 +62,7 @@
                             </td>
                             
                             <td>
-                                <a href="<?php echo HOME_URI ?>/user-register/index/edit/<?php echo $fetch_userdata['user_id'] ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
+                                <a href="<?= HOME_URI; ?>/user-register/index/edit/<?= $fetch_userdata['user_id']; ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
                                     <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
                                 </a>
                             </td>

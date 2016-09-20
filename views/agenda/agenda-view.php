@@ -3,18 +3,11 @@
         exit;
     }
     
-    // Carrega todos os métodos do modelo
+   /* Carrega todos os metódos necessarios */
     $modelo->validate_register_form();
-    $modelo->get_register_form(chk_array($parametros, 1));
-    $listar = $modelo->get_listar();
-    //$total_rows = count($modelo->get_listar());
-    $modelo->del_evento($parametros);
-    
-    
-    //var_dump($modelo->get_pagination());
-    
-    
+    $modelo->del_evento($parametros); 
 ?>
+
 <div class="row-fluid"> 
     <!-- Agenda bibliotecas js -->
     <script src="<?= HOME_URI; ?>/_agenda/js/pt-BR.js"></script>
@@ -35,8 +28,8 @@
                     </div>
                     <div style="background-color: rgb(245, 245, 245); padding: 4px; border-radius: 3px;" >
                         <div class="btn-group">
-                            <button title="click para agendar sua consulta" class="btn btn-sm btn-default" data-toggle='modal' data-target='#add_evento'>
-                                AGENDAR CONSULTA <i class="fa fa-calendar-plus-o" aria-hidden="false"></i>
+                            <button title="Click para agendar sua consulta." class="btn btn-sm btn-default" style="color: blue;" data-toggle='modal' data-target='#add_evento'>
+                               <i class="fa fa-calendar-plus-o" aria-hidden="false"></i> Inserir Consulta 
                             </button>
                             <button class="btn btn-sm btn-primary" data-calendar-nav="prev">
                                 <i class="fa fa-backward" aria-hidden="true"></i>
@@ -86,11 +79,10 @@
         <div class="panel-agenda panel  panel-default">
             <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>AGENDAMENTOS DO DIA</div>
             <div class="panel-body  panel-refresh">
-              
                 
-                
+                <div class="paginadorAgenda alert alert-info" role="alert"></div>
                 <ul id="listConsul" class="list-group">
-                       
+                    
                 </ul>
                
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
@@ -100,11 +92,11 @@
                 </div>
             </div>
             <div class="panel-footer"> 
-                <nav aria-label="...">
+               
                 <ul class="pagination pagination-sm" id="paginador">
                   
                 </ul>
-              </nav>
+              
             
             </div>
         </div>
@@ -128,19 +120,19 @@
         
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">
+                <h4 class="modal-title" >
                     <i  class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
                     INFORMAÇÕES SOBRE A CONSULTA
                 </h4>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body modal-agenda-visao" >
                 
             </div>
             
             <div class="modal-footer">
                 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -336,7 +328,7 @@
 
                         <div class="btn-group">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                <i class="fa fa-times"></i>Cancelar
+                                <i class="fa fa-times"></i> Cancelar
                             </button>
                         </div>
                         <div class="btn-group">
@@ -350,3 +342,4 @@
         </div>
     </div>
 </div>
+

@@ -75,7 +75,7 @@ class RegisterModel {
 
                     // Configura a mensagem
                     $this->form_msg = '
-                    <div class="alert alert-warning alert-dismissible fade in">
+                    <div class="alert alertH alert-warning alert-dismissible fade in">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -124,7 +124,7 @@ class RegisterModel {
         $user_email = (filter_var($this->form_data['user_email'], FILTER_VALIDATE_EMAIL));
 
         if ($user_email == false) {
-            $this->form_msg = '<div class="alert alert-warning alert-dismissible fade in">
+            $this->form_msg = '<div class="alert alertH alert-warning alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -224,7 +224,7 @@ class RegisterModel {
         // Verifica se o email digitado já existe na base de dados
         if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
 
-            $this->form_msg = '<div class="alert alert-warning alert-dismissible fade in">
+            $this->form_msg = '<div class="alert alertH alert-warning alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -257,7 +257,7 @@ class RegisterModel {
                 // Termina
                 return;
             } else {
-                $this->form_msg = '<div class="alert alert-success alert-dismissible fade in">
+                $this->form_msg = '<div class="alert alertH alert-success alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
