@@ -1,11 +1,13 @@
 <?php
     if (!defined('ABSPATH')){
-        exit;
+        exit();
     }
     
    /* Carrega todos os metódos necessarios */
     $modelo->validate_register_form();
-    $modelo->del_evento($parametros); 
+    $modelo->del_evento($parametros);
+    $msgSystem = $modelo->form_msg;
+    
 ?>
 
 <div class="row-fluid"> 
@@ -16,11 +18,22 @@
     <script src="<?= HOME_URI; ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
     <script src="<?= HOME_URI; ?>/views/_js/scriptsTop.js"></script>
     <!-- Final agenda js -->
-
+   
     <div class="col-md-1 col-sm-1"></div>
     <div class="col-md-7 col-sm-7">
         <div class="row">
             <div class="col-md-12 col-sm-12">
+                <?php if($msgSystem == true){
+                    echo '<div class="alert alertH ' .$msgSystem[0][1]. '  alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Opa! </strong>' .$msgSystem[0][2]. ' 
+                         </div>';
+                    
+                      }
+                ?>
+                
                 <!--refresh widget-->
                 <div>
                     <div class="agenda-date">
@@ -143,7 +156,6 @@
 <script src="<?= HOME_URI; ?>/_agenda/js/underscore-min.js"></script>
 <script src="<?= HOME_URI; ?>/_agenda/js/calendar.js"></script>
 <script type="text/javascript">
-    
     
     (function($) {
 
@@ -342,4 +354,7 @@
         </div>
     </div>
 </div>
+
+
+
 

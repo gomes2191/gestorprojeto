@@ -25,7 +25,7 @@ function chk_array ( $array, $key ) {
  * Ver: http://php.net/manual/pt_BR/function.autoload.php.
  * Nossas classes estão na pasta classes/.
  * O nome do arquivo deverá ser class-NomeDaClasse.php.
- * Por exemplo: para a classe OdontoVision, o arquivo vai chamar class-OdontoVision.php
+ * Por exemplo: para a classe OdontoControl, o arquivo vai chamar class-OdontoControl.php
  */
 function __autoload($class_name) {
 	$file = ABSPATH . '/classes/class-' . $class_name . '.php';

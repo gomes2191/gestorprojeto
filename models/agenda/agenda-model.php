@@ -124,7 +124,7 @@ class AgendaModel extends MainModel
 
         // Verifica se a consulta foi realizada com sucesso
         if ( ! $db_check_ag ) {
-            $this->form_msg = '<p class="form_error">Erro interno.</p>';
+            $this->form_msg = '<p git status="form_error">Erro interno.</p>';
             return;
         }
 
@@ -157,11 +157,13 @@ class AgendaModel extends MainModel
                 // Termina
                 return;
             }else{
-                $this->form_msg = '<p class="form_success">Agendamento atualizado com sucesso.</p>';
+                
+                $this->form_msg [] = [1 => 'alert-success', 2 => 'Sua edição foi realizada com sucesso!'];
                 // Termina
                 return;
             }
-
+            
+           
             // Destroy variáveis nao utilizadas
             unset($agenda_id, $query, $agenda_start, $agenda_end, $agenda_class,$agenda_proc, $agenda_pac, $agenda_desc);
 
