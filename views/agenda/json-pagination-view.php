@@ -5,12 +5,9 @@
         exit();
     }
 
-    /*
-     * Simpesmente verifica se existe os parametros e executa a rotina
-     * 
-     */
-    if ($_GET['param1'] == 'cuantos') {
-        $param1 = 'cuantos';
+   // Simpesmente verifica se existe os parametros e executa a rotina 
+    if ($_GET['param1'] == 'quantos') {
+        $param1 = 'quantos';
         $modelo->jsonPagination($param1);
         exit();
         

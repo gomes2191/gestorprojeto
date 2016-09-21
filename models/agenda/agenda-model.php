@@ -1,9 +1,9 @@
 <?php
 /**
- * Classe para registro de consultas
+ * @Descrição: Classe para registro de consultas
  *
- * @package OdontoVision
- * @since 0.1
+ * @Pacote: OdontoControl
+ * @Versão: 0.1
  */
 
 class AgendaModel extends MainModel
@@ -12,53 +12,50 @@ class AgendaModel extends MainModel
     /**
      * $form_data
      *
-     * Os dados do formulário de envio.
+     * @Descrição: Armazena os dados enviado no formulário.
      *
-     * @access public
+     * @Acesso: public
      */
     public $form_data;
 
     /**
      * $form_msg
      *
-     * As mensagens de feedback para o usuário.
+     * @Descrição: As mensagens de feedback para o usuário.
      *
-     * @access public
+     * @Acesso: public
      */
     public $form_msg;
 
     /**
      * $db
      *
-     * O objeto da nossa conexão PDO
+     * @Descrição: O objeto da nossa conexão PDO
      *
-     * @access public
+     * @Acesso: public
      */
     public $db;
 
     /**
-     * Construtor
+     * 
      *
-     * Carrega  o DB.
+     * @Descrição: Construtor, carrega  o DB.
      *
      * @since 0.1
      * @access public
      */
-    public function __construct( $db = false ) {
+    public function __construct( $db = FALSE ) {
             $this->db = $db;
     }
-
+    
     /**
-    * Método que trata o fromulário, verifica o tipo de formulário passado
-    * e executa as validações necessarias.
-    *
-    * Este método pode inserir ou atualizar dados
-    * dependendo do tipo de requisição solicitada pelo usuário.
-    *
-    * @author Francisco Aparecido gomes.tisystem@gmail.com
-    * @since 0.1
-    * @access public
-    */
+    * @Acesso: public
+    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    * @Função: validate_register_form()
+    * @Versão: 0.1 
+    * @Descrição: Método que trata o fromulário, verifica o tipo de formulário passado e executa as validações necessarias.
+    * @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
+    **/ 
     public function validate_register_form () {
 
         /* 
@@ -220,15 +217,14 @@ class AgendaModel extends MainModel
         }
 
     } //--> End validate_register_form
-
+    
     /**
-    * Obtém os dados do formulário
-    *
-    * Obtém os dados para usuários registrados
-    *
-    * @since 0.1
-    * @access public
-    ***/
+    * @Acesso: public
+    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    * @Função: get_register_form()
+    * @Versão: 0.1 
+    * @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
+    **/ 
     public function get_register_form ( $agenda_id = FALSE ) {
 
         // O ID de usuário que vamos pesquisar
@@ -275,14 +271,13 @@ class AgendaModel extends MainModel
     } // get_register_form
         
         
-        
-
-    /*
-    * @param funtion del_evento() responsavel por eliminar eventos
-    *
-    * @since 0.1
-    * @access public
-    */
+    /**
+    * @Acesso: public
+    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    * @Função: _formatar()
+    * @Versão: 0.1 
+    * @Descrição: Recebe os parametros passado no método e executa a exclusão.
+    **/ 
     public function del_evento ( $parametros = [] ) {
 
         // O ID do evento
@@ -290,7 +285,6 @@ class AgendaModel extends MainModel
 
         // Verifica se existe o parâmetro "del" na URL
         if ( chk_array( $parametros, 0 ) == 'del' ) {
-
 
             $evento_id = chk_array( $parametros, 1 );
         }
@@ -321,54 +315,72 @@ class AgendaModel extends MainModel
     } //--> End del_evento()
         
         
-        /**
-	 * Obtém as consultas 
-	 *
-	 * @return_json_evento
-	 * @access public
-	 */
-        public function return_json_evento() {
+    /**
+    * @Acesso: public
+    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    * @Função: return_json_evento() 
+    * @Descrição: Pega os dados referente as consultas na base de dados e retorna um Json no padrão aceito pela calendario do Sistema.
+    **/
+    public function return_json_evento() {
 
-        // Pega todos os dados da tabela agendas.
-        $query = $this->db->query(' SELECT * FROM `agendas` ');
+    // Pega todos os dados da tabela agendas.
+    $query = $this->db->query(' SELECT * FROM `agendas` ');
 
-        // Verifica se a consulta foi realizada com sucesso.
-        if (!$query) {
-            return [];
-        }
-        
-        foreach ($query as $row){
-            $out[] = array(
-                'id'        => $row['agenda_id'],
-                'title'     => $row['agenda_pac'],
-                'url'       => $row['agenda_url'],
-                'body'      => $row['agenda_desc'],
-                'class'     => $row['agenda_class'],
-                'start'     => $row['agenda_start'],
-                'end'       => $row['agenda_end']
-            );
-            
-        }
-         echo json_encode(array('success' => 1, 'result' => $out));
-         exit;
-        
-    } // @get_agenda_consulta
+    // Verifica se a consulta foi realizada com sucesso.
+    if (!$query) {
+        return [];
+    }
     
-     public function get_ultimo_id() {
+    
+    /**
+    * Faz um loop com os dados da query inserindo no vetor $row
+    * e pega os valores especifico e insere no vetor $out. 
+    **/ 
+    foreach ($query as $row){
+        $out[] = [
+            'id'       => $row['agenda_id'],
+            'title'    => $row['agenda_pac'],
+            'url'      => $row['agenda_url'],
+            'body'     => $row['agenda_desc'],
+            'class'    => $row['agenda_class'],
+            'start'    => $row['agenda_start'],
+            'end'      => $row['agenda_end']
+        ];
+
+    }   
+        // Converte em um json o valor do vetor e imprime
+        echo json_encode(array('success' => 1, 'result' => $out));
+        exit;
+        
+    } // End return_json_evento()
+    
+    
+    /**
+    * @Acesso: public
+    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    * @Função: get_ultimo_id() 
+    * @Descrição: Pega o ultimo ID do agendamento.
+    **/
+    public function get_ultimo_id() {
         // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query('SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas`');
+        $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
          
         $row = $query->fetch();
         $id = trim($row[0]);
         
         return $id;
         
-     } // @get_ultimo_id
+     } // End get_ultimo_id()
      
      
-     
-     
+    /**
+    * @Acesso: public
+    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    * @Função: get_listar() 
+    * @Descrição: Pega o ID passado na função e retorna os valores.
+    **/ 
     public function get_listar($agenda_id = NULL) {
+        
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query( " SELECT * FROM  `agendas` WHERE `agenda_id`= $agenda_id " );
 
@@ -376,27 +388,37 @@ class AgendaModel extends MainModel
         if ( ! $query ) {
                 return array();
         }
-        // Preenche a tabela com os dados do usuário
+        // Retorna os valores da consulta
         return $query->fetch(PDO::FETCH_ASSOC);
-    } // get_listar
+    } // End get_listar()
 
     
-    
+    /**
+    * @Acesso: public
+    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    * @Função: jsonPagination() 
+    * @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
+    **/ 
     public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL ) {
-
+        
+        // Cria os vetores necessarios
         $jsondata = [];
         $jsondataList = [];
-
-        if ($param1 == 'cuantos') {
-
+        
+        // Verifica se o parametro foi passado e executa a consulta
+        if ($param1 == 'quantos') {
+            
+            // Realiza a consulta e retorna e armazena na variável
             $resultado = $this->db->query(' SELECT COUNT(*) total FROM `agendas` ');
 
-
+            // Pega todos os valores retornado da base de dados e armazena no vetor
             $fila = $resultado->fetch();
 
             $jsondata['total'] = $fila['total'];
+            
+        // Verifica se o parametro existe e retorna a consulta.    
         } elseif ($param1 == 'dame') {
-
+            
             $resultadoT = $this->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
 
 
@@ -412,12 +434,16 @@ class AgendaModel extends MainModel
 
             $jsondata['lista'] = array_values($jsondataList);
         }
-
+        
         echo json_encode($jsondata);
     }
     
-    
-    // Microtime formatar uma data para adicionar o evento, tipo 1401517498985.
+    /**
+    * @Acesso: public
+    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    * @Função: _formatar() 
+    * @Descrição: Microtime formatar uma data do tipo 21/09/2016 12:00 para o formato tipo 1401517498985 aceito pelo calendario.
+    **/ 
     public function _formatar($fecha) {
         return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
     }
