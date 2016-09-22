@@ -1,13 +1,15 @@
 <?php
     if (!defined('ABSPATH')){
         exit();
+    } elseif (isset($_GET['ag'])){
+        $id = $modelo->avaliar($_GET['ag']);
+        $modelo->del_agendamento($id);
+        unset($id);
     }
     
-   /* Carrega todos os metódos necessarios */
+    // Carrega todos os metódos necessarios
     $modelo->validate_register_form();
-    $modelo->del_evento($parametros);
-    $msgSystem = $modelo->form_msg;
-    
+    $form_msg = $modelo->form_msg;
 ?>
 
 <div class="row-fluid"> 
@@ -23,15 +25,18 @@
     <div class="col-md-7 col-sm-7">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <?php if($msgSystem == true){
-                    echo '<div class="alert alertH ' .$msgSystem[0][1]. '  alert-dismissible fade in">
+                
+                
+                <?php if($form_msg == true){
+                    echo '<div class="alert alertH ' .$form_msg[0]. '  alert-dismissible fade in">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <strong>Opa! </strong>' .$msgSystem[0][2]. ' 
+                            <strong>'.$form_msg[1].' </strong>' .$form_msg[2]. ' 
                          </div>';
                     
-                      }
+                        unset($form_msg);
+                    }
                 ?>
                 
                 <!--refresh widget-->

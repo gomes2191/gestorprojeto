@@ -64,7 +64,7 @@
 <br>
     <div class="btn-group">
         
-        <a href="<?= HOME_URI ?>/agenda/index/del/<?= $id; ?>" id="deletar" class="btn btn-sm btn-danger" title="Deletar" >
+        <a href="<?= HOME_URI ?>/agenda?ag=<?= $id; ?>" class="btn btn-sm btn-danger" title="Deletar" >
             <span class="glyphicon glyphicon-trash"> REMOVER</span>
         </a>
             
@@ -91,12 +91,7 @@
             </div>
             <div class="modal-body">
                 <form id="agenda-form-modal-cad" action="" method="post">
-                    <?php
-                        $modelo->form_msg;
-                        
-                    ?>
-
-                    
+                   
                     <div class="form-group">
                         
                         <label for="from">Começa as:</label>
