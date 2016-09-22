@@ -159,7 +159,7 @@ class AgendaModel extends MainModel
                 // Destroy variáveis nao utilizadas
                 unset($agenda_id, $query, $agenda_start, $agenda_end, $agenda_class,$agenda_proc, $agenda_pac, $agenda_desc);
                 
-                echo '<meta http-equiv="Refresh" content="10; url=' . HOME_URI . '/agenda">';
+                echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
                 // Finaliza
                 return;
             }else{
@@ -169,7 +169,7 @@ class AgendaModel extends MainModel
                 // Destroy variáveis nao utilizadas
                 unset($agenda_id, $query, $agenda_start, $agenda_end, $agenda_class,$agenda_proc, $agenda_pac, $agenda_desc);
                 
-                echo '<meta http-equiv="Refresh" content="10; url=' . HOME_URI . '/agenda">';
+                echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
                 // Finaliza
                 return;
             }
@@ -214,7 +214,7 @@ class AgendaModel extends MainModel
             // Feedback para o usuário
             $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno. Contate o administrador.'];
             
-            echo '<meta http-equiv="Refresh" content="10; url=' . HOME_URI . '/agenda">';
+            echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
 
             // Finaliza
             return;
@@ -225,7 +225,7 @@ class AgendaModel extends MainModel
             // Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1 =>'Sucesso!',  2 => 'Agendamento inserido com sucesso!'];
             
-            echo '<meta http-equiv="Refresh" content="10; url=' . HOME_URI . '/agenda">';
+            echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
 
             // Finaliza
             return;
@@ -298,51 +298,33 @@ class AgendaModel extends MainModel
         // O ID do evento
         $ag_id = $this->avaliar($id);
         
-        
         $search = $this->db->query("SELECT * FROM `agendas` WHERE agenda_id = $ag_id ");
-           if($search->fetch(PDO::FETCH_NUM) < 1){
-               
-               echo 'Não existe';
-               exit();
-               
-           }
+        if($search->fetch(PDO::FETCH_NUM) < 1){
 
-        // Verifica se o ID não está vazio
-        if ( $ag_id ) {
-            
+            // Feedback para o usuário
+            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
+
+            //Destroy variáveis não mais utilizadas
+            unset($ag_id, $search, $id);
+
+            // Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
+
+            // Finaliza
+            return;
+        } else {
             // Deleta o evento
             $query_del = $this->db->delete('agendas', 'agenda_id', $ag_id);
             
-            // Verifica se o agendamento foi deletado com sucesso
-            if( ! $query_del ){
-                // Feedback para o usuário
-                $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
-                
-                //Destroy variáveis não mais utilizadas
-                unset($ag_id, $query_del);
-                
-                // Redireciona de volta para a página após dez segundos
-                
-                //echo '<meta http-equiv="Refresh" content="10; url=' . HOME_URI . '/agenda">';
-                
-                // Finaliza
-                return;
-            }else{
-                // Feedback para o usuário
-                $this->form_msg = [0 => 'alert-success', 1 =>'Sucesso!',  2 => 'Seu agendamento foi deletado com sucesso!'];
-                // Destroy variáveis não mais utilizadas
-                unset($ag_id, $query_del);
-                
-                // Redireciona de volta para a página após dez segundos
-                echo '<meta http-equiv="Refresh" content="10; url=' . HOME_URI . '/agenda">';
-                // Finaliza
-                return;
-            }
+            // Feedback para o usuário
+            $this->form_msg = [0 => 'alert-success', 1 =>'Sucesso!',  2 => 'Seu agendamento foi deletado com sucesso!'];
             
-            //Destroy variáveis não mais utilizadas
-            unset($ag_id, $query_del);
+            // Destroy variáveis não mais utilizadas
+            unset($ag_id, $query_del, $search, $id);
+
             // Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="10; url=' . HOME_URI . '/agenda">';
+            echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
+            
             // Finaliza
             return;
         }

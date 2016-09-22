@@ -1,9 +1,4 @@
-<?php
-    if (!defined('ABSPATH')){
-        exit();
-    } 
-   
-?>
+<?php if (! defined('ABSPATH')) { exit(); } ?>
 
 <!DOCTYPE html>
 <html lang="pt-br" >
@@ -42,9 +37,6 @@
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/_agenda/css/calendar.css">';
                 
                 echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/bootstrap-datetimepicker.min.css">';
-                
-                
-
             }
         ?>
         <!-- Final agenda css -->

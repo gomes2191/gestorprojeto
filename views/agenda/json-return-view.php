@@ -2,16 +2,10 @@
     if (!defined('ABSPATH')) {
         exit();
         
-    } 
-     //var_dump($_SERVER['REQUEST_METHOD']);
-    
-    //if($_SERVER['REQUEST_METHOD'] == 'GET')
-        if($_SERVER['REQUEST_METHOD'] == 'GET')
-        
-        {
+    } elseif ($_SERVER['REQUEST_METHOD'] == 'GET'){
         $modelo->return_json_evento();
         
-    }else{
+    } else {
         echo 'Teste';
     }
      

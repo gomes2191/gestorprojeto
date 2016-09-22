@@ -32,7 +32,8 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <strong>'.$form_msg[1].' </strong>' .$form_msg[2]. ' 
+                            <i class="glyphicon glyphicon-warning-sign" >&nbsp;</i>
+                            <strong>'.$form_msg[1].'</strong>&nbsp;' .$form_msg[2]. ' 
                          </div>';
                     
                         unset($form_msg);
@@ -162,8 +163,12 @@
 <script src="<?= HOME_URI; ?>/_agenda/js/calendar.js"></script>
 <script type="text/javascript">
     
+    
+    
     (function($) {
-
+        
+        window.history.pushState("agenda", "", "agenda");
+        
 	"use strict";
         
         //Criamos a data atual

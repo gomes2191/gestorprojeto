@@ -80,6 +80,10 @@ $(document).ready(function () {
     $('.from, .to').inputmask({
         mask: '99/99/9999 99:99'
     });
+    
+    $('.fromEd, .toEd').inputmask({
+        mask: '99/99/9999 99:99'
+    });
 
 });
 //------------------> End mask
@@ -153,21 +157,39 @@ $(document).ready(function(){
 
 
 // Agenda popup inserção
-    $(function(){
-        $("#from, #to").datetimepicker({
-            language: 'pt-BR',
-            showMeridian: 'day',
-            todayHighlight: true,
-            viewSelect: 'day',
-            clearBtn: true,
-            beforeShowMonth: true,
-            weekStart: true,
-            format: 'dd/mm/yyyy hh:ii',
-            autoclose: true,
-            todayBtn: true,
-            minuteStep: 1,
-            pickerPosition: 'bottom-left',
-            minDate: new Date()
-        });
-        
+$(function(){
+    $("#from, #to").datetimepicker({
+        language: 'pt-BR',
+        showMeridian: 'day',
+        todayHighlight: true,
+        viewSelect: 'day',
+        clearBtn: true,
+        beforeShowMonth: true,
+        weekStart: true,
+        format: 'dd/mm/yyyy hh:ii',
+        autoclose: true,
+        todayBtn: true,
+        minuteStep: 1,
+        pickerPosition: 'bottom-left',
+        minDate: new Date()
     });
+});
+
+// Agenda popup inserção
+$(function(){
+    $("#fromEd, #toEd").datetimepicker({
+        language: 'pt-BR',
+        showMeridian: 'day',
+        todayHighlight: true,
+        viewSelect: 'day',
+        clearBtn: true,
+        beforeShowMonth: true,
+        weekStart: true,
+        format: 'dd/mm/yyyy hh:ii',
+        autoclose: true,
+        todayBtn: true,
+        minuteStep: 1,
+        pickerPosition: 'bottom-left',
+        minDate: new Date()
+    });
+});

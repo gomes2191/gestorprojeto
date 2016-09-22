@@ -1,8 +1,4 @@
-<?php
-    if (!defined('ABSPATH')) {
-        exit;
-        
-    }
+<?php if ( !defined('ABSPATH') ) { exit(); }
     
     // Verifica se existe o parametro necessario 'ag'
     if(isset($_GET['ag'])){
@@ -37,7 +33,6 @@
     $modelo->get_register_form($id);
   
 ?>
-
 
 
 
@@ -95,21 +90,19 @@
                     <div class="form-group">
                         
                         <label for="from">Começa as:</label>
-                        <div class="input-group date form_date col-md-5" id='from'>
-                            <input type="hidden" name="agenda_id" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_id'));?>" >
-                            <input class="form-control from" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal'));?>" name="from" placeholder="dd/mm/aaaa hh:mm">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <div class="input-group date form_date col-md-5" id='fromEd'>
+                            <input type="hidden" name="agenda_id" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_id'));?>">
+                            <input class="form-control fromEd" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal'));?>" name="from" placeholder="dd/mm/aaaa hh:mm" title="Inicio da consulta." pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}
+">
+                            
                         </div>
                         
                     </div>
 
                     <div class="form-group">
                         <label for="to">Termina as:</label>
-                        <div class="input-group date form_date col-md-5" id='to' >
-                            <input class="form-control to" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal')); ?>" name="to" placeholder="dd/mm/aaaa hh:mm">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <div class="input-group date form_date col-md-5" id='toEd' >
+                            <input class="form-control toEd" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal')); ?>" name="to" placeholder="dd/mm/aaaa hh:mm">
                         </div>
                         
                     </div>
@@ -162,5 +155,7 @@
 </div>
 
 <!--End Modal modal de edição de consultas-->
+
+
 
 
