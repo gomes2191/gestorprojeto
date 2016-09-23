@@ -34,8 +34,6 @@
   
 ?>
 
-
-
 <div>
     <p>
         <b>Paciente:</b>
@@ -73,6 +71,9 @@
     </div>
 
 
+
+
+
 <!-- Start Modal de edição de consulta-->
 
 <div class="modal fade" id="edConsulta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
@@ -85,16 +86,15 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <form id="agenda-form-modal-cad" action="" method="post">
+                <form id="agenda-form-modal-cad" action="" method="post" name="cadastro">
                    
                     <div class="form-group">
                         
                         <label for="from">Começa as:</label>
                         <div class="input-group date form_date col-md-5" id='fromEd'>
                             <input type="hidden" name="agenda_id" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_id'));?>">
-                            <input class="form-control fromEd" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal'));?>" name="from" placeholder="dd/mm/aaaa hh:mm" title="Inicio da consulta." pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}
-">
-                            
+                            <input class="form-control fromEd" size="16" type="datetime-local" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal'));?>" name="from"
+                            placeholder="dd/mm/aaaa hh:mm" title="Inicio da consulta." pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);"     required>
                         </div>
                         
                     </div>
@@ -102,7 +102,8 @@
                     <div class="form-group">
                         <label for="to">Termina as:</label>
                         <div class="input-group date form_date col-md-5" id='toEd' >
-                            <input class="form-control toEd" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal')); ?>" name="to" placeholder="dd/mm/aaaa hh:mm">
+                            <input class="form-control toEd" size="16" type="datetime-local" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal')); ?>" name="to"
+                            placeholder="dd/mm/aaaa hh:mm" pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);"     required>
                         </div>
                         
                     </div>
@@ -143,7 +144,7 @@
                             </button>
                         </div>
                         <div class="btn-group">
-                            <button id="cad-agenda-modal" type="submit" class="btn btn-success">
+                            <button id="cad-agenda-modal" type="submit" class="btn btn-success" onclick="return validaForm();">
                                 <i class="fa fa-check"></i> Gravar
                             </button>
                         </div>
@@ -155,7 +156,5 @@
 </div>
 
 <!--End Modal modal de edição de consultas-->
-
-
 
 

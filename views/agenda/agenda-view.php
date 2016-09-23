@@ -281,9 +281,12 @@
 	});
 }(jQuery));
   
-    
 </script>
 
+
+
+
+<!-- Start Modal adicionar evento -->
 <div class="modal fade" id="add_evento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -364,7 +367,3 @@
         </div>
     </div>
 </div>
-
-
-
-

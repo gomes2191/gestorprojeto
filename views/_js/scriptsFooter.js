@@ -1,6 +1,8 @@
 
 
 
+/* global pattern */
+
 $('#user-register-btn').on('click', function() {
     var $this = $(this);
   $this.button('loading');
@@ -175,21 +177,18 @@ $(function(){
     });
 });
 
-// Agenda popup inserção
-$(function(){
-    $("#fromEd, #toEd").datetimepicker({
-        language: 'pt-BR',
-        showMeridian: 'day',
-        todayHighlight: true,
-        viewSelect: 'day',
-        clearBtn: true,
-        beforeShowMonth: true,
-        weekStart: true,
-        format: 'dd/mm/yyyy hh:ii',
-        autoclose: true,
-        todayBtn: true,
-        minuteStep: 1,
-        pickerPosition: 'bottom-left',
-        minDate: new Date()
-    });
-});
+
+// Validação dos campos data hora do evento modal de edição da agenda
+function InvalidMsg(textbox) {
+    
+    if (textbox.value == '') {
+        textbox.setCustomValidity('Este campo deve ser preenchido. 22/05/2016 12:00');
+    }
+    else if(textbox.validity.patternMismatch){
+        textbox.setCustomValidity('Siga o padrão necessario. 22/05/2016 12:00');
+    }
+    else {
+        textbox.setCustomValidity('');
+    }
+    return true;
+}
