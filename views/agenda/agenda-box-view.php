@@ -93,7 +93,7 @@
                         <label for="from">Começa as:</label>
                         <div class="input-group date form_date col-md-5" id='fromEd'>
                             <input type="hidden" name="agenda_id" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_id'));?>">
-                            <input class="form-control fromEd" size="16" type="datetime-local" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal'));?>" name="from"
+                            <input class="form-control fromEd" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal'));?>" name="from"
                             placeholder="dd/mm/aaaa hh:mm" title="Inicio da consulta." pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);"     required>
                         </div>
                         
@@ -102,7 +102,7 @@
                     <div class="form-group">
                         <label for="to">Termina as:</label>
                         <div class="input-group date form_date col-md-5" id='toEd' >
-                            <input class="form-control toEd" size="16" type="datetime-local" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal')); ?>" name="to"
+                            <input class="form-control toEd" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal')); ?>" name="to"
                             placeholder="dd/mm/aaaa hh:mm" pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);"     required>
                         </div>
                         

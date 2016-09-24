@@ -3,7 +3,7 @@
         exit();
     } elseif (isset($_GET['ag'])){
         $id = $modelo->avaliar($_GET['ag']);
-        $modelo->del_agendamento($id);
+        $modelo->delRegister($id);
         unset($id);
     }
     
