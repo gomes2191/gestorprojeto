@@ -16,7 +16,7 @@
     <!-- Agenda bibliotecas js -->
     <script src="<?= HOME_URI; ?>/_agenda/js/pt-BR.js"></script>
     <script src="<?= HOME_URI; ?>/_agenda/js/moment.js"></script>
-    <script src="<?= HOME_URI; ?>/_agenda/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="<?= HOME_URI; ?>/_agenda/js/bootstrap-datetimepicker.js"></script>
     <script src="<?= HOME_URI; ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
     <script src="<?= HOME_URI; ?>/views/_js/scriptsTop.js"></script>
     <!-- Final agenda js -->
@@ -32,7 +32,7 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <i class="glyphicon glyphicon-warning-sign" >&nbsp;</i>
+                            <i class="fa fa-info-circle fa-4" >&nbsp;</i>
                             <strong>'.$form_msg[1].'</strong>&nbsp;' .$form_msg[2]. ' 
                          </div>';
                     

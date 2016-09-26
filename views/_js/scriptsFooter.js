@@ -162,18 +162,17 @@ $(document).ready(function(){
 $(function(){
     $("#from, #to").datetimepicker({
         language: 'pt-BR',
-        showMeridian: 'day',
+        showMeridian: true,
         todayHighlight: true,
         viewSelect: 'day',
         clearBtn: true,
         beforeShowMonth: true,
         weekStart: true,
-        format: 'dd/mm/yyyy hh:ii',
+        format: 'dd/mm/yyyyTHH:ii',
         autoclose: true,
         todayBtn: true,
         minuteStep: 1,
-        pickerPosition: 'bottom-left',
-        minDate: new Date()
+        pickerPosition: 'bottom-left'
     });
 });
 

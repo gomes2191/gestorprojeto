@@ -1,11 +1,13 @@
 <?php
-/**
- * @Descrição: Classe para registro de consultas
- *
- * @Pacote: OdontoControl
- * @Versão: 0.1
- */
 
+/**
+ *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
+ *  @Class: AgendaModel
+ *  @Descrição: Classe para registro de consultas
+ *
+ *  @Pacote: OdontoControl
+ *  @Versão: 0.1
+ */
 class AgendaModel extends MainModel
 {
 
@@ -49,12 +51,12 @@ class AgendaModel extends MainModel
     }
     
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: validate_register_form()
-    * @Versão: 0.1 
-    * @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
-    * @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: validate_register_form()
+    *   @Versão: 0.2 
+    *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
+    *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
     **/ 
     public function validate_register_form () {
         // Cria o vetor que vai receber os dados do post
@@ -112,12 +114,12 @@ class AgendaModel extends MainModel
     } #--> End validate_register_form()
     
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: insertRegister()
-    * @Versão: 0.1 
-    * @Descrição: Insere o registro no BD.
-    * @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: insertRegister()
+    *   @Versão: 0.1 
+    *   @Descrição: Insere o registro no BD.
+    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
         
@@ -160,12 +162,12 @@ class AgendaModel extends MainModel
     }
     
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: updateRegister()
-    * @Versão: 0.1 
-    * @Descrição: Atualiza um registro especifico no BD.
-    * @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: updateRegister()
+    *   @Versão: 0.1 
+    *   @Descrição: Atualiza um registro especifico no BD.
+    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function updateRegister( $agenda_id = NULL ){
         
@@ -192,31 +194,29 @@ class AgendaModel extends MainModel
                 // Destroy variáveis nao utilizadas
                 unset($agenda_id, $query);
                 
-                echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
-                
-                // Finaliza
+                // Finaliza execução.
                 return;
             }
         }
     } # End updateRegister()
     
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: get_register_form()
-    * @Versão: 0.1 
-    * @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: get_register_form()
+    *   @Versão: 0.1 
+    *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
     **/ 
     public function get_register_form ( $agenda_id = FALSE ) {
 
-        // O ID de usuário que vamos pesquisar
+        # O ID de usuário que vamos pesquisar
         $s_agenda_id = false;
 
-        // Verifica se foi passado um valor em $agenda_id e passa o valor do tipo int para $s_agenda_id
+        # Verifica se foi passado um valor em $agenda_id e passa o valor do tipo int para $s_agenda_id
         if ( ! empty( $agenda_id ) ) {
             $s_agenda_id = (int)$agenda_id;
             
-            // Destroy Variável não mais utilizada
+            # Destroy Variável não mais utilizada
             unset($agenda_id);
         }
 
@@ -254,43 +254,43 @@ class AgendaModel extends MainModel
         
         
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: del_agendamento()
-    * @Versão: 0.1 
-    * @Descrição: Recebe os parametros passado no método e executa a exclusão.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: del_agendamento()
+    *   @Versão: 0.1 
+    *   @Descrição: Recebe os parametros passado no método e executa a exclusão.
     **/ 
     public function delRegister ( $id ) {
 
-        // O ID do evento
+        # Recebe o ID do rgistro remove caracteres não e passa o valor
         $ag_id = $this->avaliar($id);
         
-        $search = $this->db->query("SELECT * FROM `agendas` WHERE agenda_id = $ag_id ");
-        if($search->fetch(PDO::FETCH_NUM) < 1){
+        $search = $this->db->query("SELECT count(*) FROM `agendas` WHERE `agenda_id` = $ag_id ");
+        if($search->fetchColumn() < 1){
 
             // Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
+            $this->form_msg = [0 => 'alert-warning', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
 
             //Destroy variáveis não mais utilizadas
             unset($ag_id, $search, $id);
 
-            // Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
+            // Redireciona de volta para a página após 2 segundos
+            // echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
 
             // Finaliza
             return;
         } else {
-            // Deleta o evento
+            # Deleta o registro
             $query_del = $this->db->delete('agendas', 'agenda_id', $ag_id);
             
             // Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1 =>'Sucesso!',  2 => 'Seu agendamento foi deletado com sucesso!'];
+            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Seu agendamento foi deletado com sucesso!'];
             
             // Destroy variáveis não mais utilizadas
             unset($ag_id, $query_del, $search, $id);
 
             // Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
+            //echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
             
             // Finaliza
             return;
@@ -300,10 +300,11 @@ class AgendaModel extends MainModel
         
         
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: return_json_evento() 
-    * @Descrição: Pega os dados referente as consultas na base de dados e retorna um Json no padrão aceito pela calendario do Sistema.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: return_json_evento() 
+    *   @Descrição: Pega os dados referente as consultas na base de dados e retorna um Json no padrão aceito pela calendario do Sistema.
     **/
     public function return_json_evento() {
 
@@ -340,10 +341,11 @@ class AgendaModel extends MainModel
     
     
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: get_ultimo_id() 
-    * @Descrição: Pega o ultimo ID do agendamento.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: get_ultimo_id() 
+    *   @Descrição: Pega o ultimo ID do agendamento.
     **/
     public function get_ultimo_id() {
         // Simplesmente seleciona os dados na base de dados
@@ -358,10 +360,11 @@ class AgendaModel extends MainModel
      
      
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: get_listar() 
-    * @Descrição: Pega o ID passado na função e retorna os valores.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: get_listar() 
+    *   @Descrição: Pega o ID passado na função e retorna os valores.
     **/ 
     public function get_listar($agenda_id = NULL) {
         
@@ -378,10 +381,11 @@ class AgendaModel extends MainModel
 
     
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: jsonPagination() 
-    * @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: jsonPagination() 
+    *   @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
     **/ 
     public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL ) {
         
@@ -422,10 +426,11 @@ class AgendaModel extends MainModel
     } // End jsonPagination()
     
     /**
-    * @Acesso: public
-    * @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    * @Função: _formatar() 
-    * @Descrição: Microtime formatar uma data do tipo 21/09/2016 12:00 para o formato tipo 1401517498985 aceito pelo calendario.
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: _formatar() 
+    *   @Descrição: Microtime formatar uma data do tipo 21/09/2016 12:00 para o formato tipo 1401517498985 aceito pelo calendario.
     **/ 
     public function _formatar($fecha) {
         return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
