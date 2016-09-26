@@ -2,9 +2,12 @@
     if (!defined('ABSPATH')){
         exit();
     } elseif (isset($_GET['ag'])){
+        
         $id = $modelo->avaliar($_GET['ag']);
+        
         $modelo->delRegister($id);
-        unset($id);
+        
+        unset($id2);
     }
     
     // Carrega todos os metódos necessarios

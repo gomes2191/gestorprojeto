@@ -141,7 +141,7 @@ class AgendaModel extends MainModel
         $id = trim($row[0]);
 
         # Gera o link do agendamento
-        $link = HOME_URI.'/agenda/box-visao?ag='.$id;
+        $link = HOME_URI.'/agenda/box-visao?ag='.$this->encode_decode($id);
 
         # Atualizamos nosso $link
         $query_up = $this->db->update('agendas', 'agenda_id', $id,['agenda_url' => $link]);
@@ -153,7 +153,7 @@ class AgendaModel extends MainModel
             unset($query_ins, $query_up, $exec_id, $row,  $id, $link);
             
             # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1 =>'Sucesso! ',  2 => 'A consulta foi isnerida com successo!'];
+            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'A consulta foi isnerida com successo!'];
 
             # Finaliza execução.
             return;
@@ -189,7 +189,7 @@ class AgendaModel extends MainModel
             // Verifica se a consulta foi realizada com sucesso
             if ( $query ) {
                 // Feedback para o usuário.
-                $this->form_msg = [0 => 'alert-success', 1 =>'Sucesso!',  2 => 'Os dados foram atualizados com sucesso!'];
+                $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Os dados foram atualizados com sucesso!'];
                 
                 // Destroy variáveis nao utilizadas
                 unset($agenda_id, $query);
@@ -258,18 +258,19 @@ class AgendaModel extends MainModel
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
     *   @Função: del_agendamento()
     *   @Versão: 0.1 
-    *   @Descrição: Recebe os parametros passado no método e executa a exclusão.
+    *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
     **/ 
     public function delRegister ( $id ) {
 
-        # Recebe o ID do rgistro remove caracteres não e passa o valor
-        $ag_id = $this->avaliar($id);
+        # Recebe o ID do registro converte de string para inteiro.
+        $ag_id = intval($this->encode_decode(0, $id));
+        //echo $ag_id; die();
         
         $search = $this->db->query("SELECT count(*) FROM `agendas` WHERE `agenda_id` = $ag_id ");
         if($search->fetchColumn() < 1){
 
             // Feedback para o usuário
-            $this->form_msg = [0 => 'alert-warning', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
+            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
 
             //Destroy variáveis não mais utilizadas
             unset($ag_id, $search, $id);
@@ -366,10 +367,14 @@ class AgendaModel extends MainModel
     *   @Função: get_listar() 
     *   @Descrição: Pega o ID passado na função e retorna os valores.
     **/ 
-    public function get_listar($agenda_id = NULL) {
+    public function get_listar( $agenda_id = NULL ) {
+        
+        #   Recebe o ID codficado e decodifica depois converte e inteiro
+        $id_decode = intval($this->encode_decode(0, $agenda_id));
+        
         
         // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query( " SELECT * FROM  `agendas` WHERE `agenda_id`= $agenda_id " );
+        $query = $this->db->query( " SELECT * FROM  `agendas` WHERE `agenda_id`= $id_decode " );
 
         // Verifica se a consulta está OK
         if ( ! $query ) {

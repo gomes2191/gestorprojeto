@@ -57,7 +57,7 @@
 <br>
     <div class="btn-group">
         
-        <a href="<?= HOME_URI ?>/agenda?ag=<?= $id; ?>" class="btn btn-sm btn-danger" title="Deletar" >
+        <a href="<?= HOME_URI ?>/agenda?ag=<?= $id ; ?>" class="btn btn-sm btn-danger" title="Deletar" >
             <span class="glyphicon glyphicon-trash"> REMOVER</span>
         </a>
             
@@ -70,12 +70,7 @@
         </button>
     </div>
 
-
-
-
-
 <!-- Start Modal de edição de consulta-->
-
 <div class="modal fade" id="edConsulta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -94,7 +89,7 @@
                         <div class="input-group date form_date col-md-5" id='fromEd'>
                             <input type="hidden" name="agenda_id" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_id'));?>">
                             <input class="form-control fromEd" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal'));?>" name="from"
-                            placeholder="dd/mm/aaaa hh:mm" title="Inicio da consulta." pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);"     required>
+                            placeholder="dd/mm/aaaa hh:mm" title="Inicio da consulta." pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" required>
                         </div>
                         
                     </div>
@@ -103,7 +98,7 @@
                         <label for="to">Termina as:</label>
                         <div class="input-group date form_date col-md-5" id='toEd' >
                             <input class="form-control toEd" size="16" type="text" value="<?= htmlentities(chk_array($modelo->form_data, 'agenda_start_normal')); ?>" name="to"
-                            placeholder="dd/mm/aaaa hh:mm" pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);"     required>
+                            placeholder="dd/mm/aaaa hh:mm" pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" required>
                         </div>
                         
                     </div>
@@ -144,7 +139,7 @@
                             </button>
                         </div>
                         <div class="btn-group">
-                            <button id="cad-agenda-modal" type="submit" class="btn btn-success" onclick="return validaForm();">
+                            <button id="cad-agenda-modal" type="submit" class="btn btn-success">
                                 <i class="fa fa-check"></i> Gravar
                             </button>
                         </div>
@@ -154,7 +149,6 @@
         </div>
     </div>
 </div>
-
 <!--End Modal modal de edição de consultas-->
 
 

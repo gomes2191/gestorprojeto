@@ -170,5 +170,28 @@ class MainModel {
         $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         return $valor;
     } # End Avaliar()
+    
+    /**
+     *  @Acesso: public
+     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *  @Versão: 0.1
+     *  @Função: encode_decode()
+     *  @Descrição: Codifica e decodifica  a string passada dependendo do parametro.
+     **/
+    public function encode_decode( $encode = FALSE, $decode = FALSE  ){
+        
+        if($encode == TRUE){
+           $encode_con = base64_encode(198);
+           $encode = base64_encode($encode);
+           return $encode.$encode_con;
+            
+        }else{
+            
+           $decode_con = base64_decode(198); 
+           $decode = base64_decode($decode);
+           return $decode.$decode_con;
+        }
+        
+    }
 
 } # End MainModel

@@ -168,7 +168,7 @@ $(function(){
         clearBtn: true,
         beforeShowMonth: true,
         weekStart: true,
-        format: 'dd/mm/yyyyTHH:ii',
+        format: 'dd/mm/yyyy HH:ii',
         autoclose: true,
         todayBtn: true,
         minuteStep: 1,
@@ -181,10 +181,10 @@ $(function(){
 function InvalidMsg(textbox) {
     
     if (textbox.value == '') {
-        textbox.setCustomValidity('Este campo deve ser preenchido. 22/05/2016 12:00');
+        textbox.setCustomValidity('Este campo deve ser preenchido. Ex: dd/mm/aaaa hh:mm');
     }
     else if(textbox.validity.patternMismatch){
-        textbox.setCustomValidity('Siga o padrão necessario. 22/05/2016 12:00');
+        textbox.setCustomValidity('Siga o padrão necessário. Ex: dd/mm/aaaa hh:mm');
     }
     else {
         textbox.setCustomValidity('');
