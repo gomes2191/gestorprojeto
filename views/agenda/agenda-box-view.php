@@ -53,23 +53,18 @@
     <hr>
     <b>Início:</b> <mark><?= $inicio; ?></mark> <b>Término:</b> <mark><?= $final; ?></mark>
 </div>
-
-<br>
+    <br>
     <div class="btn-group">
         
-        <a href="<?= HOME_URI ?>/agenda?ag=<?= $id ; ?>" class="btn btn-sm btn-danger" title="Deletar" >
+        <a href="<?= HOME_URI ?>/agenda?ag=<?= $id; ?>" class="btn btn-sm btn-danger" title="Deletar" >
             <span class="glyphicon glyphicon-trash"> REMOVER</span>
         </a>
-            
-
     </div>
-
     <div class="btn-group">
         <button id="Editar" class="btn btn-sm btn-success" data-toggle="modal" data-dismiss="modal" data-target="#edConsulta" title="Editar">
             <span class="glyphicon glyphicon-pencil"> EDITAR</span>
         </button>
     </div>
-
 <!-- Start Modal de edição de consulta-->
 <div class="modal fade" id="edConsulta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog">
