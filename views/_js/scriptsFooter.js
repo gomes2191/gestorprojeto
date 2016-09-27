@@ -58,7 +58,7 @@ $(document).ready(function () {
         mask: '99999-999'
     });
 
-    $('#tel-casa').inputmask({
+    $("#tel-casa, #tel-casa-2").inputmask({
         mask: '(99) 9999-9999'
     });
 
