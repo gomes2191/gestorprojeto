@@ -208,25 +208,11 @@ class AgendaModel extends MainModel
     *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
     **/ 
     public function get_register_form ( $agenda_id = FALSE ) {
-
-        # O ID de usuário que vamos pesquisar
-        $s_agenda_id = false;
-
-        # Verifica se foi passado um valor em $agenda_id e passa o valor do tipo int para $s_agenda_id
-        if ( ! empty( $agenda_id ) ) {
-            $s_agenda_id = (int)$agenda_id;
-            
-            # Destroy Variável não mais utilizada
-            unset($agenda_id);
-        }
-
-        // Verifica se existe um ID
-        if ( empty( $s_agenda_id ) ) {
-            return;
-        }
-
+        
+        $id = intval($this->encode_decode(0, $agenda_id));
+        
         // Verifica na base de dados
-        $query = $this->db->query('SELECT * FROM `agendas` WHERE `agenda_id` = ?', [ $s_agenda_id ]  );
+        $query = $this->db->query('SELECT * FROM `agendas` WHERE `agenda_id` = ?', [ $id ]  );
 
         // Verifica se a consulta foi realizada com sucesso!
         if ( ! $query ) {
@@ -249,7 +235,7 @@ class AgendaModel extends MainModel
         }
         
         // Destroy variaveis não mais utilizadas
-        unset($s_agenda_id, $query, $fetch_userdata);
+        unset($id, $query, $fetch_userdata);
     } // get_register_form
         
         
@@ -369,9 +355,12 @@ class AgendaModel extends MainModel
     **/ 
     public function get_listar( $agenda_id = NULL ) {
         
+        
+        
+        
         #   Recebe o ID codficado e decodifica depois converte e inteiro
         $id_decode = intval($this->encode_decode(0, $agenda_id));
-        
+        //echo $id_decode;die();
         
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query( " SELECT * FROM  `agendas` WHERE `agenda_id`= $id_decode " );

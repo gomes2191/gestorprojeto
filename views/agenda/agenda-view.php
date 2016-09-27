@@ -7,7 +7,7 @@
         
         $modelo->delRegister($id);
         
-        unset($id2);
+        unset($id);
     }
     
     // Carrega todos os metódos necessarios

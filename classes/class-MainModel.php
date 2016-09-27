@@ -181,15 +181,19 @@ class MainModel {
     public function encode_decode( $encode = FALSE, $decode = FALSE  ){
         
         if($encode == TRUE){
-           $encode_con = base64_encode(198);
-           $encode = base64_encode($encode);
-           return $encode.$encode_con;
+            
+           $rand = rand(100, 900);
+           
+           $encode = base64_encode($encode.$rand);
+           return $encode;
             
         }else{
             
-           $decode_con = base64_decode(198); 
+           
            $decode = base64_decode($decode);
-           return $decode.$decode_con;
+           $_decode = substr($decode, 0, -3);
+           
+           return $_decode;
         }
         
     }
