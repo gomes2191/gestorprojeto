@@ -5,7 +5,7 @@
  * @package OdontoVision
  * @since 0.1
  */
-class FornecedorController extends MainController
+class FornecedoresController extends MainController
 {
 
 	/**

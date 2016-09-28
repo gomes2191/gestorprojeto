@@ -30,7 +30,7 @@
                 <li><a href="<?= HOME_URI; ?>/noticias/adm/">Funcionarios</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">OUTROS DEPARTAMENTOS</li>
-                <li><a href="#">Fornecedores</a></li>
+                <li><a href="<?= HOME_URI; ?>/fornecedores">Fornecedores</a></li>
                 <li><a href="#">Patrimônio</a></li>
                 <li><a href="#">Controle de Estoque</a></li>
                 <li><a href="#">Laboratório</a></li>
