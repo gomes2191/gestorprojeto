@@ -1,14 +1,13 @@
 <?php
 
 /**
- * Translate - Efetua as tradução do sistema
- *
- * Manipula os dados de usuários, faz login e logout, verifica permissões e
- * redireciona página para usuários logados.
- *
- * @package OdontoVision
- * @since 0.1
- */
+ *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
+ *  @Class: Translate
+ *  @Descrição: Essa classe será responsável por efetuar a tradução do sistema.
+ * 
+ *  @Pacote: OdontoControl
+ *  @Versão: 0.1
+ **/
 
 class Translate
 {

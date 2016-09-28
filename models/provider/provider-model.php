@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.1
  */
-class FornecedorModel extends MainModel
+class ProviderModel extends MainModel
 {
 
     /**
