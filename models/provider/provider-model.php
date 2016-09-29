@@ -90,21 +90,15 @@ class ProviderModel extends MainModel
             return;
         }
         
-        # Pega a data de inicio da consulta e data final da consulta e verifica se ambas estão no padrão aceito Ex: 'd/m/Y H:i' 
-        if(! (($this->validaDataHora($this->form_data['from'], 'd/m/Y H:i')) && ($this->validaDataHora($this->form_data['to'], 'd/m/Y H:i'))) ){
-            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Campo início da consulta e términio da consulta não atendem o formato exigido.'];
-            // Finaliza a execução.
-            return;
-        }// End valida
-
-        // Verifica se o agendamento já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `agendas` WHERE `agenda_id` = ? ',[
-            chk_array($this->form_data, 'agenda_id')
+        
+        // Verifica se o valor já existe.
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `providers` WHERE `provider_id` = ? ',[
+            chk_array($this->form_data, 'provider_id')
         ]);
         
         // Verifica se a consulta foi realizada com sucesso
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            $this->updateRegister(chk_array($this->form_data, 'agenda_id'));
+            $this->updateRegister(chk_array($this->form_data, 'provider_id'));
             return;
         }else{
              $this->insertRegister();
@@ -124,15 +118,37 @@ class ProviderModel extends MainModel
     public function insertRegister(){
         
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('agendas',[
-            'agenda_start'          =>  $this->_formatar (chk_array($this->form_data, 'from')),
-            'agenda_end'            =>  $this->_formatar(chk_array($this->form_data, 'to')),
-            'agenda_start_normal'   =>  chk_array($this->form_data, 'from'),
-            'agenda_end_normal'     =>  chk_array($this->form_data, 'to'),
-            'agenda_class'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_class')),
-            'agenda_proc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_proc')),
-            'agenda_pac'            =>  $this->avaliar(chk_array($this->form_data, 'agenda_pac')),
-            'agenda_desc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc'))
+        $query_ins = $this->db->insert('providers',[
+            'provider_nome'         =>  $this->_formatar (chk_array($this->form_data, 'provider_nome')),
+            'provider_cpf_cnpj'     =>  $this->_formatar(chk_array($this->form_data, 'provider_cpf_cnpj')),
+            'provider_rs'           =>  chk_array($this->form_data, 'provider_rs'),
+            'provider_at'           =>  chk_array($this->form_data, 'provider_at'),
+            'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_class')),
+            'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'agenda_proc')),
+            'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_pac')),
+            'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
+            'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc'))
         ]);
 
         # Simplesmente seleciona os dados na base de dados

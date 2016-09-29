@@ -301,9 +301,6 @@
             </div>
             <div class="modal-body">
                 <form id="agenda-form-modal-cad" action="" method="post">
-
-
-
                     <div class="form-group">
                         <label for="from">Começa as:</label>
                         <div class="input-group date form_date col-md-5" id='from'>
@@ -311,7 +308,6 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
-                        
                     </div>
 
                     <div class="form-group">
