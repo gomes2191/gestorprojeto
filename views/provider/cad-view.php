@@ -2,16 +2,30 @@
 
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
-    #$modelo->get_register_form(chk_array($parametros, 1));
+    $modelo->get_register_form(chk_array($parametros, 1));
     #$modelo->del_user($parametros);
+    
+    $form_msg = $modelo->form_msg;
 ?>
 
 <div class="row-fluid">
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
     <div class="col-md-10  col-sm-12 col-xs-12">
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
-        <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form form-signin">
-            <?= var_dump($modelo->form_data); ?>
+        <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
+            <?php
+                if ($form_msg == true) {
+                    echo '<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <i class="fa fa-info-circle fa-4" >&nbsp;</i>
+                            <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
+                         </div>';
+
+                    unset($form_msg);
+                }
+            ?>
             <fieldset>
                 <legend><h6>INFORMAÇÕES DO FORNECEDOR</h6></legend>
                 <div class="row form-compact">
@@ -214,13 +228,13 @@
             <div class="row form-compact">
                 <div class="form-group col-xs-12 col-sm-3 col-md-2 ">
                     <div class="input-group-btn ">
-                        <a href="<?= HOME_URI; ?>/providers" class="btn btn-lg btn-info"><span class="fa fa-users"></span> Fornecedores</a>
+                        <a href="<?= HOME_URI; ?>/providers" class="btn btn-lg btn-default"><span class="fa fa-users"></span> Fornecedores</a>
                     </div>
                     <br>
                 </div>
                 <div class="form-group col-xs-6 col-sm-3 col-md-2">
                     <div class="input-group-btn">
-                        <button class="btn btn-lg btn-success" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Cadastra</button>
+                        <button class="btn btn-lg btn-default" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Cadastra</button>
                     </div>
                     <br>
                 </div>

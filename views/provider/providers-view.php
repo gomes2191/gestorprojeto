@@ -30,7 +30,7 @@
         <br>
           
         <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
-        <!--<?php $lista = $modelo->get_user_list(); ?>-->
+        <?php $lista = $modelo->get_listar(); ?>
         
         <div class="panel"> <!-- Start panel -->
             <div class="panel-heading text-center"><?= Translate::t('dMsg_2'); ?></div>
@@ -41,7 +41,6 @@
                     <tr>
                         <th>#</th>
                         <th><?= Translate::t('dMsg_3'); ?></th>
-                        <!--<th><?= Translate::t('dMsg_4'); ?></th>-->
                         <th><?= Translate::t('dMsg_5'); ?></th>
                         <th><?= Translate::t('dMsg_6'); ?></th>
                         <th><?= Translate::t('dMsg_7'); ?></th>
@@ -53,17 +52,17 @@
                     <?php foreach ($lista as $fetch_userdata): ?>
                         <tr>
                             <td>
-                                <?= $fetch_userdata['user_id'] ?>
+                                <?= $fetch_userdata['provider_id'] ?>
                             </td>
                             <td>
-                                <?= $fetch_userdata['user_name'] ?>
+                                <?= $fetch_userdata['provider_nome'] ?>
                             </td>
                             <td>
-                                <?= $fetch_userdata['user_email'] ?>
+                                <?= $fetch_userdata['provider_cpf_cnpj'] ?>
                             </td>
                             
                             <td>
-                                <a href="<?= HOME_URI; ?>/user-register/index/edit/<?= $fetch_userdata['user_id']; ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
+                                <a href="<?= HOME_URI; ?>/providers/cad?pr=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
                                     <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
                                 </a>
                             </td>

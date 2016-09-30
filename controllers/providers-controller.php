@@ -77,6 +77,9 @@ class ProvidersController extends MainController {
     // URL: dominio.com/exemplo/exemplo
 
     public function Cad() {
+        # Parametros da função
+        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        
         // Page title
         $this->title = ' Cadastro de fornecedor';
         

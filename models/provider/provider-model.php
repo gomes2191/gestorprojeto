@@ -64,34 +64,33 @@ class ProviderModel extends MainModel
 
         // Verifica se algo foi postado no formulário
         if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST ) ) {
+            
             # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
             foreach ( $_POST as $key => $value ) {
+                
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
-
-                # Não será permitido campos vazios
-                if ( empty( $value ) ) {
-                    // Feedback para o usuário
-                    $this->form_msg = [0 => 'alert-danger', 1 =>'Erro! ',  2 => 'Você não preencheu todos os campos.'];
-                    // Termina
-                    return;
-                } //--> End
-
+                
             } //Faz lop dos dados do post
+            
+            # Não será permitido campos vazios
+            if ( empty( $this->form_data['provider_nome'] ) ) {
+                // Feedback para o usuário
+                $this->form_msg = [0 => 'alert-danger', 1 =>'Erro! ',  2 => 'Campo nome não foi preenchido.'];
+
+                // Termina
+                return;
+
+            } //--> End
 
         }else {
+            
             // Finaliza se nada foi enviado
             return;
+            
         } //--> End finaliza se nada foi enviado
-
-        // Verifica se a propriedade $form_data foi preenchida
-        if( empty( $this->form_data ) ) {
-            // Finaliza a execução.
-            return;
-        }
         
-        
-        // Verifica se o valor já existe.
+        // Verifica se o registro já existe.
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `providers` WHERE `provider_id` = ? ',[
             chk_array($this->form_data, 'provider_id')
         ]);
@@ -119,57 +118,47 @@ class ProviderModel extends MainModel
         
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('providers',[
-            'provider_nome'         =>  $this->_formatar (chk_array($this->form_data, 'provider_nome')),
-            'provider_cpf_cnpj'     =>  $this->_formatar(chk_array($this->form_data, 'provider_cpf_cnpj')),
-            'provider_rs'           =>  chk_array($this->form_data, 'provider_rs'),
-            'provider_at'           =>  chk_array($this->form_data, 'provider_at'),
-            'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_class')),
-            'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'agenda_proc')),
-            'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_pac')),
-            'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc')),
-            'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc'))
+            'provider_nome'         =>  $this->avaliar(chk_array($this->form_data, 'provider_nome')),
+            'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
+            'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
+            'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
+            'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
+            'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'provider_bair')),
+            'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cid')),
+            'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
+            'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'provider_pais')),
+            'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
+            'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
+            'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
+            'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
+            'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
+            'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
+            'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
+            'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
+            'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
+            'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
+            'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
+            'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
+            'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
+            'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
+            'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
+            'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
+            'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
+            'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
+            'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
+            'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
+            'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
+            'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs'))
         ]);
 
-        # Simplesmente seleciona os dados na base de dados
-        $exec_id = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
-        $row = $exec_id->fetch();
-        $id = trim($row[0]);
-
-        # Gera o link do agendamento
-        $link = HOME_URI.'/agenda/box-visao?ag='.$this->encode_decode($id);
-
-        # Atualizamos nosso $link
-        $query_up = $this->db->update('agendas', 'agenda_id', $id,['agenda_url' => $link]);
-
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
-        if ( $query_up && $query_ins ) {
+        if ( $query_ins ) {
 
             # Destroy variáveis não mais utilizadas.
-            unset($query_ins, $query_up, $exec_id, $row,  $id, $link);
+            unset($query_ins);
             
             # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'A consulta foi isnerida com successo!'];
+            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'O registro foi efetuado com sucesso!'];
 
             # Finaliza execução.
             return;
@@ -301,48 +290,7 @@ class ProviderModel extends MainModel
         
     } //--> End del_agendamento()
         
-        
-    /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: return_json_evento() 
-    *   @Descrição: Pega os dados referente as consultas na base de dados e retorna um Json no padrão aceito pela calendario do Sistema.
-    **/
-    public function return_json_evento() {
-
-    // Pega todos os dados da tabela agendas.
-    $query = $this->db->query(' SELECT * FROM `agendas` ');
-
-    // Verifica se a consulta foi realizada com sucesso.
-    if (!$query) {
-        return [];
-    }
-    
-    
-    /**
-    * Faz um loop com os dados da query inserindo no vetor $row
-    * e pega os valores especifico e insere no vetor $out. 
-    **/ 
-    foreach ($query as $row){
-        $out[] = [
-            'id'       => $row['agenda_id'],
-            'title'    => $row['agenda_pac'],
-            'url'      => $row['agenda_url'],
-            'body'     => $row['agenda_desc'],
-            'class'    => $row['agenda_class'],
-            'start'    => $row['agenda_start'],
-            'end'      => $row['agenda_end']
-        ];
-
-    }
-        // Converte em um json o valor do vetor e imprime
-        echo json_encode(array('success' => 1, 'result' => $out));
-        exit;
-        
-    } // End return_json_evento()
-    
-    
+         
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -369,24 +317,17 @@ class ProviderModel extends MainModel
     *   @Função: get_listar() 
     *   @Descrição: Pega o ID passado na função e retorna os valores.
     **/ 
-    public function get_listar( $agenda_id = NULL ) {
+    public function get_listar( ) {
         
-        
-        
-        
-        #   Recebe o ID codficado e decodifica depois converte e inteiro
-        $id_decode = intval($this->encode_decode(0, $agenda_id));
-        //echo $id_decode;die();
-        
-        // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query( " SELECT * FROM  `agendas` WHERE `agenda_id`= $id_decode " );
+        #   Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query( 'SELECT * FROM `providers` ORDER BY provider_id' );
 
         // Verifica se a consulta está OK
         if ( ! $query ) {
                 return array();
         }
         // Retorna os valores da consulta
-        return $query->fetch(PDO::FETCH_ASSOC);
+        return $query->fetchAll();
     } // End get_listar()
 
     
