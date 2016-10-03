@@ -2,7 +2,7 @@
 <?php if ( $this->login_required && ! $this->logged_in ) return; ?>
 
     <!-- Fixed navbar -->
-    <nav class="navbar-default navbar-findcond navbar-fixed-top">
+    <nav class="navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
@@ -54,13 +54,12 @@
             <li><a href="<?= HOME_URI; ?>/user-register/" title="Cadastro de pessoal"><i class="fa fa-user-plus" aria-hidden="true"></i> CADASTRO DE PESSOAL</a></li>
             <!--<li><a href="<?= HOME_URI; ?>">UTILITÁRIO</a></li>-->
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <!--<ul class="nav navbar-nav navbar-right">
             <li><a href="<?= HOME_URI; ?>/login/"><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i> LOGAR-SE</a></li>
             
-            <!--<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
-          </ul>
+            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+          </ul>-->
         </div><!--/.nav-collapse -->
       </div>
     </nav> <!-- Fixed navbar end -->
-
     <div class="container-fluid"> <!-- Inicio conteudo -->

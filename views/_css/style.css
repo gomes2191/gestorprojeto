@@ -1,4 +1,8 @@
 
+.navbar-default {
+    box-shadow: #d8d8d8 2px 1px 2px;
+}
+
 /*Formatação campos horarios de atendimentos*/
 #dom-1, #dom-2, #seg-1, #seg-2, #ter-1, #ter-2, #qua-1, #qua-2, #qui-1, #qui-2, #sex-1, #sex-2, #sab-1, #sab-2{
   text-align: center;

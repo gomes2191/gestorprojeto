@@ -56,7 +56,7 @@ class ProvidersController extends MainController {
 //			return;
 //		}
         # Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
 
         # Carrega o modelo para este view
         $modelo = $this->load_model('provider/provider-model');
@@ -74,13 +74,13 @@ class ProvidersController extends MainController {
         #--> /views/_includes/footer.php
         require_once (ABSPATH . '/views/_includes/footer.php');
     }   #--> End index
-    // URL: dominio.com/exemplo/exemplo
-
+    
+    # URL: dominio.com/exemplo/exemplo
     public function Cad() {
-        # Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        #   Parametros da função
+        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
-        // Page title
+        #   Page title
         $this->title = ' Cadastro de fornecedor';
         
         #---> Inclua seus models e views aqui

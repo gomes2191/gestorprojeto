@@ -1,8 +1,5 @@
 
-
-
 /* global pattern */
-
 $('#user-register-btn').on('click', function() {
     var $this = $(this);
   $this.button('loading');
@@ -16,8 +13,8 @@ $(document).ready(function () {
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
     $(".alertH").hide();
     $(".alertH").alert();
-    $(".alertH").fadeTo(8500, 2000).slideUp(800, function () {
-        $(".alertH").slideUp(800);
+    $(".alertH").fadeTo(2500, 2500).slideUp(200, function () {
+    $(".alertH").slideUp(200);
     });
 
     // Popup alerta
@@ -191,3 +188,50 @@ function InvalidMsg(textbox) {
     }
     return true;
 }
+
+
+$(function () {
+    $('#table-for').DataTable({
+        language: {
+            url: 'Portuguese-Brasil.json'
+        }
+    });
+
+});
+
+
+$( function (){
+        
+        $('#form-agenda-ajax').submit(
+           function(e){
+               e.preventDefault();
+
+               if($('#deletar').val() == 'Processando...') {
+                   return (false);
+
+               }
+
+               $('#deletar').val('Processando...');
+
+               $.ajax({
+                   url: 'agenda-box',
+                   type: 'post',
+                   dataType: 'html',
+                   data: {'metodo': $('#metodo').val()}
+
+
+               }).done(function(data){
+
+                    alert(data);
+
+                   $('#deletar').val('Deletar');
+                   $('#metodo').val('');
+
+
+               });
+        
+        });
+    
+        
+    } );
+        
