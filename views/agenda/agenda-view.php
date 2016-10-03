@@ -1,7 +1,4 @@
-<?php
-    if (!defined('ABSPATH')){
-        exit();
-    } elseif (isset($_GET['ag'])){
+<?php   if (!defined('ABSPATH'))    {   exit();    } elseif (isset($_GET['ag'])){
         
         $id = $modelo->avaliar($_GET['ag']);
         
@@ -154,7 +151,7 @@
             <div class="modal-footer">
                 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
                 </div>
             </div>
         </div><!-- /.modal-content -->

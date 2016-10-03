@@ -101,4 +101,14 @@ class ProvidersController extends MainController {
         
     }   #--> End cad
     
+    public function BoxView(){
+        
+        #   Carrega o modelo
+        $modelo = $this->load_model('provider/provider-model');
+        
+        #   Carrega o view
+        require_once (ABSPATH . '/views/provider/box-view.php');
+        
+    }   #--> End BoxView
+    
 }   #--> End FonecedoresController

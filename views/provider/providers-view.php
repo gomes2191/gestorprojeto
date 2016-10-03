@@ -1,12 +1,12 @@
 <?php if (!defined('ABSPATH')) {    exit(); }
     $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
     if(isset($get['p'])) {  $modelo->delRegister($get['p']); }
-    elseif(isset($get['v']))    {$v = $get['v']; echo $v;}
     $form_msg = $modelo->form_msg;
-    unset($get, $v);
+    unset($get);
 ?>
 <!--Muda a url atual para a nova url passada-->
 <script>window.history.pushState("providers", "", "providers");</script>
+
 <div class="row-fluid">
     <div class="col-md-1 col-sm-0 col-sx-0"></div>
     <div class="col-md-10 col-sm-12 col-sx-12">
@@ -48,30 +48,30 @@
                 <tbody>
                     
                     <?php foreach ($lista as $fetch_userdata): ?>
-                    <tr>
-                        <td>
-                            <?= $fetch_userdata['provider_id']; ?>
-                        </td>
-                        <td>
-                            <?= $fetch_userdata['provider_nome']; ?>
-                        </td>
-                        <td>
-                            <a href="<?= HOME_URI; ?>/providers/cad?pr=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
-                                <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
-                            </a>
-                        </td>
+                        <tr>
+                            <td>
+                                <?= $fetch_userdata['provider_id']; ?>
+                            </td>
+                            <td>
+                                <?= $fetch_userdata['provider_nome']; ?>
+                            </td>
+                            <td>
+                                <a href="<?= HOME_URI; ?>/providers/cad?pr=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
+                                    <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                                </a>
+                            </td>
 
-                        <td>
-                            <button class="btn btn-sx btn-danger openBtn" data-toggle="modal" data-target="#myModal"  title="<?= Translate::t('dMsg_11'); ?>" >
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-sx btn-success" data-toggle="modal" data-target="#visualizar-forne" title="<?= Translate::t('dMsg_12'); ?>" >
-                                <span class="glyphicon glyphicon-info-sign"></span>
-                            </button>
-                        </td>
-                    </tr>
+                            <td>
+                                <button class="btn btn-sx btn-danger openBtn" data-toggle="modal" data-target="#myModal"  title="<?= Translate::t('dMsg_11'); ?>" >
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <a href="<?= HOME_URI; ?>/providers/box-view?v=<?= $fetch_userdata['provider_id']; ?>" class="btn btn-sx btn-primary" data-toggle="modal" data-target="#visualizar-forne" title="<?= Translate::t('dMsg_12'); ?>" >
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                </a>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                     <?php
                       else:
@@ -106,23 +106,15 @@
         </div><!-- /.modal -->
         
         <!-- Start Modal visualizar fornecedores -->
-        <div id="visualizar-forne" class="modal fade" role="dialog">
+        <div id="visualizar-forne" class="modal novo fade" >
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">INFORMAÇÕES DA EMPRESA</h4>
-                    </div>
-                    <div class="modal-body">
-                        <?= $id ?>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
-                    </div>
+                    
                 </div>
             </div>
-        </div>
+        </div><!-- End modal -->
+        
     </div> <!-- End col-md-12 -->    
     <div class="col-md-1 col-sm-0 col-sx-0"></div>
 </div> <!-- End row-fluid -->
