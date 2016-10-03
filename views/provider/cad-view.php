@@ -1,13 +1,16 @@
-<?php if (!defined('ABSPATH')) exit; 
-
-    // Carrega todos os métodos do modelo
-    $modelo->validate_register_form();
-    $modelo->get_register_form(chk_array($parametros, 1));
-    #$modelo->del_user($parametros);
+<?php 
+    if (!defined('ABSPATH')){ exit(); }
+    $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
     
+    if(isset($get['pr'])){ $parametros = $get['pr']; }
+    
+    # Carrega todos os métodos do modelo
+    $modelo->validate_register_form();
     $form_msg = $modelo->form_msg;
+    $modelo->get_register_form($parametros, 1);
+    unset($parametros, $get);
 ?>
-
+<script>window.history.pushState("cad", "", "cad");</script>
 <div class="row-fluid">
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
     <div class="col-md-10  col-sm-12 col-xs-12">
@@ -47,7 +50,8 @@
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="rs">Razão Social:</label>
-                        <input id="rs" name="provider_rs" class="form-control" type="text" placeholder="Razão social...">
+                        <input id="rs" name="provider_rs" class="form-control" type="text" placeholder="Razão social..." value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'provider_rs')); ?>">
                         <br>
                     </div>
 
@@ -228,19 +232,19 @@
             <div class="row form-compact">
                 <div class="form-group col-xs-12 col-sm-3 col-md-2 ">
                     <div class="input-group-btn ">
-                        <a href="<?= HOME_URI; ?>/providers" class="btn btn-lg btn-default"><span class="fa fa-users"></span> Fornecedores</a>
+                        <a href="<?= HOME_URI; ?>/providers" class="btn btn-sx btn-default"><span class="fa fa-users"></span> Fornecedores</a>
                     </div>
                     <br>
                 </div>
                 <div class="form-group col-xs-6 col-sm-3 col-md-2">
                     <div class="input-group-btn">
-                        <button class="btn btn-lg btn-default" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Cadastra</button>
+                        <button class="btn btn-sx btn-default" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Cadastra</button>
                     </div>
                     <br>
                 </div>
                 <div class="form-group col-xs-6 col-sm-3 col-md-2 ">
                     <div class="input-group-btn">
-                        <button class="btn btn-lg btn-warning" type="reset"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
+                        <button class="btn btn-sx btn-warning" type="reset"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
                     </div>
                 </div>
             </div>

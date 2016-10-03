@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <meta name="description" content="">
         <meta name="author" content="FAGA - Tecnologia">
@@ -29,28 +29,32 @@
 
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/views/_css/navbar-fixed-top.css">
-
-        <!-- Agenda bibliotecas css -->
-        <?php
-            if($this->title == ' Agenda'){
-
-                echo '<link rel="stylesheet" href="'.HOME_URI. '/_agenda/css/calendar.css">';
-                
-                echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/bootstrap-datetimepicker.min.css">';
-            }
-        ?>
-        <!-- Final agenda css -->
         
-       
-        
-        <!-- Bootstrap core JavaScript
+         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="<?= HOME_URI; ?>/views/_js/jquery.min.js"></script>
         <script src="<?= HOME_URI; ?>/views/_js/bootstrap.min.js"></script>
         
-        
-        
+        <?php
+            if($this->title == ' Agenda'){
+                # Start agenda css -->
+                echo '<link rel="stylesheet" href="'.HOME_URI. '/_agenda/css/calendar.css">';
+                
+                echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/bootstrap-datetimepicker.min.css">';
+                # End agenda css -->
+            } 
+            elseif ($this->title == ' Fornecedores') {
+                # Start paginação css
+                echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/datatables.min.css">';
+                # End paginação css 
+                
+                # Start paginação js
+                echo '<script src="'.HOME_URI.'/views/_js/datatables.min.js"></script>';
+                # End paginação js
+            }
+        ?>
+       
         <!-- Biblioteca de futuro upgrade de agenda -->
         <!--<script src="/_agenda/js/moment.min.js" type="text/javascript"></script>
         <script src="/_agenda/js/interact.min.js" type="text/javascript"></script>

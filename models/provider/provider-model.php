@@ -159,6 +159,9 @@ class ProviderModel extends MainModel
             
             # Feedback para o usuário
             $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'O registro foi efetuado com sucesso!'];
+            
+            # Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/providers/cad">';
 
             # Finaliza execução.
             return;
@@ -212,12 +215,12 @@ class ProviderModel extends MainModel
     *   @Versão: 0.1 
     *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
     **/ 
-    public function get_register_form ( $agenda_id = FALSE ) {
+    public function get_register_form ( $parametros ) {
         
-        $id = intval($this->encode_decode(0, $agenda_id));
+        $id = intval($this->encode_decode(0, $parametros));
         
         // Verifica na base de dados
-        $query = $this->db->query('SELECT * FROM `agendas` WHERE `agenda_id` = ?', [ $id ]  );
+        $query = $this->db->query('SELECT * FROM `providers` WHERE `provider_id` = ?', [ $id ]  );
 
         // Verifica se a consulta foi realizada com sucesso!
         if ( ! $query ) {
@@ -254,35 +257,35 @@ class ProviderModel extends MainModel
     public function delRegister ( $id ) {
 
         # Recebe o ID do registro converte de string para inteiro.
-        $ag_id = intval($this->encode_decode(0, $id));
+        $parametro = intval($this->encode_decode(0, $id));
         //echo $ag_id; die();
         
-        $search = $this->db->query("SELECT count(*) FROM `agendas` WHERE `agenda_id` = $ag_id ");
+        $search = $this->db->query("SELECT count(*) FROM `providers` WHERE `provider_id` = $parametro ");
         if($search->fetchColumn() < 1){
 
             // Feedback para o usuário
             $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
 
             //Destroy variáveis não mais utilizadas
-            unset($ag_id, $search, $id);
+            unset($parametro, $search, $id);
 
-            // Redireciona de volta para a página após 2 segundos
-            // echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
+            # Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/providers">';
 
             // Finaliza
             return;
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('agendas', 'agenda_id', $ag_id);
+            $query_del = $this->db->delete('providers', 'provider_id', $parametro);
             
             // Feedback para o usuário
-            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Seu agendamento foi deletado com sucesso!'];
+            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Registro removido com sucesso!'];
             
             // Destroy variáveis não mais utilizadas
-            unset($ag_id, $query_del, $search, $id);
+            unset($parametro, $query_del, $search, $id);
 
-            // Redireciona de volta para a página após dez segundos
-            //echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
+            # Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/providers">';
             
             // Finaliza
             return;
