@@ -22,7 +22,6 @@
                             <i class="fa fa-info-circle fa-4" >&nbsp;</i>
                             <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
                          </div>';
-
                     unset($form_msg);
                 }
             ?>
