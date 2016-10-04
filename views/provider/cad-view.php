@@ -33,7 +33,7 @@
                 <div class="row form-compact">
                     <div class="form-group col-md-3 col-sm-4 col-xs-12">
                         <label for="provider_nome">Empresa:</label>
-                        <input type="hidden" name="agenda_id" value="<?= htmlentities(chk_array($modelo->form_data, 'provider_id')); ?>">
+                        <input type="hidden" name="provider_id" value="<?= htmlentities(chk_array($modelo->form_data, 'provider_id')); ?>">
                         <input id="provider_nome" type="text" name="provider_nome" placeholder="Nome da empresa... " value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'provider_nome')); ?>" class="form-control" 
                         data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
@@ -43,7 +43,8 @@
 
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="provider_cpf_cnpj">CPF/CPNJ:</label>
-                        <input id="provider_cpf_cnpj" name="provider_cpf_cnpj" class="form-control" type="text" placeholder="CPF ou CNPJ">
+                        <input id="provider_cpf_cnpj" name="provider_cpf_cnpj" class="form-control" type="text" placeholder="CPF ou CNPJ" value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'provider_cpf_cnpj')); ?>">
                         <br>
                     </div>
 
@@ -57,13 +58,15 @@
 
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="provider_at">Área de Atuação:</label>
-                        <input id="provider_at" name="provider_at" class="form-control" type="text" placeholder="Área de atuação..." >
+                        <input id="provider_at" name="provider_at" class="form-control" type="text" placeholder="Área de atuação..." value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'provider_at')); ?>" >
                         <br>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-4 col-xs-12">
                         <label for="provider_end">Endereço:</label>
-                        <input id="provider_end" name="provider_end" class="form-control" type="text" placeholder="Endereço..." >
+                        <input id="provider_end" name="provider_end" class="form-control" type="text" placeholder="Endereço..." value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'provider_end')); ?>" >
                         <br>
                     </div>
                     <br>

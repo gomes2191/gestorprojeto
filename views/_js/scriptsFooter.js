@@ -235,3 +235,9 @@ $( function (){
         
     } );
         
+//Faz um refresh de url apos fechar modal
+$(function  (){
+    $('#visualizar-forne').on('hidden.bs.modal', function () {
+        document.location.reload();
+    });
+});

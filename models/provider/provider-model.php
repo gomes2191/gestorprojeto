@@ -332,6 +332,28 @@ class ProviderModel extends MainModel
         // Retorna os valores da consulta
         return $query->fetchAll();
     } // End get_listar()
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: get_listar() 
+    *   @Descrição: Pega o ID passado na função e retorna os valores.
+    **/ 
+    public function get_registro( $id = NULL ) {
+        #   Recebe o ID codficado e decodifica depois converte e inteiro
+        $id_decode = intval($this->encode_decode(0, $id));
+        
+        // Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query( " SELECT * FROM  `providers` WHERE `provider_id`= $id_decode " );
+
+        // Verifica se a consulta está OK
+        if ( ! $query ) {
+                return array();
+        }
+        // Retorna os valores da consulta
+        return $query->fetch(PDO::FETCH_ASSOC);
+    } // End get_registro()
 
     
     /**

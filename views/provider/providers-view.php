@@ -4,8 +4,12 @@
     $form_msg = $modelo->form_msg;
     unset($get);
 ?>
-<!--Muda a url atual para a nova url passada-->
-<script>window.history.pushState("providers", "", "providers");</script>
+
+<script>
+    <!--Muda a url atual para a nova url passada-->
+    window.history.pushState("providers", "", "providers");
+    
+</script>
 
 <div class="row-fluid">
     <div class="col-md-1 col-sm-0 col-sx-0"></div>
@@ -26,10 +30,8 @@
         <div class="input-group-sm">
             <a href="<?= HOME_URI; ?>/providers/cad" title="Adiciona fornecedor." class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar fornecedor </a>
         </div>
-        
         <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
         <?php $lista = $modelo->get_listar(); ?>
-        
         <div class="panel"> <!-- Start panel -->
             <div class="panel-heading text-center"><h5>FORNECEDORES CADASTRADO NO SISTEMA</h5></div>
             
@@ -67,7 +69,8 @@
                                 </button>
                             </td>
                             <td>
-                                <a href="<?= HOME_URI; ?>/providers/box-view?v=<?= $fetch_userdata['provider_id']; ?>" class="btn btn-sx btn-primary" data-toggle="modal" data-target="#visualizar-forne" title="<?= Translate::t('dMsg_12'); ?>" >
+                                <?php $id = $fetch_userdata['provider_id'];?>
+                                <a href="<?= HOME_URI; ?>/providers/box-view?v=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sx btn-primary" data-toggle="modal" data-target="#visualizar-forne" title="<?= Translate::t('dMsg_12'); ?>" >
                                     <span class="glyphicon glyphicon-info-sign"></span>
                                 </a>
                             </td>
@@ -106,7 +109,7 @@
         </div><!-- /.modal -->
         
         <!-- Start Modal visualizar fornecedores -->
-        <div id="visualizar-forne" class="modal novo fade" >
+        <div id="visualizar-forne" class="modal fade" >
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
