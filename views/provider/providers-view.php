@@ -36,42 +36,38 @@
             <div class="panel-heading text-center"><h5>FORNECEDORES CADASTRADO NO SISTEMA</h5></div>
             
             <div class="table-responsive">
-                <table id="table-for" class="table table-hover  table-text-center">
+                <table id="table-for" class="table table-hover">
                 <?php if ($lista): ?>
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>EMPRESA</th>
-                        <th>EDITAR</th>
-                        <th>ELIMINAR</th>
-                        <th>INFORMAÇÕES</th>
+                        <th class="text-center">EMPRESA</th>
+                        <th class="text-center">EDITAR</th>
+                        <th class="text-center">ELIMINAR</th>
+                        <th class="text-center">INFORMAÇÕES</th>
                     </tr>
                 </thead>
                 <tbody>
                     
                     <?php foreach ($lista as $fetch_userdata): ?>
-                        <tr>
-                            <td>
-                                <?= $fetch_userdata['provider_id']; ?>
-                            </td>
+                    <tr class="text-center">
                             <td>
                                 <?= $fetch_userdata['provider_nome']; ?>
                             </td>
                             <td>
-                                <a href="<?= HOME_URI; ?>/providers/cad?pr=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
-                                    <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                                <a href="<?= HOME_URI; ?>/providers/cad?pr=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
+                                    <i style="color: #73a839;" class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i>
                                 </a>
                             </td>
 
                             <td>
-                                <button class="btn btn-sx btn-danger openBtn" data-toggle="modal" data-target="#myModal"  title="<?= Translate::t('dMsg_11'); ?>" >
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
+                                <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                                    <i style="color: #c71c22;" class="fa fa-2x fa-times" aria-hidden="true"></i>
+                                </a>
                             </td>
                             <td>
                                 <?php $id = $fetch_userdata['provider_id'];?>
-                                <a href="<?= HOME_URI; ?>/providers/box-view?v=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sx btn-primary" data-toggle="modal" data-target="#visualizar-forne" title="<?= Translate::t('dMsg_12'); ?>" >
-                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                <a href="<?= HOME_URI; ?>/providers/box-view?v=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
+                                    <i style="color: #2fa4e7;" class="fa fa-2x fa-info-circle" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>

@@ -3,6 +3,10 @@
     $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
     if(isset($get['v'])){
         $modelo = $modelo->get_registro($get['v']);
+    }else{
+        
+        header('Location:'.HOME_URI.'/providers');
+        exit;
     }
     
     #   Destroy variáveis não mais utilizadas
@@ -47,11 +51,9 @@
        <?= ($modelo['provider_agencia_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Agência 2:</b> '.$modelo['provider_agencia_2'].'</li>' : '' ?>
        <?= ($modelo['provider_conta_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Conta 2:</b> '.$modelo['provider_conta_2'].'</li>' : '' ?>
        <?= ($modelo['provider_titular_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Titular 2:</b> '.$modelo['provider_titular_2'].'</li>' : '' ?>
-       <?= ($modelo['provider_obs']) ? '<li class="list-group-item list-group-item-warning list-group-item-text"><b>Outras informações:</b> '.$modelo['provider_obs'].'</li>' : '' ?>
+       <?= ($modelo['provider_obs']) ? '<li class="list-group-item list-group-item-default list-group-item-text"><b>Outras informações:</b> '.$modelo['provider_obs'].'</li>' : '' ?>
     </ul>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
 </div>
-
-

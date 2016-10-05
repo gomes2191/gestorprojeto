@@ -95,6 +95,6 @@ th.clear {
     margin-bottom: 3px;
 }
 
-input{
+input, select, textarea{
     color: #dd5600 !important;
 }
