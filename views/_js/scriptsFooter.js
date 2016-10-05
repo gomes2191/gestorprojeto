@@ -13,7 +13,7 @@ $(document).ready(function () {
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
     $(".alertH").hide();
     $(".alertH").alert();
-    $(".alertH").fadeTo(2500, 2500).slideUp(200, function () {
+    $(".alertH").fadeTo(2300, 2300).slideUp(200, function () {
     $(".alertH").slideUp(200);
     });
 
@@ -229,10 +229,7 @@ $( function (){
 
 
                });
-        
         });
-    
-        
     } );
         
 //Faz um refresh de url apos fechar modal

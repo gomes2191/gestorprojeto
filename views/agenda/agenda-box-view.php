@@ -1,4 +1,4 @@
-<?php if ( !defined('ABSPATH') ) { exit(); }
+<?php if ( !defined('ABSPATH') ) { exit('Ação não permitida.'); }
     
     // Verifica se existe o parametro necessario 'ag'
     if(isset($_GET['ag'])){

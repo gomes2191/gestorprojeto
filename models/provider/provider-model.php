@@ -177,21 +177,44 @@ class ProviderModel extends MainModel
     *   @Descrição: Atualiza um registro especifico no BD.
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
-    public function updateRegister( $agenda_id = NULL ){
+    public function updateRegister( $registro_id = NULL ){
         
         # Se o ID não estiver vazio, atualiza os dados
-        if ( $agenda_id ) {
+        if ( $registro_id ) {
             
             # Atualiza os dados
-            $query = $this->db->update('agendas', 'agenda_id', $agenda_id,[
-                'agenda_start'          =>  $this->_formatar (chk_array($this->form_data, 'from')),
-                'agenda_end'            =>  $this->_formatar(chk_array($this->form_data, 'to')),
-                'agenda_start_normal'   =>  chk_array($this->form_data, 'from'),
-                'agenda_end_normal'     =>  chk_array($this->form_data, 'to'),
-                'agenda_class'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_class')),
-                'agenda_proc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_proc')),
-                'agenda_pac'            =>  $this->avaliar(chk_array($this->form_data, 'agenda_pac')),
-                'agenda_desc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc'))
+            $query = $this->db->update('providers', 'provider_id', $registro_id,[
+                'provider_nome'         =>  $this->avaliar(chk_array($this->form_data, 'provider_nome')),
+                'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
+                'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
+                'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
+                'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
+                'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'provider_bair')),
+                'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cid')),
+                'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
+                'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'provider_pais')),
+                'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
+                'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
+                'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
+                'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
+                'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
+                'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
+                'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
+                'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
+                'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
+                'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
+                'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
+                'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
+                'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
+                'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
+                'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
+                'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
+                'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
+                'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
+                'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
+                'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
+                'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
+                'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs'))
             ]);
 
             // Verifica se a consulta foi realizada com sucesso
