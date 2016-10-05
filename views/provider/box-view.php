@@ -8,8 +8,6 @@
     #   Destroy variáveis não mais utilizadas
     unset($get);
 ?>
-
-
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
     <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> INFORMAÇÕES</h4>
@@ -49,6 +47,7 @@
        <?= ($modelo['provider_agencia_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Agência 2:</b> '.$modelo['provider_agencia_2'].'</li>' : '' ?>
        <?= ($modelo['provider_conta_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Conta 2:</b> '.$modelo['provider_conta_2'].'</li>' : '' ?>
        <?= ($modelo['provider_titular_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Titular 2:</b> '.$modelo['provider_titular_2'].'</li>' : '' ?>
+       <?= ($modelo['provider_obs']) ? '<li class="list-group-item list-group-item-warning list-group-item-text"><b>Outras informações:</b> '.$modelo['provider_obs'].'</li>' : '' ?>
     </ul>
 </div>
 <div class="modal-footer">
