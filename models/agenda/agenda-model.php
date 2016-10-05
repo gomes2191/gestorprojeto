@@ -354,10 +354,6 @@ class AgendaModel extends MainModel
     *   @Descrição: Pega o ID passado na função e retorna os valores.
     **/ 
     public function get_listar( $agenda_id = NULL ) {
-        
-        
-        
-        
         #   Recebe o ID codficado e decodifica depois converte e inteiro
         $id_decode = intval($this->encode_decode(0, $agenda_id));
         //echo $id_decode;die();

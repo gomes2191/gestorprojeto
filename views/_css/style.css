@@ -89,3 +89,12 @@ th.today {
 th.clear {
     color: crimson !important;
 }
+
+/*Fornecedores modal*/
+.list-modal-forn > li{
+    margin-bottom: 3px;
+}
+
+input{
+    color: #dd5600 !important;
+}
