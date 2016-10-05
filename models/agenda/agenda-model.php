@@ -1,390 +1,428 @@
 <?php
-/**
- * Classe para registro de consultas
- *
- * @package OdontoVision
- * @since 0.1
- */
 
+/**
+ *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
+ *  @Class: AgendaModel
+ *  @Descrição: Classe para registro de consultas
+ *
+ *  @Pacote: OdontoControl
+ *  @Versão: 0.1
+ */
 class AgendaModel extends MainModel
 {
 
-	/**
-	 * $form_data
-	 *
-	 * Os dados do formulário de envio.
-	 *
-	 * @access public
-	 */
-	public $form_data;
+    /**
+     * $form_data
+     *
+     * @Descrição: Armazena os dados recebido do post.
+     *
+     * @Acesso: public
+     */
+    public $form_data;
 
-	/**
-	 * $form_msg
-	 *
-	 * As mensagens de feedback para o usuário.
-	 *
-	 * @access public
-	 */
-	public $form_msg;
+    /**
+     * $form_msg
+     *
+     * @Descrição: As mensagens de feedback para o usuário.
+     *
+     * @Acesso: public
+     */
+    public $form_msg;
 
-	/**
-	 * $db
-	 *
-	 * O objeto da nossa conexão PDO
-	 *
-	 * @access public
-	 */
-	public $db;
+    /**
+     * $db
+     *
+     * @Descrição: O objeto da nossa conexão PDO
+     *
+     * @Acesso: public
+     */
+    public $db;
 
-	/**
-	 * Construtor
-	 *
-	 * Carrega  o DB.
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function __construct( $db = false ) {
-		$this->db = $db;
-	}
-
-	/**
-	 * Valida o formulário de envio
-	 *
-	 * Este método pode inserir ou atualizar dados dependendo do campo de
-	 * usuário.
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function validate_register_form () {
-
-		// Configura os dados do formulário
-		$this->form_data = array();
-
-
-		// Verifica se algo foi postado
-		if ( 'POST' == $_SERVER['REQUEST_METHOD'] && ! empty ( $_POST ) ) {
-
-			// Faz o loop dos dados do post
-			foreach ( $_POST as $key => $value ) {
-
-				// Configura os dados do post para a propriedade $form_data
-				$this->form_data[$key] = $value;
-
-				// Nós não permitiremos nenhum campos em branco
-				if ( empty( $value ) ) {
-
-					// Configura a mensagem
-					$this->form_msg = '<p class="form_error">There are empty fields. Data has not been sent.</p>';
-					// Termina
-					return;
-				} //Verifica campos em branco
-			} //Faz lop dos dados do post
-
-		} else {
-
-			// Termina se nada foi enviado
-			return;
-
-		}// Finaliza se nada foi enviado
-
-		// Verifica se a propriedade $form_data foi preenchida
-		if( empty( $this->form_data ) ) {
-			return;
-		}
-
-		/* // Verifica se o usuário existe
-		$db_check_user = $this->db->query (
-			'SELECT * FROM `users` WHERE `user` = ?',
-			array(
-				chk_array( $this->form_data, 'user')
-			)
-		);
-
-		// Verifica se a consulta foi realizada com sucesso
-		if ( ! $db_check_user ) {
-			$this->form_msg = '<p class="form_error">Internal error.</p>';
-			return;
-		}
-
-		// Obtém os dados da base de dados MySQL
-		$fetch_user = $db_check_user->fetch();
-
-		// Configura o ID do usuário
-		$user_id = $fetch_user['user_id'];
-
-		// Precisaremos de uma instância da classe Phpass
-		// veja http://www.openwall.com/phpass/
-		$password_hash = new PasswordHash(8, FALSE);
-
-		// Cria o hash da senha
-		$password = $password_hash->HashPassword( $this->form_data['user_password'] );
-
-		// Verifica se as permissões tem algum valor inválido:
-		// 0 a 9, A a Z e , . - _
-		if ( preg_match( '/[^0-9A-Za-z\,\.\-\_\s ]/is', $this->form_data['user_permissions'] ) ) {
-			$this->form_msg = '<p class="form_error">Use just letters, numbers and a comma for permissions.</p>';
-			return;
-		}
-
-		// Faz um trim nas permissões
-		$permissions = array_map('trim', explode(',', $this->form_data['user_permissions']));
-
-		// Remove permissões duplicadas
-		$permissions = array_unique( $permissions );
-
-		// Remove valores em branco
-		$permissions = array_filter( $permissions );
-
-		// Serializa as permissões
-		$permissions = serialize( $permissions );
-
-
-		// Se o ID do usuário não estiver vazio, atualiza os dados
-		if ( ! empty( $user_id ) ) {
-
-			$query = $this->db->update('users', 'user_id', $user_id, array(
-				'user_password' => $password,
-				'user_name' => chk_array( $this->form_data, 'user_name'),
-				'user_session_id' => md5(time()),
-				'user_permissions' => $permissions,
-			));
-
-			// Verifica se a consulta está OK e configura a mensagem
-			if ( ! $query ) {
-				$this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
-
-				// Termina
-				return;
-			} else {
-				$this->form_msg = '<p class="form_success">User successfully updated.</p>';
-
-				// Termina
-				return;
-			}
-		// Se o ID do usuário estiver vazio, insere os dados
-		}*/
-
-                
-                
-                        $agenda_start   = $this->_formatar($this->form_data['from']);
-			 // e reformatar o funcion _formatar
-			$agenda_end     = $this->_formatar($this->form_data['to']);
-//			 // Recebemos a data de início e a data de término da forma
-//			 $agenda_start_normal = ($this->form_data['from']);
-//			 // e reformatar o funcion _formatar
-//			 $agenda_end_normal  = ($this->form_data['to']);
-			 // substituir caracteres ilegais
-			 $agenda_class  = $this->avaliar($this->form_data['agenda_class']);
-			 // Outros receber dados do form
-                         
-                          // e com function avaliar
-                         $agenda_proc = $this->avaliar($this->form_data['agenda_proc']);
-			 $agenda_pac = $this->avaliar($this->form_data['agenda_pac']);
-			 $agenda_desc   = $this->avaliar($this->form_data['agenda_desc']);
-
-//                         var_dump($this->form_data);die;
-                        
-                        
-			// Executa a inserção na basse de dados.
-			$query = $this->db->insert('agendas', 
-                            ['agenda_start' => $agenda_start,
-                            'agenda_end' => $agenda_end,
-                            'agenda_start_normal'=> chk_array($this->form_data, 'from'),
-                            'agenda_end_normal'=> chk_array($this->form_data, 'to'),
-                            'agenda_class'=>$agenda_class,
-                            'agenda_proc'=>$agenda_proc,
-                            'agenda_pac'=>$agenda_pac,
-                            'agenda_desc'=>$agenda_desc
-                            ]);
-                        
-                        
-                       
-                        
-                        // Simplesmente seleciona os dados na base de dados
-                        $exec_id = $this->db->query('SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas`');
-                        $row = $exec_id->fetch();
-                        $id = trim($row[0]);
-                        
-                        // Gera o link do evento
-                        //$link = HOME_URI."/_agenda/return_descricao.php?id=$id";
-                        $link = HOME_URI."/agenda/box-visao?ag=$id";
-
-                        // Atualizamos nosso $link
-                        $this->db->query("UPDATE `agendas` SET `agenda_url` = '$link' WHERE `agenda_id` = $id");
-                        
-			// Verifica se a consulta está OK e configura a mensagem
-			if ( ! $query ) {
-				$this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
-
-				// Termina
-				return;
-			} else {
-				$this->form_msg = '<p class="form_success">User successfully registered.</p>';
-
-				// Termina
-                                echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/agenda">';
-				return;
-			}
-
-	} // validate_register_form
-
-	/**
-	 * Obtém os dados do formulário
-	 *
-	 * Obtém os dados para usuários registrados
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function get_register_form ( $user_id = false ) {
-
-		// O ID de usuário que vamos pesquisar
-		$s_user_id = false;
-
-		// Verifica se você enviou algum ID para o método
-		if ( ! empty( $user_id ) ) {
-			$s_user_id = (int)$user_id;
-		}
-
-		// Verifica se existe um ID de usuário
-		if ( empty( $s_user_id ) ) {
-			return;
-		}
-
-		// Verifica na base de dados
-		$query = $this->db->query('SELECT * FROM `users` WHERE `user_id` = ?', array( $s_user_id ));
-
-		// Verifica a consulta
-		if ( ! $query ) {
-			$this->form_msg = '<p class="form_error">Usuário não existe.</p>';
-			return;
-		}
-
-		// Obtém os dados da consulta
-		$fetch_userdata = $query->fetch();
-
-		// Verifica se os dados da consulta estão vazios
-		if ( empty( $fetch_userdata ) ) {
-			$this->form_msg = '<p class="form_error">User do not exists.</p>';
-			return;
-		}
-
-		// Configura os dados do formulário
-		foreach ( $fetch_userdata as $key => $value ) {
-			$this->form_data[$key] = $value;
-		}
-
-		// Por questões de segurança, a senha só poderá ser atualizada
-		$this->form_data['user_password'] = null;
-
-		// Remove a serialização das permissões
-		$this->form_data['user_permissions'] = unserialize($this->form_data['user_permissions']);
-
-		// Separa as permissões por vírgula
-		$this->form_data['user_permissions'] = implode(',', $this->form_data['user_permissions']);
-	} // get_register_form
-
-	/*
-	 * @param funtion del_evento() responsavel por eliminar eventos
-	 *
-	 * @since 0.1
-	 * @access public
-        */
-	public function del_evento ( $parametros = array() ) {
-            
-		// O ID do evento
-		$evento_id = null;
-		
-		// Verifica se existe o parâmetro "del" na URL
-		if ( chk_array( $parametros, 0 ) == 'del' ) {
-
-			
-                    $evento_id = chk_array( $parametros, 1 );
-		}
-		
-		// Verifica se o ID não está vazio
-		if ( !empty( $evento_id ) ) {
-		
-			// O ID precisa ser inteiro
-			$evento_id = (int) $evento_id;
-			
-			// Deleta o evento
-			$query = $this->db->delete('agendas', 'agenda_id', $evento_id);
-                        $this->form_msg = 'Brasil ';
-			
-			// Redireciona de volta para a página
-			echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/agenda">';
-			echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/agenda";</script>';
-                        
-			return;
-		}
-	} // del_user
-        
-        
-        /**
-	 * Obtém as consultas 
-	 *
-	 * @return_json_evento
-	 * @access public
-	 */
-        public function return_json_evento() {
-
-        // Pega todos os dados da tabela agendas.
-        $query = $this->db->query(' SELECT * FROM `agendas` ');
-
-        // Verifica se a consulta foi realizada com sucesso.
-        if (!$query) {
-            return [];
-        }
-        
-        foreach ($query as $row){
-            $out[] = array(
-                'id'        => $row['agenda_id'],
-                'title'     => $row['agenda_pac'],
-                'url'       => $row['agenda_url'],
-                'body'      => $row['agenda_desc'],
-                'class'     => $row['agenda_class'],
-                'start'     => $row['agenda_start'],
-                'end'       => $row['agenda_end']
-            );
-            
-        }
-         echo json_encode(array('success' => 1, 'result' => $out));
-         exit;
-        
-    } // @get_agenda_consulta
+    /**
+     * 
+     *
+     * @Descrição: Construtor, carrega  o DB.
+     *
+     * @since 0.1
+     * @access public
+     */
+    public function __construct( $db = FALSE ) {
+            $this->db = $db;
+    }
     
-     public function get_ultimo_id() {
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: validate_register_form()
+    *   @Versão: 0.2 
+    *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
+    *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
+    **/ 
+    public function validate_register_form () {
+        // Cria o vetor que vai receber os dados do post
+        $this->form_data = [];
+
+        // Verifica se algo foi postado no formulário
+        if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST ) ) {
+            # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
+            foreach ( $_POST as $key => $value ) {
+                # Configura os dados do post para a propriedade $form_data
+                $this->form_data[$key] = $value;
+
+                # Não será permitido campos vazios
+                if ( empty( $value ) ) {
+                    // Feedback para o usuário
+                    $this->form_msg = [0 => 'alert-danger', 1 =>'Erro! ',  2 => 'Você não preencheu todos os campos.'];
+                    // Termina
+                    return;
+                } //--> End
+
+            } //Faz lop dos dados do post
+
+        }else {
+            // Finaliza se nada foi enviado
+            return;
+        } //--> End finaliza se nada foi enviado
+
+        // Verifica se a propriedade $form_data foi preenchida
+        if( empty( $this->form_data ) ) {
+            // Finaliza a execução.
+            return;
+        }
+        
+        # Pega a data de inicio da consulta e data final da consulta e verifica se ambas estão no padrão aceito Ex: 'd/m/Y H:i' 
+        if(! (($this->validaDataHora($this->form_data['from'], 'd/m/Y H:i')) && ($this->validaDataHora($this->form_data['to'], 'd/m/Y H:i'))) ){
+            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Campo início da consulta e términio da consulta não atendem o formato exigido.'];
+            // Finaliza a execução.
+            return;
+        }// End valida
+
+        // Verifica se o agendamento já existe.
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `agendas` WHERE `agenda_id` = ? ',[
+            chk_array($this->form_data, 'agenda_id')
+        ]);
+        
+        // Verifica se a consulta foi realizada com sucesso
+        if ( ($db_check_ag->fetchColumn()) >= 1 ) {
+            $this->updateRegister(chk_array($this->form_data, 'agenda_id'));
+            return;
+        }else{
+             $this->insertRegister();
+             return;
+        }
+        
+    } #--> End validate_register_form()
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: insertRegister()
+    *   @Versão: 0.1 
+    *   @Descrição: Insere o registro no BD.
+    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+    **/ 
+    public function insertRegister(){
+        
+        # Se o ID do agendamento estiver vazio, insere os dados
+        $query_ins = $this->db->insert('agendas',[
+            'agenda_start'          =>  $this->_formatar (chk_array($this->form_data, 'from')),
+            'agenda_end'            =>  $this->_formatar(chk_array($this->form_data, 'to')),
+            'agenda_start_normal'   =>  chk_array($this->form_data, 'from'),
+            'agenda_end_normal'     =>  chk_array($this->form_data, 'to'),
+            'agenda_class'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_class')),
+            'agenda_proc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_proc')),
+            'agenda_pac'            =>  $this->avaliar(chk_array($this->form_data, 'agenda_pac')),
+            'agenda_desc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc'))
+        ]);
+
+        # Simplesmente seleciona os dados na base de dados
+        $exec_id = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
+        $row = $exec_id->fetch();
+        $id = trim($row[0]);
+
+        # Gera o link do agendamento
+        $link = HOME_URI.'/agenda/box-visao?ag='.$this->encode_decode($id);
+
+        # Atualizamos nosso $link
+        $query_up = $this->db->update('agendas', 'agenda_id', $id,['agenda_url' => $link]);
+
+        # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        if ( $query_up && $query_ins ) {
+
+            # Destroy variáveis não mais utilizadas.
+            unset($query_ins, $query_up, $exec_id, $row,  $id, $link);
+            
+            # Feedback para o usuário
+            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'A consulta foi isnerida com successo!'];
+
+            # Finaliza execução.
+            return;
+        }
+        
+    }
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: updateRegister()
+    *   @Versão: 0.1 
+    *   @Descrição: Atualiza um registro especifico no BD.
+    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+    **/ 
+    public function updateRegister( $agenda_id = NULL ){
+        
+        # Se o ID não estiver vazio, atualiza os dados
+        if ( $agenda_id ) {
+            
+            # Atualiza os dados
+            $query = $this->db->update('agendas', 'agenda_id', $agenda_id,[
+                'agenda_start'          =>  $this->_formatar (chk_array($this->form_data, 'from')),
+                'agenda_end'            =>  $this->_formatar(chk_array($this->form_data, 'to')),
+                'agenda_start_normal'   =>  chk_array($this->form_data, 'from'),
+                'agenda_end_normal'     =>  chk_array($this->form_data, 'to'),
+                'agenda_class'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_class')),
+                'agenda_proc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_proc')),
+                'agenda_pac'            =>  $this->avaliar(chk_array($this->form_data, 'agenda_pac')),
+                'agenda_desc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc'))
+            ]);
+
+            // Verifica se a consulta foi realizada com sucesso
+            if ( $query ) {
+                // Feedback para o usuário.
+                $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Os dados foram atualizados com sucesso!'];
+                
+                // Destroy variáveis nao utilizadas
+                unset($agenda_id, $query);
+                
+                // Finaliza execução.
+                return;
+            }
+        }
+    } # End updateRegister()
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: get_register_form()
+    *   @Versão: 0.1 
+    *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
+    **/ 
+    public function get_register_form ( $agenda_id = FALSE ) {
+        
+        $id = intval($this->encode_decode(0, $agenda_id));
+        
+        // Verifica na base de dados
+        $query = $this->db->query('SELECT * FROM `agendas` WHERE `agenda_id` = ?', [ $id ]  );
+
+        // Verifica se a consulta foi realizada com sucesso!
+        if ( ! $query ) {
+                $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
+                return;
+        }
+
+        // Obtém os dados da consulta
+        $fetch_userdata = $query->fetch();
+
+        // Verifica se os dados da consulta estão vazios
+        if ( empty( $fetch_userdata ) ) {
+                $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
+                return;
+        }
+
+        // Faz um loop dos dados do formulário, guardando os no vetor $form_data
+        foreach ( $fetch_userdata as $key => $value ) {
+            $this->form_data[$key] = $value;
+        }
+        
+        // Destroy variaveis não mais utilizadas
+        unset($id, $query, $fetch_userdata);
+    } // get_register_form
+        
+        
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: del_agendamento()
+    *   @Versão: 0.1 
+    *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
+    **/ 
+    public function delRegister ( $id ) {
+
+        # Recebe o ID do registro converte de string para inteiro.
+        $ag_id = intval($this->encode_decode(0, $id));
+        //echo $ag_id; die();
+        
+        $search = $this->db->query("SELECT count(*) FROM `agendas` WHERE `agenda_id` = $ag_id ");
+        if($search->fetchColumn() < 1){
+
+            // Feedback para o usuário
+            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
+
+            //Destroy variáveis não mais utilizadas
+            unset($ag_id, $search, $id);
+
+            // Redireciona de volta para a página após 2 segundos
+            // echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
+
+            // Finaliza
+            return;
+        } else {
+            # Deleta o registro
+            $query_del = $this->db->delete('agendas', 'agenda_id', $ag_id);
+            
+            // Feedback para o usuário
+            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Seu agendamento foi deletado com sucesso!'];
+            
+            // Destroy variáveis não mais utilizadas
+            unset($ag_id, $query_del, $search, $id);
+
+            // Redireciona de volta para a página após dez segundos
+            //echo '<meta http-equiv="Refresh" content="2; url=' . HOME_URI . '/agenda">';
+            
+            // Finaliza
+            return;
+        }
+        
+    } //--> End del_agendamento()
+        
+        
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: return_json_evento() 
+    *   @Descrição: Pega os dados referente as consultas na base de dados e retorna um Json no padrão aceito pela calendario do Sistema.
+    **/
+    public function return_json_evento() {
+
+    // Pega todos os dados da tabela agendas.
+    $query = $this->db->query(' SELECT * FROM `agendas` ');
+
+    // Verifica se a consulta foi realizada com sucesso.
+    if (!$query) {
+        return [];
+    }
+    
+    
+    /**
+    * Faz um loop com os dados da query inserindo no vetor $row
+    * e pega os valores especifico e insere no vetor $out. 
+    **/ 
+    foreach ($query as $row){
+        $out[] = [
+            'id'       => $row['agenda_id'],
+            'title'    => $row['agenda_pac'],
+            'url'      => $row['agenda_url'],
+            'body'     => $row['agenda_desc'],
+            'class'    => $row['agenda_class'],
+            'start'    => $row['agenda_start'],
+            'end'      => $row['agenda_end']
+        ];
+
+    }
+        // Converte em um json o valor do vetor e imprime
+        echo json_encode(array('success' => 1, 'result' => $out));
+        exit;
+        
+    } // End return_json_evento()
+    
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: get_ultimo_id() 
+    *   @Descrição: Pega o ultimo ID do agendamento.
+    **/
+    public function get_ultimo_id() {
         // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query('SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas`');
+        $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
          
         $row = $query->fetch();
         $id = trim($row[0]);
         
         return $id;
         
-     } // @get_ultimo_id
+     } // End get_ultimo_id()
      
      
-     
-     
-    public function get_listar() {
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: get_listar() 
+    *   @Descrição: Pega o ID passado na função e retorna os valores.
+    **/ 
+    public function get_listar( $agenda_id = NULL ) {
+        #   Recebe o ID codficado e decodifica depois converte e inteiro
+        $id_decode = intval($this->encode_decode(0, $agenda_id));
+        //echo $id_decode;die();
+        
         // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query( " SELECT * FROM  `agendas` " );
+        $query = $this->db->query( " SELECT * FROM  `agendas` WHERE `agenda_id`= $id_decode " );
 
         // Verifica se a consulta está OK
         if ( ! $query ) {
                 return array();
         }
-        // Preenche a tabela com os dados do usuário
-        return $query->fetchAll();
-    } // get_listar
+        // Retorna os valores da consulta
+        return $query->fetch(PDO::FETCH_ASSOC);
+    } // End get_listar()
 
-    // Microtime formatar uma data para adicionar o evento, tipo 1401517498985.
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: jsonPagination() 
+    *   @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
+    **/ 
+    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL ) {
+        
+        // Cria os vetores necessarios
+        $jsondata = [];
+        $jsondataList = [];
+        
+        // Verifica se o parametro foi passado e executa a consulta
+        if ($param1 == 'quantos') {
+            
+            // Realiza a consulta e retorna e armazena na variável
+            $resultado = $this->db->query(' SELECT COUNT(*) total FROM `agendas` ');
+
+            // Pega todos os valores retornado da base de dados e armazena no vetor
+            $fila = $resultado->fetch();
+
+            $jsondata['total'] = $fila['total'];
+            
+        // Verifica se o parametro existe e retorna a consulta.    
+        } elseif ($param1 == 'dame') {
+            
+            $resultadoT = $this->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
+
+
+            while ($fila = $resultadoT->fetch()) {
+                $jsondataperson = [];
+                $jsondataperson['agenda_id'] = $fila['agenda_id'];
+                $jsondataperson['agenda_pac'] = $fila['agenda_pac'];
+                $jsondataperson['agenda_proc'] = $fila['agenda_proc'];
+                $jsondataperson['agenda_start_normal'] = $fila['agenda_start_normal'];
+
+                $jsondataList [] = $jsondataperson;
+            }
+
+            $jsondata['lista'] = array_values($jsondataList);
+        }
+        echo json_encode($jsondata);
+    } // End jsonPagination()
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: _formatar() 
+    *   @Descrição: Microtime formatar uma data do tipo 21/09/2016 12:00 para o formato tipo 1401517498985 aceito pelo calendario.
+    **/ 
     public function _formatar($fecha) {
         return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
     }
-    
 }

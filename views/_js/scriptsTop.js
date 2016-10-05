@@ -1,198 +1,187 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+// Agenda paginador de eventos 
+$(function () {
+    var paginador;
+    var totalPaginas;
+    var itemsPorPagina = 3;
+    var numerosPorPagina = 3;
+
+    function creaPaginador(totalItems)
+    {
+        paginador = $(".pagination");
+
+        totalPaginas = Math.ceil(totalItems / itemsPorPagina);
+
+        $('<li><a href="#" class="first_link"><</a></li>').appendTo(paginador);
+        $('<li><a href="#" class="prev_link">«</a></li>').appendTo(paginador);
+
+        var pag = 0;
+        while (totalPaginas > pag)
+        {
+            $('<li><a href="#" class="page_link">' + (pag + 1) + '</a></li>').appendTo(paginador);
+            pag++;
+        }
 
 
- // Agenda paginação de eventos 
- 
-        // Agenda paginador de eventos
-  
-  
-  $(function(){
-                var paginador;
-		var totalPaginas;
-		var itemsPorPagina = 3;
-		var numerosPorPagina = 3;
+        if (numerosPorPagina > 1)
+        {
+            $(".page_link").hide();
+            $(".page_link").slice(0, numerosPorPagina).show();
+        }
 
-		function creaPaginador(totalItems)
-		{
-			paginador = $(".pagination");
+        $('<li><a href="#" class="next_link">»</a></li>').appendTo(paginador);
+        $('<li><a href="#" class="last_link">></a></li>').appendTo(paginador);
 
-			totalPaginas = Math.ceil(totalItems/itemsPorPagina);
+        paginador.find(".page_link:first").addClass("active");
+        paginador.find(".page_link:first").parents("li").addClass("active");
 
-			$('<li><a href="#" class="first_link"><</a></li>').appendTo(paginador);
-			$('<li><a href="#" class="prev_link">«</a></li>').appendTo(paginador);
+        paginador.find(".prev_link").hide();
 
-			var pag = 0;
-			while(totalPaginas > pag)
-			{
-				$('<li><a href="#" class="page_link">'+(pag+1)+'</a></li>').appendTo(paginador);
-				pag++;
-			}
+        paginador.find("li .page_link").click(function ()
+        {
+            var irpagina = $(this).html().valueOf() - 1;
+            cargaPagina(irpagina);
+            return false;
+        });
 
+        paginador.find("li .first_link").click(function ()
+        {
+            var irpagina = 0;
+            cargaPagina(irpagina);
+            return false;
+        });
 
-			if(numerosPorPagina > 1)
-			{
-				$(".page_link").hide();
-				$(".page_link").slice(0,numerosPorPagina).show();
-			}
+        paginador.find("li .prev_link").click(function ()
+        {
+            var irpagina = parseInt(paginador.data("pag")) - 1;
+            cargaPagina(irpagina);
+            return false;
+        });
 
-			$('<li><a href="#" class="next_link">»</a></li>').appendTo(paginador);
-			$('<li><a href="#" class="last_link">></a></li>').appendTo(paginador);
+        paginador.find("li .next_link").click(function ()
+        {
+            var irpagina = parseInt(paginador.data("pag")) + 1;
+            cargaPagina(irpagina);
+            return false;
+        });
 
-			paginador.find(".page_link:first").addClass("active");
-			paginador.find(".page_link:first").parents("li").addClass("active");
+        paginador.find("li .last_link").click(function ()
+        {
+            var irpagina = totalPaginas - 1;
+            cargaPagina(irpagina);
+            return false;
+        });
 
-			paginador.find(".prev_link").hide();
+        cargaPagina(0);
 
-			paginador.find("li .page_link").click(function()
-			{
-				var irpagina =$(this).html().valueOf()-1;
-				cargaPagina(irpagina);
-				return false;
-			});
+    }
 
-			paginador.find("li .first_link").click(function()
-			{
-				var irpagina =0;
-				cargaPagina(irpagina);
-				return false;
-			});
+    function cargaPagina(pagina)
+    {
+        var desde = pagina * itemsPorPagina;
 
-			paginador.find("li .prev_link").click(function()
-			{
-				var irpagina =parseInt(paginador.data("pag")) -1;
-				cargaPagina(irpagina);
-				return false;
-			});
+        $.ajax({
+            data: {"param1": "dame", "limit": itemsPorPagina, "offset": desde},
+            type: "GET",
+            dataType: "json",
+            url: 'agenda/json-pagination'
+        }).done(function (data, textStatus, jqXHR) {
 
-			paginador.find("li .next_link").click(function()
-			{
-				var irpagina =parseInt(paginador.data("pag")) +1;
-				cargaPagina(irpagina);
-				return false;
-			});
+            var lista = data.lista;
 
-			paginador.find("li .last_link").click(function()
-			{
-				var irpagina =totalPaginas -1;
-				cargaPagina(irpagina);
-				return false;
-			});
+            $("#listConsul").html("");
 
-			cargaPagina(0);
+            $.each(lista, function (ind, elem) {
+
+                $(
+                        "<li class='list-group-item list-group-item-info'>" + '<i class="glyphicon glyphicon-certificate"></i>' + '<b> Nome: </b>' + elem.agenda_pac + ' <b>Procedimento: </b>' + elem.agenda_proc + ' <b>Horario: </b>' + elem.agenda_start_normal + "</li>"
+
+                        ).appendTo($("#listConsul"));
+
+            });
 
 
+        }).fail(function (jqXHR, textStatus, textError) {
+            alert(textError);
 
 
-		}
+        });
 
-		function cargaPagina(pagina)
-		{
-			var desde = pagina * itemsPorPagina;
+        if (pagina > 0)
+        {
 
-			$.ajax({
-				data:{"param1":"dame","limit":itemsPorPagina,"offset":desde},
-				type:"GET",
-				dataType:"json",
-				url: 'agenda/json-pagination'
-			}).done(function(data,textStatus,jqXHR){
-
-				var lista = data.lista;
-
-				$("#listConsul").html("");
-
-				$.each(lista, function(ind, elem){
-
-					$(
-                                            "<li class='list-group-item list-group-item-info'>"+'<b>Nome: </b>'+elem.agenda_pac+' <b>Procedimento: </b>'+elem.agenda_proc+' <b>Horario: </b>'+elem.agenda_start_normal+"</li>"
-						
-                                        ).appendTo($("#listConsul"));
-
-
-				});			
-
-
-			}).fail(function(jqXHR,textStatus,textError){
-                                alert(textError);
-				alert("Error al realizar la peticion dame".textError);
-
-			});
-
-			if(pagina >= 1)
-			{
-				paginador.find(".prev_link").show();
-
-			}
-			else
-			{
-				paginador.find(".prev_link").hide();
-			}
-
-
-			if(pagina <(totalPaginas- numerosPorPagina))
-			{
-				paginador.find(".next_link").show();
-			}else
-			{
-				paginador.find(".next_link").hide();
-			}
-
-			paginador.data("pag",pagina);
-
-			if(numerosPorPagina>1)
-			{
-				$(".page_link").hide();
-				if(pagina < (totalPaginas- numerosPorPagina))
-				{
-					$(".page_link").slice(pagina,numerosPorPagina + pagina).show();
-				}
-				else{
-					if(totalPaginas > numerosPorPagina)
-						$(".page_link").slice(totalPaginas- numerosPorPagina).show();
-					else
-						$(".page_link").slice(0).show();
-
-				}
-			}
-
-			paginador.children().removeClass("active");
-			paginador.children().eq(pagina+2).addClass("active");
-
-
-		}
-
-
-		$(function()
-		{
-
-			$.ajax({
-
-				data:{"param1":"cuantos"},
-				type:"GET",
-				dataType:"json",
-				url:'agenda/json-pagination'
-			}).done(function(data,textStatus,jqXHR){
-				var total = data.total;
-
-				creaPaginador(total);
-
-
-			}).fail(function(jqXHR,textStatus,textError){
-				alert("Error al realizar la peticion cuantos".textError);
-
-			});
+            paginador.find(".prev_link").show();
 
 
 
-		});
-     
-       
-       
-       
-  
-      
-  });
-                
+        } else
+        {
+            paginador.find(".prev_link").hide();
+        }
+        if (pagina < (totalPaginas - numerosPorPagina))
+        {
+            paginador.find(".next_link").show();
+        } else
+        {
+            paginador.find(".next_link").hide();
+
+        }
+
+        paginador.data("pag", pagina);
+
+        if (numerosPorPagina > 1)
+        {
+
+            $(".page_link").hide();
+            if (pagina < (totalPaginas - numerosPorPagina))
+            {
+                $(".page_link").slice(pagina, numerosPorPagina + pagina).show();
+
+            } else {
+                if (totalPaginas > numerosPorPagina)
+                    $(".page_link").slice(totalPaginas - numerosPorPagina).show();
+                else
+                    $(".page_link").slice(0).show();
+            }
+
+        }
+
+        paginador.children().removeClass("active");
+        paginador.children().eq(pagina + 2).addClass("active");
+
+    }
+
+
+    $(function () {
+        $.ajax({
+            data: {"param1": "quantos"},
+            type: "GET",
+            dataType: "json",
+            url: 'agenda/json-pagination'
+        }).done(function (data, textStatus, jqXHR) {
+            var total = data.total;
+
+            creaPaginador(total);
+
+            if (total == '0') {
+                $('.paginadorAgenda').html('<i class="glyphicon glyphicon-info-sign"></i> Olá, ainda não a agendamentos');
+                $('.panel-footer').hide();
+
+            } else {
+
+                $('.paginadorAgenda').hide();
+            }
+
+        }).fail(function (jqXHR, textStatus, textError) {
+            alert("Error al realizar la peticion quantos".textError);
+
+        });
+
+    });
+});
+
+
+
+
+
+

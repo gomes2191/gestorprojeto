@@ -1,34 +1,45 @@
-<?php
-    if (!defined('ABSPATH')){
-        exit;
+<?php   if (!defined('ABSPATH'))    {   exit();    } elseif (isset($_GET['ag'])){
+        
+        $id = $modelo->avaliar($_GET['ag']);
+        
+        $modelo->delRegister($id);
+        
+        unset($id);
     }
     
-    // Carrega todos os métodos do modelo
+    // Carrega todos os metódos necessarios
     $modelo->validate_register_form();
-    $modelo->get_register_form(chk_array($parametros, 1));
-    $listar = $modelo->get_listar();
-    //$total_rows = count($modelo->get_listar());
-    $modelo->del_evento($parametros);
-    
-    
-    //var_dump($modelo->get_pagination());
-    
-    
+    $form_msg = $modelo->form_msg;
 ?>
 
 <div class="row-fluid"> 
     <!-- Agenda bibliotecas js -->
     <script src="<?= HOME_URI; ?>/_agenda/js/pt-BR.js"></script>
     <script src="<?= HOME_URI; ?>/_agenda/js/moment.js"></script>
-    <script src="<?= HOME_URI; ?>/_agenda/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="<?= HOME_URI; ?>/_agenda/js/bootstrap-datetimepicker.js"></script>
     <script src="<?= HOME_URI; ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
     <script src="<?= HOME_URI; ?>/views/_js/scriptsTop.js"></script>
     <!-- Final agenda js -->
-
+   
     <div class="col-md-1 col-sm-1"></div>
     <div class="col-md-7 col-sm-7">
         <div class="row">
             <div class="col-md-12 col-sm-12">
+                
+                
+                <?php if($form_msg == true){
+                    echo '<div class="alert alertH ' .$form_msg[0]. '  alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <i class="fa fa-info-circle fa-4" >&nbsp;</i>
+                            <strong>'.$form_msg[1].'</strong>&nbsp;' .$form_msg[2]. ' 
+                         </div>';
+                    
+                        unset($form_msg);
+                    }
+                ?>
+                
                 <!--refresh widget-->
                 <div>
                     <div class="agenda-date">
@@ -36,8 +47,8 @@
                     </div>
                     <div style="background-color: rgb(245, 245, 245); padding: 4px; border-radius: 3px;" >
                         <div class="btn-group">
-                            <button title="click para agendar sua consulta" class="btn btn-sm btn-default" data-toggle='modal' data-target='#add_evento'>
-                                AGENDAR CONSULTA <i class="fa fa-calendar-plus-o" aria-hidden="false"></i>
+                            <button title="Click para agendar sua consulta." class="btn btn-sm btn-default" style="color: blue;" data-toggle='modal' data-target='#add_evento'>
+                               <i class="fa fa-calendar-plus-o" aria-hidden="false"></i> Inserir Consulta 
                             </button>
                             <button class="btn btn-sm btn-primary" data-calendar-nav="prev">
                                 <i class="fa fa-backward" aria-hidden="true"></i>
@@ -87,11 +98,10 @@
         <div class="panel-agenda panel  panel-default">
             <div class="panel-heading"><a id="refresh1" class="pull-right" href="#"><span class="fa fa-refresh"></span></a>AGENDAMENTOS DO DIA</div>
             <div class="panel-body  panel-refresh">
-              
                 
-                
+                <div class="paginadorAgenda alert alert-info" role="alert"></div>
                 <ul id="listConsul" class="list-group">
-                       
+                    
                 </ul>
                
                 <div class="refresh-container"><i class="refresh-spinner fa fa-spinner fa-spin fa-5x"></i></div>
@@ -101,11 +111,11 @@
                 </div>
             </div>
             <div class="panel-footer"> 
-                <nav aria-label="...">
+               
                 <ul class="pagination pagination-sm" id="paginador">
                   
                 </ul>
-              </nav>
+              
             
             </div>
         </div>
@@ -129,19 +139,19 @@
         
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">
+                <h4 class="modal-title" >
                     <i  class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
                     INFORMAÇÕES SOBRE A CONSULTA
                 </h4>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body modal-agenda-visao" >
                 
             </div>
             
             <div class="modal-footer">
                 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -154,8 +164,11 @@
 <script type="text/javascript">
     
     
+    
     (function($) {
-
+        
+        window.history.pushState("agenda", "", "agenda");
+        
 	"use strict";
         
         //Criamos a data atual
@@ -268,9 +281,12 @@
 	});
 }(jQuery));
   
-    
 </script>
 
+
+
+
+<!-- Start Modal adicionar evento -->
 <div class="modal fade" id="add_evento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -282,9 +298,6 @@
             </div>
             <div class="modal-body">
                 <form id="agenda-form-modal-cad" action="" method="post">
-
-
-
                     <div class="form-group">
                         <label for="from">Começa as:</label>
                         <div class="input-group date form_date col-md-5" id='from'>
@@ -292,7 +305,6 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
-                        
                     </div>
 
                     <div class="form-group">
@@ -337,7 +349,7 @@
 
                         <div class="btn-group">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                <i class="fa fa-times"></i>Cancelar
+                                <i class="fa fa-times"></i> Cancelar
                             </button>
                         </div>
                         <div class="btn-group">

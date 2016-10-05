@@ -1,13 +1,7 @@
-	<?php 
-            if ( ! defined('ABSPATH')){
-                exit();
-            } 
-        ?>
+<?php if ( !defined('ABSPATH')) {exit();} ?>
 
 
-
-	</div> <!-- /container -->
-        
+    </div> <!-- /container -->        
     <!-- Bootstrap core JavaScript ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!--<script>window.jQuery || document.write('<script src="<?php echo HOME_URI;?>/views/_js/jquery.min.js"><\/script>')</script>-->
@@ -18,6 +12,5 @@
     <!-- Javascript customizado ===================================================== --> 
     
     <script src="<?= HOME_URI; ?>/views/_js/scriptsFooter.js"></script>
-
   </body>
 </html>

@@ -16,8 +16,8 @@
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             
 
-            <?php
-                echo $modelo->form_msg;
+            <?=
+                $modelo->form_msg;
                 $modelo->form_data;
             ?>
             <div class="row form-compact">

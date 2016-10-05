@@ -1082,7 +1082,7 @@ if(!String.prototype.formatNum) {
 
 			if(self.options.modal_type == "iframe") {
 				ifrm.attr('src', url);
-				$('.modal-body', modal).html(ifrm);
+				$('.modal-agenda-visao', modal).html(ifrm);
 			}
 
 			if(!modal.data('handled.bootstrap-calendar') || (modal.data('handled.bootstrap-calendar') && modal.data('handled.event-id') != event.id)) {
@@ -1090,7 +1090,7 @@ if(!String.prototype.formatNum) {
 					.off('shown.bs.modal')
 					.off('hidden.bs.modal')
 					.on('show.bs.modal', function() {
-						var modal_body = $(this).find('.modal-body');
+						var modal_body = $(this).find('.modal-agenda-visao');
 						switch(self.options.modal_type) {
 							case "iframe" :
 								var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);

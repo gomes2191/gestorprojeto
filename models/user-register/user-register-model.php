@@ -416,11 +416,6 @@ class UserRegisterModel {
 
 
     
-     public function prepare_upload_img() {
-
-        
-    }
-
     /*
     * Envia a imagem
     *

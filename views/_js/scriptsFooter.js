@@ -1,6 +1,5 @@
 
-
-
+/* global pattern */
 $('#user-register-btn').on('click', function() {
     var $this = $(this);
   $this.button('loading');
@@ -12,10 +11,10 @@ $('#user-register-btn').on('click', function() {
 // Mensagens do sistemas
 $(document).ready(function () {
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
-    $(".alert").hide();
-    $(".alert").alert();
-    $(".alert").fadeTo(8500, 2000).slideUp(800, function () {
-        $(".alert").slideUp(800);
+    $(".alertH").hide();
+    $(".alertH").alert();
+    $(".alertH").fadeTo(2300, 2300).slideUp(200, function () {
+    $(".alertH").slideUp(200);
     });
 
     // Popup alerta
@@ -56,11 +55,11 @@ $(document).ready(function () {
         mask: '99999-999'
     });
 
-    $('#tel-casa').inputmask({
+    $(".tel-casa").inputmask({
         mask: '(99) 9999-9999'
     });
 
-    $('#tel-cel').inputmask({
+    $(".tel-cel").inputmask({
         mask: '(99) 99999-9999'
     });
 
@@ -78,6 +77,10 @@ $(document).ready(function () {
 
     // Agenda mascara
     $('.from, .to').inputmask({
+        mask: '99/99/9999 99:99'
+    });
+    
+    $('.fromEd, .toEd').inputmask({
         mask: '99/99/9999 99:99'
     });
 
@@ -153,21 +156,85 @@ $(document).ready(function(){
 
 
 // Agenda popup inserção
-    $(function(){
-        $("#from, #to").datetimepicker({
-            language: 'pt-BR',
-            showMeridian: 'day',
-            todayHighlight: true,
-            viewSelect: 'day',
-            clearBtn: true,
-            beforeShowMonth: true,
-            weekStart: true,
-            format: 'dd/mm/yyyy hh:ii',
-            autoclose: true,
-            todayBtn: true,
-            minuteStep: 1,
-            pickerPosition: 'bottom-left',
-            minDate: new Date()
-        });
-        
+$(function(){
+    $("#from, #to").datetimepicker({
+        language: 'pt-BR',
+        showMeridian: true,
+        todayHighlight: true,
+        viewSelect: 'day',
+        clearBtn: true,
+        beforeShowMonth: true,
+        weekStart: true,
+        format: 'dd/mm/yyyy HH:ii',
+        autoclose: true,
+        todayBtn: true,
+        minuteStep: 1,
+        pickerPosition: 'bottom-left'
     });
+});
+
+
+// Validação dos campos data hora do evento modal de edição da agenda
+function InvalidMsg(textbox) {
+    
+    if (textbox.value == '') {
+        textbox.setCustomValidity('Este campo deve ser preenchido. Ex: dd/mm/aaaa hh:mm');
+    }
+    else if(textbox.validity.patternMismatch){
+        textbox.setCustomValidity('Siga o padrão necessário. Ex: dd/mm/aaaa hh:mm');
+    }
+    else {
+        textbox.setCustomValidity('');
+    }
+    return true;
+}
+
+
+$(function () {
+    $('#table-for').DataTable({
+        language: {
+            url: 'Portuguese-Brasil.json'
+        }
+    });
+
+});
+
+
+$( function (){
+        
+        $('#form-agenda-ajax').submit(
+           function(e){
+               e.preventDefault();
+
+               if($('#deletar').val() == 'Processando...') {
+                   return (false);
+
+               }
+
+               $('#deletar').val('Processando...');
+
+               $.ajax({
+                   url: 'agenda-box',
+                   type: 'post',
+                   dataType: 'html',
+                   data: {'metodo': $('#metodo').val()}
+
+
+               }).done(function(data){
+
+                    alert(data);
+
+                   $('#deletar').val('Deletar');
+                   $('#metodo').val('');
+
+
+               });
+        });
+    } );
+        
+//Faz um refresh de url apos fechar modal
+$(function  (){
+    $('#visualizar-forne').on('hidden.bs.modal', function () {
+        document.location.reload();
+    });
+});
