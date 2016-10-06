@@ -21,15 +21,15 @@ $(document).ready(function () {
     $('#popoverOption').popover({trigger: "hover"});
 });
 
-// Faz com que o menu selecionado fique ativo =====>
-var url = window.location;
-// só funcionará se string no href corresponde com a localização
-$('ul.nav a[href="' + url + '"]').parent().addClass('active');
-
-// Também vai trabalhar para hrefs relativos e absolutos
-$('ul.nav a').filter(function () {
-    return this.href == url;
-}).parent().addClass('active');
+//// Faz com que o menu selecionado fique ativo =====>
+//var url = window.location;
+//// só funcionará se string no href corresponde com a localização
+//$('ul.nav a[href="' + url + '"]').parent().addClass('active');
+//
+//// Também vai trabalhar para hrefs relativos e absolutos
+//$('ul.nav a').filter(function () {
+//    return this.href == url;
+//}).parent().addClass('active');
 
 // Modal outros
 $('.openBtn').click(function () {
@@ -236,5 +236,34 @@ $( function (){
 $(function  (){
     $('#visualizar-forne').on('hidden.bs.modal', function () {
         document.location.reload();
+    });
+});
+
+
+$(document).ready(function () {
+    var str = location.href.toLowerCase();
+
+    $("ul.nav li a").each(function () {
+        if (str.indexOf(this.href.toLowerCase()) > -1) {
+
+
+            $("#ul.nav ").removeClass("active");
+
+            $(this).parent().addClass("active");
+
+        }
+
+    });
+
+
+    $("ul.dropdown-menu li a").each(function () {
+        if (str.indexOf(this.href.toLowerCase()) > -1) {
+
+            $("ul.dropdown-menu ").removeClass("active");
+
+            $(this).parent().addClass("active");
+
+        }
+
     });
 });
