@@ -31,4 +31,4 @@
 	require_once (ABSPATH.'/functions/global-functions.php');
 
 	// Carrega a aplicação
-	$odonto_vision = new OdontoVision();
+	$odonto_control = new OdontoControl();

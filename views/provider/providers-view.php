@@ -6,9 +6,26 @@
 ?>
 
 <script>
-    <!--Muda a url atual para a nova url passada-->
+    //  Muda a url atual para a nova url passada
     window.history.pushState("providers", "", "providers");
     
+    //  Faz um refresh de url apos fechar modal
+    $(function  (){
+        $('#visualizar-forne').on('hidden.bs.modal', function () {
+            document.location.reload();
+        });
+    });
+        
+    // Chama o paginador da tabela    
+    $(function () {
+        $('#table-for').DataTable({
+            language: {
+                url: 'Portuguese-Brasil.json'
+            }
+        });
+
+    });
+
 </script>
 
 <div class="row-fluid">

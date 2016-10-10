@@ -2,7 +2,7 @@
 /**
  * NoticiasController - Controller de exemplo
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
 class NoticiasController extends MainController

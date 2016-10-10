@@ -2,7 +2,7 @@
 /**
  * Modelo para gerenciar notícias
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
 class NoticiasAdmModel extends MainModel

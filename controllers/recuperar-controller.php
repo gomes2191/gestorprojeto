@@ -2,7 +2,7 @@
 /**
  * RecuperarController - Controller de repureção de senha
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
 class RecuperarController extends MainController
