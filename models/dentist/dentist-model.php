@@ -3,10 +3,10 @@
 /**
  * Classe para registros de usuários
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
-class UserRegisterModel {
+class DentistModel {
 
     /**
      * $form_data

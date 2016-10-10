@@ -2,7 +2,7 @@
 /**
  * Classe para registro de consultas
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
 

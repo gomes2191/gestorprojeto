@@ -2,7 +2,7 @@
 /**
  * MainController - Todos os controllers deverão estender essa classe
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
 class MainController extends UserLogin
@@ -63,7 +63,7 @@ class MainController extends UserLogin
     {
 
         // Instancia do DB
-        $this->db = new OdontoVisionDB();
+        $this->db = new OdontoControlDB();
 
         // Parâmetros
         $this->parametros = $parametros;

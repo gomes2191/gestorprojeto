@@ -2,7 +2,7 @@
 /**
  * LoginController - Controller de exemplo
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
 class LoginController extends MainController

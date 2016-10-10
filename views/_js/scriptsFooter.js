@@ -9,27 +9,17 @@ $('#user-register-btn').on('click', function() {
 });
 
 // Mensagens do sistemas
-$(document).ready(function () {
+$(function (){
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
     $(".alertH").hide();
     $(".alertH").alert();
     $(".alertH").fadeTo(2300, 2300).slideUp(200, function () {
     $(".alertH").slideUp(200);
-    });
-
+    
+});
     // Popup alerta
     $('#popoverOption').popover({trigger: "hover"});
 });
-
-// Faz com que o menu selecionado fique ativo =====>
-var url = window.location;
-// só funcionará se string no href corresponde com a localização
-$('ul.nav a[href="' + url + '"]').parent().addClass('active');
-
-// Também vai trabalhar para hrefs relativos e absolutos
-$('ul.nav a').filter(function () {
-    return this.href == url;
-}).parent().addClass('active');
 
 // Modal outros
 $('.openBtn').click(function () {
@@ -107,70 +97,26 @@ $.validate({
 });
 
 
-//Pagina agenda
-$.fn.refreshMe = function(opts){
-
-      var $this = this,
-          defaults = {
-            ms:1500,
-            parentSelector:'.panel',
-            started:function(){},
-            completed:function(){}
-          },
-          settings = $.extend(defaults, opts);
-
-      var par = this.parents(settings.parentSelector);
-      var panelToRefresh = par.find('.refresh-container');
-      var dataToRefresh = par.find('.refresh-data');
-
-      var ms = settings.ms;
-      var started = settings.started;		//function before timeout
-      var completed = settings.completed;	//function after timeout
-
-      $this.click(function(){
-        $this.addClass("fa-spin");
-        panelToRefresh.show();
-        if (dataToRefresh) {
-          started(dataToRefresh);
-        }
-        setTimeout(function(){
-          if (dataToRefresh) {
-              completed(dataToRefresh);
-          }
-          panelToRefresh.fadeOut(800);
-          $this.removeClass("fa-spin");
-        },ms);
-        return false;
-      })//click
-
-}
-
-$(document).ready(function(){
-  $('#refresh1').refreshMe({
-    started:function(ele){ele.html("Atualizando...")},
-  	completed:function(ele){ele.html("O quadro foi atualizado...")}
-  });
-});
-
-/* end function refreshMe */
 
 
 // Agenda popup inserção
-$(function(){
-    $("#from, #to").datetimepicker({
-        language: 'pt-BR',
-        showMeridian: true,
-        todayHighlight: true,
-        viewSelect: 'day',
-        clearBtn: true,
-        beforeShowMonth: true,
-        weekStart: true,
-        format: 'dd/mm/yyyy HH:ii',
-        autoclose: true,
-        todayBtn: true,
-        minuteStep: 1,
-        pickerPosition: 'bottom-left'
-    });
+$(function () {
+    if (window.location.href.indexOf("agenda") > 1) {
+        $("#from, #to").datetimepicker({
+            language: 'pt-BR',
+            showMeridian: true,
+            todayHighlight: true,
+            viewSelect: 'day',
+            clearBtn: true,
+            beforeShowMonth: true,
+            weekStart: true,
+            format: 'dd/mm/yyyy HH:ii',
+            autoclose: true,
+            todayBtn: true,
+            minuteStep: 1,
+            pickerPosition: 'bottom-left'
+        });
+    }
 });
 
 
@@ -189,52 +135,98 @@ function InvalidMsg(textbox) {
     return true;
 }
 
-
+//$( function (){
+//        
+//        $('#form-agenda-ajax').submit(
+//           function(e){
+//               e.preventDefault();
+//
+//               if($('#deletar').val() == 'Processando...') {
+//                   return (false);
+//
+//               }
+//
+//               $('#deletar').val('Processando...');
+//
+//               $.ajax({
+//                   url: 'agenda-box',
+//                   type: 'post',
+//                   dataType: 'html',
+//                   data: {'metodo': $('#metodo').val()}
+//
+//
+//               }).done(function(data){
+//
+//                    alert(data);
+//
+//                   $('#deletar').val('Deletar');
+//                   $('#metodo').val('');
+//
+//
+//               });
+//        });
+//    } );
+        
+   
+   
+   
 $(function () {
-    $('#table-for').DataTable({
-        language: {
-            url: 'Portuguese-Brasil.json'
-        }
+    $('input').focus(function () {
+        $(this).css({"background-color": "rgba(0, 188, 212, 0.09)"});
     });
 
-});
-
-
-$( function (){
-        
-        $('#form-agenda-ajax').submit(
-           function(e){
-               e.preventDefault();
-
-               if($('#deletar').val() == 'Processando...') {
-                   return (false);
-
-               }
-
-               $('#deletar').val('Processando...');
-
-               $.ajax({
-                   url: 'agenda-box',
-                   type: 'post',
-                   dataType: 'html',
-                   data: {'metodo': $('#metodo').val()}
-
-
-               }).done(function(data){
-
-                    alert(data);
-
-                   $('#deletar').val('Deletar');
-                   $('#metodo').val('');
-
-
-               });
-        });
-    } );
-        
-//Faz um refresh de url apos fechar modal
-$(function  (){
-    $('#visualizar-forne').on('hidden.bs.modal', function () {
-        document.location.reload();
+    $('input').blur(function () {
+        $('input').css('background', '#ffffff');
     });
 });
+       
+  
+  
+ 
+
+//  Função que verifica o tipo de cadastro página user-register
+$(function () {
+    var select = document.getElementById("tipo-user");
+    var valor = select.options[select.selectedIndex].value;
+    if (valor === '0') {
+        $('.hide-show-geral').hide();
+    }
+    
+    select.onchange = function () {
+        var select = document.getElementById("tipo-user");
+        var valor = select.options[select.selectedIndex].value;
+        if (valor === '1') {
+            $('.hide-show, .hide-show-geral').show();
+            
+        } 
+        if (valor === '0') {
+        $('.hide-show-geral').hide();
+    }
+        
+
+    };
+});
+
+$('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
+    // Avoid following the href location when clicking
+    event.preventDefault(); 
+    // Avoid having the menu to close when clicking
+    event.stopPropagation(); 
+    // If a menu is already open we close it
+    //$('ul.dropdown-menu [data-toggle=dropdown]').parent().removeClass('open');
+    // opening the one you clicked on
+    $(this).parent().addClass('open');
+
+    var menu = $(this).parent().find("ul");
+    var menupos = menu.offset();
+  
+    if ((menupos.left + menu.width()) + 30 > $(window).width()) {
+        var newpos = - menu.width();      
+    } else {
+        var newpos = $(this).parent().width();
+    }
+    menu.css({ left:newpos });
+
+});
+ 
+ 

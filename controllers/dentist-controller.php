@@ -3,10 +3,10 @@
 /**
  * UserRegisterController - Controller de exemplo
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
-class UserRegisterController extends MainController {
+class DentistController extends MainController {
     /**
      * $login_required
      *
@@ -72,7 +72,7 @@ class UserRegisterController extends MainController {
         require ABSPATH . '/views/_includes/menu.php';
 
         // /views/user-register/index.php
-        require ABSPATH . '/views/user-register/user-register-view.php';
+        require ABSPATH . '/views/dentist/register-dentist-view.php';
 
         // /views/_includes/footer.php
         require ABSPATH . '/views/_includes/footer.php';

@@ -2,7 +2,7 @@
 /**
  * DentistaController - Controlde de Dentistas
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
 class UsersController extends MainController
@@ -77,4 +77,29 @@ class UsersController extends MainController
 		require ABSPATH . '/views/_includes/footer.php';
 
     } // index
+    
+    
+     public function RegisterDentist() {
+        # Page title
+        $this->title = ' Cadastro de desntista';
+
+        // Parametros da função
+        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        // Carrega o modelo para este view
+        $modelo = $this->load_model('users/users-model');
+
+        /** Carrega os arquivos do view * */
+        // /views/_includes/header.php
+        require ABSPATH . '/views/_includes/header.php';
+
+        // /views/_includes/menu.php
+        require ABSPATH . '/views/_includes/menu.php';
+
+        // /views/user-register/index.php
+        require ABSPATH . '/views/users/register-dentist-view.php';
+
+        // /views/_includes/footer.php
+        require ABSPATH . '/views/_includes/footer.php';
+    }
+
 } // class home

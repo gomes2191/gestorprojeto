@@ -1,11 +1,11 @@
 <?php
 /**
- * OdontoVision - Gerencia Models, Controllers e Views
+ * OdontoControl - Gerencia Models, Controllers e Views
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
-class OdontoVision
+class OdontoControl
 {
 
 	/**
@@ -194,4 +194,4 @@ class OdontoVision
 	
 	} // get_url_data
 	
-} // class OdontoVision
+} // class OdontoControl

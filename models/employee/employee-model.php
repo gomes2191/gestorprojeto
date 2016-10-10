@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class RegisterModel {
+class EmployeeModel {
 
     /**
      * $form_data
@@ -62,7 +62,7 @@ class RegisterModel {
         $this->form_data = array();
 
         // Verifica se algo foi postado
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST)) {
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
 
             // Faz o loop dos dados do post
             foreach ($_POST as $key => $value) {
@@ -70,21 +70,25 @@ class RegisterModel {
                 // e remove todo e qualquer tipo de tags que venham a ser passsado nos campos
                 $this->form_data[$key] = filter_var($value, FILTER_SANITIZE_STRING);
 
-                // Nós não permitiremos nenhum campos em branco
-                if (empty($value)) {
 
-                    // Configura a mensagem
-                    $this->form_msg = '
-                    <div class="alert alertH alert-warning alert-dismissible fade in">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Opa!</strong> Você deixou campos em brancos.
-                    </div> ';
 
-                    // Termina
-                    return;
-                }
+
+
+//                // Nós não permitiremos nenhum campos em branco
+//                if (empty($value)) {
+//
+//                    // Configura a mensagem
+//                    $this->form_msg = '
+//                    <div class="alert alert-warning alert-dismissible fade in">
+//                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+//                            <span aria-hidden="true">&times;</span>
+//                        </button>
+//                        <strong>Opa!</strong> Você deixou campos em brancos.
+//                    </div> ';
+//
+//                    // Termina
+//                    return;
+//                }
             }
         } else {
             // Termina se nada foi enviado
@@ -95,6 +99,21 @@ class RegisterModel {
         if (empty($this->form_data)) {
             return;
         }
+
+
+        // Tenta enviar a imagem
+       var_dump ($imagem = $this->upload_imagem()); 
+
+        // Verifica se a imagem foi enviada
+        if ( ! $imagem ) {
+                return;
+        }
+
+        // Insere a imagem em $_POST
+        $_POST['img_perfil'] = $imagem;
+
+       
+
 
         // Verifica se o usuário existe
         $db_check_user = $this->db->query(
@@ -124,7 +143,7 @@ class RegisterModel {
         $user_email = (filter_var($this->form_data['user_email'], FILTER_VALIDATE_EMAIL));
 
         if ($user_email == false) {
-            $this->form_msg = '<div class="alert alertH alert-warning alert-dismissible fade in">
+            $this->form_msg = '<div class="alert alert-warning alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -224,7 +243,7 @@ class RegisterModel {
         // Verifica se o email digitado já existe na base de dados
         if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
 
-            $this->form_msg = '<div class="alert alertH alert-warning alert-dismissible fade in">
+            $this->form_msg = '<div class="alert alert-warning alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -237,14 +256,14 @@ class RegisterModel {
             ));
 
             $user_clinic_id = $this->db->lastInsertId();
-            
+
             // Executa a consulta
             $query = $this->db->insert('users', array(
                 //'user_user' => chk_array($this->form_data, 'user_user'),
                 'user_name' => chk_array($this->form_data, 'user_name'),
                 'user_email' => $user_email,
                 'user_password' => $password,
-                'user_session_id' => md5(time()),                
+                'user_session_id' => md5(time()),
                 'user_clinic_id' => $user_clinic_id,
                 'user_role_id' => $role_id,
                 'user_status' => $user_status,
@@ -257,7 +276,7 @@ class RegisterModel {
                 // Termina
                 return;
             } else {
-                $this->form_msg = '<div class="alert alertH alert-success alert-dismissible fade in">
+                $this->form_msg = '<div class="alert alert-success alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -346,9 +365,9 @@ class RegisterModel {
 
         // Verifica se existe o parâmetro "del" na URL
         if (chk_array($parametros, 0) == 'del') {
-            
+
             //Era aqui
-            
+
             // Verifica se o valor do parâmetro é um número
             if (
                     is_numeric(chk_array($parametros, 1)) && chk_array($parametros, 2) == 'confirma'
@@ -382,7 +401,7 @@ class RegisterModel {
      * @since 0.1
      * @access public
      */
-    public function get_user_list() { 
+    public function get_user_list() {
 
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
@@ -394,5 +413,163 @@ class RegisterModel {
         // Preenche a tabela com os dados do usuário
         return $query->fetchAll();
     } // End get_user_list
-	
+
+
+    
+    /*
+    * Envia a imagem
+    *
+    * @since 0.1
+    * @access public
+    */
+   public function upload_imagem() {
+
+
+        /*
+         * @var $imagem_atri recebe os valores referente a imagem.
+         * @var $erro_imagem recebe o valor referente ao erro "0" não ouve erro maior que zero ouve erro.
+         */
+        $imagem_atri = $_FILES['img_perfil'];
+        $erro_imagem = $imagem_atri['error'];
+
+        // Verifica se o arquivo da imagem existe
+        if ($erro_imagem > 0) {
+            // Destroi as variáveis não utilizadas
+            unset($imagem_atri, $erro_imagem);
+            return;
+        } else {
+            /*
+             * @var $tipo_imagem variável que pega o formato da imagem recebida no upload.
+             * @vet $formato vetor que recebe os formatos de imagem suportados pelo sistema.
+             * Laço responsavel por verificar se o formato e suportado.
+             */
+            $tipo_imagem = $imagem_atri['type'];
+
+            $formato = [
+                'image/png',
+                'image/gif',
+                'image/jpeg',
+                'image/pjpeg',
+                'image/x-windows-bmp'
+            ];
+
+            if (in_array($tipo_imagem, $formato)) {
+
+
+                /* Aqui pegamos alguns atributos da imagem
+                 *
+                 * @var $nome_imagem variável que recebe o nome da imagem.
+                 * @var $ext_imagem variável que recebe a extensão da imagem.
+                 *
+                 */
+                $temp_name = strtolower($imagem_atri['name']);
+                $temp_ext = explode('.', $temp_name);
+                $ext_imagem = \end($temp_ext);
+                //$nome_imagem = preg_replace('/\s+/', '/[^-\.\w]+/', '', htmlentities($temp_name));
+                //$nome_imagem .= mt_rand() . '.' . $ext_imagem;
+                $nome_imagem = md5(uniqid(time())).'.'.$ext_imagem;
+
+                // Destroy as variáveis que não serão mais utilizadas
+                unset($temp_name);
+                unset($temp_ext);
+
+                // Nome temporário, erro e tamanho
+                $tmp_imagem = $imagem_atri['tmp_name'];
+                //$erro_imagem = $imagem_atri['error'];
+                //$tamanho_imagem = $imagem_atri['size'];
+
+                /*
+                 * Verifca o tipo da imagem e cria um novo stream de imagem GD
+                 */
+                switch ($tipo_imagem) {
+                    case 'image/jpeg':
+                        $image_format = imagecreatefromjpeg($tmp_imagem);
+                        break;
+                    case 'image/gif':
+                        $image_format = imagecreatefromgif($tmp_imagem);
+                        break;
+                    case 'image/png':
+                        $image_format = imagecreatefrompng($tmp_imagem);
+                        break;
+                    default:
+                        break;
+                }
+
+
+                // Cria duas variáveis com a largura e altura da imagem
+                list( $largura, $altura ) = getimagesize($tmp_imagem);
+
+                // Nova largura e altura
+                //$proporcao = 0.5;
+                //$nova_largura = $largura * $proporcao;
+                //$nova_altura = $altura * $proporcao;
+                $nova_largura = 150;
+                $nova_altura = 150;
+
+                // Cria uma nova imagem em branco
+                $image_new = imagecreatetruecolor($nova_largura, $nova_altura);
+
+                // Copia a imagem para a nova imagem com o novo tamanho
+                imagecopyresampled(
+                        $image_new, // Nova imagem
+                        $image_format, // Imagem original
+                        0, // Coordenada X da nova imagem
+                        0, // Coordenada Y da nova imagem
+                        0, // Coordenada X da imagem
+                        0, // Coordenada Y da imagem
+                        $nova_largura, // Nova largura
+                        $nova_altura, // Nova altura
+                        $largura, // Largura original
+                        $altura // Altura original
+                );
+
+                // Cria a imagem sobrescrevendo a anterior
+                switch ($tipo_imagem) {
+                    case 'image/jpeg':
+                        imagejpeg($image_new, $tmp_imagem);
+                        break;
+                    case 'image/gif':
+                        imagegif($image_new, $tmp_imagem);
+                        break;
+                    case 'image/png':
+                        imagepng($image_new, $tmp_imagem);
+                        break;
+                    default:
+                        break;
+                }
+
+                // Remove as imagens temporárias
+                imagedestroy($image_format);
+                imagedestroy($image_new);
+
+
+                // Tenta mover o arquivo enviado
+                if (!move_uploaded_file($tmp_imagem, UP_ABSPATH . '/img/perfil/' . $nome_imagem)) {
+                    // Retorna uma mensagem
+                    $this->form_msg = '<p class="error">Erro ao enviar imagem.</p>';
+                    return;
+                }
+                // Retorna o nome da imagem
+                return $nome_imagem;
+            } else {
+                $this->form_msg = 
+                    '
+                        <div class="alert alert-danger alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Opa!</strong> O tipo de imagem não é suportado tipos permitidos: 
+                            (
+                            png,
+                            gif,
+                            jpeg,
+                            pjpeg,
+                            bmp
+                            )
+                        </div> 
+                    ';
+                return;
+            }
+        }
+    }// upload_imagem
 }

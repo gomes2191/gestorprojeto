@@ -5,7 +5,7 @@
  * Manipula os dados de usuários, faz login e logout, verifica permissões e 
  * redireciona página para usuários logados.
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
 class UserLogin

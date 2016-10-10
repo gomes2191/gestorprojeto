@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class HomeController extends MainController {
+class EmployeeController extends MainController {
     /**
      * $login_required
      *
@@ -62,7 +62,7 @@ class HomeController extends MainController {
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
 
         // Carrega o modelo para este view
-        $modelo = $this->load_model('register/register-model');
+        $modelo = $this->load_model('user-register/user-register-model');
 
         /** Carrega os arquivos do view * */
         // /views/_includes/header.php
@@ -72,11 +72,13 @@ class HomeController extends MainController {
         require ABSPATH . '/views/_includes/menu.php';
 
         // /views/user-register/index.php
-        require ABSPATH . '/views/register/register-view.php';
+        require ABSPATH . '/views/user-register/user-register-view.php';
 
         // /views/_includes/footer.php
         require ABSPATH . '/views/_includes/footer.php';
-        
-    }   # index
-    
-}   # class home
+    }
+
+// index
+}
+
+// class home

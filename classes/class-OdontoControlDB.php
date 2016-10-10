@@ -1,11 +1,11 @@
 <?php
 /**
- * OdontoVisionDB - Classe para gerenciamento da base de dados
+ * OdontoControlDB - Classe para gerenciamento da base de dados
  *
- * @package OdontoVision
+ * @package OdontoControl
  * @since 0.1
  */
-class OdontoVisionDB
+class OdontoControlDB
 {
 	/** DB properties */
 	public $host      = 'localhost', // Host da base de dados 
@@ -334,4 +334,4 @@ class OdontoVisionDB
         return $this->pdo->lastInsertId();
     }
 	
-} // Class OdontoVisionDB
+} // Class OdontoControlDB
