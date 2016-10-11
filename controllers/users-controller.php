@@ -1,85 +1,83 @@
 <?php
+
 /**
- * DentistaController - Controlde de Dentistas
+ * UsersController - Controlde de Pessoal
  *
  * @package OdontoControl
  * @since 0.1
  */
-class UsersController extends MainController
-{
+class UsersController extends MainController {
+    /**
+     * $login_required
+     *
+     * Se a página precisa de login
+     *
+     * @access public
+     */
+    //public $login_required = 'false';
 
-	/**
-	 * $login_required
-	 *
-	 * Se a página precisa de login
-	 *
-	 * @access public
-	 */
+    /**
+     * $permission_required
+     *
+     * Permissão necessária
+     *
+     * @access public
+     */
+    //public $permission_required = 'user-register';
 
-	//public $login_required = 'false';
+    /**
+     * Carrega a página "/views/user-register/index.php"
+     */
+    public function index() {
+        // Page title
+        $this->title = ' usuários';
 
-	/**
-	 * $permission_required
-	 *
-	 * Permissão necessária
-	 *
-	 * @access public
-	 */
-	//public $permission_required = 'user-register';
+        // Verifica se o usuário está logado
+        /* if ( ! $this->logged_in ) {
 
-	/**
-	 * Carrega a página "/views/user-register/index.php"
-	 */
-	public function index() {
-		// Page title
-		$this->title = ' usuários';
+          // Se não; garante o logout
+          $this->logout();
 
-		// Verifica se o usuário está logado
-		/*if ( ! $this->logged_in ) {
+          // Redireciona para a página de login
+          $this->goto_login();
 
-			// Se não; garante o logout
-			$this->logout();
+          // Garante que o script não vai passar daqui
+          return;
 
-			// Redireciona para a página de login
-			$this->goto_login();
+          }
 
-			// Garante que o script não vai passar daqui
-			return;
+          // Verifica se o usuário tem a permissão para acessar essa página
+          if (!$this->check_permissions($this->permission_required, $this->userdata['user_permissions'])) {
 
-		}
+          // Exibe uma mensagem
+          echo 'Você não tem permissões para acessar essa página.';
 
-		// Verifica se o usuário tem a permissão para acessar essa página
-		if (!$this->check_permissions($this->permission_required, $this->userdata['user_permissions'])) {
+          // Finaliza aqui
+          return;
+          } */
 
-			// Exibe uma mensagem
-			echo 'Você não tem permissões para acessar essa página.';
+        // Parametros da função
+        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        // Carrega o modelo para este view
+        $modelo = $this->load_model('users/users-model');
 
-			// Finaliza aqui
-			return;
-		}*/
+        /** Carrega os arquivos do view * */
+        // /views/_includes/header.php
+        require ABSPATH . '/views/_includes/header.php';
 
-		// Parametros da função
-		$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
-		// Carrega o modelo para este view
-		$modelo = $this->load_model('users/users-model');
+        // /views/_includes/menu.php
+        require ABSPATH . '/views/_includes/menu.php';
 
-		/** Carrega os arquivos do view **/
-		// /views/_includes/header.php
-		require ABSPATH . '/views/_includes/header.php';
+        // /views/user-register/index.php
+        require ABSPATH . '/views/users/users-view.php';
 
-		// /views/_includes/menu.php
-		require ABSPATH . '/views/_includes/menu.php';
+        // /views/_includes/footer.php
+        require ABSPATH . '/views/_includes/footer.php';
+    }
 
-		// /views/user-register/index.php
-		require ABSPATH . '/views/users/users-view.php';
+// index
 
-		// /views/_includes/footer.php
-		require ABSPATH . '/views/_includes/footer.php';
-
-    } // index
-    
-    
-     public function RegisterDentist() {
+    public function RegisterDentist() {
         # Page title
         $this->title = ' Cadastro de desntista';
 
@@ -100,6 +98,31 @@ class UsersController extends MainController
 
         // /views/_includes/footer.php
         require ABSPATH . '/views/_includes/footer.php';
-    }
+        
+    }   #---> RegisterEmployee
 
-} // class home
+    public function RegisterEmployee() {
+        # Page title
+        $this->title = ' Cadastro de funcionario';
+
+        // Parametros da função
+        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        
+        // Carrega o modelo para este view
+        $modelo = $this->load_model('users/users-model');
+
+        /** Carrega os arquivos do view * */
+        // /views/_includes/header.php
+        require ABSPATH . '/views/_includes/header.php';
+
+        // /views/_includes/menu.php
+        require ABSPATH . '/views/_includes/menu.php';
+
+        // /views/user-register/index.php
+        require ABSPATH . '/views/users/register-employee-view.php';
+
+        // /views/_includes/footer.php
+        require ABSPATH . '/views/_includes/footer.php';
+    }   #---> RegisterEmployee
+    
+}   #---> class home

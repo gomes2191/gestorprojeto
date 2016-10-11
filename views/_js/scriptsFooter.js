@@ -32,16 +32,16 @@ $('.openBtn').click(function () {
 // Mascara formulario cadastro de pessoal
 $(document).ready(function () {
 
-    $("#cpf").inputmask({
+    $(".cpf").inputmask({
         mask: '999.999.999-99'
     });
 
 
-    $('#rg').inputmask({
+    $('.rg').inputmask({
         mask: '9.999.999'
     });
 
-    $('#cep').inputmask({
+    $('.cep').inputmask({
         mask: '99999-999'
     });
 
@@ -53,7 +53,7 @@ $(document).ready(function () {
         mask: '(99) 99999-9999'
     });
 
-    $("#nasc, #ini-ativi, #fim-ativi").inputmask({
+    $(".nasc, .data,  #ini-ativi, #fim-ativi").inputmask({
         mask: '99/99/9999'
     });
 
@@ -185,27 +185,27 @@ $(function () {
  
 
 //  Função que verifica o tipo de cadastro página user-register
-$(function () {
-    var select = document.getElementById("tipo-user");
-    var valor = select.options[select.selectedIndex].value;
-    if (valor === '0') {
-        $('.hide-show-geral').hide();
-    }
-    
-    select.onchange = function () {
-        var select = document.getElementById("tipo-user");
-        var valor = select.options[select.selectedIndex].value;
-        if (valor === '1') {
-            $('.hide-show, .hide-show-geral').show();
-            
-        } 
-        if (valor === '0') {
-        $('.hide-show-geral').hide();
-    }
-        
-
-    };
-});
+//$(function () {
+//    var select = document.getElementById("tipo-user");
+//    var valor = select.options[select.selectedIndex].value;
+//    if (valor === '0') {
+//        $('.hide-show-geral').hide();
+//    }
+//    
+//    select.onchange = function () {
+//        var select = document.getElementById("tipo-user");
+//        var valor = select.options[select.selectedIndex].value;
+//        if (valor === '1') {
+//            $('.hide-show, .hide-show-geral').show();
+//            
+//        } 
+//        if (valor === '0') {
+//        $('.hide-show-geral').hide();
+//    }
+//        
+//
+//    };
+//});
 
 $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
     // Avoid following the href location when clicking

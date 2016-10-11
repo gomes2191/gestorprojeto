@@ -6,24 +6,13 @@
     $modelo->get_register_form(chk_array($parametros, 1));
     $modelo->del_user($parametros);
 ?>
-
-
 <p id="resultado"></p>
 <div class="row-fluid">  
     <div class="col-md-1 col-xs-1"></div>
     <div class="col-md-10  col-xs-10">
         <?= $modelo->form_msg;  $modelo->form_data; ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
-            <div class="row form-compact">
-                <div class="tipo-user form-group col-md-2 col-sm-2 col-xs-6">
-                    <label for="tipo-user">Selecione o tipo de cadastro:</label>
-                    <select class="form-control" name="tipo_user" id="tipo-user">
-                        <option selected="selected" value="0">*Tipo de cadastro:</option>
-                        <option value="1">Dentista</option>
-                        <option value="2">Funcionario</option>
-                    </select>
-                </div>
-            </div>
+           
             <div class="row form-compact">
                 <div class="form-group hide-show col-md-12 col-sm-12 col-xs-12">
                     <div class="fileinput fileinput-new" data-provides="fileinput">

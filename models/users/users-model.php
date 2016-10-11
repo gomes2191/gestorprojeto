@@ -1,314 +1,618 @@
-<?php 
+<?php
 /**
- * Classe para registro de consultas
+ * Classe para registros de usuários
  *
  * @package OdontoControl
  * @since 0.1
  */
+class UsersModel extends MainModel {
+    /**
+     * $form_data
+     *
+     * Os dados do formulário de envio.
+     *
+     * @access public
+     */
+    public $form_data;
+    /**
+     * $form_msg
+     *
+     * As mensagens de feedback para o usuário.
+     *
+     * @access public
+     */
+    public $form_msg;
+    /**
+     * $db
+     *
+     * O objeto da nossa conexão PDO
+     *
+     * @access public
+     */
+    public $db;
+    /**
+     * Construtor
+     *
+     * Carrega  o DB.
+     *
+     * @since 0.1
+     * @access public
+     */
+    public function __construct($db = false) {
+        $this->db = $db;
+    }
+    /**
+     * Valida o formulário de envio
+     *
+     * Este método pode inserir ou atualizar dados dependendo do campo de
+     * usuário.
+     *
+     * @since 0.1
+     * @access public
+     * */
+    
+    public function validate_register_form () {
+        // Cria o vetor que vai receber os dados do post
+        $this->form_data = [];
 
-class UsersModel
-{
+        // Verifica se algo foi postado no formulário
+        if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST ) ) {
+            
+            # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
+            foreach ( $_POST as $key => $value ) {
+                
+                # Configura os dados do post para a propriedade $form_data
+                $this->form_data[$key] = $value;
+                
+            } //Faz lop dos dados do post
+            
+            # Não será permitido campos vazios
+            if ( empty( $this->form_data['user_name'] ) ) {
+                // Feedback para o usuário
+                $this->form_msg = [0 => 'alert-danger', 1 =>'Erro! ',  2 => 'Campo nome não foi preenchido.'];
 
-	/**
-	 * $form_data
-	 *
-	 * Os dados do formulário de envio.
-	 *
-	 * @access public
-	 */	
-	public $form_data;
+                // Termina
+                return;
 
-	/**
-	 * $form_msg
-	 *
-	 * As mensagens de feedback para o usuário.
-	 *
-	 * @access public
-	 */	
-	public $form_msg;
+            } //--> End
+            
+            
+        }else {
+            
+            // Finaliza se nada foi enviado
+            return;
+            
+        } //--> End finaliza se nada foi enviado
+        
+       # Tenta enviar a imagem
+       $imagem = $this->upload_imagem();
+       # Insere a imagem em $_POST
+       
+       array_splice($colecao, 2, 0, "item3");
+        $this->form_data['user_img_profile'] = $imagem;
+        
+        var_dump($this->form_data);die();
+       
+       # Verifica se a imagem foi enviada
+        if ( ! $imagem ) {
+                echo 'Vazio';
+        }
+        
+        
+        
+        
+        
+        // Verifica se o usuário existe
+        $db_check_user = $this->db->query(
+                'SELECT * FROM `users` WHERE `user_email` = ?', array(
+            chk_array($this->form_data, 'user_email')
+                )
+        );
+        // Verifica se a consulta foi realizada com sucesso
+        if (!$db_check_user) {
+            $this->form_msg = '<p class="form_error">Internal error.</p>';
+            return;
+        }
+        // Obtém os dados da base de dados MySQL
+        $fetch_user = $db_check_user->fetch();
+        // Configura o ID do usuário
+        $user_id = $fetch_user['user_id'];
+        // Converte a senha enviada através do formulário para o hash (Criptografa) com API PHP
+        // passando a hash para a variável $password
+        $password = password_hash($this->form_data['user_password'], PASSWORD_DEFAULT);
+        // Pega o valor email do formulario e verifica se é um email se for email retorna
+        // o valor do email para variável $user_email se não retorna o valor false para a variável
+        $user_email = (filter_var($this->form_data['user_email'], FILTER_VALIDATE_EMAIL));
+        if ($user_email == false) {
+            $this->form_msg = '';
+            return;
+        }
+        //Variaveis para inserção na base de dados
+        $role_id = 1; // Onde 1 é adm e 2 user
+        $user_status = 1; // Onde 1 e usuario ativo e 2 não ativo;
+        
+        // Verifica se o email digitado já existe na base de dados
+        if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
+            $this->form_msg = '';
+        }
+        
+        // Verifica se o registro já existe.
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `users` WHERE `user_id` = ? ',[
+            chk_array($this->form_data, 'user_id')
+        ]);
+        
+        // Verifica se a consulta foi realizada com sucesso
+        if ( ($db_check_ag->fetchColumn()) >= 1 ) {
+            $this->updateRegister(chk_array($this->form_data, 'provider_id'));
+            return;
+        }else{
+             $this->insertRegister();
+             return;
+        }
+        
+    } #--> End validate_register_form()
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: insertRegister()
+    *   @Versão: 0.1 
+    *   @Descrição: Insere o registro no BD.
+    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+    **/ 
+    public function insertRegister(){
+        
+        #   insere o nome da clinica (revisar)
+        $this->db->insert('clinics', array(
+            'clinic_name' => chk_array($this->form_data, 'clinic_name'),
+        ));
+        
+        # Obtem ultimo id inserido
+        $user_clinic_id = $this->db->lastInsertId();
+        
+        # Se o ID do agendamento estiver vazio, insere os dados
+        $query_ins = $this->db->insert('users',[
+            'provider_nome'         =>  $this->avaliar(chk_array($this->form_data, 'provider_nome')),
+            'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
+            'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
+            'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
+            'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
+            'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'provider_bair')),
+            'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cid')),
+            'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
+            'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'provider_pais')),
+            'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
+            'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
+            'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
+            'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
+            'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
+            'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
+            'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
+            'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
+            'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
+            'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
+            'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
+            'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
+            'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
+            'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
+            'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
+            'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
+            'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
+            'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
+            'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
+            'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
+            'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
+            'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs'))
+        ]);
 
-	/**
-	 * $db
-	 *
-	 * O objeto da nossa conexão PDO
-	 *
-	 * @access public
-	 */
-	public $db;
+        # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        if ( $query_ins ) {
 
-	/**
-	 * Construtor
-	 * 
-	 * Carrega  o DB.
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function __construct( $db = false ) {
-		$this->db = $db;
-	}
+            # Destroy variáveis não mais utilizadas.
+            unset($query_ins);
+            
+            # Feedback para o usuário
+            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'O registro foi efetuado com sucesso!'];
+            
+            # Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/providers/cad">';
 
-	/**
-	 * Valida o formulário de envio
-	 * 
-	 * Este método pode inserir ou atualizar dados dependendo do campo de
-	 * usuário.
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function validate_register_form () {
-	
-		// Configura os dados do formulário
-		$this->form_data = array();
-		
-		// Verifica se algo foi postado
-		if ( 'POST' == $_SERVER['REQUEST_METHOD'] && ! empty ( $_POST ) ) {
-		
-			// Faz o loop dos dados do post
-			foreach ( $_POST as $key => $value ) {
-			
-				// Configura os dados do post para a propriedade $form_data
-				$this->form_data[$key] = $value;
-				
-				// Nós não permitiremos nenhum campos em branco
-				if ( empty( $value ) ) {
-					
-					// Configura a mensagem
-					$this->form_msg = '<p class="form_error">There are empty fields. Data has not been sent.</p>';
-					
-					// Termina
-					return;
-					
-				}			
-			
-			}
-		
-		} else {
-		
-			// Termina se nada foi enviado
-			return;
-			
-		}
-		
-		// Verifica se a propriedade $form_data foi preenchida
-		if( empty( $this->form_data ) ) {
-			return;
-		}
-		
-		// Verifica se o usuário existe
-		$db_check_user = $this->db->query (
-			'SELECT * FROM `users` WHERE `user` = ?', 
-			array( 
-				chk_array( $this->form_data, 'user')		
-			) 
-		);
-		
-		// Verifica se a consulta foi realizada com sucesso
-		if ( ! $db_check_user ) {
-			$this->form_msg = '<p class="form_error">Internal error.</p>';
-			return;
-		}
-		
-		// Obtém os dados da base de dados MySQL
-		$fetch_user = $db_check_user->fetch();
-		
-		// Configura o ID do usuário
-		$user_id = $fetch_user['user_id'];
-		
-		// Precisaremos de uma instância da classe Phpass
-		// veja http://www.openwall.com/phpass/
-		$password_hash = new PasswordHash(8, FALSE);
-		
-		// Cria o hash da senha
-		$password = $password_hash->HashPassword( $this->form_data['user_password'] );
-		
-		// Verifica se as permissões tem algum valor inválido: 
-		// 0 a 9, A a Z e , . - _
-		if ( preg_match( '/[^0-9A-Za-z\,\.\-\_\s ]/is', $this->form_data['user_permissions'] ) ) {
-			$this->form_msg = '<p class="form_error">Use just letters, numbers and a comma for permissions.</p>';
-			return;
-		}		
-		
-		// Faz um trim nas permissões
-		$permissions = array_map('trim', explode(',', $this->form_data['user_permissions']));
-		
-		// Remove permissões duplicadas
-		$permissions = array_unique( $permissions );
-		
-		// Remove valores em branco
-		$permissions = array_filter( $permissions );
-		
-		// Serializa as permissões
-		$permissions = serialize( $permissions );
-		
-		
-		// Se o ID do usuário não estiver vazio, atualiza os dados
-		if ( ! empty( $user_id ) ) {
+            # Finaliza execução.
+            return;
+        }
+        
+    }
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: updateRegister()
+    *   @Versão: 0.1 
+    *   @Descrição: Atualiza um registro especifico no BD.
+    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+    **/ 
+    public function updateRegister( $registro_id = NULL ){
+        
+        # Se o ID não estiver vazio, atualiza os dados
+        if ( $registro_id ) {
+            
+            # Atualiza os dados
+            $query = $this->db->update('providers', 'provider_id', $registro_id,[
+                'provider_nome'         =>  $this->avaliar(chk_array($this->form_data, 'provider_nome')),
+                'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
+                'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
+                'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
+                'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
+                'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'provider_bair')),
+                'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cid')),
+                'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
+                'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'provider_pais')),
+                'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
+                'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
+                'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
+                'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
+                'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
+                'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
+                'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
+                'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
+                'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
+                'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
+                'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
+                'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
+                'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
+                'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
+                'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
+                'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
+                'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
+                'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
+                'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
+                'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
+                'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
+                'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs'))
+            ]);
 
-			$query = $this->db->update('users', 'user_id', $user_id, array(
-				'user_password' => $password, 
-				'user_name' => chk_array( $this->form_data, 'user_name'), 
-				'user_session_id' => md5(time()), 
-				'user_permissions' => $permissions, 
-			));
-			
-			// Verifica se a consulta está OK e configura a mensagem
-			if ( ! $query ) {
-				$this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
-				
-				// Termina
-				return;
-			} else {
-				$this->form_msg = '<p class="form_success">User successfully updated.</p>';
-				
-				// Termina
-				return;
-			}
-		// Se o ID do usuário estiver vazio, insere os dados
-		} else {
-		
-			// Executa a consulta 
-			$query = $this->db->insert('users', array(
-				'user' => chk_array( $this->form_data, 'user'), 
-				'user_password' => $password, 
-				'user_name' => chk_array( $this->form_data, 'user_name'), 
-				'user_session_id' => md5(time()), 
-				'user_permissions' => $permissions, 
-			));
-			
-			// Verifica se a consulta está OK e configura a mensagem
-			if ( ! $query ) {
-				$this->form_msg = '<p class="form_error">Internal error. Data has not been sent.</p>';
-				
-				// Termina
-				return;
-			} else {
-				$this->form_msg = '<p class="form_success">User successfully registered.</p>';
-				
-				// Termina
-				return;
-			}
-		}
-	} // validate_register_form
-	
-	/**
-	 * Obtém os dados do formulário
-	 * 
-	 * Obtém os dados para usuários registrados
-	 *
-	 * @since 0.1
-	 * @access public
-	 */
-	public function get_register_form ( $user_id = false ) {
-	
-		// O ID de usuário que vamos pesquisar
-		$s_user_id = false;
-		
-		// Verifica se você enviou algum ID para o método
-		if ( ! empty( $user_id ) ) {
-			$s_user_id = (int)$user_id;
-		}
-		
-		// Verifica se existe um ID de usuário
-		if ( empty( $s_user_id ) ) {
-			return;
-		}
-		
-		// Verifica na base de dados
-		$query = $this->db->query('SELECT * FROM `users` WHERE `user_id` = ?', array( $s_user_id ));
-		
-		// Verifica a consulta
-		if ( ! $query ) {
-			$this->form_msg = '<p class="form_error">Usuário não existe.</p>';
-			return;
-		}
-		
-		// Obtém os dados da consulta
-		$fetch_userdata = $query->fetch();
-		
-		// Verifica se os dados da consulta estão vazios
-		if ( empty( $fetch_userdata ) ) {
-			$this->form_msg = '<p class="form_error">User do not exists.</p>';
-			return;
-		}
-		
-		// Configura os dados do formulário
-		foreach ( $fetch_userdata as $key => $value ) {
-			$this->form_data[$key] = $value;
-		}
-		
-		// Por questões de segurança, a senha só poderá ser atualizada
-		$this->form_data['user_password'] = null;
-		
-		// Remove a serialização das permissões
-		$this->form_data['user_permissions'] = unserialize($this->form_data['user_permissions']);
-		
-		// Separa as permissões por vírgula
-		$this->form_data['user_permissions'] = implode(',', $this->form_data['user_permissions']);
-	} // get_register_form
-	
-	/**
-	 * Apaga usuários
-	 * 
-	 * @since 0.1
-	 * @access public
-	 */
-	public function del_user ( $parametros = array() ) {
+            // Verifica se a consulta foi realizada com sucesso
+            if ( $query ) {
+                // Feedback para o usuário.
+                $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Os dados foram atualizados com sucesso!'];
+                
+                // Destroy variáveis nao utilizadas
+                unset($agenda_id, $query);
+                
+                // Finaliza execução.
+                return;
+            }
+        }
+    } # End updateRegister()
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: get_register_form()
+    *   @Versão: 0.1 
+    *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
+    **/ 
+    public function get_register_form ( $parametros ) {
+        
+        $id = intval($this->encode_decode(0, $parametros));
+        
+        // Verifica na base de dados
+        $query = $this->db->query('SELECT * FROM `providers` WHERE `provider_id` = ?', [ $id ]  );
 
-		// O ID do usuário
-		$user_id = null;
-		
-		// Verifica se existe o parâmetro "del" na URL
-		if ( chk_array( $parametros, 0 ) == 'del' ) {
+        // Verifica se a consulta foi realizada com sucesso!
+        if ( ! $query ) {
+                $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
+                return;
+        }
 
-			// Mostra uma mensagem de confirmação
-			echo '<p class="alert">Tem certeza que deseja apagar este valor?</p>';
-			echo '<p><a href="' . $_SERVER['REQUEST_URI'] . '/confirma">Sim</a> | 
-			<a href="' . HOME_URI . '/user-register">Não</a> </p>';
-			
-			// Verifica se o valor do parâmetro é um número
-			if ( 
-				is_numeric( chk_array( $parametros, 1 ) )
-				&& chk_array( $parametros, 2 ) == 'confirma' 
-			) {
-				// Configura o ID do usuário a ser apagado
-				$user_id = chk_array( $parametros, 1 );
-			}
-		}
-		
-		// Verifica se o ID não está vazio
-		if ( !empty( $user_id ) ) {
-		
-			// O ID precisa ser inteiro
-			$user_id = (int)$user_id;
-			
-			// Deleta o usuário
-			$query = $this->db->delete('users', 'user_id', $user_id);
-			
-			// Redireciona para a página de registros
-			echo '<meta http-equiv="Refresh" content="0; url=' . HOME_URI . '/user-register/">';
-			echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
-			return;
-		}
-	} // del_user
-	
-	/**
-	 * Obtém a lista de usuários
-	 * 
-	 * @since 0.1
-	 * @access public
-	 */
-	 public function get_user_list() { 
+        // Obtém os dados da consulta
+        $fetch_userdata = $query->fetch();
 
+        // Verifica se os dados da consulta estão vazios
+        if ( empty( $fetch_userdata ) ) {
+                $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
+                return;
+        }
+
+        // Faz um loop dos dados do formulário, guardando os no vetor $form_data
+        foreach ( $fetch_userdata as $key => $value ) {
+            $this->form_data[$key] = $value;
+        }
+        
+        // Destroy variaveis não mais utilizadas
+        unset($id, $query, $fetch_userdata);
+    } // get_register_form
+        
+        
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Função: del_agendamento()
+    *   @Versão: 0.1 
+    *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
+    **/ 
+    public function delRegister ( $id ) {
+
+        # Recebe o ID do registro converte de string para inteiro.
+        $parametro = intval($this->encode_decode(0, $id));
+        //echo $ag_id; die();
+        
+        $search = $this->db->query("SELECT count(*) FROM `providers` WHERE `provider_id` = $parametro ");
+        if($search->fetchColumn() < 1){
+
+            // Feedback para o usuário
+            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
+
+            //Destroy variáveis não mais utilizadas
+            unset($parametro, $search, $id);
+
+            # Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/providers">';
+
+            // Finaliza
+            return;
+        } else {
+            # Deleta o registro
+            $query_del = $this->db->delete('providers', 'provider_id', $parametro);
+            
+            // Feedback para o usuário
+            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Registro removido com sucesso!'];
+            
+            // Destroy variáveis não mais utilizadas
+            unset($parametro, $query_del, $search, $id);
+
+            # Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/providers">';
+            
+            // Finaliza
+            return;
+        }
+        
+    } //--> End del_agendamento()
+        
+         
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: get_ultimo_id() 
+    *   @Descrição: Pega o ultimo ID do agendamento.
+    **/
+    public function get_ultimo_id() {
         // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
+        $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
+         
+        $row = $query->fetch();
+        $id = trim($row[0]);
+        
+        return $id;
+        
+     } // End get_ultimo_id()
+     
+     
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: get_listar() 
+    *   @Descrição: Pega o ID passado na função e retorna os valores.
+    **/ 
+    public function get_listar( ) {
+        
+        #   Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query( 'SELECT * FROM `providers` ORDER BY provider_id' );
 
         // Verifica se a consulta está OK
-        if (!$query) {
-            return array();
+        if ( ! $query ) {
+                return array();
         }
-        // Preenche a tabela com os dados do usuário
+        // Retorna os valores da consulta
         return $query->fetchAll();
-    } // End get_user_list
+    } // End get_listar()
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: get_listar() 
+    *   @Descrição: Pega o ID passado na função e retorna os valores.
+    **/ 
+    public function get_registro( $id = NULL ) {
+        #   Recebe o ID codficado e decodifica depois converte e inteiro
+        $id_decode = intval($this->encode_decode(0, $id));
+        
+        // Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query( " SELECT * FROM  `providers` WHERE `provider_id`= $id_decode " );
+
+        // Verifica se a consulta está OK
+        if ( ! $query ) {
+                return array();
+        }
+        // Retorna os valores da consulta
+        return $query->fetch(PDO::FETCH_ASSOC);
+    } // End get_registro()
+
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: jsonPagination() 
+    *   @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
+    **/ 
+    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL ) {
+        
+        // Cria os vetores necessarios
+        $jsondata = [];
+        $jsondataList = [];
+        
+        // Verifica se o parametro foi passado e executa a consulta
+        if ($param1 == 'quantos') {
+            
+            // Realiza a consulta e retorna e armazena na variável
+            $resultado = $this->db->query(' SELECT COUNT(*) total FROM `agendas` ');
+
+            // Pega todos os valores retornado da base de dados e armazena no vetor
+            $fila = $resultado->fetch();
+
+            $jsondata['total'] = $fila['total'];
+            
+        // Verifica se o parametro existe e retorna a consulta.    
+        } elseif ($param1 == 'dame') {
+            
+            $resultadoT = $this->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
+
+
+            while ($fila = $resultadoT->fetch()) {
+                $jsondataperson = [];
+                $jsondataperson['agenda_id'] = $fila['agenda_id'];
+                $jsondataperson['agenda_pac'] = $fila['agenda_pac'];
+                $jsondataperson['agenda_proc'] = $fila['agenda_proc'];
+                $jsondataperson['agenda_start_normal'] = $fila['agenda_start_normal'];
+
+                $jsondataList [] = $jsondataperson;
+            }
+
+            $jsondata['lista'] = array_values($jsondataList);
+        }
+        echo json_encode($jsondata);
+    } // End jsonPagination()
+    
+    /*
+    * Envia a imagem
+    *
+    * @since 0.1
+    * @access public
+    */
+   public function upload_imagem() {
+        /*
+         * @var $imagem_atri recebe os valores referente a imagem.
+         * @var $erro_imagem recebe o valor referente ao erro "0" não ouve erro maior que zero ouve erro.
+         */
+        $imagem_atri = $_FILES['user_img_profile'];
+        $erro_imagem = $imagem_atri['error'];
+        // Verifica se o arquivo da imagem existe
+        if ($erro_imagem > 0) {
+            // Destroi as variáveis não utilizadas
+            unset($imagem_atri, $erro_imagem);
+            return;
+        } else {
+            /*
+             * @var $tipo_imagem variável que pega o formato da imagem recebida no upload.
+             * @vet $formato vetor que recebe os formatos de imagem suportados pelo sistema.
+             * Laço responsavel por verificar se o formato e suportado.
+             */
+            $tipo_imagem = $imagem_atri['type'];
+            $formato = [
+                'image/png',
+                'image/gif',
+                'image/jpeg',
+                'image/pjpeg',
+                'image/x-windows-bmp'
+            ];
+            if (in_array($tipo_imagem, $formato)) {
+                /* Aqui pegamos alguns atributos da imagem
+                 *
+                 * @var $nome_imagem variável que recebe o nome da imagem.
+                 * @var $ext_imagem variável que recebe a extensão da imagem.
+                 *
+                 */
+                $temp_name = strtolower($imagem_atri['name']);
+                $temp_ext = explode('.', $temp_name);
+                $ext_imagem = \end($temp_ext);
+                //$nome_imagem = preg_replace('/\s+/', '/[^-\.\w]+/', '', htmlentities($temp_name));
+                //$nome_imagem .= mt_rand() . '.' . $ext_imagem;
+                $nome_imagem = md5(uniqid(time())).'.'.$ext_imagem;
+                // Destroy as variáveis que não serão mais utilizadas
+                unset($temp_name);
+                unset($temp_ext);
+                // Nome temporário, erro e tamanho
+                $tmp_imagem = $imagem_atri['tmp_name'];
+                //$erro_imagem = $imagem_atri['error'];
+                //$tamanho_imagem = $imagem_atri['size'];
+                /*
+                 * Verifca o tipo da imagem e cria um novo stream de imagem GD
+                 */
+                switch ($tipo_imagem) {
+                    case 'image/jpeg':
+                        $image_format = imagecreatefromjpeg($tmp_imagem);
+                        break;
+                    case 'image/gif':
+                        $image_format = imagecreatefromgif($tmp_imagem);
+                        break;
+                    case 'image/png':
+                        $image_format = imagecreatefrompng($tmp_imagem);
+                        break;
+                    default:
+                        break;
+                }
+                // Cria duas variáveis com a largura e altura da imagem
+                list( $largura, $altura ) = getimagesize($tmp_imagem);
+                // Nova largura e altura
+                //$proporcao = 0.5;
+                //$nova_largura = $largura * $proporcao;
+                //$nova_altura = $altura * $proporcao;
+                $nova_largura = 150;
+                $nova_altura = 150;
+                // Cria uma nova imagem em branco
+                $image_new = imagecreatetruecolor($nova_largura, $nova_altura);
+                // Copia a imagem para a nova imagem com o novo tamanho
+                imagecopyresampled(
+                        $image_new, // Nova imagem
+                        $image_format, // Imagem original
+                        0, // Coordenada X da nova imagem
+                        0, // Coordenada Y da nova imagem
+                        0, // Coordenada X da imagem
+                        0, // Coordenada Y da imagem
+                        $nova_largura, // Nova largura
+                        $nova_altura, // Nova altura
+                        $largura, // Largura original
+                        $altura // Altura original
+                );
+                // Cria a imagem sobrescrevendo a anterior
+                switch ($tipo_imagem) {
+                    case 'image/jpeg':
+                        imagejpeg($image_new, $tmp_imagem);
+                        break;
+                    case 'image/gif':
+                        imagegif($image_new, $tmp_imagem);
+                        break;
+                    case 'image/png':
+                        imagepng($image_new, $tmp_imagem);
+                        break;
+                    default:
+                        break;
+                }
+                // Remove as imagens temporárias
+                imagedestroy($image_format);
+                imagedestroy($image_new);
+                // Tenta mover o arquivo enviado
+                if (!move_uploaded_file($tmp_imagem, UP_ABSPATH . '/img/perfil/' . $nome_imagem)) {
+                    // Retorna uma mensagem
+                    $this->form_msg = '<p class="error">Erro ao enviar imagem.</p>';
+                    return;
+                }
+                // Retorna o nome da imagem
+                return $nome_imagem;
+            } else {
+                $this->form_msg = 
+                    '
+                        <div class="alert alert-danger alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Opa!</strong> O tipo de imagem não é suportado tipos permitidos: 
+                            (
+                            png,
+                            gif,
+                            jpeg,
+                            pjpeg,
+                            bmp
+                            )
+                        </div> 
+                    ';
+                return;
+            }
+        }
+    }// upload_imagem
 }

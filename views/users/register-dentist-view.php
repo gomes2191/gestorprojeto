@@ -7,23 +7,11 @@
     $modelo->del_user($parametros);
 ?>
 
-
-<p id="resultado"></p>
 <div class="row-fluid">  
     <div class="col-md-1 col-xs-1"></div>
     <div class="col-md-10  col-xs-10">
         <?= $modelo->form_msg;  $modelo->form_data; ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
-            <div class="row form-compact">
-                <div class="tipo-user form-group col-md-2 col-sm-2 col-xs-6">
-                    <label for="tipo-user">Selecione o tipo de cadastro:</label>
-                    <select class="form-control" name="tipo_user" id="tipo-user">
-                        <option selected="selected" value="0">*Tipo de cadastro:</option>
-                        <option value="1">Dentista</option>
-                        <option value="2">Funcionario</option>
-                    </select>
-                </div>
-            </div>
             <div class="row form-compact">
                 <div class="form-group hide-show col-md-12 col-sm-12 col-xs-12">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -56,15 +44,15 @@
                         <br>
                     </div>
 
-                    <div class="form-group hide-show col-md-2 col-sm-4 col-xs-12 cpf">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-12 cpf">
                         <label for="cpf">CPF:</label>
-                        <input id="cpf" name="cpf" class="form-control" type="text" placeholder="000.000.000-00">
+                        <input id="cpf" name="cpf" class="cpf form-control" type="text" placeholder="000.000.000-00">
                         <br>
                     </div>
 
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-12">
                         <label for="rg">RG:</label>
-                        <input id="rg" name="rg" class="form-control" type="text" placeholder="0.000.000">
+                        <input id="rg" name="rg" class="rg form-control" type="text" placeholder="0.000.000">
                         <br>
                     </div>
 
@@ -82,29 +70,41 @@
                             <option value="Feminino">Feminino</option>
                         </select>
                     </div>
+                    
+                   
                     <br>
                 </div>
 
                 <div class="row form-compact">
+                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                        <label for="employee_estado_civil">Estado civil:</label>
+                        <select name="employee_estado_civil" class="form-control">
+                            <option value="1">Não informado</option>
+                            <option value="1">Solteiro</option>
+                            <option value="2">Casado</option>
+                            <option value="3">Divorciado</option>
+                        </select>
+                        <br>
+                    </div>
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
                         <label for="tel-casa">Telefone casa:</label>
-                        <input id="tel-casa" name="tel-casa" class="form-control" type="text" placeholder="(00) 0000-0000">
+                        <input id="tel-casa" name="tel-casa" class="tel-casa form-control" type="text" placeholder="(00) 0000-0000">
                         <br>
                     </div>
 
-                    <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="tel-cel">Celular:</label>
-                        <input id="tel-cel" name="tel-cel" class="form-control" type="text" placeholder="(00) 00000-0000">
+                        <input id="tel-cel" name="tel-cel" class=" tel-cel form-control" type="text" placeholder="(00) 00000-0000">
                         <br>
                     </div>
 
-                    <div class="form-group hide-show col-md-4 col-sm-4 col-xs-6">
+                    <div class="form-group hide-show col-md-3 col-sm-4 col-xs-6">
                         <label for="name-pai">Nome do pai:</label>
                         <input name="name-pai" class="form-control" type="text" placeholder="Nome do pai...">
                         <br>
                     </div>
 
-                    <div class="form-group hide-show col-md-4 col-sm-4 col-xs-6">
+                    <div class="form-group hide-show col-md-3 col-sm-4 col-xs-6">
                         <label for="name-mae">Nome da mãe:</label>
                         <input name="name-mae" class="form-control" type="text" placeholder="Nome da mãe...">
                         <br>

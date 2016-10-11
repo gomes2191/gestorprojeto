@@ -20,7 +20,7 @@
                 <li class="menu-item dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"  ><i class="fa fa-university" aria-hidden="true"></i>EMPRESA<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li class="menu-item dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Controle de pessoal</a>
+<!--                        <li class="menu-item dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Controle de pessoal</a>
                             <ul class="dropdown-menu">
                                 <li class="menu-item "><a href="#">Cadastro de dentista</a></li>
                                 <li class="menu-item "><a href="#">Cadastro de funcionario</a></li>
@@ -28,7 +28,7 @@
                                   <ul class="dropdown-menu"><li><a href="#">3rd level link more options</a></li><li><a href="#">3rd level link</a></li></ul>
                                 </li>
                               </ul>
-                        </li>
+                        </li>-->
                         <li><a href="<?= HOME_URI; ?>/noticias/">Pacientes</a></li>
                         <li><a href="<?= HOME_URI; ?>/noticias/adm/">Funcionarios</a></li>
                         <li class="divider"></li>
@@ -55,13 +55,14 @@
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" title="Cadastro de pessoal" ><i class="fa fa-user-plus" aria-hidden="true"></i> CONTROLE DE PESSOAL<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" title="Controle de pessoal" ><i class="fa fa-users" aria-hidden="true"></i> CONTROLE DE PESSOAL<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?= HOME_URI; ?>/users/register-dentist">Cadastra funcionario</a></li>
-                        <li><a href="#">Cadastra dentista</a></li>
-                        <li><a href="<?= HOME_URI; ?>/users/register-dentist">Listar cadastros</a></li>
+                        <li><a href="<?= HOME_URI; ?>/users/register-dentist">Inserir Dentista</a></li>
+                        <li><a href="<?= HOME_URI; ?>/users/register-employee">Inserir Funcionario</a></li>
+                        <li><a href="<?= HOME_URI; ?>/users">Listar cadastros</a></li>
                     </ul>
                 </li>
+                <li><a href="<?= HOME_URI; ?>/agenda" title="Agenda"><i class="fa fa-user-md" aria-hidden="true"></i> PACIENTE</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
