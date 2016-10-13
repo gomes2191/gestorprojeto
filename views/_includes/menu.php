@@ -18,7 +18,7 @@
                 <li><a href="<?= HOME_URI; ?>" title="Página inicial"><i class="glyphicon glyphicon-home" aria-hidden="true"></i> HOME</a></li>
                 <li><a href="<?= HOME_URI; ?>/agenda" title="Agenda"><i class="fa fa-calendar" aria-hidden="true"></i> AGENDA</a></li>
                 <li class="menu-item dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"  ><i class="fa fa-university" aria-hidden="true"></i>EMPRESA<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"  ><i class="fa fa-university" aria-hidden="true"></i> EMPRESA<span class="caret"></span></a>
                     <ul class="dropdown-menu">
 <!--                        <li class="menu-item dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Controle de pessoal</a>
                             <ul class="dropdown-menu">
@@ -42,7 +42,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" ><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i> FINANCEIRO<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" ><i class="fa fa-calculator" aria-hidden="true"></i> FINANCEIRO<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Contas a Pagar</a></li>
                         <li><a href="#">Contas a Receber</a></li>

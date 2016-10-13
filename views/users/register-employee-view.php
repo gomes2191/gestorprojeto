@@ -1,15 +1,28 @@
 <?php   if (!defined('ABSPATH')) {  exit();   }
 
-    // Carrega todos os métodos do modelo
-    $modelo->validate_register_form();
-    $modelo->get_register_form(chk_array($parametros, 1));
-//    /$modelo->del_user($parametros);
+    #   Carrega todos os métodos do modelo
+    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+    
+    $form_msg = $modelo->form_msg;
 ?>
+
+
 
 <div class="row-fluid">  
     <div class="col-md-1 col-xs-1"></div>
     <div class="col-md-10  col-xs-10">
-        
+        <?php
+            if ($form_msg == true) {
+                echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-info-circle fa-4" >&nbsp;</i>
+                        <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
+                    </div>';
+                unset($form_msg);
+            }
+        ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             <div class="row form-compact">
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -108,7 +121,7 @@
                     </div>
                 </div>
                 <div class="row form-compact">
-                    <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-5 col-sm-4 col-xs-6">
                         <label for="user_address">Endereço:</label>
                         <input name="user_address" class="form-control" type="text" placeholder="Endereço...">
 
@@ -134,14 +147,7 @@
                         <label for="user_cep">CEP:</label>
                         <input id="user_cep" name="user_cep" class="form-control" type="text" placeholder="00000-000">
                     </div>
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
-                        <label for="user_active">Status ativo? Sim/Não:</label>
-                        <select name="auser_active" class="form-control">
-                            <option value="0">Não</option>
-                            <option value="1">Sim</option>
-                        </select>
-                        <br>
-                    </div>
+                    
                 </div>
 
                 <div class="row form-compact">
@@ -167,10 +173,10 @@
                     </div>
                     
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
-                        <label for="user_active">Ativo:</label>
-                        <select name="user_active" class="form-control">
-                            <option value="0">Não</option>
-                            <option value="1">Sim</option>
+                        <label for="user_active">Status ativo: Sim / Não</label>
+                        <select name="user_status" class="form-control">
+                            <option value='0'>Não</option>
+                            <option value='1'>Sim</option>
                         </select>
                         <br>
                     </div>

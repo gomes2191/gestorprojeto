@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Classe para registros de usuários
  *
@@ -6,6 +7,7 @@
  * @since 0.1
  */
 class UsersModel extends MainModel {
+
     /**
      * $form_data
      *
@@ -14,6 +16,7 @@ class UsersModel extends MainModel {
      * @access public
      */
     public $form_data;
+
     /**
      * $form_msg
      *
@@ -22,6 +25,7 @@ class UsersModel extends MainModel {
      * @access public
      */
     public $form_msg;
+
     /**
      * $db
      *
@@ -30,6 +34,7 @@ class UsersModel extends MainModel {
      * @access public
      */
     public $db;
+
     /**
      * Construtor
      *
@@ -41,6 +46,7 @@ class UsersModel extends MainModel {
     public function __construct($db = false) {
         $this->db = $db;
     }
+
     /**
      * Valida o formulário de envio
      *
@@ -50,298 +56,280 @@ class UsersModel extends MainModel {
      * @since 0.1
      * @access public
      * */
-    
-    public function validate_register_form () {
-        // Cria o vetor que vai receber os dados do post
+    public function validate_register_form() {
+        #   Cria o vetor que vai receber os dados do post
         $this->form_data = [];
 
-        // Verifica se algo foi postado no formulário
-        if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST ) ) {
+        #   Verifica se algo foi postado no formulário
+        if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST)) {
             
-            # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach ( $_POST as $key => $value ) {
-                
-                # Configura os dados do post para a propriedade $form_data
-                $this->form_data[$key] = $value;
-                
-            } //Faz lop dos dados do post
-            
-            # Não será permitido campos vazios
-            if ( empty( $this->form_data['user_name'] ) ) {
-                // Feedback para o usuário
-                $this->form_msg = [0 => 'alert-danger', 1 =>'Erro! ',  2 => 'Campo nome não foi preenchido.'];
-
-                // Termina
+            if (empty(filter_input(INPUT_POST, 'user_email', FILTER_VALIDATE_EMAIL))) {
+                #   Feedback para o usuário
+                $this->form_msg = [0 => 'alert-warning', 1 => 'Opa! ', 2 => 'Email não válido verifique o email e tente novamente.'];
+                #   Termina
                 return;
+            }
 
-            } //--> End
+            #   Faz o loop dos dados do formulário inserindo os no vetor @form_data.
+            foreach ($_POST as $key => $value) {
+
+                #   Configura os dados do post para a propriedade $form_data
+                $this->form_data[$key] = $value;
+            } #-->  Faz lop dos dados do post
+
+            #   Destroy variaveis não mais utilizadas
+            unset($value, $key);
             
-            
-        }else {
-            
+            #   Verifica se ambos os campos não estão vazio 
+            if (empty($this->form_data['user_name'] AND $this->form_data['user_email'] AND $this->form_data['user_password'])) {
+                // Feedback para o usuário
+                $this->form_msg = [0 => 'alert-warning', 1 => 'Opa! ', 2 => 'Os campos nome, email e senha são obrigatorios verfique esses campos e tente novamente.'];
+                #   Termina
+                return;
+            }
+        } else {
+
             // Finaliza se nada foi enviado
             return;
-            
-        } //--> End finaliza se nada foi enviado
+        }   #---> End finaliza se nada foi enviado
         
-       # Tenta enviar a imagem
-       $imagem = $this->upload_imagem();
-       # Insere a imagem em $_POST
-       
-       array_splice($colecao, 2, 0, "item3");
+        
+        #    Tenta enviar a imagem
+        $imagem = $this->upload_imagem();
+
+        #    Insere a imagem no array
         $this->form_data['user_img_profile'] = $imagem;
-        
-        var_dump($this->form_data);die();
-       
-       # Verifica se a imagem foi enviada
-        if ( ! $imagem ) {
-                echo 'Vazio';
-        }
-        
-        
-        
-        
-        
-        // Verifica se o usuário existe
-        $db_check_user = $this->db->query(
-                'SELECT * FROM `users` WHERE `user_email` = ?', array(
+
+        $db_check_email = $this->db->query(' SELECT count(*) FROM `users` WHERE `user_email` = ? ', [
             chk_array($this->form_data, 'user_email')
-                )
-        );
+        ]);
+
         // Verifica se a consulta foi realizada com sucesso
-        if (!$db_check_user) {
-            $this->form_msg = '<p class="form_error">Internal error.</p>';
+        if (($db_check_email->fetchColumn()) >= 1) {
+
+            #   Feedback para o usuário
+            $this->form_msg = [0 => 'alert-info', 1 => 'Opa! ', 2 => 'Esse email já se encontra em nossa base de dados.'];
+            unset($db_check_email);
             return;
         }
-        // Obtém os dados da base de dados MySQL
-        $fetch_user = $db_check_user->fetch();
-        // Configura o ID do usuário
-        $user_id = $fetch_user['user_id'];
-        // Converte a senha enviada através do formulário para o hash (Criptografa) com API PHP
-        // passando a hash para a variável $password
-        $password = password_hash($this->form_data['user_password'], PASSWORD_DEFAULT);
-        // Pega o valor email do formulario e verifica se é um email se for email retorna
-        // o valor do email para variável $user_email se não retorna o valor false para a variável
-        $user_email = (filter_var($this->form_data['user_email'], FILTER_VALIDATE_EMAIL));
-        if ($user_email == false) {
-            $this->form_msg = '';
-            return;
-        }
-        //Variaveis para inserção na base de dados
+
+        # Destroy varivavel não mais utilizada
+        unset($db_check_email, $imagem);
+
+        /*  Converte a senha enviada através do formulário para o hash (Criptografa) com API PHP
+            passando a hash para o vetor @form_data  */
+        $this->form_data['user_password'] = password_hash($this->form_data['user_password'], PASSWORD_DEFAULT);
+        
+        
+        #   Variáveis para inserção na base de dados
         $role_id = 1; // Onde 1 é adm e 2 user
-        $user_status = 1; // Onde 1 e usuario ativo e 2 não ativo;
         
-        // Verifica se o email digitado já existe na base de dados
-        if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
-            $this->form_msg = '';
-        }
-        
-        // Verifica se o registro já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `users` WHERE `user_id` = ? ',[
+        #   Executa a consulta na base de dados a procura do ID
+        $db_check_id = $this->db->query(' SELECT count(*) FROM `users` WHERE `user_id` = ? ', [
             chk_array($this->form_data, 'user_id')
         ]);
-        
-        // Verifica se a consulta foi realizada com sucesso
-        if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            $this->updateRegister(chk_array($this->form_data, 'provider_id'));
+
+        #   Verifica se o ID existe
+        if (($db_check_id->fetchColumn()) >= 1) {
+            $this->updateRegister(chk_array($this->form_data, 'user_id'));
+            unset($db_check_id);
             return;
-        }else{
-             $this->insertRegister();
-             return;
+        } else {
+            $this->insertRegister();
+            unset($db_check_id);
+            return;
         }
         
-    } #--> End validate_register_form()
-    
+    }   #--> End validate_register_form()
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: insertRegister()
-    *   @Versão: 0.1 
-    *   @Descrição: Insere o registro no BD.
-    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
-    **/ 
-    public function insertRegister(){
-        
-        #   insere o nome da clinica (revisar)
-        $this->db->insert('clinics', array(
-            'clinic_name' => chk_array($this->form_data, 'clinic_name'),
-        ));
-        
-        # Obtem ultimo id inserido
-        $user_clinic_id = $this->db->lastInsertId();
-        
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: insertRegister()
+     *   @Versão: 0.1 
+     *   @Descrição: Insere o registro no BD.
+     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+     * */
+    public function insertRegister() {
+
+//        #   insere o nome da clinica (revisar)
+//        $this->db->insert('clinics', [
+//            'clinic_name' => chk_array($this->form_data, 'clinic_name'),
+//        ]);
+//
+//        # Obtem ultimo id inserido
+//        $user_clinic_id = $this->db->lastInsertId();
+
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('users',[
-            'provider_nome'         =>  $this->avaliar(chk_array($this->form_data, 'provider_nome')),
-            'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
-            'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
-            'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
-            'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
-            'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'provider_bair')),
-            'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cid')),
-            'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
-            'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'provider_pais')),
-            'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
-            'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
-            'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
-            'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
-            'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
-            'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
-            'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
-            'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
-            'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
-            'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
-            'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
-            'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
-            'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
-            'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
-            'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
-            'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
-            'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
-            'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
-            'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
-            'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
-            'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
-            'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs'))
+        $query_ins = $this->db->insert('users', [
+            'user_name' => $this->avaliar(chk_array($this->form_data, 'user_name')),
+            'user_email' => $this->avaliar(chk_array($this->form_data, 'user_email')),
+            'user_password' => $this->avaliar(chk_array($this->form_data, 'user_password')),
+            'user_session_id' => md5(time()),
+            //'user_permissions' => $this->avaliar(chk_array($this->form_data, 'user_permissions')),
+            'user_role_id' => 1,
+            'user_status' => 1,
+            'user_clinic_id' => 79,
+            'user_cpf' => $this->avaliar(chk_array($this->form_data, 'user_cpf')),
+            'user_rg' => $this->avaliar(chk_array($this->form_data, 'user_rg')),
+            'user_birth' => '2008-7-04',
+            'user_gen' => $this->avaliar(chk_array($this->form_data, 'user_gen')),
+            'user_civil_status' => $this->avaliar(chk_array($this->form_data, 'user_civil_status')),
+            'user_phone_home' => $this->avaliar(chk_array($this->form_data, 'user_phone_home')),
+            'user_cel_phone' => $this->avaliar(chk_array($this->form_data, 'user_cel_phone')),
+            'user_father_name' => $this->avaliar(chk_array($this->form_data, 'user_fhater_name')),
+            'user_mother_name' => $this->avaliar(chk_array($this->form_data, 'user_mother_name')),
+            'user_address' => $this->avaliar(chk_array($this->form_data, 'user_address')),
+            'user_city' => $this->avaliar(chk_array($this->form_data, 'user_city')),
+            'user_state' => $this->avaliar(chk_array($this->form_data, 'user_state')),
+            'user_cep' => $this->avaliar(chk_array($this->form_data, 'user_cep')),
+            //'user_active' => $this->avaliar(chk_array($this->form_data, 'user_active')),
+            'user_func_pri' => $this->avaliar(chk_array($this->form_data, 'user_func_pri')),
+            'user_func_sec' => $this->avaliar(chk_array($this->form_data, 'user_func_sec')),
+            'user_date_adm' => '2008-7-04',
+            'user_date_dem' => '2008-7-04',
+            'user_img_profile' => $this->avaliar(chk_array($this->form_data, 'user_img_profile'))
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
-        if ( $query_ins ) {
+        if ($query_ins) {
 
             # Destroy variáveis não mais utilizadas.
             unset($query_ins);
-            
+
             # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'O registro foi efetuado com sucesso!'];
-            
+            $this->form_msg = [0 => 'alert-info', 1 => 'Sucesso! ', 2 => 'O registro foi efetuado com sucesso!'];
+
             # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/providers/cad">';
+            echo '<meta http-equiv="Refresh" content="5; url=' . HOME_URI ."/users/register-employee";
 
             # Finaliza execução.
             return;
         }
-        
     }
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: updateRegister()
-    *   @Versão: 0.1 
-    *   @Descrição: Atualiza um registro especifico no BD.
-    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
-    **/ 
-    public function updateRegister( $registro_id = NULL ){
-        
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: updateRegister()
+     *   @Versão: 0.1 
+     *   @Descrição: Atualiza um registro especifico no BD.
+     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+     * */
+    public function updateRegister($registro_id = NULL) {
+
         # Se o ID não estiver vazio, atualiza os dados
-        if ( $registro_id ) {
-            
+        if ($registro_id) {
+
             # Atualiza os dados
-            $query = $this->db->update('providers', 'provider_id', $registro_id,[
-                'provider_nome'         =>  $this->avaliar(chk_array($this->form_data, 'provider_nome')),
-                'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
-                'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
-                'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
-                'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
-                'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'provider_bair')),
-                'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cid')),
-                'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
-                'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'provider_pais')),
-                'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
-                'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
-                'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
-                'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
-                'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
-                'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
-                'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
-                'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
-                'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
-                'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
-                'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
-                'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
-                'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
-                'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
-                'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
-                'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
-                'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
-                'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
-                'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
-                'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
-                'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
-                'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs'))
+            $query = $this->db->update('providers', 'provider_id', $registro_id, [
+                'provider_nome' => $this->avaliar(chk_array($this->form_data, 'provider_nome')),
+                'provider_cpf_cnpj' => $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
+                'provider_rs' => $this->avaliar(chk_array($this->form_data, 'provider_rs')),
+                'provider_at' => $this->avaliar(chk_array($this->form_data, 'provider_at')),
+                'provider_end' => $this->avaliar(chk_array($this->form_data, 'provider_end')),
+                'provider_bair' => $this->avaliar(chk_array($this->form_data, 'provider_bair')),
+                'provider_cid' => $this->avaliar(chk_array($this->form_data, 'provider_cid')),
+                'provider_uf' => $this->avaliar(chk_array($this->form_data, 'provider_uf')),
+                'provider_pais' => $this->avaliar(chk_array($this->form_data, 'provider_pais')),
+                'provider_cep' => $this->avaliar(chk_array($this->form_data, 'provider_cep')),
+                'provider_cel' => $this->avaliar(chk_array($this->form_data, 'provider_cel')),
+                'provider_tel_1' => $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
+                'provider_tel_2' => $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
+                'provider_insc_uf' => $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
+                'provider_web_url' => $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
+                'provider_email' => $this->avaliar(chk_array($this->form_data, 'provider_email')),
+                'provider_rep_nome' => $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
+                'provider_rep_apelido' => $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
+                'provider_rep_email' => $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
+                'provider_rep_cel' => $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
+                'provider_rep_tel_1' => $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
+                'provider_rep_tel_2' => $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
+                'provider_banco_1' => $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
+                'provider_agencia_1' => $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
+                'provider_conta_1' => $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
+                'provider_titular_1' => $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
+                'provider_banco_2' => $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
+                'provider_agencia_2' => $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
+                'provider_conta_2' => $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
+                'provider_titular_2' => $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
+                'provider_obs' => $this->avaliar(chk_array($this->form_data, 'provider_obs'))
             ]);
 
             // Verifica se a consulta foi realizada com sucesso
-            if ( $query ) {
+            if ($query) {
                 // Feedback para o usuário.
-                $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Os dados foram atualizados com sucesso!'];
-                
+                $this->form_msg = [0 => 'alert-info', 1 => 'Sucesso!', 2 => 'Os dados foram atualizados com sucesso!'];
+
                 // Destroy variáveis nao utilizadas
                 unset($agenda_id, $query);
-                
+
                 // Finaliza execução.
                 return;
             }
         }
-    } # End updateRegister()
-    
+    }
+
+# End updateRegister()
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: get_register_form()
-    *   @Versão: 0.1 
-    *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
-    **/ 
-    public function get_register_form ( $parametros ) {
-        
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: get_register_form()
+     *   @Versão: 0.1 
+     *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
+     * */
+    public function get_register_form($parametros) {
+
         $id = intval($this->encode_decode(0, $parametros));
-        
+
         // Verifica na base de dados
-        $query = $this->db->query('SELECT * FROM `providers` WHERE `provider_id` = ?', [ $id ]  );
+        $query = $this->db->query('SELECT * FROM `providers` WHERE `provider_id` = ?', [ $id]);
 
         // Verifica se a consulta foi realizada com sucesso!
-        if ( ! $query ) {
-                $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
-                return;
+        if (!$query) {
+            $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
+            return;
         }
 
         // Obtém os dados da consulta
         $fetch_userdata = $query->fetch();
 
         // Verifica se os dados da consulta estão vazios
-        if ( empty( $fetch_userdata ) ) {
-                $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
-                return;
+        if (empty($fetch_userdata)) {
+            $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
+            return;
         }
 
         // Faz um loop dos dados do formulário, guardando os no vetor $form_data
-        foreach ( $fetch_userdata as $key => $value ) {
+        foreach ($fetch_userdata as $key => $value) {
             $this->form_data[$key] = $value;
         }
-        
+
         // Destroy variaveis não mais utilizadas
         unset($id, $query, $fetch_userdata);
-    } // get_register_form
-        
-        
+    }
+
+// get_register_form
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: del_agendamento()
-    *   @Versão: 0.1 
-    *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
-    **/ 
-    public function delRegister ( $id ) {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: del_agendamento()
+     *   @Versão: 0.1 
+     *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
+     * */
+    public function delRegister($id) {
 
         # Recebe o ID do registro converte de string para inteiro.
         $parametro = intval($this->encode_decode(0, $id));
         //echo $ag_id; die();
-        
+
         $search = $this->db->query("SELECT count(*) FROM `providers` WHERE `provider_id` = $parametro ");
-        if($search->fetchColumn() < 1){
+        if ($search->fetchColumn() < 1) {
 
             // Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
+            $this->form_msg = [0 => 'alert-danger', 1 => 'Erro!', 2 => 'Erro interno do sistema. Contate o administrador.'];
 
             //Destroy variáveis não mais utilizadas
             unset($parametro, $search, $id);
@@ -354,101 +342,104 @@ class UsersModel extends MainModel {
         } else {
             # Deleta o registro
             $query_del = $this->db->delete('providers', 'provider_id', $parametro);
-            
+
             // Feedback para o usuário
-            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Registro removido com sucesso!'];
-            
+            $this->form_msg = [0 => 'alert-info', 1 => 'Sucesso!', 2 => 'Registro removido com sucesso!'];
+
             // Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
 
             # Redireciona de volta para a página após dez segundos
             echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/providers">';
-            
+
             // Finaliza
             return;
         }
-        
-    } //--> End del_agendamento()
-        
-         
+    }
+
+//--> End del_agendamento()
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: get_ultimo_id() 
-    *   @Descrição: Pega o ultimo ID do agendamento.
-    **/
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_ultimo_id() 
+     *   @Descrição: Pega o ultimo ID do agendamento.
+     * */
     public function get_ultimo_id() {
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
-         
+
         $row = $query->fetch();
         $id = trim($row[0]);
-        
+
         return $id;
-        
-     } // End get_ultimo_id()
-     
-     
+    }
+
+// End get_ultimo_id()
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: get_listar() 
-    *   @Descrição: Pega o ID passado na função e retorna os valores.
-    **/ 
-    public function get_listar( ) {
-        
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_listar() 
+     *   @Descrição: Pega o ID passado na função e retorna os valores.
+     * */
+    public function get_listar() {
+
         #   Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query( 'SELECT * FROM `providers` ORDER BY provider_id' );
+        $query = $this->db->query('SELECT * FROM `providers` ORDER BY provider_id');
 
         // Verifica se a consulta está OK
-        if ( ! $query ) {
-                return array();
+        if (!$query) {
+            return array();
         }
         // Retorna os valores da consulta
         return $query->fetchAll();
-    } // End get_listar()
-    
+    }
+
+// End get_listar()
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: get_listar() 
-    *   @Descrição: Pega o ID passado na função e retorna os valores.
-    **/ 
-    public function get_registro( $id = NULL ) {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_listar() 
+     *   @Descrição: Pega o ID passado na função e retorna os valores.
+     * */
+    public function get_registro($id = NULL) {
         #   Recebe o ID codficado e decodifica depois converte e inteiro
         $id_decode = intval($this->encode_decode(0, $id));
-        
+
         // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query( " SELECT * FROM  `providers` WHERE `provider_id`= $id_decode " );
+        $query = $this->db->query(" SELECT * FROM  `providers` WHERE `provider_id`= $id_decode ");
 
         // Verifica se a consulta está OK
-        if ( ! $query ) {
-                return array();
+        if (!$query) {
+            return array();
         }
         // Retorna os valores da consulta
         return $query->fetch(PDO::FETCH_ASSOC);
-    } // End get_registro()
+    }
 
-    
+// End get_registro()
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: jsonPagination() 
-    *   @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
-    **/ 
-    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL ) {
-        
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: jsonPagination() 
+     *   @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
+     * */
+    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL) {
+
         // Cria os vetores necessarios
         $jsondata = [];
         $jsondataList = [];
-        
+
         // Verifica se o parametro foi passado e executa a consulta
         if ($param1 == 'quantos') {
-            
+
             // Realiza a consulta e retorna e armazena na variável
             $resultado = $this->db->query(' SELECT COUNT(*) total FROM `agendas` ');
 
@@ -456,10 +447,10 @@ class UsersModel extends MainModel {
             $fila = $resultado->fetch();
 
             $jsondata['total'] = $fila['total'];
-            
-        // Verifica se o parametro existe e retorna a consulta.    
+
+            // Verifica se o parametro existe e retorna a consulta.    
         } elseif ($param1 == 'dame') {
-            
+
             $resultadoT = $this->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
 
 
@@ -476,15 +467,18 @@ class UsersModel extends MainModel {
             $jsondata['lista'] = array_values($jsondataList);
         }
         echo json_encode($jsondata);
-    } // End jsonPagination()
-    
+    }
+
+// End jsonPagination()
+
     /*
-    * Envia a imagem
-    *
-    * @since 0.1
-    * @access public
-    */
-   public function upload_imagem() {
+     * Envia a imagem
+     *
+     * @since 0.1
+     * @access public
+     */
+
+    public function upload_imagem() {
         /*
          * @var $imagem_atri recebe os valores referente a imagem.
          * @var $erro_imagem recebe o valor referente ao erro "0" não ouve erro maior que zero ouve erro.
@@ -522,7 +516,7 @@ class UsersModel extends MainModel {
                 $ext_imagem = \end($temp_ext);
                 //$nome_imagem = preg_replace('/\s+/', '/[^-\.\w]+/', '', htmlentities($temp_name));
                 //$nome_imagem .= mt_rand() . '.' . $ext_imagem;
-                $nome_imagem = md5(uniqid(time())).'.'.$ext_imagem;
+                $nome_imagem = md5(uniqid(time())) . '.' . $ext_imagem;
                 // Destroy as variáveis que não serão mais utilizadas
                 unset($temp_name);
                 unset($temp_ext);
@@ -588,31 +582,19 @@ class UsersModel extends MainModel {
                 imagedestroy($image_new);
                 // Tenta mover o arquivo enviado
                 if (!move_uploaded_file($tmp_imagem, UP_ABSPATH . '/img/perfil/' . $nome_imagem)) {
-                    // Retorna uma mensagem
-                    $this->form_msg = '<p class="error">Erro ao enviar imagem.</p>';
+                    # Feedback para o usuário
+                    $this->form_msg = [0 => 'alert-danger', 1 => 'Sucesso! ', 2 => 'Não foi possível mover imagem para o diretorio'];
                     return;
                 }
-                // Retorna o nome da imagem
+                # Retorna o nome da imagem
                 return $nome_imagem;
             } else {
-                $this->form_msg = 
-                    '
-                        <div class="alert alert-danger alert-dismissible fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <strong>Opa!</strong> O tipo de imagem não é suportado tipos permitidos: 
-                            (
-                            png,
-                            gif,
-                            jpeg,
-                            pjpeg,
-                            bmp
-                            )
-                        </div> 
-                    ';
+                # Feedback para o usuário
+                $this->form_msg = [0 => 'alert-danger', 1 => 'Sucesso! ', 2 => 'O tipo de imagem não é suportado tipos permitidos: (png,gif,jpeg,pjpeg,bmp)'];
                 return;
             }
         }
-    }// upload_imagem
+    }
+
+// upload_imagem
 }

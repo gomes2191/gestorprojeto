@@ -90,7 +90,7 @@ class ProviderModel extends MainModel
             
         } //--> End finaliza se nada foi enviado
         
-        // Verifica se o registro já existe.
+        # Verifica se o registro já existe.
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `providers` WHERE `provider_id` = ? ',[
             chk_array($this->form_data, 'provider_id')
         ]);
