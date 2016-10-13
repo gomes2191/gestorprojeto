@@ -82,18 +82,19 @@ class UsersModel extends MainModel {
             
             #   Verifica se ambos os campos não estão vazio 
             if (empty($this->form_data['user_name'] AND $this->form_data['user_email'] AND $this->form_data['user_password'])) {
-                // Feedback para o usuário
+                
+                #   Feedback para o usuário
                 $this->form_msg = [0 => 'alert-warning', 1 => 'Opa! ', 2 => 'Os campos nome, email e senha são obrigatorios verfique esses campos e tente novamente.'];
                 #   Termina
                 return;
             }
         } else {
 
-            // Finaliza se nada foi enviado
+            #   Finaliza se nada foi enviado
             return;
+            
         }   #---> End finaliza se nada foi enviado
-        
-        
+         
         #    Tenta enviar a imagem
         $imagem = $this->upload_imagem();
 
@@ -170,25 +171,25 @@ class UsersModel extends MainModel {
             'user_role_id' => 1,
             'user_status' => 1,
             'user_clinic_id' => 79,
-            'user_cpf' => $this->avaliar(chk_array($this->form_data, 'user_cpf')),
-            'user_rg' => $this->avaliar(chk_array($this->form_data, 'user_rg')),
-            'user_birth' => '2008-7-04',
-            'user_gen' => $this->avaliar(chk_array($this->form_data, 'user_gen')),
-            'user_civil_status' => $this->avaliar(chk_array($this->form_data, 'user_civil_status')),
-            'user_phone_home' => $this->avaliar(chk_array($this->form_data, 'user_phone_home')),
-            'user_cel_phone' => $this->avaliar(chk_array($this->form_data, 'user_cel_phone')),
-            'user_father_name' => $this->avaliar(chk_array($this->form_data, 'user_fhater_name')),
-            'user_mother_name' => $this->avaliar(chk_array($this->form_data, 'user_mother_name')),
-            'user_address' => $this->avaliar(chk_array($this->form_data, 'user_address')),
-            'user_city' => $this->avaliar(chk_array($this->form_data, 'user_city')),
-            'user_state' => $this->avaliar(chk_array($this->form_data, 'user_state')),
-            'user_cep' => $this->avaliar(chk_array($this->form_data, 'user_cep')),
+            'user_cpf' => $this->avaliar($this->form_data, 'user_cpf'),
+            'user_rg' => $this->avaliar($this->form_data, 'user_rg'),
+            'user_birth' => $this->avaliar($this->converteData('d/m/Y', 'Y-m-d', ($this->form_data['user_birth']))),
+            'user_gen' => $this->avaliar($this->form_data, 'user_gen'),
+            'user_civil_status' => $this->avaliar($this->form_data, 'user_civil_status'),
+            'user_phone_home' => $this->avaliar($this->form_data, 'user_phone_home'),
+            'user_cel_phone' => $this->avaliar($this->form_data, 'user_cel_phone'),
+            'user_father_name' => $this->avaliar($this->form_data, 'user_fhater_name'),
+            'user_mother_name' => $this->avaliar($this->form_data, 'user_mother_name'),
+            'user_address' => $this->avaliar($this->form_data, 'user_address'),
+            'user_city' => $this->avaliar($this->form_data, 'user_city'),
+            'user_state' => $this->avaliar($this->form_data, 'user_state'),
+            'user_cep' => $this->avaliar($this->form_data, 'user_cep'),
             //'user_active' => $this->avaliar(chk_array($this->form_data, 'user_active')),
-            'user_func_pri' => $this->avaliar(chk_array($this->form_data, 'user_func_pri')),
-            'user_func_sec' => $this->avaliar(chk_array($this->form_data, 'user_func_sec')),
-            'user_date_adm' => '2008-7-04',
-            'user_date_dem' => '2008-7-04',
-            'user_img_profile' => $this->avaliar(chk_array($this->form_data, 'user_img_profile'))
+            'user_func_pri' => $this->avaliar($this->form_data, 'user_func_pri'),
+            'user_func_sec' => $this->avaliar($this->form_data, 'user_func_sec'),
+            'user_date_adm' => $this->avaliar($this->converteData('d/m/Y', 'Y-m-d', (($this->form_data['user_date_adm'])))),
+            'user_date_dem' => $this->avaliar($this->converteData('d/m/Y', 'Y-m-d', ($this->form_data['user_date_dem']))),
+            'user_img_profile' => $this->avaliar($this->form_data, 'user_img_profile')
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -201,7 +202,7 @@ class UsersModel extends MainModel {
             $this->form_msg = [0 => 'alert-info', 1 => 'Sucesso! ', 2 => 'O registro foi efetuado com sucesso!'];
 
             # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="5; url=' . HOME_URI ."/users/register-employee";
+            //echo '<meta http-equiv="Refresh" content="5; url=' . HOME_URI ."/users/register-employee";
 
             # Finaliza execução.
             return;

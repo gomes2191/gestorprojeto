@@ -7,14 +7,14 @@
  * 
  *  @Pacote: OdontoControl
  *  @Versão: 0.1
- **/
+ * */
 class MainModel {
 
     /**
      *  @Acesso: public
      *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
      *  @Descrição: Armazena os dados passado no formulário via post.
-     **/
+     * */
     public $form_data;
 
     /**
@@ -28,35 +28,35 @@ class MainModel {
      *  @Acesso: public
      *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
      *  @Descrição: Armazena a mensagem de confirmação ao apagar algum registro
-     **/
+     * */
     public $form_confirma;
 
     /**
      *  @Acesso: public
      *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
      *  @Descrição: O objeto da nossa conexão PDO.
-     **/
+     * */
     public $db;
 
     /**
      *  @Acesso: public
      *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
      *  @Descrição: O controller que gerou esse modelo
-     **/
+     * */
     public $controller;
 
     /**
      *  @Acesso: public
      *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
      *  @Descrição: Parâmetros da URL
-     **/
+     * */
     public $parametros;
 
     /**
      *  @Acesso: public
      *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
      *  @Descrição: Dados do usuário
-     **/
+     * */
     public $userdata;
 
     /**
@@ -108,7 +108,7 @@ class MainModel {
 //		return $nova_data;
 //	
 //	} // inverte_data
-    
+
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -133,7 +133,9 @@ class MainModel {
             return ($v_date && $v_date == $date);
         }
         return false;
-    } # End ValidaDataHora()
+    }
+
+# End ValidaDataHora()
 
     /**
      *  @Acesso: public
@@ -154,7 +156,9 @@ class MainModel {
             return date_format($f_date, $to_format);
         }
         return false;
-    } # End converteData()
+    }
+
+# End converteData()
 
     /**
      *  @Acesso: public
@@ -162,40 +166,98 @@ class MainModel {
      *  @Versão: 0.1
      *  @Função: avaliar()
      *  @Descrição: Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
-     **/
+     * */
     public function avaliar($valor_ini) {
         $nopermitido = ["'", '\\', '<', '>', "\""];
         $valor_1 = str_replace($nopermitido, "", $valor_ini);
 
         $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         return $valor;
-    } # End Avaliar()
-    
+    }
+
+# End Avaliar()
+
     /**
      *  @Acesso: public
      *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *  @Versão: 0.1
      *  @Função: encode_decode()
      *  @Descrição: Codifica e decodifica  a string passada dependendo do parametro.
-     **/
-    public function encode_decode( $encode = FALSE, $decode = FALSE  ){
-        
-        if($encode == TRUE){
-            
-           $rand = rand(100, 900);
-           
-           $encode = base64_encode($encode.$rand);
-           return $encode;
-            
-        }else{
-            
-           
-           $decode = base64_decode($decode);
-           $_decode = substr($decode, 0, -3);
-           
-           return $_decode;
+     * */
+    public function encode_decode($encode = FALSE, $decode = FALSE) {
+
+        if ($encode == TRUE) {
+
+            $rand = rand(100, 900);
+
+            $encode = base64_encode($encode . $rand);
+            return $encode;
+        } else {
+            $decode = base64_decode($decode);
+            $_decode = substr($decode, 0, -3);
+
+            return $_decode;
         }
-        
     }
 
-} # End MainModel
+    /**
+     *  @Acesso: public
+     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *  @Versão: 0.1
+     *  @Função: encode_decode()
+     *  @Descrição: Remove tudo o que não for número.
+     * */
+    public function only_fliter_number($valor) {
+        $valor_final = (int) preg_replace('/[^0-9\s]/', '', $valor);
+        return $valor_final;
+    }
+    
+    /**
+     *  @Acesso: public
+     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *  @Versão: 0.1
+     *  @Função: encode_decode()
+     *  @Descrição: Remove tudo o que não for número.
+     * */
+    public function format_padrao($string, $tipo = "") {
+        $string = preg_replace("[^0-9]", "", $string);
+        if (!$tipo) {
+            switch (strlen($string)) {
+                case 11: $tipo = 'fone';
+                    break;
+                case 8: $tipo = 'cep';
+                    break;
+                case 11: $tipo = 'cpf';
+                    break;
+                case 14: $tipo = 'cnpj';
+                    break;
+            }
+        }
+        switch ($tipo) {
+            case 'fone':
+                $string = '(' . substr($string, 0, 2) . ') ' . substr($string, 2, 4) .
+                        '-' . substr($string, 6);
+                break;
+            case 'cep':
+                $string = substr($string, 0, 5) . '-' . substr($string, 5, 3);
+                break;
+            case 'cpf':
+                $string = substr($string, 0, 3) . '.' . substr($string, 3, 3) .
+                        '.' . substr($string, 6, 3) . '-' . substr($string, 9, 2);
+                break;
+            case 'cnpj':
+                $string = substr($string, 0, 2) . '.' . substr($string, 2, 3) .
+                        '.' . substr($string, 5, 3) . '/' .
+                        substr($string, 8, 4) . '-' . substr($string, 12, 2);
+                break;
+            case 'rg':
+                $string = substr($string, 0, 2) . '.' . substr($string, 2, 3) .
+                        '.' . substr($string, 5, 3);
+                break;
+        }
+        return $string;
+    }
+
+}
+
+# End MainModel

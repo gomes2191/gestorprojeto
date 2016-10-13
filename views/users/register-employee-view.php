@@ -4,6 +4,8 @@
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
     
     $form_msg = $modelo->form_msg;
+    
+    var_dump($modelo->format_padrao('2815088', 'rg'));
 ?>
 
 
@@ -162,15 +164,16 @@
                         <br>
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
-                        <label for="user_date_adm">Data de Demissão:</label>
-                        <input id="user_date_adm" name="user_date_adm" class="data form-control" type="text" placeholder="dd/mm/aaaa" >
-                        <br>
-                    </div>
-                    <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="user_date_dem">Data de Admissão:</label>
                         <input id="user_date_dem" name="user_date_dem" class="data form-control" type="text" placeholder="dd/mm/aaaa" >
                         <br>
                     </div>
+                    <div class="form-group col-md-2 col-sm-4 col-xs-12">
+                        <label for="user_date_adm">Data de Demissão:</label>
+                        <input id="user_date_adm" name="user_date_adm" class="data form-control" type="text" placeholder="dd/mm/aaaa" >
+                        <br>
+                    </div>
+                    
                     
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="user_active">Status ativo: Sim / Não</label>
