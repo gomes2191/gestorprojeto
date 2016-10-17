@@ -179,7 +179,6 @@ class UsersModel extends MainModel {
             'user_session_id'       => md5(time()),
             //'user_permissions' => $this->avaliar(chk_array($this->form_data, 'user_permissions')),
             'user_role_id'          => 1,
-            'user_active'           => (int) $this->only_filter_number(chk_array($this->form_data, 'user_active')),
             'user_clinic_id'        => 79,
             'user_cpf'              => $this->only_filter_number(chk_array($this->form_data, 'user_cpf')),
             'user_rg'               => $this->only_filter_number(chk_array($this->form_data, 'user_rg')),
@@ -198,6 +197,7 @@ class UsersModel extends MainModel {
             'user_func_sec'         => chk_array($this->form_data, 'user_func_sec'),
             'user_date_adm'         => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_date_adm')),
             'user_date_dem'         => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_date_dem')),
+            'user_active'           => (int) $this->only_filter_number(chk_array($this->form_data, 'user_active')),
             'user_img_profile'      => chk_array($this->form_data, 'user_img_profile')
         ]);
 
@@ -441,7 +441,7 @@ class UsersModel extends MainModel {
         $id_decode = intval($this->encode_decode(0, $id));
 
         // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query(" SELECT * FROM  `providers` WHERE `provider_id`= $id_decode ");
+        $query = $this->db->query(" SELECT * FROM  `users` WHERE `user_id`= $id_decode ");
 
         // Verifica se a consulta está OK
         if (!$query) {

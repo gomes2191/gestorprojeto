@@ -1,16 +1,31 @@
-<?php
-    if (!defined('ABSPATH')) {  exit();   }
-
-    // Carrega todos os métodos do modelo
-    $modelo->validate_register_form();
-    $modelo->get_register_form(chk_array($parametros, 1));
-    $modelo->del_user($parametros);
+<?php 
+    if (!defined('ABSPATH')){ exit(); }
+    $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
+    
+    if(isset($get['emp'])){ $parametros = $get['emp']; }
+    
+    #   Carrega todos os métodos do modelo
+    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+    $form_msg = $modelo->form_msg;
+    $modelo->get_register_form($parametros, 1);
+    unset($parametros, $get);
 ?>
 
 <div class="row-fluid">  
-    <div class="col-md-1 col-xs-1"></div>
-    <div class="col-md-10  col-xs-10">
-        <?= $modelo->form_msg;  $modelo->form_data; ?>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    <div class="col-md-10 col-sm-12  col-xs-12">
+        <?php
+            if ($form_msg == true) {
+                echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-info-circle fa-4" >&nbsp;</i>
+                        <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
+                    </div>';
+                unset($form_msg);
+            }
+        ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             <div class="row form-compact">
                 <div class="form-group hide-show col-md-12 col-sm-12 col-xs-12">
@@ -275,10 +290,10 @@
                 <legend >Horário de Atendimento</legend>
                 <div class="row form-compact">
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
-                        <label for="dom-1">Domingo:</label>
-                        <input name="dom-1" id="dom-1" class="form-control" type="text" placeholder="hh:mm">
+                        <label for="dom_1">Domingo:</label>
+                        <input name="dom_1" id="dom_1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
-                        <input name="dom-2" id="dom-2" class="form-control" type="text" placeholder="hh:mm">
+                        <input name="dom_2" id="dom_2" class="form-control" type="text" placeholder="hh:mm">
                         <br>
                     </div>
 
@@ -371,5 +386,5 @@
 
         </form>
     </div>
-    <div class="col-md-1 col-xs-1"></div>
+    <div class="col-md-1 col-xs-0 col-sm-0"></div>
 </div> <!-- /row  -->

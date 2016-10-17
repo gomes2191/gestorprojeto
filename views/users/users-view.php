@@ -37,9 +37,7 @@
 </script>
 
 <div class="row-fluid">
-    
-    <div class="col-md-2 col-sm-0 col-xs-0"></div>
-    <div class="col-md-8 col-sm-12 col-xs-12">
+    <div class="col-md-12">
         <?php
             if ($form_msg == true) {
                 echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
@@ -52,33 +50,23 @@
                 unset($form_msg);
             }
         ?>
-    </div>
-    <div class="col-md-2 col-sm-0 col-xs-0"></div>
- 
-    <div class="col-md-12">
         
         <div class="input-group-sm">
-            <a href="<?php echo HOME_URI; ?>/users/register-user" title="Adicionar dentista" class="btn btn-sm btn-primary "><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO DENTISTA </a>
-            <a href="<?php echo HOME_URI; ?>/users/register-employee" title="Adicionar usuário" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO USUÁRIO </a>
+            <a href="<?= HOME_URI; ?>/users/register-user" title="Adicionar dentista" class="btn btn-sm btn-primary "><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO DENTISTA </a>
+            <a href="<?= HOME_URI; ?>/users/register-employee" title="Adicionar usuário" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO USUÁRIO </a>
         </div>
         <br>
-          
-        <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
-        
-        
         <div class="panel"> <!-- Start panel -->
-            
-            
-            <table id="table-users" class="table table-hover  table-text-center table-responsive">
+            <table style="text-align: center;" id="table-users" class="table table-hover  table-text-center table-responsive">
                 <?php   $lista = $modelo->get_listar();    ?>
                 <?php if ($lista):  ?>
-                <thead>
+                <thead >
                     <tr>
-                        <th><?= Translate::t('dMsg_3'); ?></th>
-                        <th><?= Translate::t('dMsg_5'); ?></th>
-                        <th><?= Translate::t('dMsg_6'); ?></th>
-                        <th><?= Translate::t('dMsg_7'); ?></th>
-                        <th><?= Translate::t('dMsg_8'); ?></th>
+                        <th >NOME</th>
+                        <th >USUÁRIO</th>
+                        <th >EDITAR</th>
+                        <th >ELIMINAR</th>
+                        <th >INFORMAÇÕES</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,7 +107,7 @@
                                 </a>
                             </td>
                             <td>
-                                 <a href="<?= HOME_URI; ?>/providers/box-view?v=<?= $modelo->encode_decode($fetch_userdata['user_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
+                                <a href="<?= HOME_URI; ?>/users/box-view?v=<?= $modelo->encode_decode($fetch_userdata['user_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
                                     <i style="color: #2fa4e7;" class="fa fa-2x fa-info-circle" aria-hidden="true"></i>
                                 </a>
                             </td>
@@ -150,6 +138,16 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        
+        <!-- Start Modal visualizar fornecedores -->
+        <div id="visualizar-forne" class="modal fade" >
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    
+                </div>
+            </div>
+        </div><!-- End modal -->
         
     </div> <!-- /col-md-12 -->
 </div> <!-- /row -->

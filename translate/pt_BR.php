@@ -21,7 +21,7 @@
         # </End dentista>
         
         
-        # <Start dentista>
+        # < Start users page >
         'usersMsg_1'=>'Achar usuário no sistema...',
         'usersMsg_2'=>'USUÁRIOS CADASTRADOS NO SISTEMA',      
         'usersMsg_3'=>'Nome',
@@ -34,5 +34,5 @@
         'usersMsg_10'=>'Editar cadastro',
         'usersMsg_11'=>'Excluir cadastro',
         'usersMsg_12'=>'Visualizar ficha cadastral',
-        # </End dentista>
+        # < /End users page >
     );

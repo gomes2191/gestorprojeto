@@ -15,7 +15,7 @@
     <div class="col-md-1 col-xs-1 col-sm-1"></div>
     <div class="col-md-10  col-sm-10 col-xs-10">
         <?php
-        if ($form_msg == true) {
+            if ($form_msg == true) {
             echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -23,8 +23,8 @@
                         <i class="fa fa-info-circle fa-4" >&nbsp;</i>
                         <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
                     </div>';
-            unset($form_msg);
-        }
+                unset($form_msg);
+            }
         ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             <div class="row form-compact">
@@ -247,7 +247,6 @@
                         <p></p>
                     </div>
 
-
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <br>
                         <div class="btn-group">
@@ -256,7 +255,7 @@
                             </button>
                         </div>
                         <div class="btn-group">
-                            <a href="<?= HOME_URI; ?>/users/" class="btn btn-default">
+                            <a href="<?= HOME_URI; ?>/users" class="btn btn-default">
                                 Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i>
                             </a>
                         </div>

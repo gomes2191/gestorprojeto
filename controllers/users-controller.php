@@ -125,4 +125,14 @@ class UsersController extends MainController {
         require ABSPATH . '/views/_includes/footer.php';
     }   #---> RegisterEmployee
     
+    public function BoxView(){
+        
+        #   Carrega o modelo
+        $modelo = $this->load_model('users/users-model');
+        
+        #   Carrega o view
+        require_once (ABSPATH . '/views/users/box-view.php');
+        
+    }   #--> End BoxView
+    
 }   #---> class home
