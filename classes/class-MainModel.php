@@ -132,10 +132,8 @@ class MainModel {
             $v_date = date_format($v_date, $format);
             return ($v_date && $v_date == $date);
         }
-        return false;
-    }
-
-# End ValidaDataHora()
+        return NULL;
+    }   # End ValidaDataHora()
 
     /**
      *  @Acesso: public
@@ -149,16 +147,14 @@ class MainModel {
      *  var_dump(converteData('d-m-Y', 'm/d/Y H:i', '06-02-2014')); 02/06/2014 12:39
      *  var_dump(converteData('Y-m-d', 'l F Y  H:i', '2014-02-06')); Thursday February 2014  12:38
      * */
-    public function converteData($format, $to_format, $date, $timezone = null) {
+    public function converteData($format, $to_format, $date='00/00/0000', $timezone = NULL) {
         if (!empty($date)) {
             $timezone = $timezone ? $timezone : new DateTimeZone(date_default_timezone_get());
             $f_date = date_create_from_format($format, $date, $timezone);
             return date_format($f_date, $to_format);
         }
-        return false;
-    }
-
-# End converteData()
+        return NULL;
+    }   # End converteData()
 
     /**
      *  @Acesso: public
@@ -173,9 +169,7 @@ class MainModel {
 
         $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         return $valor;
-    }
-
-# End Avaliar()
+    }   # End Avaliar()
 
     /**
      *  @Acesso: public
@@ -207,8 +201,8 @@ class MainModel {
      *  @Função: encode_decode()
      *  @Descrição: Remove tudo o que não for número.
      * */
-    public function only_fliter_number($valor) {
-        $valor_final = (int) preg_replace('/[^0-9\s]/', '', $valor);
+    public function only_filter_number($valor) {
+        $valor_final = preg_replace('/[^0-9]/', '', $valor);
         return $valor_final;
     }
     
@@ -258,6 +252,4 @@ class MainModel {
         return $string;
     }
 
-}
-
-# End MainModel
+}   # End MainModel

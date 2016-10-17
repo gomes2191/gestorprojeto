@@ -1,20 +1,21 @@
-
+/*Formatação do topo*/
 .navbar-default {
-    box-shadow: #d8d8d8 2px 1px 2px;
+   box-shadow: 0px 2px 5px 0px rgb(133, 138, 138) !important;
+   background-color: #3d3d3d !important;
 }
 
 /*Formatação campos horarios de atendimentos*/
 #dom-1, #dom-2, #seg-1, #seg-2, #ter-1, #ter-2, #qua-1, #qua-2, #qui-1, #qui-2, #sex-1, #sex-2, #sab-1, #sab-2{
-  text-align: center;
+    text-align: center;
 }
 
 /* Incluimos aqui a fonte do site */
 /* latin */
 @font-face {
-  font-family: 'Abel';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Abel'), local('Abel-Regular'), url('Abel.woff2') format('woff2');
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Abel'), local('Abel-Regular'), url('Abel.woff2') format('woff2');
 }
 
 
@@ -29,54 +30,50 @@
 
 
 
-/* Inputs formatação extra */
+/* Inputs formatação extra formularios com estilização extra */
 .form-compact {
-  font-size: 0.8em;
-  margin-bottom: 8px;
+    font-size: 0.8em;
+    margin-bottom: 8px;
 }
 
 .form-compact .form-control {
-  /*padding: 2px 2px;*/
-  /*height: auto;*/
-  font-size:1.2em;
-  text-align: center;
+    /*padding: 2px 2px;*/
+    /*height: auto;*/
+    font-size:1.2em;
+    text-align: center;
 
 }
 
 
 .form-compact label {
-  margin-bottom: 1px;
+    margin-bottom: 1px;
 }
 .form-compact .form-group
 {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
-/*  Input border radius*/
-/*.form-control{
-    border-radius: 2px !important;
-}*/
 
 /* Agenda correções */
 .panel-refresh {
- height:250px;
- position:relative;
+    height:250px;
+    position:relative;
 }
 
 .refresh-container {
- position:absolute;
- top:0;
- right:0;
- background:rgba(200,200,200,0.25);
- width:100%;
- height:100%;
- display: none;
- text-align:center;
- z-index:4;
+    position:absolute;
+    top:0;
+    right:0;
+    background:rgba(200,200,200,0.25);
+    width:100%;
+    height:100%;
+    display: none;
+    text-align:center;
+    z-index:4;
 }
 .refresh-spinner {
- padding: 30px;
- opacity: 0.8;
+    padding: 30px;
+    opacity: 0.8;
 }
 
 
@@ -100,11 +97,82 @@ input, select, textarea{
 }
 
 
-/* Botão selecionar tipo de usuário Página --> user-register*/
+/* Navbar menu dropdown menu multi nivel desativado pois não ouve necessidade de usar menu multinivel ainda 
 
-    .dropdown-submenu{position:relative;}
+.dropdown-submenu{position:relative;}
 .dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
-/*.dropdown-submenu:hover>.dropdown-menu{display:block;}*/
+/*.dropdown-submenu:hover>.dropdown-menu{display:block;}
 .dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
 .dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
 .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
+*/
+
+
+/*Sistema de permissao*/
+
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+
+/*Navbar informações de login*/
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}

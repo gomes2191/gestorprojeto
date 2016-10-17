@@ -1,46 +1,80 @@
-<?php if (!defined('ABSPATH')) exit; ?>
+<?php if (!defined('ABSPATH')) {    exit();     }
+
+    #   Verifica se existe o metodo get se exsite passa para variavel $get com o filtro necessario
+    $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
+    
+    #   Verifica se existe o método $get['p'] na requisição   
+    if(isset($get['d'])) {  $modelo->delRegister($get['d']);    }
+    
+    #   Passa as mensagem de erro do sistema para a variável especificada
+    $form_msg = $modelo->form_msg;
+    
+    #   Destroy a variável não mais utilizada
+    unset($get);
+?>
+
+<script>
+    //  Muda a url atual para a nova url passada
+    window.history.pushState("users", "", "users");
+    
+    //  Faz um refresh de url apos fechar modal
+    $(function  (){
+        $('#visualizar-forne').on('hidden.bs.modal', function () {
+            document.location.reload();
+        });
+    });
+        
+    // Chama o paginador da tabela    
+    $(function () {
+        $('#table-users').DataTable({
+            language: {
+                url: 'Portuguese-Brasil.json'
+            }
+        });
+
+    });
+
+</script>
 
 <div class="row-fluid">
     
-    <?php
-        // Carrega todos os métodos do modelo
-        $modelo->validate_register_form();
-        $modelo->get_register_form(chk_array($parametros, 1));
-        $modelo->del_user($parametros);
-    ?>
-    
-    <div class="col-md-12">       
-        <form class="form-signin" method="post">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="<?= Translate::t('dMsg_1'); ?>" name="q">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search" aria-hidden="true"></i></button>
-                </div>
-            </div>
-            <br>
-            
-        </form>
-        
-        <hr>
+    <div class="col-md-2 col-sm-0 col-xs-0"></div>
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <?php
+            if ($form_msg == true) {
+                echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-info-circle fa-4" >&nbsp;</i>
+                        <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
+                    </div>';
+                unset($form_msg);
+            }
+        ?>
+    </div>
+    <div class="col-md-2 col-sm-0 col-xs-0"></div>
+ 
+    <div class="col-md-12">
         
         <div class="input-group-sm">
-            <a href="<?php echo HOME_URI; ?>/user-register/" title="Adiciona um usuário no sistema." class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar usuário </a>
+            <a href="<?php echo HOME_URI; ?>/users/register-user" title="Adicionar dentista" class="btn btn-sm btn-primary "><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO DENTISTA </a>
+            <a href="<?php echo HOME_URI; ?>/users/register-employee" title="Adicionar usuário" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO USUÁRIO </a>
         </div>
         <br>
           
         <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
-        <?php $lista = $modelo->get_user_list();?>
+        
         
         <div class="panel"> <!-- Start panel -->
-            <div class="panel-heading text-center"><?= Translate::t('dMsg_2'); ?></div>
             
-            <table class="table table-hover  table-text-center table-responsive">
-                <?php if ($lista): ?>
+            
+            <table id="table-users" class="table table-hover  table-text-center table-responsive">
+                <?php   $lista = $modelo->get_listar();    ?>
+                <?php if ($lista):  ?>
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th><?= Translate::t('dMsg_3'); ?></th>
-                        <!--<th><?= Translate::t('dMsg_4'); ?></th>-->
                         <th><?= Translate::t('dMsg_5'); ?></th>
                         <th><?= Translate::t('dMsg_6'); ?></th>
                         <th><?= Translate::t('dMsg_7'); ?></th>
@@ -48,63 +82,69 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                        else:
+                            echo '<tr><td>Não a usuário cadastrado no sistema.</td></tr>';
+                        endif;
+                    ?>
                     
                     <?php foreach ($lista as $fetch_userdata): ?>
                         <tr>
                             <td>
-                                <?= $fetch_userdata['user_id'] ?>
+                                <?= $fetch_userdata['user_name']; ?>
                             </td>
                             <td>
-                                <?= $fetch_userdata['user_name'] ?>
-                            </td>
-                            <td>
-                                <?= $fetch_userdata['user_email'] ?>
+                                <?= $fetch_userdata['user_email']; ?>
                             </td>
                             
                             <td>
-                                <a href="<?= HOME_URI; ?>/user-register/index/edit/<?= $fetch_userdata['user_id']; ?>" class="btn btn-sx btn-info"  title="<?= Translate::t('dMsg_10'); ?>">
-                                    <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>
+                                <?php if ($fetch_userdata['user_role_id'] == 1 OR $fetch_userdata['user_role_id'] == 2):  ?>
+                                    <a href="<?= HOME_URI; ?>/users/register-employee?emp=<?= $modelo->encode_decode($fetch_userdata['user_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
+                                        <i style="color: #73a839;" class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                
+                                
+                                <?php
+                                    else:
+                                        echo'<a href="'.HOME_URI.'/users/register-dentist?de='. $modelo->encode_decode($fetch_userdata['user_id']).'" class="btn btn-sm btn-default"  title="'. Translate::t('dMsg_10').'">
+                                                    <i style="color: #73a839;" class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>';
+                                    endif;
+                                ?>
+                            </td>
+                            
+                            <td>
+                                <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                                    <i style="color: #c71c22;" class="fa fa-2x fa-times" aria-hidden="true"></i>
                                 </a>
                             </td>
-                            
                             <td>
-                                <button class="btn btn-sx btn-danger openBtn" data-toggle="modal" data-target="myModal"  title="<?= Translate::t('dMsg_11'); ?>" >
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-sx btn-success"  title="<?= Translate::t('dMsg_12'); ?>" >
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                </button>
+                                 <a href="<?= HOME_URI; ?>/providers/box-view?v=<?= $modelo->encode_decode($fetch_userdata['user_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
+                                    <i style="color: #2fa4e7;" class="fa fa-2x fa-info-circle" aria-hidden="true"></i>
+                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                    <?php
-                      else:
-                        echo '<tr><td><b>Não a usuário cadastrado no sistema.</b></td></tr>';
-                      endif;
-                    ?>
                 </tbody>
             </table>
             <div class="panel-footer"></div>
         </div> <!-- /End start panel -->
-           
-
-        
+          
+        <!-- Start Modal deletar users -->
         <div class="modal in fade"  role="dialog" id="myModal">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Remoção de usuário</h4>
+                        <h5 class="modal-title"><span style="colo" class=" info glyphicon glyphicon-floppy-remove">&nbsp;</span>ELIMINAR REGISTRO</h5>
                     </div>
                     <div class="modal-body">
-                        Tem certeza que deseja remover este usuário? não sera possivel reverter isso.
+                        <p class="text-justify">Tem certeza que deseja remover este registro? não sera possível reverter isso.</p>
                     </div>
                     <div class="modal-footer">
 
-                        <a href="<?php echo HOME_URI; ?>/user-register/" class="btn btn-primary">Não remover</a>
-                        <a href="<?= HOME_URI ?>/users/index/del/<?= $fetch_userdata['user_id'] ?>/confirma" class="btn btn-danger" >Remover</a>
+                        <a href="<?= HOME_URI; ?>/users" class="btn btn-primary">Desistir</a>
+                        <a href="<?= HOME_URI; ?>/users?d=<?= $modelo->encode_decode($fetch_userdata['user_id']); ?> " class="btn btn-danger" >Eliminar</a>
 
                     </div>
                 </div><!-- /.modal-content -->

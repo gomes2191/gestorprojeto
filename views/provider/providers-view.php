@@ -48,12 +48,11 @@
             <a href="<?= HOME_URI; ?>/providers/cad" title="Adiciona fornecedor." class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar fornecedor </a>
         </div>
         <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
-        <?php $lista = $modelo->get_listar(); ?>
         <div class="panel"> <!-- Start panel -->
             <div class="panel-heading text-center"><h5>FORNECEDORES CADASTRADO NO SISTEMA</h5></div>
-            
             <div class="table-responsive">
                 <table id="table-for" class="table table-hover">
+                <?php $lista = $modelo->get_listar(); ?>
                 <?php if ($lista): ?>
                 <thead>
                     <tr>
@@ -82,7 +81,6 @@
                                 </a>
                             </td>
                             <td>
-                                <?php $id = $fetch_userdata['provider_id'];?>
                                 <a href="<?= HOME_URI; ?>/providers/box-view?v=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
                                     <i style="color: #2fa4e7;" class="fa fa-2x fa-info-circle" aria-hidden="true"></i>
                                 </a>

@@ -1,29 +1,30 @@
-<?php   if (!defined('ABSPATH')) {  exit();   }
-
+<?php 
+    if (!defined('ABSPATH')){ exit(); }
+    $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
+    
+    if(isset($get['emp'])){ $parametros = $get['emp']; }
+    
     #   Carrega todos os métodos do modelo
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
-    
     $form_msg = $modelo->form_msg;
-    
-    var_dump($modelo->format_padrao('2815088', 'rg'));
+    $modelo->get_register_form($parametros, 1);
+    unset($parametros, $get);
 ?>
 
-
-
 <div class="row-fluid">  
-    <div class="col-md-1 col-xs-1"></div>
-    <div class="col-md-10  col-xs-10">
+    <div class="col-md-1 col-xs-1 col-sm-1"></div>
+    <div class="col-md-10  col-sm-10 col-xs-10">
         <?php
-            if ($form_msg == true) {
-                echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+        if ($form_msg == true) {
+            echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <i class="fa fa-info-circle fa-4" >&nbsp;</i>
                         <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
                     </div>';
-                unset($form_msg);
-            }
+            unset($form_msg);
+        }
         ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             <div class="row form-compact">
@@ -52,8 +53,7 @@
                         <label for="user_name">Nome:</label>
                         <input type="hidden" name="user_id" value="<?= htmlentities(chk_array($modelo->form_data, 'user_id')); ?>">
                         <input type="text" name="user_name" placeholder="Nome completo... " value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_name'));
-                        ?>" class="form-control" id="user_name" 
+                               echo htmlentities(chk_array($modelo->form_data, 'user_name'));   ?>" class="form-control" id="user_name" 
                                data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                                data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
@@ -66,7 +66,7 @@
 
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="user_rg">RG:</label>
-                        <input id="user_rg" name="user_rg" class="rg form-control" type="text" placeholder="0.000.000">
+                        <input id="user_rg" name="user_rg" class="rg form-control" type="text" placeholder="Somente números...">
                         <br>
                     </div>
 
@@ -86,15 +86,15 @@
                     </div>
                     <br>
                 </div>
-
+                    <?php $lista = $modelo->get_col_data(); ?>
                 <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="user_civil_status">Estado civil:</label>
                         <select name="user_civil_status" class="form-control">
-                            <option value="0">Não informado</option>
-                            <option value="1">Solteiro</option>
-                            <option value="2">Casado</option>
-                            <option value="3">Divorciado</option>
+                    <?php foreach ($lista as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
+                    <?php endforeach;
+                    unset($lista, $fetch_userdata); ?>
                         </select>
                         <br>
                     </div>
@@ -117,8 +117,8 @@
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="user_name_mother">Nome da mãe:</label>
-                        <input name="user_name_mother" class="form-control" type="text" placeholder="Nome da mãe...">
+                        <label for="user_mother_name">Nome da mãe:</label>
+                        <input name="user_mother_name" class="form-control" type="text" placeholder="Nome da mãe...">
                         <br>
                     </div>
                 </div>
@@ -126,15 +126,12 @@
                     <div class="form-group col-md-5 col-sm-4 col-xs-6">
                         <label for="user_address">Endereço:</label>
                         <input name="user_address" class="form-control" type="text" placeholder="Endereço...">
-
                     </div>
-
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="user_district">Bairro:</label>
                         <input name="user_district" class="form-control" type="text" placeholder="Bairro...">
                         <br>
                     </div>
-
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="user_city">Cidade:</label>
                         <input name="user_city" class="form-control" type="text" placeholder="Cidade...">
@@ -147,11 +144,9 @@
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="user_cep">CEP:</label>
-                        <input id="user_cep" name="user_cep" class="form-control" type="text" placeholder="00000-000">
+                        <input id="user_cep" name="user_cep" class=" cep form-control" type="text" placeholder="00000-000">
                     </div>
-                    
                 </div>
-
                 <div class="row form-compact">
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="user_func_pri">Função Principal:</label>
@@ -173,11 +168,9 @@
                         <input id="user_date_adm" name="user_date_adm" class="data form-control" type="text" placeholder="dd/mm/aaaa" >
                         <br>
                     </div>
-                    
-                    
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="user_active">Status ativo: Sim / Não</label>
-                        <select name="user_status" class="form-control">
+                        <select name="user_active" class="form-control">
                             <option value='0'>Não</option>
                             <option value='1'>Sim</option>
                         </select>
@@ -189,35 +182,94 @@
             <fieldset >
                 <legend>Informações de login</legend>
                 <div class="row form-compact">
-                    <div class="form-group hide-show col-md-3 col-sm-2 col-xs-6">
+                    <div class="form-group  col-md-4 col-sm-12 col-xs-12">
                         <label for="user_email">Email este será o usuário:</label>
                         <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_email'));
-                        ?>" class="form-control" id="user_email" >
+                        echo htmlentities(chk_array($modelo->form_data, 'user_email'));?>" class="form-control" id="user_email" >
+                        <p></p>
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="panel panel-primary">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading"><b style="color: #FFF;">TIPO DE PERMISSÃO 1</b></div>
+
+                                <!-- List group -->
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        Pode adicionar usuário
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionDefault" class="label-default"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 2
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 3
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionSuccess" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 4
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 5
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionWarning" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionWarning" class="label-warning"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 6
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionDanger" class="label-danger"></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div> 
+                        </div>
                     </div>
-                    <div class="form-group hide-show col-md-3 col-sm-3 col-xs-6">
-                        <label for="user_password"> Senha: </label>
+                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                        <label for="user_password"> Senha:</label>
                         <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..."
-                        value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
+                               value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
+                        <p></p>
+                    </div>
+
+
+                    <div class="form-group col-md-5 col-sm-12 col-xs-12">
+                        <br>
+                        <div class="btn-group">
+                            <button id="user-register-btn" type="submit" class="btn btn-primary" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >Cadastra
+                                <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="btn-group">
+                            <a href="<?= HOME_URI; ?>/users/" class="btn btn-default">
+                                Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="btn-group">
+                            <button type="reset" class="btn btn-warning">Limpar 
+                                <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
                 <br>
             </fieldset>
-            <div class="btn-group">
-                <button id="user-register-btn" type="submit" class="btn btn-default" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >Cadastra
-                    <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
-                </button>
-            </div>
-            <div class="btn-group">
-                <a href="<?php echo HOME_URI ?>/users/" class="btn btn-default">
-                    Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i>
-                </a>
-            </div>
-            <div class="btn-group">
-                <button type="reset" class="btn btn-warning">Limpar 
-                    <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
-                </button>
-            </div>
         </form>
     </div>
     <div class="col-md-1 col-xs-1"></div>

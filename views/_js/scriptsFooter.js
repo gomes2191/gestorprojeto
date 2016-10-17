@@ -36,11 +36,6 @@ $(document).ready(function () {
         mask: '999.999.999-99'
     });
 
-
-    $('.rg').inputmask({
-        mask: '9.999.999'
-    });
-
     $('.cep').inputmask({
         mask: '99999-999'
     });
