@@ -1,0 +1,25 @@
+
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (1, 'Cirurgia e Traumatologia Buco Maxilo Faciais');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (2, 'Clínica Geral');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (3, 'Dentistica');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (4, 'Dentistica Restauradora');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (5, 'Disfuncao Temporo-Mandibular e Dor-Orofacial');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (6, 'Endodontia');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (7, 'Estomatologia');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (8, 'Implantodontia');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (9, 'Odontogeriatria');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (10, 'Odontologia do Trabalho');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (11, 'Odontologia em Saude Coletiva');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (12, 'Odontologia Legal');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (13, 'Odontologia para Pacientes com Necessidades Especiais');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (14, 'Odontopediatria');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (15, 'Ortodontia');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (16, 'Ortodontia e Ortopedia Facial');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (17, 'Ortopedia Funcional dos Maxilares');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (18, 'Patologia Bucal');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (19, 'Periodontia');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (20, 'Protese Buco Maxilo Facial');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (21, 'Protese Dentaria');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (22, 'Radiologia');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (23, 'Radiologia Odontologica e Imaginologia');
+INSERT INTO `migration_ov`.`users_esp` (`esp_id`, `esp`) VALUES (24, 'Saúde Coletiva');

@@ -184,7 +184,7 @@ class UsersModel extends MainModel {
             'user_rg'               => $this->only_filter_number(chk_array($this->form_data, 'user_rg')),
             'user_birth'            => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_birth')),
             'user_gen'              => chk_array($this->form_data, 'user_gen'),
-            'user_civil_status'     => chk_array($this->form_data, 'user_civil_status'),
+            'user_civil_status_id'     => (int) $this->only_filter_number(chk_array($this->form_data, 'user_civil_status')),
             'user_phone_home'       => $this->only_filter_number(chk_array($this->form_data, 'user_phone_home')),
             'user_cel_phone'        => $this->only_filter_number(chk_array($this->form_data, 'user_cel_phone')),
             'user_father_name'      => $this->form_data['user_father_name'],
@@ -417,7 +417,7 @@ class UsersModel extends MainModel {
     public function get_col_data() {
 
         #   Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query('SELECT * FROM `civil_status` ORDER BY civil_status_id');
+        $query = $this->db->query('SELECT * FROM `users_civil_status` ORDER BY civil_status_id');
 
         // Verifica se a consulta está OK
         if (!$query) {

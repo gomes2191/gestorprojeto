@@ -23,7 +23,7 @@
        <?= ($modelo['user_rg']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>RG:</b> '.$modelo['user_rg'].'</li>' : '' ?>
        <?= ($modelo['user_birth']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Data de nascimento:</b> '.$modelo['user_birth'].'</li>' : '' ?>
        <?= ($modelo['user_gen']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Sexo:</b> '.$modelo['user_gen'].'</li>' : '' ?>
-       <?= ($modelo['user_civil_status']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Estado civil:</b> '.$modelo['user_civil_status'].'</li>' : '' ?>
+       <?= ($modelo['user_civil_status_id']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Estado civil:</b> '.$modelo['user_civil_status_id'].'</li>' : '' ?>
        <?= ($modelo['user_phone_home']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Telefone casa:</b> '.$modelo['user_phone_home'].'</li>' : '' ?>
        <?= ($modelo['user_phone_cel']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Celular:</b> '.$modelo['user_phone_cel'].'</li>' : '' ?>
        <?= ($modelo['user_father_name']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Nome do pai:</b> '.$modelo['user_father_name'].'</li>' : '' ?>

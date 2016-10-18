@@ -155,9 +155,7 @@
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
                         <label for="cep">CEP:</label>
                         <input id="cep" name="cep" class="form-control" type="text" placeholder="00000-000">
-
                     </div>
-
                 </div>
 
                 <div class="row form-compact">
@@ -191,8 +189,6 @@
                         </select>
                         <br>
                     </div>
-
-
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
                         <label for="esp-2">Área de especialização 2:</label>
                         <select name="esp-2" class="form-control" id="esp-2">
@@ -298,10 +294,10 @@
                     </div>
 
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
-                        <label for="seg-1">Segunda-feira:</label>
-                        <input name="seg-1" id="seg-1" class="form-control" type="text" placeholder="hh:mm">
+                        <label for="seg_1">Segunda-feira:</label>
+                        <input name="seg_1" id="seg-1" class="form-control" type="text" placeholder="hh:mm">
                         <br>
-                        <input name="seg-2" id="seg-2" class="form-control" type="text" placeholder="hh:mm">
+                        <input name="seg_2" id="seg-2" class="form-control" type="text" placeholder="hh:mm">
                         <br>
                     </div>
 
@@ -349,41 +345,96 @@
                 </div>
             </fieldset>
             <br>
-            <fieldset class="hide-show-geral">
+            <fieldset >
                 <legend>Informações de login</legend>
                 <div class="row form-compact">
-                    <div class="form-group hide-show col-md-3 col-sm-2 col-xs-6">
-                        <label for="user-email">Email este será o usuário:</label>
+                    <div class="form-group  col-md-4 col-sm-12 col-xs-12">
+                        <label for="user_email">Email este será o usuário:</label>
                         <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_email'));
-                        ?>" class="form-control" id="user_email" >
+                        echo htmlentities(chk_array($modelo->form_data, 'user_email'));?>" class="form-control" id="user_email" >
+                        <p></p>
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="panel panel-primary">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading"><b style="color: #FFF;">TIPO DE PERMISSÃO 1</b></div>
+
+                                <!-- List group -->
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        Pode adicionar usuário
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionDefault" class="label-default"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 2
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 3
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionSuccess" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 4
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 5
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionWarning" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionWarning" class="label-warning"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nivel 6
+                                        <div class="material-switch pull-right">
+                                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
+                                            <label for="someSwitchOptionDanger" class="label-danger"></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div> 
+                        </div>
                     </div>
-                    <div class="form-group hide-show col-md-3 col-sm-3 col-xs-6">
-                        <label for="user_password"> Senha: </label>
+                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                        <label for="user_password"> Senha:</label>
                         <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..."
                                value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
+                        <p></p>
+                    </div>
+
+                    <div class="form-group col-md-5 col-sm-12 col-xs-12">
+                        <br>
+                        <div class="btn-group">
+                            <button id="user-register-btn" type="submit" class="btn btn-primary" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >Cadastra
+                                <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="btn-group">
+                            <a href="<?= HOME_URI; ?>/users" class="btn btn-default">
+                                Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="btn-group">
+                            <button type="reset" class="btn btn-warning">Limpar 
+                                <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
                 <br>
             </fieldset>
-            <div class="btn-group hide-show-geral">
-                <button id="user-register-btn" type="submit" class="btn btn-default" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >Cadastra
-                    <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
-                </button>
-            </div>
-            <div class="btn-group hide-show-geral">
-                <a href="<?php echo HOME_URI ?>/users/" class="btn btn-default">
-                    Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i>
-                </a>
-            </div>
-            <div class="btn-group hide-show-geral">
-
-                <button type="reset" class="btn btn-warning">Limpar 
-                    <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
-                </button>
-            </div>
-
-
         </form>
     </div>
     <div class="col-md-1 col-xs-0 col-sm-0"></div>

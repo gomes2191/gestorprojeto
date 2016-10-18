@@ -1,9 +1,6 @@
-/*
--- Query: 
--- Date: 2016-10-14 23:52
-*/
-INSERT INTO `civil_status` (`civil_status_id`,`civil_status`) VALUES (1,'Solteiro (ª)');
-INSERT INTO `civil_status` (`civil_status_id`,`civil_status`) VALUES (2,'Casado (ª)');
-INSERT INTO `civil_status` (`civil_status_id`,`civil_status`) VALUES (3,'Separado (ª)');
-INSERT INTO `civil_status` (`civil_status_id`,`civil_status`) VALUES (4,'Divorciado (ª)');
-INSERT INTO `civil_status` (`civil_status_id`,`civil_status`) VALUES (5,'Viúvo (ª)');
+INSERT INTO `migration_ov`.`civil_status` (`civil_status`) VALUES ('Solteiro (a)');
+INSERT INTO `migration_ov`.`civil_status` (`civil_status`) VALUES ('Casado (a)');
+INSERT INTO `migration_ov`.`civil_status` (`civil_status`) VALUES ('Separado (a)');
+INSERT INTO `migration_ov`.`civil_status` (`civil_status`) VALUES ('Divorciado (a)');
+INSERT INTO `migration_ov`.`civil_status` (`civil_status`) VALUES ('Viúvo (a)');
+

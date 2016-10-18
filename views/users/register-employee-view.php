@@ -92,7 +92,7 @@
                         <label for="user_civil_status">Estado civil:</label>
                         <select name="user_civil_status" class="form-control">
                     <?php foreach ($lista as $fetch_userdata): ?>
-                                <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
+                                <option value="<?= $fetch_userdata['civil_status_id']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
                     <?php endforeach;
                     unset($lista, $fetch_userdata); ?>
                         </select>
