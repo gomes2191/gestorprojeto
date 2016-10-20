@@ -38,7 +38,7 @@
                             <span class="btn btn-default btn-file">
                                 <span class="fileinput-new">Selecionar imagem</span>
                                 <span class="fileinput-exists">Alterar</span>
-                                <input type="file"  name="img_perfil" >
+                                <input type="file"  name="user_img_profile" >
                             </span>
                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                         </div>
@@ -92,12 +92,11 @@
 
                 <div class="row form-compact">
                      <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="employee_estado_civil">Estado civil:</label>
-                        <select name="employee_estado_civil" class="form-control">
-                            <option value="1">Não informado</option>
-                            <option value="1">Solteiro</option>
-                            <option value="2">Casado</option>
-                            <option value="3">Divorciado</option>
+                        <label for="user_civil_status">Estado civil:</label>
+                        <select name="user_civil_status" class="form-control">
+                            <?php $lista = $modelo->get_col_data('civil_status', 'users_civil_status','civil_status_id'); foreach ($lista as $fetch_userdata):  ?>
+                            <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
+                            <?php endforeach;   unset($lista, $fetch_userdata); ?>
                         </select>
                         <br>
                     </div>
@@ -114,14 +113,14 @@
                     </div>
 
                     <div class="form-group hide-show col-md-3 col-sm-4 col-xs-6">
-                        <label for="name-pai">Nome do pai:</label>
-                        <input name="name-pai" class="form-control" type="text" placeholder="Nome do pai...">
+                        <label for="user_father_name">Nome do pai:</label>
+                        <input name="user_father_name" class="form-control" type="text" placeholder="Nome do pai...">
                         <br>
                     </div>
 
                     <div class="form-group hide-show col-md-3 col-sm-4 col-xs-6">
-                        <label for="name-mae">Nome da mãe:</label>
-                        <input name="name-mae" class="form-control" type="text" placeholder="Nome da mãe...">
+                        <label for="user_mother_name">Nome da mãe:</label>
+                        <input name="user_mother_name" class="form-control" type="text" placeholder="Nome da mãe...">
                         <br>
                     </div>
 
@@ -160,93 +159,29 @@
 
                 <div class="row form-compact">
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
-                        <label for="esp-1">Área de especialização 1:</label>
-                        <select name="esp-1" class="form-control" id="esp-1">
-                            <option value="1">Cirurgia e Traumatologia Buco Maxilo Faciais</option>
-                            <option value="2">Clínica Geral</option>
-                            <option selected="selected" value="3">Dentistica</option>
-                            <option value="4">Dentistica Restauradora</option>
-                            <option value="5">Disfuncao Temporo-Mandibular e Dor-Orofacial</option>
-                            <option value="6">Endodontia</option>
-                            <option value="7">Estomatologia</option>
-                            <option value="8">Implantodontia</option>
-                            <option value="13">Odontogeriatria</option>
-                            <option value="9">Odontologia do Trabalho</option>
-                            <option value="10">Odontologia em Saude Coletiva</option>
-                            <option value="11">Odontologia Legal</option>
-                            <option value="12">Odontologia para Pacientes com Necessidades Especiais</option>
-                            <option value="14">Odontopediatria</option>
-                            <option value="15">Ortodontia</option>
-                            <option value="16">Ortodontia e Ortopedia Facial</option>
-                            <option value="17">Ortopedia Funcional dos Maxilares</option>
-                            <option value="18">Patologia Bucal</option>
-                            <option value="19">Periodontia</option>
-                            <option value="20">Protese Buco Maxilo Facial</option>
-                            <option value="21">Protese Dentaria</option>
-                            <option value="22">Radiologia</option>
-                            <option value="23">Radiologia Odontologica e Imaginologia</option>
-                            <option value="24">Saúde Coletiva</option>
+                        <label for="esp_1">Área de especialização 1:</label>
+                        <select name="esp_1" class="form-control" id="esp_1">
+                            <?php $lista = $modelo->get_col_data('esp', 'users_esp', 'esp_id'); foreach($lista as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['esp']; ?>"><?= $fetch_userdata['esp']; ?></option>
+                            <?php endforeach; unset($lista, $fetch_userdata); ?>
                         </select>
                         <br>
                     </div>
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
-                        <label for="esp-2">Área de especialização 2:</label>
-                        <select name="esp-2" class="form-control" id="esp-2">
-                            <option value="1">Cirurgia e Traumatologia Buco Maxilo Faciais</option>
-                            <option value="2">Clínica Geral</option>
-                            <option selected="selected" value="3">Dentistica</option>
-                            <option value="4">Dentistica Restauradora</option>
-                            <option value="5">Disfuncao Temporo-Mandibular e Dor-Orofacial</option>
-                            <option value="6">Endodontia</option>
-                            <option value="7">Estomatologia</option>
-                            <option value="8">Implantodontia</option>
-                            <option value="13">Odontogeriatria</option>
-                            <option value="9">Odontologia do Trabalho</option>
-                            <option value="10">Odontologia em Saude Coletiva</option>
-                            <option value="11">Odontologia Legal</option>
-                            <option value="12">Odontologia para Pacientes com Necessidades Especiais</option>
-                            <option value="14">Odontopediatria</option>
-                            <option value="15">Ortodontia</option>
-                            <option value="16">Ortodontia e Ortopedia Facial</option>
-                            <option value="17">Ortopedia Funcional dos Maxilares</option>
-                            <option value="18">Patologia Bucal</option>
-                            <option value="19">Periodontia</option>
-                            <option value="20">Protese Buco Maxilo Facial</option>
-                            <option value="21">Protese Dentaria</option>
-                            <option value="22">Radiologia</option>
-                            <option value="23">Radiologia Odontologica e Imaginologia</option>
-                            <option value="24">Saúde Coletiva</option>
+                        <label for="esp_2">Área de especialização 2:</label>
+                        <select name="esp_2" class="form-control" id="esp_2">
+                            <?php $lista = $modelo->get_col_data('esp', 'users_esp', 'esp_id'); foreach($lista as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['esp']; ?>"><?= $fetch_userdata['esp']; ?></option>
+                            <?php endforeach; unset($lista, $fetch_userdata); ?>
                         </select>
                         <br>
-
                     </div>
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
-                        <label for="esp-3">Área de especialização 3:</label>
-                        <select name="esp-3" class="form-control" id="esp-3">
-                            <option value="1">Cirurgia e Traumatologia Buco Maxilo Faciais</option>
-                            <option value="2">Clínica Geral</option>
-                            <option selected="selected" value="3">Dentistica</option>
-                            <option value="4">Dentistica Restauradora</option>
-                            <option value="5">Disfuncao Temporo-Mandibular e Dor-Orofacial</option>
-                            <option value="6">Endodontia</option>
-                            <option value="7">Estomatologia</option>
-                            <option value="8">Implantodontia</option>
-                            <option value="13">Odontogeriatria</option>
-                            <option value="9">Odontologia do Trabalho</option>
-                            <option value="10">Odontologia em Saude Coletiva</option>
-                            <option value="11">Odontologia Legal</option>
-                            <option value="12">Odontologia para Pacientes com Necessidades Especiais</option>
-                            <option value="14">Odontopediatria</option>
-                            <option value="15">Ortodontia</option>
-                            <option value="16">Ortodontia e Ortopedia Facial</option>
-                            <option value="17">Ortopedia Funcional dos Maxilares</option>
-                            <option value="18">Patologia Bucal</option>
-                            <option value="19">Periodontia</option>
-                            <option value="20">Protese Buco Maxilo Facial</option>
-                            <option value="21">Protese Dentaria</option>
-                            <option value="22">Radiologia</option>
-                            <option value="23">Radiologia Odontologica e Imaginologia</option>
-                            <option value="24">Saúde Coletiva</option>
+                        <label for="esp_3">Área de especialização 3:</label>
+                        <select name="esp_3" class="form-control" id="esp_3">
+                            <?php $lista = $modelo->get_col_data('esp', 'users_esp', 'esp_id'); foreach($lista as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['esp']; ?>"><?= $fetch_userdata['esp']; ?></option>
+                            <?php endforeach; unset($lista, $fetch_userdata); ?>
                         </select>
 
                     </div>

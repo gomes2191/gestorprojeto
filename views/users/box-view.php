@@ -23,9 +23,9 @@
        <?= ($modelo['user_rg']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>RG:</b> '.$modelo['user_rg'].'</li>' : '' ?>
        <?= ($modelo['user_birth']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Data de nascimento:</b> '.$modelo['user_birth'].'</li>' : '' ?>
        <?= ($modelo['user_gen']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Sexo:</b> '.$modelo['user_gen'].'</li>' : '' ?>
-       <?= ($modelo['user_civil_status_id']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Estado civil:</b> '.$modelo['user_civil_status_id'].'</li>' : '' ?>
-       <?= ($modelo['user_phone_home']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Telefone casa:</b> '.$modelo['user_phone_home'].'</li>' : '' ?>
-       <?= ($modelo['user_phone_cel']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Celular:</b> '.$modelo['user_phone_cel'].'</li>' : '' ?>
+       <?= ($modelo['user_civil_status']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Estado civil:</b> '.$modelo['user_civil_status'].'</li>' : '' ?>
+       <?= ($modelo['user_home_phone']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Telefone casa:</b> '.$modelo['user_home_phone'].'</li>' : '' ?>
+       <?= ($modelo['user_cel_phone']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Celular:</b> '.$modelo['user_cel_phone'].'</li>' : '' ?>
        <?= ($modelo['user_father_name']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Nome do pai:</b> '.$modelo['user_father_name'].'</li>' : '' ?>
        <?= ($modelo['user_mother_name']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Nome da mãe:</b> '.$modelo['user_mother_name'].'</li>' : '' ?>
        <?= ($modelo['user_address']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Endereço:</b> '.$modelo['user_address'].'</li>' : '' ?>
@@ -38,20 +38,9 @@
        <?= ($modelo['user_func_sec']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Função Secundária:</b> '.$modelo['user_func_sec'].'</li>' : '' ?>
        <?= ($modelo['user_date_adm']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Data de Admissão:</b> '.$modelo['user_date_dem'].'</li>' : '' ?>
        <?= ($modelo['user_date_dem']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Data de Demissão:</b> '.$modelo['user_date_dem'].'</li>' : '' ?>
-       <?= ($modelo['provider_rep_tel_1']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Representante telefone 1:</b> '.$modelo['provider_rep_tel_1'].'</li>' : '' ?>
-       <?= ($modelo['provider_rep_tel_2']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Representante telefone 2:</b> '.$modelo['provider_rep_tel_2'].'</li>' : '' ?>
-       <?= ($modelo['provider_rep_email']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Representante email:</b> '.$modelo['provider_rep_email'].'</li>' : '' ?>
         <br>
-       <?= ($modelo['provider_banco_1']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Banco 1:</b> '.$modelo['provider_banco_1'].'</li>' : '' ?>
-       <?= ($modelo['provider_agencia_1']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Agência 1:</b> '.$modelo['provider_agencia_1'].'</li>' : '' ?>
-       <?= ($modelo['provider_conta_1']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Conta 1:</b> '.$modelo['provider_conta_1'].'</li>' : '' ?>
-       <?= ($modelo['provider_titular_1']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Titular 1:</b> '.$modelo['provider_titular_1'].'</li>' : '' ?>
-        <br>
-       <?= ($modelo['provider_banco_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Banco 2:</b> '.$modelo['provider_banco_2'].'</li>' : '' ?>
-       <?= ($modelo['provider_agencia_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Agência 2:</b> '.$modelo['provider_agencia_2'].'</li>' : '' ?>
-       <?= ($modelo['provider_conta_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Conta 2:</b> '.$modelo['provider_conta_2'].'</li>' : '' ?>
-       <?= ($modelo['provider_titular_2']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Titular 2:</b> '.$modelo['provider_titular_2'].'</li>' : '' ?>
-       <?= ($modelo['provider_obs']) ? '<li class="list-group-item list-group-item-default list-group-item-text"><b>Outras informações:</b> '.$modelo['provider_obs'].'</li>' : '' ?>
+       <?= ($modelo['user_active']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Status:</b> '.$modelo['user_active'].'</li>' : '' ?>
+       
     </ul>
 </div>
 <div class="modal-footer">

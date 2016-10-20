@@ -52,7 +52,7 @@
         ?>
         
         <div class="input-group-sm">
-            <a href="<?= HOME_URI; ?>/users/register-user" title="Adicionar dentista" class="btn btn-sm btn-primary "><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO DENTISTA </a>
+            <a href="<?= HOME_URI; ?>/users/register-dentist" title="Adicionar dentista" class="btn btn-sm btn-primary "><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO DENTISTA </a>
             <a href="<?= HOME_URI; ?>/users/register-employee" title="Adicionar usuário" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO USUÁRIO </a>
         </div>
         <br>

@@ -74,7 +74,7 @@ class UsersModel extends MainModel {
             foreach ($_POST as $key => $value) {
 
                 #   Configura os dados do post para a propriedade $form_data
-                $this->form_data[$key] = $this->avaliar($value);
+                $this->form_data[$key] = ($value);
             } #-->  Faz lop dos dados do post
             
             #   Destroy variaveis não mais utilizadas
@@ -184,8 +184,8 @@ class UsersModel extends MainModel {
             'user_rg'               => $this->only_filter_number(chk_array($this->form_data, 'user_rg')),
             'user_birth'            => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_birth')),
             'user_gen'              => chk_array($this->form_data, 'user_gen'),
-            'user_civil_status_id'     => (int) $this->only_filter_number(chk_array($this->form_data, 'user_civil_status')),
-            'user_phone_home'       => $this->only_filter_number(chk_array($this->form_data, 'user_phone_home')),
+            'user_civil_status'     => chk_array($this->form_data, 'user_civil_status'),
+            'user_home_phone'       => $this->only_filter_number(chk_array($this->form_data, 'user_phone_home')),
             'user_cel_phone'        => $this->only_filter_number(chk_array($this->form_data, 'user_cel_phone')),
             'user_father_name'      => $this->form_data['user_father_name'],
             'user_mother_name'      => $this->form_data['user_mother_name'],
@@ -411,20 +411,21 @@ class UsersModel extends MainModel {
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_listar() 
-     *   @Descrição: Pega o ID passado na função e retorna os valores.
+     *   @Função: get_col_data() 
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_col_data() {
+    public function get_col_data($campo, $table, $id) {
 
         #   Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query('SELECT DISTINCT users_civil_status.*, users_esp.* FROM users_civil_status RIGHT JOIN users_esp on users_civil_status.civil_status_id = users_esp.esp_id');
+        $query = $this->db->query("SELECT  $campo FROM $table ORDER BY $id");
 
         // Verifica se a consulta está OK
         if (!$query) {
             return array();
         }
+        
         // Retorna os valores da consulta
-        return $query->fetchAll();
+        return $query->fetchAll(PDO::FETCH_BOTH);
     }
 
 // End get_listar()
@@ -624,4 +625,5 @@ class UsersModel extends MainModel {
             }
         }
     }   # End upload_imagem()
+    
 }   

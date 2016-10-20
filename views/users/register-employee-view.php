@@ -86,14 +86,14 @@
                     </div>
                     <br>
                 </div>
-                    <?php $lista = $modelo->get_col_data(); ?>
+                    
                 <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="user_civil_status">Estado civil:</label>
                         <select name="user_civil_status" class="form-control">
-                    <?php foreach ($lista as $fetch_userdata): ?>
-                                <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['esp']; ?></option>
-                    <?php endforeach;   unset($lista, $fetch_userdata); ?>
+                        <?php $lista = $modelo->get_col_data('civil_status', 'users_civil_status','civil_status_id'); foreach ($lista as $fetch_userdata):  ?>
+                            <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
+                        <?php endforeach;   unset($lista, $fetch_userdata); ?>
                         </select>
                         <br>
                     </div>
