@@ -38,8 +38,7 @@
        <?= ($modelo['user_func_sec']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Função Secundária:</b> '.$modelo['user_func_sec'].'</li>' : '' ?>
        <?= ($modelo['user_date_adm']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Data de Admissão:</b> '.$modelo['user_date_dem'].'</li>' : '' ?>
        <?= ($modelo['user_date_dem']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Data de Demissão:</b> '.$modelo['user_date_dem'].'</li>' : '' ?>
-        <br>
-       <?= ($modelo['user_active']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Status:</b> '.$modelo['user_active'].'</li>' : '' ?>
+       <?= ($modelo['user_active']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Status: </b>Ativo </li>' : '<li class="list-group-item list-group-item-danger list-group-item-text"><b>Status: </b> Desativado</li>' ?>
        
     </ul>
 </div>

@@ -56,8 +56,8 @@
             <a href="<?= HOME_URI; ?>/users/register-employee" title="Adicionar usuário" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> NOVO USUÁRIO </a>
         </div>
         <br>
-        <div class="panel"> <!-- Start panel -->
-            <table style="text-align: center;" id="table-users" class="table table-hover  table-text-center table-responsive">
+        <div class="table-responsive">
+            <table id="table-users" class="table table-hover  table-text-center table-responsive">
                 <?php   $lista = $modelo->get_listar();    ?>
                 <?php if ($lista):  ?>
                 <thead >
@@ -72,7 +72,7 @@
                 <tbody>
                     <?php
                         else:
-                            echo '<tr><td>Não a usuário cadastrado no sistema.</td></tr>';
+                            echo '<tr><td><span style="color: #FF0000;">Não a usuário cadastrado no sistema</span></td></tr>';
                         endif;
                     ?>
                     
@@ -115,8 +115,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <div class="panel-footer"></div>
-        </div> <!-- /End start panel -->
+        </div>
           
         <!-- Start Modal deletar users -->
         <div class="modal in fade"  role="dialog" id="myModal">

@@ -9,6 +9,13 @@
     $form_msg = $modelo->form_msg;
     $modelo->get_register_form($parametros, 1);
     unset($parametros, $get);
+    
+    
+//    if(filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST'){
+//         var_dump(filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT));
+//    }
+   
+
 ?>
 
 <div class="row-fluid">  

@@ -61,7 +61,7 @@ class UsersModel extends MainModel {
         $this->form_data = [];
 
         #   Verifica se algo foi postado no formulário
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST)) {
+        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
             
             if (empty(filter_input(INPUT_POST, 'user_email', FILTER_VALIDATE_EMAIL))) {
                 #   Feedback para o usuário
@@ -71,10 +71,10 @@ class UsersModel extends MainModel {
             }
 
             #   Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach ($_POST as $key => $value) {
+            foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
 
                 #   Configura os dados do post para a propriedade $form_data
-                $this->form_data[$key] = ($value);
+                $this->form_data[$key] = $value;
             } #-->  Faz lop dos dados do post
             
             #   Destroy variaveis não mais utilizadas
