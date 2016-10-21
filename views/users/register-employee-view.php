@@ -1,28 +1,30 @@
-<?php 
-    if (!defined('ABSPATH')){ exit(); }
-    $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
-    
-    if(isset($get['emp'])){ $parametros = $get['emp']; }
-    
-    #   Carrega todos os métodos do modelo
-    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
-    $form_msg = $modelo->form_msg;
-    $modelo->get_register_form($parametros, 1);
-    unset($parametros, $get);
-    
-    
+<?php
+if (!defined('ABSPATH')) {
+    exit();
+}
+$get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
+
+if (isset($get['emp'])) {
+    $parametros = $get['emp'];
+}
+
+#   Carrega todos os métodos do modelo
+(filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+$form_msg = $modelo->form_msg;
+$modelo->get_register_form($parametros, 1);
+unset($parametros, $get);
+
+
 //    if(filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST'){
 //         var_dump(filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT));
 //    }
-   
-
 ?>
 
 <div class="row-fluid">  
     <div class="col-md-1 col-xs-1 col-sm-1"></div>
     <div class="col-md-10  col-sm-10 col-xs-10">
         <?php
-            if ($form_msg == true) {
+        if ($form_msg == true) {
             echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -30,8 +32,8 @@
                         <i class="fa fa-info-circle fa-4" >&nbsp;</i>
                         <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
                     </div>';
-                unset($form_msg);
-            }
+            unset($form_msg);
+        }
         ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             <div class="row form-compact">
@@ -59,8 +61,7 @@
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
                         <label for="user_name">Nome:</label>
                         <input type="hidden" name="user_id" value="<?= htmlentities(chk_array($modelo->form_data, 'user_id')); ?>">
-                        <input type="text" name="user_name" placeholder="Nome completo... " value="<?php
-                               echo htmlentities(chk_array($modelo->form_data, 'user_name'));   ?>" class="form-control" id="user_name" 
+                        <input type="text" name="user_name" placeholder="Nome completo... " value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_name')); ?>" class="form-control" id="user_name" 
                                data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                                data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
@@ -93,14 +94,16 @@
                     </div>
                     <br>
                 </div>
-                    
+
                 <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="user_civil_status">Estado civil:</label>
                         <select name="user_civil_status" class="form-control">
-                        <?php $lista = $modelo->get_col_data('civil_status', 'users_civil_status','civil_status_id'); foreach ($lista as $fetch_userdata):  ?>
-                            <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
-                        <?php endforeach;   unset($lista, $fetch_userdata); ?>
+                            <?php $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
+                            foreach ($lista as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
+<?php endforeach;
+unset($lista, $fetch_userdata); ?>
                         </select>
                         <br>
                     </div>
@@ -190,67 +193,42 @@
                 <div class="row form-compact">
                     <div class="form-group  col-md-4 col-sm-12 col-xs-12">
                         <label for="user_email">Email este será o usuário:</label>
-                        <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_email'));?>" class="form-control" id="user_email" >
+                        <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_email')); ?>" class="form-control" id="user_email" >
                         <p></p>
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <div class="panel panel-primary">
-                                <!-- Default panel contents -->
-                                <div class="panel-heading"><b style="color: #FFF;">TIPO DE PERMISSÃO 1</b></div>
 
-                                <!-- List group -->
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        Pode adicionar usuário
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionDefault" class="label-default"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 2
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 3
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionSuccess" class="label-success"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 4
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionInfo" class="label-info"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 5
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionWarning" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionWarning" class="label-warning"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 6
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionDanger" class="label-danger"></label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div> 
-                        </div>
                     </div>
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="user_password"> Senha:</label>
                         <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..."
-                               value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
-                        <p></p>
+                        value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
+                        <br>
+                            <div class=" prmission funkyradio">
+                                <b style="color: #006400;" class="text-center">NÍVEIS DE PERMISSÃO</b>
+                                <div class="funkyradio-default">
+                                    <input type="checkbox" name="checkbox" id="checkbox1" />
+                                    <label for="checkbox1">Liga acesso a agenda</label>
+                                </div>
+                                <div class="funkyradio-primary">
+                                    <input type="checkbox" name="checkbox" id="checkbox2" />
+                                    <label for="checkbox2">Second Option primary</label>
+                                </div>
+                                <div class="funkyradio-success">
+                                    <input type="checkbox" name="checkbox" id="checkbox3" />
+                                    <label for="checkbox3">Third Option success</label>
+                                </div>
+                                <div class="funkyradio-danger">
+                                    <input type="checkbox" name="checkbox" id="checkbox4" />
+                                    <label for="checkbox4">Fourth Option danger</label>
+                                </div>
+                                <div class="funkyradio-warning">
+                                    <input type="checkbox" name="checkbox" id="checkbox5" />
+                                    <label for="checkbox5">Fifth Option warning</label>
+                                </div>
+                                <div class="funkyradio-info">
+                                    <input type="checkbox" name="checkbox" id="checkbox6" checked/>
+                                    <label for="checkbox6">Sixth Option info</label>
+                                </div>
+                            </div>
                     </div>
 
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
@@ -259,16 +237,14 @@
                             <button id="user-register-btn" type="submit" class="btn btn-primary" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >Cadastra
                                 <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
                             </button>
-                        </div>
-                        <div class="btn-group">
                             <a href="<?= HOME_URI; ?>/users" class="btn btn-default">
-                                Usuários cadastrados <i class="fa fa-users" aria-hidden="true"></i>
+                                Cadastros <i class="fa fa-users" aria-hidden="true"></i>
                             </a>
-                        </div>
-                        <div class="btn-group">
+
                             <button type="reset" class="btn btn-warning">Limpar 
                                 <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
                             </button>
+
                         </div>
 
                     </div>

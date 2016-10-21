@@ -57,6 +57,7 @@
         </div>
         <br>
         <div class="table-responsive">
+            <br>
             <table id="table-users" class="table table-hover  table-text-center table-responsive">
                 <?php   $lista = $modelo->get_listar();    ?>
                 <?php if ($lista):  ?>
@@ -115,7 +116,8 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
+            <br>
+        </div> <!--End table responsiva-->
           
         <!-- Start Modal deletar users -->
         <div class="modal in fade"  role="dialog" id="myModal">
