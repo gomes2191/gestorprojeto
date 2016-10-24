@@ -13,11 +13,6 @@ if (isset($get['emp'])) {
 $form_msg = $modelo->form_msg;
 $modelo->get_register_form($parametros, 1);
 unset($parametros, $get);
-
-
-//    if(filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST'){
-//         var_dump(filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT));
-//    }
 ?>
 
 <div class="row-fluid">  
@@ -99,11 +94,15 @@ unset($parametros, $get);
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="user_civil_status">Estado civil:</label>
                         <select name="user_civil_status" class="form-control">
-                            <?php $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
-                            foreach ($lista as $fetch_userdata): ?>
+                            <?php
+                            $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
+                            foreach ($lista as $fetch_userdata):
+                                ?>
                                 <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
-<?php endforeach;
-unset($lista, $fetch_userdata); ?>
+                            <?php
+                            endforeach;
+                            unset($lista, $fetch_userdata);
+                            ?>
                         </select>
                         <br>
                     </div>
@@ -186,7 +185,56 @@ unset($lista, $fetch_userdata); ?>
                         <br>
                     </div>
                 </div>
+
+
             </fieldset>
+
+            <div class="row form-compact">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+
+                    <span style="color: #006dcc;" class="text-center">NÍVEIS DE PERMISSÃO</span>
+                    <ul class="list-inline funkyradio">
+                        <li>
+                            <div class="funkyradio-default">
+                                <input type="checkbox" name="checkbox" id="checkbox1" />
+                                <label for="checkbox1">Acesso agenda</label>
+                            </div>
+
+                        </li>
+
+                        <li>
+                            <div class="funkyradio-primary">
+                                <input type="checkbox" name="checkbox" id="checkbox2" />
+                                <label for="checkbox2">Nivel 2</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="funkyradio-success">
+                                <input type="checkbox" name="checkbox" id="checkbox3" />
+                                <label for="checkbox3">Nivel 3</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="funkyradio-danger">
+                                <input type="checkbox" name="checkbox" id="checkbox4" />
+                                <label for="checkbox4">Nivel 4</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="funkyradio-warning">
+                                <input type="checkbox" name="checkbox" id="checkbox5" />
+                                <label for="checkbox5">Nivel 5</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="funkyradio-info">
+                                <input type="checkbox" name="checkbox" id="checkbox6" checked/>
+                                <label for="checkbox6">Nivel 6</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <br>
             <fieldset >
                 <legend>Informações de login</legend>
@@ -200,35 +248,8 @@ unset($lista, $fetch_userdata); ?>
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="user_password"> Senha:</label>
                         <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..."
-                        value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
+                               value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
                         <br>
-                            <div class=" prmission funkyradio">
-                                <b style="color: #006400;" class="text-center">NÍVEIS DE PERMISSÃO</b>
-                                <div class="funkyradio-default">
-                                    <input type="checkbox" name="checkbox" id="checkbox1" />
-                                    <label for="checkbox1">Liga acesso a agenda</label>
-                                </div>
-                                <div class="funkyradio-primary">
-                                    <input type="checkbox" name="checkbox" id="checkbox2" />
-                                    <label for="checkbox2">Second Option primary</label>
-                                </div>
-                                <div class="funkyradio-success">
-                                    <input type="checkbox" name="checkbox" id="checkbox3" />
-                                    <label for="checkbox3">Third Option success</label>
-                                </div>
-                                <div class="funkyradio-danger">
-                                    <input type="checkbox" name="checkbox" id="checkbox4" />
-                                    <label for="checkbox4">Fourth Option danger</label>
-                                </div>
-                                <div class="funkyradio-warning">
-                                    <input type="checkbox" name="checkbox" id="checkbox5" />
-                                    <label for="checkbox5">Fifth Option warning</label>
-                                </div>
-                                <div class="funkyradio-info">
-                                    <input type="checkbox" name="checkbox" id="checkbox6" checked/>
-                                    <label for="checkbox6">Sixth Option info</label>
-                                </div>
-                            </div>
                     </div>
 
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
@@ -238,10 +259,10 @@ unset($lista, $fetch_userdata); ?>
                                 <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
                             </button>
                             <a href="<?= HOME_URI; ?>/users" class="btn btn-default">
-                                Cadastros <i class="fa fa-users" aria-hidden="true"></i>
+                                Ver cadastros <i class="fa fa-users" aria-hidden="true"></i>
                             </a>
 
-                            <button type="reset" class="btn btn-warning">Limpar 
+                            <button type="reset" class="btn-limpar btn btn-warning">Limpar 
                                 <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
                             </button>
 
