@@ -16,8 +16,8 @@ unset($parametros, $get);
 ?>
 
 <div class="row-fluid">  
-    <div class="col-md-1 col-xs-1 col-sm-1"></div>
-    <div class="col-md-10  col-sm-10 col-xs-10">
+    <div class="col-md-1 col-xs-0 col-sm-0"></div>
+    <div class="col-md-10  col-sm-12 col-xs-12">
         <?php
         if ($form_msg == true) {
             echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
@@ -99,7 +99,7 @@ unset($parametros, $get);
                             foreach ($lista as $fetch_userdata):
                                 ?>
                                 <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
-                            <?php
+                                <?php
                             endforeach;
                             unset($lista, $fetch_userdata);
                             ?>
@@ -196,7 +196,7 @@ unset($parametros, $get);
                     <ul class="list-inline funkyradio">
                         <li>
                             <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox1" />
+                                <input type="checkbox" name="user_level_1" id="checkbox1" />
                                 <label for="checkbox1">Acesso agenda</label>
                             </div>
 
@@ -204,31 +204,31 @@ unset($parametros, $get);
 
                         <li>
                             <div class="funkyradio-primary">
-                                <input type="checkbox" name="checkbox" id="checkbox2" />
+                                <input type="checkbox" name="user_level_2" id="checkbox2" />
                                 <label for="checkbox2">Nivel 2</label>
                             </div>
                         </li>
                         <li>
                             <div class="funkyradio-success">
-                                <input type="checkbox" name="checkbox" id="checkbox3" />
+                                <input type="checkbox" name="user_level_3" id="checkbox3" />
                                 <label for="checkbox3">Nivel 3</label>
                             </div>
                         </li>
                         <li>
                             <div class="funkyradio-danger">
-                                <input type="checkbox" name="checkbox" id="checkbox4" />
+                                <input type="checkbox" name="user_level_4" id="checkbox4" />
                                 <label for="checkbox4">Nivel 4</label>
                             </div>
                         </li>
                         <li>
                             <div class="funkyradio-warning">
-                                <input type="checkbox" name="checkbox" id="checkbox5" />
+                                <input type="checkbox" name="user_level_5" id="checkbox5" />
                                 <label for="checkbox5">Nivel 5</label>
                             </div>
                         </li>
                         <li>
                             <div class="funkyradio-info">
-                                <input type="checkbox" name="checkbox" id="checkbox6" checked/>
+                                <input type="checkbox" name="user_level_6" id="checkbox6" checked/>
                                 <label for="checkbox6">Nivel 6</label>
                             </div>
                         </li>
@@ -267,6 +267,9 @@ unset($parametros, $get);
                             </button>
 
                         </div>
+                        
+                        
+                        
 
                     </div>
                 </div>
@@ -274,5 +277,5 @@ unset($parametros, $get);
             </fieldset>
         </form>
     </div>
-    <div class="col-md-1 col-xs-1"></div>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
 </div> <!-- /row  -->

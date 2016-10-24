@@ -77,6 +77,8 @@ class UsersModel extends MainModel {
                 $this->form_data[$key] = $value;
             } #-->  Faz lop dos dados do post
             
+            
+            var_dump($this->form_data);die('fim');
             #   Destroy variaveis não mais utilizadas
             unset($value, $key);
              

@@ -123,10 +123,6 @@
                         <input name="user_mother_name" class="form-control" type="text" placeholder="Nome da mãe...">
                         <br>
                     </div>
-
-
-
-
                 </div>
                 <div class="row form-compact">
                     <div class="form-group hide-show col-md-4 col-sm-4 col-xs-6">
@@ -280,6 +276,55 @@
                 </div>
             </fieldset>
             <br>
+           
+            <div class="row form-compact">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <span style="color: #006dcc;" class="text-center">NÍVEIS DE PERMISSÃO</span>
+                    <ul class="list-inline funkyradio">
+                        <li>
+                            <div class="funkyradio-default">
+                                <input type="checkbox" name="checkbox" id="checkbox1" />
+                                <label for="checkbox1">Acesso agenda</label>
+                            </div>
+
+                        </li>
+
+                        <li>
+                            <div class="funkyradio-primary">
+                                <input type="checkbox" name="checkbox" id="checkbox2" />
+                                <label for="checkbox2">Nivel 2</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="funkyradio-success">
+                                <input type="checkbox" name="checkbox" id="checkbox3" />
+                                <label for="checkbox3">Nivel 3</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="funkyradio-danger">
+                                <input type="checkbox" name="checkbox" id="checkbox4" />
+                                <label for="checkbox4">Nivel 4</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="funkyradio-warning">
+                                <input type="checkbox" name="checkbox" id="checkbox5" />
+                                <label for="checkbox5">Nivel 5</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="funkyradio-info">
+                                <input type="checkbox" name="checkbox" id="checkbox6" checked/>
+                                <label for="checkbox6">Nivel 6</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+            <br>
             <fieldset >
                 <legend>Informações de login</legend>
                 <div class="row form-compact">
@@ -288,58 +333,7 @@
                         <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'user_email'));?>" class="form-control" id="user_email" >
                         <p></p>
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <div class="panel panel-primary">
-                                <!-- Default panel contents -->
-                                <div class="panel-heading"><b style="color: #FFF;">TIPO DE PERMISSÃO 1</b></div>
-
-                                <!-- List group -->
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        Pode adicionar usuário
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionDefault" class="label-default"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 2
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 3
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionSuccess" class="label-success"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 4
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionInfo" class="label-info"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 5
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionWarning" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionWarning" class="label-warning"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Nivel 6
-                                        <div class="material-switch pull-right">
-                                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
-                                            <label for="someSwitchOptionDanger" class="label-danger"></label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div> 
-                        </div>
+                        
                     </div>
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="user_password"> Senha:</label>
@@ -361,7 +355,7 @@
                             </a>
                         </div>
                         <div class="btn-group">
-                            <button type="reset" class="btn btn-warning">Limpar 
+                            <button type="reset" class=" btn-limpar btn btn-warning">Limpar 
                                 <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -372,5 +366,5 @@
             </fieldset>
         </form>
     </div>
-    <div class="col-md-1 col-xs-0 col-sm-0"></div>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
 </div> <!-- /row  -->
