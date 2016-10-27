@@ -95,13 +95,13 @@ unset($parametros, $get);
                         <label for="user_civil_status">Estado civil:</label>
                         <select name="user_civil_status" class="form-control">
                             <?php
-                            $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
-                            foreach ($lista as $fetch_userdata):
-                                ?>
-                                <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
-                                <?php
-                            endforeach;
-                            unset($lista, $fetch_userdata);
+                                $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
+                                foreach ($lista as $fetch_userdata):
+                                    ?>
+                                    <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
+                                    <?php
+                                endforeach;
+                                unset($lista, $fetch_userdata);
                             ?>
                         </select>
                         <br>
@@ -185,8 +185,6 @@ unset($parametros, $get);
                         <br>
                     </div>
                 </div>
-
-
             </fieldset>
 
             <div class="row form-compact">
@@ -241,14 +239,14 @@ unset($parametros, $get);
                 <div class="row form-compact">
                     <div class="form-group  col-md-4 col-sm-12 col-xs-12">
                         <label for="user_email">Email este será o usuário:</label>
-                        <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_email')); ?>" class="form-control" id="user_email" >
+                        <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?= htmlentities(chk_array($modelo->form_data, 'user_email')); ?>" class="form-control" id="user_email" >
                         <p></p>
 
                     </div>
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="user_password"> Senha:</label>
                         <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..."
-                               value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
+                               value="<?= htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
                         <br>
                     </div>
 
@@ -265,12 +263,7 @@ unset($parametros, $get);
                             <button type="reset" class="btn-limpar btn btn-warning">Limpar 
                                 <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
                             </button>
-
                         </div>
-                        
-                        
-                        
-
                     </div>
                 </div>
                 <br>

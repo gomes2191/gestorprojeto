@@ -59,7 +59,7 @@ class UsersModel extends MainModel {
     public function validate_register_form() {
         #   Cria o vetor que vai receber os dados do post
         $this->form_data = [];
-
+        
         #   Verifica se algo foi postado no formulário
         if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
             
@@ -77,8 +77,10 @@ class UsersModel extends MainModel {
                 $this->form_data[$key] = $value;
             } #-->  Faz lop dos dados do post
             
+            $this->process_data($this->form_data);
             
-            var_dump($this->form_data);die('fim');
+            var_dump($this->form_data['user_level_1']);die;
+            
             #   Destroy variaveis não mais utilizadas
             unset($value, $key);
              
@@ -153,7 +155,26 @@ class UsersModel extends MainModel {
         }
         
     }   #--> End validate_register_form()
-
+    
+    
+    
+    /**
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_listar() 
+     *   @Descrição: Pega o ID passado na função e retorna os valores.
+     * */
+    public function process_data() {
+        ($this->form_data['user_level_1']) ? $this->form_data['user_level_1'] = 'lv1'  : FALSE;
+        ($this->form_data['user_level_2']) ? $this->form_data['user_level_2'] = 'lv2'  : FALSE;
+        ($this->form_data['user_level_3']) ? $this->form_data['user_level_3'] = 'lv3'  : FALSE;
+        ($this->form_data['user_level_4']) ? $this->form_data['user_level_4'] = 'lv4'  : FALSE;
+        ($this->form_data['user_level_5']) ? $this->form_data['user_level_5'] = 'lv5'  : FALSE;
+        ($this->form_data['user_level_6']) ? $this->form_data['user_level_6'] = 'lv6'  : FALSE;
+        
+    }   # End process_data()
+    
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -175,6 +196,7 @@ class UsersModel extends MainModel {
         //var_dump($this->form_data['user_mother_name']);die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('users', [
+            'user_img_profile'      => chk_array($this->form_data, 'user_img_profile'),
             'user_name'             => chk_array($this->form_data, 'user_name'),
             'user_email'            => chk_array($this->form_data, 'user_email'),
             'user_password'         =>  chk_array($this->form_data, 'user_password'),
@@ -200,7 +222,8 @@ class UsersModel extends MainModel {
             'user_date_adm'         => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_date_adm')),
             'user_date_dem'         => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_date_dem')),
             'user_active'           => (int) $this->only_filter_number(chk_array($this->form_data, 'user_active')),
-            'user_img_profile'      => chk_array($this->form_data, 'user_img_profile')
+            'user_active'           => (int) $this->only_filter_number(chk_array($this->form_data, 'user_active'))
+            
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -384,10 +407,10 @@ class UsersModel extends MainModel {
         $id = trim($row[0]);
 
         return $id;
-    }
-
-// End get_ultimo_id()
-
+        
+    }   // End get_ultimo_id()
+    
+    
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -428,9 +451,7 @@ class UsersModel extends MainModel {
         
         // Retorna os valores da consulta
         return $query->fetchAll(PDO::FETCH_BOTH);
-    }
-
-// End get_listar()
+    }   // End get_listar()
 
     /**
      *   @Acesso: public
@@ -452,9 +473,8 @@ class UsersModel extends MainModel {
         }
         // Retorna os valores da consulta
         return $query->fetch(PDO::FETCH_ASSOC);
-    }
-
-// End get_registro()
+        
+    }   // End get_registro()
 
     /**
      *   @Acesso: public
@@ -499,17 +519,15 @@ class UsersModel extends MainModel {
             $jsondata['lista'] = array_values($jsondataList);
         }
         echo json_encode($jsondata);
-    }
+    }   // End jsonPagination()
 
-// End jsonPagination()
-
-    /*
-     * Envia a imagem
-     *
-     * @since 0.1
-     * @access public
-     */
-
+    /**
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: upload_imagem() 
+     *   @Descrição: Simplesmente trata a imagem e a envia.
+     * */
     public function upload_imagem() {
         /*
          * @var $imagem_atri recebe os valores referente a imagem.
