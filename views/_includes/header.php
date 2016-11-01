@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="<?= HOME_URI; ?>/views/_css/style.css">
 
         <!-- My icon fon -->
-        <link rel="stylesheet" href="<?= HOME_URI; ?>/views/font-awesome-4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?= HOME_URI; ?>/views/font-awesome/css/font-awesome.min.css">
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/views/_css/bootstrap.min.css">

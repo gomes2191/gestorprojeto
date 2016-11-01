@@ -1,18 +1,18 @@
 <?php
-if (!defined('ABSPATH')) {
-    exit();
-}
-$get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
+    if (!defined('ABSPATH')) {
+        exit();
+    }
+    $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
 
-if (isset($get['emp'])) {
-    $parametros = $get['emp'];
-}
+    if (isset($get['emp'])) {
+        $parametros = $get['emp'];
+    }
 
-#   Carrega todos os métodos do modelo
-(filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
-$form_msg = $modelo->form_msg;
-$modelo->get_register_form($parametros, 1);
-unset($parametros, $get);
+    #   Carrega todos os métodos do modelo
+    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+    $form_msg = $modelo->form_msg;
+    $modelo->get_register_form($parametros, 1);
+    unset($parametros, $get);
 ?>
 
 <div class="row-fluid">  
@@ -188,49 +188,24 @@ unset($parametros, $get);
             </fieldset>
 
             <div class="row form-compact">
-                <div class="form-group col-md-12 col-sm-12 col-xs-12">
-
-                    <span style="color: #006dcc;" class="text-center">NÍVEIS DE PERMISSÃO</span>
-                    <ul class="list-inline funkyradio">
-                        <li>
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="user_level_1" id="checkbox1" />
-                                <label for="checkbox1">Acesso agenda</label>
-                            </div>
-
-                        </li>
-
-                        <li>
-                            <div class="funkyradio-primary">
-                                <input type="checkbox" name="user_level_2" id="checkbox2" />
-                                <label for="checkbox2">Nivel 2</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="funkyradio-success">
-                                <input type="checkbox" name="user_level_3" id="checkbox3" />
-                                <label for="checkbox3">Nivel 3</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="funkyradio-danger">
-                                <input type="checkbox" name="user_level_4" id="checkbox4" />
-                                <label for="checkbox4">Nivel 4</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="funkyradio-warning">
-                                <input type="checkbox" name="user_level_5" id="checkbox5" />
-                                <label for="checkbox5">Nivel 5</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="funkyradio-info">
-                                <input type="checkbox" name="user_level_6" id="checkbox6" checked/>
-                                <label for="checkbox6">Nivel 6</label>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                    <h6 style="color: #006dcc;" >NÍVEIS DE ACESSO: 
+                        <i style="color: #dd5600;"  data-toggle="tooltip" title="Olá, para utilizar as permissões selecio ao lado para selecionar mais de uma permissao mantenha a tecla ctrl presionada e click nas permissões desejada. !" class="fa fa-question-circle" aria-hidden="true"  ></i>
+                    </h6>
+                    <div class="input-group btn-group">
+                        <span class="input-group-addon">
+                            <i style="color: #00BFFF;" class="fa fa-4x fa-id-card-o" aria-hidden="true"></i>
+                        </span>
+                        <select name="user_permissions[]" style="text-align: justify;" id="permission-select" class="form-control" multiple="multiple">
+                            <option value="lv1">1 - Nivel</option>
+                            <option value="lv2">2 - Nivel</option>
+                            <option value="lv3">3 - Nivel</option>
+                            <option value="lv4">4 - Nivel</option>
+                            <option value="lv5">5 - Nivel</option>
+                            <option value="lv6">6 - Nivel</option>
+                        </select>
+                    </div>
+                     
                 </div>
             </div>
             <br>
@@ -272,3 +247,13 @@ unset($parametros, $get);
     </div>
     <div class="col-md-1 col-sm-0 col-xs-0"></div>
 </div> <!-- /row  -->
+<script>
+    
+//    $("select").change(function() {
+//        $(this).css('color','red');
+//    });
+    
+    $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

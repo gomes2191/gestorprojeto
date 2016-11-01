@@ -80,8 +80,6 @@
                         <i class=" form-control-feedback fa fa-key fa-fw"></i>
                     </div>
 
-
-
                     <div class="input-group-sm">
                         <button type="submit" title="Faz o cadastro" class="btn btn-primary btn-group-sm">Cadastrar-se <i class="glyphicon glyphicon-floppy-save" ></i> </button>
                         <button type="reset" title="Limpa o formulário" class="btn btn-danger btn-group-sm">Limpar <i class="glyphicon glyphicon-erase" ></i> </button>

@@ -75,11 +75,34 @@ class UsersModel extends MainModel {
 
                 #   Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
+                
             } #-->  Faz lop dos dados do post
             
-            $this->process_data($this->form_data);
             
-            var_dump($this->form_data['user_level_1']);die;
+            
+            $teste = 'one, two, try';
+            
+            $teste = explode(',', $teste);
+             $teste = array_map('trim', $teste);
+             
+             $teste = array_unique($teste);
+             
+             $teste = array_unique($teste);
+            
+             $teste = serialize($teste);
+            
+            var_dump($teste);
+            
+            
+            $permissions = array_map('trim', $this->form_data['user_permissions']);
+            
+            $permissions = array_unique($permissions);
+            
+            $permissions = array_filter($permissions);
+            
+            $permissions = serialize($permissions);
+            
+            var_dump($permissions);die;
             
             #   Destroy variaveis não mais utilizadas
             unset($value, $key);
@@ -166,12 +189,7 @@ class UsersModel extends MainModel {
      *   @Descrição: Pega o ID passado na função e retorna os valores.
      * */
     public function process_data() {
-        ($this->form_data['user_level_1']) ? $this->form_data['user_level_1'] = 'lv1'  : FALSE;
-        ($this->form_data['user_level_2']) ? $this->form_data['user_level_2'] = 'lv2'  : FALSE;
-        ($this->form_data['user_level_3']) ? $this->form_data['user_level_3'] = 'lv3'  : FALSE;
-        ($this->form_data['user_level_4']) ? $this->form_data['user_level_4'] = 'lv4'  : FALSE;
-        ($this->form_data['user_level_5']) ? $this->form_data['user_level_5'] = 'lv5'  : FALSE;
-        ($this->form_data['user_level_6']) ? $this->form_data['user_level_6'] = 'lv6'  : FALSE;
+      
         
     }   # End process_data()
     
@@ -201,7 +219,7 @@ class UsersModel extends MainModel {
             'user_email'            => chk_array($this->form_data, 'user_email'),
             'user_password'         =>  chk_array($this->form_data, 'user_password'),
             'user_session_id'       => md5(time()),
-            //'user_permissions' => $this->avaliar(chk_array($this->form_data, 'user_permissions')),
+            'user_permissions'      => serialize(array_map('trim', (chk_array($this->form_data, 'user_permissions')))),
             'user_role_id'          => 1,
             'user_clinic_id'        => 79,
             'user_cpf'              => $this->only_filter_number(chk_array($this->form_data, 'user_cpf')),
@@ -221,8 +239,8 @@ class UsersModel extends MainModel {
             'user_func_sec'         => chk_array($this->form_data, 'user_func_sec'),
             'user_date_adm'         => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_date_adm')),
             'user_date_dem'         => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_date_dem')),
-            'user_active'           => (int) $this->only_filter_number(chk_array($this->form_data, 'user_active')),
             'user_active'           => (int) $this->only_filter_number(chk_array($this->form_data, 'user_active'))
+            
             
         ]);
 
