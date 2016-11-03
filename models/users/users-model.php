@@ -78,32 +78,6 @@ class UsersModel extends MainModel {
                 
             } #-->  Faz lop dos dados do post
             
-            
-            
-            $teste = 'one, two, try';
-            
-            $teste = explode(',', $teste);
-             $teste = array_map('trim', $teste);
-             
-             $teste = array_unique($teste);
-             
-             $teste = array_unique($teste);
-            
-             $teste = serialize($teste);
-            
-            var_dump($teste);
-            
-            
-            $permissions = array_map('trim', $this->form_data['user_permissions']);
-            
-            $permissions = array_unique($permissions);
-            
-            $permissions = array_filter($permissions);
-            
-            $permissions = serialize($permissions);
-            
-            var_dump($permissions);die;
-            
             #   Destroy variaveis não mais utilizadas
             unset($value, $key);
              
@@ -358,6 +332,12 @@ class UsersModel extends MainModel {
         foreach ($fetch_userdata as $key => $value) {
             $this->form_data[$key] = $value;
         }
+        
+        // Por questões de segurança, a senha só poderá ser atualizada
+        $this->form_data['user_password'] = null;
+        # Remove a serialização das permissões
+        $this->form_data['user_permissions'] = unserialize($this->form_data['user_permissions']);
+        
 
         // Destroy variaveis não mais utilizadas
         unset($id, $query, $fetch_userdata);
@@ -464,7 +444,28 @@ class UsersModel extends MainModel {
 
         // Verifica se a consulta está OK
         if (!$query) {
-            return array();
+            return [];
+        }
+        
+        // Retorna os valores da consulta
+        return $query->fetchAll(PDO::FETCH_BOTH);
+    }   // End get_listar()
+    
+    /**
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_col_data() 
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
+     * */
+    public function get_all_col($table, $id) {
+
+        #   Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query("SELECT  * FROM $table ORDER BY $id");
+
+        // Verifica se a consulta está OK
+        if (!$query) {
+            return [];
         }
         
         // Retorna os valores da consulta

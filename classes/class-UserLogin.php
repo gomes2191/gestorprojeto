@@ -313,7 +313,7 @@ class UserLogin
 	 */
 	final protected function check_permissions( 
 		$required = 'any', 
-		$user_permissions = array('any')
+		$user_permissions = ['any']
 	) {
 		if ( ! is_array( $user_permissions ) ) {
 			return;

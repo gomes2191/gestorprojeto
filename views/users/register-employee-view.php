@@ -97,9 +97,9 @@
                             <?php
                                 $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
                                 foreach ($lista as $fetch_userdata):
-                                    ?>
-                                    <option value="<?= $fetch_userdata['civil_status']; ?>"><?= $fetch_userdata['civil_status']; ?></option>
-                                    <?php
+                            ?>
+                            <option value="<?= $fetch_userdata['civil_status']; ?>" <?= ($fetch_userdata['civil_status'] == htmlentities(chk_array($modelo->form_data, 'user_civil_status'))) ? 'selected'  : ''; ?>><?= $fetch_userdata['civil_status']; ?></option>
+                            <?php
                                 endforeach;
                                 unset($lista, $fetch_userdata);
                             ?>
@@ -196,16 +196,31 @@
                         <span class="input-group-addon">
                             <i style="color: #00BFFF;" class="fa fa-4x fa-id-card-o" aria-hidden="true"></i>
                         </span>
+                        
                         <select name="user_permissions[]" style="text-align: justify;" id="permission-select" class="form-control" multiple="multiple">
-                            <option value="lv1">1 - Nivel</option>
-                            <option value="lv2">2 - Nivel</option>
-                            <option value="lv3">3 - Nivel</option>
-                            <option value="lv4">4 - Nivel</option>
-                            <option value="lv5">5 - Nivel</option>
-                            <option value="lv6">6 - Nivel</option>
+                            <?php
+                                $lista = ($modelo->get_all_col('users_permissions', 'permissions_id'));
+
+                                foreach ($lista as $fetch_userdata):
+                                    if ($fetch_userdata['permissions_id'] == $modelo->form_data['user_permissions']) {
+                                        $selecionada = 'select="selected"';
+                                    }
+                            ?>
+                            
+                            
+                            <option value="<?= $fetch_userdata['permissions_id']; ?>" <?= $selecionada; ?> > <?= $fetch_userdata['permissions']; ?> </option>
+                            <?php
+                                endforeach;
+                                unset($lista, $fetch_userdata);
+                            ?>
                         </select>
                     </div>
+                     <?php 
                      
+                     $teste = $modelo->form_data['user_permissions'];
+                     
+                        var_dump($teste);
+                     ?>
                 </div>
             </div>
             <br>
