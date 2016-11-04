@@ -184,6 +184,7 @@ class RegisterModel {
           return;
           }
           } */
+        
         // Verifica se o email digitado já existe na base de dados
         if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
             $this->form_msg = '<div class="alert alertH alert-warning alert-dismissible fade in">

@@ -186,7 +186,14 @@
                     </div>
                 </div>
             </fieldset>
-
+            
+            
+            <?php 
+            
+                
+               
+            ?>
+            
             <div class="row form-compact">
                 <div class="form-group col-md-4 col-sm-12 col-xs-12">
                     <h6 style="color: #006dcc;" >NÍVEIS DE ACESSO: 
@@ -200,29 +207,19 @@
                         <select name="user_permissions[]" style="text-align: justify;" id="permission-select" class="form-control" multiple="multiple">
                             <?php
                                 $lista = ($modelo->get_all_col('users_permissions', 'permissions_id'));
-
                                 foreach ($lista as $fetch_userdata):
-                                    if ($fetch_userdata['permissions_id'] == $modelo->form_data['user_permissions']) {
-                                        $selecionada = 'select="selected"';
-                                    }
                             ?>
                             
-                            
-                            <option value="<?= $fetch_userdata['permissions_id']; ?>" <?= $selecionada; ?> > <?= $fetch_userdata['permissions']; ?> </option>
+                            <option value="<?= $fetch_userdata['permissions_id']; ?>" <?php if(isset($modelo->form_data['user_permissions'])){(in_array($fetch_userdata['permissions_id'], $modelo->form_data['user_permissions'])) ? 'selected' : ''; ?> > <?= $fetch_userdata['permissions'];} ?> </option>
                             <?php
                                 endforeach;
-                                unset($lista, $fetch_userdata);
+                                unset($lista, $key, $fetch_userdata);
                             ?>
                         </select>
                     </div>
-                     <?php 
-                     
-                     $teste = $modelo->form_data['user_permissions'];
-                     
-                        var_dump($teste);
-                     ?>
                 </div>
             </div>
+            <?php ?>
             <br>
             <fieldset >
                 <legend>Informações de login</legend>
