@@ -103,252 +103,8 @@ input, select, textarea{
 */
 
 
-/*Sistema de permissao*/
-.funkyradio div {
-    clear: both;
-    overflow: hidden;
-}
 
-.funkyradio label {
-    width: 100%;
-    border-radius: 3px;
-    border: 1px solid #EAEFF0;
-    font-weight: normal;
-}
-
-.funkyradio input[type="radio"]:empty,
-.funkyradio input[type="checkbox"]:empty {
-    display: none;
-}
-
-.funkyradio input[type="radio"]:empty ~ label,
-.funkyradio input[type="checkbox"]:empty ~ label {
-    position: relative;
-    line-height: 1.5em;
-    text-indent: 2.8em;
-    padding: 0 3px 0 0;
-    margin-top: 2em;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.funkyradio input[type="radio"]:empty ~ label:before,
-.funkyradio input[type="checkbox"]:empty ~ label:before {
-    position: absolute;
-    display: block;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    content: '';
-    width: 2.5em;
-    background: #EBEFF2;
-    border-radius: 1px 0 0 1px;
-}
-
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
-    color: #888;
-}
-
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
-    content: '\2714';
-    text-indent: .9em;
-    color: #C2C2C2;
-}
-
-.funkyradio input[type="radio"]:checked ~ label,
-.funkyradio input[type="checkbox"]:checked ~ label {
-    color: #777;
-}
-
-.funkyradio input[type="radio"]:checked ~ label:before,
-.funkyradio input[type="checkbox"]:checked ~ label:before {
-    content: '\2714';
-    text-indent: 0.9em;
-    color: #333;
-    background-color: #ccc;
-}
-
-.funkyradio input[type="radio"]:focus ~ label:before,
-.funkyradio input[type="checkbox"]:focus ~ label:before {
-    box-shadow: 0 0 0 3px #999;
-}
-
-.funkyradio-default input[type="radio"]:checked ~ label:before,
-.funkyradio-default input[type="checkbox"]:checked ~ label:before {
-    color: #333;
-    background-color: #ccc;
-}
-
-.funkyradio-primary input[type="radio"]:checked ~ label:before,
-.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
-    color: #fff;
-    background-color: #337ab7;
-}
-
-.funkyradio-success input[type="radio"]:checked ~ label:before,
-.funkyradio-success input[type="checkbox"]:checked ~ label:before {
-    color: #fff;
-    background-color: #5cb85c;
-}
-
-.funkyradio-danger input[type="radio"]:checked ~ label:before,
-.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
-    color: #fff;
-    background-color: #d9534f;
-}
-
-.funkyradio-warning input[type="radio"]:checked ~ label:before,
-.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
-    color: #fff;
-    background-color: #f0ad4e;
-}
-
-.funkyradio-info input[type="radio"]:checked ~ label:before,
-.funkyradio-info input[type="checkbox"]:checked ~ label:before {
-    color: #fff;
-    background-color: #5bc0de;
-}
-
-/* SCSS STYLES */
-/*
-.funkyradio {
-
-    div {
-        clear: both;
-        overflow: hidden;
-    }
-
-    label {
-        width: 100%;
-        border-radius: 3px;
-        border: 1px solid #D1D3D4;
-        font-weight: normal;
-    }
-
-    input[type="radio"],
-    input[type="checkbox"] {
-
-        &:empty {
-            display: none;
-
-            ~ label {
-                position: relative;
-                line-height: 2.5em;
-                text-indent: 3.25em;
-                margin-top: 2em;
-                cursor: pointer;
-                user-select: none;
-
-                &:before {
-                    position: absolute;
-                    display: block;
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    content: '';
-                    width: 2.5em;
-                    background: #D1D3D4;
-                    border-radius: 3px 0 0 3px;
-                }
-            }
-        }
-
-        &:hover:not(:checked) ~ label {
-            color: #888;
-
-            &:before {
-                content: '\2714';
-                text-indent: .9em;
-                color: #C2C2C2;
-            }
-        }
-
-        &:checked ~ label {
-            color: #777;
-
-            &:before {
-                content: '\2714';
-                text-indent: .9em;
-                color: #333;
-                background-color: #ccc;
-            }
-        }
-
-        &:focus ~ label:before {
-            box-shadow: 0 0 0 3px #999;
-        }
-    }
-
-    &-default {
-        input[type="radio"],
-        input[type="checkbox"] {
-            &:checked ~ label:before {
-                color: #333;
-                background-color: #ccc;
-            }
-        }
-    }
-
-    &-primary {
-        input[type="radio"],
-        input[type="checkbox"] {
-            &:checked ~ label:before {
-                color: #fff;
-                background-color: #337ab7;
-            }
-        }
-    }
-
-    &-success {
-        input[type="radio"],
-        input[type="checkbox"] {
-            &:checked ~ label:before {
-                color: #fff;
-                background-color: #5cb85c;
-            }
-        }
-    }
-
-    &-danger {
-        input[type="radio"],
-        input[type="checkbox"] {
-            &:checked ~ label:before {
-                color: #fff;
-                background-color: #d9534f;
-            }
-        }
-    }
-
-    &-warning {
-        input[type="radio"],
-        input[type="checkbox"] {
-            &:checked ~ label:before {
-                color: #fff;
-                background-color: #f0ad4e;
-            }
-        }
-    }
-
-    &-info {
-        input[type="radio"],
-        input[type="checkbox"] {
-            &:checked ~ label:before {
-                color: #fff;
-                background-color: #5bc0de;
-            }
-        }
-    }
-}
-*/
-
-
-/*Navbar informações de login*/
-
+/* Menu de login topo estilizações */
 .navbar-login
 {
     width: 305px;
@@ -385,25 +141,104 @@ input, select, textarea{
 }
 
 
+/* Formulario cadastro de pessoal *Funcionarios */
 
-.card{
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
-background: rgb(255,255,255); /* Old browsers */
-background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
-
-
-
-
-
-}
 
 
 .acess-card{
-    border-radius: 4px;
-    -webkit-box-shadow: 0px 0px 10px #333333;
-    -moz-box-shadow: 0px 0px 10px #333333;
-    box-shadow: 5px 10px 10px -5px #aeb1b1;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+     -webkit-transition: all 0.5s linear 0.5s;
+    -moz-transition: all 0.5s linear 0.5s;
+    -o-transition: all 0.5s linear 0.5s;
+    transition: all 0.5s linear 0.5s;
 }
+
+.acess-card:hover{
+    box-shadow: 0px 0px 8px -2px #00bcd4 !important;
+    -webkit-box-shadow: 0px 0px 8px -2px #00bcd4 !important;
+    -moz-box-shadow: 0px 0px 8px -2px #00bcd4 !important;
+    border: 1px solid #00bcd4 !important;
+    -webkit-transition: all 0.5s linear 0.5s;
+    -moz-transition: all 0.5s linear 0.5s;
+    -o-transition: all 0.5s linear 0.5s;
+    transition: all 0.5s linear 0.5s;
+}
+
+.acess-card select{
+    border: none;
+    overflow-y: hidden;
+    -webkit-transition: all 0.5s linear 0.5s;
+    -moz-transition: all 0.5s linear 0.5s;
+    -o-transition: all 0.5s linear 0.5s;
+    transition: all 0.5s linear 0.5s;
+}
+
+.acess-card select::-webkit-scrollbar { width:10px; background:#e3e0d6; } /* configurando scroll */
+.acess-card select::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+.acess-card select::-webkit-scrollbar-thumb { border-radius:10px; background:#A6A6A6;  }
+
+.acess-card select::scrollbar { width:10px; background:#e3e0d6; } /* configurando scroll */
+.acess-card select::scrollbar-track { background: rgba(0,0,0,0.1); }
+.acess-card select::scrollbar-thumb { border-radius:10px; background:#A6A6A6;  }
+
+
+.acess-card select:focus{
+    overflow-y: auto;
+    background-color: #FFFFCC;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    
+}
+
+.card{
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+    border: none !important;
+}
+
+
+.form-control{
+    box-shadow: none !important;
+    border-radius: 3px !important;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-transition: all 0.3s linear 0.3s;
+    -moz-transition: all 0.3s linear 0.3s;
+    -o-transition: all 0.3s linear 0.3s;
+    transition: all 0.3s linear 0.3s;
+}
+
+.form-control:focus{
+    box-shadow: 0px 0px 8px -2px #00bcd4 !important;
+    -webkit-box-shadow: 0px 0px 8px -2px #00bcd4 !important;
+    -moz-box-shadow: 0px 0px 8px -2px #00bcd4 !important;
+    border: 1px solid #00bcd4 !important;
+    -webkit-transition: all 0.3s linear 0.3s;
+    -moz-transition: all 0.3s linear 0.3s;
+    -o-transition: all 0.3s linear 0.3s;
+    transition: all 0.3s linear 0.3s;
+}
+
+
+/*
+Formatação para barra de rolagem ainda nao tive interesse em utilizar nao foi necessario ainda
+::-webkit-scrollbar              { opacity: 0.9; }
+::-webkit-scrollbar-button       {  }
+::-webkit-scrollbar-track        {  }
+::-webkit-scrollbar-track-piece  {  }
+::-webkit-scrollbar-thumb        {  }
+::-webkit-scrollbar-corner       {  }
+::-webkit-resizer                {  }
+*/
+
+
+

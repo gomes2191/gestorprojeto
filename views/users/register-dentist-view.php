@@ -278,20 +278,18 @@
             <br>
            <div class="row form-compact">
                 <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                    <h6 style="color: #006dcc;" >NÍVEIS DE ACESSO: 
+                    <b>NÍVEIS DE ACESSO: 
                         <i style="color: #dd5600;"  data-toggle="tooltip" title="Olá, para utilizar as permissões selecio ao lado para selecionar mais de uma permissao mantenha a tecla ctrl presionada e click nas permissões desejada. !" class="fa fa-question-circle" aria-hidden="true"  ></i>
-                    </h6>
-                    <div class="input-group btn-group">
-                        <span class="input-group-addon">
-                            <i style="color: #00BFFF;" class="fa fa-4x fa-id-card-o" aria-hidden="true"></i>
+                    </b>
+                    <div class="acess-card input-group btn-group">
+                        <span class="card input-group-addon">
+                            <i style="color: #9E9E9E;" class="fa fa-3x fa-id-card-o" aria-hidden="true"></i>
                         </span>
-                        <select style="text-align: justify;" id="permission-select" class="form-control" multiple="multiple">
-                            <option class="" value="lv1">1 - Nivel</option>
-                            <option value="lv2">2 - Nivel</option>
-                            <option value="lv3">3 - Nivel</option>
-                            <option value="lv4">4 - Nivel</option>
-                            <option value="lv5">5 - Nivel</option>
-                            <option value="lv6">6 - Nivel</option>
+
+                        <select name="user_permissions[]" style="text-align: justify;" id="permission-select" class="form-control" multiple="multiple">
+                            <?php   foreach ($modelo->get_all_col('users_permissions', 'permissions_id') as $fetch_userdata):   ?>
+                            <option value="<?= $fetch_userdata['permissions_id']; ?>" <?php if (isset($modelo->form_data['user_permissions'])) {if (in_array($fetch_userdata['permissions_id'], $modelo->form_data['user_permissions'])) {echo 'selected';}} ?> > <?= $fetch_userdata['permissions']; ?> </option>
+                            <?php   endforeach; unset($fetch_userdata); ?>
                         </select>
                     </div>
                 </div>
