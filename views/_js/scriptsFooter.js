@@ -68,6 +68,11 @@ $(document).ready(function () {
     $('.fromEd, .toEd').inputmask({
         mask: '99/99/9999 99:99'
     });
+    
+    //  Geral data mascara data
+    $('.data').inputmask({
+        mask: '99/99/9999'
+    });
 
 });
 //------------------> End mask

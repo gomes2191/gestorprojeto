@@ -19,16 +19,16 @@
     <div class="col-md-1 col-xs-0 col-sm-0"></div>
     <div class="col-md-10  col-sm-12 col-xs-12">
         <?php
-        if ($form_msg == true) {
-            echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <i class="'. $form_msg[1] .'" >&nbsp;</i>
-                        <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
-                    </div>';
-            unset($form_msg);
-        }
+            if ($form_msg == true) {
+                echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <i class="'. $form_msg[1] .'" >&nbsp;</i>
+                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                        </div>';
+                unset($form_msg);
+            }
         ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             <div class="row form-compact">

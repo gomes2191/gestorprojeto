@@ -74,9 +74,12 @@ class PatrimonyModel extends MainModel
             } //Faz lop dos dados do post
             
             # Não será permitido campos vazios
-            if ( empty( $this->form_data['provider_nome'] ) ) {
-                // Feedback para o usuário
-                $this->form_msg = [0 => 'alert-danger', 1 =>'Erro! ',  2 => 'Campo nome não foi preenchido.'];
+            if ( empty( $this->form_data['patrimony_cod'] ) AND empty( $this->form_data['patrimony_desc'])) {
+                
+                #   Feedback para o usuário
+                $this->form_msg = [0 => 'alert-warning', 1=>'fa fa-hand-paper-o fa-2x', 2 => 'Opa! ', 3 => 'Campos obrigatório no formulario não foram preenchidos, campos com * são obrigatórios.'];
+                
+                #unset($db_check_email);
 
                 // Termina
                 return;
