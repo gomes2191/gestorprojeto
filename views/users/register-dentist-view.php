@@ -52,8 +52,7 @@
                     <div class="form-group hide-show col-md-4 col-sm-12 col-xs-12">
                         <label for="user_name">Nome:</label>
                         <input type="text" name="user_name" placeholder="Nome completo... " value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_name'));
-                        ?>" class="form-control" id="user_name" 
+                        echo htmlentities(chk_array($modelo->form_data, 'user_name')); ?>" class="form-control" id="user_name" 
                                data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                                data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
@@ -79,10 +78,11 @@
                     </div>
 
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-12">
-                        <label for="genero">Sexo:</label>
-                        <select name="genero" class="form-control">
-                            <option value="Masculino">Masculino</option>
-                            <option value="Feminino">Feminino</option>
+                        <label for="user_gen">Sexo:</label>
+                        <select name="user_gen" class="form-control">
+                            <option value="1" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Não informado') ? 'selected'  : FALSE; ?> selected  >Não informado</option>
+                            <option value="2" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Masculino') ? 'selected'  : FALSE; ?>>Masculino</option>
+                            <option value="3" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Feminino') ? 'selected'  : FALSE; ?>>Feminino</option>
                         </select>
                     </div>
                     
@@ -188,10 +188,10 @@
                     </div>
 
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
-                        <label for="ativo">Ativo:</label>
-                        <select name="ativo" class="form-control">
-                            <option value="1">Sim</option>
-                            <option value="0">Não</option>
+                       <label for="user_active">Status ativo: Não / Sim</label>
+                        <select name="user_active" class="form-control">
+                            <option value="0" <?= (htmlentities(chk_array($modelo->form_data, 'user_active')) == 0) ? 'selected'  : FALSE; ?> selected  >Não</option>
+                            <option value="1" <?= (htmlentities(chk_array($modelo->form_data, 'user_active')) == 1) ? 'selected'  : FALSE; ?>>Sim</option>
                         </select>
                         <br>
                     </div>

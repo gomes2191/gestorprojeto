@@ -31,7 +31,7 @@
                         </li>-->
                         
                         <li><a href="<?= HOME_URI; ?>/providers">Fornecedores</a></li>
-                        <li><a href="#">Patrimônio</a></li>
+                        <li><a href="<?= HOME_URI; ?>/patrimony">Patrimônio</a></li>
                         <li><a href="#">Controle de Estoque</a></li>
                         <li><a href="#">Laboratório</a></li>
                         <li><a href="#">Convênios / Planos</a></li>

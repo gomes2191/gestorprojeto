@@ -78,6 +78,15 @@ class UsersModel extends MainModel {
                 
             } #-->  Faz lop dos dados do post
             
+            #var_dump($this->form_data['user_gen']);die;
+            
+            if($this->process_data() == FALSE){
+                #   Feedback para o usuário
+                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-eye-open', 2 => 'Opa! ', 3 => 'Não faça isso! sua ação  foi guardada para eventual auditoria.'];
+                #unset($db_check_email);
+                return;
+            }
+            
             #   Destroy variaveis não mais utilizadas
             unset($value, $key);
              
@@ -163,6 +172,17 @@ class UsersModel extends MainModel {
      *   @Descrição: Pega o ID passado na função e retorna os valores.
      * */
     public function process_data() {
+        if($this->form_data['user_active'] != 0 && $this->form_data['user_active'] != 1){
+            
+            return false;
+            
+        }elseif($this->form_data['user_gen'] != 1 && $this->form_data['user_gen'] != 2 && $this->form_data['user_gen'] != 3){
+            
+            return false;
+        }else{
+            return true;
+        }
+        
       
         
     }   # End process_data()
@@ -195,11 +215,11 @@ class UsersModel extends MainModel {
             'user_session_id'       => md5(time()),
             'user_permissions'      => serialize((chk_array($this->form_data, 'user_permissions'))),
             'user_role_id'          => 1,
-            'user_clinic_id'        => 79,
+            'user_clinic_id'        => 1,
             'user_cpf'              => $this->only_filter_number(chk_array($this->form_data, 'user_cpf')),
             'user_rg'               => $this->only_filter_number(chk_array($this->form_data, 'user_rg')),
             'user_birth'            => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_birth')),
-            'user_gen'              => chk_array($this->form_data, 'user_gen'),
+            'user_gen'              => (int) $this->only_filter_number(chk_array($this->form_data, 'user_gen')),
             'user_civil_status'     => chk_array($this->form_data, 'user_civil_status'),
             'user_home_phone'       => $this->only_filter_number(chk_array($this->form_data, 'user_phone_home')),
             'user_cel_phone'        => $this->only_filter_number(chk_array($this->form_data, 'user_cel_phone')),
@@ -229,6 +249,15 @@ class UsersModel extends MainModel {
 
             # Redireciona de volta para a página após dez segundos
             echo '<meta http-equiv="Refresh" content="5"; url='.HOME_URI.'/users/register-employee';
+
+            # Finaliza execução.
+            return;
+        }else{
+            # Destroy variáveis não mais utilizadas.
+            unset($query_ins);
+
+            # Feedback para o usuário
+            $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador!'];
 
             # Finaliza execução.
             return;

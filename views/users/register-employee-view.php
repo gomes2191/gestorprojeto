@@ -24,8 +24,8 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <i class="fa fa-info-circle fa-4" >&nbsp;</i>
-                        <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
+                        <i class="'. $form_msg[1] .'" >&nbsp;</i>
+                        <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
                     </div>';
             unset($form_msg);
         }
@@ -83,8 +83,9 @@
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="user_gen">Sexo:</label>
                         <select name="user_gen" class="form-control">
-                            <option value="Masculino">Masculino</option>
-                            <option value="Feminino">Feminino</option>
+                            <option value="1" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Não informado') ? 'selected'  : FALSE; ?> selected  >Não informado</option>
+                            <option value="2" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Masculino') ? 'selected'  : FALSE; ?>>Masculino</option>
+                            <option value="3" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Feminino') ? 'selected'  : FALSE; ?>>Feminino</option>
                         </select>
                     </div>
                     <br>
@@ -177,22 +178,15 @@
                         <br>
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
-                        <label for="user_active">Status ativo: Sim / Não</label>
+                        <label for="user_active">Status ativo: Não / Sim</label>
                         <select name="user_active" class="form-control">
-                            <option value='0'>Não</option>
-                            <option value='1'>Sim</option>
+                            <option value="0" <?= (htmlentities(chk_array($modelo->form_data, 'user_active')) == 0) ? 'selected'  : FALSE; ?> selected  >Não</option>
+                            <option value="1" <?= (htmlentities(chk_array($modelo->form_data, 'user_active')) == 1) ? 'selected'  : FALSE; ?>>Sim</option>
                         </select>
                         <br>
                     </div>
                 </div>
             </fieldset>
-            
-            
-            <?php 
-            
-                
-               
-            ?>
             
             <div class="row form-compact">
                 <div class="form-group col-md-4 col-sm-12 col-xs-12">
