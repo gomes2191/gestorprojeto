@@ -44,7 +44,7 @@
                 echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/bootstrap-datetimepicker.min.css">';
                 # End agenda css -->
             } 
-            elseif (($this->title == ' Fornecedores') OR ($this->title == ' Usuarios')) {
+            elseif (($this->title == ' Fornecedores') OR ($this->title == ' Usuarios') OR ($this->title == ' Patrimônio')) {
                 # Start paginação css
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/datatables.min.css">';
                 # End paginação css 

@@ -34,7 +34,7 @@
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_cod"><i style="color: red;">*</i> Código:</label>
                         <input type="hidden" name="patrimony_id" value="<?= htmlentities(chk_array($modelo->form_data, 'patrimony_id')); ?>">
-                        <input id="patrimony_cod" type="text" name="provider_nome" placeholder="Código do patrimônio... " value="<?php
+                        <input id="patrimony_cod" type="text" name="patrimony_cod" placeholder="Código do patrimônio... " value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'patrimony_cod')); ?>" class="form-control" 
                         data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                         data-validation-help="Digite um nome com (3) ou mais caracteres.">
@@ -43,7 +43,7 @@
 
                     <div class="form-group col-md-3 col-sm-4 col-xs-12">
                         <label for="patrimony_desc"><i style="color: red;">*</i> Descrição:</label>
-                        <input id="patrimony_desc" name="patrimony_desc" class="form-control" type="text" placeholder="Descrição sobre o patrimônio..." value="<?php
+                        <input id="patrimony_desc" name="patrimony_desc" class="form-control" type="text" placeholder="Descrição do patrimônio Ex: Casa..." value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'patrimony_desc')); ?>">
                         <br>
                     </div>
@@ -118,9 +118,9 @@
                        
             <div class="row form-compact">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="patrimony_obs">Observações:</label>
-                    <textarea id="patrimony_obs" class="form-control" name="patrimony_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php
-                        echo htmlentities(chk_array($modelo->form_data, 'patrimony_obs')); ?></textarea>
+                    <label for="patrimony_info">Informações extra:</label>
+                    <textarea id="patrimony_info" class="form-control" name="patrimony_info" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php
+                        echo htmlentities(chk_array($modelo->form_data, 'patrimony_info')); ?></textarea>
                 </div>
             </div>
             <div class="row form-compact">

@@ -59,10 +59,10 @@ class PatrimonyModel extends MainModel
     *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
     **/ 
     public function validate_register_form () {
-        // Cria o vetor que vai receber os dados do post
+        # Cria o vetor que vai receber os dados do post
         $this->form_data = [];
 
-        // Verifica se algo foi postado no formulário
+        # Verifica se algo foi postado no formulário
         if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST ) ) {
             
             # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
@@ -71,36 +71,34 @@ class PatrimonyModel extends MainModel
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
                 
-            } //Faz lop dos dados do post
+            } # Faz lop dos dados do post
             
-            # Não será permitido campos vazios
-            if ( empty( $this->form_data['patrimony_cod'] ) AND empty( $this->form_data['patrimony_desc'])) {
+            #   Não será permitido campos vazios
+            if ( empty( $this->form_data['patrimony_cod'] ) OR empty( $this->form_data['patrimony_desc'])) {
                 
                 #   Feedback para o usuário
-                $this->form_msg = [0 => 'alert-warning', 1=>'fa fa-hand-paper-o fa-2x', 2 => 'Opa! ', 3 => 'Campos obrigatório no formulario não foram preenchidos, campos com * são obrigatórios.'];
+                $this->form_msg = [0 => 'alert-warning', 1=>'fa fa-info-circle', 2 => 'Opa! ', 3 => 'Campos obrigatório no formulario não foram preenchidos, campos com * são obrigatórios.'];
                 
-                #unset($db_check_email);
-
-                // Termina
+                # Termina
                 return;
 
-            } //--> End
+            } #--> End
 
         }else {
             
-            // Finaliza se nada foi enviado
+            # Finaliza se nada foi enviado
             return;
             
-        } //--> End finaliza se nada foi enviado
+        } #--> End finaliza se nada foi enviado
         
-        # Verifica se o registro já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `providers` WHERE `provider_id` = ? ',[
-            chk_array($this->form_data, 'provider_id')
+        #   Verifica se o registro já existe.
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = ? ',[
+            chk_array($this->form_data, 'patrimony_id')
         ]);
         
-        // Verifica se a consulta foi realizada com sucesso
+        #   Verifica se a consulta foi realizada com sucesso
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            $this->updateRegister(chk_array($this->form_data, 'provider_id'));
+            $this->updateRegister(chk_array($this->form_data, 'patrimony_id'));
             return;
         }else{
              $this->insertRegister();
@@ -119,54 +117,35 @@ class PatrimonyModel extends MainModel
     **/ 
     public function insertRegister(){
         
-        # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('providers',[
-            'provider_nome'         =>  $this->avaliar(chk_array($this->form_data, 'provider_nome')),
-            'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
-            'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
-            'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
-            'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
-            'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'provider_bair')),
-            'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cid')),
-            'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
-            'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'provider_pais')),
-            'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
-            'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
-            'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
-            'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
-            'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
-            'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
-            'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
-            'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
-            'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
-            'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
-            'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
-            'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
-            'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
-            'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
-            'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
-            'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
-            'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
-            'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
-            'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
-            'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
-            'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
-            'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs'))
+        #   Se o ID do agendamento estiver vazio, insere os dados
+        $query_ins = $this->db->insert('patrimony',[
+            'patrimony_cod'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cod')),
+            'patrimony_desc'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_desc')),
+            'patrimony_data_aq'     =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
+            'patrimony_cor'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cor')),
+            'patrimony_for'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_for')),
+            'patrimony_dimen'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_dimen')),
+            'patrimony_setor'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_setor')),
+            'patrimony_valor'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_valor')),
+            'patrimony_garan'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_garan')),
+            'patrimony_quant'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_quant')),
+            'patrimony_nf'          =>  $this->avaliar(chk_array($this->form_data, 'patrimony_nf')),
+            'patrimony_info'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_info'))
+            
         ]);
 
-        # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        #   Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ( $query_ins ) {
 
-            # Destroy variáveis não mais utilizadas.
+            #   Feedback para o usuário
+            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Cadastro efetuado com sucesso.'];
+                
             unset($query_ins);
             
-            # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'O registro foi efetuado com sucesso!'];
-            
-            # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/providers/cad">';
+            #   Redireciona de volta para a página após dez segundos
+            #   echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/patrimony/cad">';
 
-            # Finaliza execução.
+            #   Finaliza execução.
             return;
         }
         
@@ -182,53 +161,35 @@ class PatrimonyModel extends MainModel
     **/ 
     public function updateRegister( $registro_id = NULL ){
         
-        # Se o ID não estiver vazio, atualiza os dados
+        #   Se o ID não estiver vazio, atualiza os dados
         if ( $registro_id ) {
             
             # Atualiza os dados
-            $query = $this->db->update('providers', 'provider_id', $registro_id,[
-                'provider_nome'         =>  $this->avaliar(chk_array($this->form_data, 'provider_nome')),
-                'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
-                'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
-                'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
-                'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
-                'provider_bair'         =>  $this->avaliar(chk_array($this->form_data, 'provider_bair')),
-                'provider_cid'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cid')),
-                'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
-                'provider_pais'         =>  $this->avaliar(chk_array($this->form_data, 'provider_pais')),
-                'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
-                'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
-                'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
-                'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
-                'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
-                'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
-                'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
-                'provider_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
-                'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
-                'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
-                'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
-                'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
-                'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
-                'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
-                'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
-                'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
-                'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
-                'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
-                'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
-                'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
-                'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
-                'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs'))
+            $query = $this->db->update('patrimony', 'patrimony_id', $registro_id,[
+                'patrimony_cod'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cod')),
+                'patrimony_desc'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_desc')),
+                'patrimony_data_aq'   =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
+                'patrimony_cor'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cor')),
+                'patrimony_for'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_for')),
+                'patrimony_dimen'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_dimen')),
+                'patrimony_setor'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_setor')),
+                'patrimony_valor'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_valor')),
+                'patrimony_garan'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_garan')),
+                'patrimony_quant'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_quant')),
+                'patrimony_nf'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_nf')),
+                'patrimony_info'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_info'))
             ]);
 
             // Verifica se a consulta foi realizada com sucesso
             if ( $query ) {
-                // Feedback para o usuário.
-                $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Os dados foram atualizados com sucesso!'];
                 
-                // Destroy variáveis nao utilizadas
-                unset($agenda_id, $query);
+                # Feedback para o usuário.
+                $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Os dados foram atualizados com sucesso!'];
                 
-                // Finaliza execução.
+                # Destroy variáveis nao utilizadas
+                unset(  $query  );
+                
+                # Finaliza execução.
                 return;
             }
         }
@@ -245,10 +206,10 @@ class PatrimonyModel extends MainModel
         
         $id = intval($this->encode_decode(0, $parametros));
         
-        // Verifica na base de dados
-        $query = $this->db->query('SELECT * FROM `providers` WHERE `provider_id` = ?', [ $id ]  );
+        # Verifica na base de dados
+        $query = $this->db->query('SELECT * FROM `patrimony` WHERE `patrimony_id` = ?', [ $id ]  );
 
-        // Verifica se a consulta foi realizada com sucesso!
+        # Verifica se a consulta foi realizada com sucesso!
         if ( ! $query ) {
                 $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
                 return;
@@ -284,40 +245,40 @@ class PatrimonyModel extends MainModel
 
         # Recebe o ID do registro converte de string para inteiro.
         $parametro = intval($this->encode_decode(0, $id));
-        //echo $ag_id; die();
+        #echo $ag_id; die();
         
-        $search = $this->db->query("SELECT count(*) FROM `providers` WHERE `provider_id` = $parametro ");
+        $search = $this->db->query("SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = $parametro ");
         if($search->fetchColumn() < 1){
 
-            // Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Erro interno do sistema. Contate o administrador.'];
+            #   Feedback para o usuário
+            $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador.'];
 
-            //Destroy variáveis não mais utilizadas
+            #   Destroy variáveis não mais utilizadas
             unset($parametro, $search, $id);
 
-            # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/providers">';
+            #   Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/patrimony">';
 
-            // Finaliza
+            #   Finaliza
             return;
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('providers', 'provider_id', $parametro);
+            $query_del = $this->db->delete('patrimony', 'patrimony_id', $parametro);
             
-            // Feedback para o usuário
-            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Registro removido com sucesso!'];
+            # Feedback para o usuário
+            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
             
-            // Destroy variáveis não mais utilizadas
+            #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
 
-            # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/providers">';
+            #   Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony">';
             
-            // Finaliza
+            #   Finaliza
             return;
         }
         
-    } //--> End del_agendamento()
+    } #--> End del_agendamento()
         
          
     /**
@@ -349,7 +310,7 @@ class PatrimonyModel extends MainModel
     public function get_listar( ) {
         
         #   Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query( 'SELECT * FROM `providers` ORDER BY provider_id' );
+        $query = $this->db->query( 'SELECT * FROM `patrimony` ORDER BY patrimony_id' );
 
         // Verifica se a consulta está OK
         if ( ! $query ) {
@@ -357,7 +318,7 @@ class PatrimonyModel extends MainModel
         }
         // Retorna os valores da consulta
         return $query->fetchAll();
-    } // End get_listar()
+    } # End get_listar()
     
     /**
     *   @Acesso: public
@@ -370,71 +331,15 @@ class PatrimonyModel extends MainModel
         #   Recebe o ID codficado e decodifica depois converte e inteiro
         $id_decode = intval($this->encode_decode(0, $id));
         
-        // Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query( " SELECT * FROM  `providers` WHERE `provider_id`= $id_decode " );
+        # Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query( " SELECT * FROM  `patrimony` WHERE `patrimony_id`= $id_decode " );
 
-        // Verifica se a consulta está OK
+        # Verifica se a consulta está OK
         if ( ! $query ) {
                 return array();
         }
-        // Retorna os valores da consulta
-        return $query->fetch(PDO::FETCH_ASSOC);
-    } // End get_registro()
+        # Retorna os valores da consulta
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    } # End get_registro()
 
-    
-    /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: jsonPagination() 
-    *   @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
-    **/ 
-    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL ) {
-        
-        // Cria os vetores necessarios
-        $jsondata = [];
-        $jsondataList = [];
-        
-        // Verifica se o parametro foi passado e executa a consulta
-        if ($param1 == 'quantos') {
-            
-            // Realiza a consulta e retorna e armazena na variável
-            $resultado = $this->db->query(' SELECT COUNT(*) total FROM `agendas` ');
-
-            // Pega todos os valores retornado da base de dados e armazena no vetor
-            $fila = $resultado->fetch();
-
-            $jsondata['total'] = $fila['total'];
-            
-        // Verifica se o parametro existe e retorna a consulta.    
-        } elseif ($param1 == 'dame') {
-            
-            $resultadoT = $this->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
-
-
-            while ($fila = $resultadoT->fetch()) {
-                $jsondataperson = [];
-                $jsondataperson['agenda_id'] = $fila['agenda_id'];
-                $jsondataperson['agenda_pac'] = $fila['agenda_pac'];
-                $jsondataperson['agenda_proc'] = $fila['agenda_proc'];
-                $jsondataperson['agenda_start_normal'] = $fila['agenda_start_normal'];
-
-                $jsondataList [] = $jsondataperson;
-            }
-
-            $jsondata['lista'] = array_values($jsondataList);
-        }
-        echo json_encode($jsondata);
-    } // End jsonPagination()
-    
-    /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: _formatar() 
-    *   @Descrição: Microtime formatar uma data do tipo 21/09/2016 12:00 para o formato tipo 1401517498985 aceito pelo calendario.
-    **/ 
-    public function _formatar($fecha) {
-        return strtotime(substr($fecha, 6, 4) . "-" . substr($fecha, 3, 2) . "-" . substr($fecha, 0, 2) . " " . substr($fecha, 10, 6)) * 1000;
-    }
 }

@@ -5,7 +5,7 @@
         $modelo = $modelo->get_registro($get['v']);
     }else{
         
-        header('Location:'.HOME_URI.'/providers');
+        header('Location:'.HOME_URI.'/patrimony');
         exit;
     }
     
@@ -18,8 +18,8 @@
 </div>
 <div class="modal-body">
     <ul class="list-inline list-modal-forn">
-       <?= ($modelo['provider_nome']) ? '<li class="list-for list-group-item list-group-item-info list-group-item-text"><b>Empresa:</b> '.$modelo['provider_nome'].'</li>' : '' ?> 
-       <?= ($modelo['provider_cpf_cnpj']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>CNPJ/CPF:</b> '.$modelo['provider_cpf_cnpj'].'</li>' : '' ?>
+       <?= ($modelo['patrimony_cod']) ? '<li class="list-for list-group-item list-group-item-info list-group-item-text"><b>Empresa:</b> '.$modelo['patrimony_cod'].'</li>' : '' ?> 
+       <?= ($modelo['patrimony_desc']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>CNPJ/CPF:</b> '.$modelo['patrimony_desc'].'</li>' : '' ?>
        <?= ($modelo['provider_rs']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Razão social:</b> '.$modelo['provider_rs'].'</li>' : '' ?>
        <?= ($modelo['provider_at']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Área de atuação:</b> '.$modelo['provider_at'].'</li>' : '' ?>
        <?= ($modelo['provider_end']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Endereço:</b> '.$modelo['provider_end'].'</li>' : '' ?>
