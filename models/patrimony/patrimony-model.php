@@ -117,7 +117,7 @@ class PatrimonyModel extends MainModel
     **/ 
     public function insertRegister(){
         
-        #   Se o ID do agendamento estiver vazio, insere os dados
+        # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('patrimony',[
             'patrimony_cod'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cod')),
             'patrimony_desc'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_desc')),
@@ -126,26 +126,37 @@ class PatrimonyModel extends MainModel
             'patrimony_for'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_for')),
             'patrimony_dimen'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_dimen')),
             'patrimony_setor'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_setor')),
-            'patrimony_valor'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_valor')),
+            'patrimony_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
             'patrimony_garan'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_garan')),
             'patrimony_quant'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_quant')),
             'patrimony_nf'          =>  $this->avaliar(chk_array($this->form_data, 'patrimony_nf')),
-            'patrimony_info'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_info'))
+            'patrimony_info'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_info'))
+            
             
         ]);
 
         #   Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ( $query_ins ) {
-
-            #   Feedback para o usuário
+            
+            # Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Cadastro efetuado com sucesso.'];
                 
+            # Redireciona de volta para a página após dez segundos
+            #   echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/patrimony/cad">';
+            
+            # Destroy variável não mais utilizada
             unset($query_ins);
             
-            #   Redireciona de volta para a página após dez segundos
-            #   echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/patrimony/cad">';
+            # Finaliza execução.
+            return;
+        }else{
+            # Destroy variáveis não mais utilizadas.
+            unset($query_ins);
 
-            #   Finaliza execução.
+            # Feedback para o usuário
+            $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador!'];
+
+            # Finaliza execução.
             return;
         }
         
@@ -235,50 +246,50 @@ class PatrimonyModel extends MainModel
         
         
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: del_agendamento()
-    *   @Versão: 0.1 
-    *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
-    **/ 
-    public function delRegister ( $id ) {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: delRegister()
+     *   @Versão: 0.2 
+     *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
+     * */
+    public function delRegister($id) {
 
-        # Recebe o ID do registro converte de string para inteiro.
+        #   Recebe o ID do registro converte de string para inteiro.
         $parametro = intval($this->encode_decode(0, $id));
-        #echo $ag_id; die();
-        
+        //echo $ag_id; die();
+
         $search = $this->db->query("SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = $parametro ");
-        if($search->fetchColumn() < 1){
+        if ($search->fetchColumn() < 1) {
 
             #   Feedback para o usuário
             $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador.'];
-
+            
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $search, $id);
 
-            #   Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/patrimony">';
+            # Redireciona de volta para a página após dez segundos
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony">';
 
-            #   Finaliza
+            # Finaliza
             return;
         } else {
             # Deleta o registro
             $query_del = $this->db->delete('patrimony', 'patrimony_id', $parametro);
-            
-            # Feedback para o usuário
+
+            #   Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
-            
+
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
 
-            #   Redireciona de volta para a página após dez segundos
+            # Redireciona de volta para a página após dez segundos
             echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony">';
-            
+
             #   Finaliza
             return;
         }
-        
-    } #--> End del_agendamento()
+    }   #--> End delRegister()
+
         
          
     /**

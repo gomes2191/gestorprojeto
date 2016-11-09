@@ -43,7 +43,7 @@
 
                     <div class="form-group col-md-3 col-sm-4 col-xs-12">
                         <label for="patrimony_desc"><i style="color: red;">*</i> Descrição:</label>
-                        <input id="patrimony_desc" name="patrimony_desc" class="form-control" type="text" placeholder="Descrição do patrimônio Ex: Casa..." value="<?php
+                        <input id="patrimony_desc" name="patrimony_desc" class="form-control" type="text" placeholder="Descrição do patrimônio Ex: IMOVÉL..." value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'patrimony_desc')); ?>">
                         <br>
                     </div>
@@ -94,20 +94,21 @@
                         <br>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_garan">Garantia:</label>
                         <input id="patrimony_garan" name="patrimony_garan" class="form-control" type="text" placeholder="Garantia..." value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'patrimony_garan')); ?>">
                         <br>
                     </div>
                     
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_quant">Quantidade:</label>
                         <input id="patrimony_quant" name="patrimony_quant" class="form-control" type="text" placeholder="Quantidade..."  value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'patrimony_quant')); ?>">
+                        <br>
                     </div>
                     
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_nf">Nota Fiscal:</label>
                         <input id="patrimony_nf" name="patrimony_nf" class="form-control" type="text" placeholder="Nota fiscal..." value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'patrimony_nf')); ?>">
@@ -117,36 +118,26 @@
             </fieldset>
                        
             <div class="row form-compact">
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group col-md-7 col-xs-12 col-sm-12">
                     <label for="patrimony_info">Informações extra:</label>
                     <textarea id="patrimony_info" class="form-control" name="patrimony_info" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php
                         echo htmlentities(chk_array($modelo->form_data, 'patrimony_info')); ?></textarea>
+                     <br>
                 </div>
-            </div>
-            <div class="row form-compact">
-                <div class="form-group col-xs-6 col-sm-3 col-md-2 ">
-                    <div class="input-group-btn ">
-                        <a href="<?= HOME_URI; ?>/patrimony" class="btn btn-sx btn-primary" title="Ir a página de patrimônio"><i class="fa fa-eye fa-1x" aria-hidden="true"></i> Visualizar todos os patrimônios</a>
+           
+                <div class="form-group col-md-5 col-sm-12 col-xs-12">
+                    <br>
+                    <div class="btn-group">
+                        <a href="<?= HOME_URI; ?>/patrimony" class="btn btn-primary" title="Ir a página de patrimônio"><i class="fa fa-eye fa-1x" aria-hidden="true"></i> Listar Cadastros</a>
+                        <button title="Salvar informações" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
+                        <button title="Limpar formulário" class="btn btn-warning" type="reset"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
+                        <span title="Ir ao topo da página" class="btn btn-primary"><i class="top glyphicon glyphicon-arrow-up"></i></span>
                     </div>
                     <br>
                 </div>
-                <div class="form-group col-xs-6 col-sm-3 col-md-1">
-                    <div class="input-group-btn">
-                        <button title="Salvar informações" class="btn btn-sx btn-primary" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
-                    </div>
-                    <br>
-                </div>
-                <div class="form-group col-xs-4 col-sm-3 col-md-1 ">
-                    <div class="input-group-btn">
-                        <button title="Limpar formulário" class="btn btn-sx btn-warning" type="reset"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
-                    </div>
-                    
-                </div>
-                <div class="form-group col-xs-4 col-sm-3 col-md-1 ">
-                    <div class="input-group-btn">
-                        <span title="Ir ao topo da página" class=" btn btn-primary top glyphicon glyphicon-arrow-up"></span>
-                    </div>
-                </div>
+                
+                
+               
             </div>
         </form>
     </div>

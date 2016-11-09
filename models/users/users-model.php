@@ -240,15 +240,14 @@ class UsersModel extends MainModel {
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ($query_ins) {
-
-            # Destroy variáveis não mais utilizadas.
-            unset($query_ins);
-
             # Feedback para o usuário
             $this->form_msg = [0 => 'alert-info', 1 => 'Sucesso! ', 2 => 'O registro foi efetuado com sucesso!'];
-
+            
             # Redireciona de volta para a página após dez segundos
             echo '<meta http-equiv="Refresh" content="5"; url='.HOME_URI.'/users/register-employee';
+            
+            # Destroy variáveis não mais utilizadas.
+            unset($query_ins);
 
             # Finaliza execução.
             return;
@@ -370,15 +369,13 @@ class UsersModel extends MainModel {
 
         // Destroy variaveis não mais utilizadas
         unset($id, $query, $fetch_userdata);
-    }
-
-// get_register_form
+    }   #-->   get_register_form
 
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Função: del_agendamento()
-     *   @Versão: 0.1 
+     *   @Função: delRegister()
+     *   @Versão: 0.2 
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
     public function delRegister($id) {
