@@ -226,15 +226,19 @@
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <br>
                         <div class="btn-group">
-                            <button id="user-register-btn" type="submit" class="btn btn-primary" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >Cadastra
-                                <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
+                            <button id="user-register-btn" type="submit" class="btn btn-default" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >
+                                <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i> Cadastra
+                                
                             </button>
+                        </div>
+                        <div class="btn-group">
                             <a href="<?= HOME_URI; ?>/users" class="btn btn-default">
-                                Ver cadastros <i class="fa fa-users" aria-hidden="true"></i>
+                                <i class="glyphicon glyphicon-list" aria-hidden="true"></i> Listar cadastros 
                             </a>
-
-                            <button type="reset" class="btn-limpar btn btn-warning">Limpar 
-                                <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
+                        </div>
+                        <div class="btn-group">
+                            <button type="reset" class="btn btn-default marg-top">
+                                <i class="glyphicon glyphicon-erase" aria-hidden="true"></i> Limpar 
                             </button>
                         </div>
                     </div>

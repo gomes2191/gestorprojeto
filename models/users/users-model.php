@@ -71,12 +71,12 @@ class UsersModel extends MainModel {
             }
 
             #   Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
+            foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
 
                 #   Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
                 
-            } #-->  Faz lop dos dados do post
+            } #-->  Fim foreach
             
             #var_dump($this->form_data['user_gen']);die;
             
@@ -99,11 +99,13 @@ class UsersModel extends MainModel {
                 return;
             }
         } else {
-
+            
+            #   Feedback para o usuário
+                $this->form_msg = [0 => 'alert-warning', 1 => 'glyphicon glyphicon-eye-open ', 2 => 'Informação!', 2 => 'Nada foi enviado'];
             #   Finaliza se nada foi enviado
             return;
             
-        }   #---> End finaliza se nada foi enviado
+        }   #---> End
          
         #    Chama o método de envio de imagem
         $imagem = $this->upload_imagem();
@@ -311,21 +313,19 @@ class UsersModel extends MainModel {
                 'provider_obs' => $this->avaliar(chk_array($this->form_data, 'provider_obs'))
             ]);
 
-            // Verifica se a consulta foi realizada com sucesso
+            # Verifica se a consulta foi realizada com sucesso
             if ($query) {
-                // Feedback para o usuário.
+                # Feedback para o usuário.
                 $this->form_msg = [0 => 'alert-info', 1 => 'Sucesso!', 2 => 'Os dados foram atualizados com sucesso!'];
 
-                // Destroy variáveis nao utilizadas
-                unset($agenda_id, $query);
+                # Destroy variáveis nao mais utilizadas
+                unset($registro_id, $query);
 
-                // Finaliza execução.
+                # Finaliza execução.
                 return;
             }
         }
-    }
-
-# End updateRegister()
+    }   #--> End updateRegister()
 
     /**
      *   @Acesso: public
@@ -350,13 +350,7 @@ class UsersModel extends MainModel {
         // Obtém os dados da consulta
         $fetch_userdata = $query->fetch();
 
-        // Verifica se os dados da consulta estão vazios
-        if (empty($fetch_userdata)) {
-            $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
-            return;
-        }
-
-        // Faz um loop dos dados do formulário, guardando os no vetor $form_data
+        # Faz um loop dos dados do formulário, guardando os no vetor $form_data
         foreach ($fetch_userdata as $key => $value) {
             $this->form_data[$key] = $value;
         }
@@ -432,28 +426,7 @@ class UsersModel extends MainModel {
 
         return $id;
         
-    }   // End get_ultimo_id()
-    
-    
-    /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Versão: 0.1
-     *   @Função: get_listar() 
-     *   @Descrição: Pega o ID passado na função e retorna os valores.
-     * */
-    public function get_listar() {
-
-        #   Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
-
-        // Verifica se a consulta está OK
-        if (!$query) {
-            return array();
-        }
-        // Retorna os valores da consulta
-        return $query->fetchAll();
-    }
+    }   # End get_ultimo_id()
     
     
     /**

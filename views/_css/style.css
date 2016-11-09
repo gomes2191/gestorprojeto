@@ -124,13 +124,26 @@ input, select, textarea{
     font-size: 87px;
 }
 
-/*  Botoes das paginas cadastro de pessoal */
-@media screen and (min-width: 500px)
+/*  Media queries necessarias */
+@media screen and (min-width: 992px)
 {
     /* CSS Document */
     
     .permission-help{
         margin: 36px 0 0 0;
+    }
+    span.marg-top{
+        display: none !important;
+    }
+}
+
+/*  Media queries necessarias */
+@media screen and (max-width: 383px)
+{
+    /* CSS Document */
+    
+    .marg-top{
+        margin:3px 0 0 0 ;
     }
    
 }

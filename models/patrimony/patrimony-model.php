@@ -63,21 +63,21 @@ class PatrimonyModel extends MainModel
         $this->form_data = [];
 
         # Verifica se algo foi postado no formulário
-        if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST ) ) {
+        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
             
             # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach ( $_POST as $key => $value ) {
+            foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
                 
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
                 
-            } # Faz lop dos dados do post
+            } # Fim foreach
             
             #   Não será permitido campos vazios
             if ( empty( $this->form_data['patrimony_cod'] ) OR empty( $this->form_data['patrimony_desc'])) {
                 
                 #   Feedback para o usuário
-                $this->form_msg = [0 => 'alert-warning', 1=>'fa fa-info-circle', 2 => 'Opa! ', 3 => 'Campos obrigatório no formulario não foram preenchidos, campos com * são obrigatórios.'];
+                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos obrigatório no formulario não foram preenchidos, campos com * são obrigatórios.'];
                 
                 # Termina
                 return;
@@ -86,10 +86,13 @@ class PatrimonyModel extends MainModel
 
         }else {
             
+            # Feedback para o usuário
+            $this->form_msg = [0 => 'alert-info', 1 => 'glyphicon glyphicon-info-sign', 2 => 'Informação!', 3 => 'Nada foi enviado'];
+            
             # Finaliza se nada foi enviado
             return;
             
-        } #--> End finaliza se nada foi enviado
+        } #--> End
         
         #   Verifica se o registro já existe.
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = ? ',[
@@ -139,10 +142,10 @@ class PatrimonyModel extends MainModel
         if ( $query_ins ) {
             
             # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Cadastro efetuado com sucesso.'];
+            $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Cadastro efetuado com sucesso.'];
                 
             # Redireciona de volta para a página após dez segundos
-            #   echo '<meta http-equiv="Refresh" content="3; url=' . HOME_URI . '/patrimony/cad">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony/cad">';
             
             # Destroy variável não mais utilizada
             unset($query_ins);
@@ -150,12 +153,12 @@ class PatrimonyModel extends MainModel
             # Finaliza execução.
             return;
         }else{
-            # Destroy variáveis não mais utilizadas.
-            unset($query_ins);
-
             # Feedback para o usuário
             $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador!'];
-
+            
+            # Destroy variáveis não mais utilizadas.
+            unset($query_ins);
+            
             # Finaliza execução.
             return;
         }
@@ -191,29 +194,29 @@ class PatrimonyModel extends MainModel
                 'patrimony_info'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_info'))
             ]);
 
-            // Verifica se a consulta foi realizada com sucesso
+            # Verifica se a consulta foi realizada com sucesso
             if ( $query ) {
                 
                 # Feedback para o usuário.
-                $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Os dados foram atualizados com sucesso!'];
+                $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Os dados foram atualizados com sucesso!'];
                 
-                # Destroy variáveis nao utilizadas
-                unset(  $query  );
+                # Destroy variáveis nao mais utilizadas
+                unset( $registro_id, $query  );
                 
                 # Finaliza execução.
                 return;
             }
         }
-    } # End updateRegister()
+    } #--> End updateRegister()
     
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
     *   @Função: get_register_form()
-    *   @Versão: 0.1 
-    *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
+    *   @Versão: 0.2 
+    *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
     **/ 
-    public function get_register_form ( $parametros ) {
+    public function get_register_form ( $parametros = NULL ) {
         
         $id = intval($this->encode_decode(0, $parametros));
         
@@ -222,27 +225,31 @@ class PatrimonyModel extends MainModel
 
         # Verifica se a consulta foi realizada com sucesso!
         if ( ! $query ) {
-                $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
-                return;
+            # Feedback para o usuário.
+            $this->form_msg = [0 => 'alert-info', 1=>'glyphicon glyphicon-info-sign', 2 => 'Informação', 3 => 'Registro não existe!'];
+                
+            # Destroy variáveis nao mais utilizadas
+            unset( $parametros, $query, $id );
+                
+            # Finaliza execução.
+            return;
         }
 
-        // Obtém os dados da consulta
+        # Obtém os dados da consulta
         $fetch_userdata = $query->fetch();
 
-        // Verifica se os dados da consulta estão vazios
-        if ( empty( $fetch_userdata ) ) {
-                $this->form_msg = '<p class="form_error">Agendamento não existe.</p>';
-                return;
-        }
-
-        // Faz um loop dos dados do formulário, guardando os no vetor $form_data
+        # Faz um loop dos dados do formulário, guardando os no vetor $form_data
         foreach ( $fetch_userdata as $key => $value ) {
             $this->form_data[$key] = $value;
         }
         
-        // Destroy variaveis não mais utilizadas
+        # Destroy variaveis não mais utilizadas
         unset($id, $query, $fetch_userdata);
-    } // get_register_form
+        
+        # --> Finaliza
+        return;
+        
+    } #--> get_register_form
         
         
     /**
@@ -297,7 +304,7 @@ class PatrimonyModel extends MainModel
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
     *   @Versão: 0.1
     *   @Função: get_ultimo_id() 
-    *   @Descrição: Pega o ultimo ID do agendamento.
+    *   @Descrição: Pega o ultimo ID do registro.
     **/
     public function get_ultimo_id() {
         // Simplesmente seleciona os dados na base de dados
@@ -310,33 +317,33 @@ class PatrimonyModel extends MainModel
         
      } // End get_ultimo_id()
      
-     
-    /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: get_listar() 
-    *   @Descrição: Pega o ID passado na função e retorna os valores.
-    **/ 
-    public function get_listar( ) {
-        
+     /**
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_col_data() 
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
+     * */
+    public function get_col_data($campo, $table, $id) {
+
         #   Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query( 'SELECT * FROM `patrimony` ORDER BY patrimony_id' );
+        $query = $this->db->query("SELECT  $campo FROM $table ORDER BY $id");
 
         // Verifica se a consulta está OK
-        if ( ! $query ) {
-                return array();
+        if (!$query) {
+            return [];
         }
-        // Retorna os valores da consulta
-        return $query->fetchAll();
-    } # End get_listar()
+        
+        # Retorna os valores da consulta
+        return $query->fetchAll(PDO::FETCH_BOTH);
+    }   # End get_col_data()
     
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
     *   @Versão: 0.1
-    *   @Função: get_listar() 
-    *   @Descrição: Pega o ID passado na função e retorna os valores.
+    *   @Função: get_registro() 
+    *   @Descrição: Pega o ID passado na função e retorna os valores codificando e decodificando.
     **/ 
     public function get_registro( $id = NULL ) {
         #   Recebe o ID codficado e decodifica depois converte e inteiro
@@ -347,8 +354,12 @@ class PatrimonyModel extends MainModel
 
         # Verifica se a consulta está OK
         if ( ! $query ) {
-                return array();
+                return [];
         }
+        
+        # Destroy variaveis não mais utilizadas
+        unset($id, $id_decode);
+        
         # Retorna os valores da consulta
         return $query->fetchAll(PDO::FETCH_ASSOC);
     } # End get_registro()

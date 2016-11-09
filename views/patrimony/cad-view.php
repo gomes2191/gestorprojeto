@@ -128,16 +128,19 @@
                 <div class="form-group col-md-5 col-sm-12 col-xs-12">
                     <br>
                     <div class="btn-group">
-                        <a href="<?= HOME_URI; ?>/patrimony" class="btn btn-primary" title="Ir a página de patrimônio"><i class="fa fa-eye fa-1x" aria-hidden="true"></i> Listar Cadastros</a>
-                        <button title="Salvar informações" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
-                        <button title="Limpar formulário" class="btn btn-warning" type="reset"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
-                        <span title="Ir ao topo da página" class="btn btn-primary"><i class="top glyphicon glyphicon-arrow-up"></i></span>
+                        <a href="<?= HOME_URI; ?>/patrimony" class="btn btn-default" title="Ir a página de patrimônio"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar Cadastros</a>
+                    </div>
+                    <div class="btn-group">
+                        <button title="Salvar informações" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
+                    </div>
+                    <div class="btn-group">
+                        <button title="Limpar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
+                    </div>
+                    <div class="btn-group">
+                        <span title="Ir ao topo da página" class="btn btn-default marg-top"><i class="top glyphicon glyphicon-arrow-up"></i></span>
                     </div>
                     <br>
                 </div>
-                
-                
-               
             </div>
         </form>
     </div>
