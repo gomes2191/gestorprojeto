@@ -1,13 +1,17 @@
 <?php
-    if (!defined('ABSPATH')) {
-        exit();
+    if (!defined('ABSPATH')) {exit();}
+    
+    if(filter_input(INPUT_GET, 'pa', FILTER_DEFAULT)){
+       $get = filter_input(INPUT_GET, 'pa', FILTER_DEFAULT);
+       $modelo->delRegister($get);
+       
+       # Destroy variavel não mais utilizadas
+       unset($get);
     }
-    $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
-    if (isset($get['p'])) {
-        $modelo->delRegister($get['p']);
-    }
-    $form_msg = $modelo->form_msg;
-    unset($get);
+    
+    # Verifica se existe feedback e retorna o feedback se sim se não retorna false
+    $form_msg = $modelo->form_msg; 
+    
 ?>
 
 <script>
@@ -37,16 +41,18 @@
 
     <div class="col-md-12 col-sm-12 col-sx-12">
         <?php
-        if ($form_msg == true) {
-            echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
-                            </div>';
-            unset($form_msg);
-        }
+            if ($form_msg) {
+                echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="' . $form_msg[1] . '" >&nbsp;</i>
+                        <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                    </div>';
+                unset($form_msg);
+            }else{
+                unset($form_msg);
+            }
         ?>
 
         <div class="input-group-sm">
@@ -57,7 +63,7 @@
             <br>
             <table id="table-for" class="table table-hover">
                 <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
-                <?php $lista = $modelo->get_listar(); ?>
+                <?php $lista = $modelo->get_col_data('*', 'patrimony', 'patrimony_id'); ?>
                 <?php if ($lista): ?>
                     <thead>
                         <tr>
@@ -79,7 +85,7 @@
                                     <?= $fetch_userdata['patrimony_desc']; ?>
                                 </td>
                                 <td>
-                                    <a href="<?= HOME_URI; ?>/providers/cad?pr=<?= $modelo->encode_decode($fetch_userdata['patrimony_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
+                                    <a href="<?= HOME_URI; ?>/patrimony/cad?pa=<?= $modelo->encode_decode($fetch_userdata['patrimony_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
                                         <i style="color: #73a839;" class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i>
                                     </a>
                                 </td>
@@ -118,7 +124,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="<?= HOME_URI; ?>/patrimony" class="btn btn-primary">Desistir</a>
-                        <a href="<?= HOME_URI; ?>/patrimony?p=<?= $modelo->encode_decode($fetch_userdata['patrimony_id']); ?> " class="btn btn-danger" >Eliminar</a>
+                        <a href="<?= HOME_URI; ?>/patrimony?pa=<?= $modelo->encode_decode($fetch_userdata['patrimony_id']); ?> " class="btn btn-danger" >Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

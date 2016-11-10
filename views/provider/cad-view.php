@@ -7,7 +7,7 @@
     # Carrega todos os métodos do modelo
     $modelo->validate_register_form();
     $form_msg = $modelo->form_msg;
-    $modelo->get_register_form($parametros, 1);
+    $modelo->get_register_form($parametros);
     unset($parametros, $get);
 ?>
 <script>window.history.pushState("cad", "", "cad");</script>

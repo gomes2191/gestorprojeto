@@ -86,11 +86,8 @@ class PatrimonyModel extends MainModel
 
         }else {
             
-            # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-info', 1 => 'glyphicon glyphicon-info-sign', 2 => 'Informação!', 3 => 'Nada foi enviado'];
-            
             # Finaliza se nada foi enviado
-            return;
+            return FALSE;
             
         } #--> End
         
@@ -216,38 +213,25 @@ class PatrimonyModel extends MainModel
     *   @Versão: 0.2 
     *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
     **/ 
-    public function get_register_form ( $parametros = NULL ) {
+    public function get_register_form ( $id_encode ) {
         
-        $id = intval($this->encode_decode(0, $parametros));
+        $id_decode = intval($this->encode_decode(0, $id_encode));
         
         # Verifica na base de dados
-        $query = $this->db->query('SELECT * FROM `patrimony` WHERE `patrimony_id` = ?', [ $id ]  );
+        $query = $this->db->query('SELECT * FROM `patrimony` WHERE `patrimony_id` = ?', [ $id_decode ]  );
 
-        # Verifica se a consulta foi realizada com sucesso!
-        if ( ! $query ) {
-            # Feedback para o usuário.
-            $this->form_msg = [0 => 'alert-info', 1=>'glyphicon glyphicon-info-sign', 2 => 'Informação', 3 => 'Registro não existe!'];
-                
-            # Destroy variáveis nao mais utilizadas
-            unset( $parametros, $query, $id );
-                
-            # Finaliza execução.
-            return;
-        }
+        
 
         # Obtém os dados da consulta
-        $fetch_userdata = $query->fetch();
-
+        $fetch_userdata = $query->fetchAll(PDO::FETCH_ASSOC);
+        
         # Faz um loop dos dados do formulário, guardando os no vetor $form_data
         foreach ( $fetch_userdata as $key => $value ) {
             $this->form_data[$key] = $value;
         }
         
         # Destroy variaveis não mais utilizadas
-        unset($id, $query, $fetch_userdata);
-        
-        # --> Finaliza
-        return;
+        //unset($id, $query, $fetch_userdata);
         
     } #--> get_register_form
         
