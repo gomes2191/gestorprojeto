@@ -194,8 +194,11 @@ class PatrimonyModel extends MainModel
             # Verifica se a consulta foi realizada com sucesso
             if ( $query ) {
                 
-                # Feedback para o usuário.
-                $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Os dados foram atualizados com sucesso!'];
+                # Feedback para o usuário
+                $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
+                
+                # Redireciona de volta para a página após dez segundos
+                echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony/cad">';
                 
                 # Destroy variáveis nao mais utilizadas
                 unset( $registro_id, $query  );
@@ -257,11 +260,11 @@ class PatrimonyModel extends MainModel
             #   Feedback para o usuário
             $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador.'];
             
-            #   Destroy variáveis não mais utilizadas
-            unset($parametro, $search, $id);
-
             # Redireciona de volta para a página após dez segundos
             echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony">';
+            
+            # Destroy variáveis não mais utilizadas
+            unset($parametro, $search, $id);
 
             # Finaliza
             return;
@@ -310,7 +313,7 @@ class PatrimonyModel extends MainModel
      *   @Função: get_col_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_col_data($campo, $table, $id) {
+    public function get_table_data($campo, $table, $id) {
 
         #   Simplesmente seleciona os dados na base de dados
         $query = $this->db->query("SELECT  $campo FROM $table ORDER BY $id");

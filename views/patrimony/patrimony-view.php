@@ -63,8 +63,8 @@
             <br>
             <table id="table-for" class="table table-hover">
                 <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
-                <?php $lista = $modelo->get_col_data('*', 'patrimony', 'patrimony_id'); ?>
-                <?php if ($lista): ?>
+                <?php $listar = $modelo->get_table_data('*', 'patrimony', 'patrimony_id'); ?>
+                <?php if (  $listar ): ?>
                     <thead>
                         <tr>
                             <th class="text-center">CÓDIGO</th>
@@ -76,7 +76,7 @@
                     </thead>
                     <tbody>
 
-                        <?php foreach ($lista as $fetch_userdata): ?>
+                        <?php foreach ( $listar as $fetch_userdata  ): ?>
                             <tr class="text-center">
                                 <td>
                                     <?= $fetch_userdata['patrimony_cod']; ?>
@@ -103,11 +103,11 @@
                             </tr>
                         <?php endforeach; ?>
                         <?php
-                    else:
-                        echo '<tr><td class="text-center" style="color: red;" >Não há patrimônio cadastrado no sistema.</td></tr>';
-                    endif;
-                    ?>
-                </tbody>
+                            else:
+                                echo '<tr><td class="text-center" style="color: red;" >Não há patrimônio cadastrado no sistema.</td></tr>';
+                            endif;
+                        ?>
+                    </tbody>
             </table>
             <br>
         </div>

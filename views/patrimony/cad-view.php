@@ -25,7 +25,7 @@
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
             <?php
                 if (    $form_msg   ) {
-                    echo'<div class="alert alertH' . $form_msg[0] . 'alert-dismissible fade in">
+                    echo'<div class="alert alertH ' . $form_msg[0] . ' alert-dismissible fade in">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -61,7 +61,7 @@
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_data_aq">Data da Aquisição:</label>
                         <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control data" type="text" placeholder="__/__/____" value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'patrimony_data_aq')); ?>">
+                        echo $modelo->converteData('Y-m-d', 'd/m/Y', chk_array($modelo->form_data, 'patrimony_data_aq')); ?>">
                         <br>
                     </div>
 
