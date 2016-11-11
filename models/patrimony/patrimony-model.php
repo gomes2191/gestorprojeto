@@ -223,7 +223,7 @@ class PatrimonyModel extends MainModel
         
 
         # Obtém os dados da consulta
-        $fetch_userdata = $query->fetchAll(PDO::FETCH_ASSOC);
+        $fetch_userdata = $query->fetch(PDO::FETCH_ASSOC);
         
         # Faz um loop dos dados do formulário, guardando os no vetor $form_data
         foreach ( $fetch_userdata as $key => $value ) {
@@ -231,7 +231,9 @@ class PatrimonyModel extends MainModel
         }
         
         # Destroy variaveis não mais utilizadas
-        //unset($id, $query, $fetch_userdata);
+        unset($query, $fetch_userdata);
+        
+        return;
         
     } #--> get_register_form
         

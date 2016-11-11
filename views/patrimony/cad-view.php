@@ -6,20 +6,17 @@
        $id_encode = filter_input(INPUT_GET, 'pa', FILTER_DEFAULT);
        
        $modelo->get_register_form($id_encode);
-       $form_data = $modelo->form_data;
        
        # Destroy variáveis não mais utilizada
        unset($id_encode);
    }
    
-   
-     
-    # Carrega o método necessario
-    //$modelo->validate_register_form();
+    # Verifica se existe a requisição POST se existir executa o método se não faz nada
+    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+    # Configura o Feedback para o usuário
     $form_msg = $modelo->form_msg;
-    var_dump($modelo->form_data);
-    
 ?>
+
 <script>window.history.pushState("cad", "", "cad");</script>
 <div class="row-fluid">
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
@@ -27,7 +24,6 @@
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
             <?php
-            var_dump($modelo->form_data);
                 if (    $form_msg   ) {
                     echo'<div class="alert alertH' . $form_msg[0] . 'alert-dismissible fade in">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -40,15 +36,16 @@
                 }else{
                     unset($form_msg);
                 }
+                
+                
             ?>
             <fieldset>
                 <legend><h6>INFORMAÇÕES DO PATRIMÔNIO</h6></legend>
                 <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_cod"><i style="color: red;">*</i> Código:</label>
-                        <input type="hidden" name="patrimony_id" value="<?= htmlentities(chk_array($form_data, 'patrimony_id')); ?>">
-                        <input id="patrimony_cod" type="text" name="patrimony_cod" placeholder="Código do patrimônio... " value="<?php
-                        echo $form_data[0]['patrimony_cod']; ?>" class="form-control" 
+                        <input type="hidden" name="patrimony_id" value="<?= htmlentities(chk_array($modelo->form_data, 'patrimony_id')); ?>">
+                        <input id="patrimony_cod" type="text" name="patrimony_cod" placeholder="Código do patrimônio... " value="<?= htmlentities(chk_array($modelo->form_data, 'patrimony_cod')); ?>" class="form-control" 
                         data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                         data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
