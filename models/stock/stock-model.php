@@ -2,13 +2,13 @@
 
 /**
  *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
- *  @Class: AgendaModel
- *  @Descrição: Classe para registro de consultas
+ *  @Class: StockModel
+ *  @Descrição: Classe responsavel por toda intereção com a base de dados e validações
  *
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class PatrimonyModel extends MainModel
+class StockModel extends MainModel
 {
 
     /**

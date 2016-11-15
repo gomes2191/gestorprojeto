@@ -1,12 +1,12 @@
 <?php
 
 /**
- * UserRegisterController - Controller de exemplo
+ * StockController - Controller de exemplo
  *
  * @package OdontoControl
  * @since 0.1
  */
-class PatrimonyController extends MainController {
+class StockController extends MainController {
 
     /**
      * $login_required
@@ -31,7 +31,7 @@ class PatrimonyController extends MainController {
      
     public function index() {
         // Page title
-        $this->title = ' Patrimônio';
+        $this->title = ' Controle de Stoque';
 
         // Verifica se o usuário está logado
 //		if ( ! $this->logged_in ) {
@@ -59,7 +59,7 @@ class PatrimonyController extends MainController {
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
 
         # Carrega o modelo para este view
-        $modelo = $this->load_model('patrimony/patrimony-model');
+        $modelo = $this->load_model('stock/stock-model');
 
         #   Carrega os arquivos do view 
         #-->   /views/_includes/header.php
@@ -69,7 +69,7 @@ class PatrimonyController extends MainController {
         require_once (ABSPATH . '/views/_includes/menu.php');
 
         #--> /views/user-register/index.php
-        require_once (ABSPATH . '/views/patrimony/patrimony-view.php');
+        require_once (ABSPATH . '/views/stock/stock-view.php');
 
         #--> /views/_includes/footer.php
         require_once (ABSPATH . '/views/_includes/footer.php');
@@ -81,12 +81,12 @@ class PatrimonyController extends MainController {
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
         #   Page title
-        $this->title = ' Cadastro de patrimônio';
+        $this->title = ' Cadastro de produto';
         
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('patrimony/patrimony-model');
+        $modelo = $this->load_model('stock/stock-model');
 
         #   Carrega o topo
         require_once (ABSPATH . '/views/_includes/header.php');
@@ -95,7 +95,7 @@ class PatrimonyController extends MainController {
         require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/patrimony/cad-view.php');
+        require_once (ABSPATH . '/views/stock/cad-view.php');
 
         require_once (ABSPATH . '/views/_includes/footer.php');
         
@@ -104,10 +104,10 @@ class PatrimonyController extends MainController {
     public function BoxView(){
         
         #   Carrega o modelo
-        $modelo = $this->load_model('patrimony/patrimony-model');
+        $modelo = $this->load_model('stock/stock-model');
         
         #   Carrega o view
-        require_once (ABSPATH . '/views/patrimony/box-view.php');
+        require_once (ABSPATH . '/views/stock/box-view.php');
         
     }   #--> End BoxView
     

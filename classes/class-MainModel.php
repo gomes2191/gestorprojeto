@@ -60,72 +60,22 @@ class MainModel {
     public $userdata;
 
     /**
-     * Inverte datas 
-     *
-     * Obtém a data e inverte seu valor.
-     * De: d-m-Y H:i:s para Y-m-d H:i:s ou vice-versa.
-     *
-     * @since 0.1
-     * @access public
-     * @param string $data A data
-     */
-//	public function inverte_data( $data = null ) {
-//	
-//		// Configura uma variável para receber a nova data
-//		$nova_data = null;
-//		
-//		// Se a data for enviada
-//		if ( $data ) {
-//		
-//			// Explode a data por -, /, : ou espaço
-//			$data = preg_split('/\-|\/|\s|:/', $data);
-//			
-//			// Remove os espaços do começo e do fim dos valores
-//			$data = array_map( 'trim', $data );
-//			
-//			// Cria a data invertida
-//			$nova_data .= chk_array( $data, 2 ) . '-';
-//			$nova_data .= chk_array( $data, 1 ) . '-';
-//			$nova_data .= chk_array( $data, 0 );
-//			
-//			// Configura a hora
-//			if ( chk_array( $data, 3 ) ) {
-//				$nova_data .= ' ' . chk_array( $data, 3 );
-//			}
-//			
-//			// Configura os minutos
-//			if ( chk_array( $data, 4 ) ) {
-//				$nova_data .= ':' . chk_array( $data, 4 );
-//			}
-//			
-//			// Configura os segundos
-//			if ( chk_array( $data, 5 ) ) {
-//				$nova_data .= ':' . chk_array( $data, 5 );
-//			}
-//		}
-//		
-//		// Retorna a nova data
-//		return $nova_data;
-//	
-//	} // inverte_data
-
-    /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: validaDataHora()
      *   @Descrição: Recebe uma determinada data e um verificador, verifica se a data atende o verificador passado e retorna true se sim e false se não
      *  
      *   Exemplos:
-     *   var_dump(validaData('2014-02-28 12:12:12')); # true
-     *   var_dump(validaData('2014-02-30 12:12:12')); # false
-     *   var_dump(validaData('2015-06-26', 'Y-m-d')); # true
-     *   var_dump(validaData('2015/06/26', 'Y-m-d')); # false
-     *   var_dump(validaData('28/02/2014', 'd/m/Y')); # true
-     *   var_dump(validaData('30/02/2014', 'd/m/Y')); # false
-     *   var_dump(validaData('14:50', 'H:i')); # true
-     *   var_dump(validaData('14:77', 'H:i')); # false
-     *   var_dump(validaData(14, 'H')); # true
-     *   var_dump(validaData('14', 'H')); # true
+     *   var_dump(validaDataHora('2014-02-28 12:12:12')); # true
+     *   var_dump(validaDataHora('2014-02-30 12:12:12')); # false
+     *   var_dump(validaDataHora('2015-06-26', 'Y-m-d')); # true
+     *   var_dump(validaDataHora('2015/06/26', 'Y-m-d')); # false
+     *   var_dump(validaDataHora('28/02/2014', 'd/m/Y')); # true
+     *   var_dump(validaDataHora('30/02/2014', 'd/m/Y')); # false
+     *   var_dump(validaDataHora('14:50', 'H:i')); # true
+     *   var_dump(validaDataHora('14:77', 'H:i')); # false
+     *   var_dump(validaDataHora(14, 'H')); # true
+     *   var_dump(validaDataHora('14', 'H')); # true
      * */
     public function validaDataHora($date, $format = 'Y-m-d H:i:s') {
         if (!empty($date) && $v_date = date_create_from_format($format, $date)) {
@@ -147,12 +97,14 @@ class MainModel {
      *  var_dump(converteData('d-m-Y', 'm/d/Y H:i', '06-02-2014')); 02/06/2014 12:39
      *  var_dump(converteData('Y-m-d', 'l F Y  H:i', '2014-02-06')); Thursday February 2014  12:38
      * */
-    public function converteData($format, $to_format, $date='00/00/0000', $timezone = NULL) {
-        if (!empty($date)) {
+    public function converteData($format, $to_format, $date = NULL, $timezone = NULL) {
+       # Verifica se a data informada e verdadeira se sim executa a função se não retorna NULL
+       if($this->validaDataHora($date, $format)){
             $timezone = $timezone ? $timezone : new DateTimeZone(date_default_timezone_get());
             $f_date = date_create_from_format($format, $date, $timezone);
-            return date_format($f_date, $to_format);
-        }
+            $date_end = date_format($f_date, $to_format);
+            return $date_end;
+       }
         return NULL;
     }   # End converteData()
 
@@ -210,13 +162,13 @@ class MainModel {
      *  @Acesso: public
      *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *  @Versão: 0.1
-     *  @Função: encode_decode()
-     *  @Descrição: Remove tudo o que não for número.
+     *  @Função: format_padrao()
+     *  @Descrição: Verifica se o valor passado corresponde ao campo requerido
      * */
     public function format_padrao($string, $tipo = "") {
-        $string = preg_replace("[^0-9]", "", $string);
+        $valor = preg_replace("[^0-9]", "", $string);
         if (!$tipo) {
-            switch (strlen($string)) {
+            switch (strlen($valor)) {
                 case 11: $tipo = 'fone';
                     break;
                 case 8: $tipo = 'cep';
@@ -229,27 +181,27 @@ class MainModel {
         }
         switch ($tipo) {
             case 'fone':
-                $string = '(' . substr($string, 0, 2) . ') ' . substr($string, 2, 4) .
-                        '-' . substr($string, 6);
+                $valor = '(' . substr($valor, 0, 2) . ') ' . substr($valor, 2, 4) .
+                        '-' . substr($valor, 6);
                 break;
             case 'cep':
-                $string = substr($string, 0, 5) . '-' . substr($string, 5, 3);
+                $valor = substr($valor, 0, 5) . '-' . substr($valor, 5, 3);
                 break;
             case 'cpf':
-                $string = substr($string, 0, 3) . '.' . substr($string, 3, 3) .
-                        '.' . substr($string, 6, 3) . '-' . substr($string, 9, 2);
+                $valor = substr($valor, 0, 3) . '.' . substr($valor, 3, 3) .
+                        '.' . substr($valor, 6, 3) . '-' . substr($valor, 9, 2);
                 break;
             case 'cnpj':
-                $string = substr($string, 0, 2) . '.' . substr($string, 2, 3) .
-                        '.' . substr($string, 5, 3) . '/' .
-                        substr($string, 8, 4) . '-' . substr($string, 12, 2);
+                $valor = substr($valor, 0, 2) . '.' . substr($valor, 2, 3) .
+                        '.' . substr($valor, 5, 3) . '/' .
+                        substr($valor, 8, 4) . '-' . substr($valor, 12, 2);
                 break;
             case 'rg':
-                $string = substr($string, 0, 2) . '.' . substr($string, 2, 3) .
-                        '.' . substr($string, 5, 3);
+                $valor = substr($valor, 0, 2) . '.' . substr($valor, 2, 3) .
+                        '.' . substr($valor, 5, 3);
                 break;
         }
-        return $string;
+        return $valor;
     }
 
 }   # End MainModel

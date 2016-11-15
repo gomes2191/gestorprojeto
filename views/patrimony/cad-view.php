@@ -18,6 +18,7 @@
 ?>
 
 <script>window.history.pushState("cad", "", "cad");</script>
+
 <div class="row-fluid">
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
     <div class="col-md-10  col-sm-12 col-xs-12">
@@ -61,7 +62,7 @@
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_data_aq">Data da Aquisição:</label>
                         <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control data" type="text" placeholder="__/__/____" value="<?php
-                        echo $modelo->converteData('Y-m-d', 'd/m/Y', chk_array($modelo->form_data, 'patrimony_data_aq')); ?>">
+                        echo  chk_array($modelo->form_data, 'patrimony_data_aq'); ?>">
                         <br>
                     </div>
 
@@ -159,7 +160,10 @@
 
 
 <script>
-    
+ 
+ 
+        
+
      
        $('.top').click(function(){ 
             $('html, body').animate({scrollTop:0}, 'slow');

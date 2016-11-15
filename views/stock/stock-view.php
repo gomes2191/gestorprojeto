@@ -16,7 +16,7 @@
 
 <script>
     //  Muda a url atual para a nova url passada
-    window.history.pushState("patrimony", "", "patrimony");
+    window.history.pushState("stock", "", "stock");
 
     //  Faz um refresh de url apos fechar modal
     $(function () {
@@ -56,7 +56,7 @@
         ?>
 
         <div class="input-group-sm">
-            <a href="<?= HOME_URI; ?>/patrimony/cad" title="Adicionar Patrimônio." class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adiciona Patrimônio </a>
+            <a href="<?= HOME_URI; ?>/stock/cad" title="Adicionar Produto" class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar Produto </a>
         </div>
         <br>
         <div class="table-responsive">
@@ -104,7 +104,7 @@
                         <?php endforeach; ?>
                         <?php
                             else:
-                                echo '<tr><td class="text-center" style="color: red;" >Não há patrimônio cadastrado no sistema.</td></tr>';
+                                echo '<tr><td class="text-center" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>';
                             endif;
                         ?>
                     </tbody>
