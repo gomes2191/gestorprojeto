@@ -31,7 +31,7 @@ class StockController extends MainController {
      
     public function index() {
         // Page title
-        $this->title = ' Controle de Stoque';
+        $this->title = ' Stoque';
 
         // Verifica se o usuário está logado
 //		if ( ! $this->logged_in ) {

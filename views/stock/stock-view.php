@@ -27,7 +27,7 @@
 
     // Chama o paginador da tabela    
     $(function () {
-        $('#table-for').DataTable({
+        $('#table-stock').DataTable({
             language: {
                 url: 'Portuguese-Brasil.json'
             }
@@ -61,17 +61,18 @@
         <br>
         <div class="table-responsive">
             <br>
-            <table id="table-for" class="table table-hover">
+            <table id="table-stock" class="table table-striped table-bordered table-hover table-condensed">
                 <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
-                <?php $listar = $modelo->get_table_data('*', 'patrimony', 'patrimony_id'); ?>
+                <?php $listar = $modelo->get_table_data('*', 'stock', 'stock_id'); ?>
                 <?php if (  $listar ): ?>
                     <thead>
                         <tr>
-                            <th class="text-center">CÓDIGO</th>
-                            <th class="text-center">DESCRIÇÃO</th>
-                            <th class="text-center">EDITAR</th>
-                            <th class="text-center">ELIMINAR</th>
-                            <th class="text-center">INFORMAÇÕES</th>
+                            <th class="text-center">Código</th>
+                            <th class="text-center">Descrição</th>
+                            <th class="text-center">Quant.</th>
+                            <th class="text-center">Editar</th>
+                            <th class="text-center">Eliminar</th>
+                            <th class="text-center">Informações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,25 +80,28 @@
                         <?php foreach ( $listar as $fetch_userdata  ): ?>
                             <tr class="text-center">
                                 <td>
-                                    <?= $fetch_userdata['patrimony_cod']; ?>
+                                    <?= $fetch_userdata['stock_cod']; ?>
                                 </td>
                                 <td>
-                                    <?= $fetch_userdata['patrimony_desc']; ?>
+                                    <?= $fetch_userdata['stock_desc']; ?>
                                 </td>
                                 <td>
-                                    <a href="<?= HOME_URI; ?>/patrimony/cad?pa=<?= $modelo->encode_decode($fetch_userdata['patrimony_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
-                                        <i style="color: #73a839;" class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i>
+                                    <?= $fetch_userdata['stock_atual']; ?>
+                                </td>
+                                <td>
+                                    <a href="<?= HOME_URI; ?>/stock/cad?pa=<?= $modelo->encode_decode($fetch_userdata['stock_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
+                                        <i style="color: #73a839;" class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i>
                                     </a>
                                 </td>
 
                                 <td>
                                     <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
-                                        <i style="color: #c71c22;" class="fa fa-2x fa-times" aria-hidden="true"></i>
+                                        <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="<?= HOME_URI; ?>/patrimony/box-view?v=<?= $modelo->encode_decode($fetch_userdata['patrimony_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
-                                        <i style="color: #2fa4e7;" class="fa fa-2x fa-info-circle" aria-hidden="true"></i>
+                                    <a href="<?= HOME_URI; ?>/stock/box-view?v=<?= $modelo->encode_decode($fetch_userdata['stock_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
+                                        <i style="color: #2fa4e7;" class="fa fa-1x fa-info-circle" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -123,8 +127,8 @@
                         <p class="text-justify">Tem certeza que deseja remover este registro? não sera possível reverter isso.</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="<?= HOME_URI; ?>/patrimony" class="btn btn-primary">Desistir</a>
-                        <a href="<?= HOME_URI; ?>/patrimony?pa=<?= $modelo->encode_decode($fetch_userdata['patrimony_id']); ?> " class="btn btn-danger" >Eliminar</a>
+                        <a href="<?= HOME_URI; ?>/stock" class="btn btn-primary">Desistir</a>
+                        <a href="<?= HOME_URI; ?>/stock?pa=<?= $modelo->encode_decode($fetch_userdata['stock_id']); ?> " class="btn btn-danger" >Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

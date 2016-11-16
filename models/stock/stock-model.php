@@ -114,24 +114,19 @@ class StockModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        
+        //var_dump($this->form_data['stock_tipo_unit']);die;
         //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')).'== novo==');die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('stock',[
             'stock_cod'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
             'stock_desc'        =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
-            'stock_data_aq'     =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')),
-            'stock_cor'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cor')),
-            'stock_for'         =>  $this->avaliar(chk_array($this->form_data, 'stock_for')),
-            'stock_dimen'       =>  $this->avaliar(chk_array($this->form_data, 'stock_dimen')),
-            'stock_setor'       =>  $this->avaliar(chk_array($this->form_data, 'stock_setor')),
+            'stock_tipo_unit'   =>  $this->avaliar(chk_array($this->form_data, 'stock_tipo_unit')),
+            'stock_fornecedor'  =>  $this->avaliar(chk_array($this->form_data, 'stock_fornecedor')),
+            'stock_inicial'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_inicial')),
+            'stock_minimo'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_minimo')),
+            'stock_atual'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_atual')),
             'stock_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_valor')),
-            'stock_garan'       =>  $this->avaliar(chk_array($this->form_data, 'stock_garan')),
-            'stock_quant'       =>  $this->avaliar(chk_array($this->form_data, 'stock_quant')),
-            'stock_nf'          =>  $this->avaliar(chk_array($this->form_data, 'stock_nf')),
             'stock_info'        =>  $this->avaliar(chk_array($this->form_data, 'stock_info'))
-            
-            
         ]);
 
         #   Verifica se a consulta está OK se sim envia o Feedback para o usuário.

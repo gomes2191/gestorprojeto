@@ -253,3 +253,8 @@ Formatação para barra de rolagem ainda nao tive interesse em utilizar nao foi 
 ::-webkit-resizer                {  }
 */
     
+
+/*Tabela de registros*/
+.dataTable thead{
+    background-color: #f3f3f3;
+}
