@@ -54,13 +54,17 @@ $form_msg = $modelo->form_msg;
 
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
                         <label for="stock_desc"><i style="color: red;">*</i> Descreva o produto:</label>
-                        <input id="stock_desc" name="stock_desc" class="form-control" type="text" placeholder="Ex: Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_desc')); ?>">
+                        <input id="stock_desc" name="stock_desc" class="form-control" type="text" placeholder="Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_desc')); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="stock_tipo_unit">Tipo unitário:</label>
-                        <input id="stock_tipo_unit" name="stock_tipo_unit" class="form-control" type="text" placeholder="Ex: Peça, Unidade, Par..." value="<?php echo chk_array($modelo->form_data, 'stock_tipo_unit'); ?>">
+                        <select name="stock_tipo_unit" class="form-control">
+                            <?php foreach ($modelo->get_table_data('*', 'stock_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'stock_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
+                            <?php endforeach; unset($fetch_userdata); ?>
+                        </select>
                         <br>
                     </div>
 
@@ -75,26 +79,26 @@ $form_msg = $modelo->form_msg;
                 <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="stock_inicial">Estoque inicial:</label>
-                        <input id="stock_inicial" name="stock_inicial" class="form-control" type="text" placeholder="Ex: 100" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_inicial')); ?>">
+                        <input id="stock_inicial" name="stock_inicial" class="form-control" type="text" placeholder="100" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_inicial')); ?>">
                         <br>
                     </div>
                     
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="stock_minimo">Estoque minimo:</label>
-                        <input id="stock_minimo" name="stock_minimo" class="form-control" type="text" placeholder="Ex: 10" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_minimo')); ?>">
+                        <input id="stock_minimo" name="stock_minimo" class="form-control" type="text" placeholder="10" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_minimo')); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="stock_atual">Estoque atual:</label>
-                        <input id="stock_atual" name="stock_atual" class="form-control" type="text" placeholder="Ex: 95" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_atual')); ?>">
+                        <input id="stock_atual" name="stock_atual" class="form-control" type="text" placeholder="95" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_atual')); ?>">
                         <br>
                     </div>
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="stock_valor">Montante total ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">$</div>
-                            <input id="stock_valor" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_valor')); ?>">
+                            <input id="stock_valor" name="stock_valor" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'stock_valor')); ?>">
                             <div class="input-group-addon">.00</div>
                         </div>
                         <br>

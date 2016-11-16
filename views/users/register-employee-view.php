@@ -96,13 +96,13 @@
                         <label for="user_civil_status">Estado civil:</label>
                         <select name="user_civil_status" class="form-control">
                             <?php
-                                $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
-                                foreach ($lista as $fetch_userdata):
-                            ?>
-                            <option value="<?= $fetch_userdata['civil_status']; ?>" <?= ($fetch_userdata['civil_status'] == htmlentities(chk_array($modelo->form_data, 'user_civil_status'))) ? 'selected'  : ''; ?>><?= $fetch_userdata['civil_status']; ?></option>
-                            <?php
-                                endforeach;
-                                unset($lista, $fetch_userdata);
+                            $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
+                            foreach ($lista as $fetch_userdata):
+                                ?>
+                                <option value="<?= $fetch_userdata['civil_status']; ?>" <?= ($fetch_userdata['civil_status'] == htmlentities(chk_array($modelo->form_data, 'user_civil_status'))) ? 'selected' : ''; ?>><?= $fetch_userdata['civil_status']; ?></option>
+                                <?php
+                            endforeach;
+                            unset($lista, $fetch_userdata);
                             ?>
                         </select>
                         <br>

@@ -167,25 +167,21 @@ class StockModel extends MainModel
     **/ 
     public function updateRegister( $registro_id = NULL ){
         
-        #var_dump($this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')));
+        //var_dump($this->form_data['stock_valor']);die;
         
         #   Se o ID não estiver vazio, atualiza os dados
         if ( $registro_id ) {
-            
             # Efetua o update do registro
             $query_up = $this->db->update('stock', 'stock_id', $registro_id,[
-                'stock_cod'       =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
-                'stock_desc'      =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
-                'stock_data_aq'   =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')),
-                'stock_cor'       =>  $this->avaliar(chk_array($this->form_data, 'stock_cor')),
-                'stock_for'       =>  $this->avaliar(chk_array($this->form_data, 'stock_for')),
-                'stock_dimen'     =>  $this->avaliar(chk_array($this->form_data, 'stock_dimen')),
-                'stock_setor'     =>  $this->avaliar(chk_array($this->form_data, 'stock_setor')),
-                'stock_valor'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_valor')),
-                'stock_garan'     =>  $this->avaliar(chk_array($this->form_data, 'stock_garan')),
-                'stock_quant'     =>  $this->avaliar(chk_array($this->form_data, 'stock_quant')),
-                'stock_nf'        =>  $this->avaliar(chk_array($this->form_data, 'stock_nf')),
-                'stock_info'      =>  $this->avaliar(chk_array($this->form_data, 'stock_info'))
+                'stock_cod'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
+                'stock_desc'        =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
+                'stock_tipo_unit'   =>  $this->avaliar(chk_array($this->form_data, 'stock_tipo_unit')),
+                'stock_fornecedor'  =>  $this->avaliar(chk_array($this->form_data, 'stock_fornecedor')),
+                'stock_inicial'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_inicial')),
+                'stock_minimo'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_minimo')),
+                'stock_atual'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_atual')),
+                'stock_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_valor')),
+                'stock_info'        =>  $this->avaliar(chk_array($this->form_data, 'stock_info'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -241,7 +237,7 @@ class StockModel extends MainModel
         }
         
         # Tratamento da data para o modelo visao do fomulario
-        $this->form_data['stock_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['stock_data_aq']);
+        #$this->form_data['stock_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['stock_data_aq']);
         
         # Destroy variaveis não mais utilizadas
         unset($query_get, $fetch_userdata);
