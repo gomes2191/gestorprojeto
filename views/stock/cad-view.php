@@ -54,19 +54,19 @@ $form_msg = $modelo->form_msg;
 
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
                         <label for="stock_desc"><i style="color: red;">*</i> Descreva o produto:</label>
-                        <input id="stock_desc" name="stock_desc" class="form-control" type="text" placeholder="Ex: Escova de dentes - NTC" value="<?php echo htmlentities(chk_array($modelo->form_data, 'patrimony_desc')); ?>">
+                        <input id="stock_desc" name="stock_desc" class="form-control" type="text" placeholder="Ex: Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_desc')); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="patrimony_data_aq">Tipo unitário:</label>
-                        <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control data" type="text" placeholder="Ex: Peça, Unidade, Par..." value="<?php echo chk_array($modelo->form_data, 'patrimony_data_aq'); ?>">
+                        <label for="stock_tipo_unit">Tipo unitário:</label>
+                        <input id="stock_tipo_unit" name="stock_tipo_unit" class="form-control" type="text" placeholder="Ex: Peça, Unidade, Par..." value="<?php echo chk_array($modelo->form_data, 'stock_tipo_unit'); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="patrimony_cor">Fornecedor:</label>
-                        <input id="patrimony_cor" name="patrimony_cor" class="form-control" type="text" placeholder="Cor..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'patrimony_cor')); ?>" >
+                        <label for="stock_fornecedor">Fornecedor:</label>
+                        <input id="stock_fornecedor" name="stock_fornecedor" class="form-control" type="text" placeholder="Fornecedor..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_fornecedor')); ?>" >
                         <br>
                     </div>
                     <br>
@@ -74,20 +74,29 @@ $form_msg = $modelo->form_msg;
 
                 <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_dimen">Estoque minimo:</label>
-                        <input id="patrimony_dimen" name="patrimony_dimen" class="form-control" type="text" placeholder="Dimensões..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'patrimony_dimen')); ?>">
+                        <label for="stock_inicial">Estoque inicial:</label>
+                        <input id="stock_inicial" name="stock_inicial" class="form-control" type="text" placeholder="Ex: 100" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_inicial')); ?>">
+                        <br>
+                    </div>
+                    
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                        <label for="stock_minimo">Estoque minimo:</label>
+                        <input id="stock_minimo" name="stock_minimo" class="form-control" type="text" placeholder="Ex: 10" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_minimo')); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_setor">Estoque inicial:</label>
-                        <input id="patrimony_setor" name="patrimony_setor" class="form-control" type="text" placeholder="Setor..."   value="<?php echo htmlentities(chk_array($modelo->form_data, 'patrimony_setor')); ?>">
+                        <label for="stock_atual">Estoque atual:</label>
+                        <input id="stock_atual" name="stock_atual" class="form-control" type="text" placeholder="Ex: 95" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_atual')); ?>">
                         <br>
                     </div>
-
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_valor">Estoque atual:</label>
-                        <input id="patrimony_valor" name="patrimony_valor" class="form-control" type="text" placeholder="R$..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'patrimony_valor')); ?>">
+                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                        <label for="stock_valor">Montante total ( em reais )</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input id="stock_valor" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_valor')); ?>">
+                            <div class="input-group-addon">.00</div>
+                        </div>
                         <br>
                     </div>
                 </div>
@@ -96,8 +105,8 @@ $form_msg = $modelo->form_msg;
 
                 <div class="row form-compact">
                     <div class="form-group col-md-7 col-xs-12 col-sm-12">
-                        <label for="patrimony_info">Informações extra:</label>
-                        <textarea id="patrimony_info" class="form-control" name="patrimony_info" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php echo htmlentities(chk_array($modelo->form_data, 'patrimony_info')); ?></textarea>
+                        <label for="stock_info">Informações extra:</label>
+                        <textarea id="stock_info" class="form-control" name="stock_info" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php echo htmlentities(chk_array($modelo->form_data, 'stock_info')); ?></textarea>
                         <br>
                     </div>
 

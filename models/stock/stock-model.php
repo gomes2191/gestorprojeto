@@ -74,7 +74,7 @@ class StockModel extends MainModel
             } # End foreach
             
             #   Não será permitido campos vazios
-            if ( empty( $this->form_data['patrimony_cod'] ) OR empty( $this->form_data['patrimony_desc'])) {
+            if ( empty( $this->form_data['stock_cod'] ) OR empty( $this->form_data['stock_desc'])) {
                 
                 #   Feedback para o usuário
                 $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
@@ -90,13 +90,13 @@ class StockModel extends MainModel
         } #--> End
         
         # Rotina que verifica se o registro já existe
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = ? ',[
-            chk_array($this->form_data, 'patrimony_id')
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `stock` WHERE `stock_id` = ? ',[
+            chk_array($this->form_data, 'stock_id')
         ]);
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            $this->updateRegister(chk_array($this->form_data, 'patrimony_id'));
+            $this->updateRegister(chk_array($this->form_data, 'stock_id'));
             return;
         }else{
              $this->insertRegister();
@@ -115,21 +115,21 @@ class StockModel extends MainModel
     **/ 
     public function insertRegister(){
         
-        //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')).'== novo==');die;
+        //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')).'== novo==');die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('patrimony',[
-            'patrimony_cod'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cod')),
-            'patrimony_desc'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_desc')),
-            'patrimony_data_aq'     =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
-            'patrimony_cor'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cor')),
-            'patrimony_for'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_for')),
-            'patrimony_dimen'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_dimen')),
-            'patrimony_setor'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_setor')),
-            'patrimony_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
-            'patrimony_garan'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_garan')),
-            'patrimony_quant'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_quant')),
-            'patrimony_nf'          =>  $this->avaliar(chk_array($this->form_data, 'patrimony_nf')),
-            'patrimony_info'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_info'))
+        $query_ins = $this->db->insert('stock',[
+            'stock_cod'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
+            'stock_desc'        =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
+            'stock_data_aq'     =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')),
+            'stock_cor'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cor')),
+            'stock_for'         =>  $this->avaliar(chk_array($this->form_data, 'stock_for')),
+            'stock_dimen'       =>  $this->avaliar(chk_array($this->form_data, 'stock_dimen')),
+            'stock_setor'       =>  $this->avaliar(chk_array($this->form_data, 'stock_setor')),
+            'stock_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_valor')),
+            'stock_garan'       =>  $this->avaliar(chk_array($this->form_data, 'stock_garan')),
+            'stock_quant'       =>  $this->avaliar(chk_array($this->form_data, 'stock_quant')),
+            'stock_nf'          =>  $this->avaliar(chk_array($this->form_data, 'stock_nf')),
+            'stock_info'        =>  $this->avaliar(chk_array($this->form_data, 'stock_info'))
             
             
         ]);
@@ -141,7 +141,7 @@ class StockModel extends MainModel
             $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro efetuado com sucesso!'];
                 
             # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony/cad">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/stock/cad">';
             
             # Destroy variável não mais utilizada
             unset($query_ins);
@@ -172,25 +172,25 @@ class StockModel extends MainModel
     **/ 
     public function updateRegister( $registro_id = NULL ){
         
-        #var_dump($this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')));
+        #var_dump($this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')));
         
         #   Se o ID não estiver vazio, atualiza os dados
         if ( $registro_id ) {
             
             # Efetua o update do registro
-            $query_up = $this->db->update('patrimony', 'patrimony_id', $registro_id,[
-                'patrimony_cod'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cod')),
-                'patrimony_desc'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_desc')),
-                'patrimony_data_aq'   =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
-                'patrimony_cor'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cor')),
-                'patrimony_for'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_for')),
-                'patrimony_dimen'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_dimen')),
-                'patrimony_setor'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_setor')),
-                'patrimony_valor'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
-                'patrimony_garan'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_garan')),
-                'patrimony_quant'     =>  $this->avaliar(chk_array($this->form_data, 'patrimony_quant')),
-                'patrimony_nf'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_nf')),
-                'patrimony_info'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_info'))
+            $query_up = $this->db->update('stock', 'stock_id', $registro_id,[
+                'stock_cod'       =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
+                'stock_desc'      =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
+                'stock_data_aq'   =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')),
+                'stock_cor'       =>  $this->avaliar(chk_array($this->form_data, 'stock_cor')),
+                'stock_for'       =>  $this->avaliar(chk_array($this->form_data, 'stock_for')),
+                'stock_dimen'     =>  $this->avaliar(chk_array($this->form_data, 'stock_dimen')),
+                'stock_setor'     =>  $this->avaliar(chk_array($this->form_data, 'stock_setor')),
+                'stock_valor'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_valor')),
+                'stock_garan'     =>  $this->avaliar(chk_array($this->form_data, 'stock_garan')),
+                'stock_quant'     =>  $this->avaliar(chk_array($this->form_data, 'stock_quant')),
+                'stock_nf'        =>  $this->avaliar(chk_array($this->form_data, 'stock_nf')),
+                'stock_info'      =>  $this->avaliar(chk_array($this->form_data, 'stock_info'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -200,7 +200,7 @@ class StockModel extends MainModel
                 $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
                 
                 # Redireciona de volta para a página após dez segundos
-                #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony/cad">';
+                #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/stock/cad">';
                 
                 # Destroy variáveis nao mais utilizadas
                 unset( $registro_id, $query_up  );
@@ -233,7 +233,7 @@ class StockModel extends MainModel
         $id_decode = intval($this->encode_decode(0, $id_encode));
         
         # Verifica na base de dados o registro
-        $query_get = $this->db->query('SELECT * FROM `patrimony` WHERE `patrimony_id` = ?', [ $id_decode ]  );
+        $query_get = $this->db->query('SELECT * FROM `stock` WHERE `stock_id` = ?', [ $id_decode ]  );
 
         
 
@@ -246,7 +246,7 @@ class StockModel extends MainModel
         }
         
         # Tratamento da data para o modelo visao do fomulario
-        $this->form_data['patrimony_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['patrimony_data_aq']);
+        $this->form_data['stock_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['stock_data_aq']);
         
         # Destroy variaveis não mais utilizadas
         unset($query_get, $fetch_userdata);
@@ -269,14 +269,14 @@ class StockModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `stock` WHERE `stock_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             #   Feedback para o usuário
             $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
             
             # Redireciona de volta para a página após 4 segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/stock">';
             
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
@@ -285,7 +285,7 @@ class StockModel extends MainModel
             return;
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('patrimony', 'patrimony_id', $decode_id);
+            $query_del = $this->db->delete('stock', 'stock_id', $decode_id);
 
             #   Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
@@ -294,7 +294,7 @@ class StockModel extends MainModel
             unset($parametro, $query_del, $search, $id);
 
             # Redireciona de volta para a página após o tempo informado segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/patrimony">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/stock">';
 
             #   Finaliza
             return;
@@ -356,7 +356,7 @@ class StockModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `patrimony` WHERE `patrimony_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `stock` WHERE `stock_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {
