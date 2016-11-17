@@ -286,15 +286,9 @@
     </div>
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
 </div> <!-- /row  -->
-
-
 <script>
-    
-     
-       $('.top').click(function(){ 
-          $('html, body').animate({scrollTop:0}, 'slow');
-      return false;
-
-         });
-     
+    $('.top').click(function(){ 
+         $('html, body').animate({scrollTop:0}, 'slow');
+         return false;
+     });
 </script>

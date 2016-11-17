@@ -1,16 +1,18 @@
 <?php
-    if (!defined('ABSPATH')) {exit();}
-    
-    if(filter_input(INPUT_GET, 'pa', FILTER_DEFAULT)){
-       $encode_id = filter_input(INPUT_GET, 'pa', FILTER_DEFAULT);
-       $modelo->delRegister($encode_id);
-       
-       # Destroy variavel não mais utilizadas
-       unset($encode_id);
+    if (!defined('ABSPATH')) {
+        exit();
     }
-    
+
+    if (filter_input(INPUT_GET, 'get', FILTER_DEFAULT)) {
+        $encode_id = filter_input(INPUT_GET, 'get', FILTER_DEFAULT);
+        $modelo->delRegister($encode_id);
+
+        # Destroy variavel não mais utilizadas
+        unset($encode_id);
+    }
+
     # Verifica se existe feedback e retorna o feedback se sim se não retorna false
-    $form_msg = $modelo->form_msg; 
+    $form_msg = $modelo->form_msg;
 ?>
 
 <script>
@@ -26,7 +28,7 @@
 
     // Chama o paginador da tabela    
     $(function () {
-        $('#table-for').DataTable({
+        $('#table-laboratory').DataTable({
             language: {
                 url: 'Portuguese-Brasil.json'
             }
@@ -41,75 +43,62 @@
         <?php
             if ($form_msg) {
                 echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                        <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
-                    </div>';
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <i class="' . $form_msg[1] . '" >&nbsp;</i>
+                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                        </div>';
                 unset($form_msg);
-            }else{
+            } else {
                 unset($form_msg);
             }
         ?>
 
         <div class="input-group-sm">
-            <a href="<?= HOME_URI; ?>/laboratory/cad" title="Adiciona laboratório" class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar laboratório </a>
+            <a href="<?= HOME_URI; ?>/laboratory/cad" title="Adicionar Produto" class="btn btn-default btn-group-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar Laboratório </a>
         </div>
         <br>
         <div class="table-responsive">
             <br>
-            <table id="table-stock" class="table table-striped table-bordered table-hover table-condensed">
-                <!--Apenas chama o metodo listar usuário que traz os valores obtidos e insere no vetor $lista -->
-                <?php $listar = $modelo->get_table_data('*', 'stock', 'stock_id'); ?>
-                <?php if (  $listar ): ?>
-                    <thead>
-                        <tr>
-                            <th class="text-center">Código</th>
-                            <th class="text-center">Descrição</th>
-                            <th class="text-center">Quant.</th>
-                            <th class="text-center">Editar</th>
-                            <th class="text-center">Eliminar</th>
-                            <th class="text-center">Informações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <?php foreach ( $listar as $fetch_userdata  ): ?>
-                            <tr class="text-center">
-                                <td>
-                                    <?= $fetch_userdata['stock_cod']; ?>
-                                </td>
-                                <td>
-                                    <?= $fetch_userdata['stock_desc']; ?>
-                                </td>
-                                <td>
-                                    <?= $fetch_userdata['stock_atual']; ?>
-                                </td>
-                                <td>
-                                    <a href="<?= HOME_URI; ?>/stock/cad?pa=<?= $modelo->encode_decode($fetch_userdata['stock_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
-                                        <i style="color: #73a839;" class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-
-                                <td>
-                                    <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
-                                        <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="<?= HOME_URI; ?>/stock/box-view?v=<?= $modelo->encode_decode($fetch_userdata['stock_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
-                                        <i style="color: #2fa4e7;" class="fa fa-1x fa-info-circle" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                        <?php
-                            else:
-                                echo '<tr><td class="text-center" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>';
-                            endif;
-                        ?>
-                    </tbody>
+            <table id="table-laboratory" class="table table-striped table-bordered table-hover table-condensed">
+                <?php if ($modelo->get_table_data('*', 'laboratory', 'laboratory_id')): ?>
+                <thead>
+                    <tr>
+                        <th class="text-center">Nome da Empresa</th>
+                        <th class="text-center">Editar</th>
+                        <th class="text-center">Eliminar</th>
+                        <th class="text-center">Informações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ( $modelo->get_table_data('*', 'laboratory', 'laboratory_id') as $fetch_userdata  ): ?>
+                    <tr class="text-center">
+                        <td><?= $fetch_userdata['laboratory_nome']; ?></td>
+                        
+                        <td>
+                            <a href="<?= HOME_URI; ?>/laboratory/cad?get=<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
+                                <i style="color: #73a839;" class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                                <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<?= HOME_URI; ?>/laboratory/box-view?v=<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
+                                <i style="color: #2fa4e7;" class="fa fa-1x fa-info-circle" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php 
+                        else: 
+                            echo '<tbody><tr><td class="text-center" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>'; 
+                        endif; 
+                    ?>
+                </tbody>
             </table>
             <br>
         </div>
@@ -125,21 +114,21 @@
                         <p class="text-justify">Tem certeza que deseja remover este registro? não sera possível reverter isso.</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="<?= HOME_URI; ?>/providers" class="btn btn-primary">Desistir</a>
-                        <a href="<?= HOME_URI; ?>/providers?p=<?= $modelo->encode_decode($fetch_userdata['provider_id']); ?> " class="btn btn-danger" >Eliminar</a>
+                        <a href="<?= HOME_URI; ?>/laboratory" class="btn btn-primary">Desistir</a>
+                        <a href="<?= HOME_URI; ?>/laboratory?pa=<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?> " class="btn btn-danger" >Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
         <!-- Start Modal visualizar fornecedores -->
         <div id="visualizar-forne" class="modal fade" >
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
-
+                    <!--Conteudo do modal-->
                 </div>
             </div>
         </div><!-- End modal -->
     </div> <!-- End col-md-12 -->    
 </div> <!-- End row-fluid -->
+<?php unset($fetch_userdata); ?>

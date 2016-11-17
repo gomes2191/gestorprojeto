@@ -86,7 +86,7 @@ class LaboratoryController extends MainController {
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('stock/stock-model');
+        $modelo = $this->load_model('laboratory/laboratory-model');
 
         #   Carrega o topo
         require_once (ABSPATH . '/views/_includes/header.php');
@@ -95,7 +95,7 @@ class LaboratoryController extends MainController {
         require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/stock/cad-view.php');
+        require_once (ABSPATH . '/views/laboratory/cad-view.php');
 
         require_once (ABSPATH . '/views/_includes/footer.php');
         
@@ -104,10 +104,10 @@ class LaboratoryController extends MainController {
     public function BoxView(){
         
         #   Carrega o modelo
-        $modelo = $this->load_model('stock/stock-model');
+        $modelo = $this->load_model('laboratory/laboratory-model');
         
         #   Carrega o view
-        require_once (ABSPATH . '/views/stock/box-view.php');
+        require_once (ABSPATH . '/views/laboratory/box-view.php');
         
     }   #--> End BoxView
     

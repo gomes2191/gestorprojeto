@@ -104,9 +104,6 @@ $form_msg = $modelo->form_msg;
                         <br>
                     </div>
                 </div>
-
-
-
                 <div class="row form-compact">
                     <div class="form-group col-md-7 col-xs-12 col-sm-12">
                         <label for="stock_info">Informações extra:</label>

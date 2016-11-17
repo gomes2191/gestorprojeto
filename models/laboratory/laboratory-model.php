@@ -74,7 +74,7 @@ class LaboratoryModel extends MainModel
             } # End foreach
             
             #   Não será permitido campos vazios
-            if ( empty( $this->form_data['stock_cod'] ) OR empty( $this->form_data['stock_desc'])) {
+            if ( empty( $this->form_data['laboratory_nome'] )) {
                 
                 #   Feedback para o usuário
                 $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
@@ -90,13 +90,13 @@ class LaboratoryModel extends MainModel
         } #--> End
         
         # Rotina que verifica se o registro já existe
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `stock` WHERE `stock_id` = ? ',[
-            chk_array($this->form_data, 'stock_id')
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `laboratory` WHERE `laboratory_id` = ? ',[
+            chk_array($this->form_data, 'laboratory_id')
         ]);
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            $this->updateRegister(chk_array($this->form_data, 'stock_id'));
+            $this->updateRegister(chk_array($this->form_data, 'laboratory_id'));
             return;
         }else{
              $this->insertRegister();
@@ -114,19 +114,41 @@ class LaboratoryModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->form_data['stock_tipo_unit']);die;
-        //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'stock_data_aq')).'== novo==');die;
+        //var_dump($this->form_data['laboratory_tipo_unit']);die;
+        //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'laboratory_data_aq')).'== novo==');die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('stock',[
-            'stock_cod'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
-            'stock_desc'        =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
-            'stock_tipo_unit'   =>  $this->avaliar(chk_array($this->form_data, 'stock_tipo_unit')),
-            'stock_fornecedor'  =>  $this->avaliar(chk_array($this->form_data, 'stock_fornecedor')),
-            'stock_inicial'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_inicial')),
-            'stock_minimo'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_minimo')),
-            'stock_atual'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_atual')),
-            'stock_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_valor')),
-            'stock_info'        =>  $this->avaliar(chk_array($this->form_data, 'stock_info'))
+        $query_ins = $this->db->insert('laboratory',[
+            'laboratory_nome'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_nome')),
+            'laboratory_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cpf_cnpj')),
+            'laboratory_rs'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rs')),
+            'laboratory_at'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_at')),
+            'laboratory_end'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_end')),
+            'laboratory_bair'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_bair')),
+            'laboratory_cid'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cid')),
+            'laboratory_uf'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_uf')),
+            'laboratory_pais'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_pais')),
+            'laboratory_cep'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cep')),
+            'laboratory_cel'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cel')),
+            'laboratory_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_1')),
+            'laboratory_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_2')),
+            'laboratory_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_insc_uf')),
+            'laboratory_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_web_url')),
+            'laboratory_email'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_email')),
+            'laboratory_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_nome')),
+            'laboratory_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_apelido')),
+            'laboratory_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_email')),
+            'laboratory_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_cel')),
+            'laboratory_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_1')),
+            'laboratory_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_2')),
+            'laboratory_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_1')),
+            'laboratory_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_1')),
+            'laboratory_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_1')),
+            'laboratory_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_1')),
+            'laboratory_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_2')),
+            'laboratory_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_2')),
+            'laboratory_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_2')),
+            'laboratory_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_2')),
+            'laboratory_obs'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_obs'))
         ]);
 
         #   Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -136,7 +158,7 @@ class LaboratoryModel extends MainModel
             $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro efetuado com sucesso!'];
                 
             # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/stock/cad">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory/cad">';
             
             # Destroy variável não mais utilizada
             unset($query_ins);
@@ -167,21 +189,43 @@ class LaboratoryModel extends MainModel
     **/ 
     public function updateRegister( $registro_id = NULL ){
         
-        //var_dump($this->form_data['stock_valor']);die;
+        //var_dump($this->form_data['laboratory_valor']);die;
         
         #   Se o ID não estiver vazio, atualiza os dados
         if ( $registro_id ) {
             # Efetua o update do registro
-            $query_up = $this->db->update('stock', 'stock_id', $registro_id,[
-                'stock_cod'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
-                'stock_desc'        =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
-                'stock_tipo_unit'   =>  $this->avaliar(chk_array($this->form_data, 'stock_tipo_unit')),
-                'stock_fornecedor'  =>  $this->avaliar(chk_array($this->form_data, 'stock_fornecedor')),
-                'stock_inicial'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_inicial')),
-                'stock_minimo'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_minimo')),
-                'stock_atual'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_atual')),
-                'stock_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_valor')),
-                'stock_info'        =>  $this->avaliar(chk_array($this->form_data, 'stock_info'))
+            $query_up = $this->db->update('laboratory', 'laboratory_id', $registro_id,[
+                'laboratory_nome'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_nome')),
+                'laboratory_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cpf_cnpj')),
+                'laboratory_rs'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rs')),
+                'laboratory_at'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_at')),
+                'laboratory_end'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_end')),
+                'laboratory_bair'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_bair')),
+                'laboratory_cid'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cid')),
+                'laboratory_uf'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_uf')),
+                'laboratory_pais'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_pais')),
+                'laboratory_cep'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cep')),
+                'laboratory_cel'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cel')),
+                'laboratory_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_1')),
+                'laboratory_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_2')),
+                'laboratory_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_insc_uf')),
+                'laboratory_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_web_url')),
+                'laboratory_email'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_email')),
+                'laboratory_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_nome')),
+                'laboratory_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_apelido')),
+                'laboratory_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_email')),
+                'laboratory_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_cel')),
+                'laboratory_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_1')),
+                'laboratory_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_2')),
+                'laboratory_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_1')),
+                'laboratory_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_1')),
+                'laboratory_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_1')),
+                'laboratory_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_1')),
+                'laboratory_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_2')),
+                'laboratory_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_2')),
+                'laboratory_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_2')),
+                'laboratory_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_2')),
+                'laboratory_obs'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_obs'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -191,7 +235,7 @@ class LaboratoryModel extends MainModel
                 $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
                 
                 # Redireciona de volta para a página após dez segundos
-                #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/stock/cad">';
+                #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory/cad">';
                 
                 # Destroy variáveis nao mais utilizadas
                 unset( $registro_id, $query_up  );
@@ -224,7 +268,7 @@ class LaboratoryModel extends MainModel
         $id_decode = intval($this->encode_decode(0, $id_encode));
         
         # Verifica na base de dados o registro
-        $query_get = $this->db->query('SELECT * FROM `stock` WHERE `stock_id` = ?', [ $id_decode ]  );
+        $query_get = $this->db->query('SELECT * FROM `laboratory` WHERE `laboratory_id` = ?', [ $id_decode ]  );
 
         
 
@@ -237,7 +281,7 @@ class LaboratoryModel extends MainModel
         }
         
         # Tratamento da data para o modelo visao do fomulario
-        #$this->form_data['stock_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['stock_data_aq']);
+        #$this->form_data['laboratory_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['laboratory_data_aq']);
         
         # Destroy variaveis não mais utilizadas
         unset($query_get, $fetch_userdata);
@@ -260,14 +304,14 @@ class LaboratoryModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `stock` WHERE `stock_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `laboratory` WHERE `laboratory_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             #   Feedback para o usuário
             $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
             
             # Redireciona de volta para a página após 4 segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/stock">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory">';
             
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
@@ -276,7 +320,7 @@ class LaboratoryModel extends MainModel
             return;
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('stock', 'stock_id', $decode_id);
+            $query_del = $this->db->delete('laboratory', 'laboratory_id', $decode_id);
 
             #   Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
@@ -285,7 +329,7 @@ class LaboratoryModel extends MainModel
             unset($parametro, $query_del, $search, $id);
 
             # Redireciona de volta para a página após o tempo informado segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/stock">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory">';
 
             #   Finaliza
             return;
@@ -347,7 +391,7 @@ class LaboratoryModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `stock` WHERE `stock_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `laboratory` WHERE `laboratory_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {
