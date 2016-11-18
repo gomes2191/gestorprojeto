@@ -61,10 +61,10 @@
         <br>
         <div class="table-responsive">
             <br>
-            <table id="table-laboratory" class="table table-striped table-bordered table-hover table-condensed">
+            <table id="table-laboratory" class="table table-bordered table-condensed table-hover table-format">
                 <?php if ($modelo->get_table_data('*', 'laboratory', 'laboratory_id')): ?>
                 <thead>
-                    <tr>
+                    <tr class="cabe-title">
                         <th class="text-center">Nome da Empresa</th>
                         <th class="text-center">Editar</th>
                         <th class="text-center">Eliminar</th>
