@@ -81,7 +81,7 @@ class LaboratoryController extends MainController {
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
         #   Page title
-        $this->title = ' Cadastro de produto';
+        $this->title = ' Cadastro de laboratório';
         
         #---> Inclua seus models e views aqui
         
@@ -110,5 +110,18 @@ class LaboratoryController extends MainController {
         require_once (ABSPATH . '/views/laboratory/box-view.php');
         
     }   #--> End BoxView
+    
+    public function Card(){
+        
+        # Carrega o modelo
+        $modelo = $this->load_model('laboratory/laboratory-model');
+        
+        # Carrega a classe que gera o pdf
+        require_once (ABSPATH . '/dompdf/autoload.inc.php');
+        
+        # Carrega o view
+        require_once (ABSPATH . '/views/laboratory/card-view.php');
+        
+    }   #--> End Card
     
 }   #--> End FonecedoresController

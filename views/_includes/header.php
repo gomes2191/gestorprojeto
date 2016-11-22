@@ -79,7 +79,7 @@
         <script src="<?= HOME_URI; ?>/views/_js/ie-emulation-modes-warning.js"></script>
         <script src="<?= HOME_URI; ?>/views/_js/jasny-bootstrap.min.js"></script>
         <script src="<?= HOME_URI; ?>/views/_js/form-validator/jquery.form-validator.min.js"></script>
-
+        
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

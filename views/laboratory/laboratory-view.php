@@ -115,7 +115,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="<?= HOME_URI; ?>/laboratory" class="btn btn-primary">Desistir</a>
-                        <a href="<?= HOME_URI; ?>/laboratory?pa=<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?> " class="btn btn-danger" >Eliminar</a>
+                        <a href="<?= HOME_URI; ?>/laboratory?get=<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?> " class="btn btn-danger" >Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

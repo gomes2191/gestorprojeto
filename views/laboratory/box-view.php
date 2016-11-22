@@ -25,14 +25,15 @@
 </div>
 <div class="modal-body">
     <ul class="list-inline list-modal-forn">
-       <?= ($modelo['laboratory_nome']) ? '<li class="list-for list-group-item list-group-item-info list-group-item-text"><b>Nome da empresa:</b> '.$modelo['laboratory_nome'].'</li>' : '' ?> 
+       <?= ($modelo['laboratory_nome']) ? '<li class="list-for list-group-item list-group-item-info list-group-item-text"><b>Nome laboratório:</b> '.$modelo['laboratory_nome'].'</li>' : '' ?> 
        <?= ($modelo['laboratory_cpf_cnpj']) ? '<li class="list-group-item list-group-item-warning list-group-item-text"><b>CPF / CNPJ:</b> '.$modelo['laboratory_cpf_cnpj'].'</li>' : '' ?>
        <?= ($modelo['laboratory_rs']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Razão social:</b> '.$modelo['laboratory_rs'].'</li>' : '' ?>
-       <?= ($modelo['laboratory_at']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Fornecedor:</b> '.$modelo['laboratory_at'].'</li>' : '' ?>
-       <?= ($modelo['laboratory_end']) ? '<li class="list-group-item list-group-item-warning list-group-item-text"><b>Stoque inicial:</b> '.$modelo['laboratory_end'].'</li>' : '' ?>
+       <?= ($modelo['laboratory_at']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Area de atuação:</b> '.$modelo['laboratory_at'].'</li>' : '' ?>
+       <?= ($modelo['laboratory_end']) ? '<li class="list-group-item list-group-item-warning list-group-item-text"><b>Endereço:</b> '.$modelo['laboratory_end'].'</li>' : '' ?>
        <?= ($modelo['laboratory_bair']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Stoque minimo:</b> '.$modelo['laboratory_bair'].'</li>' : '' ?>
        <?= ($modelo['laboratory_cid']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Estoque atual</b> '.$modelo['laboratory_cid'].'</li>' : '' ?>
        <?= ($modelo['laboratory_uf']) ? '<li class="list-group-item list-group-item-warning list-group-item-text"><b>Valor R$:</b> '.$modelo['laboratory_uf'].'</li>' : '' ?>
+       <?= ($modelo['laboratory_cep']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Informações extra:</b> '.$modelo['laboratory_cep'].'</li>' : '' ?>
        <?= ($modelo['laboratory_cep']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Informações extra:</b> '.$modelo['laboratory_cep'].'</li>' : '' ?>
     </ul>
 </div>

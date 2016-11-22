@@ -255,10 +255,6 @@ Formatação para barra de rolagem ainda nao tive interesse em utilizar nao foi 
     
 
 /*Tabela de registros*/
-
-.table-format{
-    box-shadow: 3px 2px 10px 0px #d8d8d8;
-}
 .cabe-title{
    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9fcf7+0,f5f9f0+100;L+Green+3D */
    background: rgb(249,252,247); /* Old browsers */

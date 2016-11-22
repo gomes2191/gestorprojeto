@@ -25,7 +25,7 @@
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
     <div class="col-md-10  col-sm-12 col-xs-12">
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
-        <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
+        <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="ui form segment">
             <?php
                 if ($form_msg) {
                     echo'<div class="alert alertH ' . $form_msg[0] . ' alert-dismissible fade in">
@@ -272,25 +272,25 @@
             <div class="row form-compact">
                 <div class="form-group col-xs-6 col-sm-3 col-md-2 ">
                     <div class="input-group-btn ">
-                        <a href="<?= HOME_URI; ?>/laboratory" class="btn btn-sx btn-primary" title="Ir a página de fornecedores"><span class="fa fa-users"></span> Visualizar fornecedores</a>
+                        <a href="<?= HOME_URI; ?>/laboratory" class="btn btn-sx btn-default" title="Ir a página de fornecedores"><span class="fa fa-users"></span> Listar cadastros</a>
                     </div>
                     <br>
                 </div>
                 <div class="form-group col-xs-6 col-sm-3 col-md-1">
                     <div class="input-group-btn">
-                        <button title="Salvar informações" class="btn btn-sx btn-primary" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
+                        <button title="Salvar informações" class="btn btn-sx btn-default" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
                     </div>
                     <br>
                 </div>
                 <div class="form-group col-xs-4 col-sm-3 col-md-1 ">
                     <div class="input-group-btn">
-                        <button title="Limpar formulário" class="btn btn-sx btn-warning" type="reset"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
+                        <button title="Limpar formulário" class="btn btn-sx btn-default" type="reset"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
                     </div>
                     
                 </div>
                 <div class="form-group col-xs-4 col-sm-3 col-md-1 ">
                     <div class="input-group-btn">
-                        <span title="Ir ao topo da página" class=" btn btn-primary top glyphicon glyphicon-arrow-up"></span>
+                        <span title="Ir ao topo da página" class=" btn btn-default top glyphicon glyphicon-arrow-up"></span>
                     </div>
                 </div>
             </div>
