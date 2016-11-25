@@ -323,13 +323,13 @@ class LaboratoryModel extends MainModel
             $query_del = $this->db->delete('laboratory', 'laboratory_id', $decode_id);
 
             #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            #$this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
 
             #   Destroy variáveis não mais utilizadas
-            unset($parametro, $query_del, $search, $id);
+            unset($query_del, $search);
 
             # Redireciona de volta para a página após o tempo informado segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory">';
+            #echo '<meta http-equiv="Refresh" content="1; url=' . HOME_URI . '/laboratory">';
 
             #   Finaliza
             return;

@@ -6,7 +6,7 @@
     if (filter_input(INPUT_GET, 'get', FILTER_DEFAULT)) {
         $encode_id = filter_input(INPUT_GET, 'get', FILTER_DEFAULT);
         $modelo->delRegister($encode_id);
-
+        
         # Destroy variavel não mais utilizadas
         unset($encode_id);
     }
@@ -35,7 +35,30 @@
         });
 
     });
-
+    
+    function confirmExcluir(id){
+        swal({
+          title: "",
+          text: "Você realmente deseja remover este registro? apos a remoção será impossivel reverter isso",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "Cancelar",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Remover",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        },
+        function(isConfirm){
+            if (isConfirm){
+                swal({title:'Eliminado!' ,type: "success", timer: 1250, showConfirmButton: false}, 
+                function(){ window.location.href = '<?= HOME_URI; ?>/laboratory?get=' + id; });
+                
+            }else{
+                swal("Cancelado!", "O registro foi mantido :)", "error");
+            }
+          
+        });
+    }
 </script>
 
 <div class="row-fluid">
@@ -81,8 +104,8 @@
                                 <i style="color: #73a839;" class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i>
                             </a>
                         </td>
-                        <td>
-                            <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                        <td><!--Teste-->
+                            <a href="javascript:void(0);" title="Eliminar registro" onclick="confirmExcluir('<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?>')" class="btn btn-sm btn-default">
                                 <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
                             </a>
                         </td>
@@ -115,7 +138,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="<?= HOME_URI; ?>/laboratory" class="btn btn-primary">Desistir</a>
-                        <a href="<?= HOME_URI; ?>/laboratory?get=<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?> " class="btn btn-danger" >Eliminar</a>
+                        <a href="" class="btn btn-danger" >Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

@@ -80,7 +80,7 @@
                         <td><?= $fetch_userdata['covenant_tel_1']; ?></td>
                         
                         <td>
-                            <a href="#" title="Honorários" class="btn btn-sm btn-default">
+                            <a href="<?= HOME_URI; ?>/covenant/fees" title="Honorários" class="btn btn-sm btn-default">
                                 <i style="color: #2fa4e7;" class="fa fa-pie-chart" aria-hidden="true"></i>
                             </a>
                         </td>

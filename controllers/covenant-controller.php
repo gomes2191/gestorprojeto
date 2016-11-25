@@ -78,7 +78,7 @@ class CovenantController extends MainController {
     # URL: dominio.com/exemplo/exemplo
     public function Cad() {
         #   Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
         #   Page title
         $this->title = ' Cadastro de convênio';
@@ -96,6 +96,32 @@ class CovenantController extends MainController {
 
         #   Carrega o view
         require_once (ABSPATH . '/views/covenant/cad-view.php');
+
+        require_once (ABSPATH . '/views/_includes/footer.php');
+        
+    }   #--> End cad
+    
+    # URL: dominio.com/exemplo/exemplo
+    public function Fees() {
+        #   Parametros da função
+        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+        
+        #   Page title
+        $this->title = ' Honorários';
+        
+        #---> Inclua seus models e views aqui
+        
+        #   Carrega o modelo
+        $modelo = $this->load_model('covenant/covenant-model');
+
+        #   Carrega o topo
+        require_once (ABSPATH . '/views/_includes/header.php');
+        
+        #   Carrega menus
+        require_once (ABSPATH.'/views/_includes/menu.php');
+
+        #   Carrega o view
+        require_once (ABSPATH . '/views/covenant/fees-view.php');
 
         require_once (ABSPATH . '/views/_includes/footer.php');
         

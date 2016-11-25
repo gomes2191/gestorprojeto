@@ -22,8 +22,10 @@
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/views/_css/bootstrap.min.css">
+        
+        <!-- Outro plugins -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/views/_css/jasny-bootstrap.min.css">
-
+        
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/views/_css/ie10-viewport-bug-workaround.css">
 
@@ -45,14 +47,14 @@
                 # End agenda css -->
             } 
             elseif (($this->title == ' Fornecedores') OR ($this->title == ' Usuarios') OR ($this->title == ' Patrimônio')
-                    OR ($this->title == ' Stoque') OR ( $this->title == ' Laboratório')) {
-                # Start paginação css
+                    OR ($this->title == ' Stoque') OR ( $this->title == ' Laboratório') OR ( $this->title == ' Convênios')) {
+                # Outros plugins
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/datatables.min.css">';
-                # End paginação css 
-                
-                # Start paginação js
                 echo '<script src="'.HOME_URI.'/views/_js/datatables.min.js"></script>';
-                # End paginação js
+                
+                echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/sweetalert.css">';
+                echo '<script src="'.HOME_URI.'/views/_js/sweetalert.min.js"></script>';
+                # End outros plugins
             }
         ?>
        
