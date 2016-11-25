@@ -44,9 +44,9 @@
                 <legend><h6>INFORMAÇÕES DO LABORATÓRIO</h6></legend>
                 <div class="row form-compact">
                     <div class="form-group col-md-3 col-sm-4 col-xs-12">
-                        <label for="laboratory_nome">Empresa:</label>
+                        <label for="laboratory_nome">Nome do laboratório:</label>
                         <input type="hidden" name="laboratory_id" value="<?= htmlentities(chk_array($modelo->form_data, 'laboratory_id')); ?>">
-                        <input id="laboratory_nome" type="text" name="laboratory_nome" placeholder="Nome da empresa... " value="<?php
+                        <input id="laboratory_nome" type="text" name="laboratory_nome" placeholder="Nome do laboratório... " value="<?php
                         echo htmlentities(chk_array($modelo->form_data, 'laboratory_nome')); ?>" class="form-control" 
                         data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                         data-validation-help="Digite um nome com (3) ou mais caracteres.">
@@ -272,7 +272,7 @@
             <div class="row form-compact">
                 <div class="form-group col-xs-6 col-sm-3 col-md-2 ">
                     <div class="input-group-btn ">
-                        <a href="<?= HOME_URI; ?>/laboratory" class="btn btn-sx btn-default" title="Ir a página de fornecedores"><span class="fa fa-users"></span> Listar cadastros</a>
+                        <a href="<?= HOME_URI; ?>/laboratory" class="btn btn-sx btn-default" title="Ir a página de cadastros"><span class="fa fa-users"></span> Listar cadastros</a>
                     </div>
                     <br>
                 </div>

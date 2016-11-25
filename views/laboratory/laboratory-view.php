@@ -65,7 +65,7 @@
                 <?php if ($modelo->get_table_data('*', 'laboratory', 'laboratory_id')): ?>
                 <thead>
                     <tr class="cabe-title">
-                        <th class="text-center">Nome da Empresa</th>
+                        <th class="text-center">Laboratório</th>
                         <th class="text-center">Editar</th>
                         <th class="text-center">Eliminar</th>
                         <th class="text-center">Informações</th>

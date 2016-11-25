@@ -20,21 +20,20 @@
                 <li class="menu-item dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"  ><i class="fa fa-university" aria-hidden="true"></i> EMPRESA<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-<!--                        <li class="menu-item dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Controle de pessoal</a>
+<!--                    <li class="menu-item dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Controle de pessoal</a>
                             <ul class="dropdown-menu">
                                 <li class="menu-item "><a href="#">Cadastro de dentista</a></li>
                                 <li class="menu-item "><a href="#">Cadastro de funcionario</a></li>
                                 <li class="menu-item dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">More</a>
                                   <ul class="dropdown-menu"><li><a href="#">3rd level link more options</a></li><li><a href="#">3rd level link</a></li></ul>
                                 </li>
-                              </ul>
+                            </ul>
                         </li>-->
-                        
                         <li><a href="<?= HOME_URI; ?>/providers">Fornecedores</a></li>
                         <li><a href="<?= HOME_URI; ?>/patrimony">Patrimônio</a></li>
                         <li><a href="<?= HOME_URI; ?>/stock">Controle de Estoque</a></li>
                         <li><a href="<?= HOME_URI; ?>/laboratory">Laboratório</a></li>
-                        <li><a href="#">Convênios / Planos</a></li>
+                        <li><a href="<?= HOME_URI; ?>/covenant">Convênios / Planos</a></li>
                         <li><a href="#">Tabela de Honorários</a></li>
                     </ul>
                 </li>
