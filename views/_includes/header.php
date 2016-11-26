@@ -47,7 +47,8 @@
                 # End agenda css -->
             } 
             elseif (($this->title == ' Fornecedores') OR ($this->title == ' Usuarios') OR ($this->title == ' Patrimônio')
-                    OR ($this->title == ' Stoque') OR ( $this->title == ' Laboratório') OR ( $this->title == ' Convênios')) {
+                    OR ($this->title == ' Stoque') OR ( $this->title == ' Laboratório') OR ( $this->title == ' Convênios')
+                    OR ( $this->title == ' Honorários')) {
                 # Outros plugins
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/datatables.min.css">';
                 echo '<script src="'.HOME_URI.'/views/_js/datatables.min.js"></script>';

@@ -19,10 +19,23 @@ if (filter_input(INPUT_GET, 'pa', FILTER_DEFAULT)) {
 $form_msg = $modelo->form_msg;
 ?>
 
-<script>window.history.pushState("fees", "", "fees");</script>
+<script>
+    //Muda url da pagina
+    window.history.pushState("fees", "", "fees");
+    
+    // Chama o paginador da tabela    
+    $(function () {
+        $('#table-covenant').DataTable({
+            language: {
+                url: '../Portuguese-Brasil.json'
+            }
+        });
+
+    });
+    
+</script>
 
 <div class="row-fluid">
-    <div class="col-md-1  col-sm-0 col-xs-0"></div>
     <div class="col-md-10  col-sm-12 col-xs-12">
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
@@ -41,7 +54,7 @@ $form_msg = $modelo->form_msg;
             }
             ?>
             <fieldset>
-                <legend>Informações do produto</legend>
+                <legend>TABELA DE HONORÁRIOS</legend>
                 <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="stock_cod"><i style="color: red;">*</i> Código:</label>
@@ -53,13 +66,13 @@ $form_msg = $modelo->form_msg;
                     </div>
 
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                        <label for="stock_desc"><i style="color: red;">*</i> Descreva o produto:</label>
+                        <label for="stock_desc"><i style="color: red;">*</i> Procedimento:</label>
                         <input id="stock_desc" name="stock_desc" class="form-control" type="text" placeholder="Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_desc')); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="stock_tipo_unit">Tipo unitário:</label>
+                        <label for="stock_tipo_unit">Categoria:</label>
                         <select name="stock_tipo_unit" class="form-control">
                             <?php foreach ($modelo->get_table_data('*', 'stock_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
                                 <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'stock_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
@@ -69,33 +82,7 @@ $form_msg = $modelo->form_msg;
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="stock_fornecedor">Fornecedor:</label>
-                        <input id="stock_fornecedor" name="stock_fornecedor" class="form-control" type="text" placeholder="Fornecedor..." value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_fornecedor')); ?>" >
-                        <br>
-                    </div>
-                    <br>
-                </div>
-
-                <div class="row form-compact">
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="stock_inicial">Estoque inicial:</label>
-                        <input id="stock_inicial" name="stock_inicial" class="form-control" type="text" placeholder="100" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_inicial')); ?>">
-                        <br>
-                    </div>
-                    
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="stock_minimo">Estoque minimo:</label>
-                        <input id="stock_minimo" name="stock_minimo" class="form-control" type="text" placeholder="10" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_minimo')); ?>">
-                        <br>
-                    </div>
-
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="stock_atual">Estoque atual:</label>
-                        <input id="stock_atual" name="stock_atual" class="form-control" type="text" placeholder="95" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_atual')); ?>">
-                        <br>
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="stock_valor">Montante total ( em reais )</label>
+                        <label for="stock_valor">Valor particular montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">$</div>
                             <input id="stock_valor" name="stock_valor" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'stock_valor')); ?>">
@@ -103,16 +90,11 @@ $form_msg = $modelo->form_msg;
                         </div>
                         <br>
                     </div>
+                    <br>
                 </div>
-                <div class="row form-compact">
-                    <div class="form-group col-md-7 col-xs-12 col-sm-12">
-                        <label for="stock_info">Informações extra:</label>
-                        <textarea id="stock_info" class="form-control" name="stock_info" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php echo htmlentities(chk_array($modelo->form_data, 'stock_info')); ?></textarea>
-                        <br>
-                    </div>
 
+                <div class="row form-compact">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
-                        <br>
                         <div class="btn-group">
                             <a href="<?= HOME_URI; ?>/stock" class="btn btn-default" title="Lista cadastros"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar Cadastros</a>
                         </div>
@@ -131,8 +113,64 @@ $form_msg = $modelo->form_msg;
             </fieldset>
         </form>
     </div>
-    <div class="col-md-1  col-sm-0 col-xs-0"></div>
 </div> <!-- /row  -->
+<div class="row-fluid">
+    <div class="col-md-12  col-sm-12 col-xs-12">
+        <div class="table-responsive">
+            <br>
+            <table id="table-covenant" class="table table-bordered table-condensed table-hover table-format">
+                <?php if ($modelo->get_table_data('*', 'covenant', 'covenant_id')): ?>
+                <thead>
+                    <tr class="cabe-title">
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Procedimento</th>
+                        <th class="text-center">Particular</th>
+                        <th class="text-center">Convênio</th>
+                        <th class="text-center">Diferença</th>
+                        <th class="text-center">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ( $modelo->get_table_data('*', 'covenant', 'covenant_id') as $fetch_userdata  ): ?>
+                    <tr class="text-center">
+                        <td><?= $fetch_userdata['covenant_nome']; ?></td>
+                        <td><?= $fetch_userdata['covenant_tel_1']; ?></td>
+                        
+                        <td>
+                            <a href="<?= HOME_URI; ?>/covenant/fees?get_two=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" title="Honorários" class="btn btn-sm btn-default">
+                                <i style="color: #2fa4e7;" class="fa fa-pie-chart" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        
+                        
+                        <td>
+                            <a href="<?= HOME_URI; ?>/covenant/cad?get=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
+                                <i style="color: #73a839;" class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                                <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<?= HOME_URI; ?>/covenant/box-view?v=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
+                                <i style="color: #2fa4e7;" class="fa fa-1x fa-info-circle" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php 
+                        else: 
+                            echo '<tbody><tr><td class="text-center" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>'; 
+                        endif; 
+                    ?>
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </div>
+</div>
 
 <script>
 
