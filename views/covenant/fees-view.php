@@ -1,27 +1,38 @@
 <?php
-if (!defined('ABSPATH')) {
-    exit();
-}
+    if (!defined('ABSPATH')) {
+        exit();
+    }
+    
+    $get_decode = intval($modelo->encode_decode(0, filter_input(INPUT_GET, 'get_two', FILTER_DEFAULT)));
+    
+    var_dump($modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'));
+    
+    if(in_array($get_decode, $modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'))) {
+        echo 'Teste';
+    }else{
+        # Retorna para página 'covenant' caso não exista o id correspondente
+        #echo'<script>window.location="'.HOME_URI.'/covenant";</script>';
+        #exit();
+    }
 
-# Verifica se existe o método get se existir chama função
-if (filter_input(INPUT_GET, 'pa', FILTER_DEFAULT)) {
-    $id_encode = filter_input(INPUT_GET, 'pa', FILTER_DEFAULT);
-
-    $modelo->get_register_form($id_encode);
-
-    # Destroy variáveis não mais utilizada
-    unset($id_encode);
-}
 
 # Verifica se existe a requisição POST se existir executa o método se não faz nada
-(filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
-# Configura o Feedback para o usuário
-$form_msg = $modelo->form_msg;
+    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+    # Configura o Feedback para o usuário
+    $form_msg = $modelo->form_msg;
+    
+    if(isset($_POST['msg'])) {
+    //salva no banco de dados
+    echo 'sucesso'; // sucesso
+    echo $_POST['msg'];
+} else {
+    echo 'falha'; // falhou
+}
 ?>
 
 <script>
     //Muda url da pagina
-    window.history.pushState("fees", "", "fees");
+    //window.history.pushState("fees", "", "fees");
     
     // Chama o paginador da tabela    
     $(function () {
@@ -32,6 +43,40 @@ $form_msg = $modelo->form_msg;
         });
 
     });
+    
+    
+  $(function(){
+  $('#i-msg').hide();
+  $('#b-msg').hide();
+  
+  $('#t-msg').click(function(){
+      $('#t-msg').toggle('fast');
+      $('#i-msg').val($('#t-msg').text());
+      $('#i-msg').toggle('fast');
+      $('#b-msg').toggle('fast');
+  });
+  
+  $('#b-msg').click(function(){
+      $('#t-msg').text($('#i-msg').val());
+    
+      $.post(
+           "fees",
+           "msg="+ $('#t-msg').text(),
+        function (retorno) {
+          if (retorno != "success") {
+            // Quando der erro
+            alert('erro');
+          } else {
+            // Quando salvar
+            alert('certo');
+          }
+      });
+    
+      $('#i-msg').toggle('fast');
+      $('#b-msg').toggle('fast');
+      $('#t-msg').toggle('fast');
+  });
+});
     
 </script>
 
@@ -57,35 +102,35 @@ $form_msg = $modelo->form_msg;
                 <legend>TABELA DE HONORÁRIOS</legend>
                 <div class="row form-compact">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="stock_cod"><i style="color: red;">*</i> Código:</label>
-                        <input type="hidden" name="stock_id" value="<?= htmlentities(chk_array($modelo->form_data, 'stock_id')); ?>">
-                        <input id="stock_cod" type="text" name="stock_cod" placeholder="Ex: G300, P20, M30... " value="<?= htmlentities(chk_array($modelo->form_data, 'stock_cod')); ?>" class="form-control" 
+                        <label for="fees_cod"><i style="color: red;">*</i> Código:</label>
+                        <input type="hidden" name="fees_id" value="<?= htmlentities(chk_array($modelo->form_data, 'fees_id')); ?>">
+                        <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="<?= htmlentities(chk_array($modelo->form_data, 'fees_cod')); ?>" class="form-control" 
                                data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                                data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
                     </div>
 
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                        <label for="stock_desc"><i style="color: red;">*</i> Procedimento:</label>
-                        <input id="stock_desc" name="stock_desc" class="form-control" type="text" placeholder="Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'stock_desc')); ?>">
+                        <label for="fees_proc"><i style="color: red;">*</i> Procedimento:</label>
+                        <input id="fees_proc" name="fees_desc" class="form-control" type="text" placeholder="Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'fees_desc')); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="stock_tipo_unit">Categoria:</label>
-                        <select name="stock_tipo_unit" class="form-control">
-                            <?php foreach ($modelo->get_table_data('*', 'stock_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
-                                <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'stock_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
+                        <label for="fees_tipo_unit">Categoria:</label>
+                        <select name="fees_tipo_unit" class="form-control">
+                            <?php foreach ($modelo->get_table_data('*', 'fees_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'fees_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
                             <?php endforeach; unset($fetch_userdata); ?>
                         </select>
                         <br>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="stock_valor">Valor particular montante ( em reais )</label>
+                        <label for="fees_valor">Valor particular montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">$</div>
-                            <input id="stock_valor" name="stock_valor" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'stock_valor')); ?>">
+                            <input id="fees_valor" name="fees_valor" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'fees_valor')); ?>">
                             <div class="input-group-addon">.00</div>
                         </div>
                         <br>
@@ -96,7 +141,7 @@ $form_msg = $modelo->form_msg;
                 <div class="row form-compact">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div class="btn-group">
-                            <a href="<?= HOME_URI; ?>/stock" class="btn btn-default" title="Lista cadastros"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar Cadastros</a>
+                            <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
                         </div>
                         <div class="btn-group">
                             <button title="Salvar informações" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
@@ -119,7 +164,7 @@ $form_msg = $modelo->form_msg;
         <div class="table-responsive">
             <br>
             <table id="table-covenant" class="table table-bordered table-condensed table-hover table-format">
-                <?php if ($modelo->get_table_data('*', 'covenant', 'covenant_id')): ?>
+                <?php if ($modelo->get_table_data(2, '*', 'covenant', 'covenant_id', 2, 'covenant_id')): ?>
                 <thead>
                     <tr class="cabe-title">
                         <th class="text-center">Código</th>
@@ -131,10 +176,17 @@ $form_msg = $modelo->form_msg;
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ( $modelo->get_table_data('*', 'covenant', 'covenant_id') as $fetch_userdata  ): ?>
+                    <?php foreach ( $modelo->get_table_data(1, '*', 'covenant', NULL, NULL, 'covenant_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
                         <td><?= $fetch_userdata['covenant_nome']; ?></td>
-                        <td><?= $fetch_userdata['covenant_tel_1']; ?></td>
+                        <td >
+                            <span id="t-msg"><?= $fetch_userdata['covenant_tel_1']; ?></span>
+                            
+                            <input id="i-msg" name="msg" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'fees_valor')); ?>">
+                            <button id="b-msg">Ok</button>
+                            
+                        </td>
+                        
                         
                         <td>
                             <a href="<?= HOME_URI; ?>/covenant/fees?get_two=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" title="Honorários" class="btn btn-sm btn-default">
