@@ -363,20 +363,32 @@ class CovenantModel extends MainModel
      *   @Função: get_table_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_table_data($campo, $table, $id) {
-
-        #   Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query("SELECT  $campo FROM $table ORDER BY $id");
-
-        // Verifica se a consulta está OK
-        if (!$query) {
-            
-            # Finaliza
-            return;
-        }
+    public function get_table_data($tipo, $campo, $table, $id_campo, $get_id, $id) {
         
-        # Retorna os valores da consulta
-        return $query->fetchAll(PDO::FETCH_BOTH);
+        if ($tipo == 1){
+            
+            # Simplesmente seleciona os dados na base de dados
+            $query = $this->db->query(" SELECT  $campo FROM $table  ORDER BY $id ");
+            
+            # Destroy todas as variaveis nao mais utilizadas
+            unset($tipo, $campo, $table, $id_campo, $get_id, $id);
+            
+            # Retorna os valores da consulta
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+            
+            
+        }elseif ($tipo == 2){
+            
+            # Simplesmente seleciona os dados na base de dados
+            $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id ");
+            
+            # Destroy todas as variaveis nao mais utilizadas
+            unset($tipo, $campo, $table, $id_campo, $get_id, $id);
+            
+            # Retorna os valores da consulta
+            return $query->fetch(PDO::FETCH_ASSOC);
+        }
+         
     }   # End get_table_data()
     
     /**
