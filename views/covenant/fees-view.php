@@ -16,18 +16,12 @@
     }
 
 
-# Verifica se existe a requisição POST se existir executa o método se não faz nada
+    # Verifica se existe a requisição POST se existir executa o método se não faz nada
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+    
     # Configura o Feedback para o usuário
     $form_msg = $modelo->form_msg;
     
-    if(isset($_POST['msg'])) {
-    //salva no banco de dados
-    echo 'sucesso'; // sucesso
-    echo $_POST['msg'];
-} else {
-    echo 'falha'; // falhou
-}
 ?>
 
 <script>
@@ -43,41 +37,7 @@
         });
 
     });
-    
-    
-  $(function(){
-  $('#i-msg').hide();
-  $('#b-msg').hide();
-  
-  $('#t-msg').click(function(){
-      $('#t-msg').toggle('fast');
-      $('#i-msg').val($('#t-msg').text());
-      $('#i-msg').toggle('fast');
-      $('#b-msg').toggle('fast');
-  });
-  
-  $('#b-msg').click(function(){
-      $('#t-msg').text($('#i-msg').val());
-    
-      $.post(
-           "fees",
-           "msg="+ $('#t-msg').text(),
-        function (retorno) {
-          if (retorno != "success") {
-            // Quando der erro
-            alert('erro');
-          } else {
-            // Quando salvar
-            alert('certo');
-          }
-      });
-    
-      $('#i-msg').toggle('fast');
-      $('#b-msg').toggle('fast');
-      $('#t-msg').toggle('fast');
-  });
-});
-    
+      
 </script>
 
 <div class="row-fluid">
@@ -176,7 +136,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ( $modelo->get_table_data(1, '*', 'covenant_fees', NULL, NULL, 'fees_id') as $fetch_userdata  ): ?>
+                    <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
                         <td><?= $fetch_userdata['fees_cod']; ?></td>
                         <td >

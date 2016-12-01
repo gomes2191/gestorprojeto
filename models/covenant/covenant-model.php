@@ -386,7 +386,7 @@ class CovenantModel extends MainModel
             unset($tipo, $campo, $table, $id_campo, $get_id, $id);
             
             # Retorna os valores da consulta
-            return $query->fetch(PDO::FETCH_ASSOC);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         }
          
     }   # End get_table_data()
