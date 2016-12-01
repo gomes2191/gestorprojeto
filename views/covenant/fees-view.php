@@ -164,7 +164,7 @@
         <div class="table-responsive">
             <br>
             <table id="table-covenant" class="table table-bordered table-condensed table-hover table-format">
-                <?php if ($modelo->get_table_data(2, '*', 'covenant', 'covenant_id', 2, 'covenant_id')): ?>
+                <?php if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')): ?>
                 <thead>
                     <tr class="cabe-title">
                         <th class="text-center">Código</th>
@@ -176,40 +176,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ( $modelo->get_table_data(1, '*', 'covenant', NULL, NULL, 'covenant_id') as $fetch_userdata  ): ?>
+                    <?php foreach ( $modelo->get_table_data(1, '*', 'covenant_fees', NULL, NULL, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
-                        <td><?= $fetch_userdata['covenant_nome']; ?></td>
+                        <td><?= $fetch_userdata['fees_cod']; ?></td>
                         <td >
-                            <span id="t-msg"><?= $fetch_userdata['covenant_tel_1']; ?></span>
+                            <span id="t-msg"><?= $fetch_userdata['fees_proc']; ?></span>
                             
                             <input id="i-msg" name="msg" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'fees_valor')); ?>">
                             <button id="b-msg">Ok</button>
                             
                         </td>
-                        
-                        
-                        <td>
-                            <a href="<?= HOME_URI; ?>/covenant/fees?get_two=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" title="Honorários" class="btn btn-sm btn-default">
-                                <i style="color: #2fa4e7;" class="fa fa-pie-chart" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                        
-                        
-                        <td>
-                            <a href="<?= HOME_URI; ?>/covenant/cad?get=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" class="btn btn-sm btn-default"  title="<?= Translate::t('dMsg_10'); ?>">
-                                <i style="color: #73a839;" class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
-                                <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                        <td>
+                        <td><?= $fetch_userdata['fees_cat']; ?></td>
+                        <td><?= $fetch_userdata['fees_part']; ?></td>
+                        <td><?= $fetch_userdata['fees_part']; ?></td>
+                        <td><?= $fetch_userdata['fees_part']; ?></td>
+                       
+<!--                        <td>
                             <a href="<?= HOME_URI; ?>/covenant/box-view?v=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
                                 <i style="color: #2fa4e7;" class="fa fa-1x fa-info-circle" aria-hidden="true"></i>
                             </a>
-                        </td>
+                        </td>-->
                     </tr>
                     <?php endforeach; ?>
                     <?php 
