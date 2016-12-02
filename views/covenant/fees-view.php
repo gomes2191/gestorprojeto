@@ -37,6 +37,38 @@
         });
 
     });
+    
+    
+    $(function (){
+        $('#table-fees tbody tr td').dblclick( function(){
+            if( $('td > input').length > 0){
+                return;
+                
+            }
+            
+            var conteudoOriginal = $(this).text();
+            //alert(conteudoOriginal);
+            var novoElemento = $('<input>',{type:'text', value:conteudoOriginal, class:'form-control'});
+            $(this).html(novoElemento.bind('blur keydown', function(e){
+                var keyCode = e.which;
+                if( keyCode == 13 ){
+                    var conteudoNovo = $(this).val();
+                    if( conteudoNovo != '' ){
+                        $(this).parent().html(conteudoNovo);
+                        
+                    }
+                    
+                }
+                if(e.type == 'blur'){
+                    $(this).parent().html(conteudoOriginal);
+                    
+                }
+            }));
+            
+            $(this).children().select();
+            
+        });
+    });
       
 </script>
 
@@ -123,7 +155,7 @@
     <div class="col-md-12  col-sm-12 col-xs-12">
         <div class="table-responsive">
             <br>
-            <table id="table-covenant" class="table table-bordered table-condensed table-hover table-format">
+            <table id="table-fees" class="table table-bordered table-condensed table-hover table-format">
                 <?php if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')): ?>
                 <thead>
                     <tr class="cabe-title">
@@ -139,13 +171,7 @@
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
                         <td><?= $fetch_userdata['fees_cod']; ?></td>
-                        <td >
-                            <span id="t-msg"><?= $fetch_userdata['fees_proc']; ?></span>
-                            
-                            <input id="i-msg" name="msg" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'fees_valor')); ?>">
-                            <button id="b-msg">Ok</button>
-                            
-                        </td>
+                        <td><?= $fetch_userdata['fees_proc']; ?></td>
                         <td><?= $fetch_userdata['fees_cat']; ?></td>
                         <td><?= $fetch_userdata['fees_part']; ?></td>
                         <td><?= $fetch_userdata['fees_part']; ?></td>

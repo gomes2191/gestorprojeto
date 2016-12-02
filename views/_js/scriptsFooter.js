@@ -179,19 +179,3 @@ $(function () {
         $('input').css('background', '#ffffff');
     });
 });
-       
-       
-       
-       $('form')
-  // set one value
-  .form('set value', 'name', 'Jack')
-   // set several values
-  .form('set values', {
-    name     : 'Jack',
-    gender   : 'male',
-    colors   : ['red', 'grey'],
-    username : 'jlukic',
-    password : 'youdliketoknow',
-    terms    : true
-  })
-;
