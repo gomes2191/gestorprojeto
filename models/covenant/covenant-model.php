@@ -61,7 +61,7 @@ class CovenantModel extends MainModel
     public function validate_register_form () {
         # Cria o vetor que vai receber os dados do post
         $this->form_data = [];
-
+        
         # Verifica se algo foi postado no formulário
         if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
             

@@ -5,7 +5,7 @@
     
     $get_decode = intval($modelo->encode_decode(0, filter_input(INPUT_GET, 'get_two', FILTER_DEFAULT)));
     
-    var_dump($modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'));
+    //var_dump($modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'));
     
     if(in_array($get_decode, $modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'))) {
         echo 'Teste';
@@ -21,7 +21,6 @@
     
     # Configura o Feedback para o usuário
     $form_msg = $modelo->form_msg;
-    
 ?>
 
 <script>
@@ -38,37 +37,40 @@
 
     });
     
-    
     $(function (){
-        $('#table-fees tbody tr td').dblclick( function(){
-            if( $('td > input').length > 0){
-                return;
+        $('#table-fees tbody tr td.editavel').dblclick( function(){
+            if( $('td > input').length > 0){return;}
+            var conteudoOriginal = $(this).text();
+            var novoElemento = $('<input>',{type:'text', value:conteudoOriginal, class:'form-control'});
+            if($(this).attr('title') == 'nome'){
+                $(this).prop('Nome', 'preça');
                 
             }
-            
-            var conteudoOriginal = $(this).text();
-            //alert(conteudoOriginal);
-            var novoElemento = $('<input>',{type:'text', value:conteudoOriginal, class:'form-control'});
             $(this).html(novoElemento.bind('blur keydown', function(e){
                 var keyCode = e.which;
-                if( keyCode == 13 ){
-                    var conteudoNovo = $(this).val();
-                    if( conteudoNovo != '' ){
-                        $(this).parent().html(conteudoNovo);
+                var conteudoNovo = $(this).val();
+                if(keyCode == 13 && conteudoNovo != '' && conteudoNovo != conteudoOriginal){
+                    var objeto = $(this);
+                    $.ajax({
+                        type:'POST',
+                        url:'',
+                        data: {fees_id:$(this).parents('tr').children().first().text()},
+                        success:function(result){
+                            objeto.parent().html(conteudoNovo);
+                            $('body').append(result);
+                            
+                        }
                         
-                    }
-                    
+                    });
                 }
-                if(e.type == 'blur'){
+                else if( keyCode == 27 ||  e.type == 'blur'){
                     $(this).parent().html(conteudoOriginal);
-                    
                 }
             }));
-            
             $(this).children().select();
-            
         });
     });
+      
       
 </script>
 
@@ -92,9 +94,9 @@
             ?>
             <fieldset>
                 <legend>TABELA DE HONORÁRIOS</legend>
-                <div class="row form-compact">
+                <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="fees_cod"><i style="color: red;">*</i> Código:</label>
+                        <label for="fees_cod"><i style="color: red;">*</i>Nr:</label>
                         <input type="hidden" name="fees_id" value="<?= htmlentities(chk_array($modelo->form_data, 'fees_id')); ?>">
                         <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="<?= htmlentities(chk_array($modelo->form_data, 'fees_cod')); ?>" class="form-control" 
                                data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
@@ -130,7 +132,7 @@
                     <br>
                 </div>
 
-                <div class="row form-compact">
+                <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div class="btn-group">
                             <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
@@ -141,14 +143,18 @@
                         <div class="btn-group">
                             <button title="Limpar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
                         </div>
-                        <div class="btn-group">
-                            <span title="Ir ao topo da página" class="btn btn-default marg-top"><i class="top glyphicon glyphicon-arrow-up"></i></span>
-                        </div>
-                        <br>
                     </div>
                 </div>
             </fieldset>
         </form>
+        <div class="btn-group fees-btn">
+            <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-open	Try it
+"></i> </button>
+        </div>
+        <div class="btn-group fees-btn">
+            <button id="btn-new-hide" title="Ocultar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close	Try it
+"></i></button>
+        </div>
     </div>
 </div> <!-- /row  -->
 <div class="row-fluid">
@@ -159,10 +165,11 @@
                 <?php if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')): ?>
                 <thead>
                     <tr class="cabe-title">
+                        <th class="text-center">Nr</th>
                         <th class="text-center">Código</th>
                         <th class="text-center">Procedimento</th>
+                        <th class="text-center">Categoria</th>
                         <th class="text-center">Particular</th>
-                        <th class="text-center">Convênio</th>
                         <th class="text-center">Diferença</th>
                         <th class="text-center">Eliminar</th>
                     </tr>
@@ -170,10 +177,11 @@
                 <tbody>
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
-                        <td><?= $fetch_userdata['fees_cod']; ?></td>
-                        <td><?= $fetch_userdata['fees_proc']; ?></td>
-                        <td><?= $fetch_userdata['fees_cat']; ?></td>
-                        <td><?= $fetch_userdata['fees_part']; ?></td>
+                        <td ><?= $fetch_userdata['fees_id']; ?></td>
+                        <td title="nome" class="editavel"><?= $fetch_userdata['fees_cod']; ?></td>
+                        <td class="editavel"><?= $fetch_userdata['fees_proc']; ?></td>
+                        <td class="editavel"><?= $fetch_userdata['fees_cat']; ?></td>
+                        <td class="editavel"><?= $fetch_userdata['fees_part']; ?></td>
                         <td><?= $fetch_userdata['fees_part']; ?></td>
                         <td><?= $fetch_userdata['fees_part']; ?></td>
                        

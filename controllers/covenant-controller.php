@@ -112,7 +112,7 @@ class CovenantController extends MainController {
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('covenant/covenant-model');
+        $modelo = $this->load_model('covenant/fees-model');
 
         #   Carrega o topo
         require_once (ABSPATH . '/views/_includes/header.php');

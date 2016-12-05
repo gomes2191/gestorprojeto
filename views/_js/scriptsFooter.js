@@ -179,3 +179,24 @@ $(function () {
         $('input').css('background', '#ffffff');
     });
 });
+
+
+
+//Teste
+$(function () {
+    $('#btn-new-hide').hide();
+    $('#btn-new-show').click(function () {
+        $('.new-fees').show(1000);
+        $('#btn-new-show').hide();
+        $('#btn-new-hide').show();
+    });
+
+    $('#btn-new-hide').click(function () {
+        $('.new-fees').hide(1000);
+        $('#btn-new-hide').hide();
+        $('#btn-new-show').show();
+    });
+
+
+
+});
