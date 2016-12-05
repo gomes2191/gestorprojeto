@@ -184,17 +184,17 @@ $(function () {
 
 //Teste
 $(function () {
-    $('#btn-new-hide').hide();
+    $('#fees-btn-hide').hide();
     $('#btn-new-show').click(function () {
-        $('.new-fees').show(1000);
-        $('#btn-new-show').hide();
-        $('#btn-new-hide').show();
+        $('.new-fees').show(500);
+        $('#fees-btn-show').hide();
+        $('#fees-btn-hide').show();
     });
 
     $('#btn-new-hide').click(function () {
-        $('.new-fees').hide(1000);
-        $('#btn-new-hide').hide();
-        $('#btn-new-show').show();
+        $('.new-fees').hide(500);
+        $('#fees-btn-hide').hide();
+        $('#fees-btn-show').show();
     });
 
 

@@ -28,8 +28,8 @@
     //window.history.pushState("fees", "", "fees");
     
     // Chama o paginador da tabela    
-    $(function () {
-        $('#table-covenant').DataTable({
+    $( function() {
+        $('#table-fees').DataTable({
             language: {
                 url: '../Portuguese-Brasil.json'
             }
@@ -37,31 +37,69 @@
 
     });
     
+   
+    
     $(function (){
-        $('#table-fees tbody tr td.editavel').dblclick( function(){
+        $('#table-fees tbody tr td.edit').dblclick( function(){
             if( $('td > input').length > 0){return;}
             var conteudoOriginal = $(this).text();
-            var novoElemento = $('<input>',{type:'text', value:conteudoOriginal, class:'form-control'});
-            if($(this).attr('title') == 'nome'){
-                $(this).prop('Nome', 'preça');
-                
-            }
+            var novoElemento = $('<input>',{type:'text', value:conteudoOriginal, class:'form-control fees-input-edit', name:'novo'});
+            
+            
             $(this).html(novoElemento.bind('blur keydown', function(e){
+                if( $(this).parent().attr('title') == 'Código' ){
+                 $('input.fees-input-edit').attr("name", "fees_cod");
+                 
+                
+                }else if( $(this).attr('title') == 'Procedimento' ){
+
+                }else if( $(this).attr('title') == 'Categoria' ){
+
+                }else if( $(this).attr('title') == 'Convênio' ){
+
+                }
+                
                 var keyCode = e.which;
                 var conteudoNovo = $(this).val();
                 if(keyCode == 13 && conteudoNovo != '' && conteudoNovo != conteudoOriginal){
+                    var name = $("input.fees-input-edit").first().attr( "name" );
+                    
+                    var dados = [];
+                    dados = name;
+                    dados[name] = conteudoNovo; 
+                    
+                     
+                    
                     var objeto = $(this);
-                    $.ajax({
-                        type:'POST',
-                        url:'',
-                        data: {fees_id:$(this).parents('tr').children().first().text()},
-                        success:function(result){
-                            objeto.parent().html(conteudoNovo);
-                            $('body').append(result);
-                            
-                        }
-                        
-                    });
+//                    $.ajax({
+//                    // Antes do envio
+//                    beforeSend: function() {
+//                        alert('Enviando...');
+//                    }, 
+//                    type:'POST',
+//                    url:'',
+//                    data: dados
+//                         //fees_id:$(this).parents('tr').children().first().text(),
+//                         //testo:testo}
+//
+//                     ,
+//                    success:function(result){
+//                        objeto.parent().html(conteudoNovo);
+//                        $('body').append(result);
+//
+//                    }
+//                        
+//                    });
+
+                        $.post("",
+           "msg="+ $('td.editavel').text(),
+        function (retorno) {
+          if (retorno != "success") {
+            // Quando der erro
+          } else {
+            // Quando salvar
+          }
+      });
                 }
                 else if( keyCode == 27 ||  e.type == 'blur'){
                     $(this).parent().html(conteudoOriginal);
@@ -135,9 +173,6 @@
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div class="btn-group">
-                            <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
-                        </div>
-                        <div class="btn-group">
                             <button title="Salvar informações" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
                         </div>
                         <div class="btn-group">
@@ -147,13 +182,16 @@
                 </div>
             </fieldset>
         </form>
-        <div class="btn-group fees-btn">
-            <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-open	Try it
-"></i> </button>
+        <div class="btn-group">
+            <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
         </div>
-        <div class="btn-group fees-btn">
-            <button id="btn-new-hide" title="Ocultar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close	Try it
-"></i></button>
+        <div id="fees-btn-show" class="btn-group">
+            <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset">
+                <i class="glyphicon glyphicon-eye-open"></i> Mostrar Formulário
+            </button>
+        </div>
+        <div id="fees-btn-hide" class="btn-group">
+            <button id="btn-new-hide" title="Ocultar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
         </div>
     </div>
 </div> <!-- /row  -->
@@ -169,6 +207,7 @@
                         <th class="text-center">Código</th>
                         <th class="text-center">Procedimento</th>
                         <th class="text-center">Categoria</th>
+                        <th class="text-center">Convênio</th>
                         <th class="text-center">Particular</th>
                         <th class="text-center">Diferença</th>
                         <th class="text-center">Eliminar</th>
@@ -177,19 +216,26 @@
                 <tbody>
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
+               
                         <td ><?= $fetch_userdata['fees_id']; ?></td>
-                        <td title="nome" class="editavel"><?= $fetch_userdata['fees_cod']; ?></td>
-                        <td class="editavel"><?= $fetch_userdata['fees_proc']; ?></td>
-                        <td class="editavel"><?= $fetch_userdata['fees_cat']; ?></td>
-                        <td class="editavel"><?= $fetch_userdata['fees_part']; ?></td>
+                        <td title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?></td>
+                        <td title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?></td>
+                        <td title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?></td>
+                        <td title="Convênio" class="edit"><?= $fetch_userdata['fees_conv']; ?></td>
+                        <td title="Particular" class="edit"><?= $fetch_userdata['fees_part']; ?></td>
                         <td><?= $fetch_userdata['fees_part']; ?></td>
-                        <td><?= $fetch_userdata['fees_part']; ?></td>
+                        <td>
+                            <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                                <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
+                            </a>
+                        </td>
                        
 <!--                        <td>
                             <a href="<?= HOME_URI; ?>/covenant/box-view?v=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
                                 <i style="color: #2fa4e7;" class="fa fa-1x fa-info-circle" aria-hidden="true"></i>
                             </a>
                         </td>-->
+                    
                     </tr>
                     <?php endforeach; ?>
                     <?php 

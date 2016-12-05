@@ -98,10 +98,11 @@ class FeesModel extends MainModel
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            $this->updateRegister(chk_array($this->form_data, 'fees_id'));
             var_dump($this->form_data);die;
+            $this->updateRegister(chk_array($this->form_data, 'fees_id'));
             return;
         }else{
+            var_dump($this->form_data);die;
             $this->insertRegister();
             return;
         }
