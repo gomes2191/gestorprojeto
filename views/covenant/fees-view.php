@@ -43,10 +43,11 @@
         $('#table-fees tbody tr td.edit').dblclick( function(){
             if( $('td > input').length > 0){return;}
             var conteudoOriginal = $(this).text();
-            var novoElemento = $('<input>',{type:'text', value:conteudoOriginal, class:'form-control fees-input-edit', name:'novo'});
-            
+            var novoElemento = $('<input>',{type:'text', value:conteudoOriginal, class:'form-control fees-input-edit', name:'novo'}, '<input>', {type:'hidden', class:'fees_id', value:'brasil'});
             
             $(this).html(novoElemento.bind('blur keydown', function(e){
+                
+                
                 if( $(this).parent().attr('title') == 'Código' ){
                  $('input.fees-input-edit').attr("name", "fees_cod");
                  
@@ -63,40 +64,45 @@
                 var conteudoNovo = $(this).val();
                 if(keyCode == 13 && conteudoNovo != '' && conteudoNovo != conteudoOriginal){
                     
+                    //var dados = [$(this).parents('tr').children().first().text()];
+                    
+                    //dados[$(this).attr('name')] = conteudoNovo ;
+                    //dados['fees_id'] = $(this).parents('tr').children().first().text();
+                    
+                    //var teste1 = $(this).attr('name');
+                    
+                    //console.log(dados);
+                    
+                    var dados = $( ".fees_id, .fees-input-edit"  ).serialize();
+                    console.log(dados);
                     var objeto = $(this);
-//                    $.ajax({
-//                    // Antes do envio
-//                    beforeSend: function() {
-//                        alert('Enviando...');
-//                    }, 
-//                    type:'POST',
-//                    url:'',
-//                    data: dados
-//                         //fees_id:$(this).parents('tr').children().first().text(),
-//                         //testo:testo}
-//
-//                     ,
-//                    success:function(result){
-//                        objeto.parent().html(conteudoNovo);
-//                        $('body').append(result);
-//
-//                    }
-//                        
-//                    });
+                    $.ajax({
+                    // Antes do envio
+                    beforeSend: function() {
+                        alert('Processando...');
+                    }, 
+                    type:'POST',
+                    url:'',
+                    dataType: 'html',
+                    data: dados
+                         //fees_id:$(this).parents('tr').children().first().text(),
+                         //testo:testo}
 
-                        $.post("",
-           "msg="+ $('td.editavel').text(),
-        function (retorno) {
-          if (retorno != "success") {
-            // Quando der erro
-          } else {
-            // Quando salvar
-          }
-      });
+                     ,
+                    success:function(result){
+                        objeto.parent().html(conteudoNovo);
+                        $('body').append(result);
+
+                    }
+                        
+                    });
+
+                        
                 }
                 else if( keyCode == 27 ||  e.type == 'blur'){
                     $(this).parent().html(conteudoOriginal);
                 }
+                
             }));
             $(this).children().select();
         });
@@ -209,8 +215,8 @@
                 <tbody>
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
-               
-                        <td ><?= $fetch_userdata['fees_id']; ?></td>
+                        
+                        <td > <?= $fetch_userdata['fees_id']; ?></td>
                         <td title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?></td>
                         <td title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?></td>
                         <td title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?></td>
