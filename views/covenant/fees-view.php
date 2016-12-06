@@ -62,13 +62,6 @@
                 var keyCode = e.which;
                 var conteudoNovo = $(this).val();
                 if(keyCode == 13 && conteudoNovo != '' && conteudoNovo != conteudoOriginal){
-                    var name = $("input.fees-input-edit").first().attr( "name" );
-                    
-                    var dados = [];
-                    dados = name;
-                    dados[name] = conteudoNovo; 
-                    
-                     
                     
                     var objeto = $(this);
 //                    $.ajax({
