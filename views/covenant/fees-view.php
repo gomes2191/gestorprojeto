@@ -40,40 +40,21 @@
    
     
     $(function (){
-        $('#table-fees tbody tr td.edit').dblclick( function(){
-            if( $('td > input').length > 0){return;}
+        $('#table-fees tbody tr td input').click( function(){
+            //if( $(this).length > 0){return;}
             var conteudoOriginal = $(this).text();
-            var novoElemento = $('<input>',{type:'text', value:conteudoOriginal, class:'form-control fees-input-edit', name:'novo'}, '<input>', {type:'hidden', class:'fees_id', value:'brasil'});
+            $(this).closest('tr').addClass('ativo');
+           
+            $(this).focusout( function (){
+                $(this).closest('tr').removeClass('ativo');
+            });
             
-            $(this).html(novoElemento.bind('blur keydown', function(e){
-                
-                
-                if( $(this).parent().attr('title') == 'Código' ){
-                 $('input.fees-input-edit').attr("name", "fees_cod");
-                 
-                
-                }else if( $(this).attr('title') == 'Procedimento' ){
-
-                }else if( $(this).attr('title') == 'Categoria' ){
-
-                }else if( $(this).attr('title') == 'Convênio' ){
-
-                }
-                
+            $(this).html($(this).on('blur keydown', function(e){
                 var keyCode = e.which;
                 var conteudoNovo = $(this).val();
                 if(keyCode == 13 && conteudoNovo != '' && conteudoNovo != conteudoOriginal){
                     
-                    //var dados = [$(this).parents('tr').children().first().text()];
-                    
-                    //dados[$(this).attr('name')] = conteudoNovo ;
-                    //dados['fees_id'] = $(this).parents('tr').children().first().text();
-                    
-                    //var teste1 = $(this).attr('name');
-                    
-                    //console.log(dados);
-                    
-                    var dados = $( ".fees_id, .fees-input-edit"  ).serialize();
+                    var dados = $('.ativo input').serialize();
                     console.log(dados);
                     var objeto = $(this);
                     $.ajax({
@@ -202,7 +183,7 @@
                 <?php if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')): ?>
                 <thead>
                     <tr class="cabe-title">
-                        <th class="text-center">Nr</th>
+                        <th class="text-center">#</th>
                         <th class="text-center">Código</th>
                         <th class="text-center">Procedimento</th>
                         <th class="text-center">Categoria</th>
@@ -216,12 +197,12 @@
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
                         
-                        <td > <?= $fetch_userdata['fees_id']; ?></td>
-                        <td title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?></td>
-                        <td title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?></td>
-                        <td title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?></td>
-                        <td title="Convênio" class="edit"><?= $fetch_userdata['fees_conv']; ?></td>
-                        <td title="Particular" class="edit"><?= $fetch_userdata['fees_part']; ?></td>
+                        <td ><?= $fetch_userdata['fees_id']; ?> <input type="hidden" name="fees_id" class="form-control" value="<?= $fetch_userdata['fees_id']; ?>"></td>
+                        <td title="Código" class="edit"><input type="text" name="fees_cod" class="form-control" value="<?= $fetch_userdata['fees_cod']; ?>"></td>
+                        <td title="Procedimento" class="edit"><input type="text" name="fees_cod" class="form-control" value="<?= $fetch_userdata['fees_proc']; ?>"></td>
+                        <td title="Categoria" class="edit"><input type="text" name="fees_cod" class="form-control" value="<?= $fetch_userdata['fees_cat']; ?>"></td>
+                        <td title="Convênio" class="edit"><input type="text" name="fees_cod" class="form-control" value="<?= $fetch_userdata['fees_conv']; ?>"></td>
+                        <td title="Particular" class="edit"><input type="text" name="fees_cod" class="form-control" value="<?= $fetch_userdata['fees_part']; ?>"></td>
                         <td><?= $fetch_userdata['fees_part']; ?></td>
                         <td>
                             <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
