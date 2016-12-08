@@ -98,7 +98,7 @@ class FeesModel extends MainModel
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            var_dump($this->form_data);die;
+            //var_dump($this->form_data);
             $this->updateRegister(chk_array($this->form_data, 'fees_id'));
             return;
         }else{
@@ -199,17 +199,17 @@ class FeesModel extends MainModel
         if ( $registro_id ) {
             # Efetua o update do registro
             $query_up = $this->db->update('covenant_fees', 'fees_id', $registro_id,[
-                'fees_cod'         =>  $this->avaliar(chk_array($this->form_data, 'valor')),
-                'fees_proc'     =>  $this->avaliar(chk_array($this->form_data, 'valor')),
-                'fees_cat'           =>  $this->avaliar(chk_array($this->form_data, 'valor')),
-                'fees_part'           =>  $this->avaliar(chk_array($this->form_data, 'valor'))
+                'fees_cod'         =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
+                'fees_proc'     =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
+                'fees_cat'           =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
+                'fees_part'           =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
             if ( $query_up ) {
                 
                 # Feedback para o usuário
-                $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
+                //$this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
                 
                 # Redireciona de volta para a página após dez segundos
                 #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant/cad">';
