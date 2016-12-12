@@ -124,4 +124,15 @@ class LaboratoryController extends MainController {
         
     }   #--> End Card
     
+    
+    public function ReturnView(){
+        
+        #   Carrega o modelo
+        $modelo = $this->load_model('laboratory/laboratory-model');
+        
+        #   Carrega o view
+        require_once (ABSPATH . '/views/laboratory/return-view.php');
+        
+    }   #--> End BoxView
+    
 }   #--> End FonecedoresController

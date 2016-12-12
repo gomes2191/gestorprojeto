@@ -1,16 +1,15 @@
 <?php
-    if (!defined('ABSPATH')) {
-        exit();
-    }
-
+    if (!defined('ABSPATH')) {exit;}
+    
+    # Verifica se existe a requisição GET caso exista executa o método
     if (filter_input(INPUT_GET, 'get', FILTER_DEFAULT)) {
         $encode_id = filter_input(INPUT_GET, 'get', FILTER_DEFAULT);
         $modelo->delRegister($encode_id);
         
-        # Destroy variavel não mais utilizadas
+        # Destroy variável não mais utilizadas
         unset($encode_id);
     }
-
+    
     # Verifica se existe feedback e retorna o feedback se sim se não retorna false
     $form_msg = $modelo->form_msg;
 ?>
@@ -19,24 +18,16 @@
     //  Muda a url atual para a nova url passada
     window.history.pushState("laboratory", "", "laboratory");
 
-    //  Faz um refresh de url apos fechar modal
-    $(function () {
-        $('#visualizar-forne').on('hidden.bs.modal', function () {
-            document.location.reload();
-        });
-    });
-
     // Chama o paginador da tabela    
     $(function () {
-        $('#table-laboratory').DataTable({
-            language: {
-                url: 'Portuguese-Brasil.json'
-            }
-        });
-
+        if($('.text-center').hasClass('vazio') == false){
+            $('#table-laboratory').DataTable({
+                language: {url: 'Portuguese-Brasil.json'}
+            });   
+        }
     });
     
-    function confirmExcluir(id){
+    function delConfirm(id){
         swal({
           title: "",
           text: "Você realmente deseja remover este registro? apos a remoção será impossivel reverter isso",
@@ -45,33 +36,37 @@
           cancelButtonText: "Cancelar",
           confirmButtonColor: "#DD6B55",
           confirmButtonText: "Remover",
-          closeOnConfirm: false,
+          closeOnConfirm: true,
           closeOnCancel: false
         },
         function(isConfirm){
             if (isConfirm){
-                swal({title:'Eliminado!' ,type: "success", timer: 1250, showConfirmButton: false}, 
-                function(){ window.location.href = '<?= HOME_URI; ?>/laboratory?get=' + id; });
+                setTimeout(function(){
+                        window.location.href = '<?= HOME_URI; ?>/laboratory?get=' + id;
+                  }, 400 );
+                
+                //swal({title:'Eliminado!' ,type: "success", timer: 1250, showConfirmButton: false}, 
+                //function(){ window.location.href = '<?= HOME_URI; ?>/laboratory?get=' + id; });
                 
             }else{
                 swal("Cancelado!", "O registro foi mantido :)", "error");
             }
           
         });
-    }
-</script>
+    };
 
+</script>
 <div class="row-fluid">
     <div class="col-md-12 col-sm-12 col-sx-12">
         <?php
             if ($form_msg) {
                 echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
-                        </div>';
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="' . $form_msg[1] . '" >&nbsp;</i>
+                        <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                    </div>';
                 unset($form_msg);
             } else {
                 unset($form_msg);
@@ -104,8 +99,8 @@
                                 <i style="color: #73a839;" class="fa fa-1x fa-pencil-square-o" aria-hidden="true"></i>
                             </a>
                         </td>
-                        <td><!--Teste-->
-                            <a href="javascript:void(0);" title="Eliminar registro" onclick="confirmExcluir('<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?>')" class="btn btn-sm btn-default">
+                        <td>
+                            <a href="javascript:void(0);" title="Eliminar registro" onclick="delConfirm('<?= $modelo->encode_decode($fetch_userdata['laboratory_id']); ?>');" class="btn btn-sm btn-default">
                                 <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
                             </a>
                         </td>
@@ -118,7 +113,7 @@
                     <?php endforeach; ?>
                     <?php 
                         else: 
-                            echo '<tbody><tr><td class="text-center" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>'; 
+                            echo '<tbody><tr><td class="text-center vazio" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>'; 
                         endif; 
                     ?>
                 </tbody>

@@ -1,1 +1,1 @@
-Teste
+<h2>Pagina de erro</h2>

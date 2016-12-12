@@ -307,11 +307,12 @@ class LaboratoryModel extends MainModel
         $search = $this->db->query("SELECT count(*) FROM `laboratory` WHERE `laboratory_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
-            #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
+            #   Feedback para o usuário, a duas forma de utilizar o Feedback uma e por requisição php e a outra por requisição ajax
+            #$this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
+            $this->form_msg = 0;
             
             # Redireciona de volta para a página após 4 segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory">';
+            //echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory">';
             
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
@@ -323,7 +324,8 @@ class LaboratoryModel extends MainModel
             $query_del = $this->db->delete('laboratory', 'laboratory_id', $decode_id);
 
             #   Feedback para o usuário
-            #$this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            //$this->form_msg = 1;
 
             #   Destroy variáveis não mais utilizadas
             unset($query_del, $search);
@@ -335,9 +337,8 @@ class LaboratoryModel extends MainModel
             return;
         }
     }   #--> End delRegister()
-
-        
-         
+    
+    
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>

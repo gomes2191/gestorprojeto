@@ -28,13 +28,41 @@
 
     // Chama o paginador da tabela    
     $(function () {
-        $('#table-covenant').DataTable({
-            language: {
-                url: 'Portuguese-Brasil.json'
-            }
-        });
-
+        if($('.text-center').hasClass('vazio') == false){
+            $('#table-laboratory').DataTable({
+                language: {url: 'Portuguese-Brasil.json'}
+            });   
+        }
     });
+    
+    // Executa a exclusão do registro
+    function delConfirm(id){
+        swal({
+          title: "",
+          text: "Você realmente deseja remover este registro? apos a remoção será impossivel reverter isso",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "Cancelar",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Remover",
+          closeOnConfirm: true,
+          closeOnCancel: false
+        },
+        function(isConfirm){
+            if (isConfirm){
+                setTimeout(function(){
+                        window.location.href = '<?= HOME_URI; ?>/covenant?get=' + id;
+                  }, 400 );
+                
+                //swal({title:'Eliminado!' ,type: "success", timer: 1250, showConfirmButton: false}, 
+                //function(){ window.location.href = '<?= HOME_URI; ?>/laboratory?get=' + id; });
+                
+            }else{
+                swal("Cancelado!", "O registro foi mantido :)", "error");
+            }
+          
+        });
+    };
 
 </script>
 
@@ -82,7 +110,7 @@
                         
                         <td>
                             <a href="<?= HOME_URI; ?>/covenant/fees?get_two=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" title="Honorários" class="btn btn-sm btn-default">
-                                <i style="color: #2fa4e7;" class="fa fa-pie-chart" aria-hidden="true"></i>
+                                <i style="color: #2fa4e7;" class="fa fa-money" aria-hidden="true"></i>
                             </a>
                         </td>
                         <td>
@@ -91,7 +119,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                            <a href="javascript:void(0);" title="Eliminar registro" onclick="delConfirm('<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>');" class="btn btn-sm btn-default">
                                 <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
                             </a>
                         </td>
@@ -104,40 +132,13 @@
                     <?php endforeach; ?>
                     <?php 
                         else: 
-                            echo '<tbody><tr><td class="text-center" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>'; 
+                            echo '<tbody><tr><td class="text-center" style="color: red;" >Não há Empresa cadastrada.</td></tr>'; 
                         endif; 
                     ?>
                 </tbody>
             </table>
             <br>
         </div>
-        <!-- Start Modal deletar fornecedores -->
-        <div class="modal in fade"  role="dialog" id="myModal">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h5 class="modal-title"><span style="colo" class=" info glyphicon glyphicon-floppy-remove">&nbsp;</span>ELIMINAR REGISTRO</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-justify">Tem certeza que deseja remover este registro? não sera possível reverter isso.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="<?= HOME_URI; ?>/covenant" class="btn btn-primary">Desistir</a>
-                        <a href="<?= HOME_URI; ?>/covenant?get=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?> " class="btn btn-danger" >Eliminar</a>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <!-- Start Modal visualizar fornecedores -->
-        <div id="visualizar-forne" class="modal fade" >
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <!--Conteudo do modal-->
-                </div>
-            </div>
-        </div><!-- End modal -->
     </div> <!-- End col-md-12 -->    
 </div> <!-- End row-fluid -->
 <?php unset($fetch_userdata); ?>

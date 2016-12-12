@@ -1,4 +1,4 @@
-<?php if ( !defined('ABSPATH') ) { exit('Teste'); }
+<?php if ( !defined('ABSPATH') ) { exit; }
     
     $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
     if(isset($get['v'])){

@@ -102,7 +102,7 @@ class FeesModel extends MainModel
             $this->updateRegister(chk_array($this->form_data, 'fees_id'));
             return;
         }else{
-            var_dump($this->form_data);die;
+            //var_dump($this->form_data);die;
             $this->insertRegister();
             return;
         }
@@ -121,38 +121,13 @@ class FeesModel extends MainModel
         //var_dump($this->form_data['covenant_tipo_unit']);die;
         //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'covenant_data_aq')).'== novo==');die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('covenant',[
-            'covenant_nome'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_nome')),
-            'covenant_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_cpf_cnpj')),
-            'covenant_rs'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_rs')),
-            'covenant_at'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_at')),
-            'covenant_end'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_end')),
-            'covenant_bair'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_bair')),
-            'covenant_cid'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cid')),
-            'covenant_uf'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_uf')),
-            'covenant_pais'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_pais')),
-            'covenant_cep'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cep')),
-            'covenant_cel'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cel')),
-            'covenant_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_1')),
-            'covenant_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_2')),
-            'covenant_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_insc_uf')),
-            'covenant_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_web_url')),
-            'covenant_email'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_email')),
-            'covenant_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_nome')),
-            'covenant_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_apelido')),
-            'covenant_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_email')),
-            'covenant_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_cel')),
-            'covenant_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_1')),
-            'covenant_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_2')),
-            'covenant_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_1')),
-            'covenant_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_1')),
-            'covenant_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_1')),
-            'covenant_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_1')),
-            'covenant_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_2')),
-            'covenant_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_2')),
-            'covenant_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_2')),
-            'covenant_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_2')),
-            'covenant_obs'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_obs'))
+        $query_ins = $this->db->insert('covenant_fees',[
+            'covenant_fees_id'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_fees_id')),
+            'fees_cod'              =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
+            'fees_proc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
+            'fees_cat'              =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
+            'fees_desc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
+            'fees_part'             =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
         ]);
 
         #   Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -281,7 +256,7 @@ class FeesModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `covenant` WHERE `covenant_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `covenant_fees` WHERE `fees_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             #   Feedback para o usuário
@@ -297,7 +272,7 @@ class FeesModel extends MainModel
             return;
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('covenant', 'covenant_id', $decode_id);
+            $query_del = $this->db->delete('covenant_fees', 'fees_id', $decode_id);
 
             #   Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];

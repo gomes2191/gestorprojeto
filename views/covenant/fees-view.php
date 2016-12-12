@@ -1,23 +1,37 @@
 <?php
-    if (!defined('ABSPATH')) {
-        exit();
+    if (!defined('ABSPATH')) { exit; }
+    
+     # Verifica se existe a requisição GET, se sim continua na página se não retorna a pagina convenios
+    if (!(filter_input(INPUT_GET, 'get_two', FILTER_DEFAULT)) OR (filter_input(INPUT_GET, 'get', FILTER_DEFAULT))) {
+        echo '<script>window.location.href ="'.HOME_URI.'/covenant";</script>';
     }
     
     $get_decode = intval($modelo->encode_decode(0, filter_input(INPUT_GET, 'get_two', FILTER_DEFAULT)));
+    var_dump($get_decode);
     
     //var_dump($modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'));
     
-    if(in_array($get_decode, $modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'))) {
-        echo 'Teste';
-    }else{
-        # Retorna para página 'covenant' caso não exista o id correspondente
-        #echo'<script>window.location="'.HOME_URI.'/covenant";</script>';
-        #exit();
-    }
+//    if(in_array($get_decode, $modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'))) {
+//        
+//    }else{
+//        # Retorna para página 'covenant' caso não exista o id correspondente
+//        echo'<script>window.location="'.HOME_URI.'/covenant";</script>';
+//        //exit();
+//    };
+    
 
 
     # Verifica se existe a requisição POST se existir executa o método se não faz nada
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+    
+     # Verifica se existe a requisição GET caso exista executa o método
+    if (filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT)) {
+        $encode_id = filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT);
+        $modelo->delRegister($encode_id);
+        
+        # Destroy variável não mais utilizadas
+        unset($encode_id);
+    }
     
     # Configura o Feedback para o usuário
     $form_msg = $modelo->form_msg;
@@ -27,72 +41,98 @@
     //Muda url da pagina
     //window.history.pushState("fees", "", "fees");
     
-    // Chama o paginador da tabela    
-    $( function() {
-        $('#table-fees').DataTable({
-            language: {
-                url: '../Portuguese-Brasil.json'
-            }
-        });
-
+     // Chama o paginador da tabela    
+    $(function () {
+        if($('.text-center').hasClass('vazio') == false){
+            $('#table-fees').DataTable({
+                language: {url: '../Portuguese-Brasil.json'}
+                
+            });   
+        }
     });
     
    
-    
+    // Formulário editável
     $(function (){
-        
-        $('#table-fees tbody tr td input').click( function(){ 
-            
-            $(this).closest('tr').addClass('ativo');
-            
-            $('input').blur( function(){
-                $(this).closest('tr').removeClass('ativo');
-                return;
-            });
-            var conteudoOriginal = $(this).val();
-            
-            $(this).html($(this).on('keydown', function(e){
-                var dados = $('tr.ativo td > input').serialize();
-                var conteudoNovo = $(this).val();
-                
-                var keyCode = e.which;
-                if(keyCode == 13 && conteudoNovo != '' && conteudoNovo != conteudoOriginal){
-                    $.ajax({
-                    // Antes do envio
-                    beforeSend: function() {
-                        alert('Processando...');
-                    }, 
-                    type:'POST',
-                    url:'',
-                    dataType: 'html',
-                    data: dados,
-                    success: function(){
-                        console.log('sucesso');
-                        
-
-                    }
-                        
-                    });
-                   
-                        
-                }
-                else if( keyCode == 27 ||  e.type == 'blur'){
-                    $(this).val(conteudoOriginal);
-                }
-                
-            }));
-            $(this).children().select();
+        $('#table-fees tbody tr').mouseenter( function (){
+           $(this).closest('tr').addClass('ativo');
+           fees_cod   = $('.ativo td input.fees_cod').val();
+           fees_proc  = $('.ativo td input.fees_cod').val();
+           fees_cat   = $('.ativo td input.fees_cod').val();
+           fees_conv  = $('.ativo td input.fees_cod').val();
+           fees_part  = $('.ativo td input.fees_cod').val();
+           dados = $('tr.ativo td > input').serialize();
         });
+        
+        $('.btn-gravar-fees').click( function() {
+            swal({
+                title: "Armazenar alterações",
+                text: "Realmente e do seu interesse gravar essas alterações? Ainda e possível cancelar, se você prosseguir as alterações serão armazenadas (Salvas).",
+                type: "info",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Salvar",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+                  },
+                function(){
+                  setTimeout(function(){
+                    swal({title:'Gravação finalizada com sucesso!' ,type: "success", timer: 1250, showConfirmButton: false});
+                  }, 1000);
+                  
+                    $.ajax({
+                      type:'POST',
+                      url:'',
+                      dataType: 'html',
+                      data: dados,
+                      success: function(){
+                      }
+
+                      });
+        
+                });
+            
+        });
+        
+        $('#table-fees tbody tr').mouseleave( function(){
+            $(this).closest('tr').removeClass('ativo');
+        });
+    
     });
-      
-      
+        
+    function delConfirm(id){
+        swal({
+          title: "",
+          text: "Você realmente deseja remover este registro? apos a remoção será impossivel reverter isso",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonText: "Cancelar",
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Remover",
+          closeOnConfirm: true,
+          closeOnCancel: false
+        },
+        function(isConfirm){
+            if (isConfirm){
+                setTimeout(function(){
+                        window.location.href = document.URL + '&get_three=' + id;
+                  }, 400 );
+                
+                //swal({title:'Eliminado!' ,type: "success", timer: 1250, showConfirmButton: false}, 
+                //function(){ window.location.href = '<?= HOME_URI; ?>/laboratory?get=' + id; });
+                
+            }else{
+                swal("Cancelado!", "O registro foi mantido :)", "error");
+            }
+          
+        });
+    };
+       
 </script>
 
 <div class="row-fluid">
-    <div class="col-md-10  col-sm-12 col-xs-12">
-        <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
-        <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
-            <?php
+    <div class="col-md-12  col-sm-12 col-xs-12">
+        <?php
             if ($form_msg) {
                 echo'<div class="alert alertH ' . $form_msg[0] . ' alert-dismissible fade in">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -106,12 +146,14 @@
                 unset($form_msg);
             }
             ?>
+        <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
+        <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
             <fieldset>
                 <legend>TABELA DE HONORÁRIOS</legend>
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="fees_cod"><i style="color: red;">*</i>Nr:</label>
-                        <input type="hidden" name="fees_id" value="<?= htmlentities(chk_array($modelo->form_data, 'fees_id')); ?>">
+                        <input type="hidden" name="covenant_fees_id" value="<?= $get_decode; ?>">
                         <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="<?= htmlentities(chk_array($modelo->form_data, 'fees_cod')); ?>" class="form-control" 
                                data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                                data-validation-help="Digite um nome com (3) ou mais caracteres.">
@@ -120,13 +162,13 @@
 
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
                         <label for="fees_proc"><i style="color: red;">*</i> Procedimento:</label>
-                        <input id="fees_proc" name="fees_desc" class="form-control" type="text" placeholder="Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'fees_desc')); ?>">
+                        <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'fees_desc')); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="fees_tipo_unit">Categoria:</label>
-                        <select name="fees_tipo_unit" class="form-control">
+                        <label for="fees_cat">Categoria:</label>
+                        <select name="fees_cat" class="form-control">
                             <?php foreach ($modelo->get_table_data('*', 'fees_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
                                 <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'fees_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
                             <?php endforeach; unset($fetch_userdata); ?>
@@ -135,15 +177,23 @@
                     </div>
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="fees_valor">Valor particular montante ( em reais )</label>
+                        <label for="fees_part">Valor particular montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">$</div>
-                            <input id="fees_valor" name="fees_valor" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'fees_valor')); ?>">
+                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'fees_valor')); ?>">
                             <div class="input-group-addon">.00</div>
                         </div>
                         <br>
                     </div>
                     <br>
+                </div>
+                <div class="row form-compact new-fees" style="display: none;">
+                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
+                        <label for="fees_desc">Desconto convênio:</label>
+                        <input id="fees_desc" name="fees_desc" class="form-control" type="text" placeholder="0.00" value="<?php
+                        echo htmlentities(chk_array($modelo->form_data, 'fees_desc')); ?>">
+                        <br>
+                    </div>
                 </div>
 
                 <div class="row form-compact new-fees" style="display: none;">
@@ -186,7 +236,7 @@
                         <th class="text-center">Convênio</th>
                         <th class="text-center">Particular</th>
                         <th class="text-center">Diferença</th>
-                        <th class="text-center">Eliminar</th>
+                        <th class="text-center">Salvar | Deletar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -195,15 +245,19 @@
                     <tr class="text-center">
                         
                         <td ><?= $fetch_userdata['fees_id']; ?> <input type="hidden" name="fees_id" class="form-control" value="<?= $fetch_userdata['fees_id']; ?>"></td>
-                        <td title="Código" class="edit"><input type="text" name="fees_cod" class="form-control" value="<?= $fetch_userdata['fees_cod']; ?>"></td>
+                        <td title="Código" class="edit"><input type="text" name="fees_cod" class="form-control fees_cod" value="<?= $fetch_userdata['fees_cod']; ?>"></td>
                         <td title="Procedimento" class="edit"><input type="text" name="fees_proc" class="form-control" value="<?= $fetch_userdata['fees_proc']; ?>"></td>
                         <td title="Categoria" class="edit"><input type="text" name="fees_cat" class="form-control" value="<?= $fetch_userdata['fees_cat']; ?>"></td>
-                        <td title="Convênio" class="edit"><input type="text" name="fees_conv" class="form-control" value="<?= $fetch_userdata['fees_conv']; ?>"></td>
+                        <td title="Convênio" class="edit"><input type="text" name="fees_conv" class="form-control" value="<?= $fetch_userdata['fees_desc']; ?>"></td>
                         <td title="Particular" class="edit"><input type="text" name="fees_part" class="form-control" value="<?= $fetch_userdata['fees_part']; ?>"></td>
                         <td><?= $fetch_userdata['fees_part']; ?></td>
                         <td>
-                            <a href="#" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
-                                <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
+                             
+                            <button href="#" title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
+                                <i style="color:#2196f3;" class="fa fa-1x fa-floppy-o" aria-hidden="true"></i>
+                            </button> |
+                            <a href="javascript:void(0);" title="Eliminar registro" onclick="delConfirm('<?= $modelo->encode_decode($fetch_userdata['fees_id']); ?>');" class="btn btn-sm btn-default">
+                                <i style="color:#c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
                             </a>
                         </td>
                        
@@ -217,7 +271,7 @@
                     <?php endforeach; ?>
                     <?php 
                         else: 
-                            echo '<tbody><tr><td class="text-center" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>'; 
+                            echo '<tbody><tr><td class="text-center vazio" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>'; 
                         endif; 
                     ?>
                 </tbody>

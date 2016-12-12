@@ -11,7 +11,7 @@
     $dompdf = new Dompdf();
     
     # Carrega seu Html
-    $dompdf->loadHtml('Teste');
+    $dompdf->loadHtml('');
 
     # (Optional) Setup the paper size and orientation
     $dompdf->setPaper('A4', 'landscape');
