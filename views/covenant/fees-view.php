@@ -38,6 +38,12 @@
 ?>
 
 <script>
+    
+    
+    ////////////////////////Brasil////////////////
+        
+    /////////////////Brasil////////////
+    
     //Muda url da pagina
     //window.history.pushState("fees", "", "fees");
     
@@ -45,26 +51,37 @@
     $(function () {
         if($('.text-center').hasClass('vazio') == false){
             $('#table-fees').DataTable({
-                language: {url: '../Portuguese-Brasil.json'}
+                language: {url: '../Portuguese-Brasil.json'},
+                pageResize: true
                 
             });   
         }
     });
     
+    
    
+   function CarregaText() {
+        var fees_cod  = $('#table-fees tbody tr.ativo #fees_cod').text();
+        var fees_proc = $('#table-fees tbody tr.ativo #fees_proc').text();
+        var fees_cat = $('#table-fees tbody tr.ativo #fees_cat').text();
+        var fees_desc = $('#table-fees tbody tr.ativo #fees_desc').text();
+        var fees_part = $('#table-fees tbody tr.ativo #fees_part').text();
+        $('#table-fees tbody tr.ativo input.fees_cod').val(fees_cod);
+        $('#table-fees tbody tr.ativo input.fees_proc').val(fees_proc);
+        $('#table-fees tbody tr.ativo input.fees_cat').val(fees_cat);
+        $('#table-fees tbody tr.ativo input.fees_desc').val(fees_desc);
+        $('#table-fees tbody tr.ativo input.fees_part').val(fees_part);
+    }
+    
     // Formulário editável
     $(function (){
         $('#table-fees tbody tr').mouseenter( function (){
            $(this).closest('tr').addClass('ativo');
-           fees_cod   = $('.ativo td input.fees_cod').val();
-           fees_proc  = $('.ativo td input.fees_cod').val();
-           fees_cat   = $('.ativo td input.fees_cod').val();
-           fees_conv  = $('.ativo td input.fees_cod').val();
-           fees_part  = $('.ativo td input.fees_cod').val();
-           dados = $('tr.ativo td > input').serialize();
         });
-        
+          
         $('.btn-gravar-fees').click( function() {
+           dados = $('tr.ativo td > input').serialize();
+           console.log(dados);
             swal({
                 title: "Armazenar alterações",
                 text: "Realmente e do seu interesse gravar essas alterações? Ainda e possível cancelar, se você prosseguir as alterações serão armazenadas (Salvas).",
@@ -89,9 +106,7 @@
                       }
 
                       });
-        
                 });
-            
         });
         
         $('#table-fees tbody tr').mouseleave( function(){
@@ -223,9 +238,10 @@
 </div> <!-- /row  -->
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
+        
         <div class="table-responsive">
             <br>
-            <table id="table-fees" class="table table-bordered table-condensed table-hover table-format">
+            <table id="table-fees" class="table table-bordered table-condensed table-hover table-format" >
                 <?php if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')): ?>
                 <thead>
                     <tr class="cabe-title">
@@ -240,20 +256,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                <div class="visao"></div>
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
-                        
                         <td ><?= $fetch_userdata['fees_id']; ?> <input type="hidden" name="fees_id" class="form-control" value="<?= $fetch_userdata['fees_id']; ?>"></td>
-                        <td title="Código" class="edit"><input type="text" name="fees_cod" class="form-control fees_cod" value="<?= $fetch_userdata['fees_cod']; ?>"></td>
-                        <td title="Procedimento" class="edit"><input type="text" name="fees_proc" class="form-control" value="<?= $fetch_userdata['fees_proc']; ?>"></td>
-                        <td title="Categoria" class="edit"><input type="text" name="fees_cat" class="form-control" value="<?= $fetch_userdata['fees_cat']; ?>"></td>
-                        <td title="Convênio" class="edit"><input type="text" name="fees_conv" class="form-control" value="<?= $fetch_userdata['fees_desc']; ?>"></td>
-                        <td title="Particular" class="edit"><input type="text" name="fees_part" class="form-control" value="<?= $fetch_userdata['fees_part']; ?>"></td>
+                        <td id="fees_cod"   contenteditable="true" title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?> <input name="fees_cod" class="fees_cod" type="hidden" value=""></td>
+                        <td id="fees_proc"  contenteditable="true" title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?> <input name="fees_proc" class="fees_proc" type="hidden" value=""></td>
+                        <td id="fees_cat"   contenteditable="true" title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?> <input name="fees_cat" class="fees_cat" type="hidden" value=""></td>
+                        <td id="fees_desc"  contenteditable="true" title="Convênio" class="edit"><?= $fetch_userdata['fees_desc']; ?> <input name="fees_desc" class="fees_desc" type="hidden" value=""></td>
+                        <td id="fees_part"  contenteditable="true" title="Particular" ><?= $fetch_userdata['fees_part']; ?><input  name="fees_part" class="fees_part" type="hidden" value=""></td>
                         <td><?= $fetch_userdata['fees_part']; ?></td>
                         <td>
-                             
-                            <button href="#" title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
+                            <button title="Grava alterações" data-toggle="modal" data-target="#myModal" onclick="CarregaText()" class="btn btn-sm btn-default btn-gravar-fees">
                                 <i style="color:#2196f3;" class="fa fa-1x fa-floppy-o" aria-hidden="true"></i>
                             </button> |
                             <a href="javascript:void(0);" title="Eliminar registro" onclick="delConfirm('<?= $modelo->encode_decode($fetch_userdata['fees_id']); ?>');" class="btn btn-sm btn-default">
@@ -288,5 +301,8 @@
         return false;
 
     });
+    
+    
+
 
 </script>

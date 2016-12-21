@@ -168,16 +168,17 @@ class FeesModel extends MainModel
     **/ 
     public function updateRegister( $registro_id = NULL ){
         
-        //var_dump($this->form_data['covenant_tel_1']);die;
+        //var_dump($this->form_data);die;
         
         #   Se o ID não estiver vazio, atualiza os dados
         if ( $registro_id ) {
             # Efetua o update do registro
             $query_up = $this->db->update('covenant_fees', 'fees_id', $registro_id,[
-                'fees_cod'         =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
-                'fees_proc'     =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
-                'fees_cat'           =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
-                'fees_part'           =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
+                'fees_cod'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
+                'fees_proc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
+                'fees_cat'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
+                'fees_desc'    =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
+                'fees_part'   =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
