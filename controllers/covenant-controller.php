@@ -101,6 +101,30 @@ class CovenantController extends MainController {
         
     }   #--> End cad
     
+    public function BoxView(){
+        
+        #   Carrega o modelo
+        $modelo = $this->load_model('covenant/covenant-model');
+        
+        #   Carrega o view
+        require_once (ABSPATH . '/views/covenant/box-view.php');
+        
+    }   #--> End BoxView
+    
+    public function Card(){
+        
+        # Carrega o modelo
+        $modelo = $this->load_model('covenant/covenant-model');
+        
+        # Carrega a classe que gera o pdf
+        require_once (ABSPATH . '/dompdf/autoload.inc.php');
+        
+        # Carrega o view
+        require_once (ABSPATH . '/views/covenant/card-view.php');
+        
+    }   #--> End Card
+    
+    
     # URL: dominio.com/exemplo/exemplo
     public function Fees() {
         #   Parametros da função
@@ -127,27 +151,30 @@ class CovenantController extends MainController {
         
     }   #--> End cad
     
-    public function BoxView(){
+    # URL: dominio.com/exemplo/exemplo
+    public function AjaxFees() {
+        #   Parametros da função
+        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+        
+        #   Page title
+        #$this->title = ' Honorários';
+        
+        #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('covenant/covenant-model');
+        $modelo = $this->load_model('covenant/fees-model');
+
+        #   Carrega o topo
+        //require_once (ABSPATH . '/views/_includes/header.php');
         
+        #   Carrega menus
+        //require_once (ABSPATH.'/views/_includes/menu.php');
+
         #   Carrega o view
-        require_once (ABSPATH . '/views/covenant/box-view.php');
+        require_once (ABSPATH . '/views/covenant/ajax-fees-view.php');
+
+        //require_once (ABSPATH . '/views/_includes/footer.php');
         
-    }   #--> End BoxView
-    
-    public function Card(){
-        
-        # Carrega o modelo
-        $modelo = $this->load_model('covenant/covenant-model');
-        
-        # Carrega a classe que gera o pdf
-        require_once (ABSPATH . '/dompdf/autoload.inc.php');
-        
-        # Carrega o view
-        require_once (ABSPATH . '/views/covenant/card-view.php');
-        
-    }   #--> End Card
+    }   #--> End cad
     
 }   #--> End FonecedoresController

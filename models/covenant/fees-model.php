@@ -28,7 +28,7 @@ class FeesModel extends MainModel
      * @Acesso: public
      */
     public $form_msg;
-
+    
     /**
      * $db
      *
@@ -177,7 +177,7 @@ class FeesModel extends MainModel
                 'fees_cod'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
                 'fees_proc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
                 'fees_cat'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
-                'fees_desc'    =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
+                'fees_desc'   => $this->avaliar(chk_array($this->form_data, 'fees_desc')),
                 'fees_part'   =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
             ]);
 
@@ -185,10 +185,13 @@ class FeesModel extends MainModel
             if ( $query_up ) {
                 
                 # Feedback para o usuário
-                //$this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
+                # $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
                 
                 # Redireciona de volta para a página após dez segundos
                 #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant/cad">';
+                
+                # Tratamento de erro ajax retorno Feedback para o usuário
+                $this->form_msg = TRUE;
                 
                 # Destroy variáveis nao mais utilizadas
                 unset( $registro_id, $query_up  );
@@ -198,7 +201,10 @@ class FeesModel extends MainModel
             }else{
                 
                 # Feedback para o usuário
-                $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
+                #$this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
+                
+                # Tratamento de erro ajax retorno Feedback para o usuário
+                $this->form_msg = FALSE;
                 
                 # Destroy variáveis nao mais utilizadas
                 unset( $registro_id, $query_up  );

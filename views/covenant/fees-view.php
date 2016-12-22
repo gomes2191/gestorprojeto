@@ -39,15 +39,10 @@
 
 <script>
     
+    //   Muda url da pagina
+    //  window.history.pushState("fees", "", "fees");
     
-    ////////////////////////Brasil////////////////
-        
-    /////////////////Brasil////////////
-    
-    //Muda url da pagina
-    //window.history.pushState("fees", "", "fees");
-    
-     // Chama o paginador da tabela    
+    // Chama o paginador da tabela    
     $(function () {
         if($('.text-center').hasClass('vazio') == false){
             $('#table-fees').DataTable({
@@ -92,20 +87,23 @@
                 closeOnConfirm: false,
                 showLoaderOnConfirm: true,
                   },
-                function(){
-                  setTimeout(function(){
-                    swal({title:'Gravação finalizada com sucesso!' ,type: "success", timer: 1250, showConfirmButton: false});
-                  }, 1000);
-                  
+                function(){                  
                     $.ajax({
                       type:'POST',
-                      url:'',
+                      url:'<?= HOME_URI ?>/covenant/ajax-fees',
                       dataType: 'html',
                       data: dados,
-                      success: function(){
+                      success: function(retorno){
+                        if(retorno == 1){
+                            setTimeout(function(){
+                                swal({title:'Gravação finalizada com sucesso!' ,type: "success", timer: 1250, showConfirmButton: false});
+                            }, 1000);
+                              
+                        }else{
+                            swal("Erro!", "Ouve um erro durante a exclusao do registro se o problema persistir contate o administrador :)", "error");
+                        }
                       }
-
-                      });
+                    });
                 });
         });
         
