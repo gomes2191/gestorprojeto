@@ -7,7 +7,6 @@
     }
     
     $get_decode = intval($modelo->encode_decode(0, filter_input(INPUT_GET, 'get_two', FILTER_DEFAULT)));
-    var_dump($get_decode);
     
     //var_dump($modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'));
     
@@ -24,14 +23,14 @@
     # Verifica se existe a requisição POST se existir executa o método se não faz nada
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
     
-     # Verifica se existe a requisição GET caso exista executa o método
-    if (filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT)) {
-        $encode_id = filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT);
-        $modelo->delRegister($encode_id);
-        
-        # Destroy variável não mais utilizadas
-        unset($encode_id);
-    }
+//     # Verifica se existe a requisição GET caso exista executa o método
+//    if (filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT)) {
+//        $encode_id = filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT);
+//        $modelo->delRegister($encode_id);
+//        
+//        # Destroy variável não mais utilizadas
+//        unset($encode_id);
+//    }
     
     # Configura o Feedback para o usuário
     $form_msg = $modelo->form_msg;
@@ -46,8 +45,7 @@
     $(function () {
         if($('.text-center').hasClass('vazio') == false){
             $('#table-fees').DataTable({
-                language: {url: '../Portuguese-Brasil.json'},
-                pageResize: true
+                language: {url: '../Portuguese-Brasil.json'}
                 
             });   
         }
@@ -96,8 +94,8 @@
                       success: function(retorno){
                         if(retorno == 1){
                             setTimeout(function(){
-                                swal({title:'Gravação finalizada com sucesso!' ,type: "success", timer: 1250, showConfirmButton: false});
-                            }, 1000);
+                                swal({title:'Gravação finalizada com sucesso!' ,type: "success", timer: 1500, showConfirmButton: false});
+                            }, 200);
                               
                         }else{
                             swal("Erro!", "Ouve um erro durante a exclusao do registro se o problema persistir contate o administrador :)", "error");
@@ -113,7 +111,9 @@
     
     });
         
-    function delConfirm(id){
+    function delConfirm(encode_id){
+        var tr = $('tr.ativo');
+        
         swal({
           title: "",
           text: "Você realmente deseja remover este registro? apos a remoção será impossivel reverter isso",
@@ -127,12 +127,23 @@
         },
         function(isConfirm){
             if (isConfirm){
-                setTimeout(function(){
-                        window.location.href = document.URL + '&get_three=' + id;
-                  }, 400 );
-                
-                //swal({title:'Eliminado!' ,type: "success", timer: 1250, showConfirmButton: false}, 
-                //function(){ window.location.href = '<?= HOME_URI; ?>/laboratory?get=' + id; });
+                $.ajax({
+                  type:'POST',
+                  url:'<?= HOME_URI ?>/covenant/ajax-fees',
+                  data: { encode_id: encode_id },
+                  dataType: "html",
+                  success: function(retorno){
+                    if(retorno == 1){
+                        setTimeout(function(){
+                            swal({title:'Registro removido com sucesso!' ,type: "success", timer: 1500, showConfirmButton: false});
+                        }, 200);
+                        
+                        tr.remove();
+                    }else{
+                        swal("Erro!", "Ouve um erro durante a exclusao do registro se o problema persistir contate o administrador :)", "error");
+                    }
+                  }
+                });
                 
             }else{
                 swal("Cancelado!", "O registro foi mantido :)", "error");
@@ -140,6 +151,32 @@
           
         });
     };
+    
+    
+    
+    
+    $(function (){
+    
+    var $price  = $("tr.ativo td#fees_part"),
+    $percentage = $("tr.ativo td#fees_desc").on("mouseleave", calculatePrice),
+    $discount   = $("tr.ativo td#fees_total").on("mouseleave", calculatePerc);
+    
+
+function calculatePrice() {
+    var percentage = $(this).text();
+    var price      = $price.text();
+    var calcPrice  = (price - ( price * percentage / 100 )).toFixed(2);
+    $discount.text( calcPrice );
+}
+
+function calculatePerc() {
+    var discount = $(this).text();
+    var price    = $price.text();
+    var calcPerc = 100 - (discount * 100 / price);
+    $percentage.text( calcPerc );
+}
+    
+    });
        
 </script>
 
@@ -226,7 +263,7 @@
         </div>
         <div id="fees-btn-show" class="btn-group">
             <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset">
-                <i class="glyphicon glyphicon-eye-open"></i> Mostrar Formulário
+                <i class="glyphicon glyphicon-plus"></i> Adicionar registro
             </button>
         </div>
         <div id="fees-btn-hide" class="btn-group">
@@ -247,7 +284,7 @@
                         <th class="text-center">Código</th>
                         <th class="text-center">Procedimento</th>
                         <th class="text-center">Categoria</th>
-                        <th class="text-center">Convênio</th>
+                        <th class="text-center">Desconto</th>
                         <th class="text-center">Particular</th>
                         <th class="text-center">Diferença</th>
                         <th class="text-center">Salvar | Deletar</th>
@@ -260,9 +297,9 @@
                         <td id="fees_cod"   contenteditable="true" title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?> <input name="fees_cod" class="fees_cod" type="hidden" value=""></td>
                         <td id="fees_proc"  contenteditable="true" title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?> <input name="fees_proc" class="fees_proc" type="hidden" value=""></td>
                         <td id="fees_cat"   contenteditable="true" title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?> <input name="fees_cat" class="fees_cat" type="hidden" value=""></td>
-                        <td id="fees_desc"  contenteditable="true" title="Convênio" class="edit"><?= $fetch_userdata['fees_desc']; ?> <input name="fees_desc" class="fees_desc" type="hidden" value=""></td>
+                        <td id="fees_desc"  contenteditable="true" title="Desconto" class="edit"><?= $fetch_userdata['fees_desc']; ?> <input name="fees_desc" class="fees_desc" type="hidden" value=""></td>
                         <td id="fees_part"  contenteditable="true" title="Particular" ><?= $fetch_userdata['fees_part']; ?><input  name="fees_part" class="fees_part" type="hidden" value=""></td>
-                        <td><?= $fetch_userdata['fees_part']; ?></td>
+                        <td id="fees_total"></td>
                         <td>
                             <button title="Grava alterações" data-toggle="modal" data-target="#myModal" onclick="CarregaText()" class="btn btn-sm btn-default btn-gravar-fees">
                                 <i style="color:#2196f3;" class="fa fa-1x fa-floppy-o" aria-hidden="true"></i>
@@ -282,7 +319,7 @@
                     <?php endforeach; ?>
                     <?php 
                         else: 
-                            echo '<tbody><tr><td class="text-center vazio" style="color: red;" >Não há produto cadastrado no sistema.</td></tr>'; 
+                            echo '<tbody><tr><td class="text-center vazio" style="color: red;" >Não há registros cadastrado no sistema.</td></tr>'; 
                         endif; 
                     ?>
                 </tbody>

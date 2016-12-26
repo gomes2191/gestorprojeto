@@ -1,12 +1,20 @@
 <?php
+    # Verifica se a constante existe "ABSPATH" existe, se nao existir sai
     if (!defined('ABSPATH')) { exit; }
     
-    #   Verifica se existe o método post e executa os parametros necessarios caso exista
-    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
-    
-    if($modelo->form_msg == TRUE){
-        echo 1;
+    if(!empty(filter_input_array(INPUT_POST))){
+        # Verifica se existe encode_id se existe executa o metod de exclusão
+        if((filter_input(INPUT_POST, 'encode_id'))){
+            $modelo->delRegister(filter_input(INPUT_POST, 'encode_id'));
+            echo $modelo->form_msg;
+        }else{
+            $modelo->validate_register_form();
+            echo $modelo->form_msg;
+        }
         
     }else{
         exit();
     }
+
+    
+    

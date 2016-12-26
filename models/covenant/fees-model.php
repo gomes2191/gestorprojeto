@@ -267,10 +267,10 @@ class FeesModel extends MainModel
         if ($search->fetchColumn() < 1) {
 
             #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
+            #$this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
             
             # Redireciona de volta para a página após 4 segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
+            #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
             
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
@@ -282,13 +282,16 @@ class FeesModel extends MainModel
             $query_del = $this->db->delete('covenant_fees', 'fees_id', $decode_id);
 
             #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            #$this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            
+            # Tratamento de erro ajax retorno Feedback para o usuário
+            $this->form_msg = TRUE;
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
 
             # Redireciona de volta para a página após o tempo informado segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
+            #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
 
             #   Finaliza
             return;
