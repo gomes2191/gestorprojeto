@@ -152,32 +152,40 @@
         });
     };
     
+    $(function(){
     
-    
-    
-    $(function (){
-    
-    var $price  = $("tr.ativo td#fees_part"),
-    $percentage = $("tr.ativo td#fees_desc").on("mouseleave", calculatePrice),
-    $discount   = $("tr.ativo td#fees_total").on("mouseleave", calculatePerc);
-    
+        var $wrapper = document.querySelector('#fees_total');
+        linhas = $('table#table-fees tbody tr');
+        
+        // Pega a string do conteúdo atual
+        //HTMLTemporario = $wrapper.innerHTML,
+        // Novo HTML que será inserido
+        //HTMLNovo = 'Brasil';
+        
+        
+        var percentage = (function() {
+            
+        return function(){
+            valor = parseInt(linhas.find('td#fees_part').text());
+            desconto = parseInt(linhas.find('td#fees_desc').text());
+            
+          return ( valor - (valor * desconto/100).toFixed(2));
+        };
 
-function calculatePrice() {
-    var percentage = $(this).text();
-    var price      = $price.text();
-    var calcPrice  = (price - ( price * percentage / 100 )).toFixed(2);
-    $discount.text( calcPrice );
-}
+        })();
 
-function calculatePerc() {
-    var discount = $(this).text();
-    var price    = $price.text();
-    var calcPerc = 100 - (discount * 100 / price);
-    $percentage.text( calcPerc );
-}
+        $wrapper.innerHTML = percentage();  
     
     });
-       
+    
+    $('#table-fees > tbody tr').each(function(i){ 
+    var valor = $(this).find('#fees_part').text().toString().replace(",","").replace(".","");
+    var qtd = $(this).find('#fees_desc').text().toString().replace(",","").replace(".",""); 
+    
+    vetorQtd[i] = qtd;
+    vetorValor[i] = valor;
+
+});
 </script>
 
 <div class="row-fluid">
@@ -195,7 +203,7 @@ function calculatePerc() {
             } else {
                 unset($form_msg);
             }
-            ?>
+        ?>
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
             <fieldset>
