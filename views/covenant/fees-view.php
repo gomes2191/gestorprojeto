@@ -152,40 +152,72 @@
         });
     };
     
-    $(function(){
+//    $(function(){
+//    
+//        var $wrapper = document.querySelector('#fees_total');
+//        linhas = $('table#table-fees tbody tr');
+//        
+//        // Pega a string do conteúdo atual
+//        //HTMLTemporario = $wrapper.innerHTML,
+//        // Novo HTML que será inserido
+//        //HTMLNovo = 'Brasil';
+//        
+//        
+//        var percentage = (function() {
+//            
+//        return function(){
+//            valor = parseInt(linhas.find('td#fees_part').text());
+//            desconto = parseInt(linhas.find('td#fees_desc').text());
+//            
+//          return ( valor - (valor * desconto/100).toFixed(2));
+//        };
+//
+//        })();
+//
+//        $wrapper.innerHTML = percentage();  
+//    
+//    });
     
-        var $wrapper = document.querySelector('#fees_total');
-        linhas = $('table#table-fees tbody tr');
-        
-        // Pega a string do conteúdo atual
-        //HTMLTemporario = $wrapper.innerHTML,
-        // Novo HTML que será inserido
-        //HTMLNovo = 'Brasil';
-        
-        
-        var percentage = (function() {
+    $(function (){
+        $('#table-fees tbody tr').each(function(i){
             
-        return function(){
-            valor = parseInt(linhas.find('td#fees_part').text());
-            desconto = parseInt(linhas.find('td#fees_desc').text());
+            fees_part = $(this).find('#fees_part').text().toString().replace(",",".");
+            fees_desc = $(this).find('#fees_desc').text().toString().replace(",",".");
             
-          return ( valor - (valor * desconto/100).toFixed(2));
-        };
-
-        })();
-
-        $wrapper.innerHTML = percentage();  
-    
+            
+            // Declaração de vetores
+            var vetorTotal = [];
+            var vetorPerc  = [];
+            var vetorValor = [];
+            var resultado  = [];
+            
+            vetorTotal[i] =  fees_total;
+            vetorValor[i] = fees_part;
+            vetorPerc[i] = fees_desc;
+            
+            resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed() ));
+            
+            
+            
+            
+            ($(this).find("#fees_total").text('$' + resultado[i])).formatMoney(2, ',', '.');
+            
+        });
+        
+        
     });
     
-    $('#table-fees > tbody tr').each(function(i){ 
-    var valor = $(this).find('#fees_part').text().toString().replace(",","").replace(".","");
-    var qtd = $(this).find('#fees_desc').text().toString().replace(",","").replace(".",""); 
     
-    vetorQtd[i] = qtd;
-    vetorValor[i] = valor;
+    Number.prototype.formatMoney = function(c, d, t){
+        var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
 
-});
+// usando
+
+
+//retorna 1.000,00
+    
 </script>
 
 <div class="row-fluid">
@@ -292,9 +324,9 @@
                         <th class="text-center">Código</th>
                         <th class="text-center">Procedimento</th>
                         <th class="text-center">Categoria</th>
-                        <th class="text-center">Desconto</th>
+                        <th class="text-center">Desconto %</th>
                         <th class="text-center">Particular</th>
-                        <th class="text-center">Diferença</th>
+                        <th class="text-center">Valor com desconto</th>
                         <th class="text-center">Salvar | Deletar</th>
                     </tr>
                 </thead>
@@ -305,8 +337,8 @@
                         <td id="fees_cod"   contenteditable="true" title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?> <input name="fees_cod" class="fees_cod" type="hidden" value=""></td>
                         <td id="fees_proc"  contenteditable="true" title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?> <input name="fees_proc" class="fees_proc" type="hidden" value=""></td>
                         <td id="fees_cat"   contenteditable="true" title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?> <input name="fees_cat" class="fees_cat" type="hidden" value=""></td>
-                        <td id="fees_desc"  contenteditable="true" title="Desconto" class="edit"><?= $fetch_userdata['fees_desc']; ?> <input name="fees_desc" class="fees_desc" type="hidden" value=""></td>
-                        <td id="fees_part"  contenteditable="true" title="Particular" ><?= $fetch_userdata['fees_part']; ?><input  name="fees_part" class="fees_part" type="hidden" value=""></td>
+                        <td id="fees_desc"  contenteditable="true" title="Desconto" class="edit"><?= $fetch_userdata['fees_desc']; ?> <i style="color:#999999;" class="fa fa-1x fa-percent" aria-hidden="true"></i><input name="fees_desc" class="fees_desc" type="hidden" value=""></td>
+                        <td id="fees_part" data-symbol="R$ " data-thousands="." data-decimal="," contenteditable="true" title="Particular" ><?= $fetch_userdata['fees_part']; ?><input  name="fees_part" class="fees_part" type="hidden" value=""></td>
                         <td id="fees_total"></td>
                         <td>
                             <button title="Grava alterações" data-toggle="modal" data-target="#myModal" onclick="CarregaText()" class="btn btn-sm btn-default btn-gravar-fees">

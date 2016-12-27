@@ -55,6 +55,7 @@
                 
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/sweetalert.css">';
                 echo '<script src="'.HOME_URI.'/views/_js/sweetalert.min.js"></script>';
+                echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.js"></script>';
                 # End outros plugins
             }
         ?>
