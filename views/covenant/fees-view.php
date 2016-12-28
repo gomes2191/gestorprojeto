@@ -83,7 +83,13 @@
             $('input#fees_desc').val(valorVetor['fees_desc']);
             $('input#fees_part').val(valorVetor['fees_part']);
             
-            $('#btn-new-hide').trigger('click');
+            $('.new-fees').show(500);
+            $('#fees-btn-show').hide();
+            $('#fees-btn-hide').show();
+        });
+        
+        $('.fees-clear').click(function (){
+            $('#fees_id').val("");
         });
     });
     
@@ -205,7 +211,8 @@
                         <select name="fees_cat" class="form-control">
                             <?php foreach ($modelo->get_table_data('*', 'fees_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
                                 <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'fees_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
-                            <?php endforeach; unset($fetch_userdata); ?>
+                            <?php endforeach;
+                            unset($fetch_userdata); ?>
                         </select>
                         <br>
                     </div>
@@ -224,8 +231,7 @@
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="fees_desc">Desconto convênio:</label>
-                        <input id="fees_desc" name="fees_desc" class="form-control" type="text" placeholder="0.00" value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'fees_desc')); ?>">
+                        <input id="fees_desc" name="fees_desc" class="form-control" type="text" placeholder="0.00" value="<?php echo htmlentities(chk_array($modelo->form_data, 'fees_desc')); ?>">
                         <br>
                     </div>
                 </div>
@@ -236,23 +242,23 @@
                             <button title="Salvar informações" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
                         </div>
                         <div class="btn-group">
-                            <button title="Limpar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
+                            <button title="Limpar formulário" class="btn btn-default marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
                         </div>
                     </div>
                 </div>
             </fieldset>
+            <div class="btn-group">
+                <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
+            </div>
+            <div id="fees-btn-show" class="btn-group">
+                <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset">
+                    <i class="glyphicon glyphicon-plus"></i> Adicionar registro
+                </button>
+            </div>
+            <div id="fees-btn-hide" class="btn-group">
+                <button id="btn-new-hide" title="Ocultar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
+            </div>
         </form>
-        <div class="btn-group">
-            <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
-        </div>
-        <div id="fees-btn-show" class="btn-group">
-            <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset">
-                <i class="glyphicon glyphicon-plus"></i> Adicionar registro
-            </button>
-        </div>
-        <div id="fees-btn-hide" class="btn-group">
-            <button id="btn-new-hide" title="Ocultar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
-        </div>
     </div>
 </div> <!-- /row  -->
 <div class="row-fluid">

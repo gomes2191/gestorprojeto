@@ -195,6 +195,8 @@ $(function () {
         $('.new-fees').hide(500);
         $('#fees-btn-hide').hide();
         $('#fees-btn-show').show();
+        $('#fees_id').val("");
+        
     });
 
 
