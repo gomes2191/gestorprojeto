@@ -38,6 +38,17 @@
 
 <script>
     
+    
+    Number.prototype.formatMoney = function(c, d, t){
+     var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
+
+// usando
+
+
+//retorna 1.000,00
+    
     //   Muda url da pagina
     //  window.history.pushState("fees", "", "fees");
     
@@ -50,67 +61,14 @@
             });   
         }
     });
-    
-    
-   
-   function CarregaText() {
-        var fees_cod  = $('#table-fees tbody tr.ativo #fees_cod').text();
-        var fees_proc = $('#table-fees tbody tr.ativo #fees_proc').text();
-        var fees_cat = $('#table-fees tbody tr.ativo #fees_cat').text();
-        var fees_desc = $('#table-fees tbody tr.ativo #fees_desc').text();
-        var fees_part = $('#table-fees tbody tr.ativo #fees_part').text();
-        $('#table-fees tbody tr.ativo input.fees_cod').val(fees_cod);
-        $('#table-fees tbody tr.ativo input.fees_proc').val(fees_proc);
-        $('#table-fees tbody tr.ativo input.fees_cat').val(fees_cat);
-        $('#table-fees tbody tr.ativo input.fees_desc').val(fees_desc);
-        $('#table-fees tbody tr.ativo input.fees_part').val(fees_part);
-    }
-    
-    // Formulário editável
+           
     $(function (){
-        $('#table-fees tbody tr').mouseenter( function (){
-           $(this).closest('tr').addClass('ativo');
+        $('.btn-gravar-fees').click(function (){
+            teste = $('#fees_cod').text();
+            console.log(teste);
         });
-          
-        $('.btn-gravar-fees').click( function() {
-           dados = $('tr.ativo td > input').serialize();
-           console.log(dados);
-            swal({
-                title: "Armazenar alterações",
-                text: "Realmente e do seu interesse gravar essas alterações? Ainda e possível cancelar, se você prosseguir as alterações serão armazenadas (Salvas).",
-                type: "info",
-                showCancelButton: true,
-                cancelButtonText: "Cancelar",
-                confirmButtonText: "Salvar",
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true,
-                  },
-                function(){                  
-                    $.ajax({
-                      type:'POST',
-                      url:'<?= HOME_URI ?>/covenant/ajax-fees',
-                      dataType: 'html',
-                      data: dados,
-                      success: function(retorno){
-                        if(retorno == 1){
-                            setTimeout(function(){
-                                swal({title:'Gravação finalizada com sucesso!' ,type: "success", timer: 1500, showConfirmButton: false});
-                            }, 200);
-                              
-                        }else{
-                            swal("Erro!", "Ouve um erro durante a exclusao do registro se o problema persistir contate o administrador :)", "error");
-                        }
-                      }
-                    });
-                });
-        });
-        
-        $('#table-fees tbody tr').mouseleave( function(){
-            $(this).closest('tr').removeClass('ativo');
-        });
-    
     });
-        
+    
     function delConfirm(encode_id){
         var tr = $('tr.ativo');
         
@@ -152,71 +110,37 @@
         });
     };
     
-//    $(function(){
-//    
-//        var $wrapper = document.querySelector('#fees_total');
-//        linhas = $('table#table-fees tbody tr');
-//        
-//        // Pega a string do conteúdo atual
-//        //HTMLTemporario = $wrapper.innerHTML,
-//        // Novo HTML que será inserido
-//        //HTMLNovo = 'Brasil';
-//        
-//        
-//        var percentage = (function() {
-//            
-//        return function(){
-//            valor = parseInt(linhas.find('td#fees_part').text());
-//            desconto = parseInt(linhas.find('td#fees_desc').text());
-//            
-//          return ( valor - (valor * desconto/100).toFixed(2));
-//        };
-//
-//        })();
-//
-//        $wrapper.innerHTML = percentage();  
-//    
-//    });
-    
     $(function (){
         $('#table-fees tbody tr').each(function(i){
             
-            fees_part = $(this).find('#fees_part').text().toString().replace(",",".");
-            fees_desc = $(this).find('#fees_desc').text().toString().replace(",",".");
+            fees_part =  parseFloat($(this).find('#fees_part').text().toString());
+            fees_desc =  parseFloat($(this).find('#fees_desc').text().toString());
             
             
             // Declaração de vetores
-            var vetorTotal = [];
+            
             var vetorPerc  = [];
             var vetorValor = [];
+            var vetorTotal = [];
             var resultado  = [];
             
-            vetorTotal[i] =  fees_total;
-            vetorValor[i] = fees_part;
-            vetorPerc[i] = fees_desc;
+            vetorPerc[i]    =   fees_desc;
+            vetorValor[i]   =   fees_part;
+            vetorTotal[i]   =   fees_total;
+            
             
             resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed() ));
             
             
             
-            
-            ($(this).find("#fees_total").text('$' + resultado[i])).formatMoney(2, ',', '.');
+            $(this).find("#fees_part").text('$' + (vetorValor[i]).formatMoney(2, '.', ','));
+            $(this).find("#fees_total").text('$' + (resultado[i]).formatMoney(2, '.', ','));
             
         });
         
         
     });
     
-    
-    Number.prototype.formatMoney = function(c, d, t){
-        var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
-        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-    };
-
-// usando
-
-
-//retorna 1.000,00
     
 </script>
 
@@ -341,8 +265,8 @@
                         <td id="fees_part" data-symbol="R$ " data-thousands="." data-decimal="," contenteditable="true" title="Particular" ><?= $fetch_userdata['fees_part']; ?><input  name="fees_part" class="fees_part" type="hidden" value=""></td>
                         <td id="fees_total"></td>
                         <td>
-                            <button title="Grava alterações" data-toggle="modal" data-target="#myModal" onclick="CarregaText()" class="btn btn-sm btn-default btn-gravar-fees">
-                                <i style="color:#2196f3;" class="fa fa-1x fa-floppy-o" aria-hidden="true"></i>
+                            <button title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
+                                <i style="color:#2196f3;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button> |
                             <a href="javascript:void(0);" title="Eliminar registro" onclick="delConfirm('<?= $modelo->encode_decode($fetch_userdata['fees_id']); ?>');" class="btn btn-sm btn-default">
                                 <i style="color:#c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
