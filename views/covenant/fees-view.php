@@ -73,8 +73,8 @@
             valorVetor['fees_cod']  =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
             valorVetor['fees_proc'] =  $(this).closest('tr').find('#fees_proc').text().replace(' ','');
             valorVetor['fees_cat']  =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
-            valorVetor['fees_desc'] =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
-            valorVetor['fees_part'] =  apenasNumeros($(this).closest('tr').find('#fees_part').text().replace(' ',''));
+            valorVetor['fees_desc'] =  $(this).closest('tr').find('#fees_desc').text().replace(' ','');
+            valorVetor['fees_part'] =  $(this).closest('tr').find('#fees_part').text().replace(' ','');
             
             $('input#fees_id').val(valorVetor['fees_id']);
             $('input#fees_cod').val(valorVetor['fees_cod']);
@@ -86,6 +86,7 @@
             $('.new-fees').show(500);
             $('#fees-btn-show').hide();
             $('#fees-btn-hide').show();
+            $('html, body').animate({scrollTop:0}, 'slow');
         });
         
         $('.fees-clear').click(function (){
@@ -157,13 +158,8 @@
             resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed() ));
             
             
-            
-            $(this).find("#fees_part").text('$' + (vetorValor[i]).formatMoney(2, '.', ','));
             $(this).find("#fees_total").text('$' + (resultado[i]).formatMoney(2, '.', ','));
-            
         });
-        
-        
     });
     
     
@@ -221,7 +217,7 @@
                         <label for="fees_part">Valor particular montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">$</div>
-                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="<?= htmlentities(chk_array($modelo->form_data, 'fees_valor')); ?>">
+                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="">
                             <div class="input-group-addon">.00</div>
                         </div>
                         <br>

@@ -130,14 +130,14 @@ class FeesModel extends MainModel
             'fees_part'             =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
         ]);
 
-        #   Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ( $query_ins ) {
             
             # Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro efetuado com sucesso!'];
                 
-            # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant/cad">';
+            # Da um refresh na página apos um determinado tempo especifico
+            echo '<meta http-equiv="Refresh" content="4">';
             
             # Destroy variável não mais utilizada
             unset($query_ins);
@@ -184,14 +184,11 @@ class FeesModel extends MainModel
             # Verifica se a consulta foi realizada com sucesso
             if ( $query_up ) {
                 
-                # Feedback para o usuário
-                # $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
+                # Feedback para o usuário, retorna uma mensagem para usuário
+                $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
                 
-                # Redireciona de volta para a página após dez segundos
-                #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant/cad">';
-                
-                # Tratamento de erro ajax retorno Feedback para o usuário
-                $this->form_msg = TRUE;
+                # Da um refresh na página apos um determinado tempo especifico
+                echo '<meta http-equiv="Refresh" content="4">';
                 
                 # Destroy variáveis nao mais utilizadas
                 unset( $registro_id, $query_up  );
@@ -200,11 +197,8 @@ class FeesModel extends MainModel
                 return;
             }else{
                 
-                # Feedback para o usuário
-                #$this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
-                
-                # Tratamento de erro ajax retorno Feedback para o usuário
-                $this->form_msg = FALSE;
+                # Feedback para o usuário, retorna uma mensagem para usuário
+                $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
                 
                 # Destroy variáveis nao mais utilizadas
                 unset( $registro_id, $query_up  );
