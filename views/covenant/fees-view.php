@@ -61,13 +61,32 @@
             });   
         }
     });
-           
+    function apenasNumeros(string) 
+{
+    var numsStr = string.replace(/[^0-9]/g,'');
+    return parseInt(numsStr);
+}       
     $(function (){
         $('.btn-gravar-fees').click(function (){
-            teste = $('#fees_cod').text();
-            console.log(teste);
+            valorVetor = [];
+            valorVetor['fees_id']   =  parseInt($(this).closest('tr').find('#fees_id').text().replace(' ',''));
+            valorVetor['fees_cod']  =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
+            valorVetor['fees_proc'] =  $(this).closest('tr').find('#fees_proc').text().replace(' ','');
+            valorVetor['fees_cat']  =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
+            valorVetor['fees_desc'] =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
+            valorVetor['fees_part'] =  apenasNumeros($(this).closest('tr').find('#fees_part').text().replace(' ',''));
+            
+            $('input#fees_id').val(valorVetor['fees_id']);
+            $('input#fees_cod').val(valorVetor['fees_cod']);
+            $('input#fees_proc').val(valorVetor['fees_proc']);
+            $('input#fees_cat').val(valorVetor['fees_cat']);
+            $('input#fees_desc').val(valorVetor['fees_desc']);
+            $('input#fees_part').val(valorVetor['fees_part']);
+            
+            $('#btn-new-hide').trigger('click');
         });
     });
+    
     
     function delConfirm(encode_id){
         var tr = $('tr.ativo');
@@ -168,7 +187,8 @@
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="fees_cod"><i style="color: red;">*</i>Nr:</label>
                         <input type="hidden" name="covenant_fees_id" value="<?= $get_decode; ?>">
-                        <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="<?= htmlentities(chk_array($modelo->form_data, 'fees_cod')); ?>" class="form-control" 
+                        <input id="fees_id" type="hidden" name="fees_id" value="">
+                        <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="" class="form-control" 
                                data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                                data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
@@ -176,7 +196,7 @@
 
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
                         <label for="fees_proc"><i style="color: red;">*</i> Procedimento:</label>
-                        <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Produto - Marca" value="<?php echo htmlentities(chk_array($modelo->form_data, 'fees_desc')); ?>">
+                        <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Produto - Marca" value="">
                         <br>
                     </div>
 
@@ -257,12 +277,12 @@
                 <tbody>
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
-                        <td ><?= $fetch_userdata['fees_id']; ?> <input type="hidden" name="fees_id" class="form-control" value="<?= $fetch_userdata['fees_id']; ?>"></td>
-                        <td id="fees_cod"   contenteditable="true" title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?> <input name="fees_cod" class="fees_cod" type="hidden" value=""></td>
-                        <td id="fees_proc"  contenteditable="true" title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?> <input name="fees_proc" class="fees_proc" type="hidden" value=""></td>
-                        <td id="fees_cat"   contenteditable="true" title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?> <input name="fees_cat" class="fees_cat" type="hidden" value=""></td>
-                        <td id="fees_desc"  contenteditable="true" title="Desconto" class="edit"><?= $fetch_userdata['fees_desc']; ?> <i style="color:#999999;" class="fa fa-1x fa-percent" aria-hidden="true"></i><input name="fees_desc" class="fees_desc" type="hidden" value=""></td>
-                        <td id="fees_part" data-symbol="R$ " data-thousands="." data-decimal="," contenteditable="true" title="Particular" ><?= $fetch_userdata['fees_part']; ?><input  name="fees_part" class="fees_part" type="hidden" value=""></td>
+                        <td id="fees_id" ><?= $fetch_userdata['fees_id']; ?></td>
+                        <td id="fees_cod" title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?></td>
+                        <td id="fees_proc" title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?></td>
+                        <td id="fees_cat" title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?></td>
+                        <td id="fees_desc"  title="Desconto" class="edit"><?= $fetch_userdata['fees_desc']; ?></td>
+                        <td id="fees_part" title="Particular" ><?= $fetch_userdata['fees_part']; ?></td>
                         <td id="fees_total"></td>
                         <td>
                             <button title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
