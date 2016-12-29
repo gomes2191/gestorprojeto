@@ -72,14 +72,14 @@
             valorVetor['fees_id']   =  parseInt($(this).closest('tr').find('#fees_id').text().replace(' ',''));
             valorVetor['fees_cod']  =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
             valorVetor['fees_proc'] =  $(this).closest('tr').find('#fees_proc').text().replace(' ','');
-            valorVetor['fees_cat']  =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
+            valorVetor['fees_cat']  =  $(this).closest('tr').find('#fees_cat').text().replace(' ','');
             valorVetor['fees_desc'] =  $(this).closest('tr').find('#fees_desc').text().replace(' ','');
             valorVetor['fees_part'] =  $(this).closest('tr').find('#fees_part').text().replace(' ','');
             
             $('input#fees_id').val(valorVetor['fees_id']);
             $('input#fees_cod').val(valorVetor['fees_cod']);
             $('input#fees_proc').val(valorVetor['fees_proc']);
-            $('input#fees_cat').val(valorVetor['fees_cat']);
+            $('select#fees_cat').val(valorVetor['fees_cat']);
             $('input#fees_desc').val(valorVetor['fees_desc']);
             $('input#fees_part').val(valorVetor['fees_part']);
             
@@ -187,7 +187,7 @@
                 <legend>TABELA DE HONORÁRIOS</legend>
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="fees_cod"><i style="color: red;">*</i>Nr:</label>
+                        <label for="fees_cod"><i style="color: red;">*</i> Código:</label>
                         <input type="hidden" name="covenant_fees_id" value="<?= $get_decode; ?>">
                         <input id="fees_id" type="hidden" name="fees_id" value="">
                         <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="" class="form-control" 
@@ -204,9 +204,9 @@
 
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="fees_cat">Categoria:</label>
-                        <select name="fees_cat" class="form-control">
-                            <?php foreach ($modelo->get_table_data('*', 'fees_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
-                                <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'fees_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
+                        <select id="fees_cat" name="fees_cat" class="form-control">
+                            <?php foreach ($modelo->get_table_data(1, '*', 'fees_category', null, null, 'cat_id') as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['cat']; ?>" ><?= $fetch_userdata['cat']; ?></option>
                             <?php endforeach;
                             unset($fetch_userdata); ?>
                         </select>
@@ -227,7 +227,7 @@
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="fees_desc">Desconto convênio:</label>
-                        <input id="fees_desc" name="fees_desc" class="form-control" type="text" placeholder="0.00" value="<?php echo htmlentities(chk_array($modelo->form_data, 'fees_desc')); ?>">
+                        <input id="fees_desc" name="fees_desc" class="form-control" type="text" placeholder="0.00" value="">
                         <br>
                     </div>
                 </div>
@@ -235,10 +235,10 @@
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div class="btn-group">
-                            <button title="Salvar informações" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
+                            <button title="Salvar informações" class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
                         </div>
                         <div class="btn-group">
-                            <button title="Limpar formulário" class="btn btn-default marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
+                            <button title="Limpar formulário" class="btn btn-warning marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
                         </div>
                     </div>
                 </div>

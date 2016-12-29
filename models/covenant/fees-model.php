@@ -177,7 +177,7 @@ class FeesModel extends MainModel
                 'fees_cod'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
                 'fees_proc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
                 'fees_cat'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
-                'fees_desc'   =>  $this->only_filter_number(chk_array($this->form_data, 'fees_desc')),
+                'fees_desc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
                 'fees_part'   =>  $this->only_filter_number(chk_array($this->form_data, 'fees_part'))
             ]);
 
