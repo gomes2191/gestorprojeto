@@ -36,36 +36,33 @@
     $form_msg = $modelo->form_msg;
 ?>
 
-<script>
-    
-    
+<script> 
     Number.prototype.formatMoney = function(c, d, t){
      var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
      return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
     };
 
-// usando
-
-
-//retorna 1.000,00
+// usando   formatMoney(2, '.', ',') //retorna 1.000,00
     
     //   Muda url da pagina
     //  window.history.pushState("fees", "", "fees");
     
     // Chama o paginador da tabela    
     $(function () {
-        if($('.text-center').hasClass('vazio') == false){
+        if($('.text-center').hasClass('vazio') === false){
             $('#table-fees').DataTable({
                 language: {url: '../Portuguese-Brasil.json'}
                 
             });   
         }
     });
+    
     function apenasNumeros(string) 
 {
     var numsStr = string.replace(/[^0-9]/g,'');
     return parseInt(numsStr);
 }       
+    
     $(function (){
         $('.btn-gravar-fees').click(function (){
             valorVetor = [];
@@ -74,7 +71,9 @@
             valorVetor['fees_proc'] =  $(this).closest('tr').find('#fees_proc').text().replace(' ','');
             valorVetor['fees_cat']  =  $(this).closest('tr').find('#fees_cat').text().replace(' ','');
             valorVetor['fees_desc'] =  $(this).closest('tr').find('#fees_desc').text().replace(' ','');
-            valorVetor['fees_part'] =  $(this).closest('tr').find('#fees_part').text().replace(' ','');
+            valorVetor['fees_part'] =  $(this).closest('tr').find('input').val();
+            valorVetor['fees_total'] =  $(this).closest('tr').find('#fees_total').text().replace(' ','');
+            alert($(this).closest('tr').find('input').val());
             
             $('input#fees_id').val(valorVetor['fees_id']);
             $('input#fees_cod').val(valorVetor['fees_cod']);
@@ -82,6 +81,7 @@
             $('select#fees_cat').val(valorVetor['fees_cat']);
             $('input#fees_desc').val(valorVetor['fees_desc']);
             $('input#fees_part').val(valorVetor['fees_part']);
+            $('input#fees_total').val(valorVetor['fees_total']);
             
             $('.new-fees').show(500);
             $('#fees-btn-show').hide();
@@ -94,10 +94,7 @@
         });
     });
     
-    
     function delConfirm(encode_id){
-        var tr = $('tr.ativo');
-        
         swal({
           title: "",
           text: "Você realmente deseja remover este registro? apos a remoção será impossivel reverter isso",
@@ -122,7 +119,6 @@
                             swal({title:'Registro removido com sucesso!' ,type: "success", timer: 1500, showConfirmButton: false});
                         }, 200);
                         
-                        tr.remove();
                     }else{
                         swal("Erro!", "Ouve um erro durante a exclusao do registro se o problema persistir contate o administrador :)", "error");
                     }
@@ -139,7 +135,7 @@
     $(function (){
         $('#table-fees tbody tr').each(function(i){
             
-            fees_part =  parseFloat($(this).find('#fees_part').text().toString());
+            fees_part =  parseFloat($(this).find('input').val().toString());
             fees_desc =  parseFloat($(this).find('#fees_desc').text().toString());
             
             
@@ -155,18 +151,18 @@
             vetorTotal[i]   =   fees_total;
             
             
-            resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed() ));
+            resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed(2) ));
             
             
             $(this).find("#fees_total").text('$' + (resultado[i]).formatMoney(2, '.', ','));
+            $(this).find('span').text('$' + (vetorValor[i]).formatMoney(2, '.', ','));
         });
+        
     });
-    
-    
 </script>
 
 <div class="row-fluid">
-    <div class="col-md-12  col-sm-12 col-xs-12">
+    <div class="col-md-12  col-sm-12 col-xs-12"  ng-app="myFess" ng-controller="myFessController">
         <?php
             if ($form_msg) {
                 echo'<div class="alert alertH ' . $form_msg[0] . ' alert-dismissible fade in">
@@ -182,7 +178,7 @@
             }
         ?>
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
-        <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="">
+        <form id="form-register" enctype="multipart/form-data" method="post" action="" role="form" >
             <fieldset>
                 <legend>TABELA DE HONORÁRIOS</legend>
                 <div class="row form-compact new-fees" style="display: none;">
@@ -190,12 +186,10 @@
                         <label for="fees_cod"><i style="color: red;">*</i> Código:</label>
                         <input type="hidden" name="covenant_fees_id" value="<?= $get_decode; ?>">
                         <input id="fees_id" type="hidden" name="fees_id" value="">
-                        <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="" class="form-control" 
-                               data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
-                               data-validation-help="Digite um nome com (3) ou mais caracteres.">
+                        <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="" class="form-control" >
                         <br>
                     </div>
-
+                    
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
                         <label for="fees_proc"><i style="color: red;">*</i> Procedimento:</label>
                         <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Produto - Marca" value="">
@@ -212,26 +206,39 @@
                         </select>
                         <br>
                     </div>
-
-                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                   
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                         <label for="fees_part">Valor particular montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">$</div>
-                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." value="">
+                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_part">
                             <div class="input-group-addon">.00</div>
                         </div>
                         <br>
                     </div>
                     <br>
                 </div>
+                {{ operacao.fees_part }}
                 <div class="row form-compact new-fees" style="display: none;">
-                    <div class="form-group col-md-2 col-sm-4 col-xs-6">
-                        <label for="fees_desc">Desconto convênio:</label>
-                        <input id="fees_desc" name="fees_desc" class="form-control" type="text" placeholder="0.00" value="">
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                        <label for="fees_desc">Desconto ( % )</label>
+                        <div class="input-group">
+                            <!--<div class="input-group-addon">$</div>-->
+                            <input id="fees_desc" name="fees_desc" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores(34)" ng-model="operacao.fees_desc">
+                            <div class="input-group-addon">%</div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                        <label for="conv_calc">Valor com desconto ( $ )</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" value="" class="form-control" disabled ng-model="operacao.fees_total" >
+                            <!--<div class="input-group-addon">.00</div>-->
+                        </div>
                         <br>
                     </div>
                 </div>
-
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div class="btn-group">
@@ -280,11 +287,11 @@
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
                     <tr class="text-center">
                         <td id="fees_id" ><?= $fetch_userdata['fees_id']; ?></td>
-                        <td id="fees_cod" title="Código" class="edit"><?= $fetch_userdata['fees_cod']; ?></td>
-                        <td id="fees_proc" title="Procedimento" class="edit"><?= $fetch_userdata['fees_proc']; ?></td>
-                        <td id="fees_cat" title="Categoria" class="edit"><?= $fetch_userdata['fees_cat']; ?></td>
-                        <td id="fees_desc"  title="Desconto" class="edit"><?= $fetch_userdata['fees_desc']; ?></td>
-                        <td id="fees_part" title="Particular" ><?= $fetch_userdata['fees_part']; ?></td>
+                        <td id="fees_cod" title="Código"><?= $fetch_userdata['fees_cod']; ?></td>
+                        <td id="fees_proc" title="Procedimento" ><?= $fetch_userdata['fees_proc']; ?></td>
+                        <td id="fees_cat" title="Categoria" ><?= $fetch_userdata['fees_cat']; ?></td>
+                        <td id="fees_desc"  title="Desconto"><?= $fetch_userdata['fees_desc']; ?></td>
+                        <td title="Particular" ><input type="hidden" value="<?= $fetch_userdata['fees_part']; ?>"><span class="fees_part"></span></td>
                         <td id="fees_total"></td>
                         <td>
                             <button title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
@@ -308,6 +315,16 @@
                             echo '<tbody><tr><td class="text-center vazio" style="color: red;" >Não há registros cadastrado no sistema.</td></tr>'; 
                         endif; 
                     ?>
+                    
+                    <script>
+                        var app = angular.module('myFess', []);
+                        app.controller('myFessController', function($scope){
+                            $scope.operacao={fees_part:, fees_desc:, fees_total:0};
+                            $scope.somarValores = function(){
+                              $scope.operacao.fees_total = $scope.operacao.fees_part - ($scope.operacao.fees_part * $scope.operacao.fees_desc / 100);
+                            };
+                        });
+                    </script>    
                 </tbody>
             </table>
             <br>
@@ -315,15 +332,3 @@
     </div>
 </div>
 
-<script>
-
-    $('.top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 'slow');
-        return false;
-
-    });
-    
-    
-
-
-</script>
