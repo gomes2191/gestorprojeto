@@ -84,6 +84,8 @@
         <script src="<?= HOME_URI; ?>/views/_js/jasny-bootstrap.min.js"></script>
         <script src="<?= HOME_URI; ?>/views/_js/form-validator/jquery.form-validator.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script src="<?= HOME_URI; ?>/views/_js/angular-locale_pt-br.js"></script>
+        
         
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>

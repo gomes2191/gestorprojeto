@@ -186,7 +186,7 @@
                         <label for="fees_cod"><i style="color: red;">*</i> Código:</label>
                         <input type="hidden" name="covenant_fees_id" value="<?= $get_decode; ?>">
                         <input id="fees_id" type="hidden" name="fees_id" value="">
-                        <input id="fees_cod" type="text" name="fees_cod" placeholder="Ex: G300, P20, M30... " value="" class="form-control" >
+                        <input id="fees_cod" type="text" name="fees_cod" placeholder="C001" value="" class="form-control" >
                         <br>
                     </div>
                     
@@ -210,9 +210,9 @@
                     <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                         <label for="fees_part">Valor particular montante ( em reais )</label>
                         <div class="input-group">
-                            <div class="input-group-addon">$</div>
-                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_part">
-                            <div class="input-group-addon">.00</div>
+                            <div class="input-group-addon">R$</div>
+                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="1,500,30" ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_part">
+                            <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
                     </div>
@@ -223,8 +223,8 @@
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="fees_desc">Desconto ( % )</label>
                         <div class="input-group">
-                            <!--<div class="input-group-addon">$</div>-->
-                            <input id="fees_desc" name="fees_desc" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="Montante..." ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores(34)" ng-model="operacao.fees_desc">
+                            <div class="input-group-addon"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
+                            <input id="fees_desc" name="fees_desc" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="50" ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_desc">
                             <div class="input-group-addon">%</div>
                         </div>
                         <br>
@@ -232,9 +232,9 @@
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="conv_calc">Valor com desconto ( $ )</label>
                         <div class="input-group">
-                            <div class="input-group-addon">$</div>
-                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" value="" class="form-control" disabled ng-model="operacao.fees_total" >
-                            <!--<div class="input-group-addon">.00</div>-->
+                            <div class="input-group-addon">R$</div>
+                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" value="{{ operacao.fees_total | currency:'':2 }}" class="form-control" disabled >
+                            <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
                     </div>
@@ -319,9 +319,11 @@
                     <script>
                         var app = angular.module('myFess', []);
                         app.controller('myFessController', function($scope){
-                            $scope.operacao={fees_part:, fees_desc:, fees_total:0};
+                            $scope.operacao={fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
                             $scope.somarValores = function(){
-                              $scope.operacao.fees_total = $scope.operacao.fees_part - ($scope.operacao.fees_part * $scope.operacao.fees_desc / 100);
+                              $scope.operacao.valorReal = $scope.operacao.fees_part;
+                              $scope.operacao.valorReal = $scope.operacao.valorReal.replace(',','');
+                              $scope.operacao.fees_total = $scope.operacao.valorReal - ($scope.operacao.valorReal * $scope.operacao.fees_desc / 100);
                             };
                         });
                     </script>    
