@@ -143,19 +143,18 @@
             
             var vetorPerc  = [];
             var vetorValor = [];
-            var vetorTotal = [];
             var resultado  = [];
             
             vetorPerc[i]    =   fees_desc;
             vetorValor[i]   =   fees_part;
-            vetorTotal[i]   =   fees_total;
+            //vetorTotal[i]   =   fees_total;
             
             
             resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed(2) ));
+            console.log(fees_desc);
             
-            
-            $(this).find("#fees_total").text('$' + (resultado[i]).formatMoney(2, '.', ','));
-            $(this).find('span').text('$' + (vetorValor[i]).formatMoney(2, '.', ','));
+            $(this).find("#fees_total").text((resultado[i]).formatMoney(2, '.', ','));
+            $(this).find('#fees_part').text((vetorValor[i]).formatMoney(2, '.', ','));
         });
         
     });
@@ -218,7 +217,6 @@
                     </div>
                     <br>
                 </div>
-                {{ operacao.fees_part }}
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="fees_desc">Desconto ( % )</label>
@@ -277,22 +275,22 @@
                         <th class="text-center">Código</th>
                         <th class="text-center">Procedimento</th>
                         <th class="text-center">Categoria</th>
-                        <th class="text-center">Desconto %</th>
-                        <th class="text-center">Particular</th>
-                        <th class="text-center">Valor com desconto</th>
+                        <th class="text-center">Desconto</th>
+                        <th class="text-center">Valor Particular</th>
+                        <th class="text-center">Valor total com desconto</th>
                         <th class="text-center">Salvar | Deletar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
-                    <tr class="text-center">
-                        <td id="fees_id" ><?= $fetch_userdata['fees_id']; ?></td>
-                        <td id="fees_cod" title="Código"><?= $fetch_userdata['fees_cod']; ?></td>
-                        <td id="fees_proc" title="Procedimento" ><?= $fetch_userdata['fees_proc']; ?></td>
-                        <td id="fees_cat" title="Categoria" ><?= $fetch_userdata['fees_cat']; ?></td>
-                        <td id="fees_desc"  title="Desconto"><?= $fetch_userdata['fees_desc']; ?></td>
-                        <td title="Particular" ><input type="hidden" value="<?= $fetch_userdata['fees_part']; ?>"><span class="fees_part"></span></td>
-                        <td id="fees_total"></td>
+                    <tr class="text-center"> 
+                        <td id="fees_id" ><span><?= $fetch_userdata['fees_id']; ?></span></td>
+                        <td title="Código"><span id="fees_cod"><?= $fetch_userdata['fees_cod']; ?></span></td>
+                        <td title="Procedimento" ><span id="fees_proc"><?= $fetch_userdata['fees_proc']; ?></span></td>
+                        <td title="Categoria" ><span id="fees_cat"><?= $fetch_userdata['fees_cat']; ?></span></td>
+                        <td style="color: chocolate"   title="Desconto"><span id="fees_desc"><?= $fetch_userdata['fees_desc']; ?></span>%</td>
+                        <td style="color: #468847;" title="Particular" ><input type="hidden" value="<?= $fetch_userdata['fees_part']; ?>">R$ <span id="fees_part"></span></td>
+                        <td title="Valor após desconto" style="color: chocolate" >R$ <span id="fees_total"></span></td>
                         <td>
                             <button title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
                                 <i style="color:#2196f3;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
