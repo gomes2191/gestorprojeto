@@ -153,13 +153,14 @@
             resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed(2) ));
             console.log(fees_desc);
             
-            $(this).find("#fees_total").text((resultado[i]).formatMoney(2, '.', ','));
-            $(this).find('#fees_part').text((vetorValor[i]).formatMoney(2, '.', ','));
+            $(this).find("#fees_total").text((resultado[i]).formatMoney(2, ',', '.'));
+            $(this).find('#fees_part').text((vetorValor[i]).formatMoney(2, ',', '.'));
         });
+        
+        $("#fees_part").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
         
     });
 </script>
-
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12"  ng-app="myFess" ng-controller="myFessController">
         <?php
@@ -191,10 +192,9 @@
                     
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
                         <label for="fees_proc"><i style="color: red;">*</i> Procedimento:</label>
-                        <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Produto - Marca" value="">
+                        <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Tipo de procedimento" value="">
                         <br>
                     </div>
-
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="fees_cat">Categoria:</label>
                         <select id="fees_cat" name="fees_cat" class="form-control">
@@ -210,7 +210,7 @@
                         <label for="fees_part">Valor particular montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
-                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="1,500,30" ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_part">
+                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="1.500,30" ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_part" >
                             <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
@@ -219,7 +219,7 @@
                 </div>
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="fees_desc">Desconto ( % )</label>
+                        <label for="fees_desc">Percentual ( % )</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
                             <input id="fees_desc" name="fees_desc" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="50" ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_desc">
@@ -228,7 +228,7 @@
                         <br>
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="conv_calc">Valor com desconto ( $ )</label>
+                        <label for="conv_calc">Valor com percentual ( $ )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
                             <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" value="{{ operacao.fees_total | currency:'':2 }}" class="form-control" disabled >
@@ -275,9 +275,9 @@
                         <th class="text-center">Código</th>
                         <th class="text-center">Procedimento</th>
                         <th class="text-center">Categoria</th>
-                        <th class="text-center">Desconto</th>
+                        <th class="text-center">Percentual</th>
                         <th class="text-center">Valor Particular</th>
-                        <th class="text-center">Valor total com desconto</th>
+                        <th class="text-center">Valor total com percentual</th>
                         <th class="text-center">Salvar | Deletar</th>
                     </tr>
                 </thead>
@@ -290,7 +290,7 @@
                         <td title="Categoria" ><span id="fees_cat"><?= $fetch_userdata['fees_cat']; ?></span></td>
                         <td style="color: chocolate"   title="Desconto"><span id="fees_desc"><?= $fetch_userdata['fees_desc']; ?></span>%</td>
                         <td style="color: #468847;" title="Particular" ><input type="hidden" value="<?= $fetch_userdata['fees_part']; ?>">R$ <span id="fees_part"></span></td>
-                        <td title="Valor após desconto" style="color: chocolate" >R$ <span id="fees_total"></span></td>
+                        <td title="Valor após desconto" style="color: chocolate">R$<span id="fees_total"></span></td>
                         <td>
                             <button title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
                                 <i style="color:#2196f3;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -319,11 +319,15 @@
                         app.controller('myFessController', function($scope){
                             $scope.operacao={fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
                             $scope.somarValores = function(){
+                            
+                              
                               $scope.operacao.valorReal = $scope.operacao.fees_part;
-                              $scope.operacao.valorReal = $scope.operacao.valorReal.replace(',','');
+                              $scope.operacao.valorReal.formatMoney(2, '.', ',');
                               $scope.operacao.fees_total = $scope.operacao.valorReal - ($scope.operacao.valorReal * $scope.operacao.fees_desc / 100);
                             };
                         });
+                        
+                        
                     </script>    
                 </tbody>
             </table>

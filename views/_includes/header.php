@@ -38,6 +38,18 @@
         <script src="<?= HOME_URI; ?>/views/_js/jquery.min.js"></script>
         <script src="<?= HOME_URI; ?>/views/_js/bootstrap.min.js"></script>
         
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="<?= HOME_URI; ?>/views/_js/ie-emulation-modes-warning.js"></script>
+        <script src="<?= HOME_URI; ?>/views/_js/jasny-bootstrap.min.js"></script>
+        <script src="<?= HOME_URI; ?>/views/_js/form-validator/jquery.form-validator.min.js"></script>
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        
         <?php
             if($this->title == ' Agenda'){
                 # Start agenda css -->
@@ -55,42 +67,20 @@
                 
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/sweetalert.css">';
                 echo '<script src="'.HOME_URI.'/views/_js/sweetalert.min.js"></script>';
-                echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.js"></script>';
                 # End outros plugins
-            }
+                
+                if(TRUE){
+                    
+                    echo '<script src="'.HOME_URI.'/views/_js/angular.min.js"></script>';
+                    echo '<script src="'.HOME_URI.'/views/_js/angular-locale_pt-br.js"></script>';
+                    echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.min.js"></script>';
+                    echo '<script src="'.HOME_URI.'/views/_js/metodos.js"></script>';
+            
+                }
+            } 
+            
         ?>
        
-        <!-- Biblioteca de futuro upgrade de agenda -->
-        <!--<script src="/_agenda/js/moment.min.js" type="text/javascript"></script>
-        <script src="/_agenda/js/interact.min.js" type="text/javascript"></script>
-        <script src="/_agenda/js/angular.js" type="text/javascript"></script>
-        <script src="/_agenda/js/angular-animate.js" type="text/javascript"></script>
         
-        <script src="/_agenda/js/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
-        <script src="/_agenda/js/rrule.js" type="text/javascript"></script>
-        <script src="/_agenda/js/bootstrap-colorpicker-module.min.js" type="text/javascript"></script>
-        
-        <script src="/_agenda/js/angular-bootstrap-calendar-tpls.min.js" type="text/javascript"></script>
-        <script src="/_agenda/js/exemplo.js" type="text/javascript"></script>
-        <script src="/_agenda/js/helper.js" type="text/javascript"></script>
-        
-        <link href="/_agenda/css/colorpicker.min.css" rel="stylesheet" type="text/css"/>
-        <link href="/_agenda/css/angular-bootstrap-calendar.min.css" rel="stylesheet" type="text/css"/>-->
-        <!-- / Biblioteca de futuro upgrade de agenda -->
-        
-        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-        <script src="<?= HOME_URI; ?>/views/_js/ie-emulation-modes-warning.js"></script>
-        <script src="<?= HOME_URI; ?>/views/_js/jasny-bootstrap.min.js"></script>
-        <script src="<?= HOME_URI; ?>/views/_js/form-validator/jquery.form-validator.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-        <script src="<?= HOME_URI; ?>/views/_js/angular-locale_pt-br.js"></script>
-        
-        
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
     </head>
     <body data-spy="scroll" data-target="spy-scroll-id">
