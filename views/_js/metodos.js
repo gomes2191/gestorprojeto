@@ -42,6 +42,7 @@ function Financeiro() {
         this.numClear = vNumClear;
     };
     
+    // Recebe um numero que contem virgula e substitui po ponto
     this.setUS = function (vNumUS) {
         this.numUS = vNumUS;
     }
@@ -86,32 +87,87 @@ function Financeiro() {
     };
     
     this.mostrarUS = function () {
-        
-        if( (this.numUS.indexOf(",") >= 0 ) && ( this.numUS.indexOf(".") >= 0 ) ){
-            //console.log('string encontrada');
-            return this.numUS = this.numUS.replace(',', '.');
-           
-            
-        }{
-            return this.numUS = this.numUS.replace(',', '.');
+        if( (this.numUS.indexOf('.') >= 0 ) && (this.numUS.indexOf(',') >= 0 ) ){
+            this.numUS = this.numUS.replace('.', '');
+            this.numUS = this.numUS.replace('.', '');
+            this.numUS = this.numUS.replace('.', '');
+            this.numUS = this.numUS.replace(',', '.');
+            return this.numUS = parseFloat(this.numUS);
         }
         
     };
-}
 
+}
     // Exemplo de uso
 
     var objFinanca = new Financeiro();
 
-    objFinanca.setMoneyCash('12', 2, ',', '.');
-
-    objFinanca.formatMoneyCash();
-
-    console.log(objFinanca.getMoneyCash());
+    
+    // ------------------
+    
+    objFinanca.setUS('1.200.1222,32');
+    
+    objFinanca.mostrarUS();
+    
+    teste = objFinanca.getUS();
+    
+    alert( teste * 3);
+    
     
 
 
 
-
+////em float
+//formatNumber(1234.53);
+////em string real
+//formatNumber('1.234,53');
+////em string real sem ponto
+//formatNumber('1234,53');
+////em string americano
+//formatNumber('1,234.53');
+//
+////retornará 1234.53
+//function formatNumber(value) {
+//    value = convertToFloatNumber(value);
+//    return value.formatMoney(2, '.', '');
+//}
+////retornará 1.234,53
+//function formatNumber(value) {
+//    value = convertToFloatNumber(value);
+//    return value.formatMoney(2, ',', '.');
+//}
+////retornará 1,234.53
+//function formatNumber(value) {
+//    value = convertToFloatNumber(value);
+//    return value.formatMoney(2, '.', ',');
+//}
+//
+// //transforma a entrada em número float
+// var convertToFloatNumber = function(value) {
+//     value = value.toString();
+//      if (value.indexOf('.') !== -1 && value.indexOf(',') !== -1) {
+//          if (value.indexOf('.') <  value.indexOf(',')) {
+//             //inglês
+//             return parseFloat(value.replace(/,/gi,''));
+//          } else {
+//            //português
+//             return parseFloat(value.replace(/./gi,'').replace(/,/gi,'.'));
+//          }      
+//      } else {
+//         return parseFloat(value);
+//      }
+//   }
+//
+////prototype para formatar a saída  
+//Number.prototype.formatMoney = function (c, d, t) {
+//    var n = this,
+//        c = isNaN(c = Math.abs(c)) ? 2 : c,
+//        d = d == undefined ? "." : d,
+//        t = t == undefined ? "," : t,
+//        s = n < 0 ? "-" : "",
+//        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+//        j = (j = i.length) > 3 ? j % 3 : 0;
+//    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+//};
 
     

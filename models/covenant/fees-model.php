@@ -322,16 +322,15 @@ class FeesModel extends MainModel
     public function get_table_data($tipo, $campo, $table, $id_campo, $get_id, $id) {
         
         if ($tipo == 1){
-            
+             
             # Simplesmente seleciona os dados na base de dados
             $query = $this->db->query(" SELECT  $campo FROM $table  ORDER BY $id ");
-            
+             
             # Destroy todas as variaveis nao mais utilizadas
             unset($tipo, $campo, $table, $id_campo, $get_id, $id);
-            
+           
             # Retorna os valores da consulta
             return $query->fetchAll(PDO::FETCH_ASSOC);
-            
             
         }elseif ($tipo == 2){
             

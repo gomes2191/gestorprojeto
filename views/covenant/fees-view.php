@@ -311,9 +311,13 @@
                         var app = angular.module('myFess', []);
                         app.controller('myFessController', function($scope){
                             $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
-
+                            
                             $scope.somarValores = function(){
-                                $scope.operacao.valorReal = $scope.operacao.fees_part | currency;
+                                
+                                console.log($scope.operacao.fees_part);
+                                objFinanca.setUS(teste);
+                                objFinanca.mostrarUS();
+                            $scope.operacao.valorReal;
                                 $scope.operacao.fees_total = $scope.operacao.valorReal - ($scope.operacao.valorReal * $scope.operacao.fees_desc / 100);
                             };
                         });
