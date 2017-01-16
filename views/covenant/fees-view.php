@@ -36,15 +36,10 @@
     $form_msg = $modelo->form_msg;
 ?>
 
-<script> 
-    Number.prototype.formatMoney = function(c, d, t){
-     var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
-     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-    };
-
-// usando   formatMoney(2, '.', ',') //retorna 1.000,00
+<script>
+    var objFinanca = new Financeiro();
     
-    //   Muda url da pagina
+    //  Muda url da pagina
     //  window.history.pushState("fees", "", "fees");
     
     // Chama o paginador da tabela    
@@ -56,13 +51,7 @@
             });   
         }
     });
-    
-    function apenasNumeros(string) 
-{
-    var numsStr = string.replace(/[^0-9]/g,'');
-    return parseInt(numsStr);
-}       
-    
+         
     $(function (){
         $('.btn-gravar-fees').click(function (){
             valorVetor = [];
@@ -151,10 +140,12 @@
             
             
             resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed(2) ));
-            console.log(fees_desc);
+           
+            objFinanca.setMoneyCash(resultado[i], 2, ',', '.');
+            objFinanca.formatMoneyCash();
             
-            $(this).find("#fees_total").text((resultado[i]).formatMoney(2, ',', '.'));
-            $(this).find('#fees_part').text((vetorValor[i]).formatMoney(2, ',', '.'));
+            $(this).find("#fees_total").text(objFinanca.getMoneyCash());
+            $(this).find('#fees_part').text(vetorValor[i]);
         });
         
         $("#fees_part").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
@@ -210,7 +201,7 @@
                         <label for="fees_part">Valor particular montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
-                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="1.500,30" ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_part" >
+                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="1.500,30" ng-click="somarValores()" ng-blur="somarValores()" ng-model="operacao.fees_part" >
                             <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
@@ -315,15 +306,15 @@
                     ?>
                     
                     <script>
+                        var objFinanca = new Financeiro();
+                        
                         var app = angular.module('myFess', []);
                         app.controller('myFessController', function($scope){
-                            $scope.operacao={fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
+                            $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
+
                             $scope.somarValores = function(){
-                            
-                              
-                              $scope.operacao.valorReal = $scope.operacao.fees_part;
-                              $scope.operacao.valorReal.formatMoney(2, '.', ',');
-                              $scope.operacao.fees_total = $scope.operacao.valorReal - ($scope.operacao.valorReal * $scope.operacao.fees_desc / 100);
+                                $scope.operacao.valorReal = $scope.operacao.fees_part | currency;
+                                $scope.operacao.fees_total = $scope.operacao.valorReal - ($scope.operacao.valorReal * $scope.operacao.fees_desc / 100);
                             };
                         });
                         
