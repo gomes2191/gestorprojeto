@@ -312,12 +312,15 @@
                         app.controller('myFessController', function($scope){
                             $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
                             
+                            
+                           
+                            
+                            
+                            
                             $scope.somarValores = function(){
-                                
-                                console.log($scope.operacao.fees_part);
-                                objFinanca.setUS(teste);
+                                objFinanca.setUS(String($scope.operacao.fees_part));
                                 objFinanca.mostrarUS();
-                            $scope.operacao.valorReal;
+                                console.log($scope.operacao.valorReal = objFinanca.getUS());
                                 $scope.operacao.fees_total = $scope.operacao.valorReal - ($scope.operacao.valorReal * $scope.operacao.fees_desc / 100);
                             };
                         });

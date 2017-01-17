@@ -93,6 +93,9 @@ function Financeiro() {
             this.numUS = this.numUS.replace('.', '');
             this.numUS = this.numUS.replace(',', '.');
             return this.numUS = parseFloat(this.numUS);
+        }else{
+            this.numUS = this.numUS.replace(',', '.');
+            return this.numUS = parseFloat(this.numUS);
         }
         
     };
