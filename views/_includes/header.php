@@ -71,8 +71,8 @@
                 
                 if(TRUE){
                     
-                    echo '<script src="'.HOME_URI.'/views/_js/angular.min.js"></script>';
-                    echo '<script src="'.HOME_URI.'/views/_js/angular-locale_pt-br.js"></script>';
+                    //echo '<script src="'.HOME_URI.'/views/_js/angular.min.js"></script>';
+                    //echo '<script src="'.HOME_URI.'/views/_js/angular-locale_pt-br.js"></script>';
                     echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.min.js"></script>';
                     echo '<script src="'.HOME_URI.'/views/_js/metodos.js"></script>';
             

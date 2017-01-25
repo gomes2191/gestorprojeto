@@ -38,7 +38,6 @@
 
 <script>
     var objFinanca = new Financeiro();
-    
     //  Muda url da pagina
     //  window.history.pushState("fees", "", "fees");
     
@@ -148,7 +147,7 @@
             $(this).find('#fees_part').text(vetorValor[i]);
         });
         
-        $("#fees_part").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+        $("input#fees_part").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
         
     });
 </script>
@@ -201,7 +200,7 @@
                         <label for="fees_part">Valor particular montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
-                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="1.500,30" ng-click="somarValores()" ng-blur="somarValores()" ng-model="operacao.fees_part" >
+                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" >
                             <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
@@ -213,7 +212,7 @@
                         <label for="fees_desc">Percentual ( % )</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
-                            <input id="fees_desc" name="fees_desc" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="50" ng-click="somarValores()" ng-blur="somarValores()" ng-focus="somarValores()" ng-model="operacao.fees_desc">
+                            <input id="fees_desc" name="fees_desc" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="00" >
                             <div class="input-group-addon">%</div>
                         </div>
                         <br>
@@ -222,7 +221,7 @@
                         <label for="conv_calc">Valor com percentual ( $ )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
-                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" value="{{ operacao.fees_total | currency:'':2 }}" class="form-control" disabled >
+                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" value="" class="form-control" disabled >
                             <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
@@ -308,24 +307,35 @@
                     <script>
                         var objFinanca = new Financeiro();
                         
-                        var app = angular.module('myFess', []);
-                        app.controller('myFessController', function($scope){
-                            $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
-                            
-                            
-                           
-                            
-                            
-                            
-                            $scope.somarValores = function(){
-                                objFinanca.setUS(String($scope.operacao.fees_part));
-                                objFinanca.mostrarUS();
-                                console.log($scope.operacao.valorReal = objFinanca.getUS());
-                                $scope.operacao.fees_total = $scope.operacao.valorReal - ($scope.operacao.valorReal * $scope.operacao.fees_desc / 100);
-                            };
+                        $( function (){
+                           $('input#fees_part, input#fees_desc').bind('click focusout', function (){
+                               objFinanca.setNumberCalc('fees_part', 'fees_desc');
+                               objFinanca.somarNumberCalc();
+                               
+//                               $('input#fees_total').val(objFinanca.getNumberCalc());
+                                objFinanca.setMoneyCash(objFinanca.getNumberCalc(), 2, ',', '.');
+                                objFinanca.formatMoneyCash();
+
+                                $("#fees_total").val(objFinanca.getMoneyCash());
+                                console.log(objFinanca.getNumberCalc());
+                           }); 
                         });
                         
                         
+                        
+                        
+                        
+    
+//                        var app = angular.module('myFess', []);
+//                        app.controller('myFessController', function($scope){
+//                            $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};            
+//                            $scope.somarValores = function(){
+//                                objFinanca.setUS(String($scope.operacao.fees_part));
+//                                objFinanca.mostrarUS();
+//                                console.log($scope.operacao.valorReal = objFinanca.getUS());
+//                                $scope.operacao.fees_total = $scope.operacao.valorReal - ($scope.operacao.valorReal * $scope.operacao.fees_desc / 100);
+//                            };
+//                        });
                     </script>    
                 </tbody>
             </table>

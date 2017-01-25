@@ -13,8 +13,8 @@ function Financeiro() {
     var idade;
     var curso;
     var n, c, d, t, finalNum;
-    //var numClear;
     var numUS;
+    var idOne, idTwo, nValor, nPorce, calcTotal;
 
 
 
@@ -45,7 +45,15 @@ function Financeiro() {
     // Recebe um numero que contem virgula e substitui po ponto
     this.setUS = function (vNumUS) {
         this.numUS = vNumUS;
-    }
+    };
+    
+    this.setNumberCalc = function (idOne, idTwo) {
+        this.idOne = idOne;
+        this.idTwo = idTwo;
+        this.nValor;
+        this.nPorce;
+        this.calcTotal;
+    };
 
     this.getNome = function () {
         return this.nome;
@@ -69,6 +77,16 @@ function Financeiro() {
     
     this.getUS = function () {
         return this.numUS;
+    };
+    
+    this.getNumberCalc = function () {
+        if(this.calcTotal){
+            return this.calcTotal;
+        }else{
+            return this.calcTotal = '0,00';
+        }
+        
+        
     };
 
 
@@ -99,23 +117,54 @@ function Financeiro() {
         }
         
     };
-
+    
+    this.somarNumberCalc = function (){ 
+        //alert(this.idTwo);
+        this.nValor = document.getElementById(this.idOne).value;
+        
+        if( (this.nValor.indexOf('.') >= 0 ) && (this.nValor.indexOf(',') >= 0 ) ){
+            this.nValor = this.nValor.replace('.', '');
+            this.nValor = this.nValor.replace('.', '');
+            this.nValor = this.nValor.replace('.', '');
+            this.nValor = this.nValor.replace(',', '.');
+            this.nValor = parseFloat(this.nValor);
+        }else{
+            this.nValor = this.nValor.replace(',', '.');
+            this.nValor = parseFloat(this.nValor);
+        }
+        
+        this.nPorce = parseFloat(document.getElementById(this.idTwo).value);
+        //alert(this.nValor);
+        if(!this.nPorce){
+            this.calcTotal = this.nValor;
+        }else{
+            this.calcTotal =  parseFloat((this.nValor - (this.nValor * this.nPorce / 100)));
+        }
+        
+    };
+    
+    
 }
     // Exemplo de uso
 
-    var objFinanca = new Financeiro();
+    //var objFinanca = new Financeiro();
 
     
     // ------------------
     
-    objFinanca.setUS('1.200.1222,32');
+    //objFinanca.setUS('1.200.1222,32');
     
-    objFinanca.mostrarUS();
+    //objFinanca.mostrarUS();
     
-    teste = objFinanca.getUS();
+    //teste = objFinanca.getUS();
     
-    alert( teste * 3);
+    //alert( teste * 3);
     
+    //objFinanca.setCalculo('numero_um', 'numero_dois');
+    
+    //objFinanca.calcNumber();
+    
+    //teste = objFinanca.getUS();
     
 
 
