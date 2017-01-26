@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 
-
-
-
 function Financeiro() {
 
     var nome;

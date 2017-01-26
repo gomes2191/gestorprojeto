@@ -269,3 +269,10 @@ Formatação para barra de rolagem ainda nao tive interesse em utilizar nao foi 
 table#table-fees > tbody > tr > td {
     vertical-align: middle !important;
 }
+
+.input-result{
+    font-weight: bold !important;
+    font-size: 125% !important;
+}
+
+

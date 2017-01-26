@@ -121,30 +121,52 @@
     };
     
     $(function (){
+        //  Verifica cada elemento tr em busca de um valor especificado
         $('#table-fees tbody tr').each(function(i){
             
-            fees_part =  parseFloat($(this).find('input').val().toString());
-            fees_desc =  parseFloat($(this).find('#fees_desc').text().toString());
+            /* Variável que aramazena o retorno da consulta na classe vazio armazenando
+            * true caso exista e false caso nao exista.*/
+             
+            testeError =  $(this).find('.vazio').text();
             
             
-            // Declaração de vetores
+            //  Verifica se o valor na variavel é false se for executa a rotina.
+            if(testeError == false){
+                
+                fees_part =  $(this).find('input').val().toString();
+                fees_desc =  $(this).find('#fees_desc').text().toString();
+
+
+               objFinanca.setUS(fees_part);
+               objFinanca.mostrarUS();
+
+               fees_part = parseFloat(objFinanca.getUS());
+
+                // Declaração de vetores
+
+                var vetorPerc  = [];
+                var vetorValor = [];
+                var resultado  = [];
+
+                vetorPerc[i]    =   fees_desc;
+                vetorValor[i]   =   fees_part;
+                //vetorTotal[i]   =   fees_total;
+
+
+                resultado[i] = ( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed(2) );
+
+                
+                
+                
+                objFinanca.setMoneyCash(resultado[i], 2, ',', '.');
+                objFinanca.formatMoneyCash();
+                $(this).find("#fees_total").text(objFinanca.getMoneyCash());
+                
+                objFinanca.setMoneyCash(vetorValor[i], 2, ',', '.');
+                objFinanca.formatMoneyCash();
+                $(this).find('#fees_part').text(objFinanca.getMoneyCash());
+            }
             
-            var vetorPerc  = [];
-            var vetorValor = [];
-            var resultado  = [];
-            
-            vetorPerc[i]    =   fees_desc;
-            vetorValor[i]   =   fees_part;
-            //vetorTotal[i]   =   fees_total;
-            
-            
-            resultado[i] = parseFloat(( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed(2) ));
-           
-            objFinanca.setMoneyCash(resultado[i], 2, ',', '.');
-            objFinanca.formatMoneyCash();
-            
-            $(this).find("#fees_total").text(objFinanca.getMoneyCash());
-            $(this).find('#fees_part').text(vetorValor[i]);
         });
         
         $("input#fees_part").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
@@ -221,7 +243,7 @@
                         <label for="conv_calc">Valor com percentual ( $ )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
-                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" value="" class="form-control" disabled >
+                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" class="form-control input-result" disabled >
                             <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
