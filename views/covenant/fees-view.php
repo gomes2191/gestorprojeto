@@ -243,7 +243,7 @@
                         <label for="conv_calc">Valor com percentual ( $ )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
-                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" class="form-control input-result" disabled >
+                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" class="form-control input-result" value="" disabled >
                             <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
@@ -337,8 +337,9 @@
 //                               $('input#fees_total').val(objFinanca.getNumberCalc());
                                 objFinanca.setMoneyCash(objFinanca.getNumberCalc(), 2, ',', '.');
                                 objFinanca.formatMoneyCash();
-
-                                $("#fees_total").val(objFinanca.getMoneyCash());
+                                
+                                document.getElementById('fees_total').setAttribute('value', objFinanca.getMoneyCash() );
+                               
                                 console.log(objFinanca.getNumberCalc());
                            }); 
                         });

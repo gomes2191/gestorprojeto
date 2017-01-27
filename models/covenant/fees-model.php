@@ -127,7 +127,8 @@ class FeesModel extends MainModel
             'fees_proc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
             'fees_cat'              =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
             'fees_desc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
-            'fees_part'             =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
+            'fees_part'             =>  $this->avaliar(chk_array($this->form_data, 'fees_part')),
+            'fees_total'            =>  $this->avaliar(chk_array($this->form_data, 'fees_total'))
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -178,7 +179,8 @@ class FeesModel extends MainModel
                 'fees_proc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
                 'fees_cat'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
                 'fees_desc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
-                'fees_part'   =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
+                'fees_part'   =>  $this->avaliar(chk_array($this->form_data, 'fees_part')),
+                'fees_total'  =>  $this->avaliar(chk_array($this->form_data, 'fees_total'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
