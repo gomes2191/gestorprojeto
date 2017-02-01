@@ -10,7 +10,6 @@
  */
 class FeesModel extends MainModel
 {
-
     /**
      * $form_data
      *
@@ -92,9 +91,7 @@ class FeesModel extends MainModel
         # Rotina que verifica se o registro já existe
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `covenant_fees` WHERE `fees_id` = ? ',[
             chk_array($this->form_data, 'fees_id')
-        ]);
-        
-        
+        ]);        
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
@@ -378,4 +375,4 @@ class FeesModel extends MainModel
         
     } # End get_registro()
 
-}
+} #Fees_Model

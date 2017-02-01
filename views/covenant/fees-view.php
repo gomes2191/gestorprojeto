@@ -243,7 +243,7 @@
                         <label for="conv_calc">Valor com percentual ( $ )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
-                            <input id="fees_total" name="fees_total" style="border-radius: 0px !important;" type="text" class="form-control input-result" value="" disabled >
+                            <input id="fees_total" placeholder="0,00" name="fees_total" style="border-radius: 0px !important;" type="text" class="form-control input-result" value="" readonly>
                             <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
@@ -302,7 +302,7 @@
                         <td title="Categoria" ><span id="fees_cat"><?= $fetch_userdata['fees_cat']; ?></span></td>
                         <td style="color: chocolate"   title="Desconto"><span id="fees_desc"><?= $fetch_userdata['fees_desc']; ?></span>%</td>
                         <td style="color: #468847;" title="Particular" ><input type="hidden" value="<?= $fetch_userdata['fees_part']; ?>">R$ <span id="fees_part"></span></td>
-                        <td title="Valor após desconto" style="color: chocolate">R$<span id="fees_total"></span></td>
+                        <td title="Valor após desconto" style="color: chocolate"><span >R$ </span><?= $fetch_userdata['fees_total']; ?></td>
                         <td>
                             <button title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
                                 <i style="color:#2196f3;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
