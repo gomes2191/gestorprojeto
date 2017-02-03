@@ -192,26 +192,30 @@
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
         <form id="form-register" enctype="multipart/form-data" method="post" action="" role="form" >
             <fieldset>
-                <legend>TABELA DE HONORÁRIOS</legend>
+                <legend>CONTAS A PAGAR</legend>
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="fees_cod"><i style="color: red;">*</i> Código:</label>
-                        <input type="hidden" name="covenant_fees_id" value="">
-                        <input id="fees_id" type="hidden" name="fees_id" value="">
-                        <input id="fees_cod" type="text" name="fees_cod" placeholder="C001" value="" class="form-control" >
+                        <label for="fees_part">Data de vencimento:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                            <input id="pay_venc" name="pay_venc" style="border-radius: 0px !important;" type="date" class="form-control" placeholder="dd/mm/aaaa" >
+                            <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
+                        </div>
                         <br>
                     </div>
                     
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                        <label for="fees_proc"><i style="color: red;">*</i> Procedimento:</label>
-                        <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Tipo de procedimento" value="">
+                        <label for="fees_proc"> Descrição:</label>
+                        <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Descreva as informações aqui..." value="">
                         <br>
                     </div>
-                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="fees_cat">Categoria:</label>
-                        <select id="fees_cat" name="fees_cat" class="form-control">
-                            
-                        </select>
+                     <div class="form-group col-md-2 col-sm-12 col-xs-12" >
+                        <label for="fees_part">Valor montante ( em reais )</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">R$</div>
+                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" >
+                            <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                        </div>
                         <br>
                     </div>
                    
@@ -226,26 +230,7 @@
                     </div>
                     <br>
                 </div>
-                <div class="row form-compact new-fees" style="display: none;">
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="fees_desc">Percentual ( % )</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-pie-chart" aria-hidden="true"></i></div>
-                            <input id="fees_desc" name="fees_desc" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="00" >
-                            <div class="input-group-addon">%</div>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="conv_calc">Valor com percentual ( $ )</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">R$</div>
-                            <input id="fees_total" placeholder="0,00" name="fees_total" style="border-radius: 0px !important;" type="text" class="form-control input-result" value="" readonly>
-                            <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
-                        </div>
-                        <br>
-                    </div>
-                </div>
+               
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div class="btn-group">
