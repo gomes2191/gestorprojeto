@@ -209,6 +209,16 @@
                         <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Descreva as informações aqui..." value="">
                         <br>
                     </div>
+                    
+                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                        <label for="fees_cat">Categoria:</label>
+                        <select id="fees_cat" name="fees_cat" class="form-control">
+                            <option>Teste 1</option>
+                            <option>Teste 2</option>
+                        </select>
+                        <br>
+                    </div>
+                    
                      <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                         <label for="fees_part">Valor montante ( em reais )</label>
                         <div class="input-group">

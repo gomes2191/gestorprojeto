@@ -59,7 +59,7 @@ class RegisterController extends MainController {
 
 
         // Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
 
         // Carrega o modelo para este view
         $modelo = $this->load_model('register/register-model');
