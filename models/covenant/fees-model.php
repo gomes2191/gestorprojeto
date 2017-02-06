@@ -10,7 +10,6 @@
  */
 class FeesModel extends MainModel
 {
-
     /**
      * $form_data
      *
@@ -28,7 +27,7 @@ class FeesModel extends MainModel
      * @Acesso: public
      */
     public $form_msg;
-
+    
     /**
      * $db
      *
@@ -92,9 +91,7 @@ class FeesModel extends MainModel
         # Rotina que verifica se o registro já existe
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `covenant_fees` WHERE `fees_id` = ? ',[
             chk_array($this->form_data, 'fees_id')
-        ]);
-        
-        
+        ]);        
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
@@ -127,17 +124,18 @@ class FeesModel extends MainModel
             'fees_proc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
             'fees_cat'              =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
             'fees_desc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
-            'fees_part'             =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
+            'fees_part'             =>  $this->avaliar(chk_array($this->form_data, 'fees_part')),
+            'fees_total'            =>  $this->avaliar(chk_array($this->form_data, 'fees_total'))
         ]);
 
-        #   Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ( $query_ins ) {
             
             # Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro efetuado com sucesso!'];
                 
-            # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant/cad">';
+            # Da um refresh na página apos um determinado tempo especifico
+            echo '<meta http-equiv="Refresh" content="4">';
             
             # Destroy variável não mais utilizada
             unset($query_ins);
@@ -168,26 +166,28 @@ class FeesModel extends MainModel
     **/ 
     public function updateRegister( $registro_id = NULL ){
         
-        //var_dump($this->form_data['covenant_tel_1']);die;
+        //var_dump($this->form_data);die;
         
         #   Se o ID não estiver vazio, atualiza os dados
         if ( $registro_id ) {
             # Efetua o update do registro
             $query_up = $this->db->update('covenant_fees', 'fees_id', $registro_id,[
-                'fees_cod'         =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
-                'fees_proc'     =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
-                'fees_cat'           =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
-                'fees_part'           =>  $this->avaliar(chk_array($this->form_data, 'fees_part'))
+                'fees_cod'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
+                'fees_proc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
+                'fees_cat'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
+                'fees_desc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
+                'fees_part'   =>  $this->avaliar(chk_array($this->form_data, 'fees_part')),
+                'fees_total'  =>  $this->avaliar(chk_array($this->form_data, 'fees_total'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
             if ( $query_up ) {
                 
-                # Feedback para o usuário
-                //$this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
+                # Feedback para o usuário, retorna uma mensagem para usuário
+                $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
                 
-                # Redireciona de volta para a página após dez segundos
-                #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant/cad">';
+                # Da um refresh na página apos um determinado tempo especifico
+                echo '<meta http-equiv="Refresh" content="4">';
                 
                 # Destroy variáveis nao mais utilizadas
                 unset( $registro_id, $query_up  );
@@ -196,7 +196,7 @@ class FeesModel extends MainModel
                 return;
             }else{
                 
-                # Feedback para o usuário
+                # Feedback para o usuário, retorna uma mensagem para usuário
                 $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
                 
                 # Destroy variáveis nao mais utilizadas
@@ -260,10 +260,10 @@ class FeesModel extends MainModel
         if ($search->fetchColumn() < 1) {
 
             #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
+            #$this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
             
             # Redireciona de volta para a página após 4 segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
+            #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
             
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
@@ -275,13 +275,16 @@ class FeesModel extends MainModel
             $query_del = $this->db->delete('covenant_fees', 'fees_id', $decode_id);
 
             #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            #$this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            
+            # Tratamento de erro ajax retorno Feedback para o usuário
+            $this->form_msg = TRUE;
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
 
             # Redireciona de volta para a página após o tempo informado segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
+            #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
 
             #   Finaliza
             return;
@@ -318,16 +321,15 @@ class FeesModel extends MainModel
     public function get_table_data($tipo, $campo, $table, $id_campo, $get_id, $id) {
         
         if ($tipo == 1){
-            
+             
             # Simplesmente seleciona os dados na base de dados
             $query = $this->db->query(" SELECT  $campo FROM $table  ORDER BY $id ");
-            
+             
             # Destroy todas as variaveis nao mais utilizadas
             unset($tipo, $campo, $table, $id_campo, $get_id, $id);
-            
+           
             # Retorna os valores da consulta
             return $query->fetchAll(PDO::FETCH_ASSOC);
-            
             
         }elseif ($tipo == 2){
             
@@ -373,4 +375,4 @@ class FeesModel extends MainModel
         
     } # End get_registro()
 
-}
+} #Fees_Model
