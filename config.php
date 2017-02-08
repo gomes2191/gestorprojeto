@@ -27,7 +27,7 @@
     define('DB_USER', 'root');
 
     // Senha do banco
-    define('DB_PASSWORD', 'libre');
+    define('DB_PASSWORD', '123456');
 
     // Charset da conexão PDO
     define('DB_CHARSET', 'utf8');

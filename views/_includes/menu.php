@@ -41,10 +41,10 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" ><i class="fa fa-calculator" aria-hidden="true"></i> FINANCEIRO<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="<?= HOME_URI; ?>/finances-pay">Contas a Pagar</a></li>
-                        <li><a href="#">Contas a Receber</a></li>
-                        <li><a href="#">Fluxo de caixa</a></li>
-                        <li><a href="#">Controles de Cheques</a></li>
-                        <li><a href="#">Pagamentos</a></li>
+                        <li><a href="<?= HOME_URI; ?>/finances-receive">Contas a Receber</a></li>
+                        <li><a href="<?= HOME_URI; ?>/finances-flow">Fluxo de caixa</a></li>
+                        <li><a href="<?= HOME_URI; ?>/finances-checks">Controle de Cheques</a></li>
+                        <li><a href="<?= HOME_URI; ?>/finances-payments">Pagamentos</a></li>
                     </ul>
                 </li>
 

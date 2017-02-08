@@ -192,7 +192,7 @@
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
         <form id="form-register" enctype="multipart/form-data" method="post" action="" role="form" >
             <fieldset>
-                <legend>CONTAS A PAGAR</legend>
+                <legend>CONTROLE DE CHEQUES</legend>
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="fees_part">Data de vencimento:</label>

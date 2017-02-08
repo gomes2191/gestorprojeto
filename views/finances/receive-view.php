@@ -192,7 +192,7 @@
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
         <form id="form-register" enctype="multipart/form-data" method="post" action="" role="form" >
             <fieldset>
-                <legend>CONTAS A PAGAR</legend>
+                <legend>CONTAS A RECEBER</legend>
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="fees_part">Data de vencimento:</label>
@@ -275,8 +275,8 @@
                 <thead>
                     <tr class="cabe-title">
                         <th class="text-center">#</th>
-                        <th class="text-center">Vencimento</th>
-                        <th class="text-center">Data de pagamento</th>
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Procedimento</th>
                         <th class="text-center">Categoria</th>
                         <th class="text-center">Percentual</th>
                         <th class="text-center">Valor Particular</th>
