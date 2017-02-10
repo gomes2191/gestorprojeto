@@ -214,6 +214,7 @@
                     </div>
                     
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                        <div class="input-group">
                         <label for="fees_proc"> Descrição:</label>
                         <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Descreva as informações aqui..." value="">
                         <br>

@@ -277,9 +277,9 @@
                         <th class="text-center">#</th>
                         <th class="text-center">Vencimento</th>
                         <th class="text-center">Data de pagamento</th>
+                        <th class="text-center">Descrição</th>
                         <th class="text-center">Categoria</th>
-                        <th class="text-center">Percentual</th>
-                        <th class="text-center">Valor Particular</th>
+                        <th class="text-center">Valor</th>
                         <th class="text-center">Valor total com percentual</th>
                         <th class="text-center">Salvar | Deletar</th>
                     </tr>

@@ -164,12 +164,12 @@
                 
                 objFinanca.setMoneyCash(vetorValor[i], 2, ',', '.');
                 objFinanca.formatMoneyCash();
-                $(this).find('#fees_part').text(objFinanca.getMoneyCash());
+                $(this).find('#pay_val').text(objFinanca.getMoneyCash());
             }
             
         });
         
-        $("input#fees_part").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+        $("input#pay_val").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
         
     });
 </script>
@@ -195,33 +195,33 @@
                 <legend>CONTAS A PAGAR</legend>
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="fees_part">Data de vencimento:</label>
+                        <label for="pay_venc">Data de vencimento:</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                            <input id="pay_venc" name="pay_venc" style="border-radius: 0px !important;" type="date" class="form-control data" placeholder="dd/mm/aaaa" >
+                            <input id="pay_venc" name="pay_venc" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
                             <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
                         </div>
                         <br>
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="fees_part">Data de pagamento:</label>
+                        <label for="pay_date_pay">Data de pagamento:</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                            <input id="pay_venc" name="pay_venc" style="border-radius: 0px !important;" type="date" class="form-control data" placeholder="dd/mm/aaaa" >
+                            <input id="pay_date_pay" name="pay_date_pay" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
                             <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
                         </div>
                         <br>
                     </div>
                     
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                        <label for="fees_proc"> Descrição:</label>
-                        <input id="fees_proc" name="fees_proc" class="form-control" type="text" placeholder="Descreva as informações aqui..." value="">
+                        <label for="pay_desc"> Descrição:</label>
+                        <input id="pay_desc" name="pay_desc" class="form-control" type="text" placeholder="Descreva as informações aqui..." value="">
                         <br>
                     </div>
                     
                      <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="fees_cat">Categoria:</label>
-                        <select id="fees_cat" name="fees_cat" class="form-control">
+                        <label for="pay_cat">Categoria:</label>
+                        <select id="pay_cat" name="pay_cat" class="form-control">
                             <option>Teste 1</option>
                             <option>Teste 2</option>
                         </select>
@@ -229,10 +229,10 @@
                     </div>
                     
                      <div class="form-group col-md-2 col-sm-12 col-xs-12" >
-                        <label for="fees_part">Valor montante ( em reais )</label>
+                        <label for="pay_val">Valor montante ( em reais )</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>
-                            <input id="fees_part" name="fees_part" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" >
+                            <input id="pay_val" name="pay_val" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" >
                             <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                         </div>
                         <br>
@@ -270,17 +270,16 @@
         
         <div class="table-responsive">
             <br>
-            <table id="table-fees" class="table table-bordered table-condensed table-hover table-format" >
+            <table id="table-fees" class="table table-condensed table-hover table-format" >
                 <?php #if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')): ?>
                 <thead>
-                    <tr class="cabe-title">
+                    <tr>
                         <th class="text-center">#</th>
-                        <th class="text-center">Vencimento</th>
+                        <th class="text-center">Data do vencimento</th>
                         <th class="text-center">Data de pagamento</th>
+                        <th class="text-center">Descrição</th>
                         <th class="text-center">Categoria</th>
-                        <th class="text-center">Percentual</th>
-                        <th class="text-center">Valor Particular</th>
-                        <th class="text-center">Valor total com percentual</th>
+                        <th class="text-center">Valor</th>
                         <th class="text-center">Salvar | Deletar</th>
                     </tr>
                 </thead>
@@ -293,7 +292,7 @@
                         <td title="Categoria" ><span id="fees_cat"></span></td>
                         <td style="color: chocolate"   title="Desconto"><span id="fees_desc"></span>%</td>
                         <td style="color: #468847;" title="Particular" ><input type="hidden" value="">R$ <span id="fees_part"></span></td>
-                        <td title="Valor após desconto" style="color: chocolate"><span >R$ </span></td>
+                      
                         <td>
                             <button title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
                                 <i style="color:#2196f3;" class="fa fa-pencil-square-o" aria-hidden="true"></i>

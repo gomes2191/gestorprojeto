@@ -72,6 +72,10 @@ class PayModel extends MainModel
                 
             } # End foreach
             
+            
+            
+            //var_dump($this->form_data);die;
+            
 //            #   Não será permitido campos vazios
 //            if ( empty( $this->form_data['fees_cod'] )) {
 //                
@@ -89,8 +93,8 @@ class PayModel extends MainModel
         } #--> End
         
         # Rotina que verifica se o registro já existe
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `covenant_fees` WHERE `fees_id` = ? ',[
-            chk_array($this->form_data, 'fees_id')
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = ? ',[
+            chk_array($this->form_data, 'pay_id')
         ]);        
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
@@ -118,14 +122,12 @@ class PayModel extends MainModel
         //var_dump($this->form_data['covenant_tipo_unit']);die;
         //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'covenant_data_aq')).'== novo==');die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('covenant_fees',[
-            'covenant_fees_id'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_fees_id')),
-            'fees_cod'              =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
-            'fees_proc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
-            'fees_cat'              =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
-            'fees_desc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
-            'fees_part'             =>  $this->avaliar(chk_array($this->form_data, 'fees_part')),
-            'fees_total'            =>  $this->avaliar(chk_array($this->form_data, 'fees_total'))
+        $query_ins = $this->db->insert('bills_to_pay',[
+            'pay_venc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_venc')),
+            'pay_date_pay'     =>  $this->avaliar(chk_array($this->form_data, 'pay_date_pay')),
+            'pay_desc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
+            'pay_cat'          =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
+            'pay_val'          =>  $this->avaliar(chk_array($this->form_data, 'pay_val'))
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
