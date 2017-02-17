@@ -258,14 +258,14 @@ class PayModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `covenant_fees` WHERE `fees_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             #   Feedback para o usuário
-            #$this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
+            $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
             
             # Redireciona de volta para a página após 4 segundos
-            #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/finances-pay">';
             
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
@@ -274,19 +274,19 @@ class PayModel extends MainModel
             return;
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('covenant_fees', 'fees_id', $decode_id);
+            $query_del = $this->db->delete('bills_to_pay', 'pay_id', $decode_id);
 
             #   Feedback para o usuário
-            #$this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
             
             # Tratamento de erro ajax retorno Feedback para o usuário
-            $this->form_msg = TRUE;
+            //$this->form_msg = TRUE;
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
 
             # Redireciona de volta para a página após o tempo informado segundos
-            #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
+            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/finances-pay">';
 
             #   Finaliza
             return;
@@ -359,7 +359,7 @@ class PayModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `covenant` WHERE `covenant_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `bills_to_pay` WHERE `pay_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {

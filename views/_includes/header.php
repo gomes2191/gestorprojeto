@@ -51,16 +51,18 @@
         <![endif]-->
         
         <?php
+            #---> Dependências agenda
             if($this->title == ' Agenda'){
                 # Start agenda css -->
-                echo '<link rel="stylesheet" href="'.HOME_URI. '/_agenda/css/calendar.css">';
-                
-                echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/bootstrap-datetimepicker.min.css">';
+                echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/calendar.min.css">';
                 # End agenda css -->
-            } 
-            elseif (($this->title == ' Fornecedores') OR ($this->title == ' Usuarios') OR ($this->title == ' Patrimônio')
-                    OR ($this->title == ' Stoque') OR ( $this->title == ' Laboratório') OR ( $this->title == ' Convênios')
-                    OR ( $this->title == ' Honorários')) {
+                
+                #--> Start JS
+                echo '<script src="'.HOME_URI.'/_agenda/js/pt-BR.js"></script>';
+                echo '<script src="'.HOME_URI.'/_agenda/js/moment.js"></script>';
+                echo '<script src="'.HOME_URI.'/views/_js/scriptsTop.js"></script>';
+                #--> End JS
+            }else{
                 # Outros plugins
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/datatables.min.css">';
                 echo '<script src="'.HOME_URI.'/views/_js/datatables.min.js"></script>';
@@ -69,15 +71,22 @@
                 echo '<script src="'.HOME_URI.'/views/_js/sweetalert.min.js"></script>';
                 # End outros plugins
                 
-                if(TRUE){
-                    
-                    //echo '<script src="'.HOME_URI.'/views/_js/angular.min.js"></script>';
-                    //echo '<script src="'.HOME_URI.'/views/_js/angular-locale_pt-br.js"></script>';
-                    echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.min.js"></script>';
-                    echo '<script src="'.HOME_URI.'/views/_js/metodos.js"></script>';
-            
-                }
-            } 
+                //echo '<script src="'.HOME_URI.'/views/_js/angular.min.js"></script>';
+                //echo '<script src="'.HOME_URI.'/views/_js/angular-locale_pt-br.js"></script>';
+                echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.min.js"></script>';
+                echo '<script src="'.HOME_URI.'/views/_js/metodos.js"></script>';
+            }
+            if (($this->title == ' Agenda') OR ($this->title == ' Contas a pagar')) {
+                echo '<script>alert("Brasil");</script>';
+                #--> Start JS
+                echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/bootstrap-datetimepicker.js"></script>';
+                echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/locales/bootstrap-datetimepicker.pt-BR.js"></script>';
+                #--> End JS
+                
+                # Start agenda css -->
+                echo '<link rel="stylesheet" href="' . HOME_URI . '/views/_css/datetimepicker/bootstrap-datetimepicker.min.css">';
+                # End agenda css -->
+            }
             
         ?>
        

@@ -31,7 +31,7 @@ class FinancesPayController extends MainController {
      
     public function index() {
         // Page title
-        $this->title = ' Convênios';
+        $this->title = ' Contas a pagar';
 
         // Verifica se o usuário está logado
 //		if ( ! $this->logged_in ) {
@@ -69,7 +69,7 @@ class FinancesPayController extends MainController {
         require_once (ABSPATH . '/views/_includes/menu.php');
 
         #--> /views/user-register/index.php
-        require_once (ABSPATH . '/views/finances/pay-view.php');
+        require_once (ABSPATH . '/views/finances/pay/pay-view.php');
 
         #--> /views/_includes/footer.php
         require_once (ABSPATH . '/views/_includes/footer.php');
@@ -101,13 +101,13 @@ class FinancesPayController extends MainController {
         
     }   #--> End cad
     
-    public function BoxView(){
+    public function PayBoxView(){
         
         #   Carrega o modelo
-        $modelo = $this->load_model('covenant/covenant-model');
+        $modelo = $this->load_model('finances/pay-model');
         
         #   Carrega o view
-        require_once (ABSPATH . '/views/covenant/box-view.php');
+        require_once (ABSPATH . '/views/finances/pay/pay-box-view.php');
         
     }   #--> End BoxView
     
@@ -131,7 +131,7 @@ class FinancesPayController extends MainController {
         #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
         #   Page title
-        $this->title = ' Honorários';
+        $this->title = ' Contas a pagar';
         
         #---> Inclua seus models e views aqui
         
@@ -152,7 +152,7 @@ class FinancesPayController extends MainController {
     }   #--> End cad
     
     # URL: dominio.com/exemplo/exemplo
-    public function AjaxFees() {
+    public function AjaxProcess() {
         #   Parametros da função
         #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
@@ -162,7 +162,7 @@ class FinancesPayController extends MainController {
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('covenant/fees-model');
+        $modelo = $this->load_model('finances/pay-model');
 
         #   Carrega o topo
         //require_once (ABSPATH . '/views/_includes/header.php');
@@ -171,7 +171,7 @@ class FinancesPayController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/covenant/ajax-fees-view.php');
+        require_once (ABSPATH . '/views/finances/pay/ajax-process-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         

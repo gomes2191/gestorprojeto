@@ -17,7 +17,7 @@
 
 <script>
     //  Muda a url atual para a nova url passada
-    window.history.pushState("stock", "", "stock");
+    //window.history.pushState("stock", "", "stock");
 
     //  Faz um refresh de url apos fechar modal
     $(function () {

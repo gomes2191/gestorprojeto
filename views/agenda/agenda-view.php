@@ -12,15 +12,7 @@
     $form_msg = $modelo->form_msg;
 ?>
 
-<div class="row-fluid"> 
-    <!-- Agenda bibliotecas js -->
-    <script src="<?= HOME_URI; ?>/_agenda/js/pt-BR.js"></script>
-    <script src="<?= HOME_URI; ?>/_agenda/js/moment.js"></script>
-    <script src="<?= HOME_URI; ?>/_agenda/js/bootstrap-datetimepicker.js"></script>
-    <script src="<?= HOME_URI; ?>/_agenda/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
-    <script src="<?= HOME_URI; ?>/views/_js/scriptsTop.js"></script>
-    <!-- Final agenda js -->
-   
+<div class="row-fluid">
     <div class="col-md-1 col-sm-1"></div>
     <div class="col-md-7 col-sm-7">
         <div class="row">

@@ -117,6 +117,23 @@ $(function () {
             pickerPosition: 'bottom-left'
         });
     }
+    
+    if (window.location.href.indexOf("finances-pay") > 1) {
+        $("#pay_venc, #pay_date_pay").datetimepicker({
+            language: 'pt-BR-D',
+            showMeridian: true,
+            todayHighlight: true,
+            viewSelect: 'day',
+            clearBtn: true,
+            beforeShowMonth: true,
+            weekStart: true,
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayBtn: true,
+            minuteStep: 1,
+            pickerPosition: 'bottom-left'
+        });
+    }
 });
 
 

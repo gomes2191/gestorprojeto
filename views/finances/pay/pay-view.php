@@ -1,45 +1,37 @@
 <?php
-    if (!defined('ABSPATH')) { exit; }
+    if (!defined('ABSPATH')) {
+        exit();
+    }
     
-//     # Verifica se existe a requisição GET, se sim continua na página se não retorna a pagina convenios
-//    if (!(filter_input(INPUT_GET, 'get_two', FILTER_DEFAULT)) OR (filter_input(INPUT_GET, 'get', FILTER_DEFAULT))) {
-//        echo '<script>window.location.href ="'.HOME_URI.'/covenant";</script>';
-//    }
-    
-    //$get_decode = intval($modelo->encode_decode(0, filter_input(INPUT_GET, 'get_two', FILTER_DEFAULT)));
-    
-    //var_dump($modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'));
-    
-//    if(in_array($get_decode, $modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'))) {
-//        
-//    }else{
-//        # Retorna para página 'covenant' caso não exista o id correspondente
-//        echo'<script>window.location="'.HOME_URI.'/covenant";</script>';
-//        //exit();
-//    };
-    
+    if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
+        $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
+        $modelo->delRegister($encode_id);
 
+        # Destroy variavel não mais utilizadas
+        unset($encode_id);
+    }
 
+    
     # Verifica se existe a requisição POST se existir executa o método se não faz nada
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
     
-//     # Verifica se existe a requisição GET caso exista executa o método
-//    if (filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT)) {
-//        $encode_id = filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT);
-//        $modelo->delRegister($encode_id);
-//        
-//        # Destroy variável não mais utilizadas
-//        unset($encode_id);
-//    }
-    
-    # Configura o Feedback para o usuário
+    # Verifica se existe feedback e retorna o feedback se sim se não retorna false
     $form_msg = $modelo->form_msg;
+    
 ?>
 
 <script>
     var objFinanca = new Financeiro();
     //  Muda url da pagina
     //  window.history.pushState("fees", "", "fees");
+    
+    //  Faz um refresh de url apos fechar modal
+    $(function () {
+        $('#infor-view').on('hidden.bs.modal', function () {
+            //document.location.reload();
+            $(this).removeData('bs.modal');
+        });
+    });
     
     // Chama o paginador da tabela    
     $(function () {
@@ -52,16 +44,17 @@
     });
          
     $(function (){
-        $('.btn-gravar-fees').click(function (){
+        $('.btn-editable').click(function (){
             valorVetor = [];
-            valorVetor['fees_id']   =  parseInt($(this).closest('tr').find('#fees_id').text().replace(' ',''));
-            valorVetor['fees_cod']  =  $(this).closest('tr').find('#fees_cod').text().replace(' ','');
-            valorVetor['fees_proc'] =  $(this).closest('tr').find('#fees_proc').text().replace(' ','');
-            valorVetor['fees_cat']  =  $(this).closest('tr').find('#fees_cat').text().replace(' ','');
-            valorVetor['fees_desc'] =  $(this).closest('tr').find('#fees_desc').text().replace(' ','');
-            valorVetor['fees_part'] =  $(this).closest('tr').find('input').val();
-            valorVetor['fees_total'] =  $(this).closest('tr').find('#fees_total').text().replace(' ','');
-            alert($(this).closest('tr').find('input').val());
+            valorVetor['pay_id']        =  parseInt($(this).closest('tr').find('#pay_id').text().replace(' ',''));
+            valorVetor['pay_venc']      =  $(this).closest('tr').find('#pay_venc').text().replace(' ','');
+            valorVetor['pay_date_pay']  =  $(this).closest('tr').find('#pay_date_pay').text().replace(' ','');
+            valorVetor['pay_desc']      =  $(this).closest('tr').find('#pay_desc').text().replace(' ','');
+            valorVetor['pay_val']     =  $(this).closest('tr').find('#pay_val').text().replace(' ','');
+            //valorVetor['fees_part']     =  $(this).closest('tr').find('input').val();
+            valorVetor['fees_total']    =  $(this).closest('tr').find('#fees_total').text().replace(' ','');
+            //alert($(this).closest('tr').find('input').val());
+            console.log(valorVetor);
             
             $('input#fees_id').val(valorVetor['fees_id']);
             $('input#fees_cod').val(valorVetor['fees_cod']);
@@ -80,101 +73,17 @@
         $('.fees-clear').click(function (){
             $('#fees_id').val("");
         });
-    });
-    
-    function delConfirm(encode_id){
-        swal({
-          title: "",
-          text: "Você realmente deseja remover este registro? apos a remoção será impossivel reverter isso",
-          type: "warning",
-          showCancelButton: true,
-          cancelButtonText: "Cancelar",
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Remover",
-          closeOnConfirm: true,
-          closeOnCancel: false
-        },
-        function(isConfirm){
-            if (isConfirm){
-                $.ajax({
-                  type:'POST',
-                  url:'<?= HOME_URI ?>/covenant/ajax-fees',
-                  data: { encode_id: encode_id },
-                  dataType: "html",
-                  success: function(retorno){
-                    if(retorno == 1){
-                        setTimeout(function(){
-                            swal({title:'Registro removido com sucesso!' ,type: "success", timer: 1500, showConfirmButton: false});
-                        }, 200);
-                        
-                    }else{
-                        swal("Erro!", "Ouve um erro durante a exclusao do registro se o problema persistir contate o administrador :)", "error");
-                    }
-                  }
-                });
-                
-            }else{
-                swal("Cancelado!", "O registro foi mantido :)", "error");
-            }
-          
-        });
-    };
-    
-    $(function (){
-        //  Verifica cada elemento tr em busca de um valor especificado
-        $('#table-fees tbody tr').each(function(i){
-            
-            /* Variável que aramazena o retorno da consulta na classe vazio armazenando
-            * true caso exista e false caso nao exista.*/
-             
-            testeError =  $(this).find('.vazio').text();
-            
-            
-            //  Verifica se o valor na variavel é false se for executa a rotina.
-            if(testeError == false){
-                
-                fees_part =  $(this).find('input').val().toString();
-                fees_desc =  $(this).find('#fees_desc').text().toString();
-
-
-               objFinanca.setUS(fees_part);
-               objFinanca.mostrarUS();
-
-               fees_part = parseFloat(objFinanca.getUS());
-
-                // Declaração de vetores
-
-                var vetorPerc  = [];
-                var vetorValor = [];
-                var resultado  = [];
-
-                vetorPerc[i]    =   fees_desc;
-                vetorValor[i]   =   fees_part;
-                //vetorTotal[i]   =   fees_total;
-
-
-                resultado[i] = ( vetorValor[i] - ( vetorValor[i] *  vetorPerc[i] / 100).toFixed(2) );
-
-                
-                
-                
-                objFinanca.setMoneyCash(resultado[i], 2, ',', '.');
-                objFinanca.formatMoneyCash();
-                $(this).find("#fees_total").text(objFinanca.getMoneyCash());
-                
-                objFinanca.setMoneyCash(vetorValor[i], 2, ',', '.');
-                objFinanca.formatMoneyCash();
-                $(this).find('#pay_val').text(objFinanca.getMoneyCash());
-            }
-            
-        });
         
         $("input#pay_val").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
-        
     });
+    
+    
+        
+        
+        
 </script>
 <div class="row-fluid">
-    <div class="col-md-12  col-sm-12 col-xs-12"  ng-app="myFess" ng-controller="myFessController">
+    <div class="col-md-12  col-sm-12 col-xs-12">
         <?php
             if ($form_msg) {
                 echo'<div class="alert alertH ' . $form_msg[0] . ' alert-dismissible fade in">
@@ -271,7 +180,7 @@
         <div class="table-responsive">
             <br>
             <table id="table-fees" class="table table-condensed table-hover table-format" >
-                <?php #if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')): ?>
+                <?php if ($modelo->get_table_data(1, '*',  'bills_to_pay', NULL, NULL, 'pay_id')): ?>
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
@@ -280,40 +189,35 @@
                         <th class="text-center">Descrição</th>
                         <th class="text-center">Categoria</th>
                         <th class="text-center">Valor</th>
-                        <th class="text-center">Salvar | Deletar</th>
+                        <th class="text-center">Salvar | Deletar | Informações </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php //foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): ?>
+                    <?php foreach ( $modelo->get_table_data(1, '*',  'bills_to_pay', NULL, NULL, 'pay_id') as $fetch_userdata  ): ?>
                     <tr class="text-center"> 
-                        <td id="fees_id" ><span></span></td>
-                        <td title="Código"><span id="fees_cod"></span></td>
-                        <td title="Procedimento" ><span id="fees_proc"></span></td>
-                        <td title="Categoria" ><span id="fees_cat"></span></td>
-                        <td style="color: chocolate"   title="Desconto"><span id="fees_desc"></span>%</td>
-                        <td style="color: #468847;" title="Particular" ><input type="hidden" value="">R$ <span id="fees_part"></span></td>
-                      
+                        <td id="pay_id" > <?= $fetch_userdata['pay_id']; ?></td>
+                        <td title="Código" id="pay_venc"><?= $fetch_userdata['pay_venc']; ?></td>
+                        <td title="Procedimento" id="pay_date_pay" ><?= $fetch_userdata['pay_date_pay']; ?></td>
+                        <td title="Categoria" id="pay_desc" ><?= $fetch_userdata['pay_desc']; ?></td>
+                        <td style="color: chocolate"   title="Desconto"><?= $fetch_userdata['pay_cat']; ?></td>
+                        <td style="color: #468847;" title="Particular" >R$ <span id="pay_val"><?= $fetch_userdata['pay_val']; ?></span></td>
                         <td>
-                            <button title="Grava alterações" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default btn-gravar-fees">
+                            <button title="Editar informações" class="btn btn-sm btn-default btn-editable">
                                 <i style="color:#2196f3;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button> |
-                            <a href="javascript:void(0);" title="Eliminar registro" onclick="delConfirm('');" class="btn btn-sm btn-default">
-                                <i style="color:#c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                       
-<!--                        <td>
-                            <a href="<?= HOME_URI; ?>/covenant/box-view?v=<?= $modelo->encode_decode($fetch_userdata['covenant_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#visualizar-forne" title="Visualizar cadastro" >
+                            <a href="javascript:void(0);" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                                <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
+                            </a> |
+                            <a href="<?= HOME_URI; ?>/finances-pay/pay-box-view?v=<?= $modelo->encode_decode($fetch_userdata['pay_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#infor-view" title="Visualizar informações" >
                                 <i style="color: #2fa4e7;" class="fa fa-1x fa-info-circle" aria-hidden="true"></i>
                             </a>
-                        </td>-->
-                    
+                        </td>
                     </tr>
-                    <?php #endforeach; ?>
+                    <?php endforeach; ?>
                     <?php 
-                        /*else: 
+                        else: 
                             echo '<tbody><tr><td class="text-center vazio" style="color: red;" >Não há registros cadastrado no sistema.</td></tr>'; 
-                        endif;*/ 
+                        endif; 
                     ?>
                     
                     <script>
@@ -354,6 +258,35 @@
             </table>
             <br>
         </div>
+        <!-- Start Modal deletar fornecedores -->
+        <div class="modal in fade"  role="dialog" id="myModal">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h5 class="modal-title"><span style="colo" class=" info glyphicon glyphicon-floppy-remove">&nbsp;</span>ELIMINAR REGISTRO</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-justify">Tem certeza que deseja remover este registro? não sera possível reverter isso.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="<?= HOME_URI; ?>/finances-pay" class="btn btn-primary">Desistir</a>
+                        <a href="<?= HOME_URI; ?>/finances-pay?re=<?= $modelo->encode_decode($fetch_userdata['pay_id']); ?> " class="btn btn-danger" >Eliminar</a>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- Start Modal Informações de pagamentos -->
+        <div id="infor-view" class="modal fade" >
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <!--Conteudo do modal-->
+                </div>
+            </div>
+        </div>
+        <!-- End modal -->
+        
     </div>
 </div>
 
