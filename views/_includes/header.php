@@ -64,8 +64,8 @@
                 #--> End JS
             }else{
                 # Outros plugins
-                echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/datatables.min.css">';
-                echo '<script src="'.HOME_URI.'/views/_js/datatables.min.js"></script>';
+                echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_js/datatables/datatables.min.css">';
+                echo '<script src="'.HOME_URI.'/views/_js/datatables/datatables.min.js"></script>';
                 
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/sweetalert.css">';
                 echo '<script src="'.HOME_URI.'/views/_js/sweetalert.min.js"></script>';
@@ -77,7 +77,7 @@
                 echo '<script src="'.HOME_URI.'/views/_js/metodos.js"></script>';
             }
             if (($this->title == ' Agenda') OR ($this->title == ' Contas a pagar')) {
-                echo '<script>alert("Brasil");</script>';
+                //echo '<script>alert("Brasil");</script>';
                 #--> Start JS
                 echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/bootstrap-datetimepicker.js"></script>';
                 echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/locales/bootstrap-datetimepicker.pt-BR.js"></script>';

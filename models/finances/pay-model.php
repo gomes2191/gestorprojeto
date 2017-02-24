@@ -347,6 +347,28 @@ class PayModel extends MainModel
          
     }   # End get_table_data()
     
+    
+    public function getSelect_return($sql){
+        # Simplesmente seleciona os dados na base de dados
+        $query_get = $this->db->query($sql);
+
+        # Verifica se a consulta está OK
+        if ( !$query_get ) {
+            
+            # Finaliza
+            return;
+        }
+        
+        $data = [];
+        
+        foreach ($query_get as $dados){
+            $data[] = $dados;
+        }
+        # Retorna os valores da consulta
+        return $data;
+        
+    }
+    
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>

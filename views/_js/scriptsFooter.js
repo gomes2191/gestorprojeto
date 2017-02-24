@@ -96,9 +96,6 @@ $.validate({
   }
 });
 
-
-
-
 // Agenda popup inserção
 $(function () {
     if (window.location.href.indexOf("agenda") > 1) {

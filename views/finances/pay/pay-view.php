@@ -78,7 +78,46 @@
     });
     
     
-        
+ //Teste serverSide
+    $(document).ready(function () {
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            "buttons": [
+                {
+                    extend: 'copy',
+                    text: 'Copiar'
+                },{
+                  extend: 'excel',
+                  text: 'Gerar excel'},{
+                  extend: 'pdf',
+                  text: 'Gerar PDF'  
+                }
+            ],
+            "language": {url: 'Portuguese-Brasil.json'},
+            "columns": [
+                {"data": "pay_id"},
+                {"data": "pay_venc"},
+                {"data": "pay_date_pay"},
+                {"data": "pay_cat"},
+                {"data": "pay_desc"},
+                {"data": "pay_val"},
+                {
+                 data: "Action",
+                 data: false,
+                 mRender: function (o) { return '<i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i>'; }
+             }
+            ],
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                url: '<?= HOME_URI; ?>/finances-pay/ajax-process',
+                        type: 'POST'
+                    }
+                });
+    });
+
+
+ //Teste server Side
         
         
 </script>
@@ -176,6 +215,39 @@
 </div> <!-- /row  -->
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
+        
+        
+<!--        Teste tabela servside-->
+    <div class="">
+        <table id="example" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name teste</th>
+                <th>Salary</th>
+                <th>ID</th>
+                <th>Name teste</th>
+                <th>Salary</th>
+               
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+               <th>ID</th>
+                <th>Name teste</th>
+                <th>Salary</th>
+                <th>ID</th>
+                <th>Name teste</th>
+                <th>Salary</th>
+                
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+    
+
+<!--        Teste tabela servside-->
         
         <div class="table-responsive">
             <br>
