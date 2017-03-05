@@ -1,119 +1,189 @@
 <?php
-/*
-    # Verifica se a constante existe "ABSPATH" existe, se nao existir sai
-    if (!defined('ABSPATH')) { exit; }
+// Database details
+$db_server   = 'localhost';
+$db_username = '***';
+$db_password = '***';
+$db_name     = '***';
+
+// Get job (and id)
+$job = '';
+$id  = '';
+if (isset($_GET['job'])){
+  $job = $_GET['job'];
+  
+  echo '<script>alert("Sim");</script>';
+  
+  if ($job == 'get_companies' ||
+      $job == 'get_company'   ||
+      $job == 'add_company'   ||
+      $job == 'edit_company'  ||
+      $job == 'delete_company'){
+    if (isset($_GET['id'])){
+      $id = $_GET['id'];
+      if (!is_numeric($id)){
+        $id = '';
+      }
+    }
+  } else {
+    $job = '';
+  }
+}
+
+// Prepare array
+$mysql_data = array();
+
+// Valid job found
+if ($job != ''){
+  
+  // Connect to database
+  $db_connection = mysqli_connect($db_server, $db_username, $db_password, $db_name);
+  if (mysqli_connect_errno()){
+    $result  = 'error';
+    $message = 'Failed to connect to database: ' . mysqli_connect_error();
+    $job     = '';
+  }
+  
+  // Execute job
+  if ($job == 'get_companies'){
     
-    if(!empty(filter_input_array(INPUT_POST))){
-        # Verifica se existe encode_id se existe executa o metod de exclusão
-        if((filter_input(INPUT_POST, 'encode_id'))){
-            $modelo->delRegister(filter_input(INPUT_POST, 'encode_id'));
-            echo $modelo->form_msg;
-        }else{
-            $modelo->validate_register_form();
-            echo $modelo->form_msg;
-        }
-        
-    }else{
-        exit();
+    // Get companies
+    $query = "SELECT * FROM it_companies ORDER BY rank";
+    $query = mysqli_query($db_connection, $query);
+    if (!$query){
+      $result  = 'error';
+      $message = 'query error';
+    } else {
+      $result  = 'success';
+      $message = 'query success';
+      while ($company = mysqli_fetch_array($query)){
+        $functions  = '<div class="function_buttons"><ul>';
+        $functions .= '<li class="function_edit"><a data-id="'   . $company['company_id'] . '" data-name="' . $company['company_name'] . '"><span>Edit</span></a></li>';
+        $functions .= '<li class="function_delete"><a data-id="' . $company['company_id'] . '" data-name="' . $company['company_name'] . '"><span>Delete</span></a></li>';
+        $functions .= '</ul></div>';
+        $mysql_data[] = array(
+          "rank"          => $company['rank'],
+          "company_name"  => $company['company_name'],
+          "industries"    => $company['industries'],
+          "revenue"       => '$ ' . $company['revenue'],
+          "fiscal_year"   => $company['fiscal_year'],
+          "employees"     => number_format($company['employees'], 0, '.', ','),
+          "market_cap"    => '$ ' . $company['market_cap'],
+          "headquarters"  => $company['headquarters'],
+          "functions"     => $functions
+        );
+      }
     }
-
-*/
     
-//    $draw                = filter_input(INPUT_POST, 'draw');//counter used by DataTables to ensure that the Ajax returns from server-side processing requests are drawn in sequence by DataTables
-//    $orderByColumnIndex  = filter_input(INPUT_POST, ['order'][0]['column']);// index of the sorting column (0 index based - i.e. 0 is the first record)
-//    $orderBy             = filter_input(INPUT_POST, ['columns'][$orderByColumnIndex]['data']);//Get name of the sorting column from its index
-//    $orderType           = filter_input(INPUT_POST, ['order'][0]['dir']); // ASC or DESC
-//    $start               = filter_input(INPUT_POST, ['start']);//Paging first record indicator.
-//    $length              = filter_input(INPUT_POST, ['length']);//Number of records that the table can display in the current draw
-//  
-//  
-//  $recordsTotal = count($modelo->getSelect_return(" SELECT * FROM `bills_to_pay` "));
-//  var_dump($recordsTotal);
-//
-//    /* SEARCH CASE : Filtered data */
-//    if(!empty(filter_input(INPUT_POST, ['search']['value']))){
-//
-//        /* WHERE Clause for searching */
-//        for($i=0 ; $i<count(filter_input(INPUT_POST, ['columns']));$i++){
-//            $column = filter_input(INPUT_POST, ['columns'][$i]['data']);//we get the name of each column using its index from POST request
-//            $where[]="$column like '%".filter_input(INPUT_POST, ['search']['value'])."%'";
-//        }
-//        $where = "WHERE ".implode(" OR " , $where);// id like '%searchValue%' or name like '%searchValue%' ....
-//        /* End WHERE */
-//
-//        $sql = sprintf("SELECT * FROM %s %s", 'bills_to_pay' , $where);//Search query without limit clause (No pagination)
-//
-//        $recordsFiltered = count($modelo->getSelect_return($sql));//Count of search result
-//
-//        /* SQL Query for search with limit and orderBy clauses*/
-//        $sql = sprintf("SELECT * FROM %s %s ORDER BY %s %s limit %d , %d ", 'bills_to_pay' , $where ,$orderBy, $orderType ,$start,$length  );
-//        $data = $modelo->getSelect_return($sql);
-//    }
-//    /* END SEARCH */
-//    else {
-//        $sql = sprintf("SELECT * FROM %s ORDER BY %s %s limit %d , %d ", 'bills_to_pay' ,$orderBy,$orderType ,$start , $length);
-//        $data = $modelo->getSelect_return($sql);
-//
-//        $recordsFiltered = $recordsTotal;
-//    }
-//
-//    /* Response to client before JSON encoding */
-//    $response = array(
-//        "draw" => intval($draw),
-//        "recordsTotal" => $recordsTotal,
-//        "recordsFiltered" => $recordsFiltered,
-//        "data" => $data
-//    );
-//
-//    echo json_encode($response);
-//
-
-
-/* Useful $_POST Variables coming from the plugin */
-    $draw = $_POST["draw"];//counter used by DataTables to ensure that the Ajax returns from server-side processing requests are drawn in sequence by DataTables
-    $orderByColumnIndex  = $_POST['order'][0]['column'];// index of the sorting column (0 index based - i.e. 0 is the first record)
-    $orderBy = $_POST['columns'][$orderByColumnIndex]['data'];//Get name of the sorting column from its index
-    $orderType = $_POST['order'][0]['dir']; // ASC or DESC
-    $start  = $_POST["start"];//Paging first record indicator.
-    $length = $_POST['length'];//Number of records that the table can display in the current draw
-    /* END of POST variables */
-
-    $recordsTotal = count($modelo->getSelect_return(" SELECT * FROM `bills_to_pay` "));
-    //var_dump($recordsTotal);
-
-    /* SEARCH CASE : Filtered data */
-    if(!empty($_POST['search']['value'])){
-
-        /* WHERE Clause for searching */
-        for($i=0 ; $i<count($_POST['columns']);$i++){
-            $column = $_POST['columns'][$i]['data'];//we get the name of each column using its index from POST request
-            $where[]="$column like '%".$_POST['search']['value']."%'";
+  } elseif ($job == 'get_company'){
+    
+    // Get company
+    if ($id == ''){
+      $result  = 'error';
+      $message = 'id missing';
+    } else {
+      $query = "SELECT * FROM it_companies WHERE company_id = '" . mysqli_real_escape_string($db_connection, $id) . "'";
+      $query = mysqli_query($db_connection, $query);
+      if (!$query){
+        $result  = 'error';
+        $message = 'query error';
+      } else {
+        $result  = 'success';
+        $message = 'query success';
+        while ($company = mysqli_fetch_array($query)){
+          $mysql_data[] = array(
+            "rank"          => $company['rank'],
+            "company_name"  => $company['company_name'],
+            "industries"    => $company['industries'],
+            "revenue"       => $company['revenue'],
+            "fiscal_year"   => $company['fiscal_year'],
+            "employees"     => $company['employees'],
+            "market_cap"    => $company['market_cap'],
+            "headquarters"  => $company['headquarters']
+          );
         }
-        $where = "WHERE ".implode(" OR " , $where);// id like '%searchValue%' or name like '%searchValue%' ....
-        /* End WHERE */
-
-        $sql = sprintf("SELECT * FROM %s %s", 'bills_to_pay' , $where);//Search query without limit clause (No pagination)
-
-        $recordsFiltered = count($modelo->getSelect_return($sql));//Count of search result
-
-        /* SQL Query for search with limit and orderBy clauses*/
-        $sql = sprintf("SELECT * FROM %s %s ORDER BY %s %s limit %d , %d ", 'bills_to_pay' , $where ,$orderBy, $orderType ,$start,$length  );
-        $data = $modelo->getSelect_return($sql);
+      }
     }
-    /* END SEARCH */
-    else {
-        $sql = sprintf("SELECT * FROM %s ORDER BY %s %s limit %d , %d ", 'bills_to_pay' ,$orderBy,$orderType ,$start , $length);
-        $data = $modelo->getSelect_return($sql);
-
-        $recordsFiltered = $recordsTotal;
+  
+  } elseif ($job == 'add_company'){
+    
+    // Add company
+    $query = "INSERT INTO it_companies SET ";
+    if (isset($_GET['rank']))         { $query .= "rank         = '" . mysqli_real_escape_string($db_connection, $_GET['rank'])         . "', "; }
+    if (isset($_GET['company_name'])) { $query .= "company_name = '" . mysqli_real_escape_string($db_connection, $_GET['company_name']) . "', "; }
+    if (isset($_GET['industries']))   { $query .= "industries   = '" . mysqli_real_escape_string($db_connection, $_GET['industries'])   . "', "; }
+    if (isset($_GET['revenue']))      { $query .= "revenue      = '" . mysqli_real_escape_string($db_connection, $_GET['revenue'])      . "', "; }
+    if (isset($_GET['fiscal_year']))  { $query .= "fiscal_year  = '" . mysqli_real_escape_string($db_connection, $_GET['fiscal_year'])  . "', "; }
+    if (isset($_GET['employees']))    { $query .= "employees    = '" . mysqli_real_escape_string($db_connection, $_GET['employees'])    . "', "; }
+    if (isset($_GET['market_cap']))   { $query .= "market_cap   = '" . mysqli_real_escape_string($db_connection, $_GET['market_cap'])   . "', "; }
+    if (isset($_GET['headquarters'])) { $query .= "headquarters = '" . mysqli_real_escape_string($db_connection, $_GET['headquarters']) . "'";   }
+    $query = mysqli_query($db_connection, $query);
+    if (!$query){
+      $result  = 'error';
+      $message = 'query error';
+    } else {
+      $result  = 'success';
+      $message = 'query success';
     }
+  
+  } elseif ($job == 'edit_company'){
+    
+    // Edit company
+    if ($id == ''){
+      $result  = 'error';
+      $message = 'id missing';
+    } else {
+      $query = "UPDATE it_companies SET ";
+      if (isset($_GET['rank']))         { $query .= "rank         = '" . mysqli_real_escape_string($db_connection, $_GET['rank'])         . "', "; }
+      if (isset($_GET['company_name'])) { $query .= "company_name = '" . mysqli_real_escape_string($db_connection, $_GET['company_name']) . "', "; }
+      if (isset($_GET['industries']))   { $query .= "industries   = '" . mysqli_real_escape_string($db_connection, $_GET['industries'])   . "', "; }
+      if (isset($_GET['revenue']))      { $query .= "revenue      = '" . mysqli_real_escape_string($db_connection, $_GET['revenue'])      . "', "; }
+      if (isset($_GET['fiscal_year']))  { $query .= "fiscal_year  = '" . mysqli_real_escape_string($db_connection, $_GET['fiscal_year'])  . "', "; }
+      if (isset($_GET['employees']))    { $query .= "employees    = '" . mysqli_real_escape_string($db_connection, $_GET['employees'])    . "', "; }
+      if (isset($_GET['market_cap']))   { $query .= "market_cap   = '" . mysqli_real_escape_string($db_connection, $_GET['market_cap'])   . "', "; }
+      if (isset($_GET['headquarters'])) { $query .= "headquarters = '" . mysqli_real_escape_string($db_connection, $_GET['headquarters']) . "'";   }
+      $query .= "WHERE company_id = '" . mysqli_real_escape_string($db_connection, $id) . "'";
+      $query  = mysqli_query($db_connection, $query);
+      if (!$query){
+        $result  = 'error';
+        $message = 'query error';
+      } else {
+        $result  = 'success';
+        $message = 'query success';
+      }
+    }
+    
+  } elseif ($job == 'delete_company'){
+  
+    // Delete company
+    if ($id == ''){
+      $result  = 'error';
+      $message = 'id missing';
+    } else {
+      $query = "DELETE FROM it_companies WHERE company_id = '" . mysqli_real_escape_string($db_connection, $id) . "'";
+      $query = mysqli_query($db_connection, $query);
+      if (!$query){
+        $result  = 'error';
+        $message = 'query error';
+      } else {
+        $result  = 'success';
+        $message = 'query success';
+      }
+    }
+  
+  }
+  
+  // Close database connection
+  mysqli_close($db_connection);
 
-    /* Response to client before JSON encoding */
-    $response = array(
-        "draw" => intval($draw),
-        "recordsTotal" => $recordsTotal,
-        "recordsFiltered" => $recordsFiltered,
-        "data" => $data
-    );
+}
 
-    echo json_encode($response);
+// Prepare data
+$data = array(
+  "result"  => $result,
+  "message" => $message,
+  "data"    => $mysql_data
+);
+
+// Convert PHP array to JSON array
+$json_data = json_encode($data);
+print $json_data;

@@ -80,7 +80,7 @@
     
  //Teste serverSide
     $(document).ready(function () {
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
             dom: 'Bfrtip',
             "buttons": [
                 {
@@ -101,12 +101,11 @@
                 {"data": "pay_cat"},
                 {"data": "pay_desc"},
                 {"data": "pay_val"},
-                {
-                 data: "Action",
-                 data: false,
-                 mRender: function (o) { return '<i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i>'; }
-             }
+                {"data": null, "defaultContent": "<button>Click!</button>| <button>Click!</button>" }
+                
+                
             ],
+            
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -114,6 +113,12 @@
                         type: 'POST'
                     }
                 });
+                
+                $('#example tbody').on( 'click', 'button', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        alert( data[3] +"'s salary is: "+ data[1] + ' '+ data[0] );
+    } ); 
+    
     });
 
 
@@ -219,7 +224,7 @@
         
 <!--        Teste tabela servside-->
     <div class="">
-        <table id="example" class="display" width="100%" cellspacing="0">
+        <table id="finances-pay" class="display" width="100%" cellspacing="0">
         <thead>
             <tr>
                 <th>ID</th>
@@ -228,7 +233,7 @@
                 <th>ID</th>
                 <th>Name teste</th>
                 <th>Salary</th>
-               
+               <th>Dell</th>
             </tr>
         </thead>
  
@@ -240,6 +245,7 @@
                 <th>ID</th>
                 <th>Name teste</th>
                 <th>Salary</th>
+                <th>Dell</th>
                 
             </tr>
         </tfoot>

@@ -81,15 +81,13 @@
                 #--> Start JS
                 echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/bootstrap-datetimepicker.js"></script>';
                 echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/locales/bootstrap-datetimepicker.pt-BR.js"></script>';
+                echo '<script src="'.HOME_URI.'/views/_js/scriptsTop.js"></script>';
                 #--> End JS
                 
                 # Start agenda css -->
                 echo '<link rel="stylesheet" href="' . HOME_URI . '/views/_css/datetimepicker/bootstrap-datetimepicker.min.css">';
                 # End agenda css -->
             }
-            
         ?>
-       
-        
     </head>
     <body data-spy="scroll" data-target="spy-scroll-id">
