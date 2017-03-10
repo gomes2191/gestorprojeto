@@ -266,7 +266,7 @@ Formatação para barra de rolagem ainda nao tive interesse em utilizar nao foi 
 
 
 /*Tabelas em geral estilização extra*/
-table#table-fees > tbody > tr > td {
+table.table-meio > tbody > tr > td {
     vertical-align: middle !important;
 }
 

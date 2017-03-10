@@ -45,81 +45,81 @@
          
     $(function (){
         $('.btn-editable').click(function (){
-            valorVetor = [];
-            valorVetor['pay_id']        =  parseInt($(this).closest('tr').find('#pay_id').text().replace(' ',''));
-            valorVetor['pay_venc']      =  $(this).closest('tr').find('#pay_venc').text().replace(' ','');
-            valorVetor['pay_date_pay']  =  $(this).closest('tr').find('#pay_date_pay').text().replace(' ','');
-            valorVetor['pay_desc']      =  $(this).closest('tr').find('#pay_desc').text().replace(' ','');
-            valorVetor['pay_val']     =  $(this).closest('tr').find('#pay_val').text().replace(' ','');
-            //valorVetor['fees_part']     =  $(this).closest('tr').find('input').val();
-            valorVetor['fees_total']    =  $(this).closest('tr').find('#fees_total').text().replace(' ','');
-            //alert($(this).closest('tr').find('input').val());
-            console.log(valorVetor);
+//            valorVetor = [];
+//            valorVetor['pay_id']        =  parseInt($(this).closest('tr').find('#pay_id').text().replace(' ',''));
+//            valorVetor['pay_venc']      =  $(this).closest('tr').find('#pay_venc').text().replace(' ','');
+//            valorVetor['pay_date_pay']  =  $(this).closest('tr').find('#pay_date_pay').text().replace(' ','');
+//            valorVetor['pay_desc']      =  $(this).closest('tr').find('#pay_desc').text().replace(' ','');
+//            valorVetor['pay_val']     =  $(this).closest('tr').find('#pay_val').text().replace(' ','');
+//            //valorVetor['fees_part']     =  $(this).closest('tr').find('input').val();
+//            valorVetor['fees_total']    =  $(this).closest('tr').find('#fees_total').text().replace(' ','');
+//            //alert($(this).closest('tr').find('input').val());
+//            console.log(valorVetor);
+//            
+//            $('input#fees_id').val(valorVetor['fees_id']);
+//            $('input#fees_cod').val(valorVetor['fees_cod']);
+//            $('input#fees_proc').val(valorVetor['fees_proc']);
+//            $('select#fees_cat').val(valorVetor['fees_cat']);
+//            $('input#fees_desc').val(valorVetor['fees_desc']);
+//            $('input#fees_part').val(valorVetor['fees_part']);
+//            $('input#fees_total').val(valorVetor['fees_total']);
             
-            $('input#fees_id').val(valorVetor['fees_id']);
-            $('input#fees_cod').val(valorVetor['fees_cod']);
-            $('input#fees_proc').val(valorVetor['fees_proc']);
-            $('select#fees_cat').val(valorVetor['fees_cat']);
-            $('input#fees_desc').val(valorVetor['fees_desc']);
-            $('input#fees_part').val(valorVetor['fees_part']);
-            $('input#fees_total').val(valorVetor['fees_total']);
             
-            $('.new-fees').show(500);
-            $('#fees-btn-show').hide();
-            $('#fees-btn-hide').show();
-            $('html, body').animate({scrollTop:0}, 'slow');
         });
         
         $('.fees-clear').click(function (){
             $('#fees_id').val("");
         });
         
-        $("input#pay_val").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+        //$("input#pay_val").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
     });
     
     
  //Teste serverSide
-    $(document).ready(function () {
-        var table = $('#example').DataTable({
-            dom: 'Bfrtip',
-            "buttons": [
-                {
-                    extend: 'copy',
-                    text: 'Copiar'
-                },{
-                  extend: 'excel',
-                  text: 'Gerar excel'},{
-                  extend: 'pdf',
-                  text: 'Gerar PDF'  
-                }
-            ],
-            "language": {url: 'Portuguese-Brasil.json'},
-            "columns": [
-                {"data": "pay_id"},
-                {"data": "pay_venc"},
-                {"data": "pay_date_pay"},
-                {"data": "pay_cat"},
-                {"data": "pay_desc"},
-                {"data": "pay_val"},
-                {"data": null, "defaultContent": "<button>Click!</button>| <button>Click!</button>" }
-                
-                
-            ],
-            
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                url: '<?= HOME_URI; ?>/finances-pay/ajax-process',
-                        type: 'POST'
-                    }
-                });
-                
-                $('#example tbody').on( 'click', 'button', function () {
-        var data = table.row( $(this).parents('tr') ).data();
-        alert( data[3] +"'s salary is: "+ data[1] + ' '+ data[0] );
-    } ); 
+//    $(document).ready(function () {
+//        var table = $('#example').DataTable({
+//            dom: 'Bfrtip',
+//            "buttons": [
+//                {
+//                    extend: 'copy',
+//                    text: 'Copiar'
+//                },{
+//                  extend: 'excel',
+//                  text: 'Gerar excel'},{
+//                  extend: 'pdf',
+//                  text: 'Gerar PDF'  
+//                }
+//            ],
+//            "language": {url: 'Portuguese-Brasil.json'},
+//            "columns": [
+//                {"data": "pay_id"},
+//                {"data": "pay_venc"},
+//                {"data": "pay_date_pay"},
+//                {"data": "pay_cat"},
+//                {"data": "pay_desc"},
+//                {"data": "pay_val"},
+//                {"data": null, "defaultContent": "<button>Click!</button>| <button>Click!</button>" }
+//                
+//                
+//            ],
+//            
+//            "processing": true,
+//            "serverSide": true,
+//            "ajax": {
+//                url: '<?= HOME_URI; ?>/finances-pay/ajax-process',
+//                        type: 'POST'
+//                    }
+//                });
+//                
+//                $('#example tbody').on( 'click', 'button', function () {
+//        var data = table.row( $(this).parents('tr') ).data();
+//        alert( data[3] +"'s salary is: "+ data[1] + ' '+ data[0] );
+//    } ); 
+//    
+//    });
     
-    });
+    
+    
 
 
  //Teste server Side
@@ -143,9 +143,9 @@
             }
         ?>
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
-        <form id="form-register" enctype="multipart/form-data" method="post" action="" role="form" >
+        <form id="form-register" class="form add" enctype="multipart/form-data" data-id="" method="post" action="" role="form" >
             <fieldset>
-                <legend>CONTAS A PAGAR</legend>
+                <legend>CONTAS A PAGAR - <span>NOVA CONTA A PAGAR</span></legend>
                 <div class="row form-compact new-fees" style="display: none;">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="pay_venc">Data de vencimento:</label>
@@ -201,6 +201,9 @@
                         <div class="btn-group">
                             <button title="Limpar formulário" class="btn btn-warning marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
                         </div>
+                        <div class="btn-group btn-form-new" style="display:none;">
+                            <button title="Ir para o formulario de inserção" class="btn btn-default marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Formulário de inserção</button>
+                        </div>
                     </div>
                 </div>
             </fieldset>
@@ -223,36 +226,34 @@
         
         
 <!--        Teste tabela servside-->
-    <div class="">
-        <table id="finances-pay" class="display" width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name teste</th>
-                <th>Salary</th>
-                <th>ID</th>
-                <th>Name teste</th>
-                <th>Salary</th>
-               <th>Dell</th>
-            </tr>
-        </thead>
- 
-        <tfoot>
-            <tr>
-               <th>ID</th>
-                <th>Name teste</th>
-                <th>Salary</th>
-                <th>ID</th>
-                <th>Name teste</th>
-                <th>Salary</th>
-                <th>Dell</th>
-                
-            </tr>
-        </tfoot>
-    </table>
-    </div>
-    
-
+        <div class="table-responsive">
+            <br>
+            <table id="finances-pay" class="table table-condensed table-hover table-meio" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th >#</th>
+                        <th class="text-center">Data do vencimento</th>
+                        <th class="text-center">Data de pagamento</th>
+                        <th class="text-center">Descrição</th>
+                        <th class="text-center">Categoria</th>
+                        <th class="text-center">Valor</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th >#</th>
+                        <th class="text-center">Data do vencimento</th>
+                        <th class="text-center">Data de pagamento</th>
+                        <th class="text-center">Descrição</th>
+                        <th class="text-center">Categoria</th>
+                        <th class="text-center">Valor</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <br>
+        </div>
 <!--        Teste tabela servside-->
         
         <div class="table-responsive">
@@ -260,14 +261,14 @@
             <table id="table-fees" class="table table-condensed table-hover table-format" >
                 <?php if ($modelo->get_table_data(1, '*',  'bills_to_pay', NULL, NULL, 'pay_id')): ?>
                 <thead>
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Data do vencimento</th>
-                        <th class="text-center">Data de pagamento</th>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Categoria</th>
-                        <th class="text-center">Valor</th>
-                        <th class="text-center">Salvar | Deletar | Informações </th>
+                    <tr class="text-center">
+                        <th >#</th>
+                        <th >Data do vencimento</th>
+                        <th >Data de pagamento</th>
+                        <th >Descrição</th>
+                        <th >Categoria</th>
+                        <th >Valor</th>
+                        <th >Editar | Deletar | Informações </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -280,7 +281,7 @@
                         <td style="color: chocolate"   title="Desconto"><?= $fetch_userdata['pay_cat']; ?></td>
                         <td style="color: #468847;" title="Particular" >R$ <span id="pay_val"><?= $fetch_userdata['pay_val']; ?></span></td>
                         <td>
-                            <button title="Editar informações" class="btn btn-sm btn-default btn-editable">
+                            <button title="Editar informações" class="btn btn-sm btn-default //btn-editable">
                                 <i style="color:#2196f3;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button> |
                             <a href="javascript:void(0);" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">

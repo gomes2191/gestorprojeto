@@ -359,13 +359,9 @@ class PayModel extends MainModel
             return;
         }
         
-        $data = [];
         
-        foreach ($query_get as $dados){
-            $data[] = $dados;
-        }
         # Retorna os valores da consulta
-        return $data;
+        return $query_get->fetchAll();
         
     }
     
