@@ -218,13 +218,19 @@ $(function () {
 
 // Rotina ajax CRUD página Contas a pagar
 $(function(){
-    
-   //Mudançã de formulário
-   
-   $(document).bind("click", '.btn-editable', function() {
-        console.log('Teste');
+    $(document).on('click', '.btn-pay-new', function(e){
+        $('#form-register').attr('data-id', '');
+        $('.title-form').text('ADICIONANDO NOVO REGISTRO');
+        
+        // Mostra o botão para voltar para formulario de inserção.
+        $('.btn-form-new').hide(500);
+        //$('#fees-btn-show').hide();
+        //$('#fees-btn-hide').show();
+        $('html, body').animate({scrollTop:0}, 'slow');
+        
+        alert('Funcionou!');
+        
     });
-   
     
     
   // Show loading message
@@ -262,17 +268,28 @@ $(function(){
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
   });
   
-  // Edit company button
+  // Editando registro
   $(document).on('click', '.btn-editable', function(e){
+      
     e.preventDefault();
     
-    //Abre o formulario para edição
+    // Insere o texto indicando o tipo de formulario
+    $('.title-form').text('EDITANDO REGISTRO');
+   
+    // Abre o formulario para edição
     $('.new-fees').show(500);
     $('#fees-btn-show').hide();
     $('#fees-btn-hide').show();
     $('html, body').animate({scrollTop:0}, 'slow');
     
-    // Get company information from database
+    // Mostra o botão para voltar para formulario de inserção.
+    $('.btn-form-new').show(500);
+    $('#fees-btn-show').hide();
+    $('#fees-btn-hide').show();
+    $('html, body').animate({scrollTop:0}, 'slow');
+    
+    
+    // Obter registro informações do BD
     show_loading_message();
     var id      = $(this).data('id');
     var request = $.ajax({
@@ -287,7 +304,7 @@ $(function(){
     console.log(request);
     request.done(function(output){
       if (output.result == 'success'){
-            $('.title-cont').text('Edição');
+            //$('.title-cont').text('Edição');
             //$('#form_company button').text('Edit company');
             $('#form-register').attr('class', 'form edit');
             $('#form-register').attr('data-id', id);

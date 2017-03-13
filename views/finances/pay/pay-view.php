@@ -144,9 +144,68 @@
         ?>
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
         <form id="form-register" class="form add" enctype="multipart/form-data" data-id="" method="post" action="" role="form" >
-            <fieldset>
-                <legend>CONTAS A PAGAR - <span>NOVA CONTA A PAGAR</span></legend>
+            
+            <div class="row">
+                <div class="col-md-2">
+                    
+                <!--Card Primary-->
+    <div class="card card-primary text-center z-depth-2">
+        <div class="card-block">
+            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        </div>
+    </div>
+    <!--/.Card Primary-->
+
+    <!--Card Danger-->
+    <div class="card card-danger text-center z-depth-2">
+        <div class="card-block">
+            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        </div>
+    </div>
+    <!--/.Card Danger-->
+
+    <!--Card Success-->
+    <div class="card card-success text-center z-depth-2">
+        <div class="card-block">
+            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        </div>
+    </div>
+    <!--/.Card Success-->
+
+</div>
+
+<div class="col-md-6">
+
+    <!--Card Warning-->
+    <div class="card card-warning text-center z-depth-2">
+        <div class="card-block">
+            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        </div>
+    </div>
+    <!--/.Card Warning-->
+
+    <!--Card Info-->
+    <div class="card card-info text-center z-depth-2">
+        <div class="card-block">
+            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        </div>
+    </div>
+    <!--/.Card Info-->
+
+    <!--Card Default-->
+    <div class="card default-color text-center z-depth-2">
+        <div class="card-block">
+            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        </div>
+    </div>
+    <!--/.Card Default-->
+
+
+                </div>
+                
+            </div>
                 <div class="row form-compact new-fees" style="display: none;">
+                    
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="pay_venc">Data de vencimento:</label>
                         <div class="input-group">
@@ -193,30 +252,34 @@
                     <br>
                 </div>
                
-                <div class="row form-compact new-fees" style="display: none;">
-                    <div class="form-group col-md-5 col-sm-12 col-xs-12">
-                        <div class="btn-group">
-                            <button title="Salvar informações" class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
-                        </div>
-                        <div class="btn-group">
-                            <button title="Limpar formulário" class="btn btn-warning marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
-                        </div>
-                        <div class="btn-group btn-form-new" style="display:none;">
-                            <button title="Ir para o formulario de inserção" class="btn btn-default marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Formulário de inserção</button>
-                        </div>
+            <div class="row form-compact new-fees" style="display: none;">
+                <div class="form-group col-md-5 col-sm-12 col-xs-12">
+                    <div class="btn-group">
+                        <button title="Salvar informações" class="btn btn-primary btn-pay-1" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
+                    </div>
+                    <div class="btn-group">
+                        <button title="Limpar formulário" class="btn btn-warning marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
+                    </div>
+                    <div class="btn-group btn-form-new" style="display:none;">
+                        <button title="Inserir nova conta a pagar" class="btn btn-default marg-top btn-pay-new" type="reset"><i class="glyphicon glyphicon-plus"></i> Novo registro</button>
                     </div>
                 </div>
-            </fieldset>
-            <div class="btn-group">
-                <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
             </div>
-            <div id="fees-btn-show" class="btn-group">
-                <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset">
-                    <i class="glyphicon glyphicon-plus"></i> Adicionar registro
-                </button>
-            </div>
-            <div id="fees-btn-hide" class="btn-group">
-                <button id="btn-new-hide" title="Ocultar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
+            <br>
+            <div class="row form-compact" >
+                <div class="form-group col-md-5 col-sm-12 col-xs-12">
+                    <div class="btn-group">
+                        <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
+                    </div>
+                    <div id="fees-btn-show" class="btn-group">
+                        <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset">
+                            <i class="glyphicon glyphicon-plus"></i> Adicionar registro
+                        </button>
+                    </div>
+                    <div id="fees-btn-hide" class="btn-group">
+                        <button id="btn-new-hide" title="Ocultar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
