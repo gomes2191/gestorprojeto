@@ -196,20 +196,50 @@ $(function () {
 
 
 
-//Teste
+//Parametros para o formulario hibrido dois em um
 $(function () {
-    $('#fees-btn-hide').hide();
+    $('#group-btn-hide').hide();
+    $('#group-btn-show').hide();
     $('#btn-new-show').click(function () {
-        $('.new-fees').show(500);
-        $('#fees-btn-show').hide();
-        $('#fees-btn-hide').show();
+        $('#group-btn-new').hide(500);
+        $('.form-hide').show(500);
+        $('#group-btn-hide').show(500);
+        $('.row-button-hide').show(500);
+        $('.notice-hide').show(200);
+        $('.notice-hide span').text('MODO ADICIONAR NOVO REGISTRO ATIVO');
     });
-
-    $('#btn-new-hide').click(function () {
-        $('.new-fees').hide(500);
-        $('#fees-btn-hide').hide();
-        $('#fees-btn-show').show();
-        $('#fees_id').val("");
+    
+    //Botao que oculta o fomulario
+    $('#btn-hide').click(function () {
+        $('#group-btn-hide').hide(500);
+        $('.form-hide').hide(500);
+        
+        //$('#fees-btn-hide').hide();
+        $('#group-btn-show').show();
+        //$('#fees_id').val("");
+        
+    });
+    
+    //Botao que mostra o formulario
+    $('#btn-show').click(function (e) {
+        e.preventDefault();
+        $('#group-btn-show').hide(200);
+        $('.form-hide').show(200);
+        $('#group-btn-hide').show(200);
+    });
+    
+    //Botao que voltar para adicionar novo registro
+    $('.btn-form-new').click(function (e) {
+        e.preventDefault();
+        $('#form-register').removeClass("edit");
+        $("#form-register").removeAttr("data-id");
+        // Insere o texto indicando o tipo de formulario
+        $('.notice-hide span').text('MODO ADICIONAR NOVO REGISTRO ATIVO');
+        
+        // Mostra o botão para voltar para formulario de inserção.
+        $('#group-btn-form-new').hide(200);
+        $('#group-btn-hide').show(200);
+        $('html, body').animate({scrollTop:0}, 'slow');
         
     });
 

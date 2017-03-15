@@ -128,159 +128,111 @@
 </script>
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
-        <?php
-            if ($form_msg) {
-                echo'<div class="alert alertH ' . $form_msg[0] . ' alert-dismissible fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
-                        </div>';
-                unset($form_msg);
-            } else {
-                unset($form_msg);
-            }
-        ?>
+        
+        <div id="message_container" class="message alert  alert-dismissible fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <i class="glyphicon glyphicon-info-sign" >&nbsp;</i>
+            <strong>Informção! </strong>&nbsp;<span class="message_txt"></span>
+        </div>
+        
         <!--<h4 class="text-center">CADASTRO DE FORNECEDORES</h4>-->
-        <form id="form-register" class="form add" enctype="multipart/form-data" data-id="" method="post" action="" role="form" >
-            
-            <div class="row">
+        <form id="form-register" enctype="multipart/form-data" data-id="" method="post" action="" role="form" >
+            <fieldset>
+                <legend >CONTAS A PAGAR</legend>
+                <div class="row notice-hide margin-top-1" style="display: none;">
                 <div class="col-md-2">
-                    
-                <!--Card Primary-->
-    <div class="card card-primary text-center z-depth-2">
-        <div class="card-block">
-            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        </div>
-    </div>
-    <!--/.Card Primary-->
-
-    <!--Card Danger-->
-    <div class="card card-danger text-center z-depth-2">
-        <div class="card-block">
-            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        </div>
-    </div>
-    <!--/.Card Danger-->
-
-    <!--Card Success-->
-    <div class="card card-success text-center z-depth-2">
-        <div class="card-block">
-            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        </div>
-    </div>
-    <!--/.Card Success-->
-
-</div>
-
-<div class="col-md-6">
-
-    <!--Card Warning-->
-    <div class="card card-warning text-center z-depth-2">
-        <div class="card-block">
-            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        </div>
-    </div>
-    <!--/.Card Warning-->
-
-    <!--Card Info-->
-    <div class="card card-info text-center z-depth-2">
-        <div class="card-block">
-            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        </div>
-    </div>
-    <!--/.Card Info-->
-
-    <!--Card Default-->
-    <div class="card default-color text-center z-depth-2">
-        <div class="card-block">
-            <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        </div>
-    </div>
-    <!--/.Card Default-->
-
-
+                    <div class="notice notice-sm">
+                        <span></span>
+                    </div>
                 </div>
-                
             </div>
-                <div class="row form-compact new-fees" style="display: none;">
-                    
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="pay_venc">Data de vencimento:</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                            <input id="pay_venc" name="pay_venc" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
-                            <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
-                        </div>
-                        <br>
-                    </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="pay_date_pay">Data de pagamento:</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                            <input id="pay_date_pay" name="pay_date_pay" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
-                            <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
-                        </div>
-                        <br>
-                    </div>
-                    
-                    <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                        <label for="pay_desc"> Descrição:</label>
-                        <input id="pay_desc" name="pay_desc" class="form-control" type="text" placeholder="Descreva as informações aqui..." value="">
-                        <br>
-                    </div>
-                    
-                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="pay_cat">Categoria:</label>
-                        <select id="pay_cat" name="pay_cat" class="form-control">
-                            <option>Teste 1</option>
-                            <option>Teste 2</option>
-                        </select>
-                        <br>
-                    </div>
-                    
-                     <div class="form-group col-md-2 col-sm-12 col-xs-12" >
-                        <label for="pay_val">Valor montante ( em reais )</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">R$</div>
-                            <input id="pay_val" name="pay_val" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" >
-                            <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
-                        </div>
-                        <br>
+            <div class="row form-compact form-hide" style="display: none;">
+
+                <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <label for="pay_venc">Data de vencimento:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                        <input id="pay_venc" name="pay_venc" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
+                        <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
                     </div>
                     <br>
                 </div>
+                
                
-            <div class="row form-compact new-fees" style="display: none;">
+                <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <label for="pay_date_pay">Data de pagamento:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                        <input id="pay_date_pay" name="pay_date_pay" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
+                        <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
+                    </div>
+                    <br>
+                </div>
+
+                <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                    <label for="pay_desc"> Descrição:</label>
+                    <input id="pay_desc" name="pay_desc" class="form-control" type="text" placeholder="Descreva as informações aqui..." value="">
+                    <br>
+                </div>
+
+                <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <label for="pay_cat">Categoria:</label>
+                    <select id="pay_cat" name="pay_cat" class="form-control">
+                        <option>Teste 1</option>
+                        <option>Teste 2</option>
+                    </select>
+                    <br>
+                </div>
+
+                <div class="form-group col-md-2 col-sm-12 col-xs-12" >
+                    <label for="pay_val">Valor montante ( em reais )</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">R$</div>
+                        <input id="pay_val" name="pay_val" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" >
+                        <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                    </div>
+                    <br>
+                </div>
+                <br>
+            </div>
+
+            <div class="row form-compact row-button-hide" style="display: none;">
                 <div class="form-group col-md-5 col-sm-12 col-xs-12">
-                    <div class="btn-group">
-                        <button title="Salvar informações" class="btn btn-primary btn-pay-1" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
+                    <div id="group-btn-save" class="btn-group">
+                        <button id="btn-save" title="Salvar informações" class="btn btn-sm btn-primary" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
                     </div>
-                    <div class="btn-group">
-                        <button title="Limpar formulário" class="btn btn-warning marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
+                    <div id="group-btn-reset" class="btn-group">
+                        <button title="Limpar formulário" class="btn btn-sm btn-warning marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
                     </div>
-                    <div class="btn-group btn-form-new" style="display:none;">
-                        <button title="Inserir nova conta a pagar" class="btn btn-default marg-top btn-pay-new" type="reset"><i class="glyphicon glyphicon-plus"></i> Novo registro</button>
+                    <div id="group-btn-form-new" class="btn-group" style="display:none;">
+                        <button title="Inserir nova conta a pagar" class="btn btn-sm btn-default marg-top btn-form-new" type="reset"><i class="glyphicon glyphicon-plus"></i> Novo registro</button>
                     </div>
                 </div>
             </div>
-            <br>
+            
             <div class="row form-compact" >
                 <div class="form-group col-md-5 col-sm-12 col-xs-12">
-                    <div class="btn-group">
+                    <!--<div id="group-btn-form-new" class="btn-group">
                         <a href="<?= HOME_URI; ?>/covenant" class="btn btn-default" title="Ir para lista de conveniados"><i class="fa fa-list fa-1x" aria-hidden="true"></i> Listar convênios</a>
-                    </div>
-                    <div id="fees-btn-show" class="btn-group">
-                        <button id="btn-new-show" title="Mostrar formulário" class="btn btn-default marg-top" type="reset">
-                            <i class="glyphicon glyphicon-plus"></i> Adicionar registro
+                    </div>-->
+                    <div id="group-btn-new" class="btn-group">
+                        <button id="btn-new-show" title="Insere novo registro" class="btn btn-sm btn-primary marg-top" type="reset">
+                            <i class="glyphicon glyphicon-plus"></i> Novo registro
                         </button>
                     </div>
-                    <div id="fees-btn-hide" class="btn-group">
-                        <button id="btn-new-hide" title="Ocultar formulário" class="btn btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
+                    <div id="group-btn-show" class="btn-group">
+                        <button id="btn-show" title="Mostrar formulário" class="btn btn-sm btn-default marg-top" type="reset">
+                            <i class="glyphicon glyphicon-plus"></i> Mostrar formulário
+                        </button>
+                    </div>
+                    <div id="group-btn-hide" class="btn-group">
+                        <button id="btn-hide" title="Ocultar formulário" class="btn btn-sm btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
                     </div>
                 </div>
             </div>
+                </fieldset>
         </form>
     </div>
 </div> <!-- /row  -->
@@ -291,7 +243,7 @@
 <!--        Teste tabela servside-->
         <div class="table-responsive">
             <br>
-            <table id="finances-pay" class="table table-condensed table-hover table-meio" width="100%" cellspacing="0">
+            <table id="table_pay" class="table table-condensed table-hover table-meio" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th >#</th>
@@ -344,10 +296,10 @@
                         <td style="color: chocolate"   title="Desconto"><?= $fetch_userdata['pay_cat']; ?></td>
                         <td style="color: #468847;" title="Particular" >R$ <span id="pay_val"><?= $fetch_userdata['pay_val']; ?></span></td>
                         <td>
-                            <button title="Editar informações" class="btn btn-sm btn-default //btn-editable">
+                            <button title="Editar informações" class="btn btn-xs btn-default //btn-editable">
                                 <i style="color:#2196f3;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button> |
-                            <a href="javascript:void(0);" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-default">
+                            <a href="javascript:void(0);" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-default">
                                 <i style="color: #c71c22;" class="fa fa-1x fa-times" aria-hidden="true"></i>
                             </a> |
                             <a href="<?= HOME_URI; ?>/finances-pay/pay-box-view?v=<?= $modelo->encode_decode($fetch_userdata['pay_id']); ?>" class="btn btn-sm btn-default" data-toggle="modal" data-target="#infor-view" title="Visualizar informações" >
@@ -428,6 +380,31 @@
             </div>
         </div>
         <!-- End modal -->
+        
+        
+        <!--Teste-->
+        <noscript id="noscript_container">
+      <div id="noscript" class="error">
+        <p>JavaScript support is needed to use this page.</p>
+      </div>
+    </noscript>
+
+    <div id="message_container">
+      <div id="message" class="success">
+        <p>This is a success message.</p>
+      </div>
+    </div>
+
+    <div id="loading_container">
+      <div id="loading_container2">
+        <div id="loading_container3">
+          <div id="loading_container4">
+            Loading, please wait...
+          </div>
+        </div>
+      </div>
+    </div>
+        <!--Teste-->
         
     </div>
 </div>

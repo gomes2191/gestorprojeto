@@ -218,28 +218,8 @@ $(function () {
 
 // Rotina ajax CRUD página Contas a pagar
 $(function(){
-    $(document).on('click', '.btn-pay-new', function(e){
-        $('#form-register').attr('data-id', '');
-        $('.title-form').text('ADICIONANDO NOVO REGISTRO');
-        
-        // Mostra o botão para voltar para formulario de inserção.
-        $('.btn-form-new').hide(500);
-        //$('#fees-btn-show').hide();
-        //$('#fees-btn-hide').show();
-        $('html, body').animate({scrollTop:0}, 'slow');
-        
-        alert('Funcionou!');
-        
-    });
-    
-    
-  // Show loading message
-  function show_loading_message(){
-    //$('#loading_container').show();
-    alert('Carregando edição...');
-  }  
   // Carrega os dados e a tabela: datatable
-  var table_pay = $('#finances-pay').dataTable({
+  var table_pay = $('#table_pay').dataTable({
     "language": {url: 'Portuguese-Brasil.json'},
     "dom": 'Bfrtip',
     "buttons": [{
@@ -268,28 +248,154 @@ $(function(){
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
   });
   
+  // Show message
+  function show_message(message_text, message_type){
+    $('.message').addClass(message_type);
+    $('.message_txt').html( message_text );
+    $('#message_container').show();
+    if (typeof timeout_message !== 'undefined'){
+      window.clearTimeout(timeout_message);
+    }
+    timeout_message = setTimeout(function(){
+      hide_message();
+    }, 8000);
+  }
+  // Hide message
+  function hide_message(){
+    //$('.message').html('').attr('class', '');
+    //$('#message_container').hide();
+    
+    $("#message_container").hide();
+    $("#message_container").alert();
+    $("#message_container").fadeTo(3300, 3300).slideUp(200, function () {
+    $("#message_container").slideUp(200); });
+  }
+
+  // Show loading message
+  function show_loading_message(){
+    $('#loading_container').show();
+  }
+  // Hide loading message
+  function hide_loading_message(){
+    $('#loading_container').hide();
+  }
+
+  // Show lightbox
+  function show_lightbox(){
+    $('.lightbox_bg').show();
+    $('.lightbox_container').show();
+  }
+  // Hide lightbox
+  function hide_lightbox(){
+    $('.lightbox_bg').hide();
+    $('.lightbox_container').hide();
+  }
+  // Lightbox background
+  $(document).on('click', '.lightbox_bg', function(){
+    hide_lightbox();
+  });
+  // Lightbox close button
+  $(document).on('click', '.lightbox_close', function(){
+    hide_lightbox();
+  });
+  // Escape keyboard key
+  $(document).keyup(function(e){
+    if (e.keyCode == 27){
+      hide_lightbox();
+    }
+  });
+  
+  // Hide iPad keyboard
+  function hide_ipad_keyboard(){
+    document.activeElement.blur();
+    $('input').blur();
+  }
+  
+  
+  // Add company button
+  $(document).on('click', '#btn-new-show', function(e){
+    e.preventDefault();
+    //$('.lightbox_content h2').text('Add company');
+    $('#form-register #btn-save').text('Add conta');
+    $('#form-register').attr('class', 'form add');
+    $("#form-register").removeAttr("data-id");
+    //$('#form_company .field_container label.error').hide();
+    //$('#form_company .field_container').removeClass('valid').removeClass('error');
+    //$('#form-register #rank').val('');
+    //$('#form-registery #company_name').val('');
+    //$('#form-register #industries').val('');
+    //$('#form-register #revenue').val('');
+    //$('#form-register #fiscal_year').val('');
+    //$('#form-register #employees').val('');
+    //$('#form-register #market_cap').val('');
+    //$('#form-register #headquarters').val('');
+    //show_lightbox();
+  });
+
+  // Add company submit form
+  $(document).on('submit', '#form-register.add', function(e){
+    e.preventDefault();
+    
+    validate = true;
+    // Validate form
+    if (validate == true){
+      // Send company information to database
+      hide_ipad_keyboard();
+      //hide_lightbox();
+      //show_loading_message();
+      var form_data = $('#form-register').serialize();
+      var request   = $.ajax({
+        url:          'finances-pay/ajax-process?job=add_pay',
+        cache:        false,
+        data:         form_data,
+        dataType:     'json',
+        contentType:  'application/json; charset=utf-8',
+        type:         'get'
+      });
+      request.done(function(output){
+        if (output.result == 'success'){
+          // Reload datable
+          table_pay.api().ajax.reload(function(){
+            //hide_loading_message();
+            var pay_name = $('#pay_desc').val();
+            show_message("Descrição: '" + pay_name + "' added successfully.", 'alert-success');
+          }, true);
+        } else {
+          hide_loading_message();
+          show_message('Add request failed', 'error');
+        }
+      });
+      request.fail(function(jqXHR, textStatus){
+          alert('Teste 2');
+        //hide_loading_message();
+        //show_message('Add request failed: ' + textStatus, 'error');
+      });
+    }
+  });
+  
   // Editando registro
   $(document).on('click', '.btn-editable', function(e){
       
     e.preventDefault();
-    
-    // Insere o texto indicando o tipo de formulario
-    $('.title-form').text('EDITANDO REGISTRO');
    
-    // Abre o formulario para edição
-    $('.new-fees').show(500);
-    $('#fees-btn-show').hide();
-    $('#fees-btn-hide').show();
+    // Prepara e abre o formulario de edição com os parametros necessarios
+    $('.notice-hide').show(200);
+    $('.notice-hide span').text('MODO EDIÇÃO DE REGISTRO ATIVO');
+    $('.form-hide').show(500);
+    $('.row-button-hide').show(500);
+    $('#group-btn-hide').hide(500);
+    $('#group-btn-new').hide(500);
+    $('#group-btn-form-new').show(500);
     $('html, body').animate({scrollTop:0}, 'slow');
     
     // Mostra o botão para voltar para formulario de inserção.
-    $('.btn-form-new').show(500);
+    $('.group-btn-form-new').show(500);
     $('#fees-btn-show').hide();
     $('#fees-btn-hide').show();
     $('html, body').animate({scrollTop:0}, 'slow');
     
     
-    // Obter registro informações do BD
+    // Obter registro e informações do BD
     show_loading_message();
     var id      = $(this).data('id');
     var request = $.ajax({
@@ -301,7 +407,6 @@ $(function(){
       type:         'get'
     });
     
-    console.log(request);
     request.done(function(output){
       if (output.result == 'success'){
             //$('.title-cont').text('Edição');
@@ -315,9 +420,9 @@ $(function(){
             $('#form-register #pay_desc').val(output.data[0].pay_desc);
             $('#form-register #pay_cat').val(output.data[0].pay_cat);
             $('#form-register #pay_val').val(output.data[0].pay_val);
-            $('#form-register #employees').val(output.data[0].employees);
-            $('#form-register #market_cap').val(output.data[0].market_cap);
-            $('#form-register #headquarters').val(output.data[0].headquarters);
+            //$('#form-register #employees').val(output.data[0].employees);
+            //$('#form-register #market_cap').val(output.data[0].market_cap);
+            //$('#form-register #headquarters').val(output.data[0].headquarters);
             hide_loading_message();
             show_lightbox();
       } else {
@@ -331,5 +436,64 @@ $(function(){
     });
   });
   
+  
+  // Edit company submit form
+  $(document).on('submit', '#form-register.edit', function(e){
+    e.preventDefault();
+    var validate = true;
+    // Validate form
+    if (validate === true){
+      // Send company information to database
+      //hide_ipad_keyboard();
+      //hide_lightbox();
+      //show_loading_message();
+      var id        = $('#form-register').attr('data-id');
+      var form_data = $('#form-register').serialize();
+      var request   = $.ajax({
+        url:          'finances-pay/ajax-process?job=edit_pay&id=' + id,
+        cache:        false,
+        data:         form_data,
+        dataType:     'json',
+        contentType:  'application/json; charset=utf-8',
+        type:         'get'
+      });
+      request.done(function(output){
+        if (output.result == 'success'){
+            
+          // Reload datable
+          table_pay.api().ajax.reload(function(){
+            //hide_loading_message();
+            var pay_desc = $('#pay_desc').val();
+            show_message("Registro '" + pay_desc + "' edited successfully.", 'success');
+          }, true);
+        } else {
+          //hide_loading_message();
+          //show_message('Edit request failed', 'error');
+        }
+      });
+      request.fail(function(jqXHR, textStatus){
+        
+        //hide_loading_message();
+        //show_message('Edit request failed: ' + textStatus, 'error');
+      });
+    }
+  });
+
+  
 });
 
+
+ 
+//Quadro de avisos ação
+$(document).ready(function () {
+    $(".readMore").click(function () {
+        var This = $(this);
+        $(this).next().toggle(function () {
+            if (This.text() == "Read") {
+                This.text("Hide")
+            } else {
+                This.text("Read")
+            }
+        })
+    });
+});

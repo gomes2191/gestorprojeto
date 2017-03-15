@@ -62,17 +62,14 @@ class PayModel extends MainModel
         $this->form_data = [];
         
         # Verifica se algo foi postado no formulário
-        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
-            
+        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'GET') && (!empty(filter_input_array(INPUT_GET, FILTER_DEFAULT) ) ) ) {
             # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
+            foreach ( filter_input_array(INPUT_GET, FILTER_DEFAULT) as $key => $value ) {
                 
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
                 
             } # End foreach
-            
-            
             
             //var_dump($this->form_data);die;
             
@@ -132,28 +129,15 @@ class PayModel extends MainModel
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ( $query_ins ) {
-            
-            # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro efetuado com sucesso!'];
-                
-            # Da um refresh na página apos um determinado tempo especifico
-            echo '<meta http-equiv="Refresh" content="4">';
-            
-            # Destroy variável não mais utilizada
-            unset($query_ins);
-            
-            # Finaliza execução.
-            return;
+            $this->form_msg = ['result'=>'success', 'message'=>'query success'];
+            return $this->form_msg;
         }else{
+            # Feedback
+            $this->form_msg = ['result'=>'error', 'message'=>'query error'];
             
-            # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
+            # Retorna o valor e finaliza execução
+            return $this->form_msg;
             
-            # Destroy variáveis não mais utilizadas.
-            unset($query_ins);
-            
-            # Finaliza execução.
-            return;
         }
         
     }

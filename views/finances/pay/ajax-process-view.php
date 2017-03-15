@@ -12,9 +12,9 @@ if (isset($_GET['job'])){
   
   if ($job == 'get_pays' ||
       $job == 'get_pay'   ||
-      $job == 'add_company'   ||
-      $job == 'edit_company'  ||
-      $job == 'delete_company'){
+      $job == 'add_pay'   ||
+      $job == 'edit_pay'  ||
+      $job == 'delete_pay'){
     if (isset($_GET['id'])){
       $id = $_GET['id'];
       if (!is_numeric($id)){
@@ -25,6 +25,9 @@ if (isset($_GET['job'])){
     $job = '';
   }
 }
+
+// Prepare array
+$mysql_data = [];
 
 // Valid job found
 if ($job != ''){
@@ -48,9 +51,9 @@ if ($job != ''){
       foreach($query as $pay){
         //var_dump($pay);die;
         
-        $functions ='<button title="Editar informações" class="btn btn-sm btn-warning btn-editable" data-id="'   . $pay['pay_id'] . '" data-name="' . $pay['pay_desc'] . '">Editar</button>'; 
-        $functions .=' | <a href="javascript:void(0);" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-danger">Excluir</a>'; 
-        $functions .=' | <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#infor-view" title="Visualizar informações" >Visualizar</a>';
+        $functions ='<button title="Editar informações" class="btn btn-xs btn-warning btn-editable" data-id="'   . $pay['pay_id'] . '" data-name="' . $pay['pay_desc'] . '">Editar</button>'; 
+        $functions .=' | <a href="javascript:void(0);" title="Eliminar registro" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-danger">Excluir</a>'; 
+        $functions .=' | <a href="" class="btn btn-xs btn-success" data-toggle="modal" data-target="#infor-view" title="Visualizar informações" >Visualizar</a>';
         //$functions  = '<div class="function_buttons"><ul>';
         //$functions .= '<li class="function_edit"><a data-id="'   . $pay['pay_id'] . '" data-name="' . $pay['pay_desc'] . '"><span>Editar</span></a></li>';
         //$functions .= '<li class="function_delete"><a data-id="' . $pay['pay_id'] . '" data-name="' . $pay['pay_desc'] . '"><span>Deletar</span></a></li>';
@@ -95,16 +98,16 @@ if ($job != ''){
       }
     }
   
+  }elseif ($job == 'add_pay'){
+    $modelo->validate_register_form();
+    $data = $modelo->form_msg;
+    
   }
   
 }
 
-// Prepare data
-$data = [
-  "result"  => $result,
-  "message" => $message,
-  "data"    => $mysql_data
-];
+// Prepara os dados
+$data['data'] = $mysql_data;
 
 // Convert PHP array to JSON array
 $json_data = json_encode($data);
