@@ -220,18 +220,23 @@ $(function () {
 $(function(){
   // Carrega os dados e a tabela: datatable
   var table_pay = $('#table_pay').dataTable({
+      stateSave: true,
+    //"displayLength": 8, //Começaremos com apenas 15 registros
+    //serverSide: true,  //Quem vai tratar a interação com a tabela é o servidor
+    //"paginate": true,    //Queremos paginas
+    //"filter": true,      //Queremos que o usuário possa procurar entre os 5k registros
+    "ajax": "finances-pay/ajax-process?job=get_pays", //O seu script que vai filtrar os dados do lado do servidor
     "language": {url: 'Portuguese-Brasil.json'},
-    "dom": 'Bfrtip',
-    "buttons": [{
-        "extend": 'copy',
-        "text": 'Copiar'},
-    {
-        "extend": 'excel',
-        "text": 'Gerar excel'},
-    {
-        "extend": 'pdf',
-        "text": 'Gerar PDF'}],
-    "ajax": "finances-pay/ajax-process?job=get_pays",
+//    "dom": 'Bfrtip',
+//    "buttons": [{
+//        "extend": 'copy',
+//        "text": 'Copiar'},
+//    {
+//        "extend": 'excel',
+//        "text": 'Gerar excel'},
+//    {
+//        "extend": 'pdf',
+//        "text": 'Gerar PDF'}],
     "columns": [
       { "data": "pay_id"},
       { "data": "pay_venc", "sClass": "text-center"},

@@ -18,6 +18,16 @@
     # Verifica se existe feedback e retorna o feedback se sim se não retorna false
     $form_msg = $modelo->form_msg;
     
+    // Número de artigos por página
+    $artigos_por_pagina = 9;
+    
+    
+    var_dump($modelo->get_table_data(3, '*',  'bills_to_pay', NULL, NULL, 'pay_id', 0, 1));die;
+    
+    // Página atual onde vamos começar a mostrar os valores
+    $pagina_atual = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 0;
+    $pagina_atual = $pagina_atual * $artigos_por_pagina;
+    
 ?>
 
 <script>
@@ -254,19 +264,9 @@
                         <th class="text-center">Valor</th>
                         <th class="text-center">Ações</th>
                     </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th >#</th>
-                        <th class="text-center">Data do vencimento</th>
-                        <th class="text-center">Data de pagamento</th>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Categoria</th>
-                        <th class="text-center">Valor</th>
-                        <th class="text-center">Ações</th>
-                    </tr>
-                </tfoot>
+                </thead>                
             </table>
+            
             <br>
         </div>
 <!--        Teste tabela servside-->
@@ -274,7 +274,7 @@
         <div class="table-responsive">
             <br>
             <table id="table-fees" class="table table-condensed table-hover table-format" >
-                <?php if ($modelo->get_table_data(1, '*',  'bills_to_pay', NULL, NULL, 'pay_id')): ?>
+                <?php if ($modelo->get_table_data(3, '*',  'bills_to_pay', NULL, NULL, 'pay_id')): ?>
                 <thead>
                     <tr class="text-center">
                         <th >#</th>
@@ -287,7 +287,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ( $modelo->get_table_data(1, '*',  'bills_to_pay', NULL, NULL, 'pay_id') as $fetch_userdata  ): ?>
+                    <?php foreach ( $modelo->get_table_data(3, '*',  'bills_to_pay', NULL, NULL, 'pay_id') as $fetch_userdata  ): ?>
                     <tr class="text-center"> 
                         <td id="pay_id" > <?= $fetch_userdata['pay_id']; ?></td>
                         <td title="Código" id="pay_venc"><?= $fetch_userdata['pay_venc']; ?></td>
