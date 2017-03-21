@@ -517,7 +517,7 @@ $(document).ready(function () {
 			editing: {
                                 "showText": '<span class="fooicon fooicon-pencil" aria-hidden="true"></span> Editar registro',
                                 "addText": "Add registro",
-                                "deleteText": '<span class="fooicon fooicon-trash" aria-hidden="true"></span>',
+                                "hideText": "Cancelar",
 				addRow: function(){
 					$modal.removeData('row');
 					$editor[0].reset();
