@@ -15,6 +15,8 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 
     # Verifica se existe feedback e retorna o feedback se sim se não retorna false
     $form_msg = $modelo->form_msg;
+    
+    $modelo->getJSON('bills_to_pay', 'pay_id');
 ?>
 
 <script>
@@ -36,7 +38,6 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 
         <!-- Table Markup -->
         <table id="showcase-example-1" class="table" data-paging="true" data-filtering="true" data-sorting="true" data-editing="true" data-state="true">
-            
         </table>
 
         <!-- Editing Modal Markup -->

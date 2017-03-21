@@ -220,7 +220,7 @@ $(function () {
 $(function(){
   // Carrega os dados e a tabela: datatable
   var table_pay = $('#table_pay').dataTable({
-      stateSave: true,
+      //stateSave: true,
     //"displayLength": 8, //Começaremos com apenas 15 registros
     //serverSide: true,  //Quem vai tratar a interação com a tabela é o servidor
     //"paginate": true,    //Queremos paginas
@@ -515,6 +515,9 @@ $(document).ready(function () {
 			columns: $.get("columns.json"),
 			rows: $.get("rows.json"),
 			editing: {
+                                "showText": '<span class="fooicon fooicon-pencil" aria-hidden="true"></span> Editar registro',
+                                "addText": "Add registro",
+                                "deleteText": '<span class="fooicon fooicon-trash" aria-hidden="true"></span>',
 				addRow: function(){
 					$modal.removeData('row');
 					$editor[0].reset();

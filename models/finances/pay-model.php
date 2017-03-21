@@ -359,6 +359,51 @@ class PayModel extends MainModel
         
     }
     
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: getJSON() 
+    *   @Descrição: Recebe a tabela e o id, e retorna um JSON dos dados.
+    **/ 
+  public function getJSON($table, $id) {
+
+        # Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query("SELECT * FROM $table ORDER BY $id");
+
+        # Verifica se a consulta está OK
+        if (!$query) {
+
+            # Finaliza execução
+            return;
+        }
+
+        # Retorna os valores da consulta
+        $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Prepara a conversao para o formato desejado
+        foreach ($queryResult as $pay) {
+            $mysql_data[] = [
+                "pay_id"        => $pay['pay_id'],
+                "pay_venc"      => $pay['pay_venc'],
+                "pay_date_pay"  => $pay['pay_date_pay'],
+                "pay_cat"       => '$ ' . $pay['pay_cat'],
+                "pay_desc"      => $pay['pay_desc'],
+                "pay_val"       => $pay['pay_val']
+            ];
+        }
+        
+        # Cria o arquivo JSON
+        $fp = fopen('arquivo.json', 'w');
+        fwrite($fp, json_encode($mysql_data));
+        fclose($fp);
+
+        # Finaliza execução
+        return;
+        
+    } # End getJSON()
+
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
