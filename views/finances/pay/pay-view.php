@@ -15,8 +15,6 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 
     # Verifica se existe feedback e retorna o feedback se sim se não retorna false
     $form_msg = $modelo->form_msg;
-    
-    $modelo->getJSON('bills_to_pay', 'pay_id');
 ?>
 
 <script>
@@ -34,78 +32,98 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
-        <!--Implementação da nova tabela--> 
+        <!--Implementação da nova tabela-->
 
-        <!-- Table Markup -->
-        <table id="showcase-example-1" class="table" data-paging="true" data-filtering="true" data-sorting="true" data-editing="true" data-state="true">
-        </table>
+        <section id="container" >
 
-        <!-- Editing Modal Markup -->
-        <div class="modal fade" id="editor-modal" tabindex="-1" role="dialog" aria-labelledby="editor-title">
-            <style scoped>
-                /* provides a red astrix to denote required fields - this should be included in common stylesheet */
-                .form-group.required .control-label:after {
-                    content:"*";
-                    color:red;
-                    margin-left: 4px;
-                }
-            </style>
-            <div class="modal-dialog" role="document">
-                <form class="modal-content form-horizontal" id="editor">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="editor-title">Add Row</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="number" id="id" name="id" class="hidden"/>
-                        <div class="form-group required">
-                            <label for="firstName" class="col-sm-3 control-label">First Name</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
-                            </div>
-                        </div>
-                        <div class="form-group required">
-                            <label for="lastName" class="col-sm-3 control-label">Last Name</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="jobTitle" class="col-sm-3 control-label">Job Title</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="Job Title">
-                            </div>
-                        </div>
-                        <div class="form-group required">
-                            <label for="startedOn" class="col-sm-3 control-label">Started On</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control" id="startedOn" name="startedOn" placeholder="Started On" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="dob" class="col-sm-3 control-label">Date of Birth</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="status" class="col-sm-3 control-label">Status</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" id="status" name="status">
-                                    <option value="Active">Active</option>
-                                    <option value="Disabled">Disabled</option>
-                                    <option value="Suspended">Suspended</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+			<!--main content start-->
+			<section id="main-content" style="margin-left: 0px;">
+				<section class="wrapper">
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+						<p>Type a name to begin searching</p>
+								<form class="form-horizontal" name="search" role="form" method="POST" onkeypress="return event.keyCode != 13;">
+									<div class="input-group col-sm-11">
+										<input id="name" name="name" type="text" class="form-control" placeholder="Search by name..." autocomplete="off"/>
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default btnSearch">
+												<span class="glyphicon glyphicon-search"> </span>
+											</button> </span>
+									</div>
+								</form>
+						</div>
+
+					</div>
+
+					<div class="row mt">
+						<div class="col-lg-12">
+							<div class="content-panel tablesearch">
+
+								<section id="unseen">
+									<table id="resultTable" class="table table-bordered table-hover table-condensed">
+										<thead>
+											<tr>
+									
+												<th class="small">Name</th>
+												<th class="small">Company</th>
+												<th class="small">Zip</th>
+												<th class="small">City</th>
+									
+											</tr>
+										</thead>
+									
+										<tbody></tbody>
+									</table>
+								</section>
+
+							</div><!-- /content-panel -->
+						</div><!-- /col-lg-4 -->
+					</div><!-- /row -->
+					
+
+					<div class="row mt">
+						<div class="col-lg-12">
+							<h3>Top Searches</h3>
+							<p>These results are ranked by popularity in the query_data table. Each time the complete name is entered in the search, a +1 is registered and incremented.</p>
+							<div class="content-panel">
+
+								<section id="unseen">
+									<table id="resultTable-topsearch" class="table table-bordered table-hover table-condensed">
+										<thead>
+											<tr>
+									
+												<th class="small">Name</th>
+												<th class="small">Company</th>
+												<th class="small">Zip</th>
+												<th class="small">City</th>
+									
+											</tr>
+										</thead>
+									
+										<tbody><?= $modelo->getSelect_return("SELECT * FROM `bills_to_pay` c INNER JOIN `query_data` q ON c.pay_date_pay = q.name ORDER BY querycount DESC LIMIT 5"); # Display 10 most recent search items ?></tbody>
+									</table>
+								</section>
+
+							</div><!-- /content-panel -->
+						</div><!-- /col-lg-4 -->
+					</div><!-- /row -->
+
+					
+			
+					<p>
+						Check out the full tutorial at <a href="http://lekkerlogic.com/blog/‎?p=16">LekkerLogic.com - PHP MySQL Ajax Live Data Table Tutorial</a>
+					</p>
+
+				</section>
+				<! --/wrapper -->
+			</section><!-- /MAIN CONTENT -->
+
+			<!--main content end-->
+
+		</section>
+        
+        
         <!--Implementação da nova tabela-->
         
         <!-- Start Modal deletar fornecedores -->
@@ -126,6 +144,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        
         <!-- Start Modal Informações de pagamentos -->
         <div id="infor-view" class="modal fade" >
             <div class="modal-dialog">
@@ -136,7 +155,6 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
             </div>
         </div>
         <!-- End modal -->
-
     </div>
 </div>
 

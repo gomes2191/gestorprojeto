@@ -152,7 +152,7 @@ class FinancesPayController extends MainController {
     }   #--> End cad
     
     # URL: dominio.com/exemplo/exemplo
-    public function AjaxProcess() {
+    public function Search() {
         #   Parametros da função
         #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
@@ -171,10 +171,36 @@ class FinancesPayController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/pay/ajax-process-view.php');
+        require_once (ABSPATH . '/views/finances/pay/search-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
-    }   #--> End cad
+    }   #--> End Search
+    
+    # URL: dominio.com/exemplo/exemplo
+    public function TopSearch() {
+        #   Parametros da função
+        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+        
+        #   Page title
+        #$this->title = ' Honorários';
+        
+        #---> Inclua seus models e views aqui
+        
+        #   Carrega o modelo
+        $modelo = $this->load_model('finances/pay-model');
+
+        #   Carrega o topo
+        //require_once (ABSPATH . '/views/_includes/header.php');
+        
+        #   Carrega menus
+        //require_once (ABSPATH.'/views/_includes/menu.php');
+
+        #   Carrega o view
+        require_once (ABSPATH . '/views/finances/pay/top-search-view.php');
+
+        //require_once (ABSPATH . '/views/_includes/footer.php');
+        
+    }   #--> End TopSearch
     
 }   #--> End FonecedoresController
