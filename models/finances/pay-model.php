@@ -304,7 +304,7 @@ class PayModel extends MainModel
      *   @Função: get_table_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_table_data( $tipo, $campo, $table, $id_campo, $get_id, $id, $sql_update, $sql_select  ) {
+    public function get_table_data( $tipo, $campo, $table, $id_campo, $get_id, $id, $sqlUpdate, $sqlSelect  ) {
         
         if ($tipo == 1){
              
@@ -330,7 +330,7 @@ class PayModel extends MainModel
             
         }elseif ($tipo == 3){
             # Faz o update na tabela
-            $query = $this->db->query($sql_update);
+            $query = $this->db->query($sqlUpdate);
              
             # Destroy todas as variaveis nao mais utilizadas
             //unset($tipo, $campo, $table, $id_campo, $get_id, $id);
@@ -339,42 +339,40 @@ class PayModel extends MainModel
             return $query;
         }elseif($tipo = 4) {
             # Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query($sql_select);
+            $queryGet = $this->db->query($sqlSelect);
+           
+            while ( $results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
+                $results_array[] = $results;
+            }
             
-             return $query;
+            return $results_array;
         }
          
     }   # End get_table_data()
     
-    
     public function getSelect_return($sql){
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query($sql);
-    
-    $result_array = [];    
-    # Retorna os valores da consulta
-    while($results = $query_get->fetchAll(PDO::FETCH_ASSOC)) {
+        $queryGet = $this->db->query($sql);
         
-        $result_array[] = $results;
-    }
+        # Declara o array
+        ;    
+        # Retorna os valores da consulta
+        while($results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
+            $result_array[0] = $results;
+        }
 
-    foreach ($result_array as $result) {
-        # The output
-        echo '<tr>';			
-        echo '<td class="small">'.$result['name'].'</td>';
-        echo '<td class="small">'.$result['company'].'</td>';
-        echo '<td class="small">'.$result['zip'].'</td>';
-        echo '<td class="small">'.$result['city'].'</td>';
-        echo '</tr>';	
+        foreach ($result_array as $result) {
+            # The output
+            echo '<tr>';			
+            echo '<td class="small">'.$result[0]['pay_id'].'</td>';
+            echo '<td class="small">'.$result['pay_venc'].'</td>';
+            echo '<td class="small">'.$result['pay_date_pay'].'</td>';
+            echo '<td class="small">'.$result['pay_cat'].'</td>';
+            echo '<td class="small">'.$result['pay_desc'].'</td>';
+            echo '<td class="small">'.$result['pay_val'].'</td>';
+            echo '</tr>';	
+        }
     }
-
-        
-        
-        
-        
-        
-    }
-    
     
     /**
     *   @Acesso: public

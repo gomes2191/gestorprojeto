@@ -112,26 +112,26 @@ class OdontoControlDB
 	 */
 	public function query( $stmt, $data_array = null ) {
 		
-		// Prepara e executa
-		$query      = $this->pdo->prepare( $stmt );
-		$check_exec = $query->execute( $data_array );
-		
-		// Verifica se a consulta aconteceu
-		if ( $check_exec ) {
-			
-			// Retorna a consulta
-			return $query;
-			
-		} else {
-		
-			// Configura o erro
-			$error       = $query->errorInfo();
-			$this->error = $error[2];
-			
-			// Retorna falso
-			return false;
-			
-		}
+            # Prepara e executa
+            $query      = $this->pdo->prepare( $stmt );
+            $check_exec = $query->execute( $data_array );
+
+            # Verifica se a consulta aconteceu
+            if ( $check_exec ) {
+                
+                # Retorna a consulta
+                return $query;
+
+            } else {
+
+                // Configura o erro
+                $error       = $query->errorInfo();
+                $this->error = $error[2];
+
+                // Retorna falso
+                return false;
+
+            }
 	}
 	
 	/**

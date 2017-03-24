@@ -101,7 +101,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 											</tr>
 										</thead>
 									
-										<tbody><?= $modelo->getSelect_return("SELECT * FROM `bills_to_pay` c INNER JOIN `query_data` q ON c.pay_date_pay = q.name ORDER BY querycount DESC LIMIT 5"); # Display 10 most recent search items ?></tbody>
+										<tbody><?= $modelo->getSelect_return("SELECT * FROM `bills_to_pay` c INNER JOIN `query_data` q ON c.`pay_cat` = q.`name` ORDER BY `querycount` DESC LIMIT 5"); # Display 10 most recent search items ?></tbody>
 									</table>
 								</section>
 
