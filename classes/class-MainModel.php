@@ -203,5 +203,116 @@ class MainModel {
         }
         return $valor;
     }
+    
+    
+    /**
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_table_data() 
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
+     * */
+    public function get_table_data( $tipo, $campo, $table, $id_campo, $get_id, $id, $sqlUpdate, $sqlSelect  ) {
+        
+        if ($tipo == 1){
+             
+            # Simplesmente seleciona os dados na base de dados
+            $query = $this->db->query(" SELECT  $campo FROM $table  ORDER BY $id ");
+             
+            # Destroy todas as variaveis nao mais utilizadas
+            unset($tipo, $campo, $table, $id_campo, $get_id, $id);
+           
+            # Retorna os valores da consulta
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+            
+        }elseif ($tipo == 2){
+            
+            # Simplesmente seleciona os dados na base de dados
+            $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id ");
+            
+            # Destroy todas as variaveis nao mais utilizadas
+            unset($tipo, $campo, $table, $id_campo, $get_id, $id);
+            
+            # Retorna os valores da consulta
+            return $query;
+            
+        }elseif ($tipo == 3){
+            # Faz o update na tabela
+            $query = $this->db->query($sqlUpdate);
+             
+            # Destroy todas as variaveis nao mais utilizadas
+            //unset($tipo, $campo, $table, $id_campo, $get_id, $id);
+           
+            # Retorna os valores da consulta
+            return $query;
+        }elseif($tipo == 4) {
+            # Simplesmente seleciona os dados na base de dados
+            $queryGet = $this->db->query($sqlSelect);
+           
+//            while ( $results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
+//                $results_array[] = $results;
+//            }
+            
+            return $queryGet->fetchAll(PDO::FETCH_BOTH);
+        }
+         
+    }   # End get_table_data()
+    
+    /**
+     *  @Acesso: public
+     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *  @Versão: 0.1
+     *  @Função: search()
+     *  @Descrição: .
+     * */
+    public function search($search_string, $time, $query_count, $query) {
+        # Timestamp entry of search for later display
+        $time_entry     = $this->get_table_data(3, NULL, NULL, NULL, NULL, NULL, $time, NULL);
+
+        # Count how many times a query occurs
+        $query_count    = $this->get_table_data(3, NULL, NULL, NULL, NULL, NULL, $query_count, NULL);
+
+        # Do the search
+        $result_array   = $this->get_table_data(4, NULL, NULL, NULL, NULL, NULL, NULL, $query); 
+            
+        # Check for results
+        if (isset($result_array)) {
+            
+            // Output HTML formats
+            $html  = '<tr>';
+            $html .=    '<td class="small">nameString</td>';
+            $html .=    '<td class="small">compString</td>';
+            $html .=    '<td class="small">zipString</td>';
+            $html .=    '<td class="small">cityString</td>';
+            $html .= '</tr>';
+            
+            foreach ($result_array as $result) {
+                # var_dump($result);die;
+                # Output strings and highlight the matches
+                $d_name = preg_replace("/" . $search_string . "/i", "<b>" . $search_string . "</b>", $result['pay_cat']);
+                $d_comp = $result['pay_id'];
+                $d_zip = $result['pay_venc'];
+                $d_city = $result['pay_date_pay'];
+                # Replace the items into above HTML
+                $o = str_replace('nameString', $d_name, $html);
+                $o = str_replace('compString', $d_comp, $o);
+                $o = str_replace('zipString', $d_zip, $o);
+                $o = str_replace('cityString', $d_city, $o);
+                # Output it
+                echo($o);
+            }
+        } else {
+            # Replace for no results
+            $o = str_replace('nameString', '<span class="label label-danger">Não existe</span>', $html);
+            $o = str_replace('compString', '', $o);
+            $o = str_replace('zipString', '', $o);
+            $o = str_replace('cityString', '', $o);
+            # Output
+            echo($o);
+        }
+        
+    }
+    
+    
 
 }   # End MainModel

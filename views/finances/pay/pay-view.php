@@ -1,20 +1,48 @@
 <?php
-if (!defined('ABSPATH')) {
-    exit();
-}
+    if (!defined('ABSPATH')) { exit(); }
+    
+    # Verifica se existe a requisição especifica
+    if ( (filter_input(INPUT_GET, 're', FILTER_DEFAULT) OR (filter_input(INPUT_POST, 'query', FILTER_DEFAULT)) ) ) {
+        
+        # Verifica se existe a requisição $_GET['re'] se nao retorna a requisição $_POST['query']
+        if( filter_input(INPUT_GET, 're', FILTER_DEFAULT) ){
+            
+            $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
+            $modelo->delRegister($encode_id);
+            
+            # Destroy variavel não mais utilizadas
+            unset($encode_id);
+            
+        }else{
+            
+            $search_string = preg_replace("/[^A-Za-z0-9]/", " ", filter_input(INPUT_POST, 'query', FILTER_DEFAULT));
+            
+            # Insert Time Stamp
+            $time = "UPDATE query_data SET timestamp=now() WHERE name='" . $search_string . "'";
 
-if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
-    $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
-    $modelo->delRegister($encode_id);
+            # Count how many times a query occurs
+            $query_count = "UPDATE query_data SET querycount = querycount +1 WHERE name='" . $search_string . "'";
 
-    # Destroy variavel não mais utilizadas
-    unset($encode_id);
-}
+            # Query
+            $query = 'SELECT * FROM `bills_to_pay` WHERE `pay_cat` LIKE "%' . $search_string . '%"';
+            
+            $modelo->search($search_string, $time, $query_count, $query);
+            
+            
+            
+            # Destroy variavel não mais utilizadas
+            unset($search_string);
+        }
+        
+    }
+
     # Verifica se existe a requisição POST se existir executa o método se não faz nada
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
 
     # Verifica se existe feedback e retorna o feedback se sim se não retorna false
     $form_msg = $modelo->form_msg;
+    
+    
 ?>
 
 <script>
