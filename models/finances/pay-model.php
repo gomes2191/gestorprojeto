@@ -337,15 +337,15 @@ class PayModel extends MainModel
            
             # Retorna os valores da consulta
             return $query;
-        }elseif($tipo = 4) {
+        }elseif($tipo == 4) {
             # Simplesmente seleciona os dados na base de dados
             $queryGet = $this->db->query($sqlSelect);
            
-            while ( $results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
-                $results_array[] = $results;
-            }
+//            while ( $results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
+//                $results_array[] = $results;
+//            }
             
-            return $results_array;
+            return $queryGet->fetchAll(PDO::FETCH_BOTH);
         }
          
     }   # End get_table_data()
@@ -354,17 +354,20 @@ class PayModel extends MainModel
         # Simplesmente seleciona os dados na base de dados
         $queryGet = $this->db->query($sql);
         
-        # Declara o array
-        ;    
+        # Declara o vetor
+        $result_array = [];
+        
+       
         # Retorna os valores da consulta
         while($results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
-            $result_array[0] = $results;
+            $result_array = $results;
         }
-
+       
         foreach ($result_array as $result) {
+            
             # The output
             echo '<tr>';			
-            echo '<td class="small">'.$result[0]['pay_id'].'</td>';
+            echo '<td class="small">'.$result['pay_id'].'</td>';
             echo '<td class="small">'.$result['pay_venc'].'</td>';
             echo '<td class="small">'.$result['pay_date_pay'].'</td>';
             echo '<td class="small">'.$result['pay_cat'].'</td>';

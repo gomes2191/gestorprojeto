@@ -28,8 +28,9 @@ class FinancesPayController extends MainController {
 
     
     #   Carrega a página "/views/user-register/index.php"
-     
     public function index() {
+        
+       
         // Page title
         $this->title = ' Contas a pagar';
 
@@ -153,6 +154,8 @@ class FinancesPayController extends MainController {
     
     # URL: dominio.com/exemplo/exemplo
     public function Search() {
+        //$search_string = $_POST['query'];
+       //echo $search_string;
         #   Parametros da função
         #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
@@ -171,7 +174,7 @@ class FinancesPayController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/pay/search-view.php');
+        //require_once (ABSPATH . '/views/finances/pay/search-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         

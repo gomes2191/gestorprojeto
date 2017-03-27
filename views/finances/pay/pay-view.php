@@ -33,6 +33,24 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
         <!--Implementação da nova tabela-->
+        
+        <div class="row">
+            <div class="col-md-2  col-sm-0 col-xs-0"></div>
+            <div class="col-md-8  col-sm-12 col-xs-12">
+                <form class="form-horizontal" name="search" role="form" method="POST" onkeypress="return event.keyCode != 13;">
+                    <!--Search Start-->
+                    <div class="input-group">
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Procurar por...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btnSearch" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                        </span>
+                    </div><!-- /input-group -->
+                    <!--Search End-->
+                </form>
+            </div>
+            <div class="col-md-2  col-sm-0 col-xs-0"></div>
+        </div> <!-- End row -->
+        
 
         <section id="container" >
 
@@ -40,21 +58,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 			<section id="main-content" style="margin-left: 0px;">
 				<section class="wrapper">
 
-					<div class="row">
-						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-						<p>Type a name to begin searching</p>
-								<form class="form-horizontal" name="search" role="form" method="POST" onkeypress="return event.keyCode != 13;">
-									<div class="input-group col-sm-11">
-										<input id="name" name="name" type="text" class="form-control" placeholder="Search by name..." autocomplete="off"/>
-										<span class="input-group-btn">
-											<button type="button" class="btn btn-default btnSearch">
-												<span class="glyphicon glyphicon-search"> </span>
-											</button> </span>
-									</div>
-								</form>
-						</div>
-
-					</div>
+					
 
 					<div class="row mt">
 						<div class="col-lg-12">
@@ -65,10 +69,12 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 										<thead>
 											<tr>
 									
-												<th class="small">Name</th>
-												<th class="small">Company</th>
-												<th class="small">Zip</th>
-												<th class="small">City</th>
+												<th class="small">ID</th>
+												<th class="small">Data de Vencimento</th>
+												<th class="small">Data de Pagamento</th>
+												<th class="small">Categoria</th>
+                                                                                                <th class="small">City</th>
+                                                                                                <th class="small">City</th>
 									
 											</tr>
 										</thead>
@@ -93,10 +99,12 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 										<thead>
 											<tr>
 									
-												<th class="small">Name</th>
-												<th class="small">Company</th>
-												<th class="small">Zip</th>
-												<th class="small">City</th>
+												<th class="small">ID</th>
+												<th class="small">Data de Vencimento</th>
+												<th class="small">Data de Pagamento</th>
+												<th class="small">Categoria</th>
+                                                                                                <th class="small">City</th>
+                                                                                                <th class="small">City</th>
 									
 											</tr>
 										</thead>

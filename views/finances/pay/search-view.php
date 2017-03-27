@@ -35,7 +35,7 @@
         if (isset($result_array)) {
            
             foreach ($result_array as $result) {
-                var_dump($result);die;
+                //var_dump($result);die;
                 // Output strings and highlight the matches
                 $d_name = preg_replace("/" . $search_string . "/i", "<b>" . $search_string . "</b>", $result['pay_cat']);
                 $d_comp = $result['pay_id'];

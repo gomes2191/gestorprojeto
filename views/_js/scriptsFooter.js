@@ -255,7 +255,7 @@ $(function () {
         if (query_value !== '') {
             $.ajax({
                 type: "POST",
-                url: "finances-pay/search",
+                url: "FinancesPayController/Search",
                 data: {query: query_value},
                 cache: false,
                 success: function (html) {
