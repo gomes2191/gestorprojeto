@@ -43,6 +43,33 @@
     $form_msg = $modelo->form_msg;
     
     
+            $tdNumberLn = 5;
+            $thNumberLn = 1;
+            $numberColumns = 5;
+            $thTitles = [0 => 'Nome', 1 => 'Sexo', 2=>'Idade', 3=>'Estado', 4=> 'Profissao'];
+
+            echo "<table class='table table-bordered table-hover table-condensed'>";
+            for ($i = 0; $i < $thNumberLn; $i++){
+             echo "<tr>";
+             for ($j = 0; $j < $numberColumns; $j++){
+                 echo "<th>".$thTitles[$j]."</th>";
+             }
+             echo "</tr>";
+             
+            }
+            
+            for ($i = 0; $i < $tdNumberLn; $i++){
+             echo "<tr>";
+             for ($j = 0; $j < $numberColumns; $j++){
+                 echo "<td> Valor </td>";
+             }
+             echo "</tr>";
+             
+            }
+            echo "</table>";
+            
+            
+            
 ?>
 
 <script>
@@ -59,6 +86,14 @@
 </script>
 
 <div class="row-fluid">
+    
+    <table class='table table-bordered table-hover table-condensed'>
+        <?= 
+            
+            $modelo->tableDinamic();?>
+    </tabele>
+            
+           
     <div class="col-md-12  col-sm-12 col-xs-12">
         <!--Implementação da nova tabela-->
         

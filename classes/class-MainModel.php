@@ -258,6 +258,32 @@ class MainModel {
          
     }   # End get_table_data()
     
+    
+    /**
+     *  @Acesso: public
+     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *  @Versão: 0.1
+     *  @Função: search()
+     *  @Descrição: .
+     * */
+    public function tableDinamic() {
+        $result_array = $this->get_table_data(4, NULL, NULL, NULL, NULL, NULL, NULL, "SELECT * FROM `bills_to_pay` WHERE `pay_cat` LIKE '%Motivo%'");
+        $array = count($result_array);
+        $tdNumberLn = $array;
+        $thNumberLn = 1;
+        $numberColumns = 6;
+        
+        $thTitles = [0 => 'Title 1', 1 => 'Title 2', 2 => 'Title 3', 3 => 'Title 4', 4 => 'Title 5', 5 => 'Title 6'];
+
+        for ($i = 0; $i < $thNumberLn; $i++) {
+            echo "<tr>";
+            for ($j = 0; $j < $numberColumns; $j++) {
+                echo "<th>" . $thTitles[$j] . "</th>";
+            }
+            echo "</tr>";
+        }
+    }
+
     /**
      *  @Acesso: public
      *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -278,21 +304,26 @@ class MainModel {
         # Check for results
         if (isset($result_array)) {
             
-            // Output HTML formats
+            
+            
+            # Output HTML formats
             $html  = '<tr>';
             $html .=    '<td class="small">nameString</td>';
             $html .=    '<td class="small">compString</td>';
             $html .=    '<td class="small">zipString</td>';
             $html .=    '<td class="small">cityString</td>';
+            
             $html .= '</tr>';
             
             foreach ($result_array as $result) {
-                # var_dump($result);die;
+                
+                
                 # Output strings and highlight the matches
                 $d_name = preg_replace("/" . $search_string . "/i", "<b>" . $search_string . "</b>", $result['pay_cat']);
                 $d_comp = $result['pay_id'];
                 $d_zip = $result['pay_venc'];
                 $d_city = $result['pay_date_pay'];
+                
                 # Replace the items into above HTML
                 $o = str_replace('nameString', $d_name, $html);
                 $o = str_replace('compString', $d_comp, $o);
