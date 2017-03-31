@@ -51,86 +51,52 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
             <div class="col-md-2  col-sm-0 col-xs-0"></div>
         </div> <!-- End row -->
         
+        <div class="row">
+            <div class="col-md-2  col-sm-0 col-xs-0"></div>
+            <div class="col-md-8  col-sm-12 col-xs-12">
+                
+                <br>
+                <div class="panel panel-default tablesearch">
+                    <div class="panel-heading">
+                        <span><strong>RESULTADO DA CONSULTA:</strong></span>
+                    </div>
+                    <div id="toolbar-admin" class="panel-body">
+                        <table id="resultTable" class="table table-bordered table-hover ">
+                            <thead>
+                                <tr>
+                                    <th class="small text-center">#</th>
+                                    <th class="small text-center">DATA DE VENCIMENTO</th>
+                                    <th class="small text-center">DATA DE PAGAMENTO</th>
+                                    <th class="small text-center">CATEGORIA</th>
+                                    <th class="small text-center">DESCRIÇÃO</th>
+                                    <th class="small text-center">VALOR</th>
+                                    <th class="small text-center">AÇÃO</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
 
-        <section id="container" >
+                        <nav class="text-center">
+                            <ul class="pagination">
+                                <li class="pag_prev">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="pag_next">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
 
-			<!--main content start-->
-			<section id="main-content" style="margin-left: 0px;">
-				<section class="wrapper">
+                    </div>
 
-					
-
-					<div class="row mt">
-						<div class="col-lg-12">
-							<div class="content-panel tablesearch">
-
-								<section id="unseen">
-									<table id="resultTable" class="table table-bordered table-hover table-condensed">
-										<thead>
-											<tr>
-									
-												<th class="small">ID</th>
-												<th class="small">Data de Vencimento</th>
-												<th class="small">Data de Pagamento</th>
-												<th class="small">Categoria</th>
-                                                                                                <th class="small">City</th>
-                                                                                                <th class="small">City</th>
-									
-											</tr>
-										</thead>
-									
-										<tbody></tbody>
-									</table>
-								</section>
-
-							</div><!-- /content-panel -->
-						</div><!-- /col-lg-4 -->
-					</div><!-- /row -->
-					
-
-					<div class="row mt">
-						<div class="col-lg-12">
-							<h3>Top Searches</h3>
-							<p>These results are ranked by popularity in the query_data table. Each time the complete name is entered in the search, a +1 is registered and incremented.</p>
-							<div class="content-panel">
-
-								<section id="unseen">
-									<table id="resultTable-topsearch" class="table table-bordered table-hover table-condensed">
-										<thead>
-											<tr>
-									
-												<th class="small">ID</th>
-												<th class="small">Data de Vencimento</th>
-												<th class="small">Data de Pagamento</th>
-												<th class="small">Categoria</th>
-                                                                                                <th class="small">City</th>
-                                                                                                <th class="small">City</th>
-									
-											</tr>
-										</thead>
-									
-										<tbody><?= $modelo->getSelect_return("SELECT * FROM `bills_to_pay` c INNER JOIN `query_data` q ON c.`pay_cat` = q.`name` ORDER BY `querycount` DESC LIMIT 5"); # Display 10 most recent search items ?></tbody>
-									</table>
-								</section>
-
-							</div><!-- /content-panel -->
-						</div><!-- /col-lg-4 -->
-					</div><!-- /row -->
-
-					
-			
-					<p>
-						Check out the full tutorial at <a href="http://lekkerlogic.com/blog/‎?p=16">LekkerLogic.com - PHP MySQL Ajax Live Data Table Tutorial</a>
-					</p>
-
-				</section>
-				<! --/wrapper -->
-			</section><!-- /MAIN CONTENT -->
-
-			<!--main content end-->
-
-		</section>
-        
+                </div>
+            </div>
+            <div class="col-md-2  col-sm-0 col-xs-0"></div> 
+        </div><!-- End row -->
         
         <!--Implementação da nova tabela-->
         

@@ -174,7 +174,7 @@ class FinancesPayController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        //require_once (ABSPATH . '/views/finances/pay/search-view.php');
+        require_once (ABSPATH . '/views/finances/pay/search-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
