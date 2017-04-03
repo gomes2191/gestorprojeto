@@ -12,6 +12,11 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 }
     # Verifica se existe a requisição POST se existir executa o método se não faz nada
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+    
+    # ///
+    $pays = $modelo->getRows('bills_to_pay',array('order_by'=>'pay_id DESC'));
+    
+    
 
     # Verifica se existe feedback e retorna o feedback se sim se não retorna false
     $form_msg = $modelo->form_msg;
@@ -28,74 +33,84 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
             $(this).removeData('bs.modal');
         });
     });
+    
+    function getUsers(type,val){
+    $.ajax({
+        type: 'POST',
+        url: 'finances-pay/search',
+        data: 'type='+type+'&val='+val,
+		beforeSend:function(html){
+			$('.loading-overlay').show();
+		},
+        success:function(html){
+			$('.loading-overlay').hide();
+            $('#userData').html(html);
+        }
+    });
+}
 </script>
+
 
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
         <!--Implementação da nova tabela-->
-        
         <div class="row">
-            <div class="col-md-2  col-sm-0 col-xs-0"></div>
-            <div class="col-md-8  col-sm-12 col-xs-12">
-                <form class="form-horizontal" name="search" role="form" method="POST" onkeypress="return event.keyCode != 13;">
-                    <!--Search Start-->
-                    <div class="input-group">
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Procurar por...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default btnSearch" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                        </span>
-                    </div><!-- /input-group -->
-                    <!--Search End-->
-                </form>
-            </div>
-            <div class="col-md-2  col-sm-0 col-xs-0"></div>
-        </div> <!-- End row -->
+            <div class="col-md-1  col-sm-0 col-xs-0"></div>
+            <div class="col-md-10  col-sm-12 col-xs-12">
+                <div class="pull-left">
+        <input type="text" class="search form-control" id="searchInput" placeholder="Por nome...">
         
-        <div class="row">
-            <div class="col-md-2  col-sm-0 col-xs-0"></div>
-            <div class="col-md-8  col-sm-12 col-xs-12">
-                
-                <br>
-                <div class="panel panel-default tablesearch">
-                    <div class="panel-heading">
-                        <span><strong>RESULTADO DA CONSULTA:</strong></span>
-                    </div>
-                    <div id="toolbar-admin" class="panel-body">
-                        <table id="resultTable" class="table table-bordered table-hover ">
-                            <thead>
+        <button type="button" class="btn btn-primary" onclick="getUsers('search',$('#searchInput').val())">BUSCAR</button>
+    </div>
+    <div class="pull-right">
+        <select class="form-control" onchange="getUsers('sort',this.value)">
+          <option value="">Sort By</option>
+          <option value="new">Newest</option>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+    </div>
+                <div class="loading-overlay" style="display: none;"><div class="overlay-content">Loading.....</div></div>
+                <table  class="table table-bordered table-hover ">
+                    <thead>
+                        <tr>
+                            <th class="small text-center">#</th>
+                            <th class="small text-center">DATA DE VENCIMENTO</th>
+                            <th class="small text-center">DATA DE PAGAMENTO</th>
+                            <th class="small text-center">CATEGORIA</th>
+                            <th class="small text-center">DESCRIÇÃO</th>
+                            <th class="small text-center">VALOR</th>
+                            <th class="small text-center">AÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userData">
+                        <?php
+                        if (!empty($pays)) {
+                            $count = 0;
+                            foreach ($pays as $pay) {
+                                $count++;
+                                ?>
+
                                 <tr>
-                                    <th class="small text-center">#</th>
-                                    <th class="small text-center">DATA DE VENCIMENTO</th>
-                                    <th class="small text-center">DATA DE PAGAMENTO</th>
-                                    <th class="small text-center">CATEGORIA</th>
-                                    <th class="small text-center">DESCRIÇÃO</th>
-                                    <th class="small text-center">VALOR</th>
-                                    <th class="small text-center">AÇÃO</th>
+                                    <td><?php echo $pay['pay_id']; ?></td>
+                                    <td><?php echo $pay['pay_venc']; ?></td>
+                                    <td><?php echo $pay['pay_date_pay']; ?></td>
+                                    <td><?php echo $pay['pay_cat']; ?></td>
+                                    <!--<td><?php echo ($pay['pay_desc'] == 1) ? 'Active' : 'Inactive'; ?></td>-->
+                                    <td><?php echo $pay['pay_desc']; ?></td>
+                                    <td><?php echo $pay['pay_val']; ?></td>
+                                    <td> <button>Deletar</button></td>
                                 </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-
-                        <nav class="text-center">
-                            <ul class="pagination">
-                                <li class="pag_prev">
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="pag_next">
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-
-                    </div>
-
-                </div>
+                            <?php }
+                        } else { ?>
+                            <tr><td colspan="5">No user(s) found...</td></tr>
+                          <?php } ?>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-md-2  col-sm-0 col-xs-0"></div> 
+            <div class="col-md-1  col-sm-0 col-xs-0"></div> 
         </div><!-- End row -->
         
         <!--Implementação da nova tabela-->
