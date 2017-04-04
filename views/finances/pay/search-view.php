@@ -3,51 +3,63 @@
         exit();
     }
     
+
 $tblName = 'bills_to_pay';
 $conditions = [];
 if(!empty($_POST['type']) && !empty($_POST['val'])){
     if($_POST['type'] == 'search'){
-        $conditions['search'] = array('pay_venc'=>$_POST['val'],'pay_date_pay'=>$_POST['val']);
-        $conditions['order_by'] = 'id DESC';
+        $conditions['search'] = ['pay_venc'=>$_POST['val'],'pay_desc'=>$_POST['val']];
+        $conditions['order_by'] = 'pay_id DESC';
     }elseif($_POST['type'] == 'sort'){
         $sortVal = $_POST['val'];
-        $sortArr = array(
-            'new' => array(
-                'order_by' => 'created DESC'
-            ),
-            'asc'=>array(
+        $sortArr = [
+            'new' => [
+                'order_by' => 'pay_created DESC'
+            ],
+            'asc'=> [
                 'order_by'=>'pay_venc ASC'
-            ),
-            'desc'=>array(
+            ],
+            'desc'=> [
                 'order_by'=>'pay_venc DESC'
-            ),
-            'active'=>array(
-                'where'=>array('status'=>'1')
-            ),
-            'inactive'=>array(
-                'where'=>array('status'=>'0')
-            )
-        );
+            ],
+            'active'=> [
+                'where'=> ['pay_status'=>'1']
+            ],
+            'inactive'=> [
+                'where'=> ['pay_status'=>'0']
+            ]
+        ];
         $sortKey = key($sortArr[$sortVal]);
         $conditions[$sortKey] = $sortArr[$sortVal][$sortKey];
     }
 }else{
     $conditions['order_by'] = 'pay_id DESC';
 }
-$users = $db->getRows($tblName,$conditions);
-if(!empty($users)){
+
+
+$pays = $modelo->getRows($tblName,$conditions);
+
+if(!empty($pays)){
     $count = 0;
-    foreach($users as $user): $count++;
-        echo '<tr>';
-        echo '<td>'.$user['name'].'</td>';
-        echo '<td>'.$user['email'].'</td>';
-        echo '<td>'.$user['phone'].'</td>';
-        echo '<td>'.$user['created'].'</td>';
-        $status = ($user['status'] == 1)?'Active':'Inactive';
+    foreach($pays as $pay) : $count++;
+    
+        
+        
+        echo '<tr class="text-center">';
+        echo "<td>{$pay['pay_id']}</td>";
+        echo "<td>{$pay['pay_venc']}</td>";
+        echo "<td>{$pay['pay_date_pay']}</td>";
+        echo "<td>{$pay['pay_cat']}</td>";
+        echo "<td>{$pay['pay_desc']}</td>";
+        echo "<td>{$pay['pay_val']}</td>";
+        echo "<td>{$pay['pay_created']}</td>";
+        echo "<td>{$pay['pay_modified']}</td>";
+        $status = ($pay['pay_status'] == 1)?'<span class="label label-success">Pago</span>':'<span class="label label-warning">Não pago</span>';
         echo '<td>'.$status.'</td>';
+        echo "<td><button>Editar</button> | <button>Editar</button></td>";
         echo '</tr>';
     endforeach;
 }else{
-    echo '<tr><td colspan="5">No user(s) found...</td></tr>';
+    echo '<tr class="text-center"><td colspan="10"><span class="label label-primary">Registro não encontrado...</span></td></tr>';
 }
 exit;

@@ -45,6 +45,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
         success:function(html){
 			$('.loading-overlay').hide();
             $('#userData').html(html);
+            console.log(html);
         }
     });
 }
@@ -57,22 +58,32 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
             <div class="col-md-10  col-sm-12 col-xs-12">
-                <div class="pull-left">
-        <input type="text" class="search form-control" id="searchInput" placeholder="Por nome...">
-        
-        <button type="button" class="btn btn-primary" onclick="getUsers('search',$('#searchInput').val())">BUSCAR</button>
-    </div>
-    <div class="pull-right">
-        <select class="form-control" onchange="getUsers('sort',this.value)">
-          <option value="">Sort By</option>
-          <option value="new">Newest</option>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-    </div>
+                <div class="row">
+                    <div class="col-md-4  col-sm-0 col-xs-0">
+                        <div class="input-group pull-left">
+                            <input type="text" class="search form-control" id="searchInput" placeholder="Por nome...">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary" onclick="getUsers('search',$('#searchInput').val())">BUSCAR</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5  col-sm-0 col-xs-0"></div>
+                    <div class="col-md-3  col-sm-0 col-xs-0">
+                        <div class="input-group pull-right">
+                            <select class="form-control" onchange="getUsers('sort',this.value)">
+                                <option value="">Sort By</option>
+                                <option value="new">Newest</option>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
                 <div class="loading-overlay" style="display: none;"><div class="overlay-content">Loading.....</div></div>
+                <div class="table-responsive">
                 <table  class="table table-bordered table-hover ">
                     <thead>
                         <tr>
@@ -82,6 +93,9 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                             <th class="small text-center">CATEGORIA</th>
                             <th class="small text-center">DESCRIÇÃO</th>
                             <th class="small text-center">VALOR</th>
+                            <th class="small text-center">DATA DA INCLUSÃO</th>
+                            <th class="small text-center">MODIFICADO EM</th>
+                            <th class="small text-center">STATUS</th>
                             <th class="small text-center">AÇÃO</th>
                         </tr>
                     </thead>
@@ -93,15 +107,20 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                                 $count++;
                                 ?>
 
-                                <tr>
+                                <tr class="text-center">
                                     <td><?php echo $pay['pay_id']; ?></td>
                                     <td><?php echo $pay['pay_venc']; ?></td>
                                     <td><?php echo $pay['pay_date_pay']; ?></td>
                                     <td><?php echo $pay['pay_cat']; ?></td>
-                                    <!--<td><?php echo ($pay['pay_desc'] == 1) ? 'Active' : 'Inactive'; ?></td>-->
                                     <td><?php echo $pay['pay_desc']; ?></td>
                                     <td><?php echo $pay['pay_val']; ?></td>
-                                    <td> <button>Deletar</button></td>
+                                    <td><?php echo $pay['pay_created']; ?></td>
+                                    <td><?php echo $pay['pay_modified']; ?></td>
+                                    <td><?php echo ($pay['pay_desc'] == 1) ? 'Pago' : 'Não pago'; ?></td>
+                                    <td> 
+                                        <button>Editar</button>
+                                        <button>Deletar</button>
+                                    </td>
                                 </tr>
                             <?php }
                         } else { ?>
