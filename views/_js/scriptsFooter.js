@@ -7,7 +7,6 @@ $('#user-register-btn').on('click', function() {
        $this.button('reset');
    }, 1000);
 });
-
 // Mensagens do sistemas
 $(function (){
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
@@ -20,46 +19,35 @@ $(function (){
     // Popup alerta
     $('#popoverOption').popover({trigger: "hover"});
 });
-
 // Modal outros
 $('.openBtn').click(function () {
-
     $('.modal-body').load('/render/62805', function (result) {
         $('#myModal').modal({show: true});
     });
 });
-
 // Mascara formulario cadastro de pessoal
 $(document).ready(function () {
-
     $(".cpf").inputmask({
         mask: '999.999.999-99'
     });
-
     $('.cep').inputmask({
         mask: '99999-999'
     });
-
     $(".tel-casa").inputmask({
         mask: '(99) 9999-9999'
     });
-
     $(".tel-cel").inputmask({
         mask: '(99) 99999-9999'
     });
-
     $(".nasc, .data,  #ini-ativi, #fim-ativi").inputmask({
         mask: '99/99/9999'
     });
-
     $("#dom-1, #dom-2, #seg-1, #seg-2, #ter-1, #ter-2, #qua-1, #qua-2, #qui-1, #qui-2, #sex-1, #sex-2, #sab-1, #sab-2").inputmask({
         mask: '99:99'
     });
-
     $('.uf').inputmask({
         mask: 'aa'
     });
-
     // Agenda mascara
     $('.from, .to').inputmask({
         mask: '99/99/9999 99:99'
@@ -73,10 +61,8 @@ $(document).ready(function () {
     $('.data').inputmask({
         mask: '99/99/9999'
     });
-
 });
 //------------------> End mask
-
 // Formulario cadastro validação form validator
 $.validate({
   modules : 'security, brazil', 
@@ -89,13 +75,10 @@ $.validate({
       weak : 'Fraco',
       good : 'Forte',
       strong : 'Muito forte'
-
     };
-
     $('input[name="user_password"]').displayPasswordStrength(optionalConfig);
   }
 });
-
 // Agenda popup inserção
 $(function () {
     if (window.location.href.indexOf("agenda") > 1) {
@@ -132,8 +115,6 @@ $(function () {
         });
     }
 });
-
-
 // Validação dos campos data hora do evento modal de edição da agenda
 function InvalidMsg(textbox) {
     
@@ -148,7 +129,6 @@ function InvalidMsg(textbox) {
     }
     return true;
 }
-
 //$( function (){
 //        
 //        $('#form-agenda-ajax').submit(
@@ -188,14 +168,10 @@ $(function () {
     $('input').focus(function () {
         $(this).css({"background-color": "rgba(0, 188, 212, 0.09)"});
     });
-
     $('input').blur(function () {
         $('input').css('background', '#ffffff');
     });
 });
-
-
-
 //Parametros para o formulario hibrido dois em um
 $(function () {
     $('#group-btn-hide').hide();
@@ -242,45 +218,50 @@ $(function () {
         $('html, body').animate({scrollTop:0}, 'slow');
         
     });
-
-
-
 });
-
-$(function () {
-    $(".tablesearch").hide();
-    // Search
-    function search() {
-        var query_value = $('input#name').val();
-        if (query_value !== '') {
-            $.ajax({
-                type: "POST",
-                url: "finances-pay",
-                data: {query: query_value},
-                cache: false,
-                success: function (html) {
-                    $("table#resultTable tbody").html(html);
-                }
+/// Teste de paginação
+$(document).ready(function () {
+    $("input#name").on("focusout", function (e) {
+        if ($("tr").hasClass("content")) {
+            pageSize = 2;
+            pagesCount = $(".content").length;
+            var currentPage = 1;
+            /////////// PREPARE NAV ///////////////
+            var nav = '';
+            var totalPages = Math.ceil(pagesCount / pageSize);
+            for (var s = 0; s < totalPages; s++) {
+                nav += '<li class="numeros"><a href="#">' + (s + 1) + '</a></li>';
+            }
+            $(".pag_prev").after(nav);
+            $(".numeros").first().addClass("active");
+            //////////////////////////////////////
+            showPage = function () {
+                $(".content").hide().each(function (n) {
+                    if (n >= pageSize * (currentPage - 1) && n < pageSize * currentPage)
+                        $(this).show();
+                });
+            }
+            showPage();
+            $(".pagination li.numeros").click(function () {
+                $(".pagination li").removeClass("active");
+                $(this).addClass("active");
+                currentPage = parseInt($(this).text());
+                showPage();
+            });
+            $(".pagination li.pag_prev").click(function () {
+                if ($(this).next().is('.active'))
+                    return;
+                $('.numeros.active').removeClass('active').prev().addClass('active');
+                currentPage = currentPage > 1 ? (currentPage - 1) : 1;
+                showPage();
+            });
+            $(".pagination li.pag_next").click(function () {
+                if ($(this).prev().is('.active'))
+                    return;
+                $('.numeros.active').removeClass('active').next().addClass('active');
+                currentPage = currentPage < totalPages ? (currentPage + 1) : totalPages;
+                showPage();
             });
         }
-        return false;
-    }
-
-    $("input#name").on("keyup", function (e) {
-        // Set Timeout
-        clearTimeout($.data(this, 'timer'));
-
-        // Set Search String
-        var search_string = $(this).val();
-
-        // Do Search
-        if (search_string == '') {
-            $(".tablesearch").fadeOut(300);
-        } else {
-            $(".tablesearch").fadeIn(300);
-            $(this).data('timer', setTimeout(search, 100));
-        }
-        ;
     });
 });
-

@@ -1,81 +1,26 @@
 <?php
-    if (!defined('ABSPATH')) { exit(); }
-    
-    # Verifica se existe a requisição especifica
-    if ( (filter_input(INPUT_GET, 're', FILTER_DEFAULT) OR (filter_input(INPUT_POST, 'query', FILTER_DEFAULT)) ) ) {
-        
-        # Verifica se existe a requisição $_GET['re'] se nao retorna a requisição $_POST['query']
-        if( filter_input(INPUT_GET, 're', FILTER_DEFAULT) ){
-            
-            $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
-            $modelo->delRegister($encode_id);
-            
-            # Destroy variavel não mais utilizadas
-            unset($encode_id);
-            
-        }else{
-            
-            $search_string = preg_replace("/[^A-Za-z0-9]/", " ", filter_input(INPUT_POST, 'query', FILTER_DEFAULT));
-            
-            # Insert Time Stamp
-            $time = "UPDATE query_data SET timestamp=now() WHERE name='" . $search_string . "'";
-
-            # Count how many times a query occurs
-            $query_count = "UPDATE query_data SET querycount = querycount +1 WHERE name='" . $search_string . "'";
-
-            # Query
-            $query = 'SELECT * FROM `bills_to_pay` WHERE `pay_cat` LIKE "%' . $search_string . '%"';
-            
-            $modelo->search($search_string, $time, $query_count, $query);
-            
-            
-            
-            # Destroy variavel não mais utilizadas
-            unset($search_string);
-        }
-        
-    }
-
+if (!defined('ABSPATH')) {
+    exit();
+}
+if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
+    $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
+    $modelo->delRegister($encode_id);
+    # Destroy variavel não mais utilizadas
+    unset($encode_id);
+}
     # Verifica se existe a requisição POST se existir executa o método se não faz nada
     (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
-
+    
+    # ///
+    $pays = $modelo->getRows('bills_to_pay',array('order_by'=>'pay_id DESC'));
+    
+    
     # Verifica se existe feedback e retorna o feedback se sim se não retorna false
     $form_msg = $modelo->form_msg;
-    
-    
-            $tdNumberLn = 5;
-            $thNumberLn = 1;
-            $numberColumns = 5;
-            $thTitles = [0 => 'Nome', 1 => 'Sexo', 2=>'Idade', 3=>'Estado', 4=> 'Profissao'];
-
-            echo "<table class='table table-bordered table-hover table-condensed'>";
-            for ($i = 0; $i < $thNumberLn; $i++){
-             echo "<tr>";
-             for ($j = 0; $j < $numberColumns; $j++){
-                 echo "<th>".$thTitles[$j]."</th>";
-             }
-             echo "</tr>";
-             
-            }
-            
-            for ($i = 0; $i < $tdNumberLn; $i++){
-             echo "<tr>";
-             for ($j = 0; $j < $numberColumns; $j++){
-                 echo "<td> Valor </td>";
-             }
-             echo "</tr>";
-             
-            }
-            echo "</table>";
-            
-            
-            
 ?>
-
 <script>
     //  Muda url da pagina
     //  window.history.pushState("fees", "", "fees");
-
     //  Faz um refresh de url apos fechar modal
     $(function () {
         $('#infor-view').on('hidden.bs.modal', function () {
@@ -83,117 +28,104 @@
             $(this).removeData('bs.modal');
         });
     });
-</script>
-
-<div class="row-fluid">
     
-    <table class='table table-bordered table-hover table-condensed'>
-        <?= 
-            
-            $modelo->tableDinamic();?>
-    </tabele>
-            
-           
+    function getUsers(type,val){
+    $.ajax({
+        type: 'POST',
+        url: 'finances-pay/search',
+        data: 'type='+type+'&val='+val,
+		beforeSend:function(html){
+			$('.loading-overlay').show();
+		},
+        success:function(html){
+			$('.loading-overlay').hide();
+            $('#userData').html(html);
+            console.log(html);
+        }
+    });
+}
+</script>
+<div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
         <!--Implementação da nova tabela-->
-        
         <div class="row">
-            <div class="col-md-2  col-sm-0 col-xs-0"></div>
-            <div class="col-md-8  col-sm-12 col-xs-12">
-                <form class="form-horizontal" name="search" role="form" method="POST" onkeypress="return event.keyCode != 13;">
-                    <!--Search Start-->
-                    <div class="input-group">
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Procurar por...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default btnSearch" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                        </span>
-                    </div><!-- /input-group -->
-                    <!--Search End-->
-                </form>
+            <div class="col-md-1  col-sm-0 col-xs-0"></div>
+            <div class="col-md-10  col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-md-4  col-sm-0 col-xs-0">
+                        <div class="input-group pull-left">
+                            <input type="text" class="search form-control" id="searchInput" placeholder="Por nome...">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary" onclick="getUsers('search',$('#searchInput').val())">BUSCAR</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5  col-sm-0 col-xs-0"></div>
+                    <div class="col-md-3  col-sm-0 col-xs-0">
+                        <div class="input-group pull-right">
+                            <select class="form-control" onchange="getUsers('sort',this.value)">
+                                <option value="">Ordenar Por</option>
+                                <option value="new">O mais novo</option>
+                                <option value="asc">Ascendente</option>
+                                <option value="desc">descendente</option>
+                                <option value="active">Pago</option>
+                                <option value="inactive">Não Pago</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="loading-overlay" style="display: none;"><div class="overlay-content">Loading.....</div></div>
+               
+                        <div class="table-responsive">
+                <table  class="table table-bordered table-hover ">
+                    <thead>
+                        <tr>
+                            <th class="small text-center">#</th>
+                            <th class="small text-center">DATA DE VENCIMENTO</th>
+                            <th class="small text-center">DATA DE PAGAMENTO</th>
+                            <th class="small text-center">CATEGORIA</th>
+                            <th class="small text-center">DESCRIÇÃO</th>
+                            <th class="small text-center">VALOR</th>
+                            <th class="small text-center">DATA DA INCLUSÃO</th>
+                            <th class="small text-center">MODIFICADO EM</th>
+                            <th class="small text-center">STATUS</th>
+                            <th colspan="10" class="small text-center">AÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userData">
+                        <?php
+                        if (!empty($pays)) {
+                            $count = 0;
+                            foreach ($pays as $pay) {
+                                $count++;
+                                ?>
+                                <tr class="text-center">
+                                    <td><?php echo $pay['pay_id']; ?></td>
+                                    <td><?php echo $pay['pay_venc']; ?></td>
+                                    <td><?php echo $pay['pay_date_pay']; ?></td>
+                                    <td><?php echo $pay['pay_cat']; ?></td>
+                                    <td><?php echo $pay['pay_desc']; ?></td>
+                                    <td><?php echo $pay['pay_val']; ?></td>
+                                    <td><?php echo $pay['pay_created']; ?></td>
+                                    <td><?php echo $pay['pay_modified']; ?></td>
+                                    <td><?php echo ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
+                                    <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                    <td><button class="btn btn-warning btn-xs">Deletar</button></td>
+                                    <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
+                                    
+                                </tr>
+                            <?php }
+                        } else { ?>
+                            <tr class="text-center"><td colspan="10"><span class="label label-primary">Não há registros...</span></td></tr>
+                          <?php } ?>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-md-2  col-sm-0 col-xs-0"></div>
-        </div> <!-- End row -->
-        
-
-        <section id="container" >
-
-			<!--main content start-->
-			<section id="main-content" style="margin-left: 0px;">
-				<section class="wrapper">
-
-					
-
-					<div class="row mt">
-						<div class="col-lg-12">
-							<div class="content-panel tablesearch">
-
-								<section id="unseen">
-									<table id="resultTable" class="table table-bordered table-hover table-condensed">
-										<thead>
-											<tr>
-									
-												<th class="small">ID</th>
-												<th class="small">Data de Vencimento</th>
-												<th class="small">Data de Pagamento</th>
-												<th class="small">Categoria</th>
-                                                                                                <th class="small">City</th>
-                                                                                                <th class="small">City</th>
-									
-											</tr>
-										</thead>
-									
-										<tbody></tbody>
-									</table>
-								</section>
-
-							</div><!-- /content-panel -->
-						</div><!-- /col-lg-4 -->
-					</div><!-- /row -->
-					
-
-					<div class="row mt">
-						<div class="col-lg-12">
-							<h3>Top Searches</h3>
-							<p>These results are ranked by popularity in the query_data table. Each time the complete name is entered in the search, a +1 is registered and incremented.</p>
-							<div class="content-panel">
-
-								<section id="unseen">
-									<table id="resultTable-topsearch" class="table table-bordered table-hover table-condensed">
-										<thead>
-											<tr>
-									
-												<th class="small">ID</th>
-												<th class="small">Data de Vencimento</th>
-												<th class="small">Data de Pagamento</th>
-												<th class="small">Categoria</th>
-                                                                                                <th class="small">City</th>
-                                                                                                <th class="small">City</th>
-									
-											</tr>
-										</thead>
-									
-										<tbody><?= $modelo->getSelect_return("SELECT * FROM `bills_to_pay` c INNER JOIN `query_data` q ON c.`pay_cat` = q.`name` ORDER BY `querycount` DESC LIMIT 5"); # Display 10 most recent search items ?></tbody>
-									</table>
-								</section>
-
-							</div><!-- /content-panel -->
-						</div><!-- /col-lg-4 -->
-					</div><!-- /row -->
-
-					
-			
-					<p>
-						Check out the full tutorial at <a href="http://lekkerlogic.com/blog/‎?p=16">LekkerLogic.com - PHP MySQL Ajax Live Data Table Tutorial</a>
-					</p>
-
-				</section>
-				<! --/wrapper -->
-			</section><!-- /MAIN CONTENT -->
-
-			<!--main content end-->
-
-		</section>
-        
+                    
+                
+            <div class="col-md-1  col-sm-0 col-xs-0"></div> 
+        </div><!-- End row -->
         
         <!--Implementação da nova tabela-->
         
@@ -228,4 +160,3 @@
         <!-- End modal -->
     </div>
 </div>
-

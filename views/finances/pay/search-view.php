@@ -2,62 +2,62 @@
     if (!defined('ABSPATH')) {
         exit();
     }
-    // Output HTML formats
-    $html  = '<tr>';
-    $html .=    '<td class="small">nameString</td>';
-    $html .=    '<td class="small">compString</td>';
-    $html .=    '<td class="small">zipString</td>';
-    $html .=    '<td class="small">cityString</td>';
-    $html .= '</tr>';
-
-    // Get the Search
-    $search_string = preg_replace("/[^A-Za-z0-9]/", " ", $_POST['query']);
     
-    // Check if length is more than 1 character
-    if (strlen($search_string) >= 1 && $search_string !== ' ') {
-        
-        //Insert Time Stamp
-        $time = "UPDATE query_data SET timestamp=now() WHERE name='" . $search_string . "'";
-        
-        //Count how many times a query occurs
-        $query_count = "UPDATE query_data SET querycount = querycount +1 WHERE name='" . $search_string . "'";
-        
-        // Query
-        $query = 'SELECT * FROM `bills_to_pay` WHERE `pay_cat` LIKE "%' . $search_string . '%"';
-        
-        //Timestamp entry of search for later display
-        $time_entry = $modelo->get_table_data(3, NULL, NULL, NULL, NULL, NULL, $time, NULL);
-        
-        //Count how many times a query occurs
-        $query_count = $modelo->get_table_data(3, NULL, NULL, NULL, NULL, NULL, $query_count, NULL);
-        
-        // Do the search
-        $result_array = $modelo->get_table_data(4, NULL, NULL, NULL, NULL, NULL, NULL, $query); 
-        
-        # Check for results
-        if (isset($result_array)) {
-            foreach ($result_array as $result) {
-                # var_dump($result);die;
-                # Output strings and highlight the matches
-                $d_name = preg_replace("/" . $search_string . "/i", "<b>" . $search_string . "</b>", $result['pay_cat']);
-                $d_comp = $result['pay_id'];
-                $d_zip = $result['pay_venc'];
-                $d_city = $result['pay_date_pay'];
-                # Replace the items into above HTML
-                $o = str_replace('nameString', $d_name, $html);
-                $o = str_replace('compString', $d_comp, $o);
-                $o = str_replace('zipString', $d_zip, $o);
-                $o = str_replace('cityString', $d_city, $o);
-                # Output it
-                echo($o);
-            }
-        } else {
-            # Replace for no results
-            $o = str_replace('nameString', '<span class="label label-danger">Não existe</span>', $html);
-            $o = str_replace('compString', '', $o);
-            $o = str_replace('zipString', '', $o);
-            $o = str_replace('cityString', '', $o);
-            # Output
-            echo($o);
-        }
+$tblName = 'bills_to_pay';
+$conditions = [];
+if(!empty($_POST['type']) && !empty($_POST['val'])){
+    if($_POST['type'] == 'search'){
+        $conditions['search'] = ['pay_venc'=>$_POST['val'],'pay_desc'=>$_POST['val']];
+        $conditions['order_by'] = 'pay_id DESC';
+    }elseif($_POST['type'] == 'sort'){
+        $sortVal = $_POST['val'];
+        $sortArr = [
+            'new' => [
+                'order_by' => 'pay_created DESC'
+            ],
+            'asc'=> [
+                'order_by'=>'pay_venc ASC'
+            ],
+            'desc'=> [
+                'order_by'=>'pay_venc DESC'
+            ],
+            'active'=> [
+                'where'=> ['pay_status'=>'1']
+            ],
+            'inactive'=> [
+                'where'=> ['pay_status'=>'0']
+            ]
+        ];
+        $sortKey = key($sortArr[$sortVal]);
+        $conditions[$sortKey] = $sortArr[$sortVal][$sortKey];
     }
+}else{
+    $conditions['order_by'] = 'pay_id DESC';
+}
+$pays = $modelo->getRows($tblName,$conditions);
+if(!empty($pays)){
+    $count = 0;
+    foreach($pays as $pay) : $count++;
+    
+        
+        
+        echo '<tr class="text-center">';
+        echo "<td>{$pay['pay_id']}</td>";
+        echo "<td>{$pay['pay_venc']}</td>";
+        echo "<td>{$pay['pay_date_pay']}</td>";
+        echo "<td>{$pay['pay_cat']}</td>";
+        echo "<td>{$pay['pay_desc']}</td>";
+        echo "<td>{$pay['pay_val']}</td>";
+        echo "<td>{$pay['pay_created']}</td>";
+        echo "<td>{$pay['pay_modified']}</td>";
+        $status = ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>':'<span class="label label-warning">Não pago</span>';
+        echo '<td>'.$status.'</td>';
+        echo "<td><button class='btn btn-success btn-xs'>Editar</button></td>";
+        echo "<td><button class='btn btn-warning btn-xs'>Deletar</button></td>";
+        echo "<td><button class='btn btn-primary btn-xs'>Visualizar</button></td>";
+        echo '</tr>';
+    endforeach;
+}else{
+    echo '<tr class="text-center"><td colspan="10"><span class="label label-primary">Nenhum registro encontrado...</span></td></tr>';
+}
+exit;
