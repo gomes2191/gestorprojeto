@@ -40,10 +40,12 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
         success:function(html){
 			$('.loading-overlay').hide();
             $('#userData').html(html);
-            console.log(html);
+            //console.log(html);
         }
     });
 }
+
+
 </script>
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
@@ -95,23 +97,23 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                     </thead>
                     <tbody id="userData">
                         <?php
-                        if (!empty($pays)) {
-                            $count = 0;
-                            foreach ($pays as $pay) {
-                                $count++;
-                                ?>
-                                <tr class="text-center">
-                                    <td><?php echo $pay['pay_id']; ?></td>
-                                    <td><?php echo $pay['pay_venc']; ?></td>
-                                    <td><?php echo $pay['pay_date_pay']; ?></td>
-                                    <td><?php echo $pay['pay_cat']; ?></td>
-                                    <td><?php echo $pay['pay_desc']; ?></td>
-                                    <td><?php echo $pay['pay_val']; ?></td>
-                                    <td><?php echo $pay['pay_created']; ?></td>
-                                    <td><?php echo $pay['pay_modified']; ?></td>
-                                    <td><?php echo ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
+                            if (!empty($pays)) {
+                                $count = 0;
+                                foreach ($pays as $pay) {
+                                    $count++;
+                        ?>
+                                <tr data-id="<?= $pay['pay_id']; ?>" class="text-center">
+                                    <td><?= $pay['pay_id']; ?></td>
+                                    <td><?= $pay['pay_venc']; ?></td>
+                                    <td><?= $pay['pay_date_pay']; ?></td>
+                                    <td><?= $pay['pay_cat']; ?></td>
+                                    <td><?= $pay['pay_desc']; ?></td>
+                                    <td><?= $pay['pay_val']; ?></td>
+                                    <td><?= $pay['pay_created']; ?></td>
+                                    <td><?= $pay['pay_modified']; ?></td>
+                                    <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
                                     <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                    <td><button class="btn btn-warning btn-xs">Deletar</button></td>
+                                    <td><button class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
                                     <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
                                     
                                 </tr>
