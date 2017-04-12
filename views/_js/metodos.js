@@ -12,6 +12,8 @@ function Financeiro() {
     var n, c, d, t, finalNum;
     var numUS;
     var idOne, idTwo, nValor, nPorce, calcTotal;
+    
+    var classTag;
 
 
 
@@ -51,6 +53,10 @@ function Financeiro() {
         this.nPorce;
         this.calcTotal;
     };
+    
+    this.setAjax = function (classTag) {
+        this.classTag = classTag;
+    };
 
     this.getNome = function () {
         return this.nome;
@@ -82,10 +88,11 @@ function Financeiro() {
         }else{
             return this.calcTotal = '0,00';
         }
-        
-        
     };
-
+    
+    this.getAjax = function () {
+        return this.classTag;
+    };
 
     this.mostraDados = function () {
         alert("Nome do aluno: " + this.nome + "\nIdade: " + this.idade + "\nCurso: " + this.curso);
@@ -116,7 +123,6 @@ function Financeiro() {
     };
     
     this.somarNumberCalc = function (){ 
-        //alert(this.idTwo);
         this.nValor = document.getElementById(this.idOne).value;
         
         if( (this.nValor.indexOf('.') >= 0 ) && (this.nValor.indexOf(',') >= 0 ) ){
@@ -131,7 +137,7 @@ function Financeiro() {
         }
         
         this.nPorce = parseFloat(document.getElementById(this.idTwo).value);
-        //alert(this.nValor);
+        
         if(!this.nPorce){
             this.calcTotal = this.nValor;
         }else{
@@ -140,18 +146,32 @@ function Financeiro() {
         
     };
     
+    this.mostraAjax = function () {
+        document.getElementsByClassName(this.classTag).addEventListener('click', function() {
+            var id = $(this).closest("tr").attr("data-id");
+            if (id != null) {
+                //Ajax aqui
+                alert(id);
+            }
+        });
+
+        alert(this.classTag);
+    };
+    
     
 }
     // Exemplo de uso
 
-    //var objFinanca = new Financeiro();
+    var objFinanca = new Financeiro();
 
     
     // ------------------
     
-    //objFinanca.setUS('1.200.1222,32');
+    objFinanca.setAjax('btn-dell');
     
-    //objFinanca.mostrarUS();
+    objFinanca.getAjax();
+    
+    objFinanca.mostraAjax();
     
     //teste = objFinanca.getUS();
     

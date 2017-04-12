@@ -266,12 +266,12 @@ $(document).ready(function () {
     });
 });
 
-$(function(){
-    $('body').on('click', '.btn-dell', function(){
-        var id = $(this).closest("tr").attr("data-id");
-        if(id != null){
-           //Ajax aqui
-           alert(id);
-        } 
-    });
-});
+//$(function(){
+//    $('body').on('click', '.btn-dell', function(){
+//        var id = $(this).closest("tr").attr("data-id");
+//        if(id != null){
+//           //Ajax aqui
+//           alert(id);
+//        } 
+//    });
+//});
