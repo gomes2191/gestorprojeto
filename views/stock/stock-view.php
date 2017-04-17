@@ -119,7 +119,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="<?= HOME_URI; ?>/stock" class="btn btn-primary">Desistir</a>
-                        <a href="<?= HOME_URI; ?>/stock?pa=<?= $modelo->encode_decode($fetch_userdata['stock_id']); ?> " class="btn btn-danger" >Eliminar</a>
+                        <a href="<?= HOME_URI; ?>/stock?pa=<?= $modelo->encode_decode($fetch_userdata['stock_id']); ?>" class="btn btn-danger" >Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

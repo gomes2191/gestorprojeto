@@ -159,8 +159,8 @@ function Financeiro() {
                     url: 'finances-pay/ajax-process',
                     data: 'encode_id=' + id,
                     beforeSend: function (html) {
-                        
-                        $('.loading-overlay').show();
+                        $('#teste').html('brasil');
+                        //$('.loading-overlay').show();
                     },
                     success: function (html) {
                         $('.loading-overlay').hide();

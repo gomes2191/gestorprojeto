@@ -52,7 +52,7 @@
             $status = ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>';
             echo '<td>' . $status . '</td>';
             echo "<td><button class='btn btn-success btn-xs'>Editar</button></td>";
-            echo "<td><button class='btn-dell btn btn-warning btn-xs'>Deletar</button></td>";
+            echo "<td><button data-id='" . $modelo->encode_decode($pay['pay_id']) . "' class='btn-dell btn btn-warning btn-xs'>Deletar</button></td>";
             echo "<td><button class='btn btn-primary btn-xs'>Visualizar</button></td>";
             echo '</tr>';
         endforeach;

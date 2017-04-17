@@ -4,7 +4,9 @@ if (!defined('ABSPATH')) {
 }
 if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
     $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
+    //var_dump($encode_id);die;
     $modelo->delRegister($encode_id);
+    
     # Destroy variavel não mais utilizadas
     unset($encode_id);
 }
@@ -24,9 +26,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
     //  Faz um refresh de url apos fechar modal
     $(function () {
         $('#dellReg').on('hidden.bs.modal', function () {
-            //document.location.reload();
             $(this).removeData('bs.modal');
-            alert('teste');
         });
     });
     
@@ -44,6 +44,10 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                 }
         });
     }
+    
+    
+    
+    
 </script>
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
@@ -51,6 +55,21 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
             <div class="col-md-10  col-sm-12 col-xs-12">
+                <?php
+                    if ($form_msg) {
+                        echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="' . $form_msg[1] . '" >&nbsp;</i>
+                                <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                            </div>';
+                        unset($form_msg);
+                    } else {
+                        unset($form_msg);
+                    }
+                ?>
+                
                 <div class="row">
                     <div class="col-md-4  col-sm-0 col-xs-0">
                         <div class="input-group pull-left">
@@ -100,7 +119,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                                 foreach ($pays as $pay) {
                                     $count++;
                         ?>
-                                <tr data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="text-center">
+                                <tr class="text-center">
                                     <td><?= $pay['pay_id']; ?></td>
                                     <td><?= $pay['pay_venc']; ?></td>
                                     <td><?= $pay['pay_date_pay']; ?></td>
@@ -111,7 +130,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                                     <td><?= $pay['pay_modified']; ?></td>
                                     <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
                                     <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                    <td><button class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
+                                    <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
                                     <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
                                 </tr>
                             <?php }
@@ -140,8 +159,8 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                         <p class="text-justify">Tem certeza que deseja remover este registro? não sera possível reverter isso.</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="#">Desistir</a>
-                        <a href="#" class="btn btn-danger btn-confirm-dell" >Eliminar</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <a href="javascript:void();" class="btn btn-danger delete-yes" >Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -164,16 +183,22 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 <script>
     
         //Setando valores do ajax
-    var objFinanca = new Financeiro();
+    //var objFinanca = new Financeiro();
     
-    objFinanca.setAjax('.btn-dell');
+    //objFinanca.setAjax('.btn-dell');
     
-    objFinanca.getAjax();
+    //objFinanca.getAjax();
     
-    objFinanca.mostraAjax();
+    //objFinanca.mostraAjax();
     
    
     
-    
+    $('body').on('click', '.btn-dell', function(){
+          //var nome = $(this).data('nome'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
+          var id = $(this).data('id'); // vamos buscar o valor do atributo data-id
+          //$('span.nome').text(nome+ ' (id = ' +id+ ')'); // inserir na o nome na pergunta de confirmação dentro da modal
+          $('a.delete-yes').attr('href', '?re=' +id); // mudar dinamicamente o link, href do botão confirmar da modal
+          $('#dellReg').modal('show'); // modal aparece
+    });
     
 </script>
