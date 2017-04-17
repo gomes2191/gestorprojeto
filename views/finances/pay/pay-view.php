@@ -23,29 +23,27 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
     //  window.history.pushState("fees", "", "fees");
     //  Faz um refresh de url apos fechar modal
     $(function () {
-        $('#infor-view').on('hidden.bs.modal', function () {
+        $('#dellReg').on('hidden.bs.modal', function () {
             //document.location.reload();
             $(this).removeData('bs.modal');
+            alert('teste');
         });
     });
     
-    function getUsers(type,val){
-    $.ajax({
-        type: 'POST',
-        url: 'finances-pay/search',
-        data: 'type='+type+'&val='+val,
-		beforeSend:function(html){
-			$('.loading-overlay').show();
-		},
-        success:function(html){
-			$('.loading-overlay').hide();
-            $('#userData').html(html);
-            //console.log(html);
-        }
-    });
-}
-
-
+    function getReg(type,val){
+        $.ajax({
+            type: 'POST',
+            url: 'finances-pay/search',
+            data: 'type='+type+'&val='+val,
+                beforeSend:function(html){
+                        $('.loading-overlay').show();
+                },
+                success:function(html){
+                    $('.loading-overlay').hide();
+                    $('#tableData').html(html);
+                }
+        });
+    }
 </script>
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
@@ -58,14 +56,14 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                         <div class="input-group pull-left">
                             <input type="text" class="search form-control" id="searchInput" placeholder="Por nome...">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary" onclick="getUsers('search',$('#searchInput').val())">BUSCAR</button>
+                                <button type="button" class="btn btn-primary" onclick="getReg('search',$('#searchInput').val())">BUSCAR</button>
                             </span>
                         </div>
                     </div>
                     <div class="col-md-5  col-sm-0 col-xs-0"></div>
                     <div class="col-md-3  col-sm-0 col-xs-0">
                         <div class="input-group pull-right">
-                            <select class="form-control" onchange="getUsers('sort',this.value)">
+                            <select class="form-control" onchange="getReg('sort',this.value)">
                                 <option value="">Ordenar Por</option>
                                 <option value="new">O mais novo</option>
                                 <option value="asc">Ascendente</option>
@@ -95,14 +93,14 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                             <th colspan="10" class="small text-center">AÇÃO</th>
                         </tr>
                     </thead>
-                    <tbody id="userData">
+                    <tbody id="tableData">
                         <?php
                             if (!empty($pays)) {
                                 $count = 0;
                                 foreach ($pays as $pay) {
                                     $count++;
                         ?>
-                                <tr data-id="<?= $pay['pay_id']; ?>" class="text-center">
+                                <tr data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="text-center">
                                     <td><?= $pay['pay_id']; ?></td>
                                     <td><?= $pay['pay_venc']; ?></td>
                                     <td><?= $pay['pay_date_pay']; ?></td>
@@ -115,7 +113,6 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                                     <td><button class="btn btn-success btn-xs">Editar</button></td>
                                     <td><button class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
                                     <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
-                                    
                                 </tr>
                             <?php }
                         } else { ?>
@@ -132,7 +129,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
         <!--Implementação da nova tabela-->
         
         <!-- Start Modal deletar fornecedores -->
-        <div class="modal in fade"  role="dialog" id="myModal">
+        <div class="modal in fade"  role="dialog" id="dellReg">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -143,15 +140,15 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                         <p class="text-justify">Tem certeza que deseja remover este registro? não sera possível reverter isso.</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="<?= HOME_URI; ?>/finances-pay" class="btn btn-primary">Desistir</a>
-                        <a href="<?= HOME_URI; ?>/finances-pay?re=<?= $modelo->encode_decode($fetch_userdata['pay_id']); ?> " class="btn btn-danger" >Eliminar</a>
+                        <a href="#">Desistir</a>
+                        <a href="#" class="btn btn-danger btn-confirm-dell" >Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         
         <!-- Start Modal Informações de pagamentos -->
-        <div id="infor-view" class="modal fade" >
+        <div id="inforView" class="modal fade" >
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -162,3 +159,21 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
         <!-- End modal -->
     </div>
 </div>
+    
+<!-- Metodos necessarios -->    
+<script>
+    
+        //Setando valores do ajax
+    var objFinanca = new Financeiro();
+    
+    objFinanca.setAjax('.btn-dell');
+    
+    objFinanca.getAjax();
+    
+    objFinanca.mostraAjax();
+    
+   
+    
+    
+    
+</script>

@@ -147,31 +147,49 @@ function Financeiro() {
     };
     
     this.mostraAjax = function () {
-        document.getElementsByClassName(this.classTag).addEventListener('click', function() {
-            var id = $(this).closest("tr").attr("data-id");
-            if (id != null) {
+        $('body').on('click', this.classTag, function () {
+            id = $(this).closest("tr").attr("data-id");
+            var dellConfirm = confirm('Deseja remover o registro?');
+           
+            if (dellConfirm === true) {
                 //Ajax aqui
-                alert(id);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'finances-pay/ajax-process',
+                    data: 'encode_id=' + id,
+                    beforeSend: function (html) {
+                        
+                        $('.loading-overlay').show();
+                    },
+                    success: function (html) {
+                        $('.loading-overlay').hide();
+                        $('#tableData').html(html);
+                    }
+                });
+                
+            } else {
+                alert('O registro nao foi removido ' + id);
             }
+            
+            
         });
-
-        alert(this.classTag);
+       
     };
-    
-    
 }
-    // Exemplo de uso
 
-    var objFinanca = new Financeiro();
-
-    
-    // ------------------
-    
-    objFinanca.setAjax('btn-dell');
-    
-    objFinanca.getAjax();
-    
-    objFinanca.mostraAjax();
+//    // Exemplo de uso
+//
+//    var objFinanca = new Financeiro();
+//
+//    
+//    // ------------------
+//    
+//    objFinanca.setAjax('btn-dell');
+//    
+//    objFinanca.getAjax();
+//    
+//    objFinanca.mostraAjax();
     
     //teste = objFinanca.getUS();
     

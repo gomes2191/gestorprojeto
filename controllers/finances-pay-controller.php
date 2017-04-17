@@ -181,7 +181,7 @@ class FinancesPayController extends MainController {
     }   #--> End Search
     
     # URL: dominio.com/exemplo/exemplo
-    public function TopSearch() {
+    public function AjaxProcess() {
         #   Parametros da função
         #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
@@ -200,7 +200,7 @@ class FinancesPayController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/pay/top-search-view.php');
+        require_once (ABSPATH . '/views/finances/pay/ajax-process-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
