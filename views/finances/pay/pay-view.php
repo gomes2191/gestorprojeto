@@ -44,10 +44,6 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                 }
         });
     }
-    
-    
-    
-    
 </script>
 <div class="row-fluid">
     <div class="col-md-12  col-sm-12 col-xs-12">
@@ -120,14 +116,14 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                                     $count++;
                         ?>
                                 <tr class="text-center">
-                                    <td><?= $pay['pay_id']; ?></td>
-                                    <td><?= $pay['pay_venc']; ?></td>
-                                    <td><?= $pay['pay_date_pay']; ?></td>
-                                    <td><?= $pay['pay_cat']; ?></td>
-                                    <td><?= $pay['pay_desc']; ?></td>
-                                    <td><?= $pay['pay_val']; ?></td>
-                                    <td><?= $pay['pay_created']; ?></td>
-                                    <td><?= $pay['pay_modified']; ?></td>
+                                    <td><?= htmlentities($pay['pay_id']); ?></td>
+                                    <td><?= htmlentities($pay['pay_venc']); ?></td>
+                                    <td><?= htmlentities($pay['pay_date_pay']); ?></td>
+                                    <td><?= htmlentities($pay['pay_cat']); ?></td>
+                                    <td><?= htmlentities($pay['pay_desc']); ?></td>
+                                    <td><?= htmlentities($pay['pay_val']); ?></td>
+                                    <td><?= htmlentities($pay['pay_created']); ?></td>
+                                    <td><?= htmlentities($pay['pay_modified']); ?></td>
                                     <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
                                     <td><button class="btn btn-success btn-xs">Editar</button></td>
                                     <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>

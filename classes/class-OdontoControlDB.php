@@ -246,7 +246,7 @@ class OdontoControlDB
 		$stmt = " UPDATE `$table` SET ";
 		
 		// Configura o array de valores
-		$set = array();
+		$set = [];
 		
 		// Configura a declaração do WHERE campo=valor
 		$where = " WHERE `$where_field` = ? ";

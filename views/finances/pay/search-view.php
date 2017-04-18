@@ -5,12 +5,12 @@
 
     $tblName = 'bills_to_pay';
     $conditions = [];
-    if (!empty($_POST['type']) && !empty($_POST['val'])) {
-        if ($_POST['type'] == 'search') {
-            $conditions['search'] = ['pay_venc' => $_POST['val'], 'pay_desc' => $_POST['val']];
+    if (!empty(filter_input(INPUT_POST, 'type', FILTER_DEFAULT)) && !empty(filter_input(INPUT_POST, 'val', FILTER_DEFAULT))) {
+        if (filter_input(INPUT_POST, 'type', FILTER_DEFAULT) == 'search') {
+            $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING)];
             $conditions['order_by'] = 'pay_id DESC';
-        } elseif ($_POST['type'] == 'sort') {
-            $sortVal = $_POST['val'];
+        } elseif (filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING) == 'sort') {
+            $sortVal = filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING);
             $sortArr = [
                 'new' => [
                     'order_by' => 'pay_created DESC'
