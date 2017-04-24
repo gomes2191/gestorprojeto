@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Verifica chaves de arrays
  *
@@ -10,14 +11,14 @@
  * @return string|null  O valor da chave do array ou nulo
  */
 function chk_array ( $array, $key ) {
-	// Verifica se a chave existe no array
-	if ( isset( $array[ $key ] ) && ! empty( $array[ $key ] ) ) {
-		// Retorna o valor da chave
-		return $array[ $key ];
-	}
+    // Verifica se a chave existe no array
+    if ( isset( $array[ $key ] ) && ! empty( $array[ $key ] ) ) {
+            // Retorna o valor da chave
+            return $array[ $key ];
+    }
 
-	// Retorna nulo por padrão
-	return null;
+    // Retorna nulo por padrão
+    return null;
 } // chk_array
 
 /**
@@ -28,13 +29,13 @@ function chk_array ( $array, $key ) {
  * Por exemplo: para a classe OdontoControl, o arquivo vai chamar class-OdontoControl.php
  */
 function __autoload($class_name) {
-	$file = ABSPATH . '/classes/class-' . $class_name . '.php';
+    $file = ABSPATH . '/classes/class-' . $class_name . '.php';
 
-	if ( ! file_exists( $file ) ) {
-		require_once ABSPATH . '/includes/404.php';
-		return;
-	}
+    if ( ! file_exists( $file ) ) {
+        require_once ABSPATH . '/includes/404.php';
+        return;
+    }
 
-	// Inclui o arquivo da classe
+    // Inclui o arquivo da classe
     require_once $file;
 } // __autoload

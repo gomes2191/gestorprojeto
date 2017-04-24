@@ -1,14 +1,27 @@
-<?php
-    if (!defined('ABSPATH')) {
-        exit();
-    }
-
+<?php   if (!defined('ABSPATH')) {  exit(); }
+            
     $tblName = 'bills_to_pay';
     $conditions = [];
+    //var_dump($_POST);die;
+    # Paginação parametros-------->
+        $start = !empty($_POST['page']) ?   $_POST['page']  :   0;
+        $limit = 3;
+        $pagConfig = [
+            'currentPage' => $start,
+            'totalRows' => COUNT($modelo->getRows('bills_to_pay')),
+            'perPage' => $limit,
+            'link_func' => 'searchFilter'];
+        
+        $pagination =  new Pagination($pagConfig);
+        
+        //var_dump($pagination);die;
+    
+    //var_dump($_POST['page']);die;
+    
     if (!empty(filter_input(INPUT_POST, 'type', FILTER_DEFAULT)) && !empty(filter_input(INPUT_POST, 'val', FILTER_DEFAULT))) {
         if (filter_input(INPUT_POST, 'type', FILTER_DEFAULT) == 'search') {
             $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING)];
-            $conditions['order_by'] = 'pay_id DESC';
+            $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
         } elseif (filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING) == 'sort') {
             $sortVal = filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING);
             $sortArr = [
@@ -35,6 +48,7 @@
         $conditions['order_by'] = 'pay_id DESC';
     }
     
+    //var_dump($conditions);die;
     $pays = $modelo->getRows($tblName, $conditions);
     
     if (!empty($pays)) {
@@ -56,6 +70,8 @@
             echo "<td><button class='btn btn-primary btn-xs'>Visualizar</button></td>";
             echo '</tr>';
         endforeach;
+        echo $pagination->createLinks();
+        
     }else {
         echo '<tr class="text-center"><td colspan="10"><span class="label label-primary">Nenhum registro encontrado...</span></td></tr>';
     }

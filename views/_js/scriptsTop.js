@@ -8,7 +8,7 @@ $(function () {
 
     function creaPaginador(totalItems)
     {
-        paginador = $(".pagination");
+        paginador = $(".pagination-events");
 
         totalPaginas = Math.ceil(totalItems / itemsPorPagina);
 

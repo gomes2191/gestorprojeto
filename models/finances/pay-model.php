@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class PayModel extends MainModel
+class PayModel extends MainModel 
 {
     /**
      * $form_data
@@ -466,11 +466,11 @@ class PayModel extends MainModel
      * @param string name of the table
      * @param array select, where, search, order_by, limit and return_type conditions
      */
-    public function getRows($table,$conditions = []){
+    public function getRows($table, $conditions = []){
         $sql = 'SELECT ';
-        $sql .= array_key_exists("select",$conditions)?$conditions['select']:'*';
+        $sql .= array_key_exists('select',$conditions) ? $conditions['select']: '*';
         $sql .= ' FROM '.$table;
-        if(array_key_exists("where",$conditions)){
+        if(array_key_exists('where',$conditions)){
             $sql .= ' WHERE ';
             $i = 0;
             foreach($conditions['where'] as $key => $value){
@@ -480,8 +480,8 @@ class PayModel extends MainModel
             }
         }
         
-        if(array_key_exists("search",$conditions)){
-            $sql .= (strpos($sql, 'WHERE') !== false)?'':' WHERE ';
+        if(array_key_exists('search',$conditions)){
+            $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
             $i = 0;
             foreach($conditions['search'] as $key => $value){
                 $pre = ($i > 0)?' OR ':'';
@@ -517,6 +517,7 @@ class PayModel extends MainModel
             if(count($result) > 0){
                 while($row = $result->fetch(PDO::FETCH_ASSOC)){
                     $data[] = $row;
+                    //var_dump($data);die;
                 }
             }
         }
