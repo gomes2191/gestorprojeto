@@ -51,6 +51,26 @@
     //var_dump($conditions);die;
     $pays = $modelo->getRows($tblName, $conditions);
     
+    echo <<<HTML
+            
+            <table  class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="small text-center">#</th>
+                                    <th class="small text-center">DATA DE VENCIMENTO</th>
+                                    <th class="small text-center">DATA DE PAGAMENTO</th>
+                                    <th class="small text-center">CATEGORIA</th>
+                                    <th class="small text-center">DESCRIÇÃO</th>
+                                    <th class="small text-center">VALOR</th>
+                                    <th class="small text-center">DATA DA INCLUSÃO</th>
+                                    <th class="small text-center">MODIFICADO EM</th>
+                                    <th class="small text-center">STATUS</th>
+                                    <th colspan="10" class="small text-center">AÇÃO</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+HTML;
+    
     if (!empty($pays)) {
         $count = 0;
         foreach ($pays as $pay) : $count++;
@@ -70,9 +90,14 @@
             echo "<td><button class='btn btn-primary btn-xs'>Visualizar</button></td>";
             echo '</tr>';
         endforeach;
-        echo $pagination->createLinks();
+        
         
     }else {
         echo '<tr class="text-center"><td colspan="10"><span class="label label-primary">Nenhum registro encontrado...</span></td></tr>';
     }
-    exit;
+    echo <<<HTML
+        </tbody>
+    </table>    
+HTML;
+
+    echo '<span>'.$pagination->createLinks().'</span>';

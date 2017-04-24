@@ -80,8 +80,7 @@
                 ?>
                 
                 <div class="row">
-                    
-                    <div class="col-md-4  col-sm-0 col-xs-0">
+                    <div class="col-md-5  col-sm-0 col-xs-0">
                         <div class="input-group pull-left">
                             <input type="text" class="search form-control" id="keywords" placeholder="Por nome..." onkeyup="searchFilter('','search',$('#keywords').val())">
                             <span class="input-group-btn">
@@ -92,20 +91,7 @@
                     
                     <div class="col-md-2  col-sm-0 col-xs-0"></div><!--End/-->
                     
-                    <div class="col-md-3  col-sm-0 col-xs-0">
-                        <div class="input-group pull-right">
-                            <select class="form-control" onchange="getReg('sort',this.value)">
-                                <option value="">Quantidade por página</option>
-                                <option value="new">O mais novo</option>
-                                <option value="asc">Ascendente</option>
-                                <option value="desc">descendente</option>
-                                <option value="active">Pago</option>
-                                <option value="inactive">Não Pago</option>
-                            </select>
-                        </div>
-                    </div><!--End/-->
-                    
-                    <div class="col-md-3  col-sm-0 col-xs-0">
+                    <div class="col-md-5  col-sm-0 col-xs-0">
                         <div class="input-group pull-right">
                             <select class="form-control" onchange="searchFilter('sort',this.value)">
                                 <option value="">Ordenar Por</option>
@@ -120,59 +106,66 @@
                     
                 </div><!--/End row-->
                 
-                <br>
-                <div class="loading-overlay" style="display: none;"><div class="overlay-content">Loading.....</div></div>
-               
-              <div class="table-responsive">
-                <table  class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th class="small text-center">#</th>
-                            <th class="small text-center">DATA DE VENCIMENTO</th>
-                            <th class="small text-center">DATA DE PAGAMENTO</th>
-                            <th class="small text-center">CATEGORIA</th>
-                            <th class="small text-center">DESCRIÇÃO</th>
-                            <th class="small text-center">VALOR</th>
-                            <th class="small text-center">DATA DA INCLUSÃO</th>
-                            <th class="small text-center">MODIFICADO EM</th>
-                            <th class="small text-center">STATUS</th>
-                            <th colspan="10" class="small text-center">AÇÃO</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableData">
-                        <?php
-                            if (!empty($pays)) {
-                                $count = 0;
-                                foreach ($pays as $pay) {
-                                    $count++;
-                        ?>
-                                <tr class="text-center">
-                                    <td><?= htmlentities($pay['pay_id']); ?></td>
-                                    <td><?= htmlentities($pay['pay_venc']); ?></td>
-                                    <td><?= htmlentities($pay['pay_date_pay']); ?></td>
-                                    <td><?= htmlentities($pay['pay_cat']); ?></td>
-                                    <td><?= htmlentities($pay['pay_desc']); ?></td>
-                                    <td><?= htmlentities($pay['pay_val']); ?></td>
-                                    <td><?= htmlentities($pay['pay_created']); ?></td>
-                                    <td><?= htmlentities($pay['pay_modified']); ?></td>
-                                    <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
-                                    <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                    <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
-                                    <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
-                                </tr>
-                            <?php }
-                        } else { ?>
-                            <tr class="text-center"><td colspan="10"><span class="label label-primary">Não há registros...</span></td></tr>
-                          <?php } ?>
-                          
-                    </tbody>
+                <div class="row">
+                    <div class="col-md-12  col-sm-0 col-xs-0">
                     
-                </table>
-            </div>
-            </div> 
+                    <br>
+                    <div class="loading-overlay" style="display: none;"><div class="overlay-content">Loading.....</div></div>
+
+                    <div id="tableData" class="table-responsive">
+                        <table  class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="small text-center">#</th>
+                                    <th class="small text-center">DATA DE VENCIMENTO</th>
+                                    <th class="small text-center">DATA DE PAGAMENTO</th>
+                                    <th class="small text-center">CATEGORIA</th>
+                                    <th class="small text-center">DESCRIÇÃO</th>
+                                    <th class="small text-center">VALOR</th>
+                                    <th class="small text-center">DATA DA INCLUSÃO</th>
+                                    <th class="small text-center">MODIFICADO EM</th>
+                                    <th class="small text-center">STATUS</th>
+                                    <th colspan="10" class="small text-center">AÇÃO</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <?php
+                                if (!empty($pays)) {
+                                    $count = 0;
+                                    foreach ($pays as $pay) {
+                                        $count++;
+                                        ?>
+                                        <tr class="text-center">
+                                            <td><?= htmlentities($pay['pay_id']); ?></td>
+                                            <td><?= htmlentities($pay['pay_venc']); ?></td>
+                                            <td><?= htmlentities($pay['pay_date_pay']); ?></td>
+                                            <td><?= htmlentities($pay['pay_cat']); ?></td>
+                                            <td><?= htmlentities($pay['pay_desc']); ?></td>
+                                            <td><?= htmlentities($pay['pay_val']); ?></td>
+                                            <td><?= htmlentities($pay['pay_created']); ?></td>
+                                            <td><?= htmlentities($pay['pay_modified']); ?></td>
+                                            <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
+                                            <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                            <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
+                                            <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
+                                        </tr>
+                                    <?php }
+                                } else {
+                                    ?>
+                                    <tr class="text-center"><td colspan="10"><span class="label label-primary">Não há registros...</span></td></tr>
+                                <?php } ?>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                    </div><!--End coll-->
+                </div><!--End row--> 
+                
+            </div> <!-- End coll 10 -->
                 
             <div class="col-md-1  col-sm-0 col-xs-0"></div> 
-        </div><!-- End row -->
+        </div><!-- End row principal-->
         
         <!--Implementação da nova tabela-->
         
