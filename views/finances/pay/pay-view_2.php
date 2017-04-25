@@ -43,8 +43,8 @@
     function searchFilter(page_num){
         page_num = page_num ? page_num : 0;
         
-        var keywords = $('#keywords').val();
-        var sortBy = $('#sortBy').val();
+            var val = $('#keywords').val();
+            var sortBy = $('#sortBy').val();
         
         
         //var keywords = $('#keywords').val();
@@ -52,7 +52,7 @@
         $.ajax({
             type: 'POST',
             url: 'finances-pay/search',
-            data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
+            data: 'page='+page_num+'&type='+type+'&val='+val,
             beforeSend:function(html){
                 $('.loading-overlay').show();
             },
@@ -87,7 +87,7 @@
                 <div class="row">
                     <div class="col-md-5  col-sm-0 col-xs-0">
                         <div class="input-group pull-left">
-                            <input type="text" class="search form-control" id="keywords" placeholder="Por nome..." onkeyup="searchFilter()">
+                            <input type="text" class="search form-control" id="keywords" placeholder="Por nome..." onkeyup="searchFilter('','search',$('#keywords').val())">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-primary" onclick="getReg('brasil','search',$('#searchInput').val())">BUSCAR</button>
                             </span>
@@ -98,7 +98,7 @@
                     
                     <div class="col-md-5  col-sm-0 col-xs-0">
                         <div class="input-group pull-right">
-                            <select id="sortBy" class="form-control" onchange="searchFilter()">
+                            <select id="sortBy" class="form-control" onchange="searchFilter('sort',this.value)">
                                 <option value="">Ordenar Por</option>
                                 <option value="new">O mais novo</option>
                                 <option value="asc">Ascendente</option>

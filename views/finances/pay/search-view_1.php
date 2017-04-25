@@ -4,27 +4,27 @@
     $conditions = [];
     //var_dump($_POST);die;
     # Paginação parametros-------->
-    $start = !empty($_POST['page']) ? $_POST['page']  : 0;
-    var_dump($_POST);
-    $limit = 3;
-    $pagConfig = [
-        'currentPage' => $start,
-        'totalRows' => COUNT($modelo->getRows('bills_to_pay')),
-        'perPage' => $limit,
-        'link_func' => 'searchFilter'];
-
-    $pagination =  new Pagination($pagConfig);
-
+        $start = !empty($_POST['page']) ? $_POST['page']  : 0;
+        var_dump($_POST);
+        $limit = 3;
+        $pagConfig = [
+            'currentPage' => $start,
+            'totalRows' => COUNT($modelo->getRows('bills_to_pay')),
+            'perPage' => $limit,
+            'link_func' => 'searchFilter'];
+        
+        $pagination =  new Pagination($pagConfig);
+        
         //var_dump($pagination);die;
     
     //var_dump($_POST['page']);die;
     
-    if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_DEFAULT))) {
-            $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
+    if (!empty(filter_input(INPUT_POST, 'val', FILTER_DEFAULT))) {
+        if (filter_input(INPUT_POST, 'type', FILTER_DEFAULT) == 'search') {
+            $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING)];
             $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
-            
-    }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) {
-            $sortVal = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
+        } elseif (filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING) == 'sort') {
+            $sortVal = filter_input(INPUT_POST, 'val', FILTER_SANITIZE_STRING);
             $sortArr = [
                 'new' => [
                     'order_by' => 'pay_created DESC'
@@ -36,21 +36,21 @@
                     'order_by' => 'pay_venc DESC'
                 ],
                 'active' => [
-                    'where' => ['pay_status' => 1 ]
+                    'where' => ['pay_status' => '1']
                 ],
                 'inactive' => [
-                    'where' => ['pay_status' =>  0]
+                    'where' => ['pay_status' => '0']
                 ]
             ];
             $sortKey = key($sortArr[$sortVal]);
             $conditions[$sortKey] = $sortArr[$sortVal][$sortKey];
-        } else {
-        $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+        }
+    } else {
+        $conditions['order_by'] = 'pay_id DESC';
     }
     
     //var_dump($conditions);die;
     $pays = $modelo->getRows($tblName, $conditions);
-    var_dump($conditions);
     var_dump($pays);
     echo <<<HTML
             

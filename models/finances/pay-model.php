@@ -476,8 +476,11 @@ class PayModel extends MainModel
             foreach($conditions['where'] as $key => $value){
                 $pre = ($i > 0)?' AND ':'';
                 $sql .= $pre.$key." = '".$value."'";
+                
                 $i++;
             }
+            
+            var_dump($sql);
         }
         
         if(array_key_exists('search',$conditions)){
