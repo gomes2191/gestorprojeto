@@ -469,18 +469,23 @@ class PayModel extends MainModel
     public function getRows($table, $conditions = []){
         $sql = 'SELECT ';
         $sql .= array_key_exists('select',$conditions) ? $conditions['select']: '*';
-        $sql .= ' FROM '.$table;
+        $sql .= ' FROM '.$table;             
+        
         if(array_key_exists('where',$conditions)){
             $sql .= ' WHERE ';
             $i = 0;
             foreach($conditions['where'] as $key => $value){
-                $pre = ($i > 0)?' AND ':'';
+                $pre = ($i > 0) ? ' AND ' : '';
                 $sql .= $pre.$key." = '".$value."'";
-                
                 $i++;
             }
+        }
+        
+        if(array_key_exists('where_limit',$conditions)){
+            $sql .= ' WHERE '.$conditions['where_limit']['key_where']. ' = '.$conditions['where_limit']['value_where'];
+            //$sql .=  $conditions['where_limit']['value_limit'];
+            //var_dump($sql);die;
             
-            var_dump($sql);
         }
         
         if(array_key_exists('search',$conditions)){
@@ -497,10 +502,14 @@ class PayModel extends MainModel
             $sql .= ' ORDER BY '.$conditions['order_by']; 
         }
         
+        
         if(array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
+            
             $sql .= ' LIMIT '.$conditions['start'].','.$conditions['limit']; 
+            
         }elseif(!array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
             $sql .= ' LIMIT '.$conditions['limit']; 
+            
         }
         
         $result = $this->db->query($sql);
@@ -520,7 +529,7 @@ class PayModel extends MainModel
             if(count($result) > 0){
                 while($row = $result->fetch(PDO::FETCH_ASSOC)){
                     $data[] = $row;
-                    //var_dump($data);die;
+                    //var_dump($data);
                 }
             }
         }

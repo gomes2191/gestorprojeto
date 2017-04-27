@@ -5,71 +5,47 @@
     //var_dump($_POST);die;
     # Paginação parametros-------->
     $start = !empty($_POST['page']) ? $_POST['page']  : 0;
-    var_dump($_POST);
+    
+    var_dump($_POST['sortBy']);die;
     $limit = 3;
     $pagConfig = [
         'currentPage' => $start,
-        'totalRows' => COUNT($modelo->getRows('bills_to_pay')),
+        'totalRows' => COUNT($modelo->getRows($tblName)),
         'perPage' => $limit,
         'link_func' => 'searchFilter'];
 
     $pagination =  new Pagination($pagConfig);
-
-        //var_dump($pagination);die;
-    
-    //var_dump($_POST['page']);die;
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_DEFAULT))) {
             $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
             $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
-            
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) {
-            $sortVal = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
-            $sortArr = [
-                'new' => [
-                    'order_by' => 'pay_created DESC'
-                ],
-                'asc' => [
-                    'order_by' => 'pay_venc ASC'
-                ],
-                'desc' => [
-                    'order_by' => 'pay_venc DESC'
-                ],
-                'active' => [
-                    'where' => ['pay_status' => 1 ]
-                ],
-                'inactive' => [
-                    'where' => ['pay_status' =>  0]
-                ]
-            ];
-            $sortKey = key($sortArr[$sortVal]);
-            $conditions[$sortKey] = $sortArr[$sortVal][$sortKey];
-        } else {
+            
+    } else {
+            
         $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
     }
     
-    //var_dump($conditions);die;
+    var_dump($conditions);die;
     $pays = $modelo->getRows($tblName, $conditions);
-    var_dump($conditions);
-    var_dump($pays);
+    
     echo <<<HTML
-            
             <table  class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="small text-center">#</th>
-                                    <th class="small text-center">DATA DE VENCIMENTO</th>
-                                    <th class="small text-center">DATA DE PAGAMENTO</th>
-                                    <th class="small text-center">CATEGORIA</th>
-                                    <th class="small text-center">DESCRIÇÃO</th>
-                                    <th class="small text-center">VALOR</th>
-                                    <th class="small text-center">DATA DA INCLUSÃO</th>
-                                    <th class="small text-center">MODIFICADO EM</th>
-                                    <th class="small text-center">STATUS</th>
-                                    <th colspan="10" class="small text-center">AÇÃO</th>
-                                </tr>
-                            </thead>
-                            <tbody >
+                <thead>
+                    <tr>
+                        <th class="small text-center">#</th>
+                        <th class="small text-center">DATA DE VENCIMENTO</th>
+                        <th class="small text-center">DATA DE PAGAMENTO</th>
+                        <th class="small text-center">CATEGORIA</th>
+                        <th class="small text-center">DESCRIÇÃO</th>
+                        <th class="small text-center">VALOR</th>
+                        <th class="small text-center">DATA DA INCLUSÃO</th>
+                        <th class="small text-center">MODIFICADO EM</th>
+                        <th class="small text-center">STATUS</th>
+                        <th colspan="10" class="small text-center">AÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody >
 HTML;
     
     if (!empty($pays)) {
