@@ -5,29 +5,39 @@
     //var_dump($_POST);die;
     # Paginação parametros-------->
     $start = !empty($_POST['page']) ? $_POST['page']  : 0;
-    
-    var_dump($_POST['sortBy']);die;
-    $limit = 3;
-    $pagConfig = [
-        'currentPage' => $start,
-        'totalRows' => COUNT($modelo->getRows($tblName)),
-        'perPage' => $limit,
-        'link_func' => 'searchFilter'];
-
-    $pagination =  new Pagination($pagConfig);
+    $limit = 4;
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_DEFAULT))) {
             $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
             $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
-    }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) {
-            
+    }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
+        
+        $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
+        
+        switch ($sortBy) {
+            case 'active':
+                $pays = $modelo->get_table_data( 3, '*', $tblName, 'pay_status', 2, null, null, null, " DESC LIMIT $start, $limit "  );
+                $count = COUNT($modelo->get_table_data( 3, '*', $tblName, 'pay_status', 2, null, null, null));
+                var_dump($count);
+                break;
+
+            default:
+                break;
+        }
     } else {
             
         $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
     }
     
-    var_dump($conditions);die;
-    $pays = $modelo->getRows($tblName, $conditions);
+    
+    $pagConfig = [
+        'currentPage' => $start,
+        'totalRows' => $count,
+        'perPage' => $limit,
+        'link_func' => 'searchFilter'];
+
+    $pagination =  new Pagination($pagConfig);
+    #$pays = $modelo->getRows($tblName, $conditions);
     
     echo <<<HTML
             <table  class="table table-bordered table-hover">
@@ -60,7 +70,7 @@ HTML;
             echo "<td>{$pay['pay_val']}</td>";
             echo "<td>{$pay['pay_created']}</td>";
             echo "<td>{$pay['pay_modified']}</td>";
-            $status = ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>';
+            $status = ($pay['pay_status'] == 2) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>';
             echo '<td>' . $status . '</td>';
             echo "<td><button class='btn btn-success btn-xs'>Editar</button></td>";
             echo "<td><button data-id='" . $modelo->encode_decode($pay['pay_id']) . "' class='btn-dell btn btn-warning btn-xs'>Deletar</button></td>";

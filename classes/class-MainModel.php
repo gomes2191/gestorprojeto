@@ -212,7 +212,7 @@ class MainModel {
      *   @Função: get_table_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_table_data( $tipo, $campo, $table, $id_campo, $get_id, $id, $sqlUpdate, $sqlSelect  ) {
+    public function get_table_data( $tipo, $campo, $table, $id_campo, $get_id, $id, $sqlUpdate, $sqlSelect, $complemento  ) {
         
         if ($tipo == 1){
              
@@ -237,23 +237,24 @@ class MainModel {
             return $query;
             
         }elseif ($tipo == 3){
-            # Faz o update na tabela
-            $query = $this->db->query($sqlUpdate);
+            
+            # Simplesmente seleciona os dados na base de dados
+            $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id_campo $complemento");
              
             # Destroy todas as variaveis nao mais utilizadas
-            //unset($tipo, $campo, $table, $id_campo, $get_id, $id);
+            unset($tipo, $campo, $table, $id_campo, $get_id, $start, $limit);
            
             # Retorna os valores da consulta
-            return $query;
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         }elseif($tipo == 4) {
             # Simplesmente seleciona os dados na base de dados
-            $queryGet = $this->db->query($sqlSelect);
+            $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id_campo");
+             
+            # Destroy todas as variaveis nao mais utilizadas
+            unset($tipo, $campo, $table, $id_campo, $get_id, $start, $limit);
            
-//            while ( $results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
-//                $results_array[] = $results;
-//            }
-            
-            return $queryGet->fetchAll(PDO::FETCH_BOTH);
+            # Retorna os valores da consulta
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         }
          
     }   # End get_table_data()
