@@ -212,9 +212,9 @@ class MainModel {
      *   @Função: get_table_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_table_data( $tipo, $campo, $table, $id_campo, $get_id, $id, $sqlUpdate, $sqlSelect, $complemento  ) {
+    public function get_table_data( $type_execution, $column_search, $table_name, $column_compare, $received_val, $column_id, $complement ) {
         
-        if ($tipo == 1){
+        if ( $type_execution == 1 ){
              
             # Simplesmente seleciona os dados na base de dados
             $query = $this->db->query(" SELECT  $campo FROM $table  ORDER BY $id ");
@@ -225,7 +225,7 @@ class MainModel {
             # Retorna os valores da consulta
             return $query->fetchAll(PDO::FETCH_ASSOC);
             
-        }elseif ($tipo == 2){
+        }elseif ( $type_execution == 2 ){
             
             # Simplesmente seleciona os dados na base de dados
             $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id ");
@@ -236,17 +236,17 @@ class MainModel {
             # Retorna os valores da consulta
             return $query;
             
-        }elseif ($tipo == 3){
+        }elseif ( $type_execution == 3 ){
             
             # Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id_campo $complemento");
-             
+            $query = $this->db->query( " SELECT  $column_search FROM $table_name WHERE $column_compare=$received_val ORDER BY $column_id $complement" );
+            //var_dump($query);die;
             # Destroy todas as variaveis nao mais utilizadas
-            unset($tipo, $campo, $table, $id_campo, $get_id, $start, $limit);
+            unset($type_execution, $column_search, $table_name, $column_compare, $received_val, $column_id, $complement);
            
             # Retorna os valores da consulta
             return $query->fetchAll(PDO::FETCH_ASSOC);
-        }elseif($tipo == 4) {
+        }elseif( $type_execution == 4 ) {
             # Simplesmente seleciona os dados na base de dados
             $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id_campo");
              

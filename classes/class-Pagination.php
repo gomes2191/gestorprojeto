@@ -76,7 +76,7 @@ class Pagination {
         // Is there only one page? will not need to continue
         if ($numPages == 1) {
             if ($this->showCount) {
-                $info = 'Showing : ' . $this->totalRows;
+                $info = 'Mostrando : ' . $this->totalRows;
                 return $info;
             } else {
                 return '';
