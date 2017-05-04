@@ -8,23 +8,27 @@
     $limit = 3;
    
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_DEFAULT))) {
-    		$conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-    		$conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
-    }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
+        $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
+        $count = COUNT($modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions  ));
         
+        $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+        $pays = $modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions );
+    }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
+        unset($pays);
         $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
         
         switch ($sortBy) {
             case 'active':
-                $pays = $modelo->get_table_data( 3, '*', $tblName, 'pay_status', 2, 'pay_id', ' DESC LIMIT '.$start.', '.$limit  );
-                $count = COUNT($modelo->get_table_data( 3, '*', $tblName, 'pay_status', 2, 'pay_id', null ));
-                var_dump($count);
-                break;
-            
+                $conditions['active'] = ['pay_status' => 2];
+                $count = COUNT($modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions ));
+                $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+                $pays = $modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions );
+                break;            
             case 'inactive':
-                $pays = $modelo->get_table_data( 3, '*', $tblName, 'pay_status', 1, 'pay_id', ' DESC LIMIT '.$start.', '.$limit  );
-                $count = COUNT($modelo->get_table_data( 3, '*', $tblName, 'pay_status', 1, 'pay_id', null ));
-                var_dump($count);
+                $conditions['inactive'] = ['pay_status' => 1];
+                $count = COUNT($modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions ));
+                $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+                $pays = $modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions );
                 break;
 
             default:
@@ -34,7 +38,7 @@
         $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
     }
     
-    !empty($pays)	? '' : $count = COUNT($pays = $modelo->getRows($tblName, $conditions));
+    //!empty( $pays ) ? '' : $count = COUNT( $pays = $modelo->getRows($tblName, $conditions) );
     
     $pagConfig = [
         'currentPage' => $start,

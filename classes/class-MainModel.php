@@ -212,7 +212,7 @@ class MainModel {
      *   @Função: get_table_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_table_data( $type_execution, $column_search, $table_name, $column_compare, $received_val, $column_id, $complement ) {
+    public function get_table_data( $type_execution, $column_search, $table_name, $column_compare, $received_val, $column_id, $complement, $conditions = [] ) {
         
         if ( $type_execution == 1 ){
              
@@ -246,15 +246,75 @@ class MainModel {
            
             # Retorna os valores da consulta
             return $query->fetchAll(PDO::FETCH_ASSOC);
+            
         }elseif( $type_execution == 4 ) {
-            # Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id_campo");
-             
-            # Destroy todas as variaveis nao mais utilizadas
-            unset($tipo, $campo, $table, $id_campo, $get_id, $start, $limit);
+            $sql = 'SELECT ';
+            $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
+            $sql .= ' FROM ' . $table_name;
+
+            if (array_key_exists('where', $conditions)) {
+                $sql .= ' WHERE ';
+                $i = 0;
+                foreach ($conditions['where'] as $key => $value) {
+                    $pre = ($i > 0) ? ' AND ' : '';
+                    $sql .= $pre . $key . " = '" . $value . "'";
+                    $i++;
+                }
+            }
+            
+            if (array_key_exists('active', $conditions) OR array_key_exists('inactive', $conditions)) {
+                $sql .= ' WHERE ';
+                $i = 0;
+                (array_key_exists('active', $conditions)) ? $type = 'active' : $type = 'inactive' ;
+                foreach ($conditions[$type] as $key => $value) {
+                    $pre = ( $i > 0 ) ? ' AND ' : '';
+                    $sql .= $pre . $key . " = '" . $value . "'";
+                    $i++;
+                }
+            }
+
+            if (array_key_exists('search', $conditions)) {
+                $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
+                $i = 0;
+                foreach ($conditions['search'] as $key => $value) {
+                    $pre = ($i > 0) ? ' OR ' : '';
+                    $sql .= $pre . $key . " LIKE '%" . $value . "%'";
+                    $i++;
+                }
+            }
            
-            # Retorna os valores da consulta
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            if (array_key_exists("order_by", $conditions)) {
+                $sql .= ' ORDER BY ' . $conditions['order_by'];
+            }
+
+            if (array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+
+                $sql .= ' LIMIT ' . $conditions['start'] . ',' . $conditions['limit'];
+            } elseif (!array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+                $sql .= ' LIMIT ' . $conditions['limit'];
+            }
+
+            $result = $this->db->query($sql);
+
+            if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
+                switch ($conditions['return_type']) {
+                    case 'count':
+                        $data = count($result);
+                        break;
+                    case 'single':
+                        $data = $result->fetch(PDO::FETCH_ASSOC);
+                        break;
+                    default:
+                        $data = '';
+                }
+            } else {
+                if (count($result) > 0) {
+                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                        $data[] = $row;
+                    }
+                }
+            }
+            return !empty($data) ? $data : false;
         }
          
     }   # End get_table_data()
