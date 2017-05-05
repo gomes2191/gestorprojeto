@@ -248,75 +248,73 @@ class MainModel {
             return $query->fetchAll(PDO::FETCH_ASSOC);
             
         }elseif( $type_execution == 4 ) {
-            $sql = 'SELECT ';
-            $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
-            $sql .= ' FROM ' . $table_name;
-
-            if (array_key_exists('where', $conditions)) {
-                $sql .= ' WHERE ';
-                $i = 0;
-                foreach ($conditions['where'] as $key => $value) {
-                    $pre = ($i > 0) ? ' AND ' : '';
-                    $sql .= $pre . $key . " = '" . $value . "'";
-                    $i++;
-                }
-            }
             
-            if (array_key_exists('active', $conditions) OR array_key_exists('inactive', $conditions)) {
-                $sql .= ' WHERE ';
-                $i = 0;
-                (array_key_exists('active', $conditions)) ? $type = 'active' : $type = 'inactive' ;
-                foreach ($conditions[$type] as $key => $value) {
-                    $pre = ( $i > 0 ) ? ' AND ' : '';
-                    $sql .= $pre . $key . " = '" . $value . "'";
-                    $i++;
-                }
-            }
-
-            if (array_key_exists('search', $conditions)) {
-                $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
-                $i = 0;
-                foreach ($conditions['search'] as $key => $value) {
-                    $pre = ($i > 0) ? ' OR ' : '';
-                    $sql .= $pre . $key . " LIKE '%" . $value . "%'";
-                    $i++;
-                }
-            }
-           
-            if (array_key_exists("order_by", $conditions)) {
-                $sql .= ' ORDER BY ' . $conditions['order_by'];
-            }
-
-            if (array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
-
-                $sql .= ' LIMIT ' . $conditions['start'] . ',' . $conditions['limit'];
-            } elseif (!array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
-                $sql .= ' LIMIT ' . $conditions['limit'];
-            }
-
-            $result = $this->db->query($sql);
-
-            if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
-                switch ($conditions['return_type']) {
-                    case 'count':
-                        $data = count($result);
-                        break;
-                    case 'single':
-                        $data = $result->fetch(PDO::FETCH_ASSOC);
-                        break;
-                    default:
-                        $data = '';
-                }
-            } else {
-                if (count($result) > 0) {
-                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                        $data[] = $row;
-                    }
-                }
-            }
-            return !empty($data) ? $data : false;
         }
          
     }   # End get_table_data()
+    
+    public function searchTable($table_name, $conditions) {
+        $sql = 'SELECT ';
+        $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
+        $sql .= ' FROM ' . $table_name;
+
+        if (array_key_exists('where', $conditions)) {
+            $sql .= ' WHERE ';
+            $i = 0;
+            foreach ($conditions['where'] as $key => $value) {
+                $pre = ($i > 0) ? ' AND ' : '';
+                $sql .= $pre . $key . " = '" . $value . "'";
+                $i++;
+            }
+        } elseif (array_key_exists('active', $conditions) OR array_key_exists('inactive', $conditions)) {
+            $sql .= ' WHERE ';
+            $i = 0;
+            (array_key_exists('active', $conditions)) ? $type = 'active' : $type = 'inactive';
+            foreach ($conditions[$type] as $key => $value) {
+                $pre = ( $i > 0 ) ? ' AND ' : '';
+                $sql .= $pre . $key . " = '" . $value . "'";
+                $i++;
+            }
+        } elseif (array_key_exists('search', $conditions)) {
+            $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
+            $i = 0;
+            foreach ($conditions['search'] as $key => $value) {
+                $pre = ($i > 0) ? ' OR ' : '';
+                $sql .= $pre . $key . " LIKE '%" . $value . "%'";
+                $i++;
+            }
+        }
+
+        if (array_key_exists("order_by", $conditions)) {
+            $sql .= ' ORDER BY ' . $conditions['order_by'];
+        } elseif (array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+
+            $sql .= ' LIMIT ' . $conditions['start'] . ',' . $conditions['limit'];
+        } elseif (!array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+            $sql .= ' LIMIT ' . $conditions['limit'];
+        }
+
+        $result = $this->db->query($sql);
+
+        if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
+            switch ($conditions['return_type']) {
+                case 'count':
+                    $data = count($result);
+                    break;
+                case 'single':
+                    $data = $result->fetch(PDO::FETCH_ASSOC);
+                    break;
+                default:
+                    $data = '';
+            }
+        } else {
+            if (count($result) > 0) {
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $data[] = $row;
+                }
+            }
+        }
+        return !empty($data) ? $data : false;
+    }
 
 }   # End MainModel

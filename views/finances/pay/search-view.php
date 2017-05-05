@@ -20,15 +20,15 @@
         switch ($sortBy) {
             case 'active':
                 $conditions['active'] = ['pay_status' => 2];
-                $count = COUNT($modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions ));
+                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
-                $pays = $modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions );
+                $pays = $modelo->searchTable( $tblName, $conditions );
                 break;            
             case 'inactive':
                 $conditions['inactive'] = ['pay_status' => 1];
-                $count = COUNT($modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions ));
+                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
-                $pays = $modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions );
+                $pays = $modelo->searchTable( $tblName, $conditions );
                 break;
 
             default:
