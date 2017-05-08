@@ -86,11 +86,13 @@
                 
                 <div class="row">
                     <div class="col-md-5  col-sm-0 col-xs-0">
-                        <div class="input-group pull-left">
-                            <input type="text" class="search form-control" id="keywords" placeholder="Por nome..." onkeyup="searchFilter()">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary" onclick="getReg('brasil','search',$('#searchInput').val())">BUSCAR</button>
-                            </span>
+                        <div id="custom-search-input">
+                            <div class="input-group pull-left">
+                                <input type="text" class="search form-control  search-query" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="searchFilter()">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div><!--End/-->
                     

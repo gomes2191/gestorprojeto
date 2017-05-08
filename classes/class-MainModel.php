@@ -275,7 +275,7 @@ class MainModel {
                 $sql .= $pre . $key . " = '" . $value . "'";
                 $i++;
             }
-        } elseif (array_key_exists('search', $conditions)) {
+        }elseif (array_key_exists('search', $conditions)) {
             $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
             $i = 0;
             foreach ($conditions['search'] as $key => $value) {

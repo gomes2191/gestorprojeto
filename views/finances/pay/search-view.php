@@ -6,13 +6,13 @@
     # Paginação parametros-------->
     $start = !empty($_POST['page']) ? $_POST['page']  : 0;    
     $limit = 3;
-   
+   var_dump($start);
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_DEFAULT))) {
         $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-        $count = COUNT($modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions  ));
+        $count = COUNT($modelo->searchTable( $tblName, $conditions ));
         
         $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
-        $pays = $modelo->get_table_data( 4, null, $tblName, null, null, null, null, $conditions );
+        $pays = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
         unset($pays);
         $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
@@ -30,15 +30,27 @@
                 $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
                 $pays = $modelo->searchTable( $tblName, $conditions );
                 break;
-
+            case 'asc':
+                $conditions['order_by'] = "pay_id ASC";
+                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $conditions['order_by'] = "pay_id ASC LIMIT $start, $limit";
+                $pays = $modelo->searchTable( $tblName, $conditions );
+                break;
+            case 'desc':
+                $conditions['order_by'] = "pay_id DESC";
+                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+                $pays = $modelo->searchTable( $tblName, $conditions );
+                break;    
             default:
                 break;
         }
     } else {
+        $conditions['order_by'] = "pay_id DESC LIMIT 100";
+        $count = COUNT($modelo->searchTable( $tblName, $conditions ));
         $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+        $pays = $modelo->searchTable( $tblName, $conditions );
     }
-    
-    //!empty( $pays ) ? '' : $count = COUNT( $pays = $modelo->getRows($tblName, $conditions) );
     
     $pagConfig = [
         'currentPage' => $start,
