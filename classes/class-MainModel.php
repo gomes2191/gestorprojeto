@@ -253,7 +253,7 @@ class MainModel {
          
     }   # End get_table_data()
     
-    public function searchTable($table_name, $conditions) {
+    public function searchTable($table_name, $conditions=[]) {
         $sql = 'SELECT ';
         $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
         $sql .= ' FROM ' . $table_name;
@@ -275,7 +275,7 @@ class MainModel {
                 $sql .= $pre . $key . " = '" . $value . "'";
                 $i++;
             }
-        }elseif (array_key_exists('search', $conditions)) {
+        } elseif (array_key_exists('search', $conditions)) {
             $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
             $i = 0;
             foreach ($conditions['search'] as $key => $value) {
@@ -283,14 +283,11 @@ class MainModel {
                 $sql .= $pre . $key . " LIKE '%" . $value . "%'";
                 $i++;
             }
-        }
-
-        if (array_key_exists("order_by", $conditions)) {
+        } if (array_key_exists("order_by", $conditions)) {
             $sql .= ' ORDER BY ' . $conditions['order_by'];
-        } elseif (array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
-
+        } if (array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
             $sql .= ' LIMIT ' . $conditions['start'] . ',' . $conditions['limit'];
-        } elseif (!array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+        } if (!array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
             $sql .= ' LIMIT ' . $conditions['limit'];
         }
 
@@ -313,8 +310,8 @@ class MainModel {
                     $data[] = $row;
                 }
             }
-        }
-        return !empty($data) ? $data : false;
-    }
+         }
+         return !empty($data) ? $data : false;
+    }   # End searchTable()
 
 }   # End MainModel

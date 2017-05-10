@@ -1,12 +1,11 @@
 <?php   if (!defined('ABSPATH')) {  exit(); }
-            
+    
     $tblName = 'bills_to_pay';
     $conditions = [];
     //var_dump($_POST);die;
     # Paginação parametros-------->
     $start = !empty($_POST['page']) ? $_POST['page']  : 0;    
     $limit = 3;
-   var_dump($start);
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_DEFAULT))) {
         $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
@@ -20,28 +19,40 @@
         switch ($sortBy) {
             case 'active':
                 $conditions['active'] = ['pay_status' => 2];
+                $conditions['order_by'] = 'pay_id DESC';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-                $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+                $conditions['start'] = $start;
+                $conditions['limit'] = $limit;
                 $pays = $modelo->searchTable( $tblName, $conditions );
                 break;            
             case 'inactive':
                 $conditions['inactive'] = ['pay_status' => 1];
+                $conditions['order_by'] = 'pay_id DESC';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-                $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+                $conditions['start'] = $start;
+                $conditions['limit'] = $limit;
                 $pays = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'asc':
                 $conditions['order_by'] = "pay_id ASC";
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-                $conditions['order_by'] = "pay_id ASC LIMIT $start, $limit";
+                $conditions['start'] = $start;
+                $conditions['limit'] = $limit;
                 $pays = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'desc':
                 $conditions['order_by'] = "pay_id DESC";
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-                $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
+                $conditions['start'] = $start;
+                $conditions['limit'] = $limit;
                 $pays = $modelo->searchTable( $tblName, $conditions );
-                break;    
+                break;
+            case 'new':
+                $conditions['id'] = 'pay_id';
+                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                
+                $pays = $modelo->searchTable( $tblName, $conditions );
+                break;   
             default:
                 break;
         }
@@ -61,7 +72,7 @@
     $pagination =  new Pagination($pagConfig);
     
     
-    echo <<<HTML
+    $table = <<<HTML
             <table  class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -82,6 +93,7 @@ HTML;
     
     if (!empty($pays)) {
         $count = 0;
+        echo $table;
         foreach ($pays as $pay) : $count++;
             echo '<tr data-id="' . $pay['pay_id'] . '" class="text-center">';
             echo "<td>{$pay['pay_id']}</td>";
@@ -99,14 +111,14 @@ HTML;
             echo "<td><button class='btn btn-primary btn-xs'>Visualizar</button></td>";
             echo '</tr>';
         endforeach;
-        
-        
-    }else {
-        echo '<tr class="text-center"><td colspan="10"><span class="label label-primary">Nenhum registro encontrado...</span></td></tr>';
-    }
-    echo <<<HTML
+        echo <<<HTML
         </tbody>
     </table>    
 HTML;
+      echo $pagination->createLinks();  
+    }else {
+        echo '<div class="alert alert-info" role="alert">...</div>';
+    }
+    
 
-    echo '<span>'.$pagination->createLinks().'</span>';
+    

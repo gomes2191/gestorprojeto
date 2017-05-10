@@ -219,3 +219,14 @@ $(function () {
         
     });
 });
+
+// Limpeza de filtros de pesquisa
+$(function (){
+    $('#sortBy').mousedown( function (){
+        $('#keywords').val(''); 
+    });
+    $('#keywords ').mousedown( function (){
+        $('#sortBy').val('');
+    });
+    
+});

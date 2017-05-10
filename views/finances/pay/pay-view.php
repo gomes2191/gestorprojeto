@@ -15,7 +15,7 @@
         # Paginação parametros-------->
         $limit = 3;
         $pagConfig = [
-            'totalRows' => COUNT($modelo->getRows('bills_to_pay')),
+            'totalRows' => COUNT($modelo->searchTable('bills_to_pay')),
             'perPage' => $limit,
             'link_func' => 'searchFilter'];
         
@@ -23,9 +23,7 @@
         
         
         #-->
-        $pays = $modelo->getRows('bills_to_pay', ['order_by'=>'pay_id DESC LIMIT '.$limit]);
-        
-        //var_dump($pagination);
+        $pays = $modelo->searchTable('bills_to_pay', ['order_by'=>'pay_id DESC ', 'limit'=>$limit]);
 
         # Verifica se existe feedback e retorna o feedback se sim se não retorna false
         $form_msg = $modelo->form_msg;
@@ -64,11 +62,10 @@
     }
 </script>
 <div class="row-fluid">
-    <div class="col-md-12  col-sm-12 col-xs-12">
-        <!--Implementação da nova tabela-->
+    <div class="col-md-1  col-sm-0 col-xs-0"></div>
+    <div class="col-md-10  col-sm-12 col-xs-12">
         <div class="row">
-            <div class="col-md-1  col-sm-0 col-xs-0"></div>
-            <div class="col-md-10  col-sm-12 col-xs-12">
+            <div class="col-md-12  col-sm-12 col-xs-12">
                 <?php
                     if ($form_msg) {
                         echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
@@ -83,96 +80,95 @@
                         unset($form_msg);
                     }
                 ?>
-                
-                <div class="row">
-                    <div class="col-md-5  col-sm-0 col-xs-0">
-                        <div id="custom-search-input">
-                            <div class="input-group pull-left">
-                                <input type="text" class="search form-control  search-query" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="searchFilter()">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                    </div><!--End/-->
-                    
-                    <div class="col-md-2  col-sm-0 col-xs-0"></div><!--End/-->
-                    
-                    <div class="col-md-5  col-sm-0 col-xs-0">
-                        <div class="input-group pull-right">
-                            <select id="sortBy" class="form-control" onchange="searchFilter()">
-                                <option value="">Ordenar Por</option>
-                                <option value="new">O mais novo</option>
-                                <option value="asc">Ascendente</option>
-                                <option value="desc">descendente</option>
-                                <option value="active">Pago</option>
-                                <option value="inactive">Não Pago</option>
-                            </select>
-                        </div>
-                    </div><!--End/-->
-                    
-                </div><!--/End row-->
-                
-                <div class="row">
-                    <div class="col-md-12  col-sm-0 col-xs-0">
-                    
-                    <br>
-                    <div class="loading-overlay" style="display: none;"><div class="overlay-content">Loading.....</div></div>
+            </div>
+        </div><!-- End row feedback -->
+        <div class="row">
+            <div class="form-group col-md-4 col-sm-10 col-xs-12">
+                <div class="input-group">
+                    <input type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="searchFilter()">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                </div>
+            </div><!--/End col-->
 
-                    <div id="tableData" class="table-responsive">
-                        <table  class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="small text-center">#</th>
-                                    <th class="small text-center">DATA DE VENCIMENTO</th>
-                                    <th class="small text-center">DATA DE PAGAMENTO</th>
-                                    <th class="small text-center">CATEGORIA</th>
-                                    <th class="small text-center">DESCRIÇÃO</th>
-                                    <th class="small text-center">VALOR</th>
-                                    <th class="small text-center">DATA DA INCLUSÃO</th>
-                                    <th class="small text-center">MODIFICADO EM</th>
-                                    <th class="small text-center">STATUS</th>
-                                    <th colspan="10" class="small text-center">AÇÃO</th>
-                                </tr>
-                            </thead>
-                            <tbody >
-                                <?php
-                                if (!empty($pays)) {
-                                    $count = 0;
-                                    foreach ($pays as $pay) {
-                                        $count++;
-                                        ?>
-                                        <tr class="text-center">
-                                            <td><?= htmlentities($pay['pay_id']); ?></td>
-                                            <td><?= htmlentities($pay['pay_venc']); ?></td>
-                                            <td><?= htmlentities($pay['pay_date_pay']); ?></td>
-                                            <td><?= htmlentities($pay['pay_cat']); ?></td>
-                                            <td><?= htmlentities($pay['pay_desc']); ?></td>
-                                            <td><?= htmlentities($pay['pay_val']); ?></td>
-                                            <td><?= htmlentities($pay['pay_created']); ?></td>
-                                            <td><?= htmlentities($pay['pay_modified']); ?></td>
-                                            <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
-                                            <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                            <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
-                                            <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
-                                        </tr>
-                                    <?php }
-                                } else {
-                                    ?>
-                                    <tr class="text-center"><td colspan="10"><span class="label label-primary">Não há registros...</span></td></tr>
-                                <?php } ?>
+            <div class="col-md-5 col-sm-0 col-xs-0"></div><!--End/-->
 
-                            </tbody>
+            <div class="form-group col-md-1  col-sm-3 col-xs-12">
+                <input type="text" title="Quantidade de registro por página." class="text-center form-control" id="qtd-number" placeholder="3">
+            </div><!--/End col-->
 
-                        </table>
-                    </div>
-                    </div><!--End coll-->
-                </div><!--End row--> 
+            <div class="form-group col-md-2  col-sm-3 col-xs-12">
+                <select id="sortBy" class="form-control" onchange="searchFilter()">
+                    <option value="">Ordenar Por</option>
+                    <option value="asc">Ascendente</option>
+                    <option value="desc">descendente</option>
+                    <option value="active">Pago</option>
+                    <option value="inactive">Não Pago</option>
+                </select>
+            </div><!--/End col-->
+        </div><!-- End row filtros -->
                 
-            </div> <!-- End coll 10 -->
+        <div class="row">
+            <div class="col-md-12  col-sm-12 col-xs-12">
+                <br>
+                <div class="loading-overlay" style="display: none;"><div class="overlay-content">Loading.....</div></div>
+
+                <div id="tableData" class="table-responsive">
+                    <table  class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="small text-center">#</th>
+                                <th class="small text-center">DATA DE VENCIMENTO</th>
+                                <th class="small text-center">DATA DE PAGAMENTO</th>
+                                <th class="small text-center">CATEGORIA</th>
+                                <th class="small text-center">DESCRIÇÃO</th>
+                                <th class="small text-center">VALOR</th>
+                                <th class="small text-center">DATA DA INCLUSÃO</th>
+                                <th class="small text-center">MODIFICADO EM</th>
+                                <th class="small text-center">STATUS</th>
+                                <th colspan="10" class="small text-center">AÇÃO</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <?php
+                            if (!empty($pays)) {
+                                $count = 0;
+                                foreach ($pays as $pay) {
+                                    $count++;
+                            ?>
+                                    <tr class="text-center">
+                                        <td><?= htmlentities($pay['pay_id']); ?></td>
+                                        <td><?= htmlentities($pay['pay_venc']); ?></td>
+                                        <td><?= htmlentities($pay['pay_date_pay']); ?></td>
+                                        <td><?= htmlentities($pay['pay_cat']); ?></td>
+                                        <td><?= htmlentities($pay['pay_desc']); ?></td>
+                                        <td><?= htmlentities($pay['pay_val']); ?></td>
+                                        <td><?= htmlentities($pay['pay_created']); ?></td>
+                                        <td><?= htmlentities($pay['pay_modified']); ?></td>
+                                        <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
+                                        <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                        <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
+                                        <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
+                                    </tr>
+                                <?php }
+                            } else {
+                                ?>
+                                <tr class="text-center"><td colspan="10"><span class="label label-primary">Não há registros...</span></td></tr>
+                            <?php } ?>
+
+                        </tbody>
+
+                    </table>
+                    <?= $pagination->createLinks(); ?>
+                </div>
+            </div>
+        </div><!-- End row table -->
                 
-            <div class="col-md-1  col-sm-0 col-xs-0"></div> 
-        </div><!-- End row principal-->
+    </div> <!-- End coll 10 -->
+                
+    <div class="col-md-1  col-sm-0 col-xs-0"></div> 
+    </div><!-- End row principal-->
         
         <!--Implementação da nova tabela-->
         
@@ -205,13 +201,10 @@
             </div>
         </div>
         <!-- End modal -->
-    </div>
-</div>
-    
 <!-- Metodos necessarios -->    
 <script>
     
-        //Setando valores do ajax
+    //Setando valores do ajax
     //var objFinanca = new Financeiro();
     
     //objFinanca.setAjax('.btn-dell');
@@ -219,8 +212,6 @@
     //objFinanca.getAjax();
     
     //objFinanca.mostraAjax();
-    
-   
     
     $('body').on('click', '.btn-dell', function(){
           //var nome = $(this).data('nome'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado

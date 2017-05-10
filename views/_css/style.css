@@ -91,73 +91,7 @@ input, select, textarea{
     color: #dd5600 !important;
 }
 
-
-/* Navbar menu dropdown menu multi nivel desativado pois não ouve necessidade de usar menu multinivel ainda 
-
-.dropdown-submenu{position:relative;}
-.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
-/*.dropdown-submenu:hover>.dropdown-menu{display:block;}
-.dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
-.dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
-.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
-*/
-
-
-
-/* Menu de login topo estilizações */
-.navbar-login
-{
-    width: 305px;
-    padding: 10px;
-    padding-bottom: 0px;
-}
-
-.navbar-login-session
-{
-    padding: 10px;
-    padding-bottom: 0px;
-    padding-top: 0px;
-}
-
-.icon-size
-{
-    font-size: 87px;
-}
-
-/*  Media queries necessarias */
-@media screen and (min-width: 992px)
-{
-    /* CSS Document */
-    
-    .permission-help{
-        margin: 36px 0 0 0;
-    }
-    span.marg-top{
-        display: none !important;
-    }
-}
-
-/*  Media queries necessarias */
-@media screen and (max-width: 383px)
-{
-    /* CSS Document */
-    
-    .marg-top{
-        margin:3px 0 0 0 ;
-    }
-   
-}
-
-#permission-select option {
-    margin-bottom: 1px; 
-	
-}
-
-
 /* Formulario cadastro de pessoal *Funcionarios */
-
-
-
 .acess-card{
     border: 1px solid #cccccc;
     border-radius: 3px;
@@ -239,20 +173,7 @@ input, select, textarea{
     -moz-transition: all 0.3s linear 0.3s;
     -o-transition: all 0.3s linear 0.3s;
     transition: all 0.3s linear 0.3s;
-}
-
-
-/*
-Formatação para barra de rolagem ainda nao tive interesse em utilizar nao foi necessario ainda
-::-webkit-scrollbar              { opacity: 0.9; }
-::-webkit-scrollbar-button       {  }
-::-webkit-scrollbar-track        {  }
-::-webkit-scrollbar-track-piece  {  }
-::-webkit-scrollbar-thumb        {  }
-::-webkit-scrollbar-corner       {  }
-::-webkit-resizer                {  }
-*/
-    
+}   
 
 /*Tabela de registros*/
 .cabe-title{
@@ -330,13 +251,11 @@ table.table-meio > tbody > tr > td {
 }
 
 
-/*Estilizações usuais gerais necessarias para alguns casos*/ 
+/* Estilizações usuais gerais necessarias para alguns casos */ 
 
 margin-top-1{
     margin-top: 5px !important;
 }
-
-
 
 /*Table pesquisa*/
 
@@ -391,44 +310,4 @@ used to vertically center elements, may need modification if you're not using de
 
 .panel-table .panel-body .table-bordered > tbody > tr > td{
   line-height: 34px;
-}
-
-/*Search pay*/
-#custom-search-input {
-    margin:0;
-    margin-top: 10px;
-    padding: 0;
-}
-
-#custom-search-input .search-query {
-    padding-right: 3px;
-    padding-right: 4px \9;
-    padding-left: 3px;
-    padding-left: 4px \9;
-    /* IE7-8 doesn't have border-radius, so don't indent the padding */
-
-    margin-bottom: 0;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-}
-
-#custom-search-input button {
-    border: 0;
-    background: none;
-    /** belows styles are working good */
-    padding: 2px 5px;
-    margin-top: 2px;
-    position: relative;
-    left: -28px;
-    /* IE7-8 doesn't have border-radius, so don't indent the padding */
-    margin-bottom: 0;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    color: #45ABCD;
-}
-
-.search-query:focus + button {
-    z-index: 3;   
 }

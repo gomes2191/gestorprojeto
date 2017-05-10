@@ -20,7 +20,7 @@ class Pagination {
     var $nextLink = '&gt;';
     var $prevLink = '&lt;';
     var $lastLink = 'Last &rsaquo;';
-    var $fullTagOpen = '<ul class="pagination">';
+    var $fullTagOpen = '<ul class="pagination pagination-sm">';
     var $fullTagClose = '</ul>';
     var $firstTagOpen = '';
     var $firstTagClose = '&nbsp;';
@@ -94,7 +94,7 @@ class Pagination {
         // Showing links notification
         if ($this->showCount) {
             $currentOffset = $this->currentPage;
-            $info = '<li style="float:left; margin: 9px 3px 0 0;"> '.'Mostrando ' . ( $currentOffset + 1 ) . ' de ';
+            $info = '<li ><span > '.'Mostrando ' . ( $currentOffset + 1 ) . ' de ';
 
             if (( $currentOffset + $this->perPage ) < ( $this->totalRows - 1 ))
                 $info .= $currentOffset + $this->perPage;
@@ -103,7 +103,7 @@ class Pagination {
 
             $info .= ' de ' . $this->totalRows . ' registros ';
 
-            $output .= $info.'</li>';
+            $output .= $info.'</span></li>';
         }
 
         $this->numLinks = (int) $this->numLinks;
