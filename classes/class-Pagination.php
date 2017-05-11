@@ -16,10 +16,10 @@ class Pagination {
     var $perPage = 10;
     var $numLinks = 3;
     var $currentPage = 0;
-    var $firstLink = '&lsaquo; First';
+    var $firstLink = '&lsaquo; Primeiro';
     var $nextLink = '&gt;';
     var $prevLink = '&lt;';
-    var $lastLink = 'Last &rsaquo;';
+    var $lastLink = 'Último &rsaquo;';
     var $fullTagOpen = '<ul class="pagination pagination-sm">';
     var $fullTagClose = '</ul>';
     var $firstTagOpen = '';

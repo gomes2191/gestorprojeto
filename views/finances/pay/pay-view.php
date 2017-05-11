@@ -13,7 +13,7 @@
         (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
 
         # Paginação parametros-------->
-        $limit = 3;
+        $limit = 5;
         $pagConfig = [
             'totalRows' => COUNT($modelo->searchTable('bills_to_pay')),
             'perPage' => $limit,
@@ -42,20 +42,20 @@
         page_num = page_num ? page_num : 0;
         
         var keywords = $('#keywords').val();
+        var qtdLine = $('#qtdLine').val();
         var sortBy = $('#sortBy').val();
-        
         
         //var keywords = $('#keywords').val();
         //var sortBy = $('#sortBy').val();
         $.ajax({
             type: 'POST',
             url: 'finances-pay/search',
-            data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
-            beforeSend:function(html){
-                $('.loading-overlay').show();
+            data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
+            beforeSend:function(){
+                $('#loading').show();
             },
             success:function(html){
-                $('.loading-overlay').hide();
+                $('#loading').hide();
                 $('#tableData').html(html);
             }
         });
@@ -95,7 +95,7 @@
             <div class="col-md-5 col-sm-0 col-xs-0"></div><!--End/-->
 
             <div class="form-group col-md-1  col-sm-3 col-xs-12">
-                <input type="text" title="Quantidade de registro por página." class="text-center form-control" id="qtd-number" placeholder="3">
+                <input type="text" title="Quantidade de registro por página." class="text-center form-control" id="qtdLine"  placeholder="3" onkeyup="searchFilter()" >
             </div><!--/End col-->
 
             <div class="form-group col-md-2  col-sm-3 col-xs-12">
@@ -111,10 +111,17 @@
                 
         <div class="row">
             <div class="col-md-12  col-sm-12 col-xs-12">
-                <br>
-                <div class="loading-overlay" style="display: none;"><div class="overlay-content">Loading.....</div></div>
-
-                <div id="tableData" class="table-responsive">
+                
+                
+                <div id="loading" style="display: none;">
+                    <ul class="bokeh">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                
+                <div id="tableData" class="table-responsive" style="border: none;">
                     <table  class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -137,20 +144,20 @@
                                 foreach ($pays as $pay) {
                                     $count++;
                             ?>
-                                    <tr class="text-center">
-                                        <td><?= htmlentities($pay['pay_id']); ?></td>
-                                        <td><?= htmlentities($pay['pay_venc']); ?></td>
-                                        <td><?= htmlentities($pay['pay_date_pay']); ?></td>
-                                        <td><?= htmlentities($pay['pay_cat']); ?></td>
-                                        <td><?= htmlentities($pay['pay_desc']); ?></td>
-                                        <td><?= htmlentities($pay['pay_val']); ?></td>
-                                        <td><?= htmlentities($pay['pay_created']); ?></td>
-                                        <td><?= htmlentities($pay['pay_modified']); ?></td>
-                                        <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
-                                        <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                        <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
-                                        <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
-                                    </tr>
+                            <tr class="text-center">
+                                <td><?= htmlentities($pay['pay_id']); ?></td>
+                                <td><?= htmlentities($pay['pay_venc']); ?></td>
+                                <td><?= htmlentities($pay['pay_date_pay']); ?></td>
+                                <td><?= htmlentities($pay['pay_cat']); ?></td>
+                                <td><?= htmlentities($pay['pay_desc']); ?></td>
+                                <td><?= htmlentities($pay['pay_val']); ?></td>
+                                <td><?= htmlentities($pay['pay_created']); ?></td>
+                                <td><?= htmlentities($pay['pay_modified']); ?></td>
+                                <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
+                                <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
+                                <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
+                            </tr>
                                 <?php }
                             } else {
                                 ?>

@@ -4,8 +4,14 @@
     $conditions = [];
     //var_dump($_POST);die;
     # Paginação parametros-------->
-    $start = !empty($_POST['page']) ? $_POST['page']  : 0;    
-    $limit = 3;
+    $start = !empty($_POST['page']) ? $_POST['page']  : 0;
+    if(filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT )){
+        var_dump($_POST['qtdLine']);
+        $limit = filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT );
+    }else{
+        $limit = 5;
+    }
+    
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_DEFAULT))) {
         $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
@@ -71,24 +77,23 @@
 
     $pagination =  new Pagination($pagConfig);
     
-    
     $table = <<<HTML
-            <table  class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th class="small text-center">#</th>
-                        <th class="small text-center">DATA DE VENCIMENTO</th>
-                        <th class="small text-center">DATA DE PAGAMENTO</th>
-                        <th class="small text-center">CATEGORIA</th>
-                        <th class="small text-center">DESCRIÇÃO</th>
-                        <th class="small text-center">VALOR</th>
-                        <th class="small text-center">DATA DA INCLUSÃO</th>
-                        <th class="small text-center">MODIFICADO EM</th>
-                        <th class="small text-center">STATUS</th>
-                        <th colspan="10" class="small text-center">AÇÃO</th>
-                    </tr>
-                </thead>
-                <tbody >
+                <table  class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="small text-center">#</th>
+                            <th class="small text-center">DATA DE VENCIMENTO</th>
+                            <th class="small text-center">DATA DE PAGAMENTO</th>
+                            <th class="small text-center">CATEGORIA</th>
+                            <th class="small text-center">DESCRIÇÃO</th>
+                            <th class="small text-center">VALOR</th>
+                            <th class="small text-center">DATA DA INCLUSÃO</th>
+                            <th class="small text-center">MODIFICADO EM</th>
+                            <th class="small text-center">STATUS</th>
+                            <th colspan="10" class="small text-center">AÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 HTML;
     
     if (!empty($pays)) {
@@ -112,13 +117,14 @@ HTML;
             echo '</tr>';
         endforeach;
         echo <<<HTML
-        </tbody>
-    </table>    
+                </tbody>
+            </table>    
 HTML;
       echo $pagination->createLinks();  
     }else {
-        echo '<div class="alert alert-info" role="alert">...</div>';
+        echo '<div class="col-md-3  col-sm-0 col-xs-0"></div><div class="col-md-6  col-sm-5 col-xs-12 text-center alert alert-warning" role="alert">Nenhum registro encontrado.</div><div class="col-md-3  col-sm-0 col-xs-0"></div>';
     }
     
 
+    
     
