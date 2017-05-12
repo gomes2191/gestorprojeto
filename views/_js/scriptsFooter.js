@@ -230,3 +230,9 @@ $(function (){
     });
     
 });
+
+
+//Tooltip mensagem
+$(function (){
+   $('[data-toggle="tooltip"]').tooltip(); 
+});

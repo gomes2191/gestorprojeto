@@ -95,7 +95,7 @@
             <div class="col-md-5 col-sm-0 col-xs-0"></div><!--End/-->
 
             <div class="form-group col-md-1  col-sm-3 col-xs-12">
-                <input type="text" title="Quantidade de registro por página." class="text-center form-control" id="qtdLine"  placeholder="3" onkeyup="searchFilter()" >
+                <input type="text" class="text-center form-control" id="qtdLine"  placeholder="5" onkeyup="searchFilter()" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página." >
             </div><!--/End col-->
 
             <div class="form-group col-md-2  col-sm-3 col-xs-12">
