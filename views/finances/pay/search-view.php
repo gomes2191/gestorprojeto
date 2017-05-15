@@ -1,21 +1,27 @@
 <?php   if (!defined('ABSPATH')) {  exit(); }
     
+    # Parâmetros de páginação ------> 
     $tblName = 'bills_to_pay';
     $conditions = [];
-    //var_dump($_POST);die;
-    # Paginação parametros-------->
-    $start = !empty($_POST['page']) ? $_POST['page']  : 0;
-    if(filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT )){
-        var_dump($_POST['qtdLine']);
-        $limit = filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT );
-    }else{
+
+    # Recebe o valor da quantidade de registro por páginas.
+    $qtdLine = filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT );
+
+    /*
+     * Rotina que verifica se o valor da quantidade
+     * de pagina e = ou menor 0 ou superior a 50. 
+     */
+    if (($qtdLine <= 0) OR ( $qtdLine > 50)) {
         $limit = 5;
+    } else {
+        $limit = $qtdLine;
     }
+
+    $start = !empty(filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT)) ? filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) : 0;
     
-    if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_DEFAULT))) {
+    if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
         $conditions['search'] = ['pay_venc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-        
         $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
         $pays = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
