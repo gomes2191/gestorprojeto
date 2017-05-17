@@ -128,7 +128,7 @@ HTML;
 HTML;
       echo $pagination->createLinks();  
     }else {
-        echo '<div class="col-md-3  col-sm-0 col-xs-0"></div><div class="col-md-6  col-sm-5 col-xs-12 text-center alert alert-warning" role="alert">Nenhum registro encontrado.</div><div class="col-md-3  col-sm-0 col-xs-0"></div>';
+        echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-warning" role="alert">Nenhum registro encontrado.</div>';
     }
     
 

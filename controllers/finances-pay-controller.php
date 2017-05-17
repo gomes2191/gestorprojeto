@@ -153,7 +153,7 @@ class FinancesPayController extends MainController {
     }   #--> End cad
     
     # URL: dominio.com/exemplo/exemplo
-    public function Search() {
+    public function Filters() {
         //$search_string = $_POST['query'];
        //echo $search_string;
         #   Parametros da função
@@ -174,14 +174,14 @@ class FinancesPayController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/pay/search-view.php');
+        require_once (ABSPATH . '/views/finances/pay/filters-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
     }   #--> End Search
     
     # URL: dominio.com/exemplo/exemplo
-    public function AjaxProcess() {
+    public function Submit() {
         #   Parametros da função
         #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
@@ -200,7 +200,7 @@ class FinancesPayController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/pay/ajax-process-view.php');
+        require_once (ABSPATH . '/views/finances/pay/submit-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         

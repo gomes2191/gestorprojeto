@@ -331,7 +331,7 @@ used to vertically center elements, may need modification if you're not using de
     list-style: outside none none;
     margin: 0 auto;
     position: relative;
-    top: 15%;
+    top: 30%;
     width: 1em;
     z-index: 2147483647;
 }

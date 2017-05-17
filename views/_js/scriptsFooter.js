@@ -172,36 +172,38 @@ $(function () {
         $('input').css('background', '#ffffff');
     });
 });
+
 //Parametros para o formulario hibrido dois em um
 $(function () {
-    $('#group-btn-hide').hide();
-    $('#group-btn-show').hide();
+    $('#group-btn-hide').fadeOut();
+    $('#group-btn-show').fadeOut();
     $('#btn-new-show').click(function () {
-        $('#group-btn-new').hide(500);
-        $('.form-hide').show(500);
-        $('#group-btn-hide').show(500);
-        $('.row-button-hide').show(500);
-        $('.notice-hide').show(200);
+        $('#group-btn-new').fadeOut();
+        $('.form-hide').fadeIn();
+        $('#group-btn-hide').fadeIn();
+        $('.row-button-hide').fadeIn();
+        $('.notice-hide').fadeIn();
         $('.notice-hide span').text('MODO ADICIONAR NOVO REGISTRO ATIVO');
     });
     
     //Botao que oculta o fomulario
     $('#btn-hide').click(function () {
-        $('#group-btn-hide').hide(500);
-        $('.form-hide').hide(500);
+        $('#group-btn-hide').fadeOut();
+        $('.form-hide').fadeOut();
+        $('.row-button-hide').fadeOut();
+        $('#group-btn-show').fadeIn();
+        $('.notice-hide').fadeOut();
         
-        //$('#fees-btn-hide').hide();
-        $('#group-btn-show').show();
-        //$('#fees_id').val("");
         
     });
     
     //Botao que mostra o formulario
     $('#btn-show').click(function (e) {
         e.preventDefault();
-        $('#group-btn-show').hide(200);
-        $('.form-hide').show(200);
-        $('#group-btn-hide').show(200);
+        $('#group-btn-show').fadeOut();
+        $('.form-hide').fadeIn();
+        $('#group-btn-hide').fadeIn();
+        $('.row-button-hide').fadeIn();
     });
     
     //Botao que voltar para adicionar novo registro

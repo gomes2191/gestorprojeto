@@ -136,7 +136,7 @@
         
         
 </script>
-<div class="row-fluid">
+<div class="row">
     <div class="col-md-12  col-sm-12 col-xs-12">
         
         <div id="message_container" class="message alert  alert-dismissible fade in">

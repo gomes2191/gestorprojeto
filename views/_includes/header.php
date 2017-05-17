@@ -64,9 +64,7 @@
                 #--> End JS
             }else{
                 # Outros plugins
-                echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/footable.standalone.min.css">';
                 echo '<script src="'.HOME_URI.'/views/_js/moment.min.js"></script>';
-                echo '<script src="'.HOME_URI.'/views/_js/footable.min.js"></script>';
                 
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/sweetalert.css">';
                 echo '<script src="'.HOME_URI.'/views/_js/sweetalert.min.js"></script>';
