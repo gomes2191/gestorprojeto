@@ -10,7 +10,7 @@
                 unset($encode_id);
             }
                 # Verifica se existe a requisição POST se existir executa o método se não faz nada
-                (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+                (filter_input_array(INPUT_POST)) ? '$modelo->validate_register_form()' : FALSE;
 
                 # Paginação parametros-------->
                 $limit = 5;
@@ -61,6 +61,49 @@
                     }
                 });
             }
+            function getUsers(){
+                $.ajax({
+                    type: 'POST',
+                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+                    data: 'action_type=view&'+$("#userForm").serialize(),
+                    success:function(html){
+                        $('#userData').html(html);
+                    }
+                });
+            }
+            
+            function userAction(type,id){
+                id = (typeof id == "undefined")?'':id;
+                var statusArr = {add:"added",edit:"updated",delete:"deleted"};
+                var userData = '';
+                if (type == 'add') {
+                    
+                    userData = $("#addForm").find('#addForm').serialize()+'&action_type='+type+'&id='+id;
+                    
+                }else if (type == 'edit'){
+                    userData = $("#editForm").find('.form').serialize()+'&action_type='+type;
+                }else{
+                    userData = 'action_type='+type+'&id='+id;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+                    data: userData,
+                    success:function(msg){
+                        alert(msg);
+                        if(msg == 'ok'){
+                            alert('User data has been '+statusArr[type]+' successfully.');
+                            getUsers();
+                            $('.form')[0].reset();
+                            $('.formData').slideUp();
+                        }else{
+                            alert('Some problem occurred, please try again.');
+                        }
+                    }
+                });
+            }
+            
+            
         </script>
         
         <div class="row">
@@ -93,7 +136,7 @@
         
         <div class="row">
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <form id="form-register" enctype="multipart/form-data" data-id="" method="post" action="" role="form" >
+                <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
                     <fieldset>
                         <legend >CONTAS A PAGAR</legend>
                         <div class="row notice-hide" style="display: none;">
@@ -114,7 +157,6 @@
                                 </div>
                                 <br>
                             </div>
-
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="pay_date_pay">Data de pagamento:</label>
@@ -140,7 +182,6 @@
                                 </select>
                                 <br>
                             </div>
-
                             <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                                 <label for="pay_val">Valor montante ( em reais )</label>
                                 <div class="input-group">
@@ -152,11 +193,10 @@
                             </div>
                             <br>
                         </div>
-
                         <div class="row form-compact row-button-hide" style="display: none;">
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-save" class="btn-group">
-                                    <button id="btn-save" title="Salvar informações" class="btn btn-sm btn-primary" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>
+                                    <button id="btn-save" title="Salvar informações" class="btn btn-sm btn-primary" onclick="" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
                                     <button title="Limpar formulário" class="btn btn-sm btn-warning marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
@@ -174,12 +214,12 @@
                                         <i class="glyphicon glyphicon-plus"></i> Novo registro
                                     </button>
                                 </div>
-                                <div id="group-btn-show" class="btn-group">
+                                <div id="group-btn-show" style="display: none;" class="btn-group">
                                     <button id="btn-show" title="Mostrar formulário" class="btn btn-sm btn-default marg-top" type="reset">
                                         <i class="glyphicon glyphicon-eye-open"></i> Mostrar formulário
                                     </button>
                                 </div>
-                                <div id="group-btn-hide" class="btn-group">
+                                <div id="group-btn-hide" style="display: none;" class="btn-group">
                                     <button id="btn-hide" title="Ocultar formulário" class="btn btn-sm btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
                                 </div>
                             </div>

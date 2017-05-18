@@ -2,6 +2,8 @@
     # Verifica se a constante existe "ABSPATH" existe, se nao existir sai
     if (!defined('ABSPATH')) { exit; }
     
+    
+    
     if(!empty(filter_input_array(INPUT_POST))){
         
         # Verifica se existe encode_id se existe executa o metod de exclusão
@@ -11,7 +13,7 @@
             echo $modelo->form_msg;
         }else{
             $modelo->validate_register_form();
-            echo $modelo->form_msg;
+            
         }
         
     }else{

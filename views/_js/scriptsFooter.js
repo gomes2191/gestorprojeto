@@ -173,26 +173,26 @@ $(function () {
     });
 });
 
-//Parametros para o formulario hibrido dois em um
+//----Parametros para o formulario hibrido dois em um
 $(function () {
-    $('#group-btn-hide').fadeOut();
-    $('#group-btn-show').fadeOut();
     $('#btn-new-show').click(function () {
-        $('#group-btn-new').fadeOut();
-        $('.form-hide').fadeIn();
-        $('#group-btn-hide').fadeIn();
-        $('.row-button-hide').fadeIn();
+        $('#group-btn-new').fadeOut('slow');
+        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='glyphicon glyphicon-plus'></i> Adicionar Conta");
+        $('.form-register').attr('id',"addForm");
+        $('.form-hide').fadeIn('slow');
+        $('#group-btn-hide').fadeIn('slow');
+        $('.row-button-hide').fadeIn('slow');
         $('.notice-hide').fadeIn();
         $('.notice-hide span').text('MODO ADICIONAR NOVO REGISTRO ATIVO');
     });
     
     //Botao que oculta o fomulario
     $('#btn-hide').click(function () {
-        $('#group-btn-hide').fadeOut();
-        $('.form-hide').fadeOut();
-        $('.row-button-hide').fadeOut();
-        $('#group-btn-show').fadeIn();
-        $('.notice-hide').fadeOut();
+        $('#group-btn-hide').fadeOut('slow');
+        $('.form-hide').fadeOut('slow');
+        $('.row-button-hide').fadeOut('slow');
+        $('#group-btn-show').fadeIn('slow');
+        $('.notice-hide').fadeOut('slow');
         
         
     });
@@ -200,15 +200,16 @@ $(function () {
     //Botao que mostra o formulario
     $('#btn-show').click(function (e) {
         e.preventDefault();
-        $('#group-btn-show').fadeOut();
+        $('#group-btn-show').fadeOut('slow');
         $('.form-hide').fadeIn();
-        $('#group-btn-hide').fadeIn();
-        $('.row-button-hide').fadeIn();
+        $('#group-btn-hide').fadeIn('slow');
+        $('.row-button-hide').fadeIn('slow');
     });
     
     //Botao que voltar para adicionar novo registro
     $('.btn-form-new').click(function (e) {
         e.preventDefault();
+        
         $('#form-register').removeClass("edit");
         $("#form-register").removeAttr("data-id");
         // Insere o texto indicando o tipo de formulario

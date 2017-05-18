@@ -85,7 +85,9 @@ class PayModel extends MainModel
         }else {
             
             # Finaliza se nada foi enviado
-            return FALSE;
+            
+            #return FALSE;
+            echo 'error';
             
         } #--> End
         
@@ -101,8 +103,8 @@ class PayModel extends MainModel
             return;
         }else{
             //var_dump($this->form_data);die;
-            $this->insertRegister();
-            return;
+            $insert = $this->insertRegister();
+            echo $insert?'ok':'err';
         }
         
     } #--> End validate_register_form()
