@@ -10,7 +10,7 @@
                 unset($encode_id);
             }
                 # Verifica se existe a requisição POST se existir executa o método se não faz nada
-                (filter_input_array(INPUT_POST)) ? '$modelo->validate_register_form()' : FALSE;
+                (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
 
                 # Paginação parametros-------->
                 $limit = 5;
@@ -78,7 +78,7 @@
                 var userData = '';
                 if (type == 'add') {
                     
-                    userData = $("#addForm").find('#addForm').serialize()+'&action_type='+type+'&id='+id;
+                    userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
                     
                 }else if (type == 'edit'){
                     userData = $("#editForm").find('.form').serialize()+'&action_type='+type;
@@ -277,10 +277,10 @@
                         </thead>
                         <tbody >
                             <?php
-                            if (!empty($pays)) {
-                                $count = 0;
-                                foreach ($pays as $pay) {
-                                    $count++;
+                                if (!empty($pays)) {
+                                    $count = 0;
+                                    foreach ($pays as $pay) {
+                                        $count++;
                             ?>
                             <tr class="text-center">
                                 <td><?= htmlentities($pay['pay_id']); ?></td>
