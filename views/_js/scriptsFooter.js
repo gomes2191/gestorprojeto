@@ -183,7 +183,7 @@ $(function () {
         $('#group-btn-hide').fadeIn('slow');
         $('.row-button-hide').fadeIn('slow');
         $('.notice-hide').fadeIn();
-        $('.notice-hide span').text('MODO ADICIONAR NOVO REGISTRO ATIVO');
+        $('legend span').text(' - Modo Adicionar Novo Registro Ativo');
     });
     
     //Botao que oculta o fomulario
@@ -213,7 +213,7 @@ $(function () {
         $('#form-register').removeClass("edit");
         $("#form-register").removeAttr("data-id");
         // Insere o texto indicando o tipo de formulario
-        $('.notice-hide span').text('MODO ADICIONAR NOVO REGISTRO ATIVO');
+        $('legend span').text(' - MODO ADICIONAR NOVO REGISTRO ATIVO');
         
         // Mostra o botão para voltar para formulario de inserção.
         $('#group-btn-form-new').hide(200);

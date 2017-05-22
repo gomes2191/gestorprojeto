@@ -138,15 +138,7 @@
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
                     <fieldset>
-                        <legend >CONTAS A PAGAR</legend>
-                        <div class="row notice-hide" style="display: none;">
-                            <div class="col-md-5 col-sm-2 col-sx-12">
-                                <div class="notice notice-sm">
-                                    <span></span>
-                                </div>
-                            </div>
-                            <div class="col-md-10 col-sm-10 col-sx-0"></div>
-                        </div>
+                        <legend >CONTAS A PAGAR <span></span></legend>
                         <div class="row form-compact form-hide" style="display: none;">
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="pay_venc">Data de vencimento:</label>
@@ -210,8 +202,8 @@
                         <div class="row form-compact" >
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-new" class="btn-group">
-                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-sm btn-primary marg-top" type="reset">
-                                        <i class="glyphicon glyphicon-plus"></i> Novo registro
+                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-sm btn-default marg-top" type="reset">
+                                        <i class="glyphicon glyphicon-plus text-info"></i> <span class="text-info">NOVO REGISTRO</span>
                                     </button>
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">
@@ -232,17 +224,19 @@
         <div class="row">
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
                 <div class="input-group">
-                    <input type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="searchFilter()">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                    </span>
+                    <div class="input-group-addon" >
+                        <i class="glyphicon glyphicon-search text-danger" title="Efetue um pesqisa no sistema." aria-hidden="true"></i>
+                    </div>
+                    <input style="border-radius: 0px !important;" type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="searchFilter()">
                 </div>
             </div><!--/End col-->
 
             <div class="col-md-5 col-sm-0 col-xs-0"></div><!--End/-->
 
             <div class="form-group col-md-1  col-sm-3 col-xs-12">
-                <input type="text" class="text-center form-control" id="qtdLine"  placeholder="5" onkeyup="searchFilter()" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página de 1 até 50." >
+                <div class="input-group">
+                    <input type="text" class="text-center form-control" id="qtdLine"  placeholder="5" onkeyup="searchFilter()" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página de 1 até 50." >
+                </div>
             </div><!--/End col-->
 
             <div class="form-group col-md-2  col-sm-3 col-xs-12">
@@ -293,7 +287,7 @@
                                 <td><?= htmlentities($pay['pay_modified']); ?></td>
                                 <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
                                 <td><button class="btn btn-success btn-xs">Editar</button></td>
-                                <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-warning btn-xs">Deletar</button></td>
+                                <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-danger btn-xs">Deletar</button></td>
                                 <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
                             </tr>
                                 <?php }

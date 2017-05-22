@@ -61,10 +61,12 @@ class PayModel extends MainModel
         # Cria o vetor que vai receber os dados do post
         $this->form_data = [];
         
-        # Verifica se algo foi postado no formulário
-        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'GET') && (!empty(filter_input_array(INPUT_GET, FILTER_DEFAULT) ) ) ) {
-            # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach ( filter_input_array(INPUT_GET, FILTER_DEFAULT) as $key => $value ) {
+        # Verifica se não é vazio o $_POST
+        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && ((filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
+            
+            echo 'entrou';die;
+            # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
+            foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
                 
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
