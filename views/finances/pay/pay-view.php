@@ -73,7 +73,7 @@
             }
             
             function userAction(type,id){
-                id = (typeof id == "undefined")?'':id;
+                id = (typeof id == "undefined") ? '' : id;
                 var statusArr = {add:"added",edit:"updated",delete:"deleted"};
                 var userData = '';
                 if (type == 'add') {
@@ -90,7 +90,6 @@
                     url: '<?=HOME_URI;?>/finances-pay/ajax-process',
                     data: userData,
                     success:function(msg){
-                        alert(msg);
                         if(msg == 'ok'){
                             alert('User data has been '+statusArr[type]+' successfully.');
                             getUsers();
@@ -102,8 +101,22 @@
                     }
                 });
             }
-            
-            
+            function editUser(id){
+                $.ajax({
+                    type: 'POST',
+                    dataType:'JSON',
+                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+                    data: 'action_type=data&id='+id,
+                    success:function(data){
+                        
+                        $('.form-register').attr('data-id',data.pay_id);
+                        $('#pay_venc').val(data.pay_venc);
+                        $('#emailEdit').val(data.email);
+                        $('#phoneEdit').val(data.phone);
+                        $('#editForm').slideDown();
+                    }
+                });
+            }
         </script>
         
         <div class="row">
@@ -286,7 +299,7 @@
                                 <td><?= htmlentities($pay['pay_created']); ?></td>
                                 <td><?= htmlentities($pay['pay_modified']); ?></td>
                                 <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
-                                <td><button class="btn btn-success btn-xs">Editar</button></td>
+                                <td><button class="btn btn-success btn-xs" onclick="editUser('<?= $pay['pay_id']; ?>')" >Editar</button></td>
                                 <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-danger btn-xs">Deletar</button></td>
                                 <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
                             </tr>
