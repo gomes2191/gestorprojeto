@@ -175,6 +175,8 @@ $(function () {
 
 //----Parametros para o formulario hibrido dois em um
 $(function () {
+    
+    //Ativa modo de novo registro
     $('#btn-new-show').click(function () {
         $('#group-btn-new').fadeOut('slow');
         $('#btn-save').attr('onclick',"userAction('add')").html("<i class='glyphicon glyphicon-plus'></i> Adicionar Conta");
@@ -186,6 +188,21 @@ $(function () {
         $('legend span').text(' - Modo Adicionar Novo Registro Ativo');
     });
     
+    //Modo edição ativo
+    $('#btn-edit-show').click(function () {
+        $('#group-btn-new').fadeOut('slow');
+        $('#group-btn-hide').fadeOut('slow');
+        $('#btn-save').attr('onclick',"userAction('edit')").html("<i class='glyphicon glyphicon-refresh'></i> Atualizar Conta");
+        $('.form-register').attr('id',"addForm");
+        $('.form-hide').fadeIn('slow');
+        $('#group-btn-form-new').fadeIn('slow');
+       
+        //$('#group-btn-hide').fadeIn('slow');
+        $('.row-button-hide').fadeIn('slow');
+        //$('.notice-hide').fadeIn();
+        $('legend span').text(' - Modo Edição de Registro Ativo');
+    });
+    
     //Botao que oculta o fomulario
     $('#btn-hide').click(function () {
         $('#group-btn-hide').fadeOut('slow');
@@ -193,15 +210,13 @@ $(function () {
         $('.row-button-hide').fadeOut('slow');
         $('#group-btn-show').fadeIn('slow');
         $('.notice-hide').fadeOut('slow');
-        
-        
     });
     
     //Botao que mostra o formulario
     $('#btn-show').click(function (e) {
         e.preventDefault();
         $('#group-btn-show').fadeOut('slow');
-        $('.form-hide').fadeIn();
+        $('.form-hide').fadeIn('slow');
         $('#group-btn-hide').fadeIn('slow');
         $('.row-button-hide').fadeIn('slow');
     });

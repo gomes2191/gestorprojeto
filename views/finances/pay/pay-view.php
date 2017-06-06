@@ -108,12 +108,13 @@
                     url: '<?=HOME_URI;?>/finances-pay/ajax-process',
                     data: 'action_type=data&id='+id,
                     success:function(data){
-                        
-                        $('.form-register').attr('data-id',data.pay_id);
+                        $('#pay_id').val(data.pay_id);
                         $('#pay_venc').val(data.pay_venc);
-                        $('#emailEdit').val(data.email);
-                        $('#phoneEdit').val(data.phone);
-                        $('#editForm').slideDown();
+                        $('#pay_date_pay').val(data.pay_date_pay);
+                        $('#pay_desc').val(data.pay_desc);
+                        $('#pay_cat').val(data.pay_cat);
+                        $('#pay_val').val(data.pay_val);
+                        //$('#editForm').slideDown();
                     }
                 });
             }
@@ -157,6 +158,7 @@
                                 <label for="pay_venc">Data de vencimento:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                                    <input type="hidden" id="pay_id" name="pay_id" value="" >
                                     <input id="pay_venc" name="pay_venc" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
                                     <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
                                 </div>
@@ -299,7 +301,7 @@
                                 <td><?= htmlentities($pay['pay_created']); ?></td>
                                 <td><?= htmlentities($pay['pay_modified']); ?></td>
                                 <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
-                                <td><button class="btn btn-success btn-xs" onclick="editUser('<?= $pay['pay_id']; ?>')" >Editar</button></td>
+                                <td><button id="btn-edit-show" class="btn btn-success btn-xs" onclick="editUser('<?= $pay['pay_id']; ?>')" >Editar</button></td>
                                 <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-danger btn-xs">Deletar</button></td>
                                 <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
                             </tr>
