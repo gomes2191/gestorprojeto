@@ -7,8 +7,8 @@
         if ($_POST['action_type'] == 'data') {
             $conditions['where'] = array('pay_id' => $_POST['id']);
             $conditions['return_type'] = 'single';
-            $user = $modelo->searchTable('bills_to_pay', $conditions);
-            echo json_encode($user);
+            $allReg = $modelo->searchTable('bills_to_pay', $conditions);
+            echo json_encode($allReg);
         } elseif ($_POST['action_type'] == 'view') {
             $users = $db->getRows($tblName, array('order_by' => 'id DESC'));
             if (!empty($users)) {

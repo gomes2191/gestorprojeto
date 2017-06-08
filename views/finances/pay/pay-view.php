@@ -203,13 +203,13 @@
                         <div class="row form-compact row-button-hide" style="display: none;">
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-save" class="btn-group">
-                                    <button id="btn-save" title="Salvar informações" class="btn btn-sm btn-primary" onclick="" type="button"></button>
+                                    <button id="btn-save" title="Salvar informações" class="btn btn-sm btn-default" onclick="" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
-                                    <button title="Limpar formulário" class="btn btn-sm btn-warning marg-top fees-clear" type="reset"><i class="glyphicon glyphicon-erase"></i> Limpar</button>
+                                    <button title="Limpar formulário" class="btn btn-sm btn-default marg-top fees-clear" type="reset"><i class="text-warning glyphicon glyphicon-erase"></i> <span class="text-warning">LIMPAR</span></button>
                                 </div>
                                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                                    <button title="Inserir nova conta a pagar" class="btn btn-sm btn-default marg-top btn-form-new" type="reset"><i class="glyphicon glyphicon-plus"></i> Novo registro</button>
+                                    <button id="btn-form-new" title="Inserir nova conta a pagar" class="btn btn-sm btn-default marg-top" type="reset"><i class="text-primary glyphicon glyphicon-plus"></i> <span class="text-primary">MODO NOVO REGISTRO</span></button>
                                 </div>
                             </div>
                         </div>
@@ -218,16 +218,16 @@
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-new" class="btn-group">
                                     <button id="btn-new-show" title="Insere novo registro" class="btn btn-sm btn-default marg-top" type="reset">
-                                        <i class="glyphicon glyphicon-plus text-info"></i> <span class="text-info">NOVO REGISTRO</span>
+                                        <i class="glyphicon glyphicon-plus text-primary"></i> <span class="text-primary">NOVO REGISTRO</span>
                                     </button>
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">
                                     <button id="btn-show" title="Mostrar formulário" class="btn btn-sm btn-default marg-top" type="reset">
-                                        <i class="glyphicon glyphicon-eye-open"></i> Mostrar formulário
+                                        <i class="glyphicon glyphicon-eye-open"></i> Mostrar Formulário
                                     </button>
                                 </div>
                                 <div id="group-btn-hide" style="display: none;" class="btn-group">
-                                    <button id="btn-hide" title="Ocultar formulário" class="btn btn-sm btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> Ocultar Formulário</button>
+                                    <button id="btn-hide" title="Ocultar formulário" class="btn btn-sm btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> OCULTAR FORMULÁRIO</button>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
                 <div class="input-group">
                     <div class="input-group-addon" >
-                        <i class="glyphicon glyphicon-search text-danger" title="Efetue um pesqisa no sistema." aria-hidden="true"></i>
+                        <i class="glyphicon glyphicon-search text-primary" title="Efetue um pesqisa no sistema." aria-hidden="true"></i>
                     </div>
                     <input style="border-radius: 0px !important;" type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="searchFilter()">
                 </div>
@@ -301,9 +301,9 @@
                                 <td><?= htmlentities($pay['pay_created']); ?></td>
                                 <td><?= htmlentities($pay['pay_modified']); ?></td>
                                 <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
-                                <td><button id="btn-edit-show" class="btn btn-success btn-xs" onclick="editUser('<?= $pay['pay_id']; ?>')" >Editar</button></td>
-                                <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-danger btn-xs">Deletar</button></td>
-                                <td><button class="btn btn-primary btn-xs">Visualizar</button></td>
+                                <td><button class="btn btn-default btn-xs btn-edit-show" onclick="editUser('<?= $pay['pay_id']; ?>')" ><span class="text-success">EDITAR</span></button></td>
+                                <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-default btn-xs"><span class="text-danger">DELETAR</span></button></td>
+                                <td><a href="javascript:void(0);" class="btn btn-default btn-xs" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
                             </tr>
                                 <?php }
                             } else {

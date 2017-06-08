@@ -175,11 +175,11 @@ $(function () {
 
 //----Parametros para o formulario hibrido dois em um
 $(function () {
-    
     //Ativa modo de novo registro
-    $('#btn-new-show').click(function () {
+    $('#btn-new-show').click(function(e) {
+        e.preventDefault();
         $('#group-btn-new').fadeOut('slow');
-        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='glyphicon glyphicon-plus'></i> Adicionar Conta");
+        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='text-primary glyphicon glyphicon-plus'></i> <span class='text-primary'>ADICIONAR REGISTRO</span>");
         $('.form-register').attr('id',"addForm");
         $('.form-hide').fadeIn('slow');
         $('#group-btn-hide').fadeIn('slow');
@@ -189,10 +189,12 @@ $(function () {
     });
     
     //Modo edição ativo
-    $('#btn-edit-show').click(function () {
+    $('.btn-edit-show').click(function(e) {
+        e.preventDefault();
         $('#group-btn-new').fadeOut('slow');
-        $('#group-btn-hide').fadeOut('slow');
-        $('#btn-save').attr('onclick',"userAction('edit')").html("<i class='glyphicon glyphicon-refresh'></i> Atualizar Conta");
+        $('#btn-show').fadeOut('slow');
+        $('#group-btn-hide').fadeIn('slow');
+        $('#btn-save').attr('onclick',"userAction('edit')").html("<i class='text-primary glyphicon glyphicon-refresh'></i> <span class='text-primary'>ATUALIZAR CONTA");
         $('.form-register').attr('id',"addForm");
         $('.form-hide').fadeIn('slow');
         $('#group-btn-form-new').fadeIn('slow');
@@ -204,16 +206,20 @@ $(function () {
     });
     
     //Botao que oculta o fomulario
-    $('#btn-hide').click(function () {
+    $('#btn-hide').click(function(e) {
+        e.preventDefault();
         $('#group-btn-hide').fadeOut('slow');
         $('.form-hide').fadeOut('slow');
+        $('.notice-hide').fadeOut('slow');
         $('.row-button-hide').fadeOut('slow');
         $('#group-btn-show').fadeIn('slow');
-        $('.notice-hide').fadeOut('slow');
+        $('#btn-show').fadeIn('slow');
+        
+        
     });
     
     //Botao que mostra o formulario
-    $('#btn-show').click(function (e) {
+    $('#btn-show').click(function(e) {
         e.preventDefault();
         $('#group-btn-show').fadeOut('slow');
         $('.form-hide').fadeIn('slow');
@@ -222,31 +228,32 @@ $(function () {
     });
     
     //Botao que voltar para adicionar novo registro
-    $('.btn-form-new').click(function (e) {
+    $('#btn-form-new').click(function(e) {
         e.preventDefault();
         
-        $('#form-register').removeClass("edit");
-        $("#form-register").removeAttr("data-id");
+        // Limpa os campos
+        $('.form-register').find('input').val('');
+        
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - MODO ADICIONAR NOVO REGISTRO ATIVO');
+        
+        $('#btn-save').attr('onclick',"userAction('edit')").html("<i class='text-primary glyphicon glyphicon-plus'></i> <span class='text-primary'>ADICIONAR REGISTRO</span>");
         
         // Mostra o botão para voltar para formulario de inserção.
         $('#group-btn-form-new').hide(200);
         $('#group-btn-hide').show(200);
         $('html, body').animate({scrollTop:0}, 'slow');
-        
     });
 });
 
 // Limpeza de filtros de pesquisa
-$(function (){
+$(function(){
     $('#sortBy').mousedown( function (){
         $('#keywords').val(''); 
     });
     $('#keywords ').mousedown( function (){
         $('#sortBy').val('');
     });
-    
 });
 
 
