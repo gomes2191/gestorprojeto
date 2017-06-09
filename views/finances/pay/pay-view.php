@@ -118,6 +118,23 @@
                     }
                 });
             }
+            
+            function infoView(id){
+                $.ajax({
+                    type: 'POST',
+                    dataType:'JSON',
+                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+                    data: 'action_type=data&id='+id,
+                    success:function(data){
+                        $('.pay_venc').text(data.pay_venc);
+                        $('.pay_date_pay').text(data.pay_date_pay);
+                        $('.pay_desc').text(data.pay_desc);
+                        $('#pay_cat').val(data.pay_cat);
+                        $('#pay_val').val(data.pay_val);
+                        //$('#editForm').slideDown();
+                    }
+                });
+            }
         </script>
         
         <div class="row">
@@ -303,7 +320,7 @@
                                 <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
                                 <td><button class="btn btn-default btn-xs btn-edit-show" onclick="editUser('<?= $pay['pay_id']; ?>')" ><span class="text-success">EDITAR</span></button></td>
                                 <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-default btn-xs"><span class="text-danger">DELETAR</span></button></td>
-                                <td><a href="javascript:void(0);" class="btn btn-default btn-xs" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
+                                <td><a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="infoView('<?= $pay['pay_id']; ?>')" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
                             </tr>
                                 <?php }
                             } else {
@@ -341,6 +358,23 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <!--Conteudo do modal-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> INFORMAÇÕES</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-inline list-modal-forn">
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Data De Vencimento: </b> <span class="pay_venc"></span></li> 
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Descrição: </b> <span class="pay_date_pay"></span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Tipo unitário: </b> <span class="pay_desc"></span> </li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Fornecedor: </b> <span></span></li>
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Stoque inicial: </b> <span></span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Stoque minimo: </b> <span></span></li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
+                    </div>
                 </div>
             </div>
         </div><!-- End modal visualizar -->

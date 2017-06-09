@@ -24,10 +24,10 @@ class FinancesPayController extends MainController {
      *
      * @access public
      */
-//        public $permission_required = 'user-register';
+     #public $permission_required = 'user-register';
 
     
-    #   Carrega a página "/views/user-register/index.php"
+    # Carrega a página "/views/user-register/index.php"
     public function index() {
         
        
@@ -102,13 +102,13 @@ class FinancesPayController extends MainController {
         
     }   #--> End cad
     
-    public function PayBoxView(){
+    public function BoxView(){
         
         #   Carrega o modelo
         $modelo = $this->load_model('finances/pay-model');
         
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/pay/pay-box-view.php');
+        require_once (ABSPATH . '/views/finances/pay/box-view.php');
         
     }   #--> End BoxView
     
