@@ -41,7 +41,7 @@ class Pagination {
     var $additionalParam = '';
     var $link_func = '';
 
-    function __construct($params = array()) {
+    function __construct($params = []) {
         if (count($params) > 0) {
             $this->initialize($params);
         }

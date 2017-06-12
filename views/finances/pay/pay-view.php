@@ -79,7 +79,7 @@
                 if (type == 'add') {
                     
                     userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
-                    
+                    alert(userData);
                 }else if (type == 'edit'){
                     userData = $("#editForm").find('.form').serialize()+'&action_type='+type;
                 }else{
@@ -90,6 +90,7 @@
                     url: '<?=HOME_URI;?>/finances-pay/ajax-process',
                     data: userData,
                     success:function(msg){
+                        alert(msg);
                         if(msg == 'ok'){
                             alert('User data has been '+statusArr[type]+' successfully.');
                             getUsers();
@@ -128,9 +129,12 @@
                     success:function(data){
                         $('.pay_venc').text(data.pay_venc);
                         $('.pay_date_pay').text(data.pay_date_pay);
+                        $('.pay_cat').text(data.pay_cat);
                         $('.pay_desc').text(data.pay_desc);
-                        $('#pay_cat').val(data.pay_cat);
-                        $('#pay_val').val(data.pay_val);
+                        $('.pay_val').text(data.pay_val);
+                        $('.pay_created').text(data.pay_created);
+                        $('.pay_modified').text(data.pay_modified);
+                        $('.pay_status').text((data.pay_status == 1)?'Pago':'Não Pago' );
                         //$('#editForm').slideDown();
                     }
                 });
@@ -364,12 +368,14 @@
                     </div>
                     <div class="modal-body">
                         <ul class="list-inline list-modal-forn">
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Data De Vencimento: </b> <span class="pay_venc"></span></li> 
-                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Descrição: </b> <span class="pay_date_pay"></span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Tipo unitário: </b> <span class="pay_desc"></span> </li>
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Fornecedor: </b> <span></span></li>
-                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Stoque inicial: </b> <span></span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Stoque minimo: </b> <span></span></li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Data De Vencimento: </b> <span class="pay_venc">---</span></li> 
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Data de Pagamento: </b> <span class="pay_date_pay ">----</span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Categoria: </b> <span class="pay_cat">----</span> </li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Descrição: </b> <span class="pay_desc"></span></li>
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Valor: </b> <span class="pay_val">----</span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Data da Inclusao: </b> <span class="pay_created">----</span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Modificado Em: </b> <span class="pay_modified">----</span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Status: </b> <span class="pay_status">----</span></li>
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -387,7 +393,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">
                             <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
+                            <span class="sr-only">Fechar X</span>
                         </button>
                         <h4 class="modal-title" id="myModalLabel">Contact Form</h4>
                     </div>
@@ -414,7 +420,7 @@
                     <!-- Modal Footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <a href="javascript:void(0);" class="btn btn-success" onclick="userAction('add')">Add User</a>
+                        <a href="JavaScript:void(0);" class="btn btn-success" onclick="userAction('add')">Add User</a>
                     </div>
                 </div>
             </div>

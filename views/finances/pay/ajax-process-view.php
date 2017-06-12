@@ -26,11 +26,12 @@
                 echo '<tr><td colspan="5">No user(s) found......</td></tr>';
             }
         } elseif ($_POST['action_type'] == 'add') {
-            $userData = array(
+            var_dump('Entrou aqui tudo ok');die;
+            $userData = [
                 'name' => $_POST['name'],
                 'email' => $_POST['email'],
                 'phone' => $_POST['phone']
-            );
+            ];
             $insert = $db->insert($tblName, $userData);
             echo $insert ? 'ok' : 'err';
         } elseif ($_POST['action_type'] == 'edit') {
