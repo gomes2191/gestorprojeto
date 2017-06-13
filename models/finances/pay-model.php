@@ -62,9 +62,8 @@ class PayModel extends MainModel
         $this->form_data = [];
         
         # Verifica se não é vazio o $_POST
-        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && ((filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
+        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
             
-            echo 'entrou';die;
             # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
             foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
                 
@@ -102,11 +101,9 @@ class PayModel extends MainModel
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {
             //var_dump($this->form_data);
             $this->updateRegister(chk_array($this->form_data, 'fees_id'));
-            return;
         }else{
             //var_dump($this->form_data);die;
-            $insert = $this->insertRegister();
-            echo $insert?'ok':'err';
+            $this->insertRegister();
         }
         
     } #--> End validate_register_form()
@@ -133,15 +130,16 @@ class PayModel extends MainModel
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ( $query_ins ) {
-            $this->form_msg = ['result'=>'success', 'message'=>'query success'];
-            return $this->form_msg;
+            //$this->form_msg = ['result'=>'success', 'message'=>'query success'];
+            //return $this->form_msg;
+            echo 'ok';
         }else{
             # Feedback
-            $this->form_msg = ['result'=>'error', 'message'=>'query error'];
+            //$this->form_msg = ['result'=>'error', 'message'=>'query error'];
             
             # Retorna o valor e finaliza execução
-            return $this->form_msg;
-            
+            //return $this->form_msg;
+            echo 'err';
         }
         
     }

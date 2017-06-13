@@ -91,13 +91,17 @@
                     data: userData,
                     success:function(msg){
                         alert(msg);
-                        if(msg == 'ok'){
-                            alert('User data has been '+statusArr[type]+' successfully.');
+                        if(msg === 'ok'){
+                            alert('O registro foi inserido com sucesso!');
+                            $('.span4').show();
+                            $(".alert").removeClass("in").show();
+                            $(".alert").delay(200).addClass("in alert-success").fadeOut(3000);
+                            
                             getUsers();
-                            $('.form')[0].reset();
-                            $('.formData').slideUp();
+                            $('.form-register')[0].reset();
+                            //$('.formData').slideUp();
                         }else{
-                            alert('Some problem occurred, please try again.');
+                            alert('Ocorreu algum problema, tente novamente.');
                         }
                     }
                 });
@@ -144,20 +148,12 @@
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
             <div class="col-md-10  col-sm-12 col-xs-12">
-                <?php
-                    if ($form_msg) {
-                        echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                                <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
-                            </div>';
-                        unset($form_msg);
-                    } else {
-                        unset($form_msg);
-                    }
-                ?>
+                <div style="display: none;" class="span4 pull-right">
+                    <div class="alert fade">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>Alert!</strong> Here is my message..
+                    </div>
+                </div>
                 <div id="loading" style="display: none;"><!--Loading.. este aqui-->
                     <ul class="bokeh">
                         <li></li>

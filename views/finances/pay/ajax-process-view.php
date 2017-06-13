@@ -26,14 +26,9 @@
                 echo '<tr><td colspan="5">No user(s) found......</td></tr>';
             }
         } elseif ($_POST['action_type'] == 'add') {
-            var_dump('Entrou aqui tudo ok');die;
-            $userData = [
-                'name' => $_POST['name'],
-                'email' => $_POST['email'],
-                'phone' => $_POST['phone']
-            ];
-            $insert = $db->insert($tblName, $userData);
-            echo $insert ? 'ok' : 'err';
+            
+            echo $modelo->validate_register_form();die;
+            
         } elseif ($_POST['action_type'] == 'edit') {
             if (!empty($_POST['id'])) {
                 $userData = array(
