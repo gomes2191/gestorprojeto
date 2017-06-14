@@ -61,13 +61,15 @@
                     }
                 });
             }
-            function getUsers(){
+            function getReg(){
                 $.ajax({
                     type: 'POST',
+                    dataType: 'html',
                     url: '<?=HOME_URI;?>/finances-pay/ajax-process',
-                    data: 'action_type=view&'+$("#userForm").serialize(),
+                    data: 'action_type=view&'+$(".form-register").serialize(),
+                    async: true,
                     success:function(html){
-                        $('#userData').html(html);
+                        $('#tableData').html(html);
                     }
                 });
             }
@@ -92,16 +94,13 @@
                     success:function(msg){
                         alert(msg);
                         if(msg === 'ok'){
-                            alert('O registro foi inserido com sucesso!');
-                            $('.span4').show();
-                            $(".alert").removeClass("in").show();
-                            $(".alert").delay(200).addClass("in alert-success").fadeOut(3000);
-                            
-                            getUsers();
+                            toastr.success('Registro inserido com sucesso!', 'Sucesso!', {timeOut: 5000});
+
+                            searchFilter();
                             $('.form-register')[0].reset();
                             //$('.formData').slideUp();
                         }else{
-                            alert('Ocorreu algum problema, tente novamente.');
+                            toastr.danger('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
                         }
                     }
                 });
@@ -148,12 +147,6 @@
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
             <div class="col-md-10  col-sm-12 col-xs-12">
-                <div style="display: none;" class="span4 pull-right">
-                    <div class="alert fade">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>Alert!</strong> Here is my message..
-                    </div>
-                </div>
                 <div id="loading" style="display: none;"><!--Loading.. este aqui-->
                     <ul class="bokeh">
                         <li></li>

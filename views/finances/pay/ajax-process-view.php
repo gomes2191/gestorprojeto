@@ -10,18 +10,41 @@
             $allReg = $modelo->searchTable('bills_to_pay', $conditions);
             echo json_encode($allReg);
         } elseif ($_POST['action_type'] == 'view') {
-            $users = $db->getRows($tblName, array('order_by' => 'id DESC'));
-            if (!empty($users)) {
+            $records = $modelo->searchTable('bills_to_pay', array('order_by' => 'pay_id DESC'));
+            if (!empty($records)) {
+                $table = <<<HTML
+                <table  class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="small text-center">#</th>
+                            <th class="small text-center">DATA DE VENCIMENTO</th>
+                            <th class="small text-center">DATA DE PAGAMENTO</th>
+                            <th class="small text-center">CATEGORIA</th>
+                            <th class="small text-center">DESCRIÇÃO</th>
+                            <th class="small text-center">VALOR</th>
+                            <th class="small text-center">DATA DA INCLUSÃO</th>
+                            <th class="small text-center">MODIFICADO EM</th>
+                            <th class="small text-center">STATUS</th>
+                            <th colspan="10" class="small text-center">AÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+HTML;
                 $count = 0;
-                foreach ($users as $user): $count++;
+                echo $table;
+                foreach ($records as $record): $count++;
                     echo '<tr>';
                     echo '<td>#' . $count . '</td>';
-                    echo '<td>' . $user['name'] . '</td>';
-                    echo '<td>' . $user['email'] . '</td>';
-                    echo '<td>' . $user['phone'] . '</td>';
-                    echo '<td><a href="javascript:void(0);" class="glyphicon glyphicon-edit" onclick="editUser(\'' . $user['id'] . '\')"></a><a href="javascript:void(0);" class="glyphicon glyphicon-trash" onclick="return confirm(\'Are you sure to delete data?\')?userAction(\'delete\',\'' . $user['id'] . '\'):false;"></a></td>';
+                    echo '<td>' . $record['pay_id'] . '</td>';
+                    echo '<td>' . $record['pay_venc'] . '</td>';
+                    echo '<td>' . $record['pay_date_pay'] . '</td>';
                     echo '</tr>';
                 endforeach;
+                echo <<<HTML
+                    </tbody>
+                </table>    
+HTML;
+                echo $pagination->createLinks(); 
             }else {
                 echo '<tr><td colspan="5">No user(s) found......</td></tr>';
             }
