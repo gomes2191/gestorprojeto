@@ -49,10 +49,13 @@ HTML;
                 echo '<tr><td colspan="5">No user(s) found......</td></tr>';
             }
         } elseif ($_POST['action_type'] == 'add') {
-            
+            # Retorna a função que faz o registro no sistema e finaliza.
             return $modelo->validate_register_form();
             
         } elseif ($_POST['action_type'] == 'edit') {
+            
+            # Retorna a função que faz o update e finaliza.
+            return $modelo->validate_register_form();
             
         } elseif ($_POST['action_type'] == 'delete') {
             if (!empty($_POST['id'])) {

@@ -84,15 +84,11 @@ class PayModel extends MainModel
 //                return;
 //            }
         }else {
-            
-            # Finaliza se nada foi enviado
-            
-            #return FALSE;
-            echo 'error';
-            
+            # Finaliza a execução.
+            return 'err';
         } #--> End
-        
-        # Rotina que verifica se o registro já existe
+        var_dump();
+        # Verifica se o registro já existe.
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = ? ',[
             chk_array($this->form_data, 'pay_id')
         ]);        

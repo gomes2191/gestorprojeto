@@ -195,7 +195,7 @@ $(function () {
         $('#btn-show').fadeOut('slow');
         $('#group-btn-hide').fadeIn('slow');
         $('#btn-save').attr('onclick',"userAction('edit')").html("<i class='text-primary glyphicon glyphicon-refresh'></i> <span class='text-primary'>ATUALIZAR CONTA");
-        $('.form-register').attr('id',"addForm");
+        $('.form-register').attr('id',"editForm");
         $('.form-hide').fadeIn('slow');
         $('#group-btn-form-new').fadeIn('slow');
        
@@ -237,8 +237,8 @@ $(function () {
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - MODO ADICIONAR NOVO REGISTRO ATIVO');
         
-        $('#btn-save').attr('onclick',"userAction('edit')").html("<i class='text-primary glyphicon glyphicon-plus'></i> <span class='text-primary'>ADICIONAR REGISTRO</span>");
-        
+        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='text-primary glyphicon glyphicon-plus'></i> <span class='text-primary'>ADICIONAR REGISTRO</span>");
+        $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
         $('#group-btn-form-new').hide(200);
         $('#group-btn-hide').show(200);

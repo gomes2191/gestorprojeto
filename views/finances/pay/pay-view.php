@@ -28,8 +28,8 @@
                 $form_msg = $modelo->form_msg;
 
                 //date_default_timezone_set('America/Sao_Paulo');
-$date = date('Y-m-d H:i');
-date('Y-m-d H:i:s', time())
+                $date = date('Y-m-d H:i');
+                date('Y-m-d H:i:s', time())
 
         ?>
         <script>
@@ -84,11 +84,10 @@ date('Y-m-d H:i:s', time())
                 var statusArr = {add:"added",edit:"updated",delete:"deleted"};
                 var userData = '';
                 if (type == 'add') {
-                    
                     userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
-                    alert(userData);
                 }else if (type == 'edit'){
-                    userData = $("#editForm").find('.form').serialize()+'&action_type='+type;
+                    userData = $("#editForm").serialize()+'&action_type='+type;
+                    alert(userData+'Terste');
                 }else{
                     userData = 'action_type='+type+'&id='+id;
                 }
@@ -284,7 +283,7 @@ date('Y-m-d H:i:s', time())
             <div class="col-md-12  col-sm-12 col-xs-12">
                 
                 <div id="tableData" class="table-responsive" style="border: none;">
-                    <table  class="table table-bordered table-hover">
+                    <table  class="table table-inverse table-bordered ">
                         <thead>
                             <tr>
                                 <th class="small text-center">#</th>
