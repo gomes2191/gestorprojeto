@@ -26,6 +26,11 @@
 
                 # Verifica se existe feedback e retorna o feedback se sim se não retorna false
                 $form_msg = $modelo->form_msg;
+
+                //date_default_timezone_set('America/Sao_Paulo');
+$date = date('Y-m-d H:i');
+date('Y-m-d H:i:s', time())
+
         ?>
         <script>
             //  Muda url da pagina
@@ -100,7 +105,7 @@
                             $('.form-register')[0].reset();
                             //$('.formData').slideUp();
                         }else{
-                            toastr.danger('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
+                            toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
                         }
                     }
                 });
@@ -310,7 +315,7 @@
                                 <td><?= htmlentities($pay['pay_val']); ?></td>
                                 <td><?= htmlentities($pay['pay_created']); ?></td>
                                 <td><?= htmlentities($pay['pay_modified']); ?></td>
-                                <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>'; ?></td>
+                                <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em Débito</span>'; ?></td>
                                 <td><button class="btn btn-default btn-xs btn-edit-show" onclick="editUser('<?= $pay['pay_id']; ?>')" ><span class="text-success">EDITAR</span></button></td>
                                 <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-default btn-xs"><span class="text-danger">DELETAR</span></button></td>
                                 <td><a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="infoView('<?= $pay['pay_id']; ?>')" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>

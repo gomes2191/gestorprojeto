@@ -25,6 +25,8 @@
     define('DB_PASSWORD', '123456');
     # Charset da conexão PDO
     define('DB_CHARSET', 'utf8');
+    // DEFINE O FUSO HORARIO COMO O HORARIO DE BRASILIA
+    define('TIME_ZONE', date_default_timezone_set('America/Sao_Paulo'));
     
     # Se você estiver desenvolvendo, modifique o valor para true
     define('DEBUG', TRUE);

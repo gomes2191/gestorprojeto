@@ -50,19 +50,10 @@ HTML;
             }
         } elseif ($_POST['action_type'] == 'add') {
             
-            echo $modelo->validate_register_form();die;
+            return $modelo->validate_register_form();
             
         } elseif ($_POST['action_type'] == 'edit') {
-            if (!empty($_POST['id'])) {
-                $userData = array(
-                    'name' => $_POST['name'],
-                    'email' => $_POST['email'],
-                    'phone' => $_POST['phone']
-                );
-                $condition = array('id' => $_POST['id']);
-                $update = $db->update($tblName, $userData, $condition);
-                echo $update ? 'ok' : 'err';
-            }
+            
         } elseif ($_POST['action_type'] == 'delete') {
             if (!empty($_POST['id'])) {
                 $condition = array('id' => $_POST['id']);

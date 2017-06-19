@@ -125,7 +125,8 @@ class PayModel extends MainModel
             'pay_date_pay'     =>  $this->avaliar(chk_array($this->form_data, 'pay_date_pay')),
             'pay_desc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
             'pay_cat'          =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
-            'pay_val'          =>  $this->avaliar(chk_array($this->form_data, 'pay_val'))
+            'pay_val'          =>  $this->avaliar(chk_array($this->form_data, 'pay_val')),
+            'pay_created'      =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
