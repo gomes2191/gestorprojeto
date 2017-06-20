@@ -87,16 +87,15 @@ class PayModel extends MainModel
             # Finaliza a execução.
             return 'err';
         } #--> End
-        var_dump();
+       
         # Verifica se o registro já existe.
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = ? ',[
             chk_array($this->form_data, 'pay_id')
         ]);        
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
-        if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            //var_dump($this->form_data);
-            $this->updateRegister(chk_array($this->form_data, 'fees_id'));
+        if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
+            $this->updateRegister(chk_array($this->form_data, 'pay_id'));
         }else{
             //var_dump($this->form_data);die;
             $this->insertRegister();
@@ -122,7 +121,7 @@ class PayModel extends MainModel
             'pay_desc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
             'pay_cat'          =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
             'pay_val'          =>  $this->avaliar(chk_array($this->form_data, 'pay_val')),
-            'pay_created'      =>  date('Y-m-d H:i:s', time())
+            'pay_modified'     =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -150,45 +149,31 @@ class PayModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function updateRegister( $registro_id = NULL ){
-        
-        //var_dump($this->form_data);die;
-        
-        #   Se o ID não estiver vazio, atualiza os dados
+        # Verifica se existe ID
         if ( $registro_id ) {
             # Efetua o update do registro
-            $query_up = $this->db->update('covenant_fees', 'fees_id', $registro_id,[
-                'fees_cod'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
-                'fees_proc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
-                'fees_cat'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
-                'fees_desc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
-                'fees_part'   =>  $this->avaliar(chk_array($this->form_data, 'fees_part')),
-                'fees_total'  =>  $this->avaliar(chk_array($this->form_data, 'fees_total'))
+            $query_up = $this->db->update('bills_to_pay', 'pay_id', $registro_id,[
+                'pay_venc'        =>  $this->avaliar(chk_array($this->form_data, 'pay_venc')),
+                'pay_date_pay'    =>  $this->avaliar(chk_array($this->form_data, 'pay_date_pay')),
+                'pay_desc'        =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
+                'pay_cat'         =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
+                'pay_val'         =>  $this->avaliar(chk_array($this->form_data, 'pay_val')),
+                'pay_modified'    =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
             if ( $query_up ) {
-                
-                # Feedback para o usuário, retorna uma mensagem para usuário
-                $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
-                
-                # Da um refresh na página apos um determinado tempo especifico
-                echo '<meta http-equiv="Refresh" content="4">';
-                
-                # Destroy variáveis nao mais utilizadas
+                # Destroy variáveis nao mais utilizadas.
                 unset( $registro_id, $query_up  );
                 
-                # Finaliza execução.
-                return;
+                # Retorna o valor e finaliza execução.
+                echo 'ok';exit();
             }else{
-                
-                # Feedback para o usuário, retorna uma mensagem para usuário
-                $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
-                
-                # Destroy variáveis nao mais utilizadas
+                # Destroy variavel nao mais utilizadas.
                 unset( $registro_id, $query_up  );
                 
-                # Finaliza   
-                return;
+                # Retorna o valor e finaliza execução.   
+                echo 'err';exit();
             }
         }
     } #--> End updateRegister()

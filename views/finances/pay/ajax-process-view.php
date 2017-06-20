@@ -53,7 +53,6 @@ HTML;
             return $modelo->validate_register_form();
             
         } elseif ($_POST['action_type'] == 'edit') {
-            
             # Retorna a função que faz o update e finaliza.
             return $modelo->validate_register_form();
             

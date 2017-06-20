@@ -84,22 +84,22 @@
     $pagination =  new Pagination($pagConfig);
     
     $table = <<<HTML
-                <table  class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th class="small text-center">#</th>
-                            <th class="small text-center">DATA DE VENCIMENTO</th>
-                            <th class="small text-center">DATA DE PAGAMENTO</th>
-                            <th class="small text-center">CATEGORIA</th>
-                            <th class="small text-center">DESCRIÇÃO</th>
-                            <th class="small text-center">VALOR</th>
-                            <th class="small text-center">DATA DA INCLUSÃO</th>
-                            <th class="small text-center">MODIFICADO EM</th>
-                            <th class="small text-center">STATUS</th>
-                            <th colspan="10" class="small text-center">AÇÃO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        <table  class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="small text-center">#</th>
+                    <th class="small text-center">DATA DE VENCIMENTO</th>
+                    <th class="small text-center">DATA DE PAGAMENTO</th>
+                    <th class="small text-center">CATEGORIA</th>
+                    <th class="small text-center">DESCRIÇÃO</th>
+                    <th class="small text-center">VALOR</th>
+                    <th class="small text-center">DATA DA INCLUSÃO</th>
+                    <th class="small text-center">MODIFICADO EM</th>
+                    <th class="small text-center">STATUS</th>
+                    <th colspan="10" class="small text-center">AÇÃO</th>
+                </tr>
+            </thead>
+            <tbody>
 HTML;
     
     if (!empty($pays)) {
@@ -115,11 +115,11 @@ HTML;
             echo "<td>{$pay['pay_val']}</td>";
             echo "<td>{$pay['pay_created']}</td>";
             echo "<td>{$pay['pay_modified']}</td>";
-            $status = ($pay['pay_status'] == 2) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Não pago</span>';
+            $status = ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-warning">Em débito</span>';
             echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-success btn-xs'>Editar</button></td>";
+            echo "<td><button class='btn btn-default btn-xs btn-edit-show' onclick='editUser(".$pay['pay_id'].")' ><span class='text-success'>EDITAR</span></button></td>";
             echo "<td><button data-id='" . $modelo->encode_decode($pay['pay_id']) . "' class='btn-dell btn btn-warning btn-xs'>Deletar</button></td>";
-            echo "<td><button class='btn btn-primary btn-xs'>Visualizar</button></td>";
+            echo "<td><a href='javascript:void(0);' class='btn btn-default btn-xs' onclick='infoView(".$pay['pay_id'].")' data-toggle='modal' data-target='#inforView'><span class='text-primary'>VISUALIZAR</span></a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML

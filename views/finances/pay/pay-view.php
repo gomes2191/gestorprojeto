@@ -16,7 +16,7 @@
                 $limit = 5;
                 $pagConfig = [
                     'totalRows' => COUNT($modelo->searchTable('bills_to_pay')),
-                    'perPage' => $limit,
+                    'perPage'   => $limit,
                     'link_func' => 'searchFilter'];
 
                 $pagination =  new Pagination($pagConfig);
@@ -37,7 +37,7 @@
             //  window.history.pushState("fees", "", "fees");
             //  Faz um refresh de url apos fechar modal
             $(function () {
-                $('#dellReg').on('hidden.bs.modal', function () {
+                $('$teste').on('hidden.bs.modal', function () {
                     $(this).removeData('bs.modal');
                 });
             });
@@ -85,9 +85,10 @@
                 var userData = '';
                 if (type == 'add') {
                     userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
+                    feedback = 'Registro inserido com sucesso!';
                 }else if (type == 'edit'){
                     userData = $("#editForm").serialize()+'&action_type='+type;
-                    alert(userData+'Terste');
+                    feedback = 'Registro atualizado com sucesso!';
                 }else{
                     userData = 'action_type='+type+'&id='+id;
                 }
@@ -96,13 +97,10 @@
                     url: '<?=HOME_URI;?>/finances-pay/ajax-process',
                     data: userData,
                     success:function(msg){
-                        alert(msg);
                         if(msg === 'ok'){
-                            toastr.success('Registro inserido com sucesso!', 'Sucesso!', {timeOut: 5000});
-
+                            toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
                             searchFilter();
                             $('.form-register')[0].reset();
-                            //$('.formData').slideUp();
                         }else{
                             toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
                         }
@@ -134,6 +132,7 @@
                     url: '<?=HOME_URI;?>/finances-pay/ajax-process',
                     data: 'action_type=data&id='+id,
                     success:function(data){
+                        console.log(data.pay_date_pay);
                         $('.pay_venc').text(data.pay_venc);
                         $('.pay_date_pay').text(data.pay_date_pay);
                         $('.pay_cat').text(data.pay_cat);
@@ -141,7 +140,7 @@
                         $('.pay_val').text(data.pay_val);
                         $('.pay_created').text(data.pay_created);
                         $('.pay_modified').text(data.pay_modified);
-                        $('.pay_status').text((data.pay_status == 1)?'Pago':'Não Pago' );
+                        $('.pay_status').text((data.pay_date_pay) ? 'Pago' : 'Em débito')
                         //$('#editForm').slideDown();
                     }
                 });
@@ -314,7 +313,7 @@
                                 <td><?= htmlentities($pay['pay_val']); ?></td>
                                 <td><?= htmlentities($pay['pay_created']); ?></td>
                                 <td><?= htmlentities($pay['pay_modified']); ?></td>
-                                <td><?= ($pay['pay_status'] == 1) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em Débito</span>'; ?></td>
+                                <td><?= ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em Débito</span>'; ?></td>
                                 <td><button class="btn btn-default btn-xs btn-edit-show" onclick="editUser('<?= $pay['pay_id']; ?>')" ><span class="text-success">EDITAR</span></button></td>
                                 <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-default btn-xs"><span class="text-danger">DELETAR</span></button></td>
                                 <td><a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="infoView('<?= $pay['pay_id']; ?>')" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
