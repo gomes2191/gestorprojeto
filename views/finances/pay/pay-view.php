@@ -81,7 +81,7 @@
             
             function userAction(type,id){
                 id = (typeof id == "undefined") ? '' : id;
-                var statusArr = {add:"added",edit:"updated",delete:"deleted"};
+                //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
                 var userData = '';
                 if (type == 'add') {
                     userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
@@ -283,50 +283,49 @@
             <div class="col-md-12  col-sm-12 col-xs-12">
                 
                 <div id="tableData" class="table-responsive" style="border: none;">
-                    <table  class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="small text-center">#</th>
-                                <th class="small text-center">DATA DE VENCIMENTO</th>
-                                <th class="small text-center">DATA DE PAGAMENTO</th>
-                                <th class="small text-center">CATEGORIA</th>
-                                <th class="small text-center">DESCRIÇÃO</th>
-                                <th class="small text-center">VALOR</th>
-                                <th class="small text-center">DATA DA INCLUSÃO</th>
-                                <th class="small text-center">MODIFICADO EM</th>
-                                <th class="small text-center">STATUS</th>
-                                <th colspan="10" class="small text-center">AÇÃO</th>
-                            </tr>
-                        </thead>
-                        <tbody >
+                    <?php
+                        if (!empty($pays)) {
+                    ?>        
+                            <table  class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="small text-center">#</th>
+                                        <th class="small text-center">DATA DE VENCIMENTO</th>
+                                        <th class="small text-center">DATA DE PAGAMENTO</th>
+                                        <th class="small text-center">CATEGORIA</th>
+                                        <th class="small text-center">DESCRIÇÃO</th>
+                                        <th class="small text-center">VALOR</th>
+                                        <th class="small text-center">DATA DA INCLUSÃO</th>
+                                        <th class="small text-center">MODIFICADO EM</th>
+                                        <th class="small text-center">STATUS</th>
+                                        <th colspan="10" class="small text-center">AÇÃO</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
                             <?php
-                                if (!empty($pays)) {
-                                    $count = 0;
-                                    foreach ($pays as $pay) {
-                                        $count++;
-                            ?>
-                            <tr class="text-center">
-                                <td><?= htmlentities($pay['pay_id']); ?></td>
-                                <td><?= htmlentities($pay['pay_venc']); ?></td>
-                                <td><?= htmlentities($pay['pay_date_pay']); ?></td>
-                                <td><?= htmlentities($pay['pay_cat']); ?></td>
-                                <td><?= htmlentities($pay['pay_desc']); ?></td>
-                                <td><?= htmlentities($pay['pay_val']); ?></td>
-                                <td><?= htmlentities($pay['pay_created']); ?></td>
-                                <td><?= htmlentities($pay['pay_modified']); ?></td>
-                                <td><?= ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em Débito</span>'; ?></td>
-                                <td><button class="btn btn-default btn-xs btn-edit-show" onclick="editUser('<?= $pay['pay_id']; ?>')" ><span class="text-success">EDITAR</span></button></td>
-                                <td><a href="javascript:void(0);" onclick="return confirm('Deseja remover esse registro?')?userAction('delete','<?= $modelo->encode_decode($pay['pay_id']); ?>'):false;" class="btn btn-default btn-xs"><span class="text-danger">DELETAR</span></a></td>
-                                <td><a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="infoView('<?= $modelo->encode_decode($pay['pay_id']); ?>')" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
-                            </tr>
-                                <?php }
-                            } else {
-                                ?>
-                                <tr class="text-center"><td colspan="10"><span class="label label-primary">Não há registros...</span></td></tr>
+                                $count = 0;
+                                foreach ($pays as $pay) {
+                                    $count++; ?>
+                                    <tr class="text-center">
+                                        <td><?= htmlentities($pay['pay_id']); ?></td>
+                                        <td><?= htmlentities($pay['pay_venc']); ?></td>
+                                        <td><?= htmlentities($pay['pay_date_pay']); ?></td>
+                                        <td><?= htmlentities($pay['pay_cat']); ?></td>
+                                        <td><?= htmlentities($pay['pay_desc']); ?></td>
+                                        <td><?= htmlentities($pay['pay_val']); ?></td>
+                                        <td><?= htmlentities($pay['pay_created']); ?></td>
+                                        <td><?= htmlentities($pay['pay_modified']); ?></td>
+                                        <td><?= ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em Débito</span>'; ?></td>
+                                        <td><button class="btn btn-default btn-xs btn-edit-show" onclick="editUser('<?= $pay['pay_id']; ?>')" ><span class="text-success">EDITAR</span></button></td>
+                                        <td><a href="javascript:void(0);" onclick="return confirm('Deseja remover esse registro?')?userAction('delete','<?= $modelo->encode_decode($pay['pay_id']); ?>'):false;" class="btn btn-default btn-xs"><span class="text-danger">DELETAR</span></a></td>
+                                        <td><a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="infoView('<?= $modelo->encode_decode($pay['pay_id']); ?>')" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
+                                    </tr>
                             <?php } ?>
-                        </tbody>
-                    </table>
-                    <?= $pagination->createLinks(); ?>
+                                </tbody></table>
+                            <?= $pagination->createLinks(); ?>
+                            <?php }else{ ?>
+                                <div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Não há registro.</div>
+                            <?php } ?>
                 </div>
             </div>
         </div><!-- End row table -->

@@ -49,7 +49,7 @@ class MainController extends UserLogin
      *
      * @access public
      */
-    public $parametros = array();
+    public $parametros = [];
 
     /**
      * Construtor da classe
@@ -59,7 +59,7 @@ class MainController extends UserLogin
      * @since 0.1
      * @access public
      */
-    public function __construct ( $parametros = array() ) 
+    public function __construct ( $parametros = [] ) 
     {
 
         // Instancia do DB
