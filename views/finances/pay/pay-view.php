@@ -37,7 +37,7 @@
             //  window.history.pushState("fees", "", "fees");
             //  Faz um refresh de url apos fechar modal
             $(function () {
-                $('$teste').on('hidden.bs.modal', function () {
+                $('').on('hidden.bs.modal', function () {
                     $(this).removeData('bs.modal');
                 });
             });
@@ -91,6 +91,7 @@
                     feedback = 'Registro atualizado com sucesso!';
                 }else{
                     userData = 'action_type='+type+'&id='+id;
+                    feedback = 'Registro removido com sucesso!';
                 }
                 $.ajax({
                     type: 'POST',
@@ -282,7 +283,7 @@
             <div class="col-md-12  col-sm-12 col-xs-12">
                 
                 <div id="tableData" class="table-responsive" style="border: none;">
-                    <table  class="table table-inverse table-bordered ">
+                    <table  class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th class="small text-center">#</th>
@@ -315,8 +316,8 @@
                                 <td><?= htmlentities($pay['pay_modified']); ?></td>
                                 <td><?= ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em Débito</span>'; ?></td>
                                 <td><button class="btn btn-default btn-xs btn-edit-show" onclick="editUser('<?= $pay['pay_id']; ?>')" ><span class="text-success">EDITAR</span></button></td>
-                                <td><button data-id="<?= $modelo->encode_decode($pay['pay_id']); ?>" class="btn-dell btn btn-default btn-xs"><span class="text-danger">DELETAR</span></button></td>
-                                <td><a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="infoView('<?= $pay['pay_id']; ?>')" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
+                                <td><a href="javascript:void(0);" onclick="return confirm('Deseja remover esse registro?')?userAction('delete','<?= $modelo->encode_decode($pay['pay_id']); ?>'):false;" class="btn btn-default btn-xs"><span class="text-danger">DELETAR</span></a></td>
+                                <td><a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="infoView('<?= $modelo->encode_decode($pay['pay_id']); ?>')" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
                             </tr>
                                 <?php }
                             } else {

@@ -189,7 +189,7 @@ $(function () {
     });
     
     //Modo edição ativo
-    $('.btn-edit-show').click(function(e) {
+    $('#tableData').on('click','.btn-edit-show', function(e) {
         e.preventDefault();
         $('#group-btn-new').fadeOut('slow');
         $('#btn-show').fadeOut('slow');

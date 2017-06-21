@@ -121,7 +121,7 @@ class PayModel extends MainModel
             'pay_desc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
             'pay_cat'          =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
             'pay_val'          =>  $this->avaliar(chk_array($this->form_data, 'pay_val')),
-            'pay_modified'     =>  date('Y-m-d H:i:s', time())
+            'pay_created'      =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -229,35 +229,19 @@ class PayModel extends MainModel
         $search = $this->db->query("SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
-            #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
-            
-            # Redireciona de volta para a página após 4 segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/finances-pay">';
-            
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
-
-            # Finaliza
-            return;
+            
+            echo 'err';exit();
+            
         } else {
             # Deleta o registro
             $query_del = $this->db->delete('bills_to_pay', 'pay_id', $decode_id);
 
-            #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
-            
-            # Tratamento de erro ajax retorno Feedback para o usuário
-            //$this->form_msg = TRUE;
-
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
 
-            # Redireciona de volta para a página após o tempo informado segundos
-            echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/finances-pay">';
-
-            #   Finaliza
-            return;
+            echo 'ok';exit();
         }
     }   #--> End delRegister()
 
