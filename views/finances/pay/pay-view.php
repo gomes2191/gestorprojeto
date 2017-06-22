@@ -41,7 +41,7 @@
                     $(this).removeData('bs.modal');
                 });
             });
-
+            
             function searchFilter(page_num){
                 page_num = page_num ? page_num : 0;
 
@@ -248,9 +248,9 @@
                     </fieldset>
                 </form>
             </div>
-        </div><!--End row button new form-->
-        
-        <div class="row">
+        </div><!-- End row button new form -->
+        <?php if (!empty($pays)) { ?>
+        <div id="filtros" class="row">
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
                 <div class="input-group">
                     <div class="input-group-addon" >
@@ -278,54 +278,12 @@
                 </select>
             </div><!--/End col-->
         </div><!-- End row filtros -->
-
+        
+        <?php } ?>
         <div class="row">
             <div class="col-md-12  col-sm-12 col-xs-12">
-                
                 <div id="tableData" class="table-responsive" style="border: none;">
-                    <?php
-                        if (!empty($pays)) {
-                    ?>        
-                            <table  class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="small text-center">#</th>
-                                        <th class="small text-center">DATA DE VENCIMENTO</th>
-                                        <th class="small text-center">DATA DE PAGAMENTO</th>
-                                        <th class="small text-center">CATEGORIA</th>
-                                        <th class="small text-center">DESCRIÇÃO</th>
-                                        <th class="small text-center">VALOR</th>
-                                        <th class="small text-center">DATA DA INCLUSÃO</th>
-                                        <th class="small text-center">MODIFICADO EM</th>
-                                        <th class="small text-center">STATUS</th>
-                                        <th colspan="10" class="small text-center">AÇÃO</th>
-                                    </tr>
-                                </thead>
-                                <tbody >
-                            <?php
-                                $count = 0;
-                                foreach ($pays as $pay) {
-                                    $count++; ?>
-                                    <tr class="text-center">
-                                        <td><?= htmlentities($pay['pay_id']); ?></td>
-                                        <td><?= htmlentities($pay['pay_venc']); ?></td>
-                                        <td><?= htmlentities($pay['pay_date_pay']); ?></td>
-                                        <td><?= htmlentities($pay['pay_cat']); ?></td>
-                                        <td><?= htmlentities($pay['pay_desc']); ?></td>
-                                        <td><?= htmlentities($pay['pay_val']); ?></td>
-                                        <td><?= htmlentities($pay['pay_created']); ?></td>
-                                        <td><?= htmlentities($pay['pay_modified']); ?></td>
-                                        <td><?= ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em Débito</span>'; ?></td>
-                                        <td><button class="btn btn-default btn-xs btn-edit-show" onclick="editUser('<?= $pay['pay_id']; ?>')" ><span class="text-success">EDITAR</span></button></td>
-                                        <td><a href="javascript:void(0);" onclick="return confirm('Deseja remover esse registro?')?userAction('delete','<?= $modelo->encode_decode($pay['pay_id']); ?>'):false;" class="btn btn-default btn-xs"><span class="text-danger">DELETAR</span></a></td>
-                                        <td><a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="infoView('<?= $modelo->encode_decode($pay['pay_id']); ?>')" data-toggle="modal" data-target="#inforView"><span class="text-primary">VISUALIZAR</span></a></td>
-                                    </tr>
-                            <?php } ?>
-                                </tbody></table>
-                            <?= $pagination->createLinks(); ?>
-                            <?php }else{ ?>
-                                <div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Não há registro.</div>
-                            <?php } ?>
+                    
                 </div>
             </div>
         </div><!-- End row table -->
@@ -420,52 +378,26 @@
 
         <!-- Metodos necessarios -->  
         <script>
-                function submitContactForm(){
-        var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-        var name = $('#inputName').val();
-        var email = $('#inputEmail').val();
-        var message = $('#inputMessage').val();
-        if(name.trim() == '' ){
-                    alert('Please enter your name.');
-            $('#inputName').focus();
-                    return false;
-            }else if(email.trim() == '' ){
-                    alert('Please enter your email.');
-            $('#inputEmail').focus();
-                    return false;
-            }else if(email.trim() != '' && !reg.test(email)){
-                    alert('Please enter valid email.');
-            $('#inputEmail').focus();
-                    return false;
-            }else if(message.trim() == '' ){
-                    alert('Please enter your message.');
-            $('#inputMessage').focus();
-                    return false;
-            }else{
             $.ajax({
-                type:'POST',
-                url:'<?=HOME_URI;?>/finances-pay/submit',
-                data:'contactFrmSubmit=1&name='+name+'&email='+email+'&message='+message,
-                beforeSend: function () {
-                    $('.submitBtn').attr("disabled","disabled");
-                    $('.modal-body').css('opacity', '.5');
+                type: 'POST',
+                dataType: 'html',
+                url: '<?=HOME_URI;?>/finances-pay/filters',
+                //data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
+                async: true,
+                beforeSend: function (){
+                    $('#loading').show();
                 },
-                success:function(msg){
-                    alert(msg);
-                    if(msg == 'ok'){
-                        $('#inputName').val('');
-                        $('#inputEmail').val('');
-                        $('#inputMessage').val('');
-                        $('.statusMsg').html('<span style="color:green;">Thanks for contacting us, we\'ll get back to you soon.</p>');
+                success: function ( data ){
+                    $('#tableData').html( data );
+                    $('#loading').fadeOut();
+                    if(document.getElementById("tableList")){
+                        
                     }else{
-                        $('.statusMsg').html('<span style="color:red;">Some problem occurred, please try again.</span>');
+                        $('#filtros').remove();
                     }
-                    $('.submitBtn').removeAttr("disabled");
-                    $('.modal-body').css('opacity', '');
                 }
             });
-        }
-    }
+            
             //Setando valores do ajax
             //var objFinanca = new Financeiro();
 

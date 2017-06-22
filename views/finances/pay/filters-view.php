@@ -84,7 +84,7 @@
     $pagination =  new Pagination($pagConfig);
     
     $table = <<<HTML
-        <table  class="table table-bordered table-hover">
+        <table  id="tableList" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th class="small text-center">#</th>
@@ -118,7 +118,7 @@ HTML;
             $status = ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             echo '<td>' . $status . '</td>';
             echo "<td><button class='btn btn-default btn-xs btn-edit-show' onclick='editUser(".$pay['pay_id'].")' ><span class='text-success'>EDITAR</span></button></td>";
-            echo "<td><button data-id='".$modelo->encode_decode($pay['pay_id'])."' class='btn-dell btn btn-default btn-xs'><span class='text-danger'>DELETAR</span></button></td>";
+            echo "<td><a href='javascript:void(0);' onclick='return confirm('Deseja remover esse registro?')?userAction('delete','".$modelo->encode_decode($pay['pay_id'])."'):false;' class='btn btn-default btn-xs'><span class='text-danger'>DELETAR</span></a></td>";
             echo "<td><a href='javascript:void(0);' class='btn btn-default btn-xs' onclick='infoView(".$pay['pay_id'].")' data-toggle='modal' data-target='#inforView'><span class='text-primary'>VISUALIZAR</span></a></td>";
             echo '</tr>';
         endforeach;
