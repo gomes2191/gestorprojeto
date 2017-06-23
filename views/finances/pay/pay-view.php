@@ -81,6 +81,7 @@
             
             function userAction(type,id){
                 id = (typeof id == "undefined") ? '' : id;
+                
                 //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
                 var userData = '';
                 if (type == 'add') {
