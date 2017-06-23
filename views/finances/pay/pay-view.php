@@ -380,7 +380,7 @@
         <script>
             $.ajax({
                 type: 'POST',
-                dataType: 'html',
+                dataType: 'script',
                 url: '<?=HOME_URI;?>/finances-pay/filters',
                 //data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
                 async: true,

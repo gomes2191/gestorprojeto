@@ -83,42 +83,40 @@
 
     $pagination =  new Pagination($pagConfig);
     
-    $table = <<<HTML
-        <table  id="tableList" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th class="small text-center">#</th>
-                    <th class="small text-center">DATA DE VENCIMENTO</th>
-                    <th class="small text-center">DATA DE PAGAMENTO</th>
-                    <th class="small text-center">CATEGORIA</th>
-                    <th class="small text-center">DESCRIÇÃO</th>
-                    <th class="small text-center">VALOR</th>
-                    <th class="small text-center">DATA DA INCLUSÃO</th>
-                    <th class="small text-center">MODIFICADO EM</th>
-                    <th class="small text-center">STATUS</th>
-                    <th colspan="10" class="small text-center">AÇÃO</th>
-                </tr>
-            </thead>
-            <tbody>
-HTML;
-    
     if (!empty($pays)) {
+        echo <<<HTML
+            <table  id="tableList" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="small text-center">#</th>
+                        <th class="small text-center">DATA DE VENCIMENTO</th>
+                        <th class="small text-center">DATA DE PAGAMENTO</th>
+                        <th class="small text-center">CATEGORIA</th>
+                        <th class="small text-center">DESCRIÇÃO</th>
+                        <th class="small text-center">VALOR</th>
+                        <th class="small text-center">DATA DA INCLUSÃO</th>
+                        <th class="small text-center">MODIFICADO EM</th>
+                        <th class="small text-center">STATUS</th>
+                        <th colspan="10" class="small text-center">AÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody>
+HTML;
         $count = 0;
-        echo $table;
         foreach ($pays as $pay) : $count++;
-            echo '<tr data-id="' . $pay['pay_id'] . '" class="text-center">';
-            echo "<td>{$pay['pay_id']}</td>";
-            echo "<td>{$pay['pay_venc']}</td>";
-            echo "<td>{$pay['pay_date_pay']}</td>";
-            echo "<td>{$pay['pay_cat']}</td>";
-            echo "<td>{$pay['pay_desc']}</td>";
-            echo "<td>{$pay['pay_val']}</td>";
-            echo "<td>{$pay['pay_created']}</td>";
-            echo "<td>{$pay['pay_modified']}</td>";
+            echo '<tr class="text-center">';
+            echo '<td>'.$pay['pay_id'].'</td>';
+            echo '<td>'.$pay['pay_venc'].'</td>';
+            echo '<td>'.$pay['pay_date_pay'].'</td>';
+            echo '<td>'.$pay['pay_cat'].'</td>';
+            echo '<td>'.$pay['pay_desc'].'</td>';
+            echo '<td>'.$pay['pay_val'].'</td>';
+            echo '<td>'.$pay['pay_created'].'</td>';
+            echo '<td>'.$pay['pay_modified'].'</td>';
             $status = ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             echo '<td>' . $status . '</td>';
             echo "<td><button class='btn btn-default btn-xs btn-edit-show' onclick='editUser(".$pay['pay_id'].")' ><span class='text-success'>EDITAR</span></button></td>";
-            echo "<td><a href='javascript:void(0);' onclick='return confirm('Deseja remover esse registro?')?userAction('delete','".$modelo->encode_decode($pay['pay_id'])."'):false;' class='btn btn-default btn-xs'><span class='text-danger'>DELETAR</span></a></td>";
+            echo "<td><a href='javascript:void(0);' class='btn btn-default btn-xs' onclick='confirm('{$pay['pay_desc']}')'><span class='text-danger'>DELETAR</span></a></td>";
             echo "<td><a href='javascript:void(0);' class='btn btn-default btn-xs' onclick='infoView(".$pay['pay_id'].")' data-toggle='modal' data-target='#inforView'><span class='text-primary'>VISUALIZAR</span></a></td>";
             echo '</tr>';
         endforeach;
