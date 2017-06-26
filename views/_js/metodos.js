@@ -12,8 +12,8 @@ function Financeiro() {
     var n, c, d, t, finalNum;
     var numUS;
     var idOne, idTwo, nValor, nPorce, calcTotal;
-    
     var classTag;
+    var url;
 
 
 
@@ -57,6 +57,10 @@ function Financeiro() {
     this.setAjax = function (classTag) {
         this.classTag = classTag;
     };
+    
+    this.setAjaxData = function (url) {
+        this.url = url;
+    };
 
     this.getNome = function () {
         return this.nome;
@@ -92,6 +96,10 @@ function Financeiro() {
     
     this.getAjax = function () {
         return this.classTag;
+    };
+    
+    this.getAjaxData = function () {
+        return this.url;
     };
 
     this.mostraDados = function () {
@@ -176,6 +184,29 @@ function Financeiro() {
         });
        
     };
+    
+    this.ajaxData = function () {
+        $.ajax({
+            type: 'POST',
+            dataType: 'html',
+            url: this.url,
+            //data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
+            async: true,
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            success: function (data) {
+                $('#tableData').html(data);
+                $('#loading').fadeOut();
+                if (document.getElementById("tableList")) {
+                    $('#filtros').show();
+                } else {
+                    $('#filtros').hide();
+                }
+            }
+        });
+    };
+    
 }
 
 //    // Exemplo de uso

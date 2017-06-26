@@ -33,6 +33,14 @@
 
         ?>
         <script>
+            //Setando valores do ajax
+            var objFinanca = new Financeiro();
+
+            objFinanca.setAjaxData('finances-pay/filters');
+
+            objFinanca.getAjaxData();
+
+            objFinanca.ajaxData();
             //  Muda url da pagina
             //  window.history.pushState("fees", "", "fees");
             //  Faz um refresh de url apos fechar modal
@@ -66,18 +74,7 @@
                     }
                 });
             }
-            function getReg(){
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'html',
-                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
-                    data: 'action_type=view&'+$(".form-register").serialize(),
-                    async: true,
-                    success:function(html){
-                        $('#tableData').html(html);
-                    }
-                });
-            }
+           
             
             function userAction(type,id){
                 id = (typeof id == "undefined") ? '' : id;
@@ -91,17 +88,22 @@
                     userData = $("#editForm").serialize()+'&action_type='+type;
                     feedback = 'Registro atualizado com sucesso!';
                 }else{
-                    userData = 'action_type='+type+'&id='+id;
-                    feedback = 'Registro removido com sucesso!';
+                    if(confirm('Deseja remover esse registro?')){
+                        userData = 'action_type='+type+'&id='+id;
+                        feedback = 'Registro removido com sucesso!';
+                    }else{
+                        return false;
+                    } 
+                    
                 }
                 $.ajax({
                     type: 'POST',
                     url: '<?=HOME_URI;?>/finances-pay/ajax-process',
                     data: userData,
                     success:function(msg){
+                        objFinanca.ajaxData();
                         if(msg === 'ok'){
                             toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
-                            searchFilter();
                             $('.form-register')[0].reset();
                         }else{
                             toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
@@ -379,42 +381,8 @@
 
         <!-- Metodos necessarios -->  
         <script>
-            $.ajax({
-                type: 'POST',
-                dataType: 'script',
-                url: '<?=HOME_URI;?>/finances-pay/filters',
-                //data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
-                async: true,
-                beforeSend: function (){
-                    $('#loading').show();
-                },
-                success: function ( data ){
-                    $('#tableData').html( data );
-                    $('#loading').fadeOut();
-                    if(document.getElementById("tableList")){
-                        
-                    }else{
-                        $('#filtros').remove();
-                    }
-                }
-            });
             
-            //Setando valores do ajax
-            //var objFinanca = new Financeiro();
-
-            //objFinanca.setAjax('.btn-dell');
-
-            //objFinanca.getAjax();
-
-            //objFinanca.mostraAjax();
-
-            $('body').on('click', '.btn-dell', function(){
-                  //var nome = $(this).data('nome'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
-                  var id = $(this).data('id'); // vamos buscar o valor do atributo data-id
-                  //$('span.nome').text(nome+ ' (id = ' +id+ ')'); // inserir na o nome na pergunta de confirmação dentro da modal
-                  $('a.delete-yes').attr('href', '?re=' +id); // mudar dinamicamente o link, href do botão confirmar da modal
-                  $('#dellReg').modal('show'); // modal aparece
-            });
+            
             
             
         </script>

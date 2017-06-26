@@ -115,9 +115,9 @@ HTML;
             echo '<td>'.$pay['pay_modified'].'</td>';
             $status = ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-default btn-xs btn-edit-show' onClick={editUser(".$pay['pay_id'].")} ><span class='text-success'>EDITAR</span></button></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-default btn-xs' onClick={confirm('Teste')?userAction('delete','{$pay['pay_id']}'):false;}><span class='text-danger'>DELETAR</span></a></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-default btn-xs' onClick={infoView({$pay['pay_id']})} data-toggle='modal' data-target='#inforView'><span class='text-primary'>VISUALIZAR</span></a></td>";
+            echo "<td><button class='btn btn-default btn-xs btn-edit-show' onClick={editUser('{$modelo->encode_decode($pay['pay_id'])}')} ><span class='text-success'>EDITAR</span></button></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-default btn-xs' onClick={userAction('delete','{$modelo->encode_decode($pay['pay_id'])}')}><span class='text-danger'>DELETAR</span></a></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-default btn-xs' onClick={infoView('{$modelo->encode_decode($pay['pay_id'])}')} data-toggle='modal' data-target='#inforView'><span class='text-primary'>VISUALIZAR</span></a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML
@@ -125,8 +125,10 @@ HTML;
             </table>    
 HTML;
       echo $pagination->createLinks();  
-    }else {
+    }elseif ((filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING) OR filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)) && $pays == false) {
         echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Nenhum registro encontrado.</div>';
+    }else{
+        echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Não há registros na base de dados.</div>';
     }
     
 
