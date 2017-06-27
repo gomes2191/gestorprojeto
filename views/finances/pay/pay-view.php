@@ -41,6 +41,14 @@
             objFinanca.getAjaxData();
 
             objFinanca.ajaxData();
+            
+            objFinanca.setAjaxFilter('finances-pay/filters');
+
+            objFinanca.getAjaxFilter();
+
+            
+            
+            
             //  Muda url da pagina
             //  window.history.pushState("fees", "", "fees");
             //  Faz um refresh de url apos fechar modal
@@ -50,30 +58,7 @@
                 });
             });
             
-            function searchFilter(page_num){
-                page_num = page_num ? page_num : 0;
-
-                var keywords = $('#keywords').val();
-                var qtdLine = $('#qtdLine').val();
-                var sortBy = $('#sortBy').val();
-
-                //var keywords = $('#keywords').val();
-                //var sortBy = $('#sortBy').val();
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'html',
-                    url: '<?=HOME_URI;?>/finances-pay/filters',
-                    data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
-                    async: true,
-                    beforeSend: function (){
-                        $('#loading').show();
-                    },
-                    success: function ( data ){
-                        $('#tableData').html( data );
-                        $('#loading').fadeOut();
-                    }
-                });
-            }
+            
            
             
             function userAction(type,id){
@@ -93,8 +78,7 @@
                         feedback = 'Registro removido com sucesso!';
                     }else{
                         return false;
-                    } 
-                    
+                    }   
                 }
                 $.ajax({
                     type: 'POST',
@@ -111,6 +95,7 @@
                     }
                 });
             }
+            
             function editUser(id){
                 $.ajax({
                     type: 'POST',
@@ -259,7 +244,7 @@
                     <div class="input-group-addon" >
                         <i class="glyphicon glyphicon-search text-primary" title="Efetue um pesqisa no sistema." aria-hidden="true"></i>
                     </div>
-                    <input style="border-radius: 0px !important;" type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="searchFilter()">
+                    <input style="border-radius: 0px !important;" type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
                 </div>
             </div><!--/End col-->
 
@@ -267,12 +252,12 @@
 
             <div class="form-group col-md-1  col-sm-3 col-xs-12">
                 <div class="input-group">
-                    <input type="text" class="text-center form-control" id="qtdLine"  placeholder="5" onkeyup="searchFilter()" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página de 1 até 50." >
+                    <input type="text" class="text-center form-control" id="qtdLine"  placeholder="5" onkeyup="objFinanca.ajaxFilter();" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página de 1 até 50." >
                 </div>
             </div><!--/End col-->
 
             <div class="form-group col-md-2  col-sm-3 col-xs-12">
-                <select id="sortBy" class="form-control" onchange="searchFilter()">
+                <select id="sortBy" class="form-control" onchange="objFinanca.ajaxFilter();">
                     <option value="">Ordenar Por</option>
                     <option value="asc">Ascendente</option>
                     <option value="desc">descendente</option>
@@ -378,11 +363,3 @@
                 </div>
             </div>
         </div><!--End modal editar inserir-->
-
-        <!-- Metodos necessarios -->  
-        <script>
-            
-            
-            
-            
-        </script>

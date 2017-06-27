@@ -17,16 +17,16 @@ function Financeiro() {
 
 
 
-    this.setNome = function (vNome) {
-        this.nome = vNome;
+    this.setNome = function (nome) {
+        this.nome = nome;
     };
 
-    this.setIdade = function (vIdade) {
-        this.idade = vIdade;
+    this.setIdade = function (idade) {
+        this.idade = idade;
     };
 
-    this.setCurso = function (vCurso) {
-        this.curso = vCurso;
+    this.setCurso = function (curso) {
+        this.curso = curso;
     };
     
     // usando   formatMoney(100000, 2, '.', ',') //retorna 1.000,00
@@ -37,13 +37,13 @@ function Financeiro() {
         this.t = vT;  
     };
     
-    this.setClear = function (vNumClear){
-        this.numClear = vNumClear;
+    this.setClear = function (numClear){
+        this.numClear = numClear;
     };
     
     // Recebe um numero que contem virgula e substitui po ponto
-    this.setUS = function (vNumUS) {
-        this.numUS = vNumUS;
+    this.setUS = function (numUS) {
+        this.numUS = numUS;
     };
     
     this.setNumberCalc = function (idOne, idTwo) {
@@ -54,13 +54,14 @@ function Financeiro() {
         this.calcTotal;
     };
     
-    this.setAjax = function (classTag) {
-        this.classTag = classTag;
-    };
-    
-    this.setAjaxData = function (url) {
+    this.setAjaxData = function ( url ) {
         this.url = url;
     };
+    
+    this.setAjaxFilter = function ( url ) {
+        this.url = url;
+    };
+    
 
     this.getNome = function () {
         return this.nome;
@@ -94,11 +95,11 @@ function Financeiro() {
         }
     };
     
-    this.getAjax = function () {
-        return this.classTag;
+    this.getAjaxData = function () {
+        return this.url;
     };
     
-    this.getAjaxData = function () {
+    this.getAjaxFilter = function () {
         return this.url;
     };
 
@@ -154,37 +155,6 @@ function Financeiro() {
         
     };
     
-    this.mostraAjax = function () {
-        $('body').on('click', this.classTag, function () {
-            id = $(this).closest("tr").attr("data-id");
-            var dellConfirm = confirm('Deseja remover o registro?');
-           
-            if (dellConfirm === true) {
-                //Ajax aqui
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'finances-pay/ajax-process',
-                    data: 'encode_id=' + id,
-                    beforeSend: function (html) {
-                        $('#teste').html('brasil');
-                        //$('.loading-overlay').show();
-                    },
-                    success: function (html) {
-                        $('.loading-overlay').hide();
-                        $('#tableData').html(html);
-                    }
-                });
-                
-            } else {
-                alert('O registro nao foi removido ' + id);
-            }
-            
-            
-        });
-       
-    };
-    
     this.ajaxData = function () {
         $.ajax({
             type: 'POST',
@@ -207,7 +177,36 @@ function Financeiro() {
         });
     };
     
+    this.ajaxFilter = function (page_num) {
+                
+                page_num = page_num ? page_num : 0;
+                alert(page_num);
+                var keywords = $('#keywords').val();
+                var qtdLine = $('#qtdLine').val();
+                var sortBy = $('#sortBy').val();
+
+                //var keywords = $('#keywords').val();
+                //var sortBy = $('#sortBy').val();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'html',
+                    url: this.url,
+                    data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
+                    async: true,
+                    beforeSend: function (){
+                        $('#loading').show();
+                    },
+                    success: function ( data ){
+                        $('#tableData').html( data );
+                        $('#loading').fadeOut();
+                    }
+                });
+           
+    };
 }
+
+
+
 
 //    // Exemplo de uso
 //

@@ -79,7 +79,7 @@
         'currentPage' => $start,
         'totalRows' => $count,
         'perPage' => $limit,
-        'link_func' => 'searchFilter'];
+        'link_func' => 'objFinanca.ajaxFilter'];
 
     $pagination =  new Pagination($pagConfig);
     
