@@ -62,6 +62,10 @@ function Financeiro() {
         this.url = url;
     };
     
+    this.setAjaxEditRegister = function ( id ) {
+        this.id = id;
+    };
+    
 
     this.getNome = function () {
         return this.nome;
@@ -101,6 +105,10 @@ function Financeiro() {
     
     this.getAjaxFilter = function () {
         return this.url;
+    };
+    
+    this.getAjaxEditRegister = function () {
+        return this.id;
     };
 
     this.mostraDados = function () {
@@ -178,7 +186,6 @@ function Financeiro() {
     };
     
     this.ajaxFilter = function (page_num) {
-                
                 page_num = page_num ? page_num : 0;
                 alert(page_num);
                 var keywords = $('#keywords').val();
@@ -201,7 +208,25 @@ function Financeiro() {
                         $('#loading').fadeOut();
                     }
                 });
-           
+    };
+    
+    this.ajaxEditRegister = function (){
+        $.ajax({
+            type: 'POST',
+            dataType:'JSON',
+            url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+            data: 'action_type=data&id='+id,
+            success:function(data){
+                //$('#pay_id').val(data.pay_id);
+                //$('#pay_venc').val(data.pay_venc);
+                //$('#pay_date_pay').val(data.pay_date_pay);
+                //$('#pay_desc').val(data.pay_desc);
+                //$('#pay_cat').val(data.pay_cat);
+                //$('#pay_val').val(data.pay_val);
+                //$('#editForm').slideDown();
+                return data;
+            }
+        });
     };
 }
 

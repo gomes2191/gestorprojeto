@@ -47,8 +47,6 @@
             objFinanca.getAjaxFilter();
 
             
-            
-            
             //  Muda url da pagina
             //  window.history.pushState("fees", "", "fees");
             //  Faz um refresh de url apos fechar modal
@@ -58,18 +56,14 @@
                 });
             });
             
-            
-           
-            
             function userAction(type,id){
-                id = (typeof id == "undefined") ? '' : id;
-                
+                id = (typeof id === "undefined") ? '' : id;
                 //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
                 var userData = '';
-                if (type == 'add') {
+                if (type === 'add') {
                     userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
                     feedback = 'Registro inserido com sucesso!';
-                }else if (type == 'edit'){
+                }else if (type === 'edit'){
                     userData = $("#editForm").serialize()+'&action_type='+type;
                     feedback = 'Registro atualizado com sucesso!';
                 }else{
@@ -92,24 +86,6 @@
                         }else{
                             toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
                         }
-                    }
-                });
-            }
-            
-            function editUser(id){
-                $.ajax({
-                    type: 'POST',
-                    dataType:'JSON',
-                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
-                    data: 'action_type=data&id='+id,
-                    success:function(data){
-                        $('#pay_id').val(data.pay_id);
-                        $('#pay_venc').val(data.pay_venc);
-                        $('#pay_date_pay').val(data.pay_date_pay);
-                        $('#pay_desc').val(data.pay_desc);
-                        $('#pay_cat').val(data.pay_cat);
-                        $('#pay_val').val(data.pay_val);
-                        //$('#editForm').slideDown();
                     }
                 });
             }
