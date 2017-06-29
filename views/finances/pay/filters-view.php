@@ -115,7 +115,7 @@ HTML;
             echo '<td>'.$pay['pay_modified'].'</td>';
             $status = ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-default btn-xs btn-edit-show' onClick={objFinanca.setAjaxEditRegister('{$modelo->encode_decode($pay['pay_id'])}')} ><span class='text-success'>EDITAR</span></button></td>";
+            echo "<td><button class='btn btn-default btn-xs btn-edit-show' onClick={editRegister('{$modelo->encode_decode($pay['pay_id'])}')} ><span class='text-success'>EDITAR</span></button></td>";
             echo "<td><a href='javaScript:void(0);' class='btn btn-default btn-xs' onClick={userAction('delete','{$modelo->encode_decode($pay['pay_id'])}')}><span class='text-danger'>DELETAR</span></a></td>";
             echo "<td><a href='javaScript:void(0);' class='btn btn-default btn-xs' onClick={infoView('{$modelo->encode_decode($pay['pay_id'])}')} data-toggle='modal' data-target='#inforView'><span class='text-primary'>VISUALIZAR</span></a></td>";
             echo '</tr>';

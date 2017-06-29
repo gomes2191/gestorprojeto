@@ -5,7 +5,6 @@
  */
 
 function Financeiro() {
-
     var nome;
     var idade;
     var curso;
@@ -13,7 +12,7 @@ function Financeiro() {
     var numUS;
     var idOne, idTwo, nValor, nPorce, calcTotal;
     var classTag;
-    var url;
+    var url, id, arrayData;
 
 
 
@@ -62,8 +61,8 @@ function Financeiro() {
         this.url = url;
     };
     
-    this.setAjaxEditRegister = function ( id ) {
-        this.id = id;
+    this.setAjaxEditRegister = function (url,id) {
+        this.url = url, this.id = id;
     };
     
 
@@ -108,7 +107,7 @@ function Financeiro() {
     };
     
     this.getAjaxEditRegister = function () {
-        return this.id;
+        return ajaxData;
     };
 
     this.mostraDados = function () {
@@ -214,9 +213,9 @@ function Financeiro() {
         $.ajax({
             type: 'POST',
             dataType:'JSON',
-            url: '<?=HOME_URI;?>/finances-pay/ajax-process',
-            data: 'action_type=data&id='+id,
-            success:function(data){
+            url: this.url,
+            data: 'action_type=data&id='+this.id,
+            success:function( data ){
                 //$('#pay_id').val(data.pay_id);
                 //$('#pay_venc').val(data.pay_venc);
                 //$('#pay_date_pay').val(data.pay_date_pay);

@@ -110,6 +110,15 @@
                     }
                 });
             }
+            
+            function editRegister( id ){
+                objFinanca.setAjaxEditRegister('finances-pay/ajax-process',id);
+
+                console.log(objFinanca.getAjaxEditRegister());
+
+                alert(objFinanca.ajaxEditRegister());
+            }
+            
         </script>
         
         <div class="row">
