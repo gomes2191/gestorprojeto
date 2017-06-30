@@ -113,10 +113,10 @@
             
             function editRegister( id ){
                 objFinanca.setAjaxEditRegister('finances-pay/ajax-process',id);
-
+                objFinanca.ajaxEditRegister();
                 console.log(objFinanca.getAjaxEditRegister());
 
-                alert(objFinanca.ajaxEditRegister());
+                
             }
             
         </script>

@@ -12,7 +12,7 @@ function Financeiro() {
     var numUS;
     var idOne, idTwo, nValor, nPorce, calcTotal;
     var classTag;
-    var url, id, arrayData;
+    var url, id, jsonData;
 
 
 
@@ -61,8 +61,10 @@ function Financeiro() {
         this.url = url;
     };
     
-    this.setAjaxEditRegister = function (url,id) {
-        this.url = url, this.id = id;
+    this.setAjaxEditRegister = function (url,id,jsonData) {
+        this.url = url;
+        this.id = id;
+        this.jsonData = jsonData;
     };
     
 
@@ -107,7 +109,7 @@ function Financeiro() {
     };
     
     this.getAjaxEditRegister = function () {
-        return ajaxData;
+        return this.jsonData;
     };
 
     this.mostraDados = function () {
@@ -210,20 +212,21 @@ function Financeiro() {
     };
     
     this.ajaxEditRegister = function (){
+        
+        var retorno = function(data){
+           this.jsonData = data;
+            
+        };
+       
+        
         $.ajax({
             type: 'POST',
             dataType:'JSON',
             url: this.url,
             data: 'action_type=data&id='+this.id,
-            success:function( data ){
-                //$('#pay_id').val(data.pay_id);
-                //$('#pay_venc').val(data.pay_venc);
-                //$('#pay_date_pay').val(data.pay_date_pay);
-                //$('#pay_desc').val(data.pay_desc);
-                //$('#pay_cat').val(data.pay_cat);
-                //$('#pay_val').val(data.pay_val);
-                //$('#editForm').slideDown();
-                return data;
+            async: true,
+            success: function (data) {
+            retorno(data);
             }
         });
     };
