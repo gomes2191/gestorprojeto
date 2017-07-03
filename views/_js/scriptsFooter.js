@@ -198,11 +198,28 @@ $(function () {
         $('.form-register').attr('id',"editForm");
         $('.form-hide').fadeIn('slow');
         $('#group-btn-form-new').fadeIn('slow');
-       
+        $('#btn-save').attr('id',"btn-edit-save");
         //$('#group-btn-hide').fadeIn('slow');
         $('.row-button-hide').fadeIn('slow');
         //$('.notice-hide').fadeIn();
         $('legend span').text(' - Modo Edição de Registro Ativo');
+    });
+    $('body').on('click', '#btn-edit-save', function(e){
+        
+        e.preventDefault();
+        
+        // Limpa os campos
+        $('.form-register').find('input').val('');
+        $('#btn-edit-save').attr('id',"btn-save");
+        // Insere o texto indicando o tipo de formulario
+        $('legend span').text(' - MODO ADICIONAR NOVO REGISTRO ATIVO');
+        
+        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='text-primary glyphicon glyphicon-plus'></i> <span class='text-primary'>ADICIONAR REGISTRO</span>");
+        $('.form-register').attr('id',"#addForm");
+        // Mostra o botão para voltar para formulario de inserção.
+        $('#group-btn-form-new').hide(200);
+        $('#group-btn-hide').show(200);
+        $('html, body').animate({scrollTop:0}, 'slow');
     });
     
     //Botao que oculta o fomulario
@@ -233,7 +250,7 @@ $(function () {
         
         // Limpa os campos
         $('.form-register').find('input').val('');
-        
+        $('#btn-edit-save').attr('id',"btn-save");
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - MODO ADICIONAR NOVO REGISTRO ATIVO');
         

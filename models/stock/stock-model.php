@@ -10,7 +10,6 @@
  */
 class StockModel extends MainModel
 {
-
     /**
      * $form_data
      *

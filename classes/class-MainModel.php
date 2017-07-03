@@ -147,24 +147,34 @@ class MainModel {
     }
 
     /**
-     *  @Acesso: public
-     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Versão: 0.1
-     *  @Função: encode_decode()
-     *  @Descrição: Remove tudo o que não for número.
-     * */
+    *  @Acesso: public
+    *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *  @Versão: 0.1
+    *  @Função: encode_decode()
+    *  @Descrição: Remove tudo o que não for número.
+    * */
     public function only_filter_number($valor) {
-        $valor_final = preg_replace('/[^0-9]/', '', $valor);
-        return $valor_final;
+        return (int) (preg_replace('/[^0-9]/', '', $valor));
     }
     
     /**
-     *  @Acesso: public
-     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Versão: 0.1
-     *  @Função: format_padrao()
-     *  @Descrição: Verifica se o valor passado corresponde ao campo requerido
-     * */
+    *  @Acesso: public
+    *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *  @Versão: 0.2
+    *  @Função: moneyFloat()
+    *  @Descrição: Converte o valor da moeda em real para float para armazenar na base de dado.
+    * */
+    public function moneyFloat($str){
+        return (float) str_replace(',', '.', str_replace('.','', $str));
+    }
+    
+    /**
+    *  @Acesso: public
+    *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *  @Versão: 0.1
+    *  @Função: format_padrao()
+    *  @Descrição: Verifica se o valor passado corresponde ao campo requerido
+    * */
     public function format_padrao($string, $tipo = "") {
         $valor = preg_replace("[^0-9]", "", $string);
         if (!$tipo) {
@@ -203,55 +213,6 @@ class MainModel {
         }
         return $valor;
     }
-    
-    
-    /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Versão: 0.1
-     *   @Função: get_table_data() 
-     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
-     * */
-    public function get_table_data( $type_execution, $column_search, $table_name, $column_compare, $received_val, $column_id, $complement, $conditions = [] ) {
-        
-        if ( $type_execution == 1 ){
-             
-            # Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query(" SELECT  $campo FROM $table  ORDER BY $id ");
-             
-            # Destroy todas as variaveis nao mais utilizadas
-            unset($tipo, $campo, $table, $id_campo, $get_id, $id);
-           
-            # Retorna os valores da consulta
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-            
-        }elseif ( $type_execution == 2 ){
-            
-            # Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id ");
-            
-            # Destroy todas as variaveis nao mais utilizadas
-            unset($tipo, $campo, $table, $id_campo, $get_id, $id);
-            
-            # Retorna os valores da consulta
-            return $query;
-            
-        }elseif ( $type_execution == 3 ){
-            
-            # Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query( " SELECT  $column_search FROM $table_name WHERE $column_compare=$received_val ORDER BY $column_id $complement" );
-            //var_dump($query);die;
-            # Destroy todas as variaveis nao mais utilizadas
-            unset($type_execution, $column_search, $table_name, $column_compare, $received_val, $column_id, $complement);
-           
-            # Retorna os valores da consulta
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-            
-        }elseif( $type_execution == 4 ) {
-            
-        }
-         
-    }   # End get_table_data()
     
     public function searchTable($table_name, $conditions=[]) {
         $sql = 'SELECT ';

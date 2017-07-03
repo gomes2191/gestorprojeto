@@ -29,98 +29,9 @@
 
                 //date_default_timezone_set('America/Sao_Paulo');
                 $date = date('Y-m-d H:i');
-                date('Y-m-d H:i:s', time())
-
-        ?>
-        <script>
-            //Setando valores do ajax
-            var objFinanca = new Financeiro();
-
-            objFinanca.setAjaxData('finances-pay/filters');
-
-            objFinanca.getAjaxData();
-
-            objFinanca.ajaxData();
-            
-            objFinanca.setAjaxFilter('finances-pay/filters');
-
-            objFinanca.getAjaxFilter();
-
-            
-            //  Muda url da pagina
-            //  window.history.pushState("fees", "", "fees");
-            //  Faz um refresh de url apos fechar modal
-            $(function () {
-                $('').on('hidden.bs.modal', function () {
-                    $(this).removeData('bs.modal');
-                });
-            });
-            
-            function userAction(type,id){
-                id = (typeof id === "undefined") ? '' : id;
-                //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
-                var userData = '';
-                if (type === 'add') {
-                    userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
-                    feedback = 'Registro inserido com sucesso!';
-                }else if (type === 'edit'){
-                    userData = $("#editForm").serialize()+'&action_type='+type;
-                    feedback = 'Registro atualizado com sucesso!';
-                }else{
-                    if(confirm('Deseja remover esse registro?')){
-                        userData = 'action_type='+type+'&id='+id;
-                        feedback = 'Registro removido com sucesso!';
-                    }else{
-                        return false;
-                    }   
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
-                    data: userData,
-                    success:function(msg){
-                        objFinanca.ajaxData();
-                        if(msg === 'ok'){
-                            toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
-                            $('.form-register')[0].reset();
-                        }else{
-                            toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
-                        }
-                    }
-                });
-            }
-            
-            function infoView(id){
-                $.ajax({
-                    type: 'POST',
-                    dataType:'JSON',
-                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
-                    data: 'action_type=data&id='+id,
-                    success:function(data){
-                        console.log(data.pay_date_pay);
-                        $('.pay_venc').text(data.pay_venc);
-                        $('.pay_date_pay').text(data.pay_date_pay);
-                        $('.pay_cat').text(data.pay_cat);
-                        $('.pay_desc').text(data.pay_desc);
-                        $('.pay_val').text(data.pay_val);
-                        $('.pay_created').text(data.pay_created);
-                        $('.pay_modified').text(data.pay_modified);
-                        $('.pay_status').text((data.pay_date_pay) ? 'Pago' : 'Em débito')
-                        //$('#editForm').slideDown();
-                    }
-                });
-            }
-            
-            function editRegister( id ){
-                objFinanca.setAjaxEditRegister('finances-pay/ajax-process',id);
-                objFinanca.ajaxEditRegister();
-                console.log(objFinanca.getAjaxEditRegister());
-
+                date('Y-m-d H:i:s', time());
                 
-            }
-            
-        </script>
-        
+        ?>
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
             <div class="col-md-10  col-sm-12 col-xs-12">
@@ -180,7 +91,7 @@
                                 <label for="pay_val">Valor montante ( em reais )</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">R$</div>
-                                    <input id="pay_val" name="pay_val" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" >
+                                    <input id="pay_val" name="pay_val" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" onkeydown="objFinanca.moneyCash(this,28,event,2,'.',',');" >
                                     <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                                 </div>
                                 <br>
@@ -190,7 +101,7 @@
                         <div class="row form-compact row-button-hide" style="display: none;">
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-save" class="btn-group">
-                                    <button id="btn-save" title="Salvar informações" class="btn btn-sm btn-default" onclick="" type="button"></button>
+                                    <button id="btn-save" title="Salvar informações" class="btn btn-sm btn-default" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
                                     <button title="Limpar formulário" class="btn btn-sm btn-default marg-top fees-clear" type="reset"><i class="text-warning glyphicon glyphicon-erase"></i> <span class="text-warning">LIMPAR</span></button>
@@ -348,3 +259,95 @@
                 </div>
             </div>
         </div><!--End modal editar inserir-->
+        <script>
+            //Setando valores do ajax
+            var objFinanca = new Financeiro();
+            objFinanca.setAjaxData('finances-pay/filters');
+            objFinanca.ajaxData();
+            objFinanca.getAjaxData();
+            
+            //  Muda url da pagina
+            //  window.history.pushState("fees", "", "fees");
+            //  Faz um refresh de url apos fechar modal
+            //$(function () {
+            //    $('body').on('hidden.bs.modal', function () {
+            //        $(this).removeData('bs.modal');
+            //    });
+            //});
+
+            // Invoca a edição de registro
+            function editRegister( id ){
+               $.ajax({
+                    type: 'POST',
+                    dataType:'JSON',
+                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+                    data: 'action_type=data&id='+id,
+                    async: true,
+                    success:function(result) {
+                        document.getElementById('pay_id').value = result.pay_id;
+                        document.getElementById('pay_venc').value = result.pay_venc;
+                        document.getElementById('pay_date_pay').value = result.pay_date_pay;
+                        document.getElementById('pay_desc').value = result.pay_desc;
+                        document.getElementById('pay_cat').value = result.pay_cat;
+                        document.getElementById('pay_val').value = result.pay_val;
+                    }
+                });
+            }
+            
+            //Açoes de remoção e inserção
+            function userAction(type,id){
+                id = (typeof id === "undefined") ? '' : id;
+                //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
+                var userData = '';
+                if (type === 'add') {
+                    userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
+                    feedback = 'Registro inserido com sucesso!';
+                }else if (type === 'edit'){
+                    userData = $("#editForm").serialize()+'&action_type='+type;
+                    feedback = 'Registro atualizado com sucesso!';
+                }else{
+                    if(confirm('Deseja remover esse registro?')){
+                        userData = 'action_type='+type+'&id='+id;
+                        feedback = 'Registro removido com sucesso!';
+                    }else{
+                        return false;
+                    }   
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+                    data: userData,
+                    success:function(msg){
+                        objFinanca.ajaxData();
+                        if(msg === 'ok'){
+                            toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
+                            $('.form-register')[0].reset();
+                        }else{
+                            toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
+                        }
+                    }
+                });
+            }
+            // Invoca a visualização do registro
+            function infoView(id){
+                $.ajax({
+                    type: 'POST',
+                    dataType:'JSON',
+                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+                    data: 'action_type=data&id='+id,
+                    success:function(data){
+                        console.log(data.pay_date_pay);
+                        $('.pay_venc').text(data.pay_venc);
+                        $('.pay_date_pay').text(data.pay_date_pay);
+                        $('.pay_cat').text(data.pay_cat);
+                        $('.pay_desc').text(data.pay_desc);
+                        $('.pay_val').text(data.pay_val);
+                        $('.pay_created').text(data.pay_created);
+                        $('.pay_modified').text(data.pay_modified);
+                        $('.pay_status').text((data.pay_date_pay) ? 'Pago' : 'Em débito');
+                        //$('#editForm').slideDown();
+                    }
+                });
+            }
+            
+        </script>

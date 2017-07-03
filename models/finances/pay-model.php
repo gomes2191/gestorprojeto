@@ -112,7 +112,10 @@ class PayModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->form_data['covenant_tipo_unit']);die;
+        //var_dump($this->moneyFloat($this->form_data['pay_val']));
+        
+        
+        //var_dump($this->form_data['pay_val']);die;
         //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'covenant_data_aq')).'== novo==');die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('bills_to_pay',[
@@ -120,7 +123,7 @@ class PayModel extends MainModel
             'pay_date_pay'     =>  $this->avaliar(chk_array($this->form_data, 'pay_date_pay')),
             'pay_desc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
             'pay_cat'          =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
-            'pay_val'          =>  $this->avaliar(chk_array($this->form_data, 'pay_val')),
+            'pay_val'          =>  $this->moneyFloat(chk_array($this->form_data, 'pay_val')),
             'pay_created'      =>  date('Y-m-d H:i:s', time())
         ]);
 

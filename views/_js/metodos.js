@@ -8,17 +8,15 @@ function Financeiro() {
     var nome;
     var idade;
     var curso;
-    var n, c, d, t, finalNum;
     var numUS;
     var idOne, idTwo, nValor, nPorce, calcTotal;
-    var classTag;
     var url, id, jsonData;
-
-
 
     this.setNome = function (nome) {
         this.nome = nome;
     };
+    
+    
 
     this.setIdade = function (idade) {
         this.idade = idade;
@@ -26,14 +24,6 @@ function Financeiro() {
 
     this.setCurso = function (curso) {
         this.curso = curso;
-    };
-    
-    // usando   formatMoney(100000, 2, '.', ',') //retorna 1.000,00
-    this.setMoneyCash = function (vN, vC, vD, vT) {
-        this.n = vN;
-        this.c = vC;
-        this.d = vD;
-        this.t = vT;  
     };
     
     this.setClear = function (numClear){
@@ -51,6 +41,20 @@ function Financeiro() {
         this.nValor;
         this.nPorce;
         this.calcTotal;
+    };
+    
+    this.setMoneyCashClear = function ( valor, validos, tammax ){
+        var result = "";
+        var aux;
+        for (var i=0; i < valor.length; i++) {
+            aux = validos.indexOf(valor.substring(i, i+1));
+            if (aux>=0) {
+                if ( result.length < tammax - 1 ) {
+                    result += aux;
+                }
+            }
+        }
+        return result;
     };
     
     this.setAjaxData = function ( url ) {
@@ -78,10 +82,6 @@ function Financeiro() {
 
     this.getCurso = function () {
         return this.curso;
-    };
-    
-    this.getMoneyCash = function () {
-        return this.finalNum;
     };
 
     this.getClear = function () {
@@ -116,11 +116,6 @@ function Financeiro() {
         alert("Nome do aluno: " + this.nome + "\nIdade: " + this.idade + "\nCurso: " + this.curso);
     };
 
-    this.formatMoneyCash = function () {
-        this.c = isNaN(this.c = Math.abs(this.c)) ? 2 : this.c, this.d = this.d == undefined ? "," : this.d, this.t = this.t == undefined ? "." : this.t, s = this.n < 0 ? "-" : "", i = parseInt(this.n = Math.abs(+this.n || 0).toFixed(this.c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
-        return this.finalNum  = (s + (j ? i.substr(0, j) + this.t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + this.t) + (this.c ? this.d + Math.abs(this.n - i).toFixed(this.c).slice(2) : ""));
-    };
-    
     this.clearNumber = function (){
         numsStr = this.numClear.replace(/[^0-9]/g,'');
         return this.numClear = parseInt(numsStr);
@@ -163,7 +158,57 @@ function Financeiro() {
         }
         
     };
-    
+    /*
+     * @author: Francisco Aparecido
+     * @version: 1.0
+     * @description: Converte um numero para um formato pra determinado
+     * @example: onkeydown="this.moneyCash(this,28,event,2,'.',',');"
+     * onkeydown="this.moneyCash(this,28,event,3,',','.')"
+     * onkeydown="this.moneyCash(this,28,event,4,'.',',')"
+     * onkeydown="this.moneyCash(this,28,event,5,'.',',')"
+     * onkeydown="this.moneyCash(this,28,event,6,'.',',')"
+     * onkeydown="this.moneyCash(this,28,event,7,'.',',')"
+     * onkeydown="this.moneyCash(this,28,event,8,'.',',')"
+     * onkeydown="this.moneyCash(this,28,event,12,'.',',')"
+     * 
+     */
+    this.moneyCash = function (campo, tammax, teclapres, decimal, ptmilhar, ptdecimal) {
+        var tecla = teclapres.keyCode;
+        vr = this.setMoneyCashClear(campo.value, "0123456789", tammax);
+        tam = vr.length;
+        dec = decimal;
+        if (tam < tammax && tecla != 8) {
+            tam = vr.length + 1;
+        }
+        if (tecla == 8) {
+            tam = tam - 1;
+        }
+        if (tecla == 8 || tecla >= 48 && tecla <= 57 || tecla >= 96 && tecla <= 105) {
+            if (tam <= dec) {
+                campo.value = vr;
+            } else if ((tam > dec) && (tam <= dec + 3)) {
+                //alert(tam);
+                campo.value = vr.substr(0, tam - dec) + ptdecimal + vr.substr(tam - dec, tam);
+            } else if ((tam >= dec + 4) && (tam <= dec + 6)) {
+                campo.value = vr.substr(0, tam - 3 - dec) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+            } else if ((tam >= dec + 7) && (tam <= dec + 9)) {
+                campo.value = vr.substr(0, tam - 6 - dec) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+            } else if ((tam >= dec + 10) && (tam <= dec + 12)) {
+                campo.value = vr.substr(0, tam - 9 - dec) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+            } else if ((tam >= dec + 13) && (tam <= dec + 15)) {
+                campo.value = vr.substr(0, tam - 12 - dec) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+            } else if ((tam >= dec + 16) && (tam <= dec + 18)) {
+                campo.value = vr.substr(0, tam - 15 - dec) + ptmilhar + vr.substr(tam - 15 - dec, 3) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+            } else if ((tam >= dec + 19) && (tam <= dec + 21)) {
+                campo.value = vr.substr(0, tam - 18 - dec) + ptmilhar + vr.substr(tam - 18 - dec, 3) + ptmilhar + vr.substr(tam - 15 - dec, 3) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+            } else if ((tam >= dec + 22) && (tam <= dec + 24)) {
+                campo.value = vr.substr(0, tam - 21 - dec) + ptmilhar + vr.substr(tam - 21 - dec, 3) + ptmilhar + vr.substr(tam - 18 - dec, 3) + ptmilhar + vr.substr(tam - 15 - dec, 3) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+            } else {
+                campo.value = vr.substr(0, tam - 24 - dec) + ptmilhar + vr.substr(tam - 24 - dec, 3) + ptmilhar + vr.substr(tam - 21 - dec, 3) + ptmilhar + vr.substr(tam - 18 - dec, 3) + ptmilhar + vr.substr(tam - 15 - dec, 3) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+            }
+        }
+    };
+
     this.ajaxData = function () {
         $.ajax({
             type: 'POST',
@@ -212,21 +257,14 @@ function Financeiro() {
     };
     
     this.ajaxEditRegister = function (){
-        
-        var retorno = function(data){
-           this.jsonData = data;
-            
-        };
-       
-        
         $.ajax({
             type: 'POST',
             dataType:'JSON',
             url: this.url,
             data: 'action_type=data&id='+this.id,
             async: true,
-            success: function (data) {
-            retorno(data);
+            success:function(result) {
+                
             }
         });
     };

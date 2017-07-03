@@ -93,7 +93,7 @@
                         <th class="small text-center">DATA DE PAGAMENTO</th>
                         <th class="small text-center">CATEGORIA</th>
                         <th class="small text-center">DESCRIÇÃO</th>
-                        <th class="small text-center">VALOR</th>
+                        <th class="small text-center">MONTANTE</th>
                         <th class="small text-center">DATA DA INCLUSÃO</th>
                         <th class="small text-center">MODIFICADO EM</th>
                         <th class="small text-center">STATUS</th>
@@ -110,7 +110,7 @@ HTML;
             echo '<td>'.$pay['pay_date_pay'].'</td>';
             echo '<td>'.$pay['pay_cat'].'</td>';
             echo '<td>'.$pay['pay_desc'].'</td>';
-            echo '<td>'.$pay['pay_val'].'</td>';
+            echo '<td>'.'R$ '.number_format($pay['pay_val'], 2, ',', '.').'</td>';
             echo '<td>'.$pay['pay_created'].'</td>';
             echo '<td>'.$pay['pay_modified'].'</td>';
             $status = ($pay['pay_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
