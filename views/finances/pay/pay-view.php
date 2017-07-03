@@ -301,21 +301,21 @@
                 var userData = '';
                 if (type === 'add') {
                     userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
-                    feedback = 'Registro inserido com sucesso!';
+                    feedback = 'Inserido com sucesso!';
                 }else if (type === 'edit'){
                     userData = $("#editForm").serialize()+'&action_type='+type;
-                    feedback = 'Registro atualizado com sucesso!';
+                    feedback = 'Atualizado com sucessso!';
                 }else{
                     if(confirm('Deseja remover esse registro?')){
                         userData = 'action_type='+type+'&id='+id;
-                        feedback = 'Registro removido com sucesso!';
+                        feedback = 'Remoção realizada com sucesso!';
                     }else{
                         return false;
                     }   
                 }
                 $.ajax({
                     type: 'POST',
-                    url: '<?=HOME_URI;?>/finances-pay/ajax-process',
+                    url: '<?= HOME_URI; ?>/finances-pay/ajax-process',
                     data: userData,
                     success:function(msg){
                         objFinanca.ajaxData();

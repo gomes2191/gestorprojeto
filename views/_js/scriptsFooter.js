@@ -83,7 +83,7 @@ $.validate({
 $(function () {
     if (window.location.href.indexOf("agenda") > 1) {
         $("#from, #to").datetimepicker({
-            language: 'pt-BR',
+            language: 'pt-BR-T',
             showMeridian: true,
             todayHighlight: true,
             viewSelect: 'day',
@@ -91,6 +91,7 @@ $(function () {
             beforeShowMonth: true,
             weekStart: true,
             format: 'dd/mm/yyyy HH:ii',
+            startDate: new Date,
             autoclose: true,
             todayBtn: true,
             minuteStep: 1,
@@ -108,6 +109,7 @@ $(function () {
             beforeShowMonth: true,
             weekStart: true,
             format: 'dd/mm/yyyy',
+            startDate: new Date,
             autoclose: true,
             todayBtn: true,
             minuteStep: 1,

@@ -112,15 +112,12 @@ class PayModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->moneyFloat($this->form_data['pay_val']));
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))));die;
         
-        
-        //var_dump($this->form_data['pay_val']);die;
-        //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'covenant_data_aq')).'== novo==');die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('bills_to_pay',[
-            'pay_venc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_venc')),
-            'pay_date_pay'     =>  $this->avaliar(chk_array($this->form_data, 'pay_date_pay')),
+            'pay_venc'         =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_venc'))),
+            'pay_date_pay'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))),
             'pay_desc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
             'pay_cat'          =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
             'pay_val'          =>  $this->moneyFloat(chk_array($this->form_data, 'pay_val')),
@@ -156,11 +153,11 @@ class PayModel extends MainModel
         if ( $registro_id ) {
             # Efetua o update do registro
             $query_up = $this->db->update('bills_to_pay', 'pay_id', $registro_id,[
-                'pay_venc'        =>  $this->avaliar(chk_array($this->form_data, 'pay_venc')),
-                'pay_date_pay'    =>  $this->avaliar(chk_array($this->form_data, 'pay_date_pay')),
+                'pay_venc'        =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_venc'))),
+                'pay_date_pay'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))),
                 'pay_desc'        =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
                 'pay_cat'         =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
-                'pay_val'         =>  $this->avaliar(chk_array($this->form_data, 'pay_val')),
+                'pay_val'         =>  $this->moneyFloat(chk_array($this->form_data, 'pay_val')),
                 'pay_modified'    =>  date('Y-m-d H:i:s', time())
             ]);
 

@@ -9,6 +9,8 @@
                 $conditions['where'] = ['pay_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
                 $conditions['return_type'] = 'single';
                 $allReg = $modelo->searchTable('bills_to_pay', $conditions);
+                $allReg['pay_date_pay'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y',$allReg['pay_date_pay']);
+                $allReg['pay_venc'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y',$allReg['pay_venc']);
                 echo json_encode($allReg);
             } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
                 # Retorna a função que faz o registro no sistema e finaliza.

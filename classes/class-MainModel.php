@@ -92,12 +92,12 @@ class MainModel {
      *  @Função: converteData()
      *  @Descrição: Converte uma determinada data para o formato desejado.
      * 
-     *  Exemplos:
+     *  @example:
      *  var_dump(converteData('d m Y', 'Y-m-d', '06 02 2025')); 2025-02-06
      *  var_dump(converteData('d-m-Y', 'm/d/Y H:i', '06-02-2014')); 02/06/2014 12:39
      *  var_dump(converteData('Y-m-d', 'l F Y  H:i', '2014-02-06')); Thursday February 2014  12:38
      * */
-    public function converteData($format, $to_format, $date = NULL, $timezone = NULL) {
+    public function convertDataHora($format, $to_format, $date = NULL, $timezone = NULL) {
        # Verifica se a data informada e verdadeira se sim executa a função se não retorna NULL
        if($this->validaDataHora($date, $format)){
             $timezone = $timezone ? $timezone : new DateTimeZone(date_default_timezone_get());
