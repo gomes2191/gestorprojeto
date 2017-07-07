@@ -64,22 +64,21 @@
                 #--> End JS
             }else{
                 # Outros plugins
-                echo '<script src="'.HOME_URI.'/views/_js/moment.min.js"></script>';
+                echo '<script src="'.HOME_URI.'/views/_js/moment.js"></script>';
                 
                 echo '<link rel="stylesheet" href="'.HOME_URI. '/views/_css/sweetalert.css">';
-                echo '<script src="'.HOME_URI.'/views/_js/sweetalert.min.js"></script>';
+                //echo '<script src="'.HOME_URI.'/views/_js/sweetalert.min.js"></script>';
                 # End outros plugins
                 
                 //echo '<script src="'.HOME_URI.'/views/_js/angular.min.js"></script>';
                 //echo '<script src="'.HOME_URI.'/views/_js/angular-locale_pt-br.js"></script>';
-                echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.min.js"></script>';
+                //echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.min.js"></script>';
                 echo '<script src="'.HOME_URI.'/views/_js/metodos.js"></script>';
             }
-            if (($this->title == ' Agenda') OR ($this->title == ' Contas a pagar')) {
-                //echo '<script>alert("Brasil");</script>';
+            if (($this->title == ' Agenda') OR ($this->title == ' Contas a pagar') OR ($this->title == ' Contas a receber')) {
+                echo '<script>console.log("Bibliotecas inseridas")</script>';
                 #--> Start JS
                 echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/bootstrap-datetimepicker.js"></script>';
-                echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/locales/bootstrap-datetimepicker.pt-BR.js"></script>';
                 echo '<script src="'.HOME_URI.'/views/_js/scriptsTop.js"></script>';
                 #--> End JS
                 

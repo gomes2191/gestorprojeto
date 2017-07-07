@@ -193,7 +193,7 @@
         <form id="form-register" enctype="multipart/form-data" method="post" action="" role="form" >
             <fieldset>
                 <legend>INFORMAÇÃO DA PARCELA</legend>
-                <div class="row form-compact new-fees" style="display: none;">
+                <div class="row form-compact new-fees" style="">
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="fees_part">Data de vencimento:</label>
                         <div class="input-group">
@@ -240,7 +240,7 @@
                     <br>
                 </div>
                
-                <div class="row form-compact new-fees" style="display: none;">
+                <div class="row form-compact new-fees" style="">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div class="btn-group">
                             <button title="Salvar informações" class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-floppy-save"></i> Salvar</button>

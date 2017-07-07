@@ -5,7 +5,6 @@
         if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST, 'action_type'))) {
            
             if (filter_input(INPUT_POST, 'action_type') == 'data') {
-                
                 $conditions['where'] = ['pay_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
                 $conditions['return_type'] = 'single';
                 $allReg = $modelo->searchTable('bills_to_pay', $conditions);

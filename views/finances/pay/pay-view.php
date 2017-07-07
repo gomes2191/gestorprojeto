@@ -336,7 +336,6 @@
                     url: '<?=HOME_URI;?>/finances-pay/ajax-process',
                     data: 'action_type=data&id='+id,
                     success:function(data){
-                        console.log(data.pay_date_pay);
                         $('.pay_venc').text(data.pay_venc);
                         $('.pay_date_pay').text(data.pay_date_pay);
                         $('.pay_cat').text(data.pay_cat);

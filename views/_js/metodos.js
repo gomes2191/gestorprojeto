@@ -233,7 +233,6 @@ function Financeiro() {
     
     this.ajaxFilter = function (page_num) {
                 page_num = page_num ? page_num : 0;
-                alert(page_num);
                 var keywords = $('#keywords').val();
                 var qtdLine = $('#qtdLine').val();
                 var sortBy = $('#sortBy').val();

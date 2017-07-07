@@ -81,42 +81,57 @@ $.validate({
 });
 // Agenda popup inserção
 $(function () {
-    if (window.location.href.indexOf("agenda") > 1) {
+    if (window.location.href.indexOf("agenda") > 1 ) {
         $("#from, #to").datetimepicker({
-            language: 'pt-BR-T',
-            showMeridian: true,
-            todayHighlight: true,
-            viewSelect: 'day',
-            clearBtn: true,
-            beforeShowMonth: true,
-            weekStart: true,
-            format: 'dd/mm/yyyy HH:ii',
-            startDate: new Date,
-            autoclose: true,
-            todayBtn: true,
-            minuteStep: 1,
-            pickerPosition: 'bottom-left'
+            
         });
     }
     
-    if (window.location.href.indexOf("finances-pay") > 1) {
-        $("#pay_venc, #pay_date_pay").datetimepicker({
-            language: 'pt-BR-D',
-            showMeridian: true,
-            todayHighlight: true,
-            viewSelect: 'day',
-            clearBtn: true,
-            beforeShowMonth: true,
-            weekStart: true,
-            format: 'dd/mm/yyyy',
-            startDate: new Date,
-            autoclose: true,
-            todayBtn: true,
-            minuteStep: 1,
-            pickerPosition: 'bottom-left'
+    var linkVerfy = function(href){
+        return window.location.href.indexOf(href);
+    };
+    
+    
+    
+    if ((linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) )  {
+        $(".data").datetimepicker({
+            locale: 'pt-br',
+            format: 'DD/MM/YYYY',
+            showTodayButton: true,
+            showClear: true,
+            showClose: true,
+            disabledHours: false,
+            focusOnShow: true,
+            tooltips: {
+                today: 'Data de Hoje',
+                clear: 'Limpar Campo',
+                close: 'Fechar Calendário',
+                selectMonth: 'Select Month',
+                prevMonth: 'Previous Month',
+                nextMonth: 'Next Month',
+                selectYear: 'Select Year',
+                prevYear: 'Previous Year',
+                nextYear: 'Next Year',
+                selectDecade: 'Select Decade',
+                prevDecade: 'Previous Decade',
+                nextDecade: 'Next Decade',
+                prevCentury: 'Previous Century',
+                nextCentury: 'Next Century',
+                incrementHour: 'Increment Hour',
+                pickHour: 'Pick Hour',
+                decrementHour:'Decrement Hour',
+                incrementMinute: 'Increment Minute',
+                pickMinute: 'Pick Minute',
+                decrementMinute:'Decrement Minute',
+                incrementSecond: 'Increment Second',
+                pickSecond: 'Pick Second',
+                decrementSecond:'Decrement Second'
+            }
+
         });
     }
 });
+
 // Validação dos campos data hora do evento modal de edição da agenda
 function InvalidMsg(textbox) {
     
@@ -206,10 +221,9 @@ $(function () {
         //$('.notice-hide').fadeIn();
         $('legend span').text(' - Modo Edição de Registro Ativo');
     });
+    
     $('body').on('click', '#btn-edit-save', function(e){
-        
         e.preventDefault();
-        
         // Limpa os campos
         $('.form-register').find('input').val('');
         $('#btn-edit-save').attr('id',"btn-save");
@@ -249,7 +263,6 @@ $(function () {
     //Botao que voltar para adicionar novo registro
     $('#btn-form-new').click(function(e) {
         e.preventDefault();
-        
         // Limpa os campos
         $('.form-register').find('input').val('');
         $('#btn-edit-save').attr('id',"btn-save");
