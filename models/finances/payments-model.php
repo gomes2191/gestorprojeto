@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class PaymentsModel extends MainModel
+class PaymentsModel extends MainModel 
 {
     /**
      * $form_data
@@ -61,16 +61,18 @@ class PaymentsModel extends MainModel
         # Cria o vetor que vai receber os dados do post
         $this->form_data = [];
         
-        # Verifica se algo foi postado no formulário
+        # Verifica se não é vazio o $_POST
         if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
             
-            # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
+            # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
             foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
                 
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
                 
             } # End foreach
+            
+            //var_dump($this->form_data);die;
             
 //            #   Não será permitido campos vazios
 //            if ( empty( $this->form_data['fees_cod'] )) {
@@ -82,26 +84,21 @@ class PaymentsModel extends MainModel
 //                return;
 //            }
         }else {
-            
-            # Finaliza se nada foi enviado
-            return FALSE;
-            
+            # Finaliza a execução.
+            return 'err';
         } #--> End
-        
-        # Rotina que verifica se o registro já existe
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `covenant_fees` WHERE `fees_id` = ? ',[
-            chk_array($this->form_data, 'fees_id')
+       
+        # Verifica se o registro já existe.
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `payments` WHERE `payments_id` = ? ',[
+            chk_array($this->form_data, 'payments_id')
         ]);        
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
-        if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            //var_dump($this->form_data);
-            $this->updateRegister(chk_array($this->form_data, 'fees_id'));
-            return;
+        if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
+            $this->updateRegister(chk_array($this->form_data, 'payments_id'));
         }else{
             //var_dump($this->form_data);die;
             $this->insertRegister();
-            return;
         }
         
     } #--> End validate_register_form()
@@ -115,43 +112,30 @@ class PaymentsModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->form_data['covenant_tipo_unit']);die;
-        //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'covenant_data_aq')).'== novo==');die;
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_date_payments'))));die;
+        
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('covenant_fees',[
-            'covenant_fees_id'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_fees_id')),
-            'fees_cod'              =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
-            'fees_proc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
-            'fees_cat'              =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
-            'fees_desc'             =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
-            'fees_part'             =>  $this->avaliar(chk_array($this->form_data, 'fees_part')),
-            'fees_total'            =>  $this->avaliar(chk_array($this->form_data, 'fees_total'))
+        $query_ins = $this->db->insert('payments',[
+            'payments_venc'         =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_venc'))),
+            'payments_date_pay'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_date_pay'))),
+            'payments_desc'         =>  $this->avaliar(chk_array($this->form_data, 'payments_desc')),
+            'payments_cat'          =>  $this->avaliar(chk_array($this->form_data, 'payments_cat')),
+            'payments_val'          =>  $this->moneyFloat(chk_array($this->form_data, 'payments_val')),
+            'payments_created'      =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ( $query_ins ) {
-            
-            # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro efetuado com sucesso!'];
-                
-            # Da um refresh na página apos um determinado tempo especifico
-            echo '<meta http-equiv="Refresh" content="4">';
-            
-            # Destroy variável não mais utilizada
-            unset($query_ins);
-            
-            # Finaliza execução.
-            return;
+            //$this->form_msg = ['result'=>'success', 'message'=>'query success'];
+            //return $this->form_msg;
+            echo 'ok';
         }else{
+            # Feedback
+            //$this->form_msg = ['result'=>'error', 'message'=>'query error'];
             
-            # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
-            
-            # Destroy variáveis não mais utilizadas.
-            unset($query_ins);
-            
-            # Finaliza execução.
-            return;
+            # Retorna o valor e finaliza execução
+            //return $this->form_msg;
+            echo 'err';
         }
         
     }
@@ -165,45 +149,31 @@ class PaymentsModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function updateRegister( $registro_id = NULL ){
-        
-        //var_dump($this->form_data);die;
-        
-        #   Se o ID não estiver vazio, atualiza os dados
+        # Verifica se existe ID
         if ( $registro_id ) {
             # Efetua o update do registro
-            $query_up = $this->db->update('covenant_fees', 'fees_id', $registro_id,[
-                'fees_cod'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cod')),
-                'fees_proc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_proc')),
-                'fees_cat'    =>  $this->avaliar(chk_array($this->form_data, 'fees_cat')),
-                'fees_desc'   =>  $this->avaliar(chk_array($this->form_data, 'fees_desc')),
-                'fees_part'   =>  $this->avaliar(chk_array($this->form_data, 'fees_part')),
-                'fees_total'  =>  $this->avaliar(chk_array($this->form_data, 'fees_total'))
+            $query_up = $this->db->update('payments', 'payments_id', $registro_id,[
+                'payments_venc'        =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_venc'))),
+                'payments_date_pay'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_date_pay'))),
+                'payments_desc'        =>  $this->avaliar(chk_array($this->form_data, 'payments_desc')),
+                'payments_cat'         =>  $this->avaliar(chk_array($this->form_data, 'payments_cat')),
+                'payments_val'         =>  $this->moneyFloat(chk_array($this->form_data, 'payments_val')),
+                'payments_modified'    =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
             if ( $query_up ) {
-                
-                # Feedback para o usuário, retorna uma mensagem para usuário
-                $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
-                
-                # Da um refresh na página apos um determinado tempo especifico
-                echo '<meta http-equiv="Refresh" content="4">';
-                
-                # Destroy variáveis nao mais utilizadas
+                # Destroy variáveis nao mais utilizadas.
                 unset( $registro_id, $query_up  );
                 
-                # Finaliza execução.
-                return;
+                # Retorna o valor e finaliza execução.
+                echo 'ok';exit();
             }else{
-                
-                # Feedback para o usuário, retorna uma mensagem para usuário
-                $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
-                
-                # Destroy variáveis nao mais utilizadas
+                # Destroy variavel nao mais utilizadas.
                 unset( $registro_id, $query_up  );
                 
-                # Finaliza   
-                return;
+                # Retorna o valor e finaliza execução.   
+                echo 'err';exit();
             }
         }
     } #--> End updateRegister()
@@ -256,38 +226,22 @@ class PaymentsModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `covenant_fees` WHERE `fees_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `payments` WHERE `payments_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
-            #   Feedback para o usuário
-            #$this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
-            
-            # Redireciona de volta para a página após 4 segundos
-            #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
-            
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
-
-            # Finaliza
-            return;
+            
+            echo 'err';exit();
+            
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('covenant_fees', 'fees_id', $decode_id);
-
-            #   Feedback para o usuário
-            #$this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
-            
-            # Tratamento de erro ajax retorno Feedback para o usuário
-            $this->form_msg = TRUE;
+            $query_del = $this->db->delete('payments', 'payments_id', $decode_id);
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
 
-            # Redireciona de volta para a página após o tempo informado segundos
-            #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/covenant">';
-
-            #   Finaliza
-            return;
+            echo 'ok';exit();
         }
     }   #--> End delRegister()
 
@@ -311,40 +265,79 @@ class PaymentsModel extends MainModel
         
      } // End get_ultimo_id()
      
-     /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Versão: 0.1
-     *   @Função: get_table_data() 
-     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
-     * */
-    public function get_table_data($tipo, $campo, $table, $id_campo, $get_id, $id) {
-        
-        if ($tipo == 1){
-             
-            # Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query(" SELECT  $campo FROM $table  ORDER BY $id ");
-             
-            # Destroy todas as variaveis nao mais utilizadas
-            unset($tipo, $campo, $table, $id_campo, $get_id, $id);
-           
-            # Retorna os valores da consulta
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-            
-        }elseif ($tipo == 2){
-            
-            # Simplesmente seleciona os dados na base de dados
-            $query = $this->db->query(" SELECT  $campo FROM $table WHERE $id_campo = $get_id ORDER BY $id ");
-            
-            # Destroy todas as variaveis nao mais utilizadas
-            unset($tipo, $campo, $table, $id_campo, $get_id, $id);
-            
-            # Retorna os valores da consulta
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-        }
-         
-    }   # End get_table_data()
+     
     
+    public function getSelect_return($sql){
+        # Simplesmente seleciona os dados na base de dados
+        $queryGet = $this->db->query($sql);
+        
+        # Declara o vetor
+        $result_array = [];
+        
+       
+        # Retorna os valores da consulta
+        while($results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
+            $result_array = $results;
+        }
+       
+        foreach ($result_array as $result) {
+            
+            # The output
+            echo '<tr>';			
+            echo '<td class="small">'.$result['payments_id'].'</td>';
+            echo '<td class="small">'.$result['payments_venc'].'</td>';
+            echo '<td class="small">'.$result['payments_date_payments'].'</td>';
+            echo '<td class="small">'.$result['payments_cat'].'</td>';
+            echo '<td class="small">'.$result['payments_desc'].'</td>';
+            echo '<td class="small">'.$result['payments_val'].'</td>';
+            echo '</tr>';	
+        }
+    }
+    
+    /**
+    *   @Acesso: public
+    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+    *   @Versão: 0.1
+    *   @Função: getJSON() 
+    *   @Descrição: Recebe a tabela e o id, e retorna um JSON dos dados.
+    **/ 
+  public function getJSON($table, $id) {
+
+        # Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query("SELECT * FROM $table ORDER BY $id");
+
+        # Verifica se a consulta está OK
+        if (!$query) {
+
+            # Finaliza execução
+            return;
+        }
+
+        # Retorna os valores da consulta
+        $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Prepara a conversao para o formato desejado
+        foreach ($queryResult as $payments) {
+            $mysql_data[] = [
+                "payments_id"        => $payments['payments_id'],
+                "payments_venc"      => $payments['payments_venc'],
+                "payments_date_payments"  => $payments['payments_date_payments'],
+                "payments_cat"       => '$ ' . $payments['payments_cat'],
+                "payments_desc"      => $payments['payments_desc'],
+                "payments_val"       => $payments['payments_val']
+            ];
+        }
+        
+        # Cria o arquivo JSON
+        $fp = fopen('arquivo.json', 'w');
+        fwrite($fp, json_encode($mysql_data));
+        fclose($fp);
+
+        # Finaliza execução
+        return;
+        
+    } # End getJSON()
+
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -357,7 +350,7 @@ class PaymentsModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `covenant` WHERE `covenant_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `payments` WHERE `payments_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {
@@ -374,5 +367,143 @@ class PaymentsModel extends MainModel
         return $query_get->fetch(PDO::FETCH_ASSOC);
         
     } # End get_registro()
+    
+     /**
+     * Paginação
+     *
+     * Cria uma paginação simples.
+     *
+     * @param int $total_artigos Número total de artigos da sua consulta
+     * @param int $artigos_por_pagina Número de artigos a serem exibidos nas páginas
+     * @param int $offset Número de páginas a serem exibidas para o usuário
+     *
+     * @return string A paginação montada
+     */
+    function paginacao(
+    $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
+    ) {
+        // Obtém o número total de página
+        $numero_de_paginas = floor($total_artigos / $artigos_por_pagina);
+
+        // Obtém a página atual
+        $pagina_atual = 1;
+
+        // Atualiza a página atual se tiver o parâmetro pagina=n
+        if (!empty($_GET['pagina'])) {
+            $pagina_atual = (int) $_GET['pagina'];
+        }
+
+        // Vamos preencher essa variável com a paginação
+        $paginas = null;
+
+        // Primeira página
+        $paginas .= " <a href='?pagina=0'>Home</a> ";
+
+        // Faz o loop da paginação
+        // $pagina_atual - 1 da a possibilidade do usuário voltar
+        for ($i = ( $pagina_atual - 1 ); $i < ( $pagina_atual - 1 ) + $offset; $i++) {
+
+            // Eliminamos a primeira página (que seria a home do site)
+            if ($i < $numero_de_paginas && $i > 0) {
+                // A página atual
+                $página = $i;
+
+                // O estilo da página atual
+                $estilo = null;
+
+                // Verifica qual dos números é a página atual
+                // E cria um estilo extremamente simples para diferenciar
+                if ($i == @$parametros[1]) {
+                    $estilo = ' style="color:red;" ';
+                }
+
+                // Inclui os links na variável $paginas
+                $paginas .= " <a $estilo href='?pagina=$página'>$página</a> ";
+            }
+        } // for
+
+        $paginas .= " <a href='?pagina=$numero_de_paginas'>Última</a> ";
+
+        // Retorna o que foi criado
+        return $paginas;
+    }
+    
+    
+     /*
+     * Returns rows from the database based on the conditions
+     * @param string name of the table
+     * @param array select, where, search, order_by, limit and return_type conditions
+     */
+    public function getRows($table, $conditions = []){
+        $sql = 'SELECT ';
+        $sql .= array_key_exists('select',$conditions) ? $conditions['select']: '*';
+        $sql .= ' FROM '.$table;             
+        
+        if(array_key_exists('where',$conditions)){
+            $sql .= ' WHERE ';
+            $i = 0;
+            foreach($conditions['where'] as $key => $value){
+                $pre = ($i > 0) ? ' AND ' : '';
+                $sql .= $pre.$key." = '".$value."'";
+                $i++;
+            }
+        }
+        
+        if(array_key_exists('where_limit',$conditions)){
+            $sql .= ' WHERE '.$conditions['where_limit']['key_where']. ' = '.$conditions['where_limit']['value_where'];
+            //$sql .=  $conditions['where_limit']['value_limit'];
+            //var_dump($sql);die;
+            
+        }
+        
+        if(array_key_exists('search',$conditions)){
+            $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
+            $i = 0;
+            foreach($conditions['search'] as $key => $value){
+                $pre = ($i > 0)?' OR ':'';
+                $sql .= $pre.$key." LIKE '%".$value."%'";
+                $i++;
+            }
+        }
+        
+        
+        
+        if(array_key_exists("order_by",$conditions)){
+            $sql .= ' ORDER BY '.$conditions['order_by']; 
+        }
+        var_dump($sql);
+        
+        if(array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
+            
+            $sql .= ' LIMIT '.$conditions['start'].','.$conditions['limit']; 
+            
+        }elseif(!array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
+            $sql .= ' LIMIT '.$conditions['limit']; 
+            
+        }
+        
+        $result = $this->db->query($sql);
+        
+        if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
+            switch($conditions['return_type']){
+                case 'count':
+                    $data = count($result);
+                    break;
+                case 'single':
+                    $data = $result->fetch(PDO::FETCH_ASSOC);
+                    break;
+                default:
+                    $data = '';
+            }
+        }else{
+            if(count($result) > 0){
+                while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                    $data[] = $row;
+                    //var_dump($data);
+                }
+            }
+        }
+        return !empty($data) ? $data : false;
+    }
 
 } #Fees_Model

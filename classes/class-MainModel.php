@@ -131,7 +131,6 @@ class MainModel {
      *  @Descrição: Codifica e decodifica  a string passada dependendo do parametro.
      * */
     public function encode_decode($encode = FALSE, $decode = FALSE) {
-
         if ($encode == TRUE) {
 
             $rand = rand(100, 900);

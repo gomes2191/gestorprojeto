@@ -75,7 +75,8 @@
                 //echo '<script src="'.HOME_URI.'/views/_js/jquery.maskMoney.min.js"></script>';
                 echo '<script src="'.HOME_URI.'/views/_js/metodos.js"></script>';
             }
-            if (($this->title == ' Agenda') OR ($this->title == ' Contas a pagar') OR ($this->title == ' Contas a receber')) {
+            if (($this->title == ' Agenda') OR ($this->title == ' Contas a pagar') OR ($this->title == ' Contas a receber') OR 
+                    ($this->title == ' Controle de cheques')) {
                 echo '<script>console.log("Bibliotecas inseridas")</script>';
                 #--> Start JS
                 echo '<script src="'.HOME_URI.'/views/_js/datetimepicker/bootstrap-datetimepicker.js"></script>';

@@ -24,14 +24,15 @@ class FinancesChecksController extends MainController {
      *
      * @access public
      */
-//        public $permission_required = 'user-register';
+     #public $permission_required = 'user-register';
 
     
-    #   Carrega a página "/views/user-register/index.php"
-     
+    # Carrega a página "/views/user-register/index.php"
     public function index() {
+        
+       
         // Page title
-        $this->title = ' Convênios';
+        $this->title = ' Controle de cheques';
 
         // Verifica se o usuário está logado
 //		if ( ! $this->logged_in ) {
@@ -59,7 +60,7 @@ class FinancesChecksController extends MainController {
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
 
         # Carrega o modelo para este view
-        $modelo = $this->load_model('finances/pay-model');
+        $modelo = $this->load_model('finances/checks-model');
 
         #   Carrega os arquivos do view 
         #-->   /views/_includes/header.php
@@ -69,7 +70,7 @@ class FinancesChecksController extends MainController {
         require_once (ABSPATH . '/views/_includes/menu.php');
 
         #--> /views/user-register/index.php
-        require_once (ABSPATH . '/views/finances/checks-view.php');
+        require_once (ABSPATH . '/views/finances/checks/checks-view.php');
 
         #--> /views/_includes/footer.php
         require_once (ABSPATH . '/views/_includes/footer.php');
@@ -104,10 +105,10 @@ class FinancesChecksController extends MainController {
     public function BoxView(){
         
         #   Carrega o modelo
-        $modelo = $this->load_model('covenant/covenant-model');
+        $modelo = $this->load_model('finances/receive-model');
         
         #   Carrega o view
-        require_once (ABSPATH . '/views/covenant/box-view.php');
+        require_once (ABSPATH . '/views/finances/receive/box-view.php');
         
     }   #--> End BoxView
     
@@ -131,7 +132,7 @@ class FinancesChecksController extends MainController {
         #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
         #   Page title
-        $this->title = ' Honorários';
+        $this->title = ' Contas a pagar';
         
         #---> Inclua seus models e views aqui
         
@@ -152,7 +153,9 @@ class FinancesChecksController extends MainController {
     }   #--> End cad
     
     # URL: dominio.com/exemplo/exemplo
-    public function AjaxFees() {
+    public function Filters() {
+        //$search_string = $_POST['query'];
+       //echo $search_string;
         #   Parametros da função
         #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
         
@@ -162,7 +165,7 @@ class FinancesChecksController extends MainController {
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('covenant/fees-model');
+        $modelo = $this->load_model('finances/checks-model');
 
         #   Carrega o topo
         //require_once (ABSPATH . '/views/_includes/header.php');
@@ -171,10 +174,36 @@ class FinancesChecksController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/covenant/ajax-fees-view.php');
+        require_once (ABSPATH . '/views/finances/checks/filters-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
-    }   #--> End cad
+    }   #--> End Search
+    
+    # URL: dominio.com/exemplo/exemplo
+    public function AjaxProcess() {
+        #   Parametros da função
+        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+        
+        #   Page title
+        #$this->title = ' Honorários';
+        
+        #---> Inclua seus models e views aqui
+        
+        #   Carrega o modelo
+        $modelo = $this->load_model('finances/checks-model');
+
+        #   Carrega o topo
+        //require_once (ABSPATH . '/views/_includes/header.php');
+        
+        #   Carrega menus
+        //require_once (ABSPATH.'/views/_includes/menu.php');
+
+        #   Carrega o view
+        require_once (ABSPATH . '/views/finances/checks/ajax-process-view.php');
+
+        //require_once (ABSPATH . '/views/_includes/footer.php');
+        
+    }   #--> End TopSearch
     
 }   #--> End FonecedoresController

@@ -91,9 +91,8 @@ $(function () {
         return window.location.href.indexOf(href);
     };
     
-    
-    
-    if ((linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) )  {
+    if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) 
+         || (linkVerfy("finances-checks") > 1)  )  {
         $(".data").datetimepicker({
             locale: 'pt-br',
             format: 'DD/MM/YYYY',
