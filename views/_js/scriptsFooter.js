@@ -65,6 +65,9 @@ $(document).ready(function () {
 //------------------> End mask
 // Formulario cadastro validação form validator
 $.validate({
+  validateOnBlur : true, // disable validation when input looses focus
+  errorMessagePosition : 'top', // Instead of 'inline' which is default
+  scrollToTopOnError : false, // Set this property to true on longer forms
   modules : 'security, brazil', 
   onModulesLoaded : function() {
     var optionalConfig = {
@@ -78,7 +81,9 @@ $.validate({
     };
     $('input[name="user_password"]').displayPasswordStrength(optionalConfig);
   }
+  
 });
+
 // Agenda popup inserção
 $(function () {
     if (window.location.href.indexOf("agenda") > 1 ) {

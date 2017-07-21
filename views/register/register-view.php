@@ -1,5 +1,5 @@
 <?php 
-    if (!defined('ABSPATH')) exit;
+    if (!defined('ABSPATH')){ exit; }
     
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
@@ -30,7 +30,7 @@
                         value="<?php echo htmlentities(chk_array($modelo->form_data, 'clinic_name'));?>"
                         data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
                         data-validation-help="Digite um nome com (3) ou mais caracteres." >
-                         <i class="form-control-feedback fa fa-institution"></i>
+                        <i class="form-control-feedback fa fa-institution"></i>
                     </div>
 
                     <div class="form-group has-feedback has-feedback-left">

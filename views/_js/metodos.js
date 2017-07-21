@@ -161,7 +161,7 @@ function Financeiro() {
     /*
      * @author: Francisco Aparecido
      * @version: 1.0
-     * @description: Converte um numero para um formato pra determinado
+     * @description: Converte um numero para um formato pre determinado
      * @example: onkeydown="this.moneyCash(this,28,event,2,'.',',');"
      * onkeydown="this.moneyCash(this,28,event,3,',','.')"
      * onkeydown="this.moneyCash(this,28,event,4,'.',',')"

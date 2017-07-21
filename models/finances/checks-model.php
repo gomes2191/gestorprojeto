@@ -112,7 +112,7 @@ class ChecksModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'checks_date_checks'))));die;
+        //var_dump($this->form_data['checks_received']);die;
         
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('checks',[
@@ -122,7 +122,7 @@ class ChecksModel extends MainModel
             'checks_bank'       =>  $this->avaliar(chk_array($this->form_data, 'checks_bank')),
             'checks_agency'     =>  $this->avaliar(chk_array($this->form_data, 'checks_agency')),
             'checks_date'       =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'checks_date'))),
-            'checks_received'   =>  $this->avaliar(chk_array($this->form_data, 'received')),
+            'checks_received'   =>  $this->avaliar(chk_array($this->form_data, 'checks_received')),
             'checks_forwarded'  =>  $this->avaliar(chk_array($this->form_data, 'checks_forwarded')),
             'checks_created'    =>  date('Y-m-d H:i:s', time())
         ]);
@@ -162,7 +162,7 @@ class ChecksModel extends MainModel
                 'checks_bank'       =>  $this->avaliar(chk_array($this->form_data, 'checks_bank')),
                 'checks_agency'     =>  $this->avaliar(chk_array($this->form_data, 'checks_agency')),
                 'checks_date'       =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'checks_date'))),
-                'checks_received'   =>  $this->avaliar(chk_array($this->form_data, 'received')),
+                'checks_received'   =>  $this->avaliar(chk_array($this->form_data, 'checks_received')),
                 'checks_forwarded'  =>  $this->avaliar(chk_array($this->form_data, 'checks_forwarded')),
                 'checks_modified'   =>  date('Y-m-d H:i:s', time())
             ]);

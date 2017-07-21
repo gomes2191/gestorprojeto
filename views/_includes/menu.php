@@ -47,7 +47,7 @@
                                 <li><a href="<?= HOME_URI; ?>/users">Listar cadastros</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?= HOME_URI; ?>/agenda" title="Agenda"><i class="fa fa-user-md" aria-hidden="true"></i> Paciente</a></li>
+                        <li><a href="<?= HOME_URI; ?>/patients" title="Pacientes"><i class="fa fa-user-md" aria-hidden="true"></i> Pacientes</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

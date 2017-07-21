@@ -8,6 +8,7 @@
                 $conditions['where'] = ['checks_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
                 $conditions['return_type'] = 'single';
                 $allReg = $modelo->searchTable('checks', $conditions);
+                $allReg['checks_val'] = number_format($allReg['checks_val'], 2, ',', '.');
                 $allReg['checks_date'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y',$allReg['checks_date']);
                 $allReg['checks_created'] = $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$allReg['checks_created']);
                 $allReg['checks_modified'] = $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$allReg['checks_modified']);
