@@ -239,11 +239,11 @@
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">
                                     <button id="btn-show" title="Mostrar formulário" class="btn btn-sm btn-default marg-top" type="reset">
-                                        <i class="glyphicon glyphicon-eye-open"></i> Mostrar Formulário
+                                        <i class="glyphicon glyphicon-chevron-down"></i> ABRIR FORMULÁRIO
                                     </button>
                                 </div>
                                 <div id="group-btn-hide" style="display: none;" class="btn-group">
-                                    <button id="btn-hide" title="Ocultar formulário" class="btn btn-sm btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> OCULTAR FORMULÁRIO</button>
+                                    <button id="btn-hide" title="Ocultar formulário" class="btn btn-sm btn-default marg-top" type="reset"><i class="glyphicon glyphicon-chevron-up"></i> FECHAR FORMULÁRIO</button>
                                 </div>
                             </div>
                         </div><!-- /End row-->

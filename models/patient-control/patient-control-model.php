@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class PatientsModel extends MainModel 
+class PatientControlModel extends MainModel 
 {
     /**
      * $form_data

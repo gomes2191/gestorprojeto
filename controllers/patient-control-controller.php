@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class PatientsController extends MainController {
+class PatientControlController extends MainController {
 
     /**
      * $login_required
@@ -60,7 +60,7 @@ class PatientsController extends MainController {
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
 
         # Carrega o modelo para este view
-        $modelo = $this->load_model('patients/patients-model');
+        $modelo = $this->load_model('patient-control/patient-control-model');
 
         #   Carrega os arquivos do view 
         #-->   /views/_includes/header.php
@@ -70,7 +70,7 @@ class PatientsController extends MainController {
         require_once (ABSPATH . '/views/_includes/menu.php');
 
         #--> /views/user-register/index.php
-        require_once (ABSPATH . '/views/patients/patients-view.php');
+        require_once (ABSPATH . '/views/patient-control/patient-control-view.php');
 
         #--> /views/_includes/footer.php
         require_once (ABSPATH . '/views/_includes/footer.php');
@@ -165,7 +165,7 @@ class PatientsController extends MainController {
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('patients/patients-model');
+        $modelo = $this->load_model('patient-control/patient-control-model');
 
         #   Carrega o topo
         //require_once (ABSPATH . '/views/_includes/header.php');
@@ -174,7 +174,7 @@ class PatientsController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/patients/filters-view.php');
+        require_once (ABSPATH . '/views/patient-control/filters-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
@@ -191,7 +191,7 @@ class PatientsController extends MainController {
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('patients/patients-model');
+        $modelo = $this->load_model('patient-control/patient-control-model');
 
         #   Carrega o topo
         //require_once (ABSPATH . '/views/_includes/header.php');
@@ -200,7 +200,7 @@ class PatientsController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/patients/ajax-process-view.php');
+        require_once (ABSPATH . '/views/patient-control/ajax-process-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
