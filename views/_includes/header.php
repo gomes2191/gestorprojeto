@@ -1,5 +1,4 @@
 <?php if (! defined('ABSPATH')) { exit(); } TIME_ZONE; ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>

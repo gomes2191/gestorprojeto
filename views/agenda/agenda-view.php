@@ -1,9 +1,6 @@
 <?php   if (!defined('ABSPATH'))    {   exit();    } elseif (isset($_GET['ag'])){
-        
         $id = $modelo->avaliar($_GET['ag']);
-        
         $modelo->delRegister($id);
-        
         unset($id);
     }
     
@@ -12,25 +9,11 @@
     $form_msg = $modelo->form_msg;
 ?>
 
-<div class="row-fluid">
+<div class="row">
     <div class="col-md-1 col-sm-1"></div>
-    <div class="col-md-7 col-sm-7">
+    <div class="col-md-7  col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                
-                
-                <?php if($form_msg == true){
-                    echo '<div class="alert alertH ' .$form_msg[0]. '  alert-dismissible fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <i class="fa fa-info-circle fa-4" >&nbsp;</i>
-                            <strong>'.$form_msg[1].'</strong>&nbsp;' .$form_msg[2]. ' 
-                         </div>';
-                    
-                        unset($form_msg);
-                    }
-                ?>
                 
                 <!--refresh widget-->
                 <div>
