@@ -17,7 +17,7 @@ $(function (){
     
 });
     // Popup alerta
-    $('#popoverOption').popover({trigger: "hover"});
+    //$('#popoverOption').popover({trigger: "hover"});
 });
 // Modal outros
 $('.openBtn').click(function () {
@@ -85,55 +85,121 @@ $.validate({
 });
 
 // Agenda popup inserção
+//$(function () {
+//    if (window.location.href.indexOf("agenda") > 1 ) {
+//        $(".dataTime").datetimepicker({
+//            inline: true,
+//            locale: 'pt-br',
+//            format: 'DD/MM/YYYY HH:MM',
+//            showTodayButton: true,
+//            showClear: true,
+//            showClose: true,
+//            disabledHours: false,
+//            focusOnShow: true,
+//            tooltips: {
+//                today: 'Data de Hoje',
+//                clear: 'Limpar Campo',
+//                close: 'Fechar Calendário',
+//                selectMonth: 'Select Month',
+//                prevMonth: 'Previous Month',
+//                nextMonth: 'Next Month',
+//                selectYear: 'Select Year',
+//                prevYear: 'Previous Year',
+//                nextYear: 'Next Year',
+//                selectDecade: 'Select Decade',
+//                prevDecade: 'Previous Decade',
+//                nextDecade: 'Next Decade',
+//                prevCentury: 'Previous Century',
+//                nextCentury: 'Next Century',
+//                incrementHour: 'Increment Hour',
+//                pickHour: 'Pick Hour',
+//                decrementHour:'Decrement Hour',
+//                incrementMinute: 'Increment Minute',
+//                pickMinute: 'Pick Minute',
+//                decrementMinute:'Decrement Minute',
+//                incrementSecond: 'Increment Second',
+//                pickSecond: 'Pick Second',
+//                decrementSecond:'Decrement Second'
+//            }
+//            
+//        });
+//    }
+
 $(function () {
-    if (window.location.href.indexOf("agenda") > 1 ) {
-        $("#from, #to").datetimepicker({
-            
-        });
-    }
     
     var linkVerfy = function(href){
         return window.location.href.indexOf(href);
     };
     
+    if (linkVerfy("agenda") > 1 ) {
+        jQuery.datetimepicker.setLocale('pt-BR');
+        $(".dataTime, .dataTimeEnd").datetimepicker({            
+            format:'d/m/Y h:i',
+            mask:'99/99/9999 99:99',
+            validateOnBlur:true,
+            closeOnWithoutClick :true,
+            value:true,
+            timepicker:false
+        });
+       
+    }
+    
     if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) 
-         || (linkVerfy("finances-checks") > 1)  )  {
-        $(".data").datetimepicker({
-            locale: 'pt-br',
-            format: 'DD/MM/YYYY',
-            showTodayButton: true,
-            showClear: true,
-            showClose: true,
-            disabledHours: false,
-            focusOnShow: true,
-            tooltips: {
-                today: 'Data de Hoje',
-                clear: 'Limpar Campo',
-                close: 'Fechar Calendário',
-                selectMonth: 'Select Month',
-                prevMonth: 'Previous Month',
-                nextMonth: 'Next Month',
-                selectYear: 'Select Year',
-                prevYear: 'Previous Year',
-                nextYear: 'Next Year',
-                selectDecade: 'Select Decade',
-                prevDecade: 'Previous Decade',
-                nextDecade: 'Next Decade',
-                prevCentury: 'Previous Century',
-                nextCentury: 'Next Century',
-                incrementHour: 'Increment Hour',
-                pickHour: 'Pick Hour',
-                decrementHour:'Decrement Hour',
-                incrementMinute: 'Increment Minute',
-                pickMinute: 'Pick Minute',
-                decrementMinute:'Decrement Minute',
-                incrementSecond: 'Increment Second',
-                pickSecond: 'Pick Second',
-                decrementSecond:'Decrement Second'
-            }
-
+         || (linkVerfy("finances-checks") > 1) ) {
+        jQuery.datetimepicker.setLocale('pt-BR');
+        $(".dateTime").datetimepicker({            
+            format:'d/m/Y',
+            mask:'99/99/9999',
+            validateOnBlur:true,
+            closeOnWithoutClick :true,
+            value:true,
+            timepicker:false
         });
     }
+    
+
+
+    
+    
+    
+//    if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) 
+//         || (linkVerfy("finances-checks") > 1)  )  {
+//        $(".data").datetimepicker({
+//            locale: 'pt-br',
+//            format: 'DD/MM/YYYY',
+//            showTodayButton: true,
+//            showClear: true,
+//            showClose: true,
+//            disabledHours: true,
+//            focusOnShow: true,
+//            tooltips: {
+//                today: 'Data de Hoje',
+//                clear: 'Limpar Campo',
+//                close: 'Fechar Calendário',
+//                selectMonth: 'Select Month',
+//                prevMonth: 'Previous Month',
+//                nextMonth: 'Next Month',
+//                selectYear: 'Select Year',
+//                prevYear: 'Previous Year',
+//                nextYear: 'Next Year',
+//                selectDecade: 'Select Decade',
+//                prevDecade: 'Previous Decade',
+//                nextDecade: 'Next Decade',
+//                prevCentury: 'Previous Century',
+//                nextCentury: 'Next Century',
+//                incrementHour: 'Increment Hour',
+//                pickHour: 'Pick Hour',
+//                decrementHour:'Decrement Hour',
+//                incrementMinute: 'Increment Minute',
+//                pickMinute: 'Pick Minute',
+//                decrementMinute:'Decrement Minute',
+//                incrementSecond: 'Increment Second',
+//                pickSecond: 'Pick Second',
+//                decrementSecond:'Decrement Second'
+//            }
+//
+//        });
+//    }
 });
 
 // Validação dos campos data hora do evento modal de edição da agenda
@@ -295,5 +361,5 @@ $(function(){
 
 //Tooltip mensagem
 $(function (){
-   $('[data-toggle="tooltip"]').tooltip(); 
+   //$('[data-toggle="tooltip"]').tooltip(); 
 });

@@ -24,7 +24,9 @@
                     <div class="form-group">
                         <label class="sr-only" for="clinic_name">Nome da clinica:</label>
                         <input type="text" title="Nome da clínica" name="clinic_name" class="form-control" id="clinic_name" placeholder="Nome da clinica..."
-                        value="<?php echo htmlentities(chk_array($modelo->form_data, 'clinic_name'));?>">
+                        value="<?php echo htmlentities(chk_array($modelo->form_data, 'clinic_name'));?>"
+                        data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
+                        data-validation-help="Digite um nome com (3) ou mais caracteres." >
                     </div>
 
                     <div class="form-group">
@@ -69,13 +71,15 @@
                         data-validation="confirmation" data-validation-confirm="user_password">
                     </div>
 
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="submit" title="Faz o cadastro" class="btn btn-primary">Cadastrar-se</button>
-                        <button type="reset" title="Limpa o formulário" class="btn btn-danger">Limpar</button>
+                    <div class="input-group-sm">
+                        <button type="submit" title="Faz o cadastro" class="btn btn-primary btn-group-sm">Cadastrar-se <i class="glyphicon glyphicon-floppy-save" ></i> </button>
+                        <button type="reset" title="Limpa o formulário" class="btn btn-danger btn-group-sm">Limpar <i class="glyphicon glyphicon-erase" ></i> </button>
                     </div>
                 </form>
+
             </div>
             <div class="card-footer text-muted"> <small>Veja nosso contrato de prestação de serviço. <a href="#" title="Leia nosso termo de uso"> Leia-me</a></small> </div>
         </div>
     </div>
-</div> <!-- /End row  -->
+    <div class="col-md-1 col-md-1"></div>
+</div> <!-- /row fluid  -->

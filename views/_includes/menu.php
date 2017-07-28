@@ -1,14 +1,15 @@
-    <?php if (!defined('ABSPATH')) exit(); ?>
-    <?php if ($this->login_required && !$this->logged_in) return; ?>
-        
-        <nav class="navbar navbar-toggleable-md navbar-light fixed-top bg-faded text-center">
+        <?php if (!defined('ABSPATH')) exit(); ?>
+        <?php if ($this->login_required && !$this->logged_in) return; ?>
+
+        <nav class="navbar navbar-toggleable-sm fixed-top navbar-light bg-faded">
             <div class="container">
+                <a class="navbar-brand" href="#">Beta Teste</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#">BETA</a>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
+                    
+                    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
                         <li class="nav-item active">
                             <a class="nav-link" href="<?= HOME_URI; ?>" title="Página inicial">Home <span class="sr-only">(current)</span></a>
                         </li>
@@ -57,4 +58,4 @@
                 </div>
             </div>
         </nav> <!--End navbar fixed-->
-        <div class="container"> <!-- Aqui é o inicio do corpo principal todo conteúdo vai aqui -->
+        <div class="container">  <!--Aqui é o inicio do corpo principal todo conteúdo vai aqui -->

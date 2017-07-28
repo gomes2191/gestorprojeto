@@ -24,6 +24,23 @@
     font-family: 'Abel', sans-serif;
 }
 
+/*Responsivo butons boostrap*/
+@media (max-width: 768px) {
+  .btn-responsive {
+    padding:2px 4px;
+    font-size:80%;
+    line-height: 1;
+    border-radius:3px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .btn-responsive {
+    padding:4px 9px;
+    font-size:90%;
+    line-height: 1.2;
+  }
+}
 
 /* Inputs formatação extra formularios com estilização extra */
 .form-compact {
@@ -31,14 +48,9 @@
     margin-bottom: 8px;
 }
 
-.form-compact .form-control {
-    /*padding: 2px 2px;*/
-    /*height: auto;*/
-    font-size:1.2em;
-    text-align: center;
-
+.form-control {
+    font-size:0.9em !important;
 }
-
 
 .form-compact label {
     margin-bottom: 1px;

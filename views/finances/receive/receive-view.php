@@ -57,7 +57,7 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
                                     <input type="hidden" id="receive_id" name="receive_id" value="" >
-                                    <input id="receive_venc" name="receive_venc" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
+                                    <input id="receive_venc" name="receive_venc" style="border-radius: 0px !important;" type="text" class="form-control dateTime" placeholder="dd/mm/aaaa" >
                                     <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
                                 </div>
                                 <br>

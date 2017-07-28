@@ -51,7 +51,7 @@
             },
             onAfterViewLoad: function (view)
             {
-                $('.agenda-date h5').text(this.getTitle());
+                $('.calendarTitle').text(this.getTitle());
                 $('.btn-group button').removeClass('active');
                 $('button[data-calendar-view="' + view + '"]').addClass('active');
             },
