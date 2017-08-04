@@ -54,7 +54,7 @@
         
         if (($this->title == ' Agenda') OR ($this->title == ' Contas a pagar') OR ($this->title == ' Contas a receber') OR 
             ($this->title == ' Controle de cheques')) {
-            echo '<script>console.log("Bibliotecas inseridas")</script>';
+            //echo '<script>console.log("Bibliotecas inseridas")</script>';
             
             #--> Start JS
             echo '<script src="'.HOME_URI.'/views/_js/moment.js"></script>';
@@ -76,13 +76,14 @@
             echo '<script src="'.HOME_URI.'/views/_js/metodos.js"></script>';
         }if($this->title == ' Agenda'){
             # Start agenda css -->
-            echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/calendar.min.css">';
+            echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/calendar.css">';
             # End agenda css -->
 
             #--> Start JS
             echo '<script src="'.HOME_URI.'/_agenda/js/pt-BR.js"></script>';
-            //echo '<script src="'.HOME_URI.'/views/_js/moment.js"></script>';
-            //echo '<script src="'.HOME_URI.'/views/_js/scriptsTop.js"></script>';
+            echo '<script src="'.HOME_URI.'/_agenda/js/underscore-min.js"></script>';
+            echo '<script src="'.HOME_URI.'/_agenda/js/calendar.js"></script>';
+            echo '<script src="'.HOME_URI.'/_agenda/js/calendar-param.js"></script>';
             #--> End JS
         }
             

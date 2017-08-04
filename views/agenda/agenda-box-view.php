@@ -6,7 +6,7 @@
             // Verifica se existe caractres especiais no id
             $id = $modelo->avaliar($_GET['ag']);
             
-            // Metodo que armazena o evento especifico um vetor
+            // Metodo que armazena o evento especifico em um vetor
             $row = $modelo->get_listar($id);
 
             // Paciente 

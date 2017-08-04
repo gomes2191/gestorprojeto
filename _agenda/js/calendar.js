@@ -130,6 +130,8 @@ if(!String.prototype.formatNum) {
 		weekbox: true,
 		//shows events which fits between time_start and time_end
 		show_events_which_fits_time: false,
+		// Headers defined for ajax call
+		headers: {},
 
 		// ------------------------------------------------------------
 		// CALLBACKS. Events triggered by calendar class. You can use
@@ -460,10 +462,12 @@ if(!String.prototype.formatNum) {
 		this._update();
 	};
 
-	Calendar.prototype._format_hour = function(str_hour) {
+	Calendar.prototype._format_hour = function(str_hour, leadingZero) {
 		var hour_split = str_hour.split(":");
 		var hour = parseInt(hour_split[0]);
 		var minutes = parseInt(hour_split[1]);
+		var leadingZero = leadingZero == 'undefined' ? true : false;
+		var hourLength = leadingZero ? 2 : 1;
 
 		var suffix = '';
 
@@ -481,7 +485,7 @@ if(!String.prototype.formatNum) {
 			}
 		}
 
-		return hour.toString().formatNum(2) + ':' + minutes.toString().formatNum(2) + suffix;
+		return hour.toString().formatNum(hourLength) + ':' + minutes.toString().formatNum(2) + suffix;
 	};
 
 	Calendar.prototype._format_time = function(datetime) {
@@ -534,7 +538,7 @@ if(!String.prototype.formatNum) {
 			}
 
 			if(!$self.options.show_events_which_fits_time) {
-				if(e.start < start.getTime() && e.end > end.getTime()) {
+				if(e.start <= start.getTime() && e.end >= end.getTime()) {
 					data.all_day.push(e);
 					return;
 				}
@@ -618,7 +622,6 @@ if(!String.prototype.formatNum) {
 			var eventStart  = new Date(parseInt(event.start));
 			eventStart.setHours(0,0,0,0);
 			var eventEnd    = new Date(parseInt(event.end));
-			eventEnd.setHours(23,59,59,999);
 
 			event.start_day = new Date(parseInt(eventStart.getTime())).getDay();
 			if(first_day == 1) {
@@ -966,7 +969,8 @@ if(!String.prototype.formatNum) {
 							url: buildEventsUrl(source, params),
 							dataType: 'json',
 							type: 'GET',
-							async: false
+							async: false,
+							headers: self.options.headers,
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
@@ -1082,15 +1086,14 @@ if(!String.prototype.formatNum) {
 
 			if(self.options.modal_type == "iframe") {
 				ifrm.attr('src', url);
-				$('.modal-agenda-visao', modal).html(ifrm);
+				$('.modal-body', modal).html(ifrm);
 			}
-
 			if(!modal.data('handled.bootstrap-calendar') || (modal.data('handled.bootstrap-calendar') && modal.data('handled.event-id') != event.id)) {
 				modal.off('show.bs.modal')
 					.off('shown.bs.modal')
 					.off('hidden.bs.modal')
 					.on('show.bs.modal', function() {
-						var modal_body = $(this).find('.modal-agenda-visao');
+						var modal_body = $(this).find('.modal-body');
 						switch(self.options.modal_type) {
 							case "iframe" :
 								var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);
@@ -1107,7 +1110,7 @@ if(!String.prototype.formatNum) {
 
 							case "template":
 								self._loadTemplate("modal");
-								//	also serve calendar instance to underscore template to be able to access current language strings
+								// also serve calendar instance to underscore template to be able to access current language strings
 								modal_body.html(self.options.templates["modal"]({"event": event, "calendar": self}))
 								break;
 						}
@@ -1117,9 +1120,12 @@ if(!String.prototype.formatNum) {
 							modal.find(".modal-title").html(self.options.modal_title(event));
 						}
 					})
-					.on('shown.bs.modal', function() {
-						self.options.onAfterModalShown.call(self, self.options.events);
-					})
+					/*.on('shown.bs.modal', function() {
+                                            self.options.onAfterModalShown.call(self, self.options.events);
+					})*/
+                                        .on('show.bs.modal', function() {
+                                            self.options.onAfterModalShown.call(self, event);
+                                        })
 					.on('hidden.bs.modal', function() {
 						self.options.onAfterModalHidden.call(self, self.options.events);
 					})
@@ -1228,7 +1234,7 @@ if(!String.prototype.formatNum) {
 				return true;
 			}
 			var event_end = this.end || this.start;
-			if((parseInt(this.start) < end) && (parseInt(event_end) >= start)) {
+			if((parseInt(this.start) < end) && (parseInt(event_end) > start)) {
 				events.push(this);
 			}
 		});

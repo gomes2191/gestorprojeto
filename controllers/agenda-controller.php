@@ -7,7 +7,6 @@
  */
 class AgendaController extends MainController
 {
-
 	/**
 	 * $login_required
 	 *

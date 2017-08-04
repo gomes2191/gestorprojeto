@@ -10,7 +10,13 @@
     <script src="<?= HOME_URI; ?>/views/_js/ie10-viewport-bug-workaround.js"></script>
     
     <!-- Javascript customizado ===================================================== --> 
-    
     <script src="<?= HOME_URI; ?>/views/_js/scriptsFooter.js"></script>
+    <?php
+        if(isset($modelo->pag_type) && $modelo->pag_type == 'calendar'){
+            #--> Start JS
+            echo '<script src="'.HOME_URI.'/_agenda/js/calendar-param.js"></script>';
+            #--> End JS
+        }
+    ?>
   </body>
 </html>

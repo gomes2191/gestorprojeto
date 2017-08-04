@@ -7,13 +7,14 @@ $('#user-register-btn').on('click', function() {
        $this.button('reset');
    }, 1000);
 });
-// Mensagens do sistemas
+
+// Feedback para usuário do sistema
 $(function (){
     //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
     $(".alertH").hide();
     $(".alertH").alert();
     $(".alertH").fadeTo(3300, 3300).slideUp(200, function () {
-    $(".alertH").slideUp(200);
+    $(".alertH").slideUp(500);
     
 });
     // Popup alerta
@@ -127,21 +128,37 @@ $.validate({
 
 $(function () {
     
+    //
     var linkVerfy = function(href){
         return window.location.href.indexOf(href);
     };
     
-    if (linkVerfy("agenda") > 1 ) {
+    if (linkVerfy("agenda") > 1) {
         jQuery.datetimepicker.setLocale('pt-BR');
-        $(".dataTime, .dataTimeEnd").datetimepicker({            
-            format:'d/m/Y h:i',
-            mask:'99/99/9999 99:99',
-            validateOnBlur:true,
-            closeOnWithoutClick :true,
-            value:true,
-            timepicker:false
+        $(".dataTime").datetimepicker({
+            format: 'd/m/Y H:i',
+            mask: '99/99/9999 99:99',
+            validateOnBlur: true,
+            closeOnWithoutClick: true,
+            value: true,
+            onShow: function (ct) {
+                this.setOptions({
+                    maxDate: jQuery('.dataTimeEnd').val() ? jQuery('.dataTimeEnd').val() : false
+                });
+            }
         });
-       
+        jQuery('.dataTimeEnd').datetimepicker({
+            format: 'd/m/Y H:i',
+            mask: '00/00/0000 00:00',
+            value: false,
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate: jQuery('.dataTime').val() ? jQuery('.dataTime').val() : false
+                });
+            }
+
+        });
+
     }
     
     if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) 
@@ -356,10 +373,4 @@ $(function(){
     $('#keywords ').mousedown( function (){
         $('#sortBy').val('');
     });
-});
-
-
-//Tooltip mensagem
-$(function (){
-   //$('[data-toggle="tooltip"]').tooltip(); 
 });

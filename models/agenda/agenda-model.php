@@ -11,6 +11,16 @@
 class AgendaModel extends MainModel
 {
 
+    
+    /**
+     * $form_data
+     *
+     * @Descrição: Armazena os dados recebido do post.
+     *
+     * @Acesso: public
+     */
+    public $pag_type = 'calendar';
+    
     /**
      * $form_data
      *
@@ -59,56 +69,47 @@ class AgendaModel extends MainModel
     *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
     **/ 
     public function validate_register_form () {
-        // Cria o vetor que vai receber os dados do post
+        # Cria o vetor que vai receber os dados do post
         $this->form_data = [];
-
-        // Verifica se algo foi postado no formulário
-        if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST ) ) {
-            # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach ( $_POST as $key => $value ) {
+        
+        # Verifica se não é vazio o $_POST
+        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
+            
+            # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
+            foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
+                
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
-
-                # Não será permitido campos vazios
-                if ( empty( $value ) ) {
-                    // Feedback para o usuário
-                    $this->form_msg = [0 => 'alert-danger', 1 =>'Erro! ',  2 => 'Você não preencheu todos os campos.'];
-                    // Termina
-                    return;
-                } //--> End
-
-            } //Faz lop dos dados do post
-
+                
+            } # End foreach
+            
+            //var_dump($this->form_data);die;
+            
+//            #   Não será permitido campos vazios
+//            if ( empty( $this->form_data['fees_cod'] )) {
+//                
+//                #   Feedback para o usuário
+//                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
+//                
+//                # Termina
+//                return;
+//            }
         }else {
-            // Finaliza se nada foi enviado
-            return;
-        } //--> End finaliza se nada foi enviado
-
-        // Verifica se a propriedade $form_data foi preenchida
-        if( empty( $this->form_data ) ) {
-            // Finaliza a execução.
-            return;
-        }
+            # Finaliza a execução.
+            return 'err';
+        } #--> End
+       
+        # Verifica se o registro já existe.
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `calendar` WHERE `calendar_id` = ? ',[
+            chk_array($this->form_data, 'calendar_id')
+        ]);        
         
-        # Pega a data de inicio da consulta e data final da consulta e verifica se ambas estão no padrão aceito Ex: 'd/m/Y H:i' 
-        if(! (($this->validaDataHora($this->form_data['from'], 'd/m/Y H:i')) && ($this->validaDataHora($this->form_data['to'], 'd/m/Y H:i'))) ){
-            $this->form_msg = [0 => 'alert-danger', 1 =>'Erro!',  2 => 'Campo início da consulta e términio da consulta não atendem o formato exigido.'];
-            // Finaliza a execução.
-            return;
-        }// End valida
-
-        // Verifica se o agendamento já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `agendas` WHERE `agenda_id` = ? ',[
-            chk_array($this->form_data, 'agenda_id')
-        ]);
-        
-        // Verifica se a consulta foi realizada com sucesso
-        if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            $this->updateRegister(chk_array($this->form_data, 'agenda_id'));
-            return;
+        # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
+        if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
+            $this->updateRegister(chk_array($this->form_data, 'calendar_id'));
         }else{
-             $this->insertRegister();
-             return;
+            //var_dump($this->form_data);die;
+            $this->insertRegister();
         }
         
     } #--> End validate_register_form()
@@ -122,21 +123,20 @@ class AgendaModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('agendas',[
-            'agenda_start'          =>  $this->_formatar (chk_array($this->form_data, 'from')),
-            'agenda_end'            =>  $this->_formatar(chk_array($this->form_data, 'to')),
-            'agenda_start_normal'   =>  chk_array($this->form_data, 'from'),
-            'agenda_end_normal'     =>  chk_array($this->form_data, 'to'),
-            'agenda_class'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_class')),
-            'agenda_proc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_proc')),
-            'agenda_pac'            =>  $this->avaliar(chk_array($this->form_data, 'agenda_pac')),
-            'agenda_desc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc'))
+        $query_ins = $this->db->insert('calendar',[
+            'calendar_start'          =>  $this->_formatar (chk_array($this->form_data, 'from')),
+            'calendar_end'            =>  $this->_formatar(chk_array($this->form_data, 'to')),
+            'calendar_start_normal'   =>  chk_array($this->form_data, 'from'),
+            'calendar_end_normal'     =>  chk_array($this->form_data, 'to'),
+            'calendar_class'          =>  $this->avaliar(chk_array($this->form_data, 'calendar_class')),
+            'calendar_proc'           =>  $this->avaliar(chk_array($this->form_data, 'calendar_proc')),
+            'calendar_pac'            =>  $this->avaliar(chk_array($this->form_data, 'calendar_pac')),
+            'calendar_desc'           =>  $this->avaliar(chk_array($this->form_data, 'calendar_desc'))
         ]);
 
         # Simplesmente seleciona os dados na base de dados
-        $exec_id = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
+        $exec_id = $this->db->query(' SELECT MAX(calendar_id) AS `calendar_id` FROM `calendar` ');
         $row = $exec_id->fetch();
         $id = trim($row[0]);
 
@@ -144,7 +144,7 @@ class AgendaModel extends MainModel
         $link = HOME_URI.'/agenda/box-visao?ag='.$this->encode_decode($id);
 
         # Atualizamos nosso $link
-        $query_up = $this->db->update('agendas', 'agenda_id', $id,['agenda_url' => $link]);
+        $query_up = $this->db->update('calendar', 'calendar_id', $id,['calendar_url' => $link]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ( $query_up && $query_ins ) {
@@ -153,7 +153,7 @@ class AgendaModel extends MainModel
             unset($query_ins, $query_up, $exec_id, $row,  $id, $link);
             
             # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso! ',  2 => 'A consulta foi isnerida com successo!'];
+            $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro inserido com sucesso!'];
 
             # Finaliza execução.
             return;
@@ -212,7 +212,7 @@ class AgendaModel extends MainModel
         $id = intval($this->encode_decode(0, $agenda_id));
         
         // Verifica na base de dados
-        $query = $this->db->query('SELECT * FROM `agendas` WHERE `agenda_id` = ?', [ $id ]  );
+        $query = $this->db->query('SELECT * FROM `calendar` WHERE `calendar_id` = ?', [ $id ]  );
 
         // Verifica se a consulta foi realizada com sucesso!
         if ( ! $query ) {
@@ -294,39 +294,34 @@ class AgendaModel extends MainModel
     *   @Descrição: Pega os dados referente as consultas na base de dados e retorna um Json no padrão aceito pela calendario do Sistema.
     **/
     public function return_json_evento() {
+        // Pega todos os dados da tabela agendas.
+        $query = $this->db->query(' SELECT * FROM `calendar` ');
+        // Verifica se a consulta foi realizada com sucesso.
+        if (!$query) {
+            return [];
+        }
 
-    // Pega todos os dados da tabela agendas.
-    $query = $this->db->query(' SELECT * FROM `agendas` ');
-
-    // Verifica se a consulta foi realizada com sucesso.
-    if (!$query) {
-        return [];
-    }
-    
-    
-    /**
-    * Faz um loop com os dados da query inserindo no vetor $row
-    * e pega os valores especifico e insere no vetor $out. 
-    **/ 
-    foreach ($query as $row){
-        $out[] = [
-            'id'       => $row['agenda_id'],
-            'title'    => $row['agenda_pac'],
-            'url'      => $row['agenda_url'],
-            'body'     => $row['agenda_desc'],
-            'class'    => $row['agenda_class'],
-            'start'    => $row['agenda_start'],
-            'end'      => $row['agenda_end']
-        ];
-
-    }
+        /**
+         * Faz um loop com os dados da query inserindo no vetor $row
+         * e pega os valores especifico e insere no vetor $out. 
+         * */
+        foreach ($query as $row) {
+            $out[] = [
+                'id'    => $this->encode_decode($row['calendar_id']),
+                'title' => $row['calendar_pac'],
+                //'url' => $row['calendar_url'],
+                'body'  => $row['calendar_desc'],
+                'class' => $row['calendar_class'],
+                'start_normal' => $row['calendar_start_normal'],
+                'end_normal'   => $row['calendar_end_normal'],
+                'start' => $row['calendar_start'],
+                'end'   => $row['calendar_end']
+            ];
+        }
         // Converte em um json o valor do vetor e imprime
-        echo json_encode(array('success' => 1, 'result' => $out));
-        exit;
-        
-    } // End return_json_evento()
-    
-    
+        echo json_encode(['success' => 1, 'result' => $out]);
+    } # End return_json_evento()
+
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
