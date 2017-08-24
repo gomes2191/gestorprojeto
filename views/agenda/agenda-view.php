@@ -102,34 +102,7 @@
             </div><!--/End widget-->
         </div><!-- /End Container painel-->
     </div><!--/End row-->
-    
-<!--    Modal de visualização de registro-->
-    <div class="modal fade" id="event-modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-inline list-modal-forn">
-                        <li class="list-group-item list-group-item-info list-group-item-text"><b>Titular: </b> <span class="title">---</span></li> 
-                        <li class="list-group-item list-group-item-warning list-group-item-text"><b>Valor: </b> <span class="body">----</span></li>
-                        <li class="list-group-item list-group-item-success list-group-item-text"><b>Código: </b> <span class="class">----</span> </li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-    
+   
     <!--ventana modal para el calendario-->
     <div class="modal fade in" id="events-modal">
         <div class="modal-dialog">
@@ -216,5 +189,28 @@
         </div>
     </div>
     
-    
-    
+    <!-- Apresenta informações referente ao registro -->
+    <div class="modal fade" id="event-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">INFORMAÇÕES</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-inline list-modal-forn">
+                        <li class="list-group-item list-group-item-info list-group-item-text"><b>Paciente:&nbsp;</b> <span class="patient">---</span></li> 
+                        <li class="list-group-item list-group-item-warning list-group-item-text"><b>Descrição:&nbsp;</b> <span class="desc">----</span></li>
+                        <li class="list-group-item list-group-item-success list-group-item-text"><b>Início:&nbsp;</b> <span class="start_normal">----</span> </li>
+                        <li class="list-group-item list-group-item-info list-group-item-text"><b>Fim:&nbsp;</b> <span class="end_normal">----</span> </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Editar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">X Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>

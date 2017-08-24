@@ -8,8 +8,8 @@ $(function (){
     //Criamos a data atual
     var date = new Date();
     var yyyy = date.getFullYear().toString();
-    var mm = (date.getMonth() + 1).toString().length == 1 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
-    var dd = (date.getDate()).toString().length == 1 ? "0" + (date.getDate()).toString() : (date.getDate()).toString();
+    var mm = (date.getMonth() + 1).toString().length === 1 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+    var dd = (date.getDate()).toString().length === 1 ? "0" + (date.getDate()).toString() : (date.getDate()).toString();
 
     var options = {
         // Definimos que os eventos aparecerão em uma janelo modal
@@ -51,9 +51,10 @@ $(function (){
         onAfterModalShown: function(event) {
             // Inside this function 'this' is the calendar instance
             console.log(event);
-            $('.title').text(' '+event.title);
-            $('.body').text(' '+event.body);
-            $('.class').text(' '+event.class);
+            $('.patient').text(event.title);
+            $('.desc').text(event.desc);
+            $('.start_normal').text(event.start_normal);
+            $('.end_normal').text(event.end_normal);
             
         },
         onAfterViewLoad: function (view) {
@@ -67,10 +68,8 @@ $(function (){
             }
         }
     };
-
     var calendar = $('#calendar').calendar(options);
     
-  
     $('.btn-group button[data-calendar-nav]').each(function () {
         var $this = $(this);
         $this.click(function () {
@@ -116,7 +115,6 @@ $(function (){
         calendar.setOptions({weekbox: val});
         calendar.view();
     });
-
 
     $('#events-modal .modal-header, #events-modal .modal-footer').click(function (e) {
         e.preventDefault();

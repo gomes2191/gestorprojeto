@@ -151,7 +151,6 @@ $(function () {
 
     }
 
-
     $(function () {
         $.ajax({
             data: {"param1": "quantos"},

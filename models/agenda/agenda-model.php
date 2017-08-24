@@ -308,9 +308,9 @@ class AgendaModel extends MainModel
         foreach ($query as $row) {
             $out[] = [
                 'id'    => $this->encode_decode($row['calendar_id']),
-                'title' => $row['calendar_pac'],
+                'title' => $row['calendar_pat'],
                 //'url' => $row['calendar_url'],
-                'body'  => $row['calendar_desc'],
+                'desc'  => $row['calendar_desc'],
                 'class' => $row['calendar_class'],
                 'start_normal' => $row['calendar_start_normal'],
                 'end_normal'   => $row['calendar_end_normal'],
