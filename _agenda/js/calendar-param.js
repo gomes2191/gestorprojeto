@@ -1,5 +1,4 @@
 $(function (){
-    
     //Montando a URL
     newURL = window.location.protocol + '//' + window.location.host + '/' + 'soc/';
 
@@ -38,12 +37,11 @@ $(function (){
         // Definimos uma largura de 100% no calendário
         width: '100%',
         onAfterEventsLoad: function (events) {
-            if (!events) { return; }
+            if (!events) {  return;  }
             
             var list = $('#eventlist');
-           
-            list.html('');
             
+            list.html('');
             $.each(events, function (key, val) {
                 $(document.createElement('li')).html('<a href="' + val.url + '">' + val.title + '</a>').appendTo(list);
             });
