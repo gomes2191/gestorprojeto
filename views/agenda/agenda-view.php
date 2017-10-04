@@ -51,7 +51,7 @@
                         <button class="btn btn-sm btn-info btn-responsive" data-calendar-view="week">Semana</button>
                         <button class="btn btn-sm btn-warning btn-responsive" data-calendar-view="day">Dia</button>
                     </div>
-                    <h5 class="badge badge-info calendarTitle"></h5>
+                    <h3 class="badge badge-light calendarTitle"></h3>
                 </div> <!--End botoes-->
                 
                 <div class="col-md-3 col-sm-8 col-xs-8">
@@ -72,7 +72,7 @@
             
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <span class="badge badge-default">Default</span>
+                    <span class="badge badge-light">Default</span>
                     <span class="badge badge-primary">Primary</span>
                     <span class="badge badge-success">Success</span>
                     <span class="badge badge-info">Info</span>
@@ -82,8 +82,8 @@
             </div><!--End row-->
         </div><!-- /End agenda container-->
         
-        <!--refresh widget-->
-        <div class="col-md-3 col-sm-12 col-xs-12">
+        
+        <div class="col-md-3 col-sm-12 col-xs-12"><!-- Start widget container-->
             <div class="card card-info mb-3 text-center">
                 <div class="card-header">
                     AGENDAMENTOS DO DIA
@@ -99,8 +99,18 @@
 
                     </ul>
                 </div>
-            </div><!--/End widget-->
-        </div><!-- /End Container painel-->
+            </div><!--/End widget 1-->
+            
+            <div class="card text-white mb-3" style="max-width: 20rem;">
+  <div class="card-header bg-primary">Header</div>
+  <div class="card-body bg-primary">
+    <h4 class="card-title">Dark card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+            
+            
+        </div><!--/End widget container-->
     </div><!--/End row-->
    
     <!--ventana modal para el calendario-->

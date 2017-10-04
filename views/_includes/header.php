@@ -35,7 +35,8 @@
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="<?= HOME_URI; ?>/views/_js/jquery.min.js"></script>
-        <script src="<?= HOME_URI; ?>/views/_js/tether.min.js"></script>
+        <script src="<?= HOME_URI; ?>/views/_js/popper.min.js"></script><!--Necessário para que funcione os dropdowns-->
+        <!--<script src="<?= HOME_URI; ?>/views/_js/tether.min.js"></script>-->
         <script src="<?= HOME_URI; ?>/views/_js/bootstrap.min.js"></script>
         
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
