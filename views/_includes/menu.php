@@ -1,9 +1,9 @@
     <?php if (!defined('ABSPATH')) exit(); ?>
     <?php if ($this->login_required && !$this->logged_in) return; ?>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-light navbar-expand-md fixed-top" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-md fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><b>GESTOR CONTROL</b></a>
+            <a class="navbar-brand" href="#"><b>BETA</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

@@ -82,61 +82,22 @@
             </div><!--End row-->
         </div><!-- /End agenda container-->
         
-        
-        <div class="col-md-3 col-sm-12 col-xs-12"><!-- Start widget container-->
-            <div class="card card-info mb-3 text-center">
-                <div class="card-header">
-                    AGENDAMENTOS DO DIA
-                </div>
-                <div class="card-block">
+        <div class="col-md-3 col-sm-12 col-xs-12"><!-- Start widget container -->
+            <div class="card text-white border border-warning mb-3" style="max-width: 20rem;">
+                <div class="card-header bg-primary text-center">AGENDAMENTOS DO DIA</div>
+                <div class="card-body bg-primary">
                     <div class="paginadorAgenda alert alert-info" role="alert"></div>
-                    <ul id="listConsul" class="list-group">
-
-                    </ul>
+                    <ul id="listConsul" class="list-group"></ul>
                 </div>
-                <div class="card-footer text-muted">
+                <div class="card-footer text-muted bg-primary">
                     <ul class="pagination pagination-sm" id="paginador">
 
                     </ul>
                 </div>
-            </div><!--/End widget 1-->
-            
-            <div class="card text-white mb-3" style="max-width: 20rem;">
-  <div class="card-header bg-primary">Header</div>
-  <div class="card-body bg-primary">
-    <h4 class="card-title">Dark card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-            
+            </div><!--/End widget 2-->
             
         </div><!--/End widget container-->
     </div><!--/End row-->
-   
-    <!--ventana modal para el calendario-->
-    <div class="modal fade in" id="events-modal">
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" >
-                        <i  class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>
-                        INFORMAÇÕES SOBRE A CONSULTA
-                    </h4>
-                </div>
-                <div class="modal-body modal-agenda-visao" >
-                    
-                </div>
-
-                <div class="modal-footer">
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
     
     <!-- Modal -->
     <div class="modal fade" id="addRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -211,7 +172,7 @@
                 </div>
                 <div class="modal-body">
                     <ul class="list-inline list-modal-forn">
-                        <li class="list-group-item list-group-item-info list-group-item-text"><b>Paciente:&nbsp;</b> <span class="patient">---</span></li> 
+                        <li class="list-group-item list-group-item-info list-group-item-text"><b>Nome:&nbsp;</b> <span class="name">---</span></li> 
                         <li class="list-group-item list-group-item-warning list-group-item-text"><b>Descrição:&nbsp;</b> <span class="desc">----</span></li>
                         <li class="list-group-item list-group-item-success list-group-item-text"><b>Início:&nbsp;</b> <span class="start_normal">----</span> </li>
                         <li class="list-group-item list-group-item-info list-group-item-text"><b>Fim:&nbsp;</b> <span class="end_normal">----</span> </li>

@@ -41,15 +41,16 @@ $(function (){
             
             var list = $('#eventlist');
             
-            list.html('');
+//            list.html('');
             $.each(events, function (key, val) {
+                console.log(list);
                 $(document.createElement('li')).html('<a href="' + val.url + '">' + val.title + '</a>').appendTo(list);
             });
         },
         onAfterModalShown: function(event) {
             // Inside this function 'this' is the calendar instance
             console.log(event);
-            $('.patient').text(event.title);
+            $('.name').text(event.title);
             $('.desc').text(event.desc);
             $('.start_normal').text(event.start_normal);
             $('.end_normal').text(event.end_normal);
