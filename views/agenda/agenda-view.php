@@ -31,7 +31,7 @@
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <div class="btn-group btn-group-justified" role="group" aria-label="First group">
                         <button type="button" title="Adiciona nova consulta no sistema" class="btn btn-sm btn-primary btn-responsive" data-toggle='modal' data-target='#addRegister'>
-                            <i class="fa fa-calendar-plus-o" aria-hidden="false"></i> Nova Consulta 
+                            <i class="fa fa-calendar-plus-o" aria-hidden="false"></i> NOVA CONSULTA 
                         </button>
                     </div>
                     
@@ -57,7 +57,7 @@
                 <div class="col-md-3 col-sm-8 col-xs-8">
                     <div class="form-group">
                         <select class="form-control form-control-sm" id="sel1">
-                            <option selected>Escolha agenda</option>
+                            <option selected>Escolha a agenda</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
@@ -82,14 +82,15 @@
             </div><!--End row-->
         </div><!-- /End agenda container-->
         
-        <div class="col-md-3 col-sm-12 col-xs-12"><!-- Start widget container -->
-            <div class="card text-white border border-warning mb-3" style="max-width: 20rem;">
-                <div class="card-header bg-primary text-center">AGENDAMENTOS DO DIA</div>
-                <div class="card-body bg-primary">
+        <div class="col-md-3 col-sm-12 col-xs-12"><!-- Start widget container aside-right -->
+            
+            <div class="card text-white mb-3" style="max-width: 20rem;">
+                <div class="card-header bg-info text-center">AGENDAMENTOS DO DIA</div>
+                <div class="card-body bg-info">
                     <div class="paginadorAgenda alert alert-info" role="alert"></div>
                     <ul id="listConsul" class="list-group"></ul>
                 </div>
-                <div class="card-footer text-muted bg-primary">
+                <div class="card-footer bg-info text-muted">
                     <ul class="pagination pagination-sm" id="paginador">
 
                     </ul>
@@ -143,7 +144,7 @@
                         </div>
                         <div class="form-group">
                             <label for="paciente">Paciente:</label>
-                            <input type="text" required autocomplete="off" name="calendar_pac" class="form-control" id="paciente" placeholder="Nome do paciente...">
+                            <input type="text" required autocomplete="off" name="calendar_pat" class="form-control" id="paciente" placeholder="Nome do paciente...">
                         </div>
 
                         <div class="form-group">

@@ -131,7 +131,7 @@ class AgendaModel extends MainModel
             'calendar_end_normal'     =>  chk_array($this->form_data, 'to'),
             'calendar_class'          =>  $this->avaliar(chk_array($this->form_data, 'calendar_class')),
             'calendar_proc'           =>  $this->avaliar(chk_array($this->form_data, 'calendar_proc')),
-            'calendar_pac'            =>  $this->avaliar(chk_array($this->form_data, 'calendar_pac')),
+            'calendar_pat'            =>  $this->avaliar(chk_array($this->form_data, 'calendar_pat')),
             'calendar_desc'           =>  $this->avaliar(chk_array($this->form_data, 'calendar_desc'))
         ]);
 
@@ -141,16 +141,16 @@ class AgendaModel extends MainModel
         $id = trim($row[0]);
 
         # Gera o link do agendamento
-        $link = HOME_URI.'/agenda/box-visao?ag='.$this->encode_decode($id);
+        //$link = HOME_URI.'/agenda/box-visao?ag='.$this->encode_decode($id);
 
         # Atualizamos nosso $link
-        $query_up = $this->db->update('calendar', 'calendar_id', $id,['calendar_url' => $link]);
+        //$query_up = $this->db->update('calendar', 'calendar_id', $id,['calendar_url' => $link]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
-        if ( $query_up && $query_ins ) {
+        if ( $query_ins ) {
 
             # Destroy variáveis não mais utilizadas.
-            unset($query_ins, $query_up, $exec_id, $row,  $id, $link);
+            unset($query_ins, $query_up, $exec_id, $row,  $id);
             
             # Feedback para o usuário
             $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro inserido com sucesso!'];
@@ -169,21 +169,19 @@ class AgendaModel extends MainModel
     *   @Descrição: Atualiza um registro especifico no BD.
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
-    public function updateRegister( $agenda_id = NULL ){
-        
+    public function updateRegister( $calendar_id = NULL ){
         # Se o ID não estiver vazio, atualiza os dados
-        if ( $agenda_id ) {
-            
+        if ( $calendar_id ) {
             # Atualiza os dados
-            $query = $this->db->update('agendas', 'agenda_id', $agenda_id,[
-                'agenda_start'          =>  $this->_formatar (chk_array($this->form_data, 'from')),
-                'agenda_end'            =>  $this->_formatar(chk_array($this->form_data, 'to')),
-                'agenda_start_normal'   =>  chk_array($this->form_data, 'from'),
-                'agenda_end_normal'     =>  chk_array($this->form_data, 'to'),
-                'agenda_class'          =>  $this->avaliar(chk_array($this->form_data, 'agenda_class')),
-                'agenda_proc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_proc')),
-                'agenda_pac'            =>  $this->avaliar(chk_array($this->form_data, 'agenda_pac')),
-                'agenda_desc'           =>  $this->avaliar(chk_array($this->form_data, 'agenda_desc'))
+            $query = $this->db->update('calendar', 'calendar_id', $calendar_id,[
+                'calendar_start'          =>  $this->_formatar (chk_array($this->form_data, 'from')),
+                'calendar_end'            =>  $this->_formatar(chk_array($this->form_data, 'to')),
+                'calendar_start_normal'   =>  chk_array($this->form_data, 'from'),
+                'calendar_end_normal'     =>  chk_array($this->form_data, 'to'),
+                'calendar_class'          =>  $this->avaliar(chk_array($this->form_data, 'calendar_class')),
+                'calendar_proc'           =>  $this->avaliar(chk_array($this->form_data, 'calendar_proc')),
+                'calendar_pat'            =>  $this->avaliar(chk_array($this->form_data, 'calendar_pat')),
+                'calendar_desc'           =>  $this->avaliar(chk_array($this->form_data, 'calendar_desc'))
             ]);
 
             // Verifica se a consulta foi realizada com sucesso
@@ -192,7 +190,7 @@ class AgendaModel extends MainModel
                 $this->form_msg = [0 => 'alert-info', 1 =>'Sucesso!',  2 => 'Os dados foram atualizados com sucesso!'];
                 
                 // Destroy variáveis nao utilizadas
-                unset($agenda_id, $query);
+                unset($calendar_id, $query);
                 
                 // Finaliza execução.
                 return;
