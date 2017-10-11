@@ -55,14 +55,18 @@
                 </div> <!--End botoes-->
                 
                 <div class="col-md-3 col-sm-8 col-xs-8">
-                    <div class="form-group">
-                        <select class="form-control form-control-sm" id="sel1">
-                            <option selected>Escolha a agenda</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </div>
+                    
+                    <a class="btn btn-success btn-select btn-select-light">
+                        <input type="hidden" class="btn-select-input btn-responsive" id="" name="" value="" />
+                        <span class="btn-select-value">Select an Item</span>
+                        <span class='btn-select-arrow fa fa-angle-down'></span>
+                        <ul>
+                            <li>Option 1</li>
+                            <li class="selected">Option 2</li>
+                            <li>Option 3</li>
+                            <li>Option 4</li>
+                        </ul>
+                    </a>
                 </div>
             </div> <!--End row-->
 
