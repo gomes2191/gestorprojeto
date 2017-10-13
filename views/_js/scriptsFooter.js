@@ -283,7 +283,7 @@ $(function () {
     $('#btn-new-show').click(function(e) {
         e.preventDefault();
         $('#group-btn-new').fadeOut('slow');
-        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='text-primary glyphicon glyphicon-plus'></i> <span class='text-primary'>ADICIONAR REGISTRO</span>");
+        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='glyphicon glyphicon-plus'></i> <span>ADICIONAR REGISTRO</span>");
         $('.form-register').attr('id',"addForm");
         $('.form-hide').fadeIn('slow');
         $('#group-btn-hide').fadeIn('slow');
@@ -356,7 +356,7 @@ $(function () {
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - MODO ADICIONAR NOVO REGISTRO ATIVO');
         
-        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='text-primary glyphicon glyphicon-plus'></i> <span class='text-primary'>ADICIONAR REGISTRO</span>");
+        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='glyphicon glyphicon-plus'></i> <span>ADICIONAR REGISTRO</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
         $('#group-btn-form-new').hide(200);

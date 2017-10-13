@@ -49,64 +49,175 @@
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
                     <fieldset>
-                        <legend >FLUXO DE CAIXA <span></span></legend>
-                        <div class="row form-compact form-hide" style="display: none;">
-                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="payments_venc">Data de vencimento:</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                                    <input type="hidden" id="payments_id" name="payments_id" value="" >
-                                    <input id="payments_venc" name="payments_venc" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
-                                    <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
-                                </div>
-                                <br>
+                        <legend >FORNECEDORES <span></span></legend>
+                        
+                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                            <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO FORNECEDOR</small></div>
+                        </div>    
+                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                            <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                                <label for="payments_venc">Empresa:</label>
+                                <input type="hidden" id="provider_id" name="provider_id" value="" >
+                                <input id="provider_name" name="provider_name" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
                             </div>
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="payments_date_pay">Data de pagamento:</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                                    <input id="payments_date_pay" name="payments_date_pay" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
-                                    <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
-                                </div>
-                                <br>
-                            </div>
-
-                            <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                                <label for="payments_desc"> Descrição:</label>
-                                <input id="payments_desc" name="payments_desc" class="form-control" type="text" placeholder="Descreva as informações aqui..." value="">
-                                <br>
+                                <label for="payments_date_pay">CPF/CNPJ:</label>
+                                <input id="provider_cpf_cnpj" name="provider_cpf_cnpj" type="text" class="form-control form-control-sm" placeholder="CPF/CNPJ" >
                             </div>
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="payments_cat">Categoria:</label>
-                                <select id="payments_cat" name="payments_cat" class="form-control">
-                                    <option>Teste 1</option>
-                                    <option>Teste 2</option>
-                                </select>
-                                <br>
+                                <label for="provider_rs"> Razão social:</label>
+                                <input id="provider_rs" name="provider_rs" class="form-control form-control-sm" type="text" placeholder="Razão social..." value="">
                             </div>
-                            <div class="form-group col-md-2 col-sm-12 col-xs-12" >
-                                <label for="payments_val">Valor montante ( em reais )</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">R$</div>
-                                    <input id="payments_val" name="payments_val" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" onkeydown="objFinanca.moneyCash(this,28,event,2,'.',',');" >
-                                    <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
-                                </div>
-                                <br>
+
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_atua">Área de atuação:</label>
+                                <input id="provider_atua" name="provider_atua" class="form-control form-control-sm" type="text" placeholder="Área de atuação..." value="">
                             </div>
-                            <br>
-                        </div>
+                            <div class="form-group col-md-3 col-sm-12 col-xs-12" >
+                                <label for="provider_end">Endereço:</label>
+                                <input id="provider_end" name="provider_end" type="text" class="form-control form-control-sm" placeholder="Endereço..." >
+                            </div>
+                        </div><!-- End div hidden 1 -->
+                        
+                        <div class="row form-hide" style="display: none;"><!--Start div hidden 2-->
+                            <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                                <label for="provider_district">Bairro:</label>
+                                <input id="provider_district" name="provider_district" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                                <label for="provider_city">Cidade:</label>
+                                <input id="provider_city" name="provider_city" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-1 col-sm-12 col-xs-12">
+                                <label for="provider_uf">UF:</label>
+                                <input id="provider_uf" name="provider_uf" type="text" class="form-control form-control-sm" placeholder="UF..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_pais">Pais:</label>
+                                <input id="provider_pais" name="provider_pais" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                                <label for="provider_cep">CEP:</label>
+                                <input id="provider_cep" name="provider_cep" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_cel">Celular:</label>
+                                <input id="provider_cel" name="provider_cel" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_tel1">Telefone 1:</label>
+                                <input id="provider_tel1" name="provider_tel1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_tel2">Telefone 2:</label>
+                                <input id="provider_tel2" name="provider_tel2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_insc">Inscrição Estadual:</label>
+                                <input id="provider_insc" name="provider_insc" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_email">E-mail:</label>
+                                <input id="provider_email" name="provider_email" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_site">Web Site:</label>
+                                <input id="provider_site" name="provider_site" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                        </div><!-- End div hidden 2 -->
+                        
+                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                            <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO REPRESENTANTE - PESSOA DE CONTATO</small></div>
+                        </div> 
+                        
+                        <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_rep_nome">Nome:</label>
+                                <input id="provider_rep_nome" name="provider_rep_nome" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_rep_apel">Apelido:</label>
+                                <input id="provider_rep_apel" name="provider_rep_apel" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_rep_email">E-mail:</label>
+                                <input id="provider_rep_email" name="provider_rep_email" type="text" class="form-control form-control-sm" placeholder="UF..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_rep_cel">Celular:</label>
+                                <input id="provider_rep_cel" name="provider_rep_cel" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_rep_tel1">Telefone 1:</label>
+                                <input id="provider_rep_tel1" name="provider_rep_tel1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_rep_tel2">Telefone 2:</label>
+                                <input id="provider_rep_tel2" name="provider_rep_tel2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                        </div><!-- End div hidden 3 -->
+                        
+                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                            <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES BANCÁRIAS</small></div>
+                        </div> 
+                        
+                        <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_ban_1">Banco 1:</label>
+                                <input id="provider_ban_1" name="provider_ban_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_ag_1">Agência 1:</label>
+                                <input id="provider_ag_1" name="provider_ag_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_con_1">Conta 1:</label>
+                                <input id="provider_con_1" name="provider_con_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_ti_1">Titular 1:</label>
+                                <input id="provider_ti_1" name="provider_ti_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                        </div><!-- End div hidden 4 -->
+                        
+                        <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_ban_2">Banco 2:</label>
+                                <input id="provider_ban_2" name="provider_ban_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_ag_2">Agência 2:</label>
+                                <input id="provider_ag_2" name="provider_ag_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_con_2">Conta 2:</label>
+                                <input id="provider_con_2" name="provider_con_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                <label for="provider_ti_2">Titular 2:</label>
+                                <input id="provider_ti_2" name="provider_ti_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
+                        </div><!-- End div hidden 5 -->
+                        
+                        <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                <label for="provider_obs">Observações:</label>
+                                <textarea id="provider_obs" class="form-control" name="provider_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php echo htmlentities(chk_array($modelo->form_data, 'provider_obs')); ?></textarea>
+                            </div>
+                        </div><!-- End div hidden 6 -->
+                        
                         <div class="row form-compact row-button-hide" style="display: none;">
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-save" class="btn-group">
-                                    <button id="btn-save" title="Salvar informações" class="btn btn-sm btn-default" type="button"></button>
+                                    <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
-                                    <button title="Limpar formulário" class="btn btn-sm btn-default marg-top fees-clear" type="reset"><i class="text-warning glyphicon glyphicon-erase"></i> <span class="text-warning">LIMPAR</span></button>
+                                    <button title="Limpar formulário" class="btn btn-light btn-sm marg-top fees-clear" type="reset"><i class="text-warning glyphicon glyphicon-erase"></i> <span class="text-warning">LIMPAR</span></button>
                                 </div>
                                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                                    <button id="btn-form-new" title="Inserir nova conta a pagar" class="btn btn-sm btn-default marg-top" type="reset"><i class="text-primary glyphicon glyphicon-plus"></i> <span class="text-primary">MODO NOVO REGISTRO</span></button>
+                                    <button id="btn-form-new" title="Inserir nova conta a pagar" class="btn btn-light btn-sm  marg-top" type="reset"><i class="text-primary glyphicon glyphicon-plus"></i> <span>MODO NOVO REGISTRO</span></button>
                                 </div>
                             </div>
                         </div>
@@ -114,8 +225,8 @@
                         <div class="row form-compact" >
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-new" class="btn-group">
-                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-sm btn-default marg-top" type="reset">
-                                        <i class="glyphicon glyphicon-plus text-primary"></i> <span class="text-primary">NOVO REGISTRO</span>
+                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-dark btn-sm marg-top" type="reset">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span>NOVO REGISTRO</span>
                                     </button>
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">

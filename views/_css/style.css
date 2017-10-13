@@ -1,7 +1,6 @@
 /*Formatação do topo*/
-.navbar-default {
+.top-mix {
     box-shadow: 0px 2px 5px 0px rgb(133, 138, 138) !important;
-    background-color: #3d3d3d !important;
 }
 
 /*Formatação campos horarios de atendimentos*/
@@ -42,24 +41,14 @@
   }
 }
 
-/* Inputs formatação extra formularios com estilização extra */
-.form-compact {
-    font-size: 0.8em;
-    margin-bottom: 8px;
+/* Formação extra para os formulários */
+label{
+    margin-bottom: 0.1em !important;
 }
 
-.form-control {
+.form-group{
     font-size:0.9em !important;
 }
-
-.form-compact label {
-    margin-bottom: 1px;
-}
-.form-compact .form-group
-{
-    margin-bottom: 0px;
-}
-
 
 /* Agenda correções */
 .panel-refresh {

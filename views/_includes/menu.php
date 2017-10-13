@@ -1,7 +1,7 @@
     <?php if (!defined('ABSPATH')) exit(); ?>
     <?php if ($this->login_required && !$this->logged_in) return; ?>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-dark bg-dark navbar-expand-md fixed-top">
+    <nav class="navbar navbar-expand-lg  navbar-light fixed-top top-mix" style="background-color: #e3f2fd;">
         <div class="container">
             <a class="navbar-brand" href="#"><b>BETA</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
