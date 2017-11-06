@@ -72,30 +72,19 @@ class ProvidersModel extends MainModel
                 
             } # End foreach
             
-            //var_dump($this->form_data);die;
-            
-//            #   Não será permitido campos vazios
-//            if ( empty( $this->form_data['fees_cod'] )) {
-//                
-//                #   Feedback para o usuário
-//                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
-//                
-//                # Termina
-//                return;
-//            }
         }else {
             # Finaliza a execução.
             return 'err';
         } #--> End
        
         # Verifica se o registro já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `payments` WHERE `payments_id` = ? ',[
-            chk_array($this->form_data, 'payments_id')
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `providers` WHERE `provider_id` = ? ',[
+            chk_array($this->form_data, 'provider_id')
         ]);        
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
-            $this->updateRegister(chk_array($this->form_data, 'payments_id'));
+            $this->updateRegister(chk_array($this->form_data, 'provider_id'));
         }else{
             //var_dump($this->form_data);die;
             $this->insertRegister();
@@ -112,16 +101,42 @@ class ProvidersModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_date_payments'))));die;
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'provider_date_provider'))));die;
         
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('payments',[
-            'payments_venc'         =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_venc'))),
-            'payments_date_pay'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_date_pay'))),
-            'payments_desc'         =>  $this->avaliar(chk_array($this->form_data, 'payments_desc')),
-            'payments_cat'          =>  $this->avaliar(chk_array($this->form_data, 'payments_cat')),
-            'payments_val'          =>  $this->moneyFloat(chk_array($this->form_data, 'payments_val')),
-            'payments_created'      =>  date('Y-m-d H:i:s', time())
+        $query_ins = $this->db->insert('providers',[
+            'provider_name'         =>  $this->avaliar(chk_array($this->form_data, 'provider_name')),
+            'provider_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
+            'provider_rs'           =>  $this->avaliar(chk_array($this->form_data, 'provider_rs')),
+            'provider_at'           =>  $this->avaliar(chk_array($this->form_data, 'provider_at')),
+            'provider_end'          =>  $this->avaliar(chk_array($this->form_data, 'provider_end')),
+            'provider_district'     =>  $this->avaliar(chk_array($this->form_data, 'provider_district')),
+            'provider_city'         =>  $this->avaliar(chk_array($this->form_data, 'provider_city')),
+            'provider_uf'           =>  $this->avaliar(chk_array($this->form_data, 'provider_uf')),
+            'provider_cep'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cep')),
+            'provider_nation'       =>  $this->avaliar(chk_array($this->form_data, 'provider_nation')),
+            'provider_cel'          =>  $this->avaliar(chk_array($this->form_data, 'provider_cel')),
+            'provider_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
+            'provider_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
+            'provider_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
+            'provider_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
+            'provider_email'        =>  $this->avaliar(chk_array($this->form_data, 'provider_email')),
+            'provider_rep_name'     =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_name')),
+            'provider_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
+            'provider_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
+            'provider_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
+            'provider_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
+            'provider_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
+            'provider_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
+            'provider_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
+            'provider_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
+            'provider_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
+            'provider_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
+            'provider_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
+            'provider_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
+            'provider_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
+            'provider_obs'          =>  $this->avaliar(chk_array($this->form_data, 'provider_obs')),
+            'provider_created'      =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -152,13 +167,13 @@ class ProvidersModel extends MainModel
         # Verifica se existe ID
         if ( $registro_id ) {
             # Efetua o update do registro
-            $query_up = $this->db->update('payments', 'payments_id', $registro_id,[
-                'payments_venc'        =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_venc'))),
-                'payments_date_pay'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'payments_date_pay'))),
-                'payments_desc'        =>  $this->avaliar(chk_array($this->form_data, 'payments_desc')),
-                'payments_cat'         =>  $this->avaliar(chk_array($this->form_data, 'payments_cat')),
-                'payments_val'         =>  $this->moneyFloat(chk_array($this->form_data, 'payments_val')),
-                'payments_modified'    =>  date('Y-m-d H:i:s', time())
+            $query_up = $this->db->update('provider', 'provider_id', $registro_id,[
+                'provider_venc'        =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'provider_venc'))),
+                'provider_date_pay'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'provider_date_pay'))),
+                'provider_desc'        =>  $this->avaliar(chk_array($this->form_data, 'provider_desc')),
+                'provider_cat'         =>  $this->avaliar(chk_array($this->form_data, 'provider_cat')),
+                'provider_val'         =>  $this->moneyFloat(chk_array($this->form_data, 'provider_val')),
+                'provider_modified'    =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -226,7 +241,7 @@ class ProvidersModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `payments` WHERE `payments_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `provider` WHERE `provider_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
@@ -236,7 +251,7 @@ class ProvidersModel extends MainModel
             
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('payments', 'payments_id', $decode_id);
+            $query_del = $this->db->delete('provider', 'provider_id', $decode_id);
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
@@ -284,12 +299,12 @@ class ProvidersModel extends MainModel
             
             # The output
             echo '<tr>';			
-            echo '<td class="small">'.$result['payments_id'].'</td>';
-            echo '<td class="small">'.$result['payments_venc'].'</td>';
-            echo '<td class="small">'.$result['payments_date_payments'].'</td>';
-            echo '<td class="small">'.$result['payments_cat'].'</td>';
-            echo '<td class="small">'.$result['payments_desc'].'</td>';
-            echo '<td class="small">'.$result['payments_val'].'</td>';
+            echo '<td class="small">'.$result['provider_id'].'</td>';
+            echo '<td class="small">'.$result['provider_venc'].'</td>';
+            echo '<td class="small">'.$result['provider_date_provider'].'</td>';
+            echo '<td class="small">'.$result['provider_cat'].'</td>';
+            echo '<td class="small">'.$result['provider_desc'].'</td>';
+            echo '<td class="small">'.$result['provider_val'].'</td>';
             echo '</tr>';	
         }
     }
@@ -317,14 +332,14 @@ class ProvidersModel extends MainModel
         $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
         
         // Prepara a conversao para o formato desejado
-        foreach ($queryResult as $payments) {
+        foreach ($queryResult as $provider) {
             $mysql_data[] = [
-                "payments_id"        => $payments['payments_id'],
-                "payments_venc"      => $payments['payments_venc'],
-                "payments_date_payments"  => $payments['payments_date_payments'],
-                "payments_cat"       => '$ ' . $payments['payments_cat'],
-                "payments_desc"      => $payments['payments_desc'],
-                "payments_val"       => $payments['payments_val']
+                "provider_id"        => $provider['provider_id'],
+                "provider_venc"      => $provider['provider_venc'],
+                "provider_date_provider"  => $provider['provider_date_provider'],
+                "provider_cat"       => '$ ' . $provider['provider_cat'],
+                "provider_desc"      => $provider['provider_desc'],
+                "provider_val"       => $provider['provider_val']
             ];
         }
         
@@ -350,7 +365,7 @@ class ProvidersModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `payments` WHERE `payments_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `provider` WHERE `provider_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {

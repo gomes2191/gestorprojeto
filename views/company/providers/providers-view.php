@@ -1,28 +1,30 @@
         <?php
-            if (!defined('ABSPATH')) {  exit(); }
+        if (!defined('ABSPATH')) {
+            exit();
+        }
 
-            if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
-                $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
-                //var_dump($encode_id);die;
-                $modelo->delRegister($encode_id);
+        if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
+            $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
+            //var_dump($encode_id);die;
+            $modelo->delRegister($encode_id);
 
-                # Destroy variavel não mais utilizadas
-                unset($encode_id);
-            }
+            # Destroy variavel não mais utilizadas
+            unset($encode_id);
+        }
                 # Verifica se existe a requisição POST se existir executa o método se não faz nada
-                (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+                (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : false;
 
                 # Paginação parametros-------->
                 $limit = 5;
                 $pagConfig = [
-                    'totalRows' => COUNT($modelo->searchTable('payments')),
+                    'totalRows' => COUNT($modelo->searchTable('providers')),
                     'perPage'   => $limit,
                     'link_func' => 'searchFilter'];
 
                 $pagination =  new Pagination($pagConfig);
 
                 #-->
-                $payments = $modelo->searchTable('payments', ['order_by'=>'payments_id DESC ', 'limit'=>$limit]);
+                $providers = $modelo->searchTable('providers', ['order_by'=>'provider_id DESC ', 'limit'=>$limit]);
 
                 # Verifica se existe feedback e retorna o feedback se sim se não retorna false
                 $form_msg = $modelo->form_msg;
@@ -49,20 +51,19 @@
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
                     <fieldset>
-                        <legend >FORNECEDORES <span></span></legend>
-                        
+                        <legend >FORNECEDORES <span class="text-success"></span></legend>
                         <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO FORNECEDOR</small></div>
                         </div>    
                         <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                                <label for="payments_venc">Empresa:</label>
+                                <label for="provider_venc">Empresa:</label>
                                 <input type="hidden" id="provider_id" name="provider_id" value="" >
                                 <input id="provider_name" name="provider_name" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
                             </div>
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="payments_date_pay">CPF/CNPJ:</label>
+                                <label for="provider_date_pay">CPF/CNPJ:</label>
                                 <input id="provider_cpf_cnpj" name="provider_cpf_cnpj" type="text" class="form-control form-control-sm" placeholder="CPF/CNPJ" >
                             </div>
 
@@ -90,17 +91,17 @@
                                 <label for="provider_city">Cidade:</label>
                                 <input id="provider_city" name="provider_city" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
                             </div>
+                            <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                                <label for="provider_cep">CEP:</label>
+                                <input id="provider_cep" name="provider_cep" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                            </div>
                             <div class="form-group col-md-1 col-sm-12 col-xs-12">
                                 <label for="provider_uf">UF:</label>
                                 <input id="provider_uf" name="provider_uf" type="text" class="form-control form-control-sm" placeholder="UF..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_pais">Pais:</label>
-                                <input id="provider_pais" name="provider_pais" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
-                            </div>
-                            <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                                <label for="provider_cep">CEP:</label>
-                                <input id="provider_cep" name="provider_cep" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_nation" name="provider_pais" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_cel">Celular:</label>
@@ -214,10 +215,10 @@
                                     <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
-                                    <button title="Limpar formulário" class="btn btn-light btn-sm marg-top fees-clear" type="reset"><i class="text-warning glyphicon glyphicon-erase"></i> <span class="text-warning">LIMPAR</span></button>
+                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset"><i class="fa fa-eraser"></i> <span>LIMPAR</span></button>
                                 </div>
                                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                                    <button id="btn-form-new" title="Inserir nova conta a pagar" class="btn btn-light btn-sm  marg-top" type="reset"><i class="text-primary glyphicon glyphicon-plus"></i> <span>MODO NOVO REGISTRO</span></button>
+                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-light btn-sm  marg-top" type="reset"><i class="text-primary glyphicon glyphicon-plus"></i> <span>MODO NOVO REGISTRO</span></button>
                                 </div>
                             </div>
                         </div>
@@ -225,17 +226,17 @@
                         <div class="row form-compact" >
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-new" class="btn-group">
-                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-dark btn-sm marg-top" type="reset">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span>NOVO REGISTRO</span>
+                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm marg-top" type="reset">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                                     </button>
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">
-                                    <button id="btn-show" title="Mostrar formulário" class="btn btn-sm btn-default marg-top" type="reset">
-                                        <i class="glyphicon glyphicon-eye-open"></i> Mostrar Formulário
+                                    <button id="btn-show" title="Mostrar o formulário" class="btn btn-outline-success btn-sm marg-top" type="reset">
+                                        <i class="fa fa-eye"></i> ABRE FORMULÁRIO
                                     </button>
                                 </div>
                                 <div id="group-btn-hide" style="display: none;" class="btn-group">
-                                    <button id="btn-hide" title="Ocultar formulário" class="btn btn-sm btn-default marg-top" type="reset"><i class="glyphicon glyphicon-eye-close"></i> OCULTAR FORMULÁRIO</button>
+                                    <button id="btn-hide" title="Esconde o formulário" class="btn btn-outline-success btn-sm marg-top" type="reset"><i class="fa fa-eye-slash"></i> FECHA FORMULÁRIO</button>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +244,7 @@
                 </form>
             </div>
         </div><!-- End row button new form -->
-        <?php if (!empty($payments)) { ?>
+        <?php if (!empty($provider)) { ?>
         <div id="filtros" class="row">
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
                 <div class="input-group">
@@ -312,14 +313,14 @@
                     </div>
                     <div class="modal-body">
                         <ul class="list-inline list-modal-forn">
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Vencimento: </b> <span class="payments_venc">---</span></li> 
-                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Data de Pagamento: </b> <span class="payments_date_pay">----</span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Categoria: </b> <span class="payments_cat">----</span> </li>
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Descrição: </b> <span class="payments_desc"></span></li>
-                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Valor: </b> <span class="payments_val">----</span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Data da inclusao: </b> <span class="payments_created">----</span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Modificado em: </b> <span class="payments_modified">----</span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Status: </b> <span class="payments_status">----</span></li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Vencimento: </b> <span class="provider_venc">---</span></li> 
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Data de Pagamento: </b> <span class="provider_date_pay">----</span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Categoria: </b> <span class="provider_cat">----</span> </li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Descrição: </b> <span class="provider_desc"></span></li>
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Valor: </b> <span class="provider_val">----</span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Data da inclusao: </b> <span class="provider_created">----</span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Modificado em: </b> <span class="provider_modified">----</span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Status: </b> <span class="provider_status">----</span></li>
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -370,9 +371,9 @@
             </div>
         </div><!--End modal editar inserir-->
         <script>
-            //Setando valores do ajax
+            //  Motando a requisição ajax
             var objFinanca = new Financeiro();
-            objFinanca.setAjaxData('finances-payments/filters');
+            objFinanca.setAjaxData('<?= HOME_URI; ?>/company-providers/filters');
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
             
@@ -390,17 +391,17 @@
                $.ajax({
                     type: 'POST',
                     dataType:'JSON',
-                    url: '<?=HOME_URI;?>/finances-payments/ajax-process',
+                    url: '<?=HOME_URI;?>/company-providers/ajax-process',
                     data: 'action_type=data&id='+id,
                     async: true,
                     success:function(result) {
                         console.log(result);
-                        document.getElementById('payments_id').value = result.payments_id;
-                        document.getElementById('payments_venc').value = result.payments_venc;
-                        document.getElementById('payments_date_pay').value = result.payments_date_pay;
-                        document.getElementById('payments_desc').value = result.payments_desc;
-                        document.getElementById('payments_cat').value = result.payments_cat;
-                        document.getElementById('payments_val').value = result.payments_val;
+                        document.getElementById('provider_id').value = result.provider_id;
+                        document.getElementById('provider_venc').value = result.provider_venc;
+                        document.getElementById('provider_date_pay').value = result.provider_date_pay;
+                        document.getElementById('provider_desc').value = result.provider_desc;
+                        document.getElementById('provider_cat').value = result.provider_cat;
+                        document.getElementById('provider_val').value = result.provider_val;
                     }
                 });
             }
@@ -412,6 +413,7 @@
                 var userData = '';
                 if (type === 'add') {
                     userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
+                    console.log(userData);
                     feedback = 'Inserido com sucesso!';
                 }else if (type === 'edit'){
                     userData = $("#editForm").serialize()+'&action_type='+type;
@@ -426,7 +428,7 @@
                 }
                 $.ajax({
                     type: 'POST',
-                    url: '<?= HOME_URI; ?>/finances-payments/ajax-process',
+                    url: '<?= HOME_URI; ?>/company-providers/ajax-process',
                     data: userData,
                     success:function(msg){
                         objFinanca.ajaxData();
@@ -444,17 +446,17 @@
                 $.ajax({
                     type: 'POST',
                     dataType:'JSON',
-                    url: '<?=HOME_URI;?>/finances-payments/ajax-process',
+                    url: '<?=HOME_URI;?>/company-providera/ajax-process',
                     data: 'action_type=data&id='+id,
                     success:function(data){
-                        $('.payments_venc').text((data.payments_venc) ? data.payments_venc : '---' );
-                        $('.payments_date_pay').text((data.payments_date_pay) ? data.payments_date_pay : '---');
-                        $('.payments_cat').text((data.payments_cat) ? data.payments_cat  : '---');
-                        $('.payments_desc').text((data.payments_desc) ? data.payments_desc : '---');
-                        $('.payments_val').text((data.payments_val) ? data.payments_val : '---');
-                        $('.payments_created').text((data.payments_created) ? data.payments_created : ' ---');
-                        $('.payments_modified').text((data.payments_modified) ? data.payments_modified  : '');
-                        $('.payments_status').text((data.payments_date_pay) ? 'Pago' : 'Em débito');
+                        $('.provider_venc').text((data.provider_venc) ? data.provider_venc : '---' );
+                        $('.provider_date_pay').text((data.provider_date_pay) ? data.provider_date_pay : '---');
+                        $('.provider_cat').text((data.provider_cat) ? data.provider_cat  : '---');
+                        $('.provider_desc').text((data.provider_desc) ? data.provider_desc : '---');
+                        $('.provider_val').text((data.provider_val) ? data.provider_val : '---');
+                        $('.provider_created').text((data.provider_created) ? data.provider_created : ' ---');
+                        $('.provider_modified').text((data.provider_modified) ? data.provider_modified  : '');
+                        $('.provider_status').text((data.provider_date_pay) ? 'Pago' : 'Em débito');
                         //$('#editForm').slideDown();
                     }
                 });

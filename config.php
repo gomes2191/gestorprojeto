@@ -1,6 +1,6 @@
 <?php
     #======================#
-    #  PHP Version: 5.3.6  #
+    #  PHP Version: 7.1    #
     #  Configuração Geral  #
     #======================#
     /* Caminho para a raiz. O diretório do arquivo. 

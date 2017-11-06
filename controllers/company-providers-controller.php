@@ -165,7 +165,7 @@ class CompanyProvidersController extends MainController {
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('finances/payments-model');
+        $modelo = $this->load_model('company/providers-model');
 
         #   Carrega o topo
         //require_once (ABSPATH . '/views/_includes/header.php');
@@ -174,7 +174,7 @@ class CompanyProvidersController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/payments/filters-view.php');
+        require_once (ABSPATH . '/views/company/providers/filters-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
@@ -191,7 +191,7 @@ class CompanyProvidersController extends MainController {
         #---> Inclua seus models e views aqui
         
         #   Carrega o modelo
-        $modelo = $this->load_model('finances/payments-model');
+        $modelo = $this->load_model('company/providers-model');
 
         #   Carrega o topo
         //require_once (ABSPATH . '/views/_includes/header.php');
@@ -200,7 +200,7 @@ class CompanyProvidersController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/payments/ajax-process-view.php');
+        require_once (ABSPATH . '/views/company/providers/ajax-process-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
