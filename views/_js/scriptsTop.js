@@ -275,4 +275,3 @@ $(document).on('click', function (e) {
         $(".btn-select").removeClass("active").find("ul").hide();
     }
 });
-

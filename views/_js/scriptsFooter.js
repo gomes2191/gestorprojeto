@@ -858,3 +858,16 @@ $(function(){
         $('#sortBy').val('');
     });
 });
+
+
+
+// Menu ativo selecionado
+$(function () {
+    var pgurl = window.location.href.substr(window.location.href);
+    $("#navbarCollapse ul li a").each(function () {  
+        if ($(this).attr("href") == pgurl || $(this).attr("href") == ''){
+            $(this).addClass("active");
+            $(this).parent('div').prev('a').addClass('active');
+        } 
+    });
+});
