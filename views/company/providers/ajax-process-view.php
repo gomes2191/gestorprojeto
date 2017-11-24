@@ -1,6 +1,6 @@
 <?php
     # Verifica se constatante referente ao caminho foi definida
-    if (!defined('ABSPATH')) {exit();}
+    if (!defined('ABSPATH')) { exit(); }
 
     if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST, 'action_type'))) {
 

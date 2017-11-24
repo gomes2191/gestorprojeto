@@ -26,7 +26,7 @@ class Pagination {
     var $firstTagClose = '&nbsp;';
     var $lastTagOpen = '&nbsp;';
     var $lastTagClose = '';
-    var $curTagOpen = '&nbsp;<li class="active"><a hre="#">';
+    var $curTagOpen = '&nbsp;<li  class="page-item"><a class="page-link" hre="#">';
     var $curTagClose = '</a></li>';
     var $nextTagOpen = '&nbsp;';
     var $nextTagClose = '&nbsp;';
@@ -35,6 +35,8 @@ class Pagination {
     var $numTagOpen = '&nbsp;';
     var $numTagClose = '';
     var $anchorClass = '';
+    var $itemListClass = 'page-item';
+    var $linkListClass = 'page-link';
     var $showCount = true;
     var $currentOffset = 0;
     var $contentDiv = '';
@@ -46,12 +48,14 @@ class Pagination {
             $this->initialize($params);
         }
 
-        if ($this->anchorClass != '') {
-            $this->anchorClass = 'class="' . $this->anchorClass . '" ';
+        if ( ($this->anchorClass != '')  OR ($this->linkListClass != '') OR ($this->itemListClass != '') ) {
+            ($this->anchorClass)    ? $this->anchorClass    = 'class= "' . $this->anchorClass . '"' : '';
+            ($this->itemListClass)  ? $this->anchorClass    = 'class= "' . $this->itemListClass . '"' : '';
+            ($this->linkListClass)  ? $this->linkListClass  = 'class= "' . $this->linkListClass . '"' : '';
         }
     }
 
-    function initialize($params = array()) {
+    function initialize($params = []) {
         if (count($params) > 0) {
             foreach ($params as $key => $val) {
                 if (isset($this->$key)) {
@@ -94,7 +98,7 @@ class Pagination {
         // Showing links notification
         if ($this->showCount) {
             $currentOffset = $this->currentPage;
-            $info = '<li ><span > '.'Mostrando ' . ( $currentOffset + 1 ) . ' de ';
+            $info = "<li $this->itemListClass ><span $this->linkListClass  >".'Mostrando ' . ( $currentOffset + 1 ) . ' de ';
 
             if (( $currentOffset + $this->perPage ) < ( $this->totalRows - 1 ))
                 $info .= $currentOffset + $this->perPage;
@@ -178,8 +182,7 @@ class Pagination {
 
     function getAJAXlink($count, $text) {
         if ($this->link_func == '' && $this->contentDiv == '')
-            return '<li><a href="' . $this->baseURL . '?' . $count . '"' . $this->anchorClass . '>' . $text . '</a></li>';
-
+            return '<li ><a href="' . $this->baseURL . '?' . $count . '"' . $this->anchorClass . '>' . $text . '</a></li>';
         $pageCount = $count ? $count : 0;
         if (!empty($this->link_func)) {
             $linkClick = 'onclick="' . $this->link_func . '(' . $pageCount . ')"';
@@ -189,7 +192,7 @@ class Pagination {
 					   $('#" . $this->contentDiv . "').html(data); }); return false;\"";
         }
 
-        return "<li><a href=\"javascript:void(0);\" " . $this->anchorClass . "
+        return "<li $this->itemListClass ><a $this->linkListClass href=\"javascript:void(0);\" " . $this->anchorClass . "
 				" . $linkClick . ">" . $text . '</a></li>';
     }
     

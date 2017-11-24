@@ -140,7 +140,6 @@ input, select, textarea{
     -moz-box-shadow: none !important;
     box-shadow: none !important;
     border: none !important;
-    
 }
 
 .card{
@@ -174,7 +173,13 @@ input, select, textarea{
     -moz-transition: all 0.3s linear 0.3s;
     -o-transition: all 0.3s linear 0.3s;
     transition: all 0.3s linear 0.3s;
-}   
+}
+
+.disable-focus:focus{
+    border: none !important;
+    box-shadow: none !important;
+    background: none !important;
+}
 
 /*Tabela de registros*/
 .cabe-title{
@@ -848,3 +853,34 @@ button.toast-close-button {
     background-color: white;
     color: black;
 }
+
+
+/* Personalização do search pesquisa em tabelas */
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+

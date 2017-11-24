@@ -236,7 +236,7 @@
                                     </button>
                                 </div>
                                 <div id="group-btn-hide" style="display: none;" class="btn-group">
-                                    <button id="btn-hide" title="Esconde o formulário" class="btn btn-outline-success btn-sm marg-top" type="reset"><i class="fa fa-eye-slash"></i> FECHA FORMULÁRIO</button>
+                                    <button id="btn-hide" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset"><i class="fa fa-eye-slash"></i> FECHA FORMULÁRIO</button>
                                 </div>
                             </div>
                         </div>
@@ -244,15 +244,19 @@
                 </form>
             </div>
         </div><!-- End row button new form -->
-        <?php if (!empty($provider)) { ?>
+        <?php if (!empty($providers)) { ?>
         <div id="filtros" class="row">
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
-                <div class="input-group">
-                    <div class="input-group-addon" >
-                        <i class="glyphicon glyphicon-search text-primary" title="Efetue um pesqisa no sistema." aria-hidden="true"></i>
+                <div id="custom-search-input">
+                    <div class="input-group">
+                        <input type="text" class="search form-control disable-focus" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
                     </div>
-                    <input style="border-radius: 0px !important;" type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
-                </div>
+                </div><!--End .custom-search-input -->
             </div><!--/End col-->
 
             <div class="col-md-5 col-sm-0 col-xs-0"></div><!--End/-->
@@ -264,7 +268,7 @@
             </div><!--/End col-->
 
             <div class="form-group col-md-2  col-sm-3 col-xs-12">
-                <select id="sortBy" class="form-control" onchange="objFinanca.ajaxFilter();">
+                <select id="sortBy" class="custom-select" onchange="objFinanca.ajaxFilter();">
                     <option value="">Ordenar Por</option>
                     <option value="asc">Ascendente</option>
                     <option value="desc">descendente</option>
@@ -308,8 +312,8 @@
                 <div class="modal-content">
                     <!--Conteudo do modal-->
                     <div class="modal-header">
+                        <h4 class="modal-title"><i class="fa fa-info-circle" aria-hidden="true"></i> INFORMAÇÕES</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> INFORMAÇÕES</h4>
                     </div>
                     <div class="modal-body">
                         <ul class="list-inline list-modal-forn">
@@ -324,7 +328,7 @@
                         </ul>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar X</button>
                     </div>
                 </div>
             </div>

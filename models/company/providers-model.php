@@ -80,7 +80,7 @@ class ProvidersModel extends MainModel
         # Verifica se o registro já existe.
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `providers` WHERE `provider_id` = ? ',[
             chk_array($this->form_data, 'provider_id')
-        ]);        
+        ]);
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
@@ -102,7 +102,6 @@ class ProvidersModel extends MainModel
     **/ 
     public function insertRegister(){
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'provider_date_provider'))));die;
-        
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('providers',[
             'provider_name'         =>  $this->avaliar(chk_array($this->form_data, 'provider_name')),
@@ -395,7 +394,7 @@ class ProvidersModel extends MainModel
      * @return string A paginação montada
      */
     function paginacao(
-    $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
+        $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
     ) {
         // Obtém o número total de página
         $numero_de_paginas = floor($total_artigos / $artigos_por_pagina);

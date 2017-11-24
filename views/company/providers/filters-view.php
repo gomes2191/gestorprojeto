@@ -85,8 +85,8 @@
     
     if (!empty($allReg)) {
         echo <<<HTML
-            <table  id="tableList" class="table table-bordered table-hover">
-                <thead>
+            <table  id="tableList" class="table table-bordered table-sm table-hover">
+                <thead class="thead-dark">
                     <tr>
                         <th class="small text-center">#</th>
                         <th class="small text-center">EMPRESA</th>
@@ -115,16 +115,17 @@ HTML;
             echo '<td>'.(($reg['provider_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['provider_modified']) : '---') .'</td>';
             //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             //echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-default btn-xs btn-edit-show' onClick={editRegister('{$modelo->encode_decode($reg['provider_id'])}')} ><span class='text-success'>EDITAR</span></button></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-default btn-xs' onClick={userAction('delete','{$modelo->encode_decode($reg['provider_id'])}')}><span class='text-danger'>DELETAR</span></a></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-default btn-xs' onClick={infoView('{$modelo->encode_decode($reg['provider_id'])}')} data-toggle='modal' data-target='#inforView'><span class='text-primary'>VISUALIZAR</span></a></td>";
+            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={editRegister('{$modelo->encode_decode($reg['provider_id'])}')} >EDITAR</button></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-danger btn-sm' onClick={userAction('delete','{$modelo->encode_decode($reg['provider_id'])}')}>DELETAR</a></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={infoView('{$modelo->encode_decode($reg['provider_id'])}')} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML
                 </tbody>
             </table>    
 HTML;
-      echo $pagination->createLinks();  
+      echo $pagination->createLinks();
+      echo '<p></p>';
     }elseif ((filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING) OR filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)) && $allReg == false) {
         echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Nenhum registro encontrado.</div>';
     }else{

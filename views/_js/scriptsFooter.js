@@ -476,13 +476,6 @@
     }
 })); //End script
 
-
-
-
-
-
-
-
 /* global pattern */
 $('#user-register-btn').on('click', function() {
   var $this = $(this);
@@ -859,15 +852,21 @@ $(function(){
     });
 });
 
-
-
 // Menu ativo selecionado
 $(function () {
     var pgurl = window.location.href.substr(window.location.href);
     $("#navbarCollapse ul li a").each(function () {  
         if ($(this).attr("href") == pgurl || $(this).attr("href") == ''){
-            $(this).addClass("active");
-            $(this).parent('div').prev('a').addClass('active');
+            
+            $(this).closest('li').addClass('active');
+            //$(this).addClass("active");
+            $(this).parent('div').prev('li').addClass('active');
         } 
     });
+});
+
+// Volta para o topo
+$('.top').click(function(){ 
+    $('html, body').animate({scrollTop:0}, 'slow');
+    return false;
 });
