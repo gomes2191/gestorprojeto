@@ -317,7 +317,7 @@
                     </div>
                     <div class="modal-body">
                         <ul class="list-inline list-modal-forn">
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Empresa: </b> <span id="provider_name"></span></li> 
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Empresa: </b> <span class="provider_name"></span></li> 
                             <li class="list-group-item list-group-item-warning list-group-item-text"><b>CPF / CNPJ: </b> <span class="provider_cpf_cnpj">----</span></li>
                             <li class="list-group-item list-group-item-success list-group-item-text"><b>Categoria: </b> <span class="provider_cat">----</span> </li>
                             <li class="list-group-item list-group-item-info list-group-item-text"><b>Descrição: </b> <span class="provider_desc"></span></li>
@@ -393,22 +393,26 @@
 
             // Invoca a edição de registro
             function editRegister( id ){
-               $.ajax({
-                    type: 'POST',
-                    dataType:'JSON',
-                    url: '<?=HOME_URI;?>/company-providers/ajax-process',
-                    data: 'action_type=data&id='+id,
-                    async: true,
-                    success:function(result) {
-                        console.log(result);
-                        document.getElementById('provider_id').value = result.provider_id;
-                        document.getElementById('provider_name').value = result.provider_name;
-                        document.getElementById('provider_date_pay').value = result.provider_date_pay;
-                        document.getElementById('provider_desc').value = result.provider_desc;
-                        document.getElementById('provider_cat').value = result.provider_cat;
-                        document.getElementById('provider_val').value = result.provider_val;
-                    }
-                });
+//               $.ajax({
+//                    type: 'POST',
+//                    dataType:'JSON',
+//                    url: '<?=HOME_URI;?>/company-providers/ajax-process',
+//                    data: 'action_type=data&id='+id,
+//                    async: true,
+//                    success:function(result) {
+//                        console.log(result);
+//                        document.getElementById('provider_id').value = result.provider_id;
+//                        document.getElementById('provider_name').value = result.provider_name;
+//                        document.getElementById('provider_date_pay').value = result.provider_date_pay;
+//                        document.getElementById('provider_desc').value = result.provider_desc;
+//                        document.getElementById('provider_cat').value = result.provider_cat;
+//                        document.getElementById('provider_val').value = result.provider_val;
+//                    }
+//                });
+
+                    objFinanca.setAjaxEditRegister(objInfo = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:id});
+                    objFinanca.ajaxEditRegister();
+                
             }
             
             //Açoes de remoção e inserção
@@ -447,12 +451,9 @@
                 });
             }
             // Invoca a visualização do registro
-            function infoView(id){
-                objFinanca.setAjaxInfoView('<?= HOME_URI; ?>/company-providers/ajax-process', id);
-                objFinanca.getAjaxInfoView();
-                objFinanca.ajaxInfoView();
-                
-                
+            function infoView( id ){
+                objFinanca.setAjaxInfo(objInfo = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:id, name_id:'provider_id'});
+                objFinanca.ajaxInfo();
             }
             
         </script>

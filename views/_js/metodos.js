@@ -10,9 +10,9 @@ function Financeiro() {
     var curso;
     var numUS;
     var idOne, idTwo, nValor, nPorce, calcTotal;
-    var url, id, jsonData, json;
+    var url, id, jsonData, objData;
 
-    this.setNome = function (nome) {
+    this.setNome = function ( nome ) {
         this.nome = nome;
     };
     
@@ -61,18 +61,16 @@ function Financeiro() {
         this.url = url;
     };
     
-    this.setAjaxInfoView = function ( url, id) {
-       this.objInfo = {url: url, id: id};
+    this.setAjaxInfo = function ( objData ) {
+       this.objData = objData;
     };
     
     this.setAjaxFilter = function ( url ) {
         this.url = url;
     };
     
-    this.setAjaxEditRegister = function (url,id,jsonData) {
-        this.url = url;
-        this.id = id;
-        this.jsonData = jsonData;
+    this.setAjaxEditRegister = function ( objData ) {
+       this.objData = objData;
     };
     
 
@@ -112,12 +110,12 @@ function Financeiro() {
         return this.url;
     };
     
-    this.getAjaxInfoView = function (teste){
-        console.log(this.teste = teste);
+    this.getAjaxInfo = function (){
+        return this.objData;
     };
     
     this.getAjaxEditRegister = function () {
-        return this.jsonData;
+        return this.objData;
     };
 
     this.mostraDados = function () {
@@ -240,40 +238,40 @@ function Financeiro() {
     };
     
     this.ajaxFilter = function (page_num) {
-                page_num = page_num ? page_num : 0;
-                var keywords = $('#keywords').val();
-                var qtdLine = $('#qtdLine').val();
-                var sortBy = $('#sortBy').val();
+        page_num = page_num ? page_num : 0;
+        var keywords = $('#keywords').val();
+        var qtdLine = $('#qtdLine').val();
+        var sortBy = $('#sortBy').val();
 
-                //var keywords = $('#keywords').val();
-                //var sortBy = $('#sortBy').val();
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'html',
-                    url: this.url,
-                    data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
-                    async: true,
-                    beforeSend: function (){
-                        $('#loading').show();
-                    },
-                    success: function ( data ){
-                        $('#tableData').html( data );
-                        $('#loading').fadeOut();
-                    }
-                });
+        //var keywords = $('#keywords').val();
+        //var sortBy = $('#sortBy').val();
+        $.ajax({
+            type: 'POST',
+            dataType: 'html',
+            url: this.url,
+            data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
+            async: true,
+            beforeSend: function (){
+                $('#loading').show();
+            },
+            success: function ( data ){
+                $('#tableData').html( data );
+                $('#loading').fadeOut();
+            }
+        });
     };
     
-    
-    this.ajaxInfoView = function () {
+    this.ajaxInfo = function () {  
         $.ajax({
             type: 'POST',
             dataType:'JSON',
-            //contentType: "application/json",
-            url: this.objInfo.url,
-            data: 'action_type=data&id='+this.objInfo.id,
+            url: this.objData.url,
+            data: 'action_type=data&id='+this.objData.id,
             async: true,
-            success:function(data) {
-                this.getAjaxInfoView(data);
+            success: function ( data ) {
+                $.each(data , function(key, value){
+                    $('.' + key).text(value);
+                });   
             }
         });
     };
@@ -282,11 +280,13 @@ function Financeiro() {
         $.ajax({
             type: 'POST',
             dataType:'JSON',
-            url: this.url,
-            data: 'action_type=data&id='+this.id,
+            url: this.objData.url,
+            data: 'action_type=data&id='+this.objData.id,
             async: true,
-            success:function(result) {
-                
+            success:function( data ) {
+                $.each(data , function(key, value){
+                    $('#' + key).val(value);
+                });  
             }
         });
     };
