@@ -3,25 +3,31 @@
 
             if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
                 $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
-                //var_dump($encode_id);die;
+                
+                # Elimina o registro
                 $modelo->delRegister($encode_id);
 
-                # Destroy variavel não mais utilizadas
+                # Elimina variável não mais utilizada
                 unset($encode_id);
             }
                 # Verifica se existe a requisição POST se existir executa o método se não faz nada
                 (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
 
-                # Paginação parametros-------->
+                # QTD de regitros padrão a serem visto na página antes que comece a páginação.
                 $limit = 5;
+                
+                # Passagem de parametros de configuração.
                 $pagConfig = [
                     'totalRows' => COUNT($modelo->searchTable('bills_to_pay')),
                     'perPage'   => $limit,
                     'link_func' => 'searchFilter'];
-
+                
+                /* Cria o objeto $pagination derivado da Class Pagination
+                 * inserindo os parâmetros necessários
+                 */
                 $pagination =  new Pagination($pagConfig);
 
-                #-->
+                # Preenche a variavél $pays com os registros necessarios limitando ao valor limit -->
                 $pays = $modelo->searchTable('bills_to_pay', ['order_by'=>'pay_id DESC ', 'limit'=>$limit]);
 
                 # Verifica se existe feedback e retorna o feedback se sim se não retorna false

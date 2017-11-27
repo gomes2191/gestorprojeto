@@ -1,38 +1,39 @@
-        <?php
-        if (!defined('ABSPATH')) {
-            exit();
-        }
+<?php if (!defined('ABSPATH')) { exit(); }
 
-        if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
-            $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
-            //var_dump($encode_id);die;
-            $modelo->delRegister($encode_id);
+    if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
+        
+        $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
+        
+        # var_dump($encode_id);die;
+        $modelo->delRegister($encode_id);
 
-            # Destroy variavel não mais utilizadas
-            unset($encode_id);
-        }
-                # Verifica se existe a requisição POST se existir executa o método se não faz nada
-                (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : false;
+        # Destroy variavel não mais utilizadas
+        unset($encode_id);
+    }
 
-                # Paginação parametros-------->
-                $limit = 5;
-                $pagConfig = [
-                    'totalRows' => COUNT($modelo->searchTable('providers')),
-                    'perPage'   => $limit,
-                    'link_func' => 'searchFilter'];
+    # Verifica se existe a requisição POST se existir executa o método se não faz nada
+    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : false;
 
-                $pagination =  new Pagination($pagConfig);
+    # Paginação parametros
+    $limit = 5;
+    
+    # Realiza um consulta na base de dados e reatorna os valores
+    $providers = $modelo->searchTable('providers', ['order_by' => 'provider_id DESC ', 'limit' => $limit]);
+    
+    $pagConfig = [
+        'totalRows' => COUNT($modelo->searchTable('providers')),
+        'perPage' => $limit,
+        'link_func' => 'searchFilter'];
 
-                #-->
-                $providers = $modelo->searchTable('providers', ['order_by'=>'provider_id DESC ', 'limit'=>$limit]);
+    $pagination = new Pagination($pagConfig);
 
-                # Verifica se existe feedback e retorna o feedback se sim se não retorna false
-                $form_msg = $modelo->form_msg;
+    # Verifica se existe feedback e retorna o feedback se sim se não retorna false
+    $form_msg = $modelo->form_msg;
 
-                //date_default_timezone_set('America/Sao_Paulo');
-                $date = (date('Y-m-d H:i'));
-                date('Y-m-d H:i:s', time());
-        ?>
+    #date_default_timezone_set('America/Sao_Paulo');
+    $date = (date('Y-m-d H:i'));
+    date('Y-m-d H:i:s', time());
+?>
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
             <div class="col-md-10  col-sm-12 col-xs-12">
@@ -244,7 +245,7 @@
                 </form>
             </div>
         </div><!-- End row button new form -->
-        <?php if (!empty($providers)) { ?>
+        
         <div id="filtros" class="row">
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
                 <div id="custom-search-input">
@@ -278,10 +279,9 @@
             </div><!--/End col-->
         </div><!-- End row filtros -->
         
-        <?php } ?>
         <div class="row">
             <div class="col-md-12  col-sm-12 col-xs-12">
-                <div id="tableData" class="table-responsive" style="border: none;">
+                <div id="tableData" class="table-responsive-sm" style="border: none;">
                     
                 </div>
             </div>
@@ -305,7 +305,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <!-- Start Modal Informações de pagamentos -->
+        <!-- Start Modal Informações -->
         <div id="inforView" class="modal fade" >
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -317,8 +317,8 @@
                     </div>
                     <div class="modal-body">
                         <ul class="list-inline list-modal-forn">
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Vencimento: </b> <span class="provider_venc">---</span></li> 
-                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Data de Pagamento: </b> <span class="provider_date_pay">----</span></li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Empresa: </b> <span id="provider_name"></span></li> 
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>CPF / CNPJ: </b> <span class="provider_cpf_cnpj">----</span></li>
                             <li class="list-group-item list-group-item-success list-group-item-text"><b>Categoria: </b> <span class="provider_cat">----</span> </li>
                             <li class="list-group-item list-group-item-info list-group-item-text"><b>Descrição: </b> <span class="provider_desc"></span></li>
                             <li class="list-group-item list-group-item-warning list-group-item-text"><b>Valor: </b> <span class="provider_val">----</span></li>
@@ -375,7 +375,8 @@
             </div>
         </div><!--End modal editar inserir-->
         <script>
-            //  Motando a requisição ajax
+            document.getElementById("provider_name").innerHTML = "Brasil";
+            //Motando á requisição ajax
             var objFinanca = new Financeiro();
             objFinanca.setAjaxData('<?= HOME_URI; ?>/company-providers/filters');
             objFinanca.ajaxData();
@@ -401,7 +402,7 @@
                     success:function(result) {
                         console.log(result);
                         document.getElementById('provider_id').value = result.provider_id;
-                        document.getElementById('provider_venc').value = result.provider_venc;
+                        document.getElementById('provider_name').value = result.provider_name;
                         document.getElementById('provider_date_pay').value = result.provider_date_pay;
                         document.getElementById('provider_desc').value = result.provider_desc;
                         document.getElementById('provider_cat').value = result.provider_cat;
@@ -417,8 +418,8 @@
                 var userData = '';
                 if (type === 'add') {
                     userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
-                    console.log(userData);
                     feedback = 'Inserido com sucesso!';
+                    $('#filtros').show();
                 }else if (type === 'edit'){
                     userData = $("#editForm").serialize()+'&action_type='+type;
                     feedback = 'Atualizado com sucessso!';
@@ -447,23 +448,11 @@
             }
             // Invoca a visualização do registro
             function infoView(id){
-                $.ajax({
-                    type: 'POST',
-                    dataType:'JSON',
-                    url: '<?=HOME_URI;?>/company-providera/ajax-process',
-                    data: 'action_type=data&id='+id,
-                    success:function(data){
-                        $('.provider_venc').text((data.provider_venc) ? data.provider_venc : '---' );
-                        $('.provider_date_pay').text((data.provider_date_pay) ? data.provider_date_pay : '---');
-                        $('.provider_cat').text((data.provider_cat) ? data.provider_cat  : '---');
-                        $('.provider_desc').text((data.provider_desc) ? data.provider_desc : '---');
-                        $('.provider_val').text((data.provider_val) ? data.provider_val : '---');
-                        $('.provider_created').text((data.provider_created) ? data.provider_created : ' ---');
-                        $('.provider_modified').text((data.provider_modified) ? data.provider_modified  : '');
-                        $('.provider_status').text((data.provider_date_pay) ? 'Pago' : 'Em débito');
-                        //$('#editForm').slideDown();
-                    }
-                });
+                objFinanca.setAjaxInfoView('<?= HOME_URI; ?>/company-providers/ajax-process', id);
+                objFinanca.getAjaxInfoView();
+                objFinanca.ajaxInfoView();
+                
+                
             }
             
         </script>

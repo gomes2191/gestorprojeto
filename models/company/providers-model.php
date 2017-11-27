@@ -240,7 +240,7 @@ class ProvidersModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `provider` WHERE `provider_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `providers` WHERE `provider_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
@@ -250,7 +250,7 @@ class ProvidersModel extends MainModel
             
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('provider', 'provider_id', $decode_id);
+            $query_del = $this->db->delete('providers', 'provider_id', $decode_id);
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);

@@ -1,6 +1,6 @@
 <?php   if (!defined('ABSPATH')) {  exit(); }
     
-    # Parâmetros de páginação ------> 
+    # Parâmetros de páginação
     $tblName = 'providers';
     $conditions = [];
 
@@ -85,7 +85,7 @@
     
     if (!empty($allReg)) {
         echo <<<HTML
-            <table  id="tableList" class="table table-bordered table-sm table-hover">
+            <table  id="tableList" class="table table-bordered table-sm table-hover" >
                 <thead class="thead-dark">
                     <tr>
                         <th class="small text-center">#</th>

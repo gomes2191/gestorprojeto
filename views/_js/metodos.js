@@ -10,7 +10,7 @@ function Financeiro() {
     var curso;
     var numUS;
     var idOne, idTwo, nValor, nPorce, calcTotal;
-    var url, id, jsonData;
+    var url, id, jsonData, json;
 
     this.setNome = function (nome) {
         this.nome = nome;
@@ -61,6 +61,10 @@ function Financeiro() {
         this.url = url;
     };
     
+    this.setAjaxInfoView = function ( url, id) {
+       this.objInfo = {url: url, id: id};
+    };
+    
     this.setAjaxFilter = function ( url ) {
         this.url = url;
     };
@@ -106,6 +110,10 @@ function Financeiro() {
     
     this.getAjaxFilter = function () {
         return this.url;
+    };
+    
+    this.getAjaxInfoView = function (teste){
+        console.log(this.teste = teste);
     };
     
     this.getAjaxEditRegister = function () {
@@ -253,6 +261,21 @@ function Financeiro() {
                         $('#loading').fadeOut();
                     }
                 });
+    };
+    
+    
+    this.ajaxInfoView = function () {
+        $.ajax({
+            type: 'POST',
+            dataType:'JSON',
+            //contentType: "application/json",
+            url: this.objInfo.url,
+            data: 'action_type=data&id='+this.objInfo.id,
+            async: true,
+            success:function(data) {
+                this.getAjaxInfoView(data);
+            }
+        });
     };
     
     this.ajaxEditRegister = function (){

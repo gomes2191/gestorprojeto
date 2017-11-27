@@ -1,7 +1,7 @@
     <?php if (!defined('ABSPATH')) exit(); ?>
     <?php if ($this->login_required && !$this->logged_in) return; ?>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-lg  navbar-light fixed-top top-mix" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top top-mix">
         <div class="container">
             <a class="navbar-brand" href="#"><b>BETA</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +61,5 @@
                 </ul>
             </div>
         </div>
-    </nav>
-<!--Teste-->
+    </nav> <!--End navbar-->
     <div class="container">  <!--Aqui é o inicio do corpo principal todo conteúdo vai aqui -->
