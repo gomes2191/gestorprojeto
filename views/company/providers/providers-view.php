@@ -369,13 +369,13 @@
                     <!-- Modal Footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <a href="JavaScript:void(0);" class="btn btn-success" onclick="userAction('add')">Add User</a>
+                        <a href="JavaScript:void(0);" class="btn btn-success" onclick="typeAction('add')">Add User</a>
                     </div>
                 </div>
             </div>
         </div><!--End modal editar inserir-->
         <script>
-            document.getElementById("provider_name").innerHTML = "Brasil";
+            
             //Motando á requisição ajax
             var objFinanca = new Financeiro();
             objFinanca.setAjaxData('<?= HOME_URI; ?>/company-providers/filters');
@@ -391,69 +391,60 @@
             //    });
             //});
 
-            // Invoca a edição de registro
-            function editRegister( id ){
-//               $.ajax({
-//                    type: 'POST',
-//                    dataType:'JSON',
-//                    url: '<?=HOME_URI;?>/company-providers/ajax-process',
-//                    data: 'action_type=data&id='+id,
-//                    async: true,
-//                    success:function(result) {
-//                        console.log(result);
-//                        document.getElementById('provider_id').value = result.provider_id;
-//                        document.getElementById('provider_name').value = result.provider_name;
-//                        document.getElementById('provider_date_pay').value = result.provider_date_pay;
-//                        document.getElementById('provider_desc').value = result.provider_desc;
-//                        document.getElementById('provider_cat').value = result.provider_cat;
-//                        document.getElementById('provider_val').value = result.provider_val;
-//                    }
-//                });
-
-                    objFinanca.setAjaxEditRegister(objInfo = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:id});
-                    objFinanca.ajaxEditRegister();
+            //Invoca a edição de registro
+            function userAction( edit, id ){
                 
-            }
-            
-            //Açoes de remoção e inserção
-            function userAction(type,id){
-                id = (typeof id === "undefined") ? '' : id;
-                //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
-                var userData = '';
-                if (type === 'add') {
-                    userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
-                    feedback = 'Inserido com sucesso!';
-                    $('#filtros').show();
-                }else if (type === 'edit'){
-                    userData = $("#editForm").serialize()+'&action_type='+type;
-                    feedback = 'Atualizado com sucessso!';
-                }else{
-                    if(confirm('Deseja remover esse registro?')){
-                        userData = 'action_type='+type+'&id='+id;
-                        feedback = 'Remoção realizada com sucesso!';
-                    }else{
-                        return false;
-                    }   
+                if(edit = 'edit'){
+                    alert(edit);
+                    
                 }
-                $.ajax({
-                    type: 'POST',
-                    url: '<?= HOME_URI; ?>/company-providers/ajax-process',
-                    data: userData,
-                    success:function(msg){
-                        objFinanca.ajaxData();
-                        if(msg === 'ok'){
-                            toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
-                            $('.form-register')[0].reset();
+                objFinanca.setAjaxEditRegister(objInfo = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:id});
+                objFinanca.ajaxEditRegister();
+            }
+             // Invoca a visualização do registro
+//            function infoView( id ){
+//                objFinanca.setAjaxInfo(objInfo = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:id});
+//                objFinanca.ajaxInfo();
+//            }
+            
+            //Tipo de ação desparada pelo usuário
+            function typeAction( type, id ){
+                if(type == 'infoView' || type == 'editLoad'){
+                    alert('Foi');
+                }else{
+                    id = (typeof id === "undefined") ? '' : id;
+                    //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
+                    var userData = '';
+                    if (type === 'add') {
+                        userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
+                        feedback = 'Inserido com sucesso!';
+                        $('#filtros').show();
+                    }else if (type === 'edit'){
+                        userData = $("#editForm").serialize()+'&action_type='+type;
+                        feedback = 'Atualizado com sucessso!';
+                    }else{
+                        if(confirm('Deseja remover esse registro?')){
+                            userData = 'action_type='+type+'&id='+id;
+                            feedback = 'Remoção realizada com sucesso!';
                         }else{
-                            toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
-                        }
+                            return false;
+                        }   
                     }
-                });
-            }
-            // Invoca a visualização do registro
-            function infoView( id ){
-                objFinanca.setAjaxInfo(objInfo = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:id, name_id:'provider_id'});
-                objFinanca.ajaxInfo();
-            }
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?= HOME_URI; ?>/company-providers/ajax-process',
+                        data: userData,
+                        success:function(msg){
+                            objFinanca.ajaxData();
+                            if(msg === 'ok'){
+                                toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
+                                $('.form-register')[0].reset();
+                            }else{
+                                toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
+                            }
+                        }
+                    });
+            }   
+        }
             
         </script>

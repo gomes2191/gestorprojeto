@@ -760,7 +760,7 @@ $(function () {
     $('#btn-new-show').click(function(e) {
         e.preventDefault();
         $('#group-btn-new').fadeOut('slow');
-        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
+        $('#btn-save').attr('onclick',"typeAction('add')").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
         $('.form-hide').fadeIn('slow');
         $('#group-btn-hide').fadeIn('slow');
@@ -775,7 +775,7 @@ $(function () {
         $('#group-btn-new').fadeOut('slow');
         $('#btn-show').fadeOut('slow');
         $('#group-btn-hide').fadeIn('slow');
-        $('#btn-save').attr('onclick',"userAction('edit')").html("<i class='fa fa-floppy-o'></i> <span>SALVAR ALTERAÇÃO</span>");
+        $('#btn-save').attr('onclick',"typeAction('edit')").html("<i class='fa fa-floppy-o'></i> <span>SALVAR ALTERAÇÃO</span>");
         $('.form-register').attr('id',"editForm");
         $('.form-hide').fadeIn('slow');
         $('#group-btn-form-new').fadeIn('slow');
@@ -794,7 +794,7 @@ $(function () {
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - Modo adicionar novo registro ativo');
         
-        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
+        $('#btn-save').attr('onclick',"typeAction('add')").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
         $('#group-btn-form-new').hide(200);
@@ -833,7 +833,7 @@ $(function () {
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - MODO ADICIONAR NOVO REGISTRO ATIVO');
         
-        $('#btn-save').attr('onclick',"userAction('add')").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
+        $('#btn-save').attr('onclick',"typeAction('add')").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
         $('#group-btn-form-new').hide(200);
