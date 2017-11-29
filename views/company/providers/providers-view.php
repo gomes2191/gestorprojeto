@@ -369,18 +369,23 @@
                     <!-- Modal Footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <a href="JavaScript:void(0);" class="btn btn-success" onclick="typeAction('add')">Add User</a>
+                        <a href="JavaScript:void(0);" class="btn btn-success" onclick="typeAction( ObjData = {'add'} )">Add User</a>
                     </div>
                 </div>
             </div>
         </div><!--End modal editar inserir-->
         <script>
+          
+            
             
             //Motando á requisição ajax
             var objFinanca = new Financeiro();
             objFinanca.setAjaxData('<?= HOME_URI; ?>/company-providers/filters');
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
+            
+            
+          
             
             //  Muda url da pagina
             //  window.history.pushState("fees", "", "fees");
@@ -408,13 +413,22 @@
 //            }
             
             //Tipo de ação desparada pelo usuário
-            function typeAction( type, id ){
-                if(type == 'infoView' || type == 'editLoad'){
-                    alert('Foi');
-                }else{
-                    id = (typeof id === "undefined") ? '' : id;
+            function typeAction( objData ){
+                
+                //id = (typeof id === "undefined") ? '' : id;
                     //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
-                    var userData = '';
+                //var userData = '';
+                
+                if(objData.type == 'infoView' || objData.type == 'editLoad'){
+                    if(objData.type == 'editLoad'){
+                        objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:objData.id});
+                        objFinanca.ajaxActionUser();
+                    }else{
+                        objFinanca.setAjaxActionUser(objSet = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:objData.id});
+                        objFinanca.ajaxActionUser();
+                    }
+                    
+                }else{
                     if (type === 'add') {
                         userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
                         feedback = 'Inserido com sucesso!';

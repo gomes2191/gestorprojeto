@@ -69,7 +69,7 @@ function Financeiro() {
         this.url = url;
     };
     
-    this.setAjaxEditRegister = function ( objData ) {
+    this.setAjaxActionUser = function ( objData ) {
        this.objData = objData;
     };
     
@@ -114,7 +114,7 @@ function Financeiro() {
         return this.objData;
     };
     
-    this.getAjaxEditRegister = function () {
+    this.getAjaxActionUser = function () {
         return this.objData;
     };
 
@@ -276,19 +276,22 @@ function Financeiro() {
         });
     };
     
-    this.ajaxEditRegister = function (){
-        $.ajax({
-            type: 'POST',
-            dataType:'JSON',
-            url: this.objData.url,
-            data: 'action_type=data&id='+this.objData.id,
-            async: true,
-            success:function( data ) {
-                $.each(data , function(key, value){
-                    $('#' + key).val(value);
-                });  
-            }
-        });
+    this.ajaxActionUser = function (){
+        if(objData.type == 'editLoad'){
+                $.ajax({
+                type: 'POST',
+                dataType:'JSON',
+                url: this.objData.url,
+                data: 'action_type=data&id='+this.objData.id,
+                async: true,
+                success:function( data ) {
+                    $.each(data , function(key, value){
+                        $('#' + key).val(value);
+                    });  
+                }
+            });
+        }
+        
     };
 }
 
