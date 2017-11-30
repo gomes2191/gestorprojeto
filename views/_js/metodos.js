@@ -61,10 +61,6 @@ function Financeiro() {
         this.url = url;
     };
     
-    this.setAjaxInfo = function ( objData ) {
-       this.objData = objData;
-    };
-    
     this.setAjaxFilter = function ( url ) {
         this.url = url;
     };
@@ -108,10 +104,6 @@ function Financeiro() {
     
     this.getAjaxFilter = function () {
         return this.url;
-    };
-    
-    this.getAjaxInfo = function (){
-        return this.objData;
     };
     
     this.getAjaxActionUser = function () {
@@ -261,23 +253,10 @@ function Financeiro() {
         });
     };
     
-    this.ajaxInfo = function () {  
-        $.ajax({
-            type: 'POST',
-            dataType:'JSON',
-            url: this.objData.url,
-            data: 'action_type=data&id='+this.objData.id,
-            async: true,
-            success: function ( data ) {
-                $.each(data , function(key, value){
-                    $('.' + key).text(value);
-                });   
-            }
-        });
-    };
+    
     
     this.ajaxActionUser = function(){
-        if( this.objData.type === 'loadEdit' ){
+        if( this.objData.type === 'loadEdit' || this.objData.type === 'loadInfo' ){
             $.ajax({
                 type: 'POST',
                 dataType:'JSON',
@@ -285,23 +264,39 @@ function Financeiro() {
                 data: 'action_type=data&id='+this.objData.id,
                 async: true,
                 success:function( data ) {
-                    $.each(data , function(key, value){
-                        $('#' + key).val(value);
-                    });  
+                    if( typeExec === 'loadEdit' ){
+                        $.each(data , function(key, value){
+                            $('#' + key).val(value);
+                        });
+                    }else if( typeExec === 'loadInfo' ){
+                        $.each(data , function(key, value){
+                            $('.' + key).text(value);
+                        });
+                    }
                 }
             });
-        }else if( this.objData.type === 'loadInfo' ){
+        }else if ( this.objData.type === 'add' || this.objData.type === 'update' || this.objData.type === 'delete' ) {
             $.ajax({
-            type: 'POST',
-            dataType:'JSON',
-            url: this.objData.url,
-            data: 'action_type=data&id='+this.objData.id,
-            async: true,
-            success: function ( data ) {
-                $.each(data , function(key, value){
-                    $('.' + key).text(value);
-                });   
-            }
+                type: 'POST',
+                url: this.objData.url,
+                data: this.objData.userData,
+                success: function (msg) {
+                    objFinanca.ajaxData();
+                    if (msg === 'ok') {
+                        toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
+                        $('.form-register')[0].reset();
+                        $('#group-btn-new').fadeOut('slow');
+                        $('#btn-save','#btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
+                        $('.form-register').attr('id',"addForm");
+                        $('.form-hide').fadeIn('slow');
+                        $('#group-btn-hide').fadeIn('slow');
+                        $('.row-button-hide').fadeIn('slow');
+                        $('.notice-hide').fadeIn();
+                        $('legend span').text(' - Inserindo novo registro');
+                    }else {
+                        toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
+                    }
+                }
             });
         }
     };

@@ -757,31 +757,31 @@ $(function () {
 //----Parametros para o formulario hibrido dois em um
 $(function () {
     //Ativa modo de novo registro
-    $('#btn-new-show').click(function(e) {
+    $(' .container ').on('click', '#btn-new-show, #btn-edit-save, #btn-dell', function(e) {
         e.preventDefault();
-        $('#group-btn-new').fadeOut('slow');
-        $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
+        $('#group-btn-new, #group-btn-form-new ').fadeOut();
+        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
-        $('.form-hide').fadeIn('slow');
-        $('#group-btn-hide').fadeIn('slow');
-        $('.row-button-hide').fadeIn('slow');
-        $('.notice-hide').fadeIn();
+        $(' .form-hide, #group-btn-hide, .row-button-hide, .notice-hide ').fadeIn();
+        //$('#group-btn-hide').fadeIn('slow');
+        //$('.row-button-hide').fadeIn('slow');
+        //$('.notice-hide').fadeIn();
         $('legend span').text(' - Inserindo novo registro');
     });
     
     //Modo edição ativo
     $('#tableData').on('click','.btn-edit-show', function(e) {
         e.preventDefault();
-        $('#group-btn-new').fadeOut('slow');
-        $('#btn-show').fadeOut('slow');
-        $('#group-btn-hide').fadeIn('slow');
+        $('#group-btn-new, #btn-show').fadeOut();
+        //$('#btn-show').fadeOut('slow');
+        //$('#group-btn-hide').fadeIn('slow');
         $('#btn-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR ALTERAÇÃO</span>");
         $('.form-register').attr('id',"editForm");
-        $('.form-hide').fadeIn('slow');
-        $('#group-btn-form-new').fadeIn('slow');
+        $('.form-hide, #group-btn-hide, #group-btn-form-new, .row-button-hide ').fadeIn();
+        //$('#group-btn-form-new').fadeIn('slow');
         $('#btn-save').attr('id',"btn-edit-save");
         //$('#group-btn-hide').fadeIn('slow');
-        $('.row-button-hide').fadeIn('slow');
+        //$('.row-button-hide').fadeIn('slow');
         //$('.notice-hide').fadeIn();
         $('legend span').text(' - Editando registro');
     });
@@ -806,11 +806,11 @@ $(function () {
     $('#btn-hide').click(function(e) {
         e.preventDefault();
         $('#group-btn-hide').fadeOut('slow');
-        $('.form-hide').fadeOut('slow');
-        $('.notice-hide').fadeOut('slow');
-        $('.row-button-hide').fadeOut('slow');
-        $('#group-btn-show').fadeIn('slow');
-        $('#btn-show').fadeIn('slow');
+        $('.form-hide').fadeOut();
+        $('.notice-hide').fadeOut();
+        $('.row-button-hide').fadeOut();
+        $('#group-btn-show').fadeIn();
+        $('#btn-show').fadeIn();
         
         
     });
@@ -831,7 +831,7 @@ $(function () {
         $('.form-register').find('input').val('');
         $('#btn-edit-save').attr('id',"btn-save");
         // Insere o texto indicando o tipo de formulario
-        $('legend span').text(' - MODO ADICIONAR NOVO REGISTRO ATIVO');
+        $('legend span').text(' - Modo adicionar novo registro ativo');
         
         $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");

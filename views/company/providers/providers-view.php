@@ -376,50 +376,17 @@
         </div><!--End modal editar inserir-->
         <script>
           
-            
-            
-            //Motando á requisição ajax
+            // Parâmetros necessários para a requisição Ajax
             var objFinanca = new Financeiro();
             objFinanca.setAjaxData('<?= HOME_URI; ?>/company-providers/filters');
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
             
-            
-          
-            
-            //  Muda url da pagina
-            //  window.history.pushState("fees", "", "fees");
-            //  Faz um refresh de url apos fechar modal
-            //$(function () {
-            //    $('body').on('hidden.bs.modal', function () {
-            //        $(this).removeData('bs.modal');
-            //    });
-            //});
-
-            //Invoca a edição de registro
-            function userAction( edit, id ){
-                
-                if(edit = 'edit'){
-                    alert(edit);
-                    
-                }
-                objFinanca.setAjaxEditRegister(objInfo = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:id});
-                objFinanca.ajaxEditRegister();
-            }
-             // Invoca a visualização do registro
-//            function infoView( id ){
-//                objFinanca.setAjaxInfo(objInfo = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:id});
-//                objFinanca.ajaxInfo();
-//            }
-            
             //Tipo de ação desparada pelo usuário
-            function typeAction( objData ){
-                
+            function typeAction( objData ){     
                 id = (typeof objData.id === "undefined") ? '' : objData.id;
-                var userData = '';
-                //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
-                
                 if(objData.type === 'loadInfo' || objData.type === 'loadEdit'){
+                    typeExec = objData.type;
                     if(objData.type === 'loadEdit'){
                         objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:objData.id});
                         objFinanca.ajaxActionUser();
@@ -428,39 +395,39 @@
                         objFinanca.ajaxActionUser();
                     }
                     
-                }else{
-                    if ( objData.type === 'add' ) {
-                        alert('Viva para Jesus Cristo');
-                        userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
-                        feedback = 'Inserido com sucesso!';
-                        $('#filtros').show();
-                    }else if( objData.type === 'update' ){
-                        alert('Só cristo salva!');
-                        userData = $("#editForm").serialize()+'&action_type='+objData.type;
-                        feedback = 'Atualizado com sucessso!';
+                }else if ( objData.type === 'add' ) {
+                    objData.userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
+                    feedback = 'Inserido com sucesso!';
+                    $('#filtros').show();
+                    objFinanca.setAjaxActionUser( 
+                        objSet = {type: objData.type,
+                        url:'<?= HOME_URI; ?>/company-providers/ajax-process',
+                        userData:objData.userData} 
+                    );
+                    objFinanca.ajaxActionUser();
+                }else if( objData.type === 'update' ){
+                    objData.userData = $("#editForm").serialize()+'&action_type='+objData.type;
+                    feedback = 'Atualizado com sucessso!';
+                    objFinanca.setAjaxActionUser( 
+                        objSet = {type: objData.type,
+                        url:'<?= HOME_URI; ?>/company-providers/ajax-process',
+                        userData:objData.userData} 
+                    );
+                    objFinanca.ajaxActionUser();
+                }else if(objData.type === 'delete') {
+                    if(confirm('Deseja remover esse registro?')){
+                        objData.userData = 'action_type='+objData.type+'&id='+objData.id;
+                        feedback = 'Remoção realizada com sucesso!';
+                        objFinanca.setAjaxActionUser( 
+                            objSet = {type: objData.type,
+                            url:'<?= HOME_URI; ?>/company-providers/ajax-process',
+                            userData:objData.userData} 
+                        );
+                        objFinanca.ajaxActionUser();
                     }else{
-                        if(confirm('Deseja remover esse registro?')){
-                            userData = 'action_type='+type+'&id='+id;
-                            feedback = 'Remoção realizada com sucesso!';
-                        }else{
-                            return false;
-                        }   
-                    }
-                    $.ajax({
-                        type: 'POST',
-                        url: '<?= HOME_URI; ?>/company-providers/ajax-process',
-                        data: userData,
-                        success:function(msg){
-                            objFinanca.ajaxData();
-                            if(msg === 'ok'){
-                                toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
-                                $('.form-register')[0].reset();
-                            }else{
-                                toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
-                            }
-                        }
-                    });
-            }   
+                        return false;
+                    }   
+                }
         }
             
         </script>
