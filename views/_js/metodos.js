@@ -276,9 +276,9 @@ function Financeiro() {
         });
     };
     
-    this.ajaxActionUser = function (){
-        if(objData.type == 'editLoad'){
-                $.ajax({
+    this.ajaxActionUser = function(){
+        if( this.objData.type === 'loadEdit' ){
+            $.ajax({
                 type: 'POST',
                 dataType:'JSON',
                 url: this.objData.url,
@@ -290,8 +290,20 @@ function Financeiro() {
                     });  
                 }
             });
+        }else if( this.objData.type === 'loadInfo' ){
+            $.ajax({
+            type: 'POST',
+            dataType:'JSON',
+            url: this.objData.url,
+            data: 'action_type=data&id='+this.objData.id,
+            async: true,
+            success: function ( data ) {
+                $.each(data , function(key, value){
+                    $('.' + key).text(value);
+                });   
+            }
+            });
         }
-        
     };
 }
 

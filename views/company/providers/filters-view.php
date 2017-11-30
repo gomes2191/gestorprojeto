@@ -115,9 +115,9 @@ HTML;
             echo '<td>'.(($reg['provider_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['provider_modified']) : '---') .'</td>';
             //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             //echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'editLoad',id:'{$modelo->encode_decode($reg['provider_id'])}'})} >EDITAR</button></td>";
+            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['provider_id'])}'})} >EDITAR</button></td>";
             echo "<td><a href='javaScript:void(0);' class='btn btn-outline-danger btn-sm' onClick={typeAction('delete','{$modelo->encode_decode($reg['provider_id'])}')}>DELETAR</a></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction('infoView','{$modelo->encode_decode($reg['provider_id'])}')} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['provider_id'])}'})} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML

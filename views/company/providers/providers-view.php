@@ -415,26 +415,28 @@
             //Tipo de ação desparada pelo usuário
             function typeAction( objData ){
                 
-                //id = (typeof id === "undefined") ? '' : id;
-                    //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
-                //var userData = '';
+                id = (typeof objData.id === "undefined") ? '' : objData.id;
+                var userData = '';
+                //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
                 
-                if(objData.type == 'infoView' || objData.type == 'editLoad'){
-                    if(objData.type == 'editLoad'){
+                if(objData.type === 'loadInfo' || objData.type === 'loadEdit'){
+                    if(objData.type === 'loadEdit'){
                         objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:objData.id});
                         objFinanca.ajaxActionUser();
                     }else{
-                        objFinanca.setAjaxActionUser(objSet = {url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:objData.id});
+                        objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/company-providers/ajax-process', id:objData.id});
                         objFinanca.ajaxActionUser();
                     }
                     
                 }else{
-                    if (type === 'add') {
-                        userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
+                    if ( objData.type === 'add' ) {
+                        alert('Viva para Jesus Cristo');
+                        userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
                         feedback = 'Inserido com sucesso!';
                         $('#filtros').show();
-                    }else if (type === 'edit'){
-                        userData = $("#editForm").serialize()+'&action_type='+type;
+                    }else if( objData.type === 'update' ){
+                        alert('Só cristo salva!');
+                        userData = $("#editForm").serialize()+'&action_type='+objData.type;
                         feedback = 'Atualizado com sucessso!';
                     }else{
                         if(confirm('Deseja remover esse registro?')){
