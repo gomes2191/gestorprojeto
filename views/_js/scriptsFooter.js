@@ -709,41 +709,7 @@ function InvalidMsg(textbox) {
         textbox.setCustomValidity('');
     }
     return true;
-}
-//$( function (){
-//        
-//        $('#form-agenda-ajax').submit(
-//           function(e){
-//               e.preventDefault();
-//
-//               if($('#deletar').val() == 'Processando...') {
-//                   return (false);
-//
-//               }
-//
-//               $('#deletar').val('Processando...');
-//
-//               $.ajax({
-//                   url: 'agenda-box',
-//                   type: 'post',
-//                   dataType: 'html',
-//                   data: {'metodo': $('#metodo').val()}
-//
-//
-//               }).done(function(data){
-//
-//                    alert(data);
-//
-//                   $('#deletar').val('Deletar');
-//                   $('#metodo').val('');
-//
-//
-//               });
-//        });
-//    } );
-        
-   
-   
+}  
    
 $(function () {
     $('input').focus(function () {
@@ -757,52 +723,38 @@ $(function () {
 //----Parametros para o formulario hibrido dois em um
 $(function () {
     //Ativa modo de novo registro
-    $(' .container ').on('click', '#btn-new-show, #btn-edit-save, #btn-dell', function(e) {
+    $(' .container ').on('click', '#btn-new-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #group-btn-form-new ').fadeOut();
         $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
         $(' .form-hide, #group-btn-hide, .row-button-hide, .notice-hide ').fadeIn();
-        //$('#group-btn-hide').fadeIn('slow');
-        //$('.row-button-hide').fadeIn('slow');
-        //$('.notice-hide').fadeIn();
-        $('legend span').text(' - Inserindo novo registro');
+        $('.form-register').find('input').val('');
+        $('legend span').text(' - Inserindo registro');
+    });
+    
+    //--> Rotina que limpa formulário apos edição e remoção de dados
+    $('.container').on('click', '#btn-edit-save, #btn-dell', function (){
+        $(' .form-hide, #group-btn-hide, #group-btn-show, .row-button-hide, .notice-hide ').fadeOut();
+        $('.form-register').find('input').val('');
+        $('#group-btn-new').fadeIn();
+        $('legend span').text('');
+        $('html, body').animate({scrollTop:0}, 'slow');
     });
     
     //Modo edição ativo
     $('#tableData').on('click','.btn-edit-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #btn-show').fadeOut();
-        //$('#btn-show').fadeOut('slow');
-        //$('#group-btn-hide').fadeIn('slow');
-        $('#btn-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR ALTERAÇÃO</span>");
+        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR ALTERAÇÃO</span>");
         $('.form-register').attr('id',"editForm");
         $('.form-hide, #group-btn-hide, #group-btn-form-new, .row-button-hide ').fadeIn();
-        //$('#group-btn-form-new').fadeIn('slow');
-        $('#btn-save').attr('id',"btn-edit-save");
-        //$('#group-btn-hide').fadeIn('slow');
-        //$('.row-button-hide').fadeIn('slow');
-        //$('.notice-hide').fadeIn();
+        $('#btn-save, #btn-edit-save').attr('id',"btn-edit-save");
         $('legend span').text(' - Editando registro');
-    });
-    
-    $('body').on('click', '#btn-edit-save', function(e){
-        e.preventDefault();
-        // Limpa os campos
-        $('.form-register').find('input').val('');
-        $('#btn-edit-save').attr('id',"btn-save");
-        // Insere o texto indicando o tipo de formulario
-        $('legend span').text(' - Modo adicionar novo registro ativo');
-        
-        $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
-        $('.form-register').attr('id',"#addForm");
-        // Mostra o botão para voltar para formulario de inserção.
-        $('#group-btn-form-new').hide(200);
-        $('#group-btn-hide').show(200);
         $('html, body').animate({scrollTop:0}, 'slow');
     });
     
-    //Botao que oculta o fomulario
+    // Ação que oculta o formulário
     $('#btn-hide').click(function(e) {
         e.preventDefault();
         $('#group-btn-hide').fadeOut('slow');
@@ -810,12 +762,10 @@ $(function () {
         $('.notice-hide').fadeOut();
         $('.row-button-hide').fadeOut();
         $('#group-btn-show').fadeIn();
-        $('#btn-show').fadeIn();
-        
-        
+        $('#btn-show').fadeIn();  
     });
     
-    //Botao que mostra o formulario
+    // Dispara o evento mostrar formulário ao clica no botao
     $('#btn-show').click(function(e) {
         e.preventDefault();
         $('#group-btn-show').fadeOut('slow');
@@ -825,14 +775,13 @@ $(function () {
     });
     
     //Botao que voltar para adicionar novo registro
-    $('#btn-form-new').click(function(e) {
+    $('.container').on('click', '#btn-form-new', function(e) {
         e.preventDefault();
         // Limpa os campos
         $('.form-register').find('input').val('');
         $('#btn-edit-save').attr('id',"btn-save");
         // Insere o texto indicando o tipo de formulario
-        $('legend span').text(' - Modo adicionar novo registro ativo');
-        
+        $('legend span').text(' - Inserindo registro');
         $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.

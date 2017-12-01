@@ -285,14 +285,6 @@ function Financeiro() {
                     if (msg === 'ok') {
                         toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
                         $('.form-register')[0].reset();
-                        $('#group-btn-new').fadeOut('slow');
-                        $('#btn-save','#btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
-                        $('.form-register').attr('id',"addForm");
-                        $('.form-hide').fadeIn('slow');
-                        $('#group-btn-hide').fadeIn('slow');
-                        $('.row-button-hide').fadeIn('slow');
-                        $('.notice-hide').fadeIn();
-                        $('legend span').text(' - Inserindo novo registro');
                     }else {
                         toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
                     }
