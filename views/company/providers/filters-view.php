@@ -94,10 +94,8 @@
                         <th class="small text-center">TELEFONE</th>
                         <th class="small text-center">E-MAIL</th>
                         <th class="small text-center">ATUAÇÃO</th>
-                        <th class="small text-center">CIDADE</th>
-                        <th class="small text-center">ESTADO</th>
-                        <th class="small text-center">STATUS</th>
-                        <th colspan="10" class="small text-center">AÇÃO</th>
+                        <th colspan="1" class="small text-center">UF</th>
+                        <th colspan="3" class="small text-center">AÇÃO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -111,7 +109,7 @@ HTML;
             echo '<td>'.(($reg['provider_tel_1']) ? $reg['provider_tel_1'] : '---') .'</td>';
             echo '<td>'.(($reg['provider_email']) ? $reg['provider_email'] : '---') .'</td>';
             echo '<td>'.(($reg['provider_at']) ? $reg['provider_at'] : '---') .'</td>';
-            echo '<td>'.(($reg['provider_city']) ? $reg['provider_city'] : '---') .'</td>';
+            //echo '<td>'.(($reg['provider_city']) ? $reg['provider_city'] : '---') .'</td>';
             echo '<td>'.(($reg['provider_uf']) ? $reg['provider_uf'] : '---') .'</td>';
             
             //echo '<td>'.(($reg['provider_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['provider_created']) : '---') .'</td>';

@@ -270,7 +270,7 @@ function Financeiro() {
                         });
                     }else if( typeExec === 'loadInfo' ){
                         $.each(data , function(key, value){
-                            $('.' + key).text(value);
+                            $('.' + key).text((value) ? value : ' Não foi preenchido');
                         });
                     }
                 }

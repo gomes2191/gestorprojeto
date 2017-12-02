@@ -316,15 +316,41 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <ul class="list-inline list-modal-forn">
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Empresa: </b> <span class="provider_name"></span></li> 
-                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>CPF / CNPJ: </b> <span class="provider_cpf_cnpj">----</span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Categoria: </b> <span class="provider_cat">----</span> </li>
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Descrição: </b> <span class="provider_desc"></span></li>
-                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Valor: </b> <span class="provider_val">----</span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Data da inclusao: </b> <span class="provider_created">----</span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Modificado em: </b> <span class="provider_modified">----</span></li>
-                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Status: </b> <span class="provider_status">----</span></li>
+                        <ul class="list-group list-modal-forn">
+                            <li class="list-group-item list-group-item-text"><b>EMPRESA:</b>&nbsp;<span class="provider_name"></span></li> 
+                            <li class="list-group-item list-group-item-primary list-group-item-text"><b>CPF / CNPJ:</b>&nbsp;<span class="provider_cpf_cnpj">----</span></li>
+                            <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Razão social:</b>&nbsp;<span class="provider_rs">----</span> </li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Área de atuação:</b>&nbsp;<span class="provider_at"></span></li>
+                            <li class="list-group-item list-group-item-danger list-group-item-text"><b>Endereço:</b>&nbsp;<span class="provider_end">----</span></li>
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Bairro:</b>&nbsp;<span class="provider_district">----</span></li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Cidade:</b>&nbsp;<span class="provider_city">----</span></li>
+                            <li class="list-group-item list-group-item-light list-group-item-text"><b>UF:</b>&nbsp;<span class="provider_uf">----</span></li>
+                            <li class="list-group-item list-group-item-dark list-group-item-text"><b>CEP:</b>&nbsp;<span class="provider_cep"></span></li> 
+                            <li class="list-group-item list-group-item-text"><b>País:</b>&nbsp;<span class="provider_nation">----</span></li>
+                            <li class="list-group-item list-group-item-primary list-group-item-text"><b>Celular:</b>&nbsp;<span class="provider_cel">----</span> </li>
+                            <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Telefone 1:</b>&nbsp;<span class="provider_tel_1"></span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Telefone 2:</b>&nbsp;<span class="provider_tel_2">----</span></li>
+                            <li class="list-group-item list-group-item-danger list-group-item-text"><b>Inscrição Estadual:</b>&nbsp;<span class="provider_insc_uf">----</span></li>
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b> Site url:</b>&nbsp;<span class="provider_web_url">----</span></li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>E-mail:</b>&nbsp;<span class="provider_email">----</span></li>
+                            <li class="list-group-item list-group-item-light list-group-item-text"><b>Nome do representante:</b>&nbsp;<span class="provider_rep_name">----</span></li>
+                            <li class="list-group-item list-group-item-dark list-group-item-text"><b>Apelido representante:</b>&nbsp;<span class="provider_rep_apelido"></span></li> 
+                            <li class="list-group-item list-group-item-text"><b>Representante celular:</b>&nbsp;<span class="provider_rep_cel">----</span></li>
+                            <li class="list-group-item list-group-item-primary list-group-item-text"><b>Representante telefone 1:</b>&nbsp;<span class="provider_rep_tel_1">----</span> </li>
+                            <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Representante telefone 2:</b>&nbsp;<span class="provider_rep_tel_2"></span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Representante E-mail:</b>&nbsp;<span class="provider_rep_email">----</span></li>
+                            <li class="list-group-item list-group-item-danger list-group-item-text"><b>Banco 1:</b>&nbsp;<span class="provider_banco_1">----</span></li>
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Agência 1:</b>&nbsp;<span class="provider_agencia_1">----</span></li>
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Conta 1:</b>&nbsp;<span class="provider_conta_1">----</span></li>
+                            <li class="list-group-item list-group-item-light list-group-item-text"><b>Titular 1:</b>&nbsp;<span class="provider_titular_1">----</span></li>
+                            <li class="list-group-item list-group-item-dark list-group-item-text"><b>Banco 2:</b>&nbsp;<span class="provider_banco_2"></span></li> 
+                            <li class="list-group-item list-group-item-text"><b>Agência 2:</b>&nbsp;<span class="provider_agencia_2">----</span></li>
+                            <li class="list-group-item list-group-item-primary list-group-item-text"><b>Conta 2:</b>&nbsp;<span class="provider_conta_2">----</span> </li>
+                            <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Titular 2:</b>&nbsp;<span class="provider_titular_2"></span></li>
+                            <li class="list-group-item list-group-item-success list-group-item-text"><b>Criado em:</b>&nbsp;<span class="provider_created">----</span></li>
+                            <li class="list-group-item list-group-item-danger list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="provider_modified">----</span></li>
+                            <li class="list-group-item list-group-item-warning list-group-item-text"><b>Observações:</b>&nbsp;<span class="provider_obs">----</span></li>
+
                         </ul>
                     </div>
                     <div class="modal-footer">
