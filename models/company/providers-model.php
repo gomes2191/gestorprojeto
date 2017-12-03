@@ -152,7 +152,6 @@ class ProvidersModel extends MainModel
             //return $this->form_msg;
             echo 'err';
         }
-        
     }
     
     /**

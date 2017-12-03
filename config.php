@@ -14,7 +14,7 @@
     # Caminho para a pasta de uploads
     define('UP_ABSPATH', ABSPATH . '/views/_uploads');
     # URL da home
-    define('HOME_URI', 'http://localhost/soc');
+    define('HOME_URI', 'http://192.168.1.11/soc');
     # Nome do host da base de dados
     define('HOSTNAME', 'localhost');
     # Nome do banco

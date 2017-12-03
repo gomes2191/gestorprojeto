@@ -23,7 +23,7 @@
                             EMPRESA
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="<?= HOME_URI; ?>/providers">Fornecedores</a>
+                            <a class="dropdown-item" href="<?= HOME_URI; ?>/company-providers">Fornecedores</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/patrimony">Patrimônio</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/stock">Controle de Estoque</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/laboratory">Laboratório</a>
