@@ -63,7 +63,8 @@ class MainModel {
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: validaDataHora()
-     *   @Descrição: Recebe uma determinada data e um verificador, verifica se a data atende o verificador passado e retorna true se sim e false se não
+     *   @Descrição: Recebe uma determinada data e um verificador, verifica se a data atende
+     *   o verificador passado e retorna true se sim e false se não
      *  
      *   Exemplos:
      *   var_dump(validaDataHora('2014-02-28 12:12:12')); # true
