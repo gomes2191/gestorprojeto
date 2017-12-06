@@ -105,18 +105,19 @@ class PatrimonyModel extends MainModel
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'patrimony_date_patrimony'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('patrimony',[
-            'patrimony_cod'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cod')),
-            'patrimony_desc'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_desc')),
+            'patrimony_cod'         =>  chk_array($this->form_data, 'patrimony_cod'),
+            'patrimony_desc'        =>  chk_array($this->form_data, 'patrimony_desc'),
             'patrimony_data_aq'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
-            'patrimony_cor'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cor')),
-            'patrimony_for'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_for')),
-            'patrimony_dimen'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_dimen')),
-            'patrimony_setor'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_setor')),
+            'patrimony_cor'         =>  chk_array($this->form_data, 'patrimony_cor'),
+            'patrimony_for'         =>  chk_array($this->form_data, 'patrimony_for'),
+            'patrimony_dimen'       =>  chk_array($this->form_data, 'patrimony_dimen'),
+            'patrimony_setor'       =>  chk_array($this->form_data, 'patrimony_setor'),
             'patrimony_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
-            'patrimony_garan'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_garan')),
-            'patrimony_quant'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_quant')),
-            'patrimony_nf'          =>  $this->avaliar(chk_array($this->form_data, 'patrimony_nf')),
-            'patrimony_obs'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_obs')),
+            'patrimony_garan'       =>  chk_array($this->form_data, 'patrimony_garan'),
+            'patrimony_quant'       =>  chk_array($this->form_data, 'patrimony_quant'),
+            'patrimony_sit'        =>  chk_array($this->form_data, 'patrimony_sit'),
+            'patrimony_nf'          =>  chk_array($this->form_data, 'patrimony_nf'),
+            'patrimony_obs'         =>  chk_array($this->form_data, 'patrimony_obs'),
             'patrimony_created'     =>  date('Y-m-d H:i:s', time())
         ]);
 
@@ -148,18 +149,19 @@ class PatrimonyModel extends MainModel
         if ( $registro_id ) {
             # Efetua o update do registro
             $query_up = $this->db->update('patrimony', 'patrimony_id', $registro_id,[
-                'patrimony_cod'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cod')),
-                'patrimony_desc'       =>  $this->avaliar(chk_array($this->form_data, 'patrimony_desc')),
-                'patrimony_data_aq'    =>  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
-                'patrimony_cor'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_cor')),
-                'patrimony_for'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_for')),
-                'patrimony_dimen'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_dimen')),
-                'patrimony_setor'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_setor')),
+                'patrimony_cod'        =>  chk_array($this->form_data, 'patrimony_cod'),
+                'patrimony_desc'       =>  chk_array($this->form_data, 'patrimony_desc'),
+                'patrimony_data_aq'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
+                'patrimony_cor'        =>  chk_array($this->form_data, 'patrimony_cor'),
+                'patrimony_for'        =>  chk_array($this->form_data, 'patrimony_for'),
+                'patrimony_dimen'      =>  chk_array($this->form_data, 'patrimony_dimen'),
+                'patrimony_setor'      =>  chk_array($this->form_data, 'patrimony_setor'),
                 'patrimony_valor'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
-                'patrimony_garan'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_garan')),
-                'patrimony_quant'      =>  $this->avaliar(chk_array($this->form_data, 'patrimony_quant')),
-                'patrimony_nf'         =>  $this->avaliar(chk_array($this->form_data, 'patrimony_nf')),
-                'patrimony_obs'        =>  $this->avaliar(chk_array($this->form_data, 'patrimony_info')),
+                'patrimony_garan'      =>  chk_array($this->form_data, 'patrimony_garan'),
+                'patrimony_quant'      =>  chk_array($this->form_data, 'patrimony_quant'),
+                'patrimony_nf'         =>  chk_array($this->form_data, 'patrimony_nf'),
+                'patrimony_sit'        =>  chk_array($this->form_data, 'patrimony_sit'),
+                'patrimony_obs'        =>  chk_array($this->form_data, 'patrimony_info'),
                 'patrimony_modified'   =>  date('Y-m-d H:i:s', time())
             ]);
 
@@ -246,9 +248,7 @@ class PatrimonyModel extends MainModel
             echo 'ok';exit();
         }
     }   #--> End delRegister()
-
-        
-         
+   
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>

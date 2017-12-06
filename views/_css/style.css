@@ -17,7 +17,6 @@
     src: local('Abel'), local('Abel-Regular'), url('Abel.woff2') format('woff2');
 }
 
-
 /* Define a fonte do sistema @font-family */
 *{
     font-family: 'Abel', sans-serif;

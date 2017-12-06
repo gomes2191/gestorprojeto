@@ -30,7 +30,7 @@
         
         switch ($sortBy) {
             case 'active':
-                $conditions['active'] = ['payments_status' => 2];
+                $conditions['active'] = ['patrimony_sit' => 'active'];
                 $conditions['order_by'] = 'patrimony_id DESC';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
@@ -38,7 +38,7 @@
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;            
             case 'inactive':
-                $conditions['inactive'] = ['payments_status' => 1];
+                $conditions['inactive'] = ['patrimony_sit' => 'inactive'];
                 $conditions['order_by'] = 'patrimony_id DESC';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
@@ -62,7 +62,6 @@
             case 'new':
                 $conditions['id'] = 'patrimony_id';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-                
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;   
             default:

@@ -66,7 +66,7 @@ date('Y-m-d H:i:s', time());
                         <input id="patrimony_cod" name="patrimony_cod" type="text" class="form-control form-control-sm text-center" placeholder="Código do patrimônio..." >
                     </div>
 
-                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_desc">Descrição:</label>
                         <input id="patrimony_desc" name="patrimony_desc" type="text" class="form-control form-control-sm text-center" placeholder="Descrição do patrimônio..." >
                     </div>
@@ -80,18 +80,18 @@ date('Y-m-d H:i:s', time());
                         <label for="patrimony_cor">Cor:</label>
                         <input id="patrimony_cor" name="patrimony_cor" class="form-control form-control-sm text-center" type="text" placeholder="Cor do patrimônio..." value="">
                     </div>
-                    <div class="form-group col-md-3 col-sm-12 col-xs-12" >
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                         <label for="patrimony_for">Fornecedor:</label>
                         <input id="patrimony_for" name="patrimony_for" type="text" class="form-control form-control-sm text-center" placeholder="Fornecedor..." >
                     </div>
-                </div><!-- End div hidden 2 -->
-
-                <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_dimen">Dimensões:</label>
                         <input id="patrimony_dimen" name="patrimony_dimen" type="text" class="form-control form-control-sm text-center" placeholder="Dimensões do patrimônio..." >
                     </div>
                     
+                </div><!-- End div hidden 2 -->
+
+                <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="patrimony_setor">Setor:</label>
                         <input id="patrimony_setor" name="patrimony_setor" type="text" class="form-control form-control-sm text-center" placeholder="Setor..." >
@@ -113,12 +113,19 @@ date('Y-m-d H:i:s', time());
                         <label for="patrimony_nf">Nota fiscal:</label>
                         <input id="patrimony_nf" name="patrimony_nf" type="text" class="form-control form-control-sm text-center" placeholder="Nota fiscal..." >
                     </div>
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12" >
+                        <label for="patrimony_sit">Situação:</label><br>
+                        <select id="patrimony_sit" name="patrimony_sit" class="custom-select form-control-sm">
+                            <option selected value="active">Ativo</option>
+                            <option value="inactive">Inativo</option>
+                        </select>
+                    </div>
                 </div><!--End div hidden 3 -->
 
                 <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
                         <label for="patrimony_info">Observações:</label>
-                        <textarea id="patrimony_info" class="form-control" name="patrimony_info" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ></textarea>
+                        <textarea id="patrimony_obs" class="form-control" name="patrimony_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ></textarea>
                     </div>
                 </div><!--End div hidden 4 -->
                 <div class="row form-compact row-button-hide" style="display: none;"><!--Start  div hidden button 1-->
@@ -161,7 +168,7 @@ date('Y-m-d H:i:s', time());
     <div class="form-group col-md-4 col-sm-10 col-xs-12">
         <div id="custom-search-input">
             <div class="input-group">
-                <input type="text" class="search form-control disable-focus" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
+                <input type="text" class="search form-control disable-focus" id="keywords" placeholder="Buscar por: Código ou Descrição..." onkeyup="objFinanca.ajaxFilter();">
                 <span class="input-group-btn">
                     <button class="btn btn-info btn-lg" type="button">
                         <i class="fa fa-search"></i>
@@ -184,8 +191,8 @@ date('Y-m-d H:i:s', time());
             <option value="">Ordenar Por</option>
             <option value="asc">Ascendente</option>
             <option value="desc">descendente</option>
-            <option value="active">Pago</option>
-            <option value="inactive">Não Pago</option>
+            <option value="active">Ativo</option>
+            <option value="inactive">Inativo</option>
         </select>
     </div><!--/End col-->
 </div><!--End row filtros -->
@@ -209,39 +216,20 @@ date('Y-m-d H:i:s', time());
             </div>
             <div class="modal-body">
                 <ul class="list-group list-modal-forn">
-                    <li class="list-group-item list-group-item-text"><b>EMPRESA:</b>&nbsp;<span class="patrimony_name"></span></li> 
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>CPF / CNPJ:</b>&nbsp;<span class="patrimony_cpf_cnpj">----</span></li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Razão social:</b>&nbsp;<span class="patrimony_rs">----</span> </li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Área de atuação:</b>&nbsp;<span class="patrimony_at"></span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Endereço:</b>&nbsp;<span class="patrimony_end">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Bairro:</b>&nbsp;<span class="patrimony_district">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Cidade:</b>&nbsp;<span class="patrimony_city">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>UF:</b>&nbsp;<span class="patrimony_uf">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>CEP:</b>&nbsp;<span class="patrimony_cep"></span></li> 
-                    <li class="list-group-item list-group-item-text"><b>País:</b>&nbsp;<span class="patrimony_nation">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Celular:</b>&nbsp;<span class="patrimony_cel">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Telefone 1:</b>&nbsp;<span class="patrimony_tel_1"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Telefone 2:</b>&nbsp;<span class="patrimony_tel_2">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Inscrição Estadual:</b>&nbsp;<span class="patrimony_insc_uf">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b> Site url:</b>&nbsp;<span class="patrimony_web_url">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>E-mail:</b>&nbsp;<span class="patrimony_email">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Nome do representante:</b>&nbsp;<span class="patrimony_rep_name">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Apelido representante:</b>&nbsp;<span class="patrimony_rep_apelido"></span></li> 
-                    <li class="list-group-item list-group-item-text"><b>Representante celular:</b>&nbsp;<span class="patrimony_rep_cel">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Representante telefone 1:</b>&nbsp;<span class="patrimony_rep_tel_1">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Representante telefone 2:</b>&nbsp;<span class="patrimony_rep_tel_2"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Representante E-mail:</b>&nbsp;<span class="patrimony_rep_email">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Banco 1:</b>&nbsp;<span class="patrimony_banco_1">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Agência 1:</b>&nbsp;<span class="patrimony_agencia_1">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Conta 1:</b>&nbsp;<span class="patrimony_conta_1">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Titular 1:</b>&nbsp;<span class="patrimony_titular_1">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Banco 2:</b>&nbsp;<span class="patrimony_banco_2"></span></li> 
-                    <li class="list-group-item list-group-item-text"><b>Agência 2:</b>&nbsp;<span class="patrimony_agencia_2">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Conta 2:</b>&nbsp;<span class="patrimony_conta_2">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Titular 2:</b>&nbsp;<span class="patrimony_titular_2"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Criado em:</b>&nbsp;<span class="patrimony_created">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="patrimony_modified">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Observações:</b>&nbsp;<span class="patrimony_obs">----</span></li>
+                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Código:</b>&nbsp;<span class="patrimony_cod">----</span></li>
+                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Descrição:</b>&nbsp;<span class="patrimony_desc">----</span> </li>
+                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Data de aquisisção:</b>&nbsp;<span class="patrimony_data_aq"></span></li>
+                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Cor:</b>&nbsp;<span class="patrimony_cor">----</span></li>
+                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Fornecedor:</b>&nbsp;<span class="patrimony_for">----</span></li>
+                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Dimensão:</b>&nbsp;<span class="patrimony_dimen">----</span></li>
+                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Setor:</b>&nbsp;<span class="patrimony_setor">----</span></li>
+                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Valor:</b>&nbsp;<span class="patrimony_valor"></span></li> 
+                    <li class="list-group-item list-group-item-text"><b>Garantia:</b>&nbsp;<span class="patrimony_nation">----</span></li>
+                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Quantidade:</b>&nbsp;<span class="patrimony_quant">----</span> </li>
+                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Nota fiscal:</b>&nbsp;<span class="patrimony_nf"></span></li>
+                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Observações:</b>&nbsp;<span class="patrimony_obs">----</span></li>
+                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Criado em:</b>&nbsp;<span class="patrimony_created">----</span></li>
+                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="patrimony_modified">----</span></li>
                 </ul>
             </div>
             <div class="modal-footer">
