@@ -729,14 +729,14 @@ $(function () {
         $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
         $(' .form-hide, #group-btn-hide, .row-button-hide, .notice-hide ').fadeIn();
-        $('.form-register').find('input').val('');
+        $('.form-register').find('input, textarea').val('');
         $('legend span').text(' - Inserindo registro');
     });
     
     //--> Rotina que limpa formulário apos edição e remoção de dados
     $('.container').on('click', '#btn-edit-save, #btn-dell', function (){
         $(' .form-hide, #group-btn-hide, #group-btn-show, .row-button-hide, .notice-hide ').fadeOut();
-        $('.form-register').find('input').val('');
+        $('.form-register').find('input, textarea').val('');
         $('#group-btn-new').fadeIn();
         $('legend span').text('');
         $('html, body').animate({scrollTop:0}, 'slow');
@@ -778,7 +778,7 @@ $(function () {
     $('.container').on('click', '#btn-form-new', function(e) {
         e.preventDefault();
         // Limpa os campos
-        $('.form-register').find('input').val('');
+        $('.form-register').find('input, textarea').val('');
         $('#btn-edit-save').attr('id',"btn-save");
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - Inserindo registro');
