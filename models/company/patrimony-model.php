@@ -115,7 +115,7 @@ class PatrimonyModel extends MainModel
             'patrimony_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
             'patrimony_garan'       =>  chk_array($this->form_data, 'patrimony_garan'),
             'patrimony_quant'       =>  chk_array($this->form_data, 'patrimony_quant'),
-            'patrimony_sit'        =>  chk_array($this->form_data, 'patrimony_sit'),
+            'patrimony_sit'         =>  chk_array($this->form_data, 'patrimony_sit'),
             'patrimony_nf'          =>  chk_array($this->form_data, 'patrimony_nf'),
             'patrimony_obs'         =>  chk_array($this->form_data, 'patrimony_obs'),
             'patrimony_created'     =>  date('Y-m-d H:i:s', time())
