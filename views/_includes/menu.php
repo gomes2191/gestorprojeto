@@ -11,7 +11,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="<?= HOME_URI; ?>" title="Página inicial">
-                            <i class="fa fa-home" aria-hidden="true"></i>
+                            HOME
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
