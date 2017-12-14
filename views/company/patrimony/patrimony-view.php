@@ -124,7 +124,7 @@ date('Y-m-d H:i:s', time());
 
                 <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                        <label for="patrimony_info">Observações:</label>
+                        <label for="patrimony_obs">Observações:</label>
                         <textarea id="patrimony_obs" class="form-control" name="patrimony_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ></textarea>
                     </div>
                 </div><!--End div hidden 4 -->

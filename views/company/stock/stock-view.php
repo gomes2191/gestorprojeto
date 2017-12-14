@@ -21,10 +21,10 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 $limit = 5;
 
 # Realiza um consulta na base de dados e reatorna os valores
-$patrimonys = $modelo->searchTable('patrimony', ['order_by' => 'patrimony_id DESC ', 'limit' => $limit]);
+$patrimonys = $modelo->searchTable('stock', ['order_by' => 'stock_id DESC ', 'limit' => $limit]);
 
 $pagConfig = [
-    'totalRows' => COUNT($modelo->searchTable('patrimony')),
+    'totalRows' => COUNT($modelo->searchTable('stock')),
     'perPage' => $limit,
     'link_func' => 'searchFilter'];
 
@@ -61,46 +61,55 @@ date('Y-m-d H:i:s', time());
                 </div>    
                 <div class="row form-hide" style="display: none;"><!-- Start div hidden 2 -->
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_cod">Código:</label>
-                        <input type="hidden" id="patrimony_id" name="patrimony_id" value="" >
-                        <input id="patrimony_cod" name="patrimony_cod" type="text" class="form-control form-control-sm text-center" placeholder="Código do produto..." >
+                        <label for="stock_cod">Código:</label>
+                        <input type="hidden" id="stock_id" name="stock_id" value="" >
+                        <input id="stock_cod" name="stock_cod" type="text" class="form-control form-control-sm text-center" placeholder="Ex: G300, P20, M30..." >
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_desc">Descrição:</label>
-                        <input id="patrimony_desc" name="patrimony_desc" type="text" class="form-control form-control-sm text-center" placeholder="Descrição do produto..." >
+                        <label for="stock_desc">Descrição do produto:</label>
+                        <input id="stock_desc" name="stock_desc" type="text" class="form-control form-control-sm text-center" placeholder="Produto - Marca" >
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_data_aq">Tipo unitário:</label>
-                        <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control form-control-sm text-center" type="text" placeholder="Tipo unitário..." value="">
+                        <label for="stock_tipo_unit">Tipo unitário:</label><br>
+                        <select id="stock_tipo_unit" name="stock_tipo_unit" class="custom-select form-control-sm">
+                            <option value="">Open this select menu</option>
+                            <option selected value="active">Teste um</option>
+                            <option value="inactive">Inativo</option>
+                        </select>
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_cor">Fornecedor:</label>
-                        <input id="patrimony_cor" name="patrimony_cor" class="form-control form-control-sm text-center" type="text" placeholder="Fornecedor..." value="">
+                        <label for="stock_forn">Fornecedor:</label>
+                        <input id="stock_forn" name="stock_forn" class="form-control form-control-sm text-center" type="text" placeholder="Fornecedor..." value="">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12" >
-                        <label for="patrimony_for">Estoque minimo:</label>
-                        <input id="patrimony_for" name="patrimony_for" type="text" class="form-control form-control-sm text-center" placeholder="Estoque minimo..." >
+                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                        <label for="stock_inicial">Estoque inícial:</label>
+                        <input id="stock_inicial" name="stock_inicial" type="text" class="form-control form-control-sm text-center" placeholder="100" >
                     </div>
+                    
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_dimen">Estoque inícial:</label>
-                        <input id="patrimony_dimen" name="patrimony_dimen" type="text" class="form-control form-control-sm text-center" placeholder="Estoque inícial..." >
+                        <label for="stock_minimo">Estoque mínimo:</label>
+                        <input id="stock_minimo" name="stock_minimo" type="text" class="form-control form-control-sm text-center" placeholder="10" >
                     </div>
                 </div><!-- End div hidden 2 -->
 
                 <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
+                    <div class="form-group col-md-2 col-sm-12 col-xs-12" >
+                        <label for="stock_atual">Estoque atual:</label>
+                        <input id="stock_atual" name="stock_atual" type="text" class="form-control form-control-sm text-center" placeholder="95" >
+                    </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_setor">Valor:</label>
-                        <input id="patrimony_setor" name="patrimony_setor" type="text" class="form-control form-control-sm text-center" placeholder="R$..." >
+                        <label for="stock_prec">Preço:</label>
+                        <input id="stock_prec" name="stock_prec" type="text" class="form-control form-control-sm text-center" placeholder="R$..." >
                     </div>
                 </div><!--End div hidden 3 -->
 
                 <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                        <label for="patrimony_info">Observações:</label>
-                        <textarea id="patrimony_obs" class="form-control" name="patrimony_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ></textarea>
+                        <label for="stock_obs">Observações:</label>
+                        <textarea id="stock_obs" class="form-control" name="stock_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ></textarea>
                     </div>
                 </div><!--End div hidden 4 -->
                 <div class="row form-compact row-button-hide" style="display: none;"><!--Start  div hidden button 1-->
@@ -217,7 +226,7 @@ date('Y-m-d H:i:s', time());
     <script>// Start script -->
         // Parâmetros necessários para a requisição Ajax
         var objFinanca = new Financeiro();
-        objFinanca.setAjaxData('<?= HOME_URI; ?>/company-patrimony/filters');
+        objFinanca.setAjaxData('<?= HOME_URI; ?>/company-stock/filters');
         objFinanca.ajaxData();
         objFinanca.getAjaxData();
 
@@ -227,10 +236,10 @@ date('Y-m-d H:i:s', time());
             if (objData.type === 'loadInfo' || objData.type === 'loadEdit') {
                 typeExec = objData.type;
                 if (objData.type === 'loadEdit') {
-                    objFinanca.setAjaxActionUser(objSet = {type: objData.type, url: '<?= HOME_URI; ?>/company-patrimony/ajax-process', id: objData.id});
+                    objFinanca.setAjaxActionUser(objSet = {type: objData.type, url: '<?= HOME_URI; ?>/company-stock/ajax-process', id: objData.id});
                     objFinanca.ajaxActionUser();
                 } else {
-                    objFinanca.setAjaxActionUser(objSet = {type: objData.type, url: '<?= HOME_URI; ?>/company-patrimony/ajax-process', id: objData.id});
+                    objFinanca.setAjaxActionUser(objSet = {type: objData.type, url: '<?= HOME_URI; ?>/company-stock/ajax-process', id: objData.id});
                     objFinanca.ajaxActionUser();
                 }
 
@@ -240,7 +249,7 @@ date('Y-m-d H:i:s', time());
                 $('#filtros').show();
                 objFinanca.setAjaxActionUser(
                         objSet = {type: objData.type,
-                            url: '<?= HOME_URI; ?>/company-patrimony/ajax-process',
+                            url: '<?= HOME_URI; ?>/company-stock/ajax-process',
                             userData: objData.userData}
                 );
                 objFinanca.ajaxActionUser();
@@ -249,7 +258,7 @@ date('Y-m-d H:i:s', time());
                 feedback = 'Atualizado com sucessso!';
                 objFinanca.setAjaxActionUser(
                         objSet = {type: objData.type,
-                            url: '<?= HOME_URI; ?>/company-patrimony/ajax-process',
+                            url: '<?= HOME_URI; ?>/company-stock/ajax-process',
                             userData: objData.userData}
                 );
                 objFinanca.ajaxActionUser();
@@ -259,7 +268,7 @@ date('Y-m-d H:i:s', time());
                     feedback = 'Remoção realizada com sucesso!';
                     objFinanca.setAjaxActionUser(
                             objSet = {type: objData.type,
-                                url: '<?= HOME_URI; ?>/company-patrimony/ajax-process',
+                                url: '<?= HOME_URI; ?>/company-stock/ajax-process',
                                 userData: objData.userData}
                     );
                     objFinanca.ajaxActionUser();

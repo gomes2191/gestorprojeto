@@ -1,7 +1,7 @@
 <?php   if (!defined('ABSPATH')) {  exit(); }
     
     # Parâmetros de páginação
-    $tblName = 'patrimony';
+    $tblName = 'stock';
     $conditions = [];
 
     # Recebe o valor da quantidade de registro por páginas.
@@ -20,47 +20,47 @@
     $start = !empty(filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT)) ? filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) : 0;
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
-        $conditions['search'] = ['patrimony_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'patrimony_cod' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
+        $conditions['search'] = ['stock_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'stock_cod' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-        $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
+        $conditions['order_by'] = "stock_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
         unset($allReg);
         $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
         
         switch ($sortBy) {
-            case 'active':
-                $conditions['active'] = ['patrimony_sit' => 'active'];
-                $conditions['order_by'] = 'patrimony_id DESC';
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-                $conditions['start'] = $start;
-                $conditions['limit'] = $limit;
-                $allReg = $modelo->searchTable( $tblName, $conditions );
-                break;            
-            case 'inactive':
-                $conditions['inactive'] = ['patrimony_sit' => 'inactive'];
-                $conditions['order_by'] = 'patrimony_id DESC';
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-                $conditions['start'] = $start;
-                $conditions['limit'] = $limit;
-                $allReg = $modelo->searchTable( $tblName, $conditions );
-                break;
+//            case 'active':
+//                $conditions['active'] = ['stock_sit' => 'active'];
+//                $conditions['order_by'] = 'stock_id DESC';
+//                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+//                $conditions['start'] = $start;
+//                $conditions['limit'] = $limit;
+//                $allReg = $modelo->searchTable( $tblName, $conditions );
+//                break;            
+//            case 'inactive':
+//                $conditions['inactive'] = ['patrimony_sit' => 'inactive'];
+//                $conditions['order_by'] = 'patrimony_id DESC';
+//                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+//                $conditions['start'] = $start;
+//                $conditions['limit'] = $limit;
+//                $allReg = $modelo->searchTable( $tblName, $conditions );
+//                break;
             case 'asc':
-                $conditions['order_by'] = "patrimony_id ASC";
+                $conditions['order_by'] = "stock_id ASC";
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'desc':
-                $conditions['order_by'] = "patrimony_id DESC";
+                $conditions['order_by'] = "stock_id DESC";
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'new':
-                $conditions['id'] = 'patrimony_id';
+                $conditions['id'] = 'stock_id';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;   
@@ -68,9 +68,9 @@
                 break;
         }
     } else {
-        $conditions['order_by'] = "patrimony_id DESC LIMIT 100";
+        $conditions['order_by'] = "stock_id DESC LIMIT 100";
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-        $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
+        $conditions['order_by'] = "stock_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }
     
@@ -100,20 +100,20 @@ HTML;
         $count = 0;
         foreach ($allReg as $reg) : $count++;
             echo '<tr class="text-center">';
-            echo '<td>'.$reg['patrimony_id'].'</td>';
-            echo '<td>'.$reg['patrimony_cod'].'</td>';
-            echo '<td>'.(($reg['patrimony_desc']) ? $reg['patrimony_desc'] : '---') .'</td>';
-            echo '<td>'.(($reg['patrimony_setor']) ? $reg['patrimony_setor'] : '---') .'</td>';
-            echo '<td>'.(($reg['patrimony_valor']) ? $reg['patrimony_valor'] : '---') .'</td>';
+            echo '<td>'.$reg['stock_id'].'</td>';
+            echo '<td>'.$reg['stock_cod'].'</td>';
+            echo '<td>'.(($reg['stock_desc']) ? $reg['stock_desc'] : '---') .'</td>';
+            echo '<td>'.(($reg['stock_forn']) ? $reg['stock_forn'] : '---') .'</td>';
+            echo '<td>'.(($reg['stock_prec']) ? $reg['stock_prec'] : '---') .'</td>';
             
             
             //echo '<td>'.(($reg['patrimony_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_created']) : '---') .'</td>';
             //echo '<td>'.(($reg['patrimony_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_modified']) : '---') .'</td>';
             //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             //echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})} >EDITAR</button></td>";
-            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}>DELETAR</a></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
+            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['stock_id'])}'})} >EDITAR</button></td>";
+            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['stock_id'])}'})}>DELETAR</a></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['stock_id'])}'})} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML
