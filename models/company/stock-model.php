@@ -71,21 +71,21 @@ class StockModel extends MainModel
             } # End foreach
             
             # Verifica se existe o ID e decodifica se o mesmo existir.
-            ( !empty($this->form_data['patrimony_id']) ) 
-            ? $this->form_data['patrimony_id'] = $this->encode_decode(0, $this->form_data['patrimony_id']) : '';
+            ( !empty($this->form_data['stock_id']) ) 
+            ? $this->form_data['stock_id'] = $this->encode_decode(0, $this->form_data['stock_id']) : '';
         }else {
             # Finaliza a execução.
             return 'err';
         } #--> End
         
         # Verifica se o registro já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = ? ',[
-            chk_array($this->form_data, 'patrimony_id')
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `stock` WHERE `stock_id` = ? ',[
+            chk_array($this->form_data, 'stock_id')
         ]);
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
-            $this->updateRegister( $this->form_data['patrimony_id'] );
+            $this->updateRegister( $this->form_data['stock_id'] );
         }else{
             //var_dump($this->form_data);die;
             $this->insertRegister();
@@ -102,23 +102,19 @@ class StockModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'patrimony_date_patrimony'))));die;
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'stock_date_stock'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('patrimony',[
-            'patrimony_cod'         =>  chk_array($this->form_data, 'patrimony_cod'),
-            'patrimony_desc'        =>  chk_array($this->form_data, 'patrimony_desc'),
-            'patrimony_data_aq'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
-            'patrimony_cor'         =>  chk_array($this->form_data, 'patrimony_cor'),
-            'patrimony_for'         =>  chk_array($this->form_data, 'patrimony_for'),
-            'patrimony_dimen'       =>  chk_array($this->form_data, 'patrimony_dimen'),
-            'patrimony_setor'       =>  chk_array($this->form_data, 'patrimony_setor'),
-            'patrimony_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
-            'patrimony_garan'       =>  chk_array($this->form_data, 'patrimony_garan'),
-            'patrimony_quant'       =>  chk_array($this->form_data, 'patrimony_quant'),
-            'patrimony_sit'         =>  chk_array($this->form_data, 'patrimony_sit'),
-            'patrimony_nf'          =>  chk_array($this->form_data, 'patrimony_nf'),
-            'patrimony_obs'         =>  chk_array($this->form_data, 'patrimony_obs'),
-            'patrimony_created'     =>  date('Y-m-d H:i:s', time())
+        $query_ins = $this->db->insert('stock',[
+            'stock_cod'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
+            'stock_desc'        =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
+            'stock_tipo_unit'   =>  $this->avaliar(chk_array($this->form_data, 'stock_tipo_unit')),
+            'stock_forn'        =>  $this->avaliar(chk_array($this->form_data, 'stock_forn')),
+            'stock_inicial'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_inicial')),
+            'stock_minimo'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_minimo')),
+            'stock_atual'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_atual')),
+            'stock_prec'        =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_prec')),
+            'stock_obs'         =>  $this->avaliar(chk_array($this->form_data, 'stock_obs')),
+            'stock_created'     =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -148,21 +144,17 @@ class StockModel extends MainModel
         # Verifica se existe ID
         if ( $registro_id ) {
             # Efetua o update do registro
-            $query_up = $this->db->update('patrimony', 'patrimony_id', $registro_id,[
-                'patrimony_cod'        =>  chk_array($this->form_data, 'patrimony_cod'),
-                'patrimony_desc'       =>  chk_array($this->form_data, 'patrimony_desc'),
-                'patrimony_data_aq'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
-                'patrimony_cor'        =>  chk_array($this->form_data, 'patrimony_cor'),
-                'patrimony_for'        =>  chk_array($this->form_data, 'patrimony_for'),
-                'patrimony_dimen'      =>  chk_array($this->form_data, 'patrimony_dimen'),
-                'patrimony_setor'      =>  chk_array($this->form_data, 'patrimony_setor'),
-                'patrimony_valor'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
-                'patrimony_garan'      =>  chk_array($this->form_data, 'patrimony_garan'),
-                'patrimony_quant'      =>  chk_array($this->form_data, 'patrimony_quant'),
-                'patrimony_nf'         =>  chk_array($this->form_data, 'patrimony_nf'),
-                'patrimony_sit'        =>  chk_array($this->form_data, 'patrimony_sit'),
-                'patrimony_obs'        =>  chk_array($this->form_data, 'patrimony_info'),
-                'patrimony_modified'   =>  date('Y-m-d H:i:s', time())
+            $query_up = $this->db->update('stock', 'stock_id', $registro_id,[
+                'stock_cod'         =>  $this->avaliar(chk_array($this->form_data, 'stock_cod')),
+                'stock_desc'        =>  $this->avaliar(chk_array($this->form_data, 'stock_desc')),
+                'stock_tipo_unit'   =>  $this->avaliar(chk_array($this->form_data, 'stock_tipo_unit')),
+                'stock_forn'        =>  $this->avaliar(chk_array($this->form_data, 'stock_forn')),
+                'stock_inicial'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_inicial')),
+                'stock_minimo'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_minimo')),
+                'stock_atual'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_atual')),
+                'stock_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_prec')),
+                'stock_obs'         =>  $this->avaliar(chk_array($this->form_data, 'stock_obs')),
+                'stock_modified'    =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -230,7 +222,7 @@ class StockModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `stock` WHERE `stock_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
@@ -240,7 +232,7 @@ class StockModel extends MainModel
             
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('patrimony', 'patrimony_id', $decode_id);
+            $query_del = $this->db->delete('stock', 'stock_id', $decode_id);
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
@@ -286,12 +278,12 @@ class StockModel extends MainModel
             
             # The output
             echo '<tr>';			
-            echo '<td class="small">'.$result['patrimony_id'].'</td>';
-            echo '<td class="small">'.$result['patrimony_venc'].'</td>';
-            echo '<td class="small">'.$result['patrimony_date_patrimony'].'</td>';
-            echo '<td class="small">'.$result['patrimony_cat'].'</td>';
-            echo '<td class="small">'.$result['patrimony_desc'].'</td>';
-            echo '<td class="small">'.$result['patrimony_val'].'</td>';
+            echo '<td class="small">'.$result['stock_id'].'</td>';
+            echo '<td class="small">'.$result['stock_venc'].'</td>';
+            echo '<td class="small">'.$result['stock_date_stock'].'</td>';
+            echo '<td class="small">'.$result['stock_cat'].'</td>';
+            echo '<td class="small">'.$result['stock_desc'].'</td>';
+            echo '<td class="small">'.$result['stock_val'].'</td>';
             echo '</tr>';	
         }
     }
@@ -319,14 +311,14 @@ class StockModel extends MainModel
         $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
         
         // Prepara a conversao para o formato desejado
-        foreach ($queryResult as $patrimony) {
+        foreach ($queryResult as $stock) {
             $mysql_data[] = [
-                "patrimony_id"        => $patrimony['patrimony_id'],
-                "patrimony_venc"      => $patrimony['patrimony_venc'],
-                "patrimony_date_patrimony"  => $patrimony['patrimony_date_patrimony'],
-                "patrimony_cat"       => '$ ' . $patrimony['patrimony_cat'],
-                "patrimony_desc"      => $patrimony['patrimony_desc'],
-                "patrimony_val"       => $patrimony['patrimony_val']
+                "stock_id"        => $stock['stock_id'],
+                "stock_venc"      => $stock['stock_venc'],
+                "stock_date_stock"  => $stock['stock_date_stock'],
+                "stock_cat"       => '$ ' . $stock['stock_cat'],
+                "stock_desc"      => $stock['stock_desc'],
+                "stock_val"       => $stock['stock_val']
             ];
         }
         
@@ -352,7 +344,7 @@ class StockModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `patrimony` WHERE `patrimony_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `stock` WHERE `stock_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {

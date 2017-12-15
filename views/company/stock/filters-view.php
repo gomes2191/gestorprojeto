@@ -90,8 +90,8 @@
                         <th class="small text-center">#</th>
                         <th class="small text-center">CÓDIGO</th>
                         <th class="small text-center">DESCRIÇÃO</th>
-                        <th class="small text-center">SETOR</th>
-                        <th class="small text-center">VALOR</th>
+                        <th class="small text-center">FORNECEDOR</th>
+                        <th class="small text-center">PREÇO</th>
                         <th colspan="3" class="small text-center">AÇÃO</th>
                     </tr>
                 </thead>

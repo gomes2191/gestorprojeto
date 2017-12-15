@@ -214,6 +214,28 @@ class MainModel {
         return $valor;
     }
     
+    /**
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_table_data() 
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
+     * */
+    public function get_table_data($campo, $table, $id) {
+        #Simplesmente seleciona os dados na base de dados
+        $query = $this->db->query("SELECT  $campo FROM $table ORDER BY $id");
+
+        // Verifica se a consulta está OK
+        if (!$query) {
+            
+            #Finaliza
+            return;
+        }
+        
+        # Retorna os valores da consulta
+        return $query->fetchAll(PDO::FETCH_BOTH);
+    }   # End get_table_data()
+    
     public function searchTable($table_name, $conditions=[]) {
         $sql = 'SELECT ';
         $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';

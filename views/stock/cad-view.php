@@ -61,7 +61,7 @@ $form_msg = $modelo->form_msg;
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="stock_tipo_unit">Tipo unitário:</label>
                         <select name="stock_tipo_unit" class="form-control">
-                            <?php foreach ($modelo->get_table_data('*', 'stock_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
+                            <?php foreach ($modelo->get_table_data('*', 'stock_tipo_unit', 'tipo_unitario_id') as $fetch_userdata): ?>
                                 <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'stock_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
                             <?php endforeach; unset($fetch_userdata); ?>
                         </select>

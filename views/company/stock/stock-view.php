@@ -21,7 +21,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 $limit = 5;
 
 # Realiza um consulta na base de dados e reatorna os valores
-$patrimonys = $modelo->searchTable('stock', ['order_by' => 'stock_id DESC ', 'limit' => $limit]);
+$stock = $modelo->searchTable('stock', ['order_by' => 'stock_id DESC ', 'limit' => $limit]);
 
 $pagConfig = [
     'totalRows' => COUNT($modelo->searchTable('stock')),
@@ -74,9 +74,9 @@ date('Y-m-d H:i:s', time());
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="stock_tipo_unit">Tipo unitário:</label><br>
                         <select id="stock_tipo_unit" name="stock_tipo_unit" class="custom-select form-control-sm">
-                            <option value="">Open this select menu</option>
-                            <option selected value="active">Teste um</option>
-                            <option value="inactive">Inativo</option>
+                            <?php foreach ($modelo->get_table_data('*', 'stock_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
+                                <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'stock_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
+                            <?php endforeach; unset($fetch_userdata); ?>
                         </select>
                     </div>
 
@@ -248,18 +248,18 @@ date('Y-m-d H:i:s', time());
                 feedback = 'Inserido com sucesso!';
                 $('#filtros').show();
                 objFinanca.setAjaxActionUser(
-                        objSet = {type: objData.type,
-                            url: '<?= HOME_URI; ?>/company-stock/ajax-process',
-                            userData: objData.userData}
+                    objSet = {type: objData.type,
+                        url: '<?= HOME_URI; ?>/company-stock/ajax-process',
+                        userData: objData.userData}
                 );
                 objFinanca.ajaxActionUser();
             } else if (objData.type === 'update') {
                 objData.userData = $("#editForm").serialize() + '&action_type=' + objData.type;
                 feedback = 'Atualizado com sucessso!';
                 objFinanca.setAjaxActionUser(
-                        objSet = {type: objData.type,
-                            url: '<?= HOME_URI; ?>/company-stock/ajax-process',
-                            userData: objData.userData}
+                    objSet = {type: objData.type,
+                        url: '<?= HOME_URI; ?>/company-stock/ajax-process',
+                        userData: objData.userData}
                 );
                 objFinanca.ajaxActionUser();
             } else if (objData.type === 'delete') {
@@ -267,9 +267,9 @@ date('Y-m-d H:i:s', time());
                     objData.userData = 'action_type=' + objData.type + '&id=' + objData.id;
                     feedback = 'Remoção realizada com sucesso!';
                     objFinanca.setAjaxActionUser(
-                            objSet = {type: objData.type,
-                                url: '<?= HOME_URI; ?>/company-stock/ajax-process',
-                                userData: objData.userData}
+                        objSet = {type: objData.type,
+                            url: '<?= HOME_URI; ?>/company-stock/ajax-process',
+                            userData: objData.userData}
                     );
                     objFinanca.ajaxActionUser();
                 } else {
