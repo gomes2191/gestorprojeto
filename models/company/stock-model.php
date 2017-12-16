@@ -152,7 +152,7 @@ class StockModel extends MainModel
                 'stock_inicial'     =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_inicial')),
                 'stock_minimo'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_minimo')),
                 'stock_atual'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_atual')),
-                'stock_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_prec')),
+                'stock_prec'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'stock_prec')),
                 'stock_obs'         =>  $this->avaliar(chk_array($this->form_data, 'stock_obs')),
                 'stock_modified'    =>  date('Y-m-d H:i:s', time())
             ]);

@@ -104,7 +104,7 @@ HTML;
             echo '<td>'.$reg['stock_cod'].'</td>';
             echo '<td>'.(($reg['stock_desc']) ? $reg['stock_desc'] : '---') .'</td>';
             echo '<td>'.(($reg['stock_forn']) ? $reg['stock_forn'] : '---') .'</td>';
-            echo '<td>'.(($reg['stock_prec']) ? $reg['stock_prec'] : '---') .'</td>';
+            echo '<td>'.(($reg['stock_prec']) ? '$ '.$reg['stock_prec'] : '---') .'</td>';
             
             
             //echo '<td>'.(($reg['patrimony_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_created']) : '---') .'</td>';

@@ -175,8 +175,8 @@ date('Y-m-d H:i:s', time());
             <option value="">Ordenar Por</option>
             <option value="asc">Ascendente</option>
             <option value="desc">descendente</option>
-            <option value="active">Ativo</option>
-            <option value="inactive">Inativo</option>
+            <!--<option value="active">Ativo</option>-->
+            <!--<option value="inactive">Inativo</option>-->
         </select>
     </div><!--/End col-->
 </div><!--End row filtros -->
@@ -200,20 +200,17 @@ date('Y-m-d H:i:s', time());
             </div>
             <div class="modal-body">
                 <ul class="list-group list-modal-forn">
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Código:</b>&nbsp;<span class="patrimony_cod">----</span></li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Descrição:</b>&nbsp;<span class="patrimony_desc">----</span> </li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Data de aquisisção:</b>&nbsp;<span class="patrimony_data_aq"></span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Cor:</b>&nbsp;<span class="patrimony_cor">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Fornecedor:</b>&nbsp;<span class="patrimony_for">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Dimensão:</b>&nbsp;<span class="patrimony_dimen">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Setor:</b>&nbsp;<span class="patrimony_setor">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Valor:</b>&nbsp;<span class="patrimony_valor"></span></li> 
-                    <li class="list-group-item list-group-item-text"><b>Garantia:</b>&nbsp;<span class="patrimony_nation">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Quantidade:</b>&nbsp;<span class="patrimony_quant">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Nota fiscal:</b>&nbsp;<span class="patrimony_nf"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Observações:</b>&nbsp;<span class="patrimony_obs">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Criado em:</b>&nbsp;<span class="patrimony_created">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="patrimony_modified">----</span></li>
+                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Código:</b>&nbsp;<span class="stock_cod">----</span></li>
+                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Descrição:</b>&nbsp;<span class="stock_desc">----</span> </li>
+                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Tipo unitário:</b>&nbsp;<span class="stock_tipo_unit"></span></li>
+                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Fornecedor:</b>&nbsp;<span class="stock_forn">----</span></li>
+                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Stoque inicial:</b>&nbsp;<span class="stock_inicial">----</span></li>
+                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Stoque mínimo:</b>&nbsp;<span class="stock_minimo">----</span></li>
+                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Stoque atual:</b>&nbsp;<span class="stock_atual">----</span></li>
+                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Preço:</b>&nbsp;<span class="stock_prec"></span></li> 
+                    <li class="list-group-item list-group-item-text"><b>Observações:</b>&nbsp;<span class="stock_obs">----</span></li>
+                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Criado em::</b>&nbsp;<span class="stock_created">----</span> </li>
+                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="stock_modified"></span></li>
                 </ul>
             </div>
             <div class="modal-footer">
