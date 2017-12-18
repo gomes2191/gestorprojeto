@@ -86,50 +86,50 @@
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 2-->
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                 <label for="laboratory_district">Bairro:</label>
-                                <input id="laboratory_district" name="laboratory_district" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_district" name="laboratory_district" type="text" class="form-control form-control-sm" placeholder="Bairro..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_city">Cidade:</label>
-                                <input id="laboratory_city" name="laboratory_city" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_city" name="laboratory_city" type="text" class="form-control form-control-sm" placeholder="Cidade..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_cep">CEP:</label>
-                                <input id="laboratory_cep" name="laboratory_cep" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_cep" name="laboratory_cep" type="text" class="form-control form-control-sm cep" placeholder="00.000-000" >
                             </div>
                             <div class="form-group col-md-1 col-sm-12 col-xs-12">
                                 <label for="laboratory_uf">UF:</label>
-                                <input id="laboratory_uf" name="laboratory_uf" type="text" class="form-control form-control-sm" placeholder="UF..." >
+                                <input id="laboratory_uf" name="laboratory_uf" type="text" class="form-control form-control-sm uf" placeholder="UF..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="laboratory_nation">Pais:</label>
-                                <input id="laboratory_nation" name="laboratory_nation" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <label for="laboratory_nation">País:</label>
+                                <input id="laboratory_nation" name="laboratory_nation" type="text" class="form-control form-control-sm" placeholder="País..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_cel">Celular:</label>
-                                <input id="laboratory_cel" name="laboratory_cel" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_cel" name="laboratory_cel" type="text" class="form-control form-control-sm tel" placeholder="(00) 00000-0000" >
                             </div>
                         </div><!-- End row hidden 2 -->
                         
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_tel_1">Telefone 1:</label>
-                                <input id="laboratory_tel_1" name="laboratory_tel_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_tel_1" name="laboratory_tel_1" type="text" class="form-control form-control-sm tel" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_tel_2">Telefone 2:</label>
-                                <input id="laboratory_tel_2" name="laboratory_tel_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_tel_2" name="laboratory_tel_2" type="text" class="form-control form-control-sm tel" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_insc_uf">Inscrição Estadual:</label>
-                                <input id="laboratory_insc_uf" name="laboratory_insc_uf" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_insc_uf" name="laboratory_insc_uf" type="text" class="form-control form-control-sm" placeholder="Inscrição estadual..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_email">E-mail:</label>
-                                <input id="laboratory_email" name="laboratory_email" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_email" name="laboratory_email" type="email" class="form-control form-control-sm" placeholder="E-mail..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="laboratory_web_url">Web Site:</label>
-                                <input id="laboratory_web_url" name="laboratory_web_url" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <label for="laboratory_web_url">Site:</label>
+                                <input id="laboratory_web_url" name="laboratory_web_url" type="text" class="form-control form-control-sm" placeholder="Site da empresa..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                                 <label for="laboratory_sit">Situação:</label><br>
@@ -147,27 +147,27 @@
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_rep_nome">Nome:</label>
-                                <input id="laboratory_rep_nome" name="laboratory_rep_nome" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_rep_nome" name="laboratory_rep_nome" type="text" class="form-control form-control-sm" placeholder="Nome..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_rep_apelido">Apelido:</label>
-                                <input id="laboratory_rep_apelido" name="laboratory_rep_apelido" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_rep_apelido" name="laboratory_rep_apelido" type="text" class="form-control form-control-sm" placeholder="Apelido..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_rep_email">E-mail:</label>
-                                <input id="laboratory_rep_email" name="laboratory_rep_email" type="text" class="form-control form-control-sm" placeholder="UF..." >
+                                <input id="laboratory_rep_email" name="laboratory_rep_email" type="email" class="form-control form-control-sm" placeholder="E-mail..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_rep_cel">Celular:</label>
-                                <input id="laboratory_rep_cel" name="laboratory_rep_cel" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_rep_cel" name="laboratory_rep_cel" type="text" class="form-control form-control-sm tel" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_rep_tel_1">Telefone 1:</label>
-                                <input id="laboratory_rep_tel_1" name="laboratory_rep_tel_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_rep_tel_1" name="laboratory_rep_tel_1" type="text" class="form-control form-control-sm tel" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_rep_tel_2">Telefone 2:</label>
-                                <input id="laboratory_rep_tel_2" name="laboratory_rep_tel_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_rep_tel_2" name="laboratory_rep_tel_2" type="text" class="form-control form-control-sm tel" placeholder="(00) 00000-0000" >
                             </div>
                         </div><!-- End div hidden 3 -->
                         
@@ -178,38 +178,38 @@
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_banco_1">Banco 1:</label>
-                                <input id="laboratory_banco_1" name="laboratory_banco_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_banco_1" name="laboratory_banco_1" type="text" class="form-control form-control-sm" placeholder="Nome banco..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_agencia_1">Agência 1:</label>
-                                <input id="laboratory_agencia_1" name="laboratory_agencia_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_agencia_1" name="laboratory_agencia_1" type="text" class="form-control form-control-sm" placeholder="Agência..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_conta_1">Conta 1:</label>
-                                <input id="laboratory_conta_1" name="laboratory_conta_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_conta_1" name="laboratory_conta_1" type="text" class="form-control form-control-sm" placeholder="Conta..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_titular_1">Titular 1:</label>
-                                <input id="laboratory_titular_1" name="laboratory_titular_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_titular_1" name="laboratory_titular_1" type="text" class="form-control form-control-sm" placeholder="Titular..." >
                             </div>
                         </div><!-- End div hidden 4 -->
                         
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_banco_2">Banco 2:</label>
-                                <input id="laboratory_banco_2" name="laboratory_banco_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_banco_2" name="laboratory_banco_2" type="text" class="form-control form-control-sm" placeholder="Nome banco..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_agencia_2">Agência 2:</label>
-                                <input id="laboratory_agencia_2" name="laboratory_agencia_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_agencia_2" name="laboratory_agencia_2" type="text" class="form-control form-control-sm" placeholder="Agência..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_conta_2">Conta 2:</label>
-                                <input id="laboratory_conta_2" name="laboratory_conta_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_conta_2" name="laboratory_conta_2" type="text" class="form-control form-control-sm" placeholder="Conta..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_titular_2">Titular 2:</label>
-                                <input id="laboratory_titular_2" name="laboratory_titular_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="laboratory_titular_2" name="laboratory_titular_2" type="text" class="form-control form-control-sm" placeholder="Titular..." >
                             </div>
                         </div><!-- End div hidden 5 -->
                         
@@ -411,7 +411,6 @@
             </div>
         </div><!--End modal editar inserir-->
         <script>
-          
             // Parâmetros necessários para a requisição Ajax
             var objFinanca = new Financeiro();
             objFinanca.setAjaxData('<?= HOME_URI; ?>/company-laboratory/filters');

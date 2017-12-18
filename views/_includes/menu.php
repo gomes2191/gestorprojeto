@@ -26,7 +26,7 @@
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/company-providers">Fornecedores</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/company-patrimony">Patrimônio</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/company-stock">Controle de Estoque</a>
-                            <a class="dropdown-item" href="<?= HOME_URI; ?>/laboratory">Laboratório</a>
+                            <a class="dropdown-item" href="<?= HOME_URI; ?>/company-laboratory">Laboratório</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/covenant">Convênios / Planos</a>
                             <a class="dropdown-item" href="#">Tabela de Honorários</a>
                         </div>

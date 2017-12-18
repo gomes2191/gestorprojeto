@@ -509,15 +509,13 @@ $(document).ready(function () {
         mask: '999.999.999-99'
     });
     $('.cep').inputmask({
-        mask: '99999-999'
+        mask: '99.999-999'
     });
-    $(".tel-casa").inputmask({
+    $(".tel").inputmask({
         mask: '(99) 9999-9999'
     });
-    $(".tel-cel").inputmask({
-        mask: '(99) 99999-9999'
-    });
-    $(".nasc, .data,  #ini-ativi, #fim-ativi").inputmask({
+   
+    $(".data,  #ini-ativi, #fim-ativi").inputmask({
         mask: '99/99/9999'
     });
     $("#dom-1, #dom-2, #seg-1, #seg-2, #ter-1, #ter-2, #qua-1, #qua-2, #qui-1, #qui-2, #sex-1, #sex-2, #sab-1, #sab-2").inputmask({
@@ -728,14 +726,14 @@ $(function () {
         $('#group-btn-new, #group-btn-form-new ').fadeOut();
         $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
-        $(' .form-hide, #group-btn-hide, .row-button-hide, .notice-hide ').fadeIn();
+        $('.form-hide, #group-btn-hide, .row-button-hide, .notice-hide ').fadeIn();
         $('.form-register').find('input, textarea').val('');
         $('legend span').text(' - Inserindo registro');
     });
     
     //--> Rotina que limpa formulário apos edição e remoção de dados
     $('.container').on('click', '#btn-edit-save, #btn-dell', function (){
-        $(' .form-hide, #group-btn-hide, #group-btn-show, .row-button-hide, .notice-hide ').fadeOut();
+        $('.form-hide, #group-btn-hide, #group-btn-show, .row-button-hide, .notice-hide ').fadeOut();
         $('.form-register').find('input, textarea').val('');
         $('#group-btn-new').fadeIn();
         $('legend span').text('');
@@ -818,4 +816,14 @@ $(function () {
 $('.top').click(function(){ 
     $('html, body').animate({scrollTop:0}, 'slow');
     return false;
+});
+
+
+
+// Verifica se os campos foram preenchido
+
+$( function (){
+    $('#btn-save').on('click', function (){
+        alert('Brasil');
+    });
 });
