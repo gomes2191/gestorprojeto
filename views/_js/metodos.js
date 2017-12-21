@@ -295,6 +295,16 @@ function Financeiro() {
 }
 
 
+function Metodos() {
+    
+    
+}
+
+
+
+
+
+
 
 
 //    // Exemplo de uso

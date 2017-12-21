@@ -378,7 +378,7 @@
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
             
-            //Tipo de ação desparada pelo usuário
+            //Tipo de ação disparada pelo usuário
             function typeAction( objData ){     
                 id = (typeof objData.id === "undefined") ? '' : objData.id;
                 if(objData.type === 'loadInfo' || objData.type === 'loadEdit'){
