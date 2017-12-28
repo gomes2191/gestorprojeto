@@ -817,13 +817,3 @@ $('.top').click(function(){
     $('html, body').animate({scrollTop:0}, 'slow');
     return false;
 });
-
-
-
-// Verifica se os campos foram preenchido
-
-$( function (){
-    $('#btn-save').on('click', function (){
-        alert('Brasil');
-    });
-});

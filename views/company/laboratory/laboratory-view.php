@@ -61,11 +61,17 @@
                                 <label for="laboratory_name">Empresa:</label>
                                 <input type="hidden" id="laboratory_id" name="laboratory_id" value="" >
                                 <input id="laboratory_name" name="laboratory_name" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <div class="invalid-feedback">
+                                    Preencha esse campo.
+                                </div>
                             </div>
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="laboratory_cpf_cnpj">CPF/CNPJ:</label>
                                 <input id="laboratory_cpf_cnpj" name="laboratory_cpf_cnpj" type="text" class="form-control form-control-sm" placeholder="CPF/CNPJ" >
+                                <div class="invalid-feedback">
+                                    Preencha esse campo.
+                                </div>
                             </div>
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
@@ -372,11 +378,20 @@
         
         <script>
             
-            // Parâmetros necessários para a requisição Ajax
+            var objMetodos = new Metodos();
             var objFinanca = new Financeiro();
+            
+            // Parâmetros necessários para a requisição Ajax
             objFinanca.setAjaxData('<?= HOME_URI; ?>/company-laboratory/filters');
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
+            
+            
+            $('input').on('keydown keyup', function (){
+                objMetodos.setVerify(arrayData = ['laboratory_name','laboratory_cpf_cnpj']);
+                objMetodos.emptyVerify();
+                objMetodos.getVerify();
+            });
             
             //Tipo de ação disparada pelo usuário
             function typeAction( objData ){     
@@ -392,15 +407,21 @@
                     }
                     
                 }else if ( objData.type === 'add' ) {
-                    objData.userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
-                    feedback = 'Inserido com sucesso!';
-                    $('#filtros').show();
-                    objFinanca.setAjaxActionUser( 
-                        objSet = {type: objData.type,
-                        url:'<?= HOME_URI; ?>/company-laboratory/ajax-process',
-                        userData:objData.userData} 
-                    );
-                    objFinanca.ajaxActionUser();
+                    
+                    if($('#laboratory_name').val() == '' || $('#laboratory_cpf_cnpj').val() == ''){
+                        alert('Existem campos obrigatórios não preenchido.');
+                    }else{
+                        objData.userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
+                        feedback = 'Inserido com sucesso!';
+                        $('#filtros').show();
+                        objFinanca.setAjaxActionUser( 
+                            objSet = {type: objData.type,
+                            url:'<?= HOME_URI; ?>/company-laboratory/ajax-process',
+                            userData:objData.userData} 
+                        );
+                        objFinanca.ajaxActionUser();
+                    }
+                    
                 }else if( objData.type === 'update' ){
                     objData.userData = $("#editForm").serialize()+'&action_type='+objData.type;
                     feedback = 'Atualizado com sucessso!';

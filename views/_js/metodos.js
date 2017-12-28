@@ -297,6 +297,58 @@ function Financeiro() {
 
 function Metodos() {
     
+    //    objSet = { 
+    //        form: $("#addForm"),
+    //        not_empty: ['laboratory_name','laboratory_id']
+    //    };
+    //    objMetodos.setForm( objSet );
+    //    objMetodos.serializeForm();
+    //    objMetodos.getForm();
+    //Propriedades da classe
+    var objForm, objData;
+    
+    //Passando parâmetros
+    this.setForm = function ( objForm ) {
+        this.objForm = objForm;
+        this.objData = {};
+    };
+    
+    //Pega valores
+    this.getForm = function () {
+        return this.objData;
+    };
+    
+    //Executa a função
+    this.serializeForm = function(){
+        var formArray = this.objForm.form.serializeArray();
+        
+        for (var i = 0, n = formArray.length; i < n; ++i)
+            this.objData[formArray[i].name] = formArray[i].value;
+    };
+    
+    
+    //Rotina que verifica se a campos vazios
+    var arrayData;
+    
+    this.setVerify = function (arrayData){
+        this.arrayData = arrayData;
+    }
+    
+    this.getVerify = function () {
+        return this.arrayData;
+    }
+    
+    this.emptyVerify = function (){
+        for (i = 0; i < this.arrayData.length; ++i) {
+            cond = document.getElementById(this.arrayData[i]).value;
+            if (cond == false || cond.length == '') {
+                document.getElementById(this.arrayData[i]).classList.add('is-invalid');
+            } else {
+                document.getElementById(this.arrayData[i]).classList.remove('is-invalid');
+            }
+
+        }
+    };
     
 }
 
