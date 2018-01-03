@@ -66,7 +66,7 @@ class OdontoControl {
         if (!$this->controlador) {
 
             // Adiciona o controlador padrão
-            require_once ABSPATH . '/controllers/register-controller.php';
+            require_once $this->getCaminho(ABSPATH . '/app/controllers', 'register-controller.php');
 
             // Cria o objeto do controlador "home-controller.php"
             // Este controlador deverá ter uma classe chamada HomeController
@@ -79,21 +79,24 @@ class OdontoControl {
             return;
         }
 
-        // Se o arquivo do controlador não existir, não faremos nada
-        if (!file_exists(ABSPATH . '/controllers/' . $this->controlador . '.php')) {
-            // Página não encontrada
+        
+        # Se o arquivo do controlador não existir, não faremos nada
+        if (!file_exists($this->getCaminho(ABSPATH . '/app/controllers/', $this->controlador . '.php'))) {
+            # Página não encontrada
             require_once ABSPATH . $this->not_found;
 
-            // FIM :)
+            # FIM :)
             return;
         }
+        
+        $this->getCaminho(ABSPATH . '/app/controllers/', $this->controlador . '.php');
+        
+        # Inclui o arquivo do controlador
+        require_once $this->getCaminho(ABSPATH . '/app/controllers/', $this->controlador . '.php');
 
-        // Inclui o arquivo do controlador
-        require_once ABSPATH . '/controllers/' . $this->controlador . '.php';
-
-        // Remove caracteres inválidos do nome do controlador para gerar o nome
-        // da classe. Se o arquivo chamar "news-controller.php", a classe deverá
-        // se chamar NewsController.
+        # Remove caracteres inválidos do nome do controlador para gerar o nome
+        # da classe. Se o arquivo chamar "news-controller.php", a classe deverá
+        # se chamar NewsController.
         $this->controlador = preg_replace('/[^a-zA-Z]/i', '', $this->controlador);
 
         // Se a classe do controlador indicado não existir, não faremos nada
@@ -117,17 +120,7 @@ class OdontoControl {
             // FIM :)
             return;
         } // method_exists
-
-        /* // Sem ação, chamamos o método index
-          if ( ! $this->acao && method_exists( $this->controlador, 'index' ) ) {
-          $this->controlador->index( $this->parametros );
-
-          // FIM :)
-          return;
-          } // ! $this->acao
-         */
-
-        // Sem ação, chamamos o método index
+        # Sem ação, chamamos o método index
         if ((!$this->acao || ($this->acao && !method_exists($this->controlador, $this->acao))) && method_exists($this->controlador, 'index')) {
             $this->controlador->index($this->parametros);
 
@@ -139,9 +132,31 @@ class OdontoControl {
 
         // FIM :)
         return;
-    }
+    } # __construct
 
-// __construct
+    function getCaminho($diretorio, $nomeArquivo) {
+        $encontrados = "";
+        $ponteiro = opendir($diretorio);
+
+        while ($nome_itens = readdir($ponteiro)) {
+            $itens[] = $nome_itens;
+        }
+
+        sort($itens);
+
+        foreach ($itens as $listar) {
+            if ($listar != "." && $listar != "..") {
+                if (is_dir($diretorio . '/' . $listar)) {
+                    $encontrados .= $this->getCaminho($diretorio . '/' . $listar, $nomeArquivo);
+                } else {
+                    if (preg_match('/' . $nomeArquivo . '/i', $listar)) {
+                        $encontrados .= $diretorio . '/' . $listar;
+                    }
+                }
+            }
+        }
+        return $encontrados;
+    }
 
     /**
      * Obtém parâmetros de $_GET['path']
@@ -153,24 +168,23 @@ class OdontoControl {
      * http://www.example.com/controlador/acao/parametro1/parametro2/etc...
      */
     public function get_url_data() {
-
-        // Verifica se o parâmetro path foi enviado
-        if ((filter_input(INPUT_GET,'path'))) {
+        # Verifica se o parâmetro path foi enviado
+        if ((filter_input(INPUT_GET, 'path'))) {
 
             # Captura o valor de $_GET['path']
             $path1 = filter_input(INPUT_GET, 'path');
-            
+
             # Remove a barra invertida do final
-            $path2 = preg_replace('/[\/]$/',"",$path1);
-            
-            
+            $path2 = preg_replace('/[\/]$/', "", $path1);
+
+
             // Limpa os dados
             $path3 = rtrim($path2, '/');
             $path4 = filter_var($path3, FILTER_SANITIZE_URL);
 
             // Cria um array de parâmetros
             $path = explode('/', $path4);
-            
+
             // Configura as propriedades
             $this->controlador = chk_array($path, 0);
             $this->controlador .= '-controller';
@@ -184,7 +198,8 @@ class OdontoControl {
                 // Os parâmetros sempre virão após a ação
                 $this->parametros = array_values($path);
             }
-            
         }
     }
+
 } # End class
+

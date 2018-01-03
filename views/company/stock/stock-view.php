@@ -223,7 +223,7 @@ date('Y-m-d H:i:s', time());
     <script>// Start script -->
         // Parâmetros necessários para a requisição Ajax
         var objFinanca = new Financeiro();
-        objFinanca.setAjaxData('<?= HOME_URI; ?>/company-stock/filters');
+        objFinanca.setAjaxData('<?= HOME_URI; ?>/stock/filters');
         objFinanca.ajaxData();
         objFinanca.getAjaxData();
 
@@ -233,10 +233,10 @@ date('Y-m-d H:i:s', time());
             if (objData.type === 'loadInfo' || objData.type === 'loadEdit') {
                 typeExec = objData.type;
                 if (objData.type === 'loadEdit') {
-                    objFinanca.setAjaxActionUser(objSet = {type: objData.type, url: '<?= HOME_URI; ?>/company-stock/ajax-process', id: objData.id});
+                    objFinanca.setAjaxActionUser(objSet = {type: objData.type, url: '<?= HOME_URI; ?>/stock/ajax-process', id: objData.id});
                     objFinanca.ajaxActionUser();
                 } else {
-                    objFinanca.setAjaxActionUser(objSet = {type: objData.type, url: '<?= HOME_URI; ?>/company-stock/ajax-process', id: objData.id});
+                    objFinanca.setAjaxActionUser(objSet = {type: objData.type, url: '<?= HOME_URI; ?>/stock/ajax-process', id: objData.id});
                     objFinanca.ajaxActionUser();
                 }
 
@@ -246,7 +246,7 @@ date('Y-m-d H:i:s', time());
                 $('#filtros').show();
                 objFinanca.setAjaxActionUser(
                     objSet = {type: objData.type,
-                        url: '<?= HOME_URI; ?>/company-stock/ajax-process',
+                        url: '<?= HOME_URI; ?>/stock/ajax-process',
                         userData: objData.userData}
                 );
                 objFinanca.ajaxActionUser();
@@ -255,7 +255,7 @@ date('Y-m-d H:i:s', time());
                 feedback = 'Atualizado com sucessso!';
                 objFinanca.setAjaxActionUser(
                     objSet = {type: objData.type,
-                        url: '<?= HOME_URI; ?>/company-stock/ajax-process',
+                        url: '<?= HOME_URI; ?>/stock/ajax-process',
                         userData: objData.userData}
                 );
                 objFinanca.ajaxActionUser();
@@ -265,7 +265,7 @@ date('Y-m-d H:i:s', time());
                     feedback = 'Remoção realizada com sucesso!';
                     objFinanca.setAjaxActionUser(
                         objSet = {type: objData.type,
-                            url: '<?= HOME_URI; ?>/company-stock/ajax-process',
+                            url: '<?= HOME_URI; ?>/stock/ajax-process',
                             userData: objData.userData}
                     );
                     objFinanca.ajaxActionUser();

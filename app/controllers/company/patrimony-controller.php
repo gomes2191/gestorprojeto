@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class CompanyPatrimonyController extends MainController {
+class patrimonyController extends MainController {
 
     /**
      * $login_required

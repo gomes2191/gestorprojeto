@@ -96,24 +96,23 @@ class MainController extends UserLogin
         // Verifica se o arquivo existe
         if ( file_exists( $model_path ) ) 
         {
-
-            // Inclui o arquivo
+            # Inclui o arquivo
             require_once $model_path;
 
-            // Remove os caminhos do arquivo (se tiver algum)
+            # Remove os caminhos do arquivo (se tiver algum)
             $model_name = explode('/', $model_name);
 
-            // Pega só o nome final do caminho
+            # Pega só o nome final do caminho
             $model_name = end( $model_name );
 
-            // Remove caracteres inválidos do nome do arquivo
+            # Remove caracteres inválidos do nome do arquivo
             $model_name = preg_replace( '/[^a-zA-Z0-9]/is', '', $model_name );
 
-            // Verifica se a classe existe
+            # Verifica se a classe existe
             if ( class_exists( $model_name ) ) 
             {
 
-                // Retorna um objeto da classe
+                # Retorna um objeto da classe
                 return new $model_name( $this->db, $this );
 
             }

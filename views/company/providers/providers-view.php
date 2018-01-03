@@ -404,7 +404,7 @@
           
             // Parâmetros necessários para a requisição Ajax
             var objFinanca = new Financeiro();
-            objFinanca.setAjaxData('<?= HOME_URI; ?>/company-providers/filters');
+            objFinanca.setAjaxData('<?= HOME_URI; ?>/providers/filters');
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
             
@@ -427,7 +427,7 @@
                     $('#filtros').show();
                     objFinanca.setAjaxActionUser( 
                         objSet = {type: objData.type,
-                        url:'<?= HOME_URI; ?>/company-providers/ajax-process',
+                        url:'<?= HOME_URI; ?>/providers/ajax-process',
                         userData:objData.userData} 
                     );
                     objFinanca.ajaxActionUser();
@@ -436,7 +436,7 @@
                     feedback = 'Atualizado com sucessso!';
                     objFinanca.setAjaxActionUser( 
                         objSet = {type: objData.type,
-                        url:'<?= HOME_URI; ?>/company-providers/ajax-process',
+                        url:'<?= HOME_URI; ?>/providers/ajax-process',
                         userData:objData.userData} 
                     );
                     objFinanca.ajaxActionUser();
@@ -446,7 +446,7 @@
                         feedback = 'Remoção realizada com sucesso!';
                         objFinanca.setAjaxActionUser( 
                             objSet = {type: objData.type,
-                            url:'<?= HOME_URI; ?>/company-providers/ajax-process',
+                            url:'<?= HOME_URI; ?>/providers/ajax-process',
                             userData:objData.userData} 
                         );
                         objFinanca.ajaxActionUser();
