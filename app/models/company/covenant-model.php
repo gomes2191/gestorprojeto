@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class CovenantModel extends MainModel 
+class covenantModel extends MainModel 
 {
     /**
      * $form_data
@@ -71,21 +71,21 @@ class CovenantModel extends MainModel
             } # End foreach
             
             # Verifica se existe o ID e decodifica se o mesmo existir.
-            ( !empty($this->form_data['laboratory_id']) ) 
-            ? $this->form_data['laboratory_id'] = $this->encode_decode(0, $this->form_data['laboratory_id']) : '';
+            ( !empty($this->form_data['covenant_id']) ) 
+            ? $this->form_data['covenant_id'] = $this->encode_decode(0, $this->form_data['covenant_id']) : '';
         }else {
             # Finaliza a execução.
             return 'err';
         } #--> End
         
         # Verifica se o registro já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `laboratory` WHERE `laboratory_id` = ? ',[
-            chk_array($this->form_data, 'laboratory_id')
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `covenant` WHERE `covenant_id` = ? ',[
+            chk_array($this->form_data, 'covenant_id')
         ]);
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
-            $this->updateRegister( $this->form_data['laboratory_id'] );
+            $this->updateRegister( $this->form_data['covenant_id'] );
         }else{
             //var_dump($this->form_data);die;
             $this->insertRegister();
@@ -102,42 +102,42 @@ class CovenantModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'laboratory_date_laboratory'))));die;
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'covenant_date_covenant'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('laboratory',[
-            'laboratory_name'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_name')),
-            'laboratory_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cpf_cnpj')),
-            'laboratory_rs'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rs')),
-            'laboratory_at'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_at')),
-            'laboratory_end'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_end')),
-            'laboratory_district'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_district')),
-            'laboratory_city'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_city')),
-            'laboratory_uf'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_uf')),
-            'laboratory_nation'       =>  $this->avaliar(chk_array($this->form_data, 'laboratory_nation')),
-            'laboratory_cep'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cep')),
-            'laboratory_cel'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cel')),
-            'laboratory_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_1')),
-            'laboratory_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_2')),
-            'laboratory_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_insc_uf')),
-            'laboratory_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_web_url')),
-            'laboratory_sit'          =>  chk_array($this->form_data, 'laboratory_sit'),
-            'laboratory_email'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_email')),
-            'laboratory_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_nome')),
-            'laboratory_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_apelido')),
-            'laboratory_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_email')),
-            'laboratory_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_cel')),
-            'laboratory_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_1')),
-            'laboratory_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_2')),
-            'laboratory_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_1')),
-            'laboratory_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_1')),
-            'laboratory_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_1')),
-            'laboratory_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_1')),
-            'laboratory_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_2')),
-            'laboratory_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_2')),
-            'laboratory_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_2')),
-            'laboratory_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_2')),
-            'laboratory_obs'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_obs')),
-            'laboratory_created'      =>  date('Y-m-d H:i:s', time())
+        $query_ins = $this->db->insert('covenant',[
+            'covenant_name'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_name')),
+            'covenant_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_cpf_cnpj')),
+            'covenant_rs'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_rs')),
+            'covenant_at'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_at')),
+            'covenant_end'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_end')),
+            'covenant_district'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_district')),
+            'covenant_city'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_city')),
+            'covenant_uf'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_uf')),
+            'covenant_nation'       =>  $this->avaliar(chk_array($this->form_data, 'covenant_nation')),
+            'covenant_cep'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cep')),
+            'covenant_cel'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cel')),
+            'covenant_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_1')),
+            'covenant_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_2')),
+            'covenant_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_insc_uf')),
+            'covenant_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_web_url')),
+            'covenant_sit'          =>  chk_array($this->form_data, 'covenant_sit'),
+            'covenant_email'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_email')),
+            'covenant_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_nome')),
+            'covenant_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_apelido')),
+            'covenant_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_email')),
+            'covenant_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_cel')),
+            'covenant_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_1')),
+            'covenant_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_2')),
+            'covenant_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_1')),
+            'covenant_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_1')),
+            'covenant_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_1')),
+            'covenant_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_1')),
+            'covenant_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_2')),
+            'covenant_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_2')),
+            'covenant_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_2')),
+            'covenant_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_2')),
+            'covenant_obs'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_obs')),
+            'covenant_created'      =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -167,40 +167,40 @@ class CovenantModel extends MainModel
         # Verifica se existe ID
         if ( $registro_id ) {
             # Efetua o update do registro
-            $query_up = $this->db->update('laboratory', 'laboratory_id', $registro_id,[
-                'laboratory_name'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_name')),
-                'laboratory_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cpf_cnpj')),
-                'laboratory_rs'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rs')),
-                'laboratory_at'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_at')),
-                'laboratory_end'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_end')),
-                'laboratory_district'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_district')),
-                'laboratory_city'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_city')),
-                'laboratory_uf'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_uf')),
-                'laboratory_nation'       =>  $this->avaliar(chk_array($this->form_data, 'laboratory_nation')),
-                'laboratory_cep'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cep')),
-                'laboratory_cel'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cel')),
-                'laboratory_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_1')),
-                'laboratory_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_2')),
-                'laboratory_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_insc_uf')),
-                'laboratory_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_web_url')),
-                'laboratory_sit'          =>  chk_array($this->form_data, 'laboratory_sit'),
-                'laboratory_email'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_email')),
-                'laboratory_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_nome')),
-                'laboratory_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_apelido')),
-                'laboratory_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_email')),
-                'laboratory_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_cel')),
-                'laboratory_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_1')),
-                'laboratory_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_2')),
-                'laboratory_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_1')),
-                'laboratory_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_1')),
-                'laboratory_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_1')),
-                'laboratory_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_1')),
-                'laboratory_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_2')),
-                'laboratory_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_2')),
-                'laboratory_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_2')),
-                'laboratory_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_2')),
-                'laboratory_obs'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_obs')),
-                'laboratory_modified'     =>  date('Y-m-d H:i:s', time())
+            $query_up = $this->db->update('covenant', 'covenant_id', $registro_id,[
+                'covenant_name'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_name')),
+                'covenant_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_cpf_cnpj')),
+                'covenant_rs'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_rs')),
+                'covenant_at'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_at')),
+                'covenant_end'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_end')),
+                'covenant_district'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_district')),
+                'covenant_city'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_city')),
+                'covenant_uf'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_uf')),
+                'covenant_nation'       =>  $this->avaliar(chk_array($this->form_data, 'covenant_nation')),
+                'covenant_cep'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cep')),
+                'covenant_cel'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cel')),
+                'covenant_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_1')),
+                'covenant_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_2')),
+                'covenant_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_insc_uf')),
+                'covenant_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_web_url')),
+                'covenant_sit'          =>  chk_array($this->form_data, 'covenant_sit'),
+                'covenant_email'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_email')),
+                'covenant_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_nome')),
+                'covenant_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_apelido')),
+                'covenant_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_email')),
+                'covenant_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_cel')),
+                'covenant_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_1')),
+                'covenant_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_2')),
+                'covenant_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_1')),
+                'covenant_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_1')),
+                'covenant_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_1')),
+                'covenant_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_1')),
+                'covenant_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_2')),
+                'covenant_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_2')),
+                'covenant_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_2')),
+                'covenant_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_2')),
+                'covenant_obs'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_obs')),
+                'covenant_modified'     =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -268,7 +268,7 @@ class CovenantModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `laboratory` WHERE `laboratory_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `covenant` WHERE `covenant_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
@@ -278,7 +278,7 @@ class CovenantModel extends MainModel
             
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('laboratory', 'laboratory_id', $decode_id);
+            $query_del = $this->db->delete('covenant', 'covenant_id', $decode_id);
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
@@ -326,12 +326,12 @@ class CovenantModel extends MainModel
             
             # The output
             echo '<tr>';			
-            echo '<td class="small">'.$result['laboratory_id'].'</td>';
-            echo '<td class="small">'.$result['laboratory_venc'].'</td>';
-            echo '<td class="small">'.$result['laboratory_date_laboratory'].'</td>';
-            echo '<td class="small">'.$result['laboratory_cat'].'</td>';
-            echo '<td class="small">'.$result['laboratory_desc'].'</td>';
-            echo '<td class="small">'.$result['laboratory_val'].'</td>';
+            echo '<td class="small">'.$result['covenant_id'].'</td>';
+            echo '<td class="small">'.$result['covenant_venc'].'</td>';
+            echo '<td class="small">'.$result['covenant_date_covenant'].'</td>';
+            echo '<td class="small">'.$result['covenant_cat'].'</td>';
+            echo '<td class="small">'.$result['covenant_desc'].'</td>';
+            echo '<td class="small">'.$result['covenant_val'].'</td>';
             echo '</tr>';	
         }
     }
@@ -359,14 +359,14 @@ class CovenantModel extends MainModel
         $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
         
         // Prepara a conversao para o formato desejado
-        foreach ($queryResult as $laboratory) {
+        foreach ($queryResult as $covenant) {
             $mysql_data[] = [
-                "laboratory_id"        => $laboratory['laboratory_id'],
-                "laboratory_venc"      => $laboratory['laboratory_venc'],
-                "laboratory_date_laboratory"  => $laboratory['laboratory_date_laboratory'],
-                "laboratory_cat"       => '$ ' . $laboratory['laboratory_cat'],
-                "laboratory_desc"      => $laboratory['laboratory_desc'],
-                "laboratory_val"       => $laboratory['laboratory_val']
+                "covenant_id"        => $covenant['covenant_id'],
+                "covenant_venc"      => $covenant['covenant_venc'],
+                "covenant_date_covenant"  => $covenant['covenant_date_covenant'],
+                "covenant_cat"       => '$ ' . $covenant['covenant_cat'],
+                "covenant_desc"      => $covenant['covenant_desc'],
+                "covenant_val"       => $covenant['covenant_val']
             ];
         }
         
@@ -392,7 +392,7 @@ class CovenantModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `laboratory` WHERE `laboratory_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `covenant` WHERE `covenant_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {

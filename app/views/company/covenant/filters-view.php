@@ -1,7 +1,7 @@
 <?php   if (!defined('ABSPATH')) {  exit(); }
     
     # Parâmetros de páginação
-    $tblName = 'laboratory';
+    $tblName = 'covenant';
     $conditions = [];
 
     # Recebe o valor da quantidade de registro por páginas.
@@ -20,9 +20,9 @@
     $start = !empty(filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT)) ? filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) : 0;
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
-        $conditions['search'] = ['laboratory_name' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'laboratory_cpf_cnpj' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
+        $conditions['search'] = ['covenant_name' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'covenant_cpf_cnpj' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-        $conditions['order_by'] = "laboratory_id DESC LIMIT $start, $limit";
+        $conditions['order_by'] = "covenant_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
         unset($allReg);
@@ -30,37 +30,37 @@
         
         switch ($sortBy) {
             case 'active':
-                $conditions['active'] = ['laboratory_sit' => 'active'];
-                $conditions['order_by'] = 'laboratory_id DESC';
+                $conditions['active'] = ['covenant_sit' => 'active'];
+                $conditions['order_by'] = 'covenant_id DESC';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;            
             case 'inactive':
-                $conditions['inactive'] = ['laboratory_sit' => 'inactive'];
-                $conditions['order_by'] = 'laboratory_id DESC';
+                $conditions['inactive'] = ['covenant_sit' => 'inactive'];
+                $conditions['order_by'] = 'covenant_id DESC';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'asc':
-                $conditions['order_by'] = "laboratory_id ASC";
+                $conditions['order_by'] = "covenant_id ASC";
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'desc':
-                $conditions['order_by'] = "laboratory_id DESC";
+                $conditions['order_by'] = "covenant_id DESC";
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'new':
-                $conditions['id'] = 'laboratory_id';
+                $conditions['id'] = 'covenant_id';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 
                 $allReg = $modelo->searchTable( $tblName, $conditions );
@@ -69,9 +69,9 @@
                 break;
         }
     } else {
-        $conditions['order_by'] = "laboratory_id DESC LIMIT 100";
+        $conditions['order_by'] = "covenant_id DESC LIMIT 100";
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-        $conditions['order_by'] = "laboratory_id DESC LIMIT $start, $limit";
+        $conditions['order_by'] = "covenant_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }
     
@@ -103,22 +103,22 @@ HTML;
         $count = 0;
         foreach ($allReg as $reg) : $count++;
             echo '<tr class="text-center">';
-            echo '<td>'.$reg['laboratory_id'].'</td>';
-            echo '<td>'.$reg['laboratory_name'].'</td>';
-            echo '<td>'.(($reg['laboratory_cel']) ? $reg['laboratory_cel'] : '---') .'</td>';
-            echo '<td>'.(($reg['laboratory_tel_1']) ? $reg['laboratory_tel_1'] : '---') .'</td>';
-            echo '<td>'.(($reg['laboratory_email']) ? $reg['laboratory_email'] : '---') .'</td>';
-            echo '<td>'.(($reg['laboratory_at']) ? $reg['laboratory_at'] : '---') .'</td>';
-            //echo '<td>'.(($reg['laboratory_city']) ? $reg['laboratory_city'] : '---') .'</td>';
-            echo '<td>'.(($reg['laboratory_uf']) ? $reg['laboratory_uf'] : '---') .'</td>';
+            echo '<td>'.$reg['covenant_id'].'</td>';
+            echo '<td>'.$reg['covenant_name'].'</td>';
+            echo '<td>'.(($reg['covenant_cel']) ? $reg['covenant_cel'] : '---') .'</td>';
+            echo '<td>'.(($reg['covenant_tel_1']) ? $reg['covenant_tel_1'] : '---') .'</td>';
+            echo '<td>'.(($reg['covenant_email']) ? $reg['covenant_email'] : '---') .'</td>';
+            echo '<td>'.(($reg['covenant_at']) ? $reg['covenant_at'] : '---') .'</td>';
+            //echo '<td>'.(($reg['covenant_city']) ? $reg['covenant_city'] : '---') .'</td>';
+            echo '<td>'.(($reg['covenant_uf']) ? $reg['covenant_uf'] : '---') .'</td>';
             
-            //echo '<td>'.(($reg['laboratory_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['laboratory_created']) : '---') .'</td>';
-            //echo '<td>'.(($reg['laboratory_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['laboratory_modified']) : '---') .'</td>';
+            //echo '<td>'.(($reg['covenant_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['covenant_created']) : '---') .'</td>';
+            //echo '<td>'.(($reg['covenant_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['covenant_modified']) : '---') .'</td>';
             //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             //echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['laboratory_id'])}'})} >EDITAR</button></td>";
-            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['laboratory_id'])}'})}>DELETAR</a></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['laboratory_id'])}'})} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
+            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['covenant_id'])}'})} >EDITAR</button></td>";
+            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['covenant_id'])}'})}>DELETAR</a></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['covenant_id'])}'})} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML

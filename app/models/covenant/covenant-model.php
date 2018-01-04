@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class CovenantModel extends MainModel
+class covenantModel extends MainModel
 {
 
     /**

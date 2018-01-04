@@ -52,7 +52,7 @@
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
                     <fieldset>
-                        <legend >CONVÊNIO <span class="text-success"></span></legend>
+                        <legend >CONVÊNIO / PLANOS <span class="text-success"></span></legend>
                         <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO CONVÊNIO</small></div>
                         </div>    

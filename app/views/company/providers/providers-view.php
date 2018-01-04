@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="provider_date_pay">CPF/CNPJ:</label>
+                                <label for="provider_cpf_cnpj">CPF/CNPJ:</label>
                                 <input id="provider_cpf_cnpj" name="provider_cpf_cnpj" type="text" class="form-control form-control-sm" placeholder="CPF/CNPJ" >
                             </div>
 
@@ -86,47 +86,47 @@
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 2-->
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                 <label for="provider_district">Bairro:</label>
-                                <input id="provider_district" name="provider_district" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_district" name="provider_district" type="text" class="form-control form-control-sm" placeholder="Bairro..." >
                             </div>
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                 <label for="provider_city">Cidade:</label>
-                                <input id="provider_city" name="provider_city" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_city" name="provider_city" type="text" class="form-control form-control-sm" placeholder="Cidade..." >
                             </div>
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                 <label for="provider_cep">CEP:</label>
-                                <input id="provider_cep" name="provider_cep" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_cep" name="provider_cep" type="text" class="form-control form-control-sm cep" placeholder="00000-000" >
                             </div>
                             <div class="form-group col-md-1 col-sm-12 col-xs-12">
                                 <label for="provider_uf">UF:</label>
-                                <input id="provider_uf" name="provider_uf" type="text" class="form-control form-control-sm" placeholder="UF..." >
+                                <input id="provider_uf" name="provider_uf" type="text" class="form-control form-control-sm uf" placeholder="UF..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="provider_pais">Pais:</label>
-                                <input id="provider_nation" name="provider_pais" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <label for="provider_nation">Território:</label>
+                                <input id="provider_nation" name="provider_nation" type="text" class="form-control form-control-sm" placeholder="Território..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_cel">Celular:</label>
-                                <input id="provider_cel" name="provider_cel" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_cel" name="provider_cel" type="text" class="form-control form-control-sm phone_cel" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="provider_tel1">Telefone 1:</label>
-                                <input id="provider_tel1" name="provider_tel1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <label for="provider_tel_1">Telefone 1:</label>
+                                <input id="provider_tel_1" name="provider_tel_1" type="text" class="form-control form-control-sm phone_tel" placeholder="(00) 0000-00000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="provider_tel2">Telefone 2:</label>
-                                <input id="provider_tel2" name="provider_tel2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <label for="provider_tel_2">Telefone 2:</label>
+                                <input id="provider_tel_2" name="provider_tel_2" type="text" class="form-control form-control-sm phone_tel" placeholder="(00) 0000-00000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_insc">Inscrição Estadual:</label>
-                                <input id="provider_insc" name="provider_insc" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_insc" name="provider_insc" type="text" class="form-control form-control-sm" placeholder="Inscrição estadual..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_email">E-mail:</label>
-                                <input id="provider_email" name="provider_email" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_email" name="provider_email" type="text" class="form-control form-control-sm" placeholder="E-mail..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_site">Web Site:</label>
-                                <input id="provider_site" name="provider_site" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_site" name="provider_site" type="text" class="form-control form-control-sm" placeholder="www.exemplo.com..." >
                             </div>
                         </div><!-- End div hidden 2 -->
                         
@@ -137,27 +137,27 @@
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_nome">Nome:</label>
-                                <input id="provider_rep_nome" name="provider_rep_nome" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_rep_nome" name="provider_rep_nome" type="text" class="form-control form-control-sm" placeholder="Nome..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_apel">Apelido:</label>
-                                <input id="provider_rep_apel" name="provider_rep_apel" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_rep_apel" name="provider_rep_apel" type="text" class="form-control form-control-sm" placeholder="Apelido..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_email">E-mail:</label>
-                                <input id="provider_rep_email" name="provider_rep_email" type="text" class="form-control form-control-sm" placeholder="UF..." >
+                                <input id="provider_rep_email" name="provider_rep_email" type="text" class="form-control form-control-sm" placeholder="E-mail..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_cel">Celular:</label>
-                                <input id="provider_rep_cel" name="provider_rep_cel" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_rep_cel" name="provider_rep_cel" type="text" class="form-control form-control-sm" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="provider_rep_tel1">Telefone 1:</label>
-                                <input id="provider_rep_tel1" name="provider_rep_tel1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <label for="provider_rep_tel_1">Telefone 1:</label>
+                                <input id="provider_rep_tel_1" name="provider_rep_tel_1" type="text" class="form-control form-control-sm" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="provider_rep_tel2">Telefone 2:</label>
-                                <input id="provider_rep_tel2" name="provider_rep_tel2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <label for="provider_rep_tel_2">Telefone 2:</label>
+                                <input id="provider_rep_tel_2" name="provider_rep_tel_2" type="text" class="form-control form-control-sm" placeholder="(00) 0000-00000" >
                             </div>
                         </div><!-- End div hidden 3 -->
                         
@@ -168,38 +168,38 @@
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ban_1">Banco 1:</label>
-                                <input id="provider_ban_1" name="provider_ban_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_ban_1" name="provider_ban_1" type="text" class="form-control form-control-sm" placeholder="Banco..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ag_1">Agência 1:</label>
-                                <input id="provider_ag_1" name="provider_ag_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_ag_1" name="provider_ag_1" type="text" class="form-control form-control-sm" placeholder="Agência..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_con_1">Conta 1:</label>
-                                <input id="provider_con_1" name="provider_con_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_con_1" name="provider_con_1" type="text" class="form-control form-control-sm" placeholder="Conta..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ti_1">Titular 1:</label>
-                                <input id="provider_ti_1" name="provider_ti_1" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_ti_1" name="provider_ti_1" type="text" class="form-control form-control-sm" placeholder="Titular..." >
                             </div>
                         </div><!-- End div hidden 4 -->
                         
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ban_2">Banco 2:</label>
-                                <input id="provider_ban_2" name="provider_ban_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_ban_2" name="provider_ban_2" type="text" class="form-control form-control-sm" placeholder="Banco..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ag_2">Agência 2:</label>
-                                <input id="provider_ag_2" name="provider_ag_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_ag_2" name="provider_ag_2" type="text" class="form-control form-control-sm" placeholder="Agência..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_con_2">Conta 2:</label>
-                                <input id="provider_con_2" name="provider_con_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_con_2" name="provider_con_2" type="text" class="form-control form-control-sm" placeholder="Conta..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ti_2">Titular 2:</label>
-                                <input id="provider_ti_2" name="provider_ti_2" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_ti_2" name="provider_ti_2" type="text" class="form-control form-control-sm" placeholder="Titular..." >
                             </div>
                         </div><!-- End div hidden 5 -->
                         
