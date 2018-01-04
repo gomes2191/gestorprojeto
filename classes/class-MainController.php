@@ -63,7 +63,7 @@ class MainController extends UserLogin
     {
 
         // Instancia do DB
-        $this->db = new OdontoControlDB();
+        $this->db = new systemControlDB();
 
         // Parâmetros
         $this->parametros = $parametros;
@@ -91,7 +91,7 @@ class MainController extends UserLogin
         $model_name =  strtolower( $model_name );
 
         // Inclui o arquivo
-        $model_path = ABSPATH . '/models/' . $model_name . '.php';
+        $model_path = ABSPATH . '/app/models/' . $model_name . '.php';
 
         // Verifica se o arquivo existe
         if ( file_exists( $model_path ) ) 
@@ -122,6 +122,6 @@ class MainController extends UserLogin
 
         }
 
-    } // Fim :) Class load_model
+    } // Fim :) load_model
 
 } // Fim :) class MainController

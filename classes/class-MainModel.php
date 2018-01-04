@@ -236,7 +236,7 @@ class MainModel {
         return $query->fetchAll(PDO::FETCH_BOTH);
     }   # End get_table_data()
     
-    public function searchTable($table_name, $conditions=[]) {
+    public function searchTable($table_name, $conditions = []) {
         $sql = 'SELECT ';
         $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
         $sql .= ' FROM ' . $table_name;

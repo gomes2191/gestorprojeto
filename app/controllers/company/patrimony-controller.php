@@ -64,16 +64,16 @@ class patrimonyController extends MainController {
 
         #   Carrega os arquivos do view 
         #-->   /views/_includes/header.php
-        require_once (ABSPATH . '/views/_includes/header.php');
+        require_once (ABSPATH . '/app/views/_includes/header.php');
 
         #--> /views/_includes/menu.php
-        require_once (ABSPATH . '/views/_includes/menu.php');
+        require_once (ABSPATH . '/app/views/_includes/menu.php');
 
         #--> /views/user-register/index.php
-        require_once (ABSPATH . '/views/company/patrimony/patrimony-view.php');
+        require_once (ABSPATH . '/app/views/company/patrimony/patrimony-view.php');
 
         #--> /views/_includes/footer.php
-        require_once (ABSPATH . '/views/_includes/footer.php');
+        require_once (ABSPATH . '/app/views/_includes/footer.php');
     }   #--> End index
     
     # URL: dominio.com/exemplo/exemplo
@@ -174,7 +174,7 @@ class patrimonyController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/company/patrimony/filters-view.php');
+        require_once (ABSPATH . '/app/views/company/patrimony/filters-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         
@@ -200,7 +200,7 @@ class patrimonyController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/company/patrimony/ajax-process-view.php');
+        require_once (ABSPATH . '/app/views/company/patrimony/ajax-process-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         

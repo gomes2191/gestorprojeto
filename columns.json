@@ -1,8 +1,0 @@
-[
-  {"name":"pay_id","title":"ID","breakpoints":"xs sm","type":"number","style":{"width":80,"maxWidth":80}},
-  {"name":"pay_venc","title":"Data de Vencimento","type":"date","breakpoints":"xs sm md","formatString":"DD MMM YYYY"},
-  {"name":"pay_date_pay","title":"Data de Pagamento","type":"date","breakpoints":"xs sm md","formatString":"DD MMM YYYY"},
-  {"name":"pay_cat","title":"Categoria","breakpoints":"xs sm","style":{"maxWidth":200,"overflow":"hidden","textOverflow":"ellipsis","wordBreak":"keep-all","whiteSpace":"nowrap"}},
-  {"name":"pay_desc","title":"Descrição"},
-  {"name":"pay_val","title":"Valor"}
-]

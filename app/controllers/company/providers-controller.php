@@ -59,21 +59,21 @@ class providersController extends MainController {
         # Parametros da função
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
 
-        # Carrega o modelo para este view
+        # Carrega o modelo para esta view
         $modelo = $this->load_model('company/providers-model');
 
         #   Carrega os arquivos do view 
         #-->   /views/_includes/header.php
-        require_once (ABSPATH . '/views/_includes/header.php');
+        require_once (ABSPATH . '/app/views/_includes/header.php');
 
         #--> /views/_includes/menu.php
-        require_once (ABSPATH . '/views/_includes/menu.php');
+        require_once (ABSPATH . '/app/views/_includes/menu.php');
 
         #--> /views/user-register/index.php
-        require_once (ABSPATH . '/views/company/providers/providers-view.php');
+        require_once (ABSPATH . '/app/views/company/providers/providers-view.php');
 
         #--> /views/_includes/footer.php
-        require_once (ABSPATH . '/views/_includes/footer.php');
+        require_once (ABSPATH . '/app/views/_includes/footer.php');
     }   #--> End index
     
     # URL: dominio.com/exemplo/exemplo
@@ -174,9 +174,9 @@ class providersController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/company/providers/filters-view.php');
+        require_once (ABSPATH . '/app/views/company/providers/filters-view.php');
 
-        //require_once (ABSPATH . '/views/_includes/footer.php');
+        //require_once (ABSPATH . '/app/views/_includes/footer.php');
         
     }   #--> End Search
     
@@ -200,7 +200,7 @@ class providersController extends MainController {
         //require_once (ABSPATH.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/company/providers/ajax-process-view.php');
+        require_once (ABSPATH . '/app/views/company/providers/ajax-process-view.php');
 
         //require_once (ABSPATH . '/views/_includes/footer.php');
         

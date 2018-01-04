@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class RegisterController extends MainController {
+class registerController extends MainController {
     /**
      * $login_required
      *
@@ -66,16 +66,16 @@ class RegisterController extends MainController {
 
         /** Carrega os arquivos do view * */
         // /views/_includes/header.php
-        require ABSPATH . '/views/_includes/header.php';
+        require ABSPATH . '/app/views/_includes/header.php';
 
         // /views/_includes/menu.php
-        require ABSPATH . '/views/_includes/menu.php';
+        require ABSPATH . '/app/views/_includes/menu.php';
 
         // /views/user-register/index.php
-        require ABSPATH . '/views/register/register-view.php';
+        require ABSPATH . '/app/views/register/register-view.php';
 
         // /views/_includes/footer.php
-        require ABSPATH . '/views/_includes/footer.php';
+        require ABSPATH . '/app/views/_includes/footer.php';
     }
 
 // index

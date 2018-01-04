@@ -25,4 +25,4 @@
     require_once (ABSPATH . '/functions/global-functions.php');
 
     // Carrega a aplicação
-    $odonto_control = new OdontoControl();
+    $system_control = new systemControl();

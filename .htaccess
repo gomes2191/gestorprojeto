@@ -1,10 +1,29 @@
-
+# Tornando url amigáveis
 RewriteEngine On
-
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
-
 RewriteRule ^(.+)$ index.php?path=$1 [QSA,L]
-#RewriteRule ^(.+)$ index.php?p=$1 [QSA,L]
 
+# Bloqueia acesso a diretorios
+Options All -Indexes
+
+
+# Protegendo seu arquivo .htaccess
+<files ~ "^.*\.([Hh][Tt][Aa])">
+    order allow,deny
+    deny from all
+    satisfy all
+</files>
+
+# Forçando UTF-8
+<FilesMatch ".(htm|html|css|js)$">
+    AddDefaultCharset UTF-8
+</FilesMatch>
+
+# Páginas de erro personalizadas
+ErrorDocument 404 /erros/notfound.html
+ErrorDocument 400 /erros/badrequest.html
+ErrorDocument 401 /erros/authreqd.html
+ErrorDocument 403 /soc/public_html/forbidden.html
+ErrorDocument 500 /erros/serverr.html

@@ -12,7 +12,7 @@
     # Idioma do sistema
     define('LANG', 'pt_BR');
     # Caminho para a pasta de uploads
-    define('UP_ABSPATH', ABSPATH . '/views/_uploads');
+    define('UP_ABSPATH', ABSPATH . '/app/views/_uploads');
     # URL da home
     define('HOME_URI', 'http://localhost/soc');
     # Nome do host da base de dados
@@ -30,6 +30,7 @@
     
     # Se você estiver desenvolvendo, modifique o valor para true
     define('DEBUG', TRUE);
+    
     /**
      * Não edite daqui em diante
      * */
