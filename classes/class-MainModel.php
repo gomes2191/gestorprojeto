@@ -92,7 +92,6 @@ class MainModel {
      *  @Versão: 0.1
      *  @Função: converteData()
      *  @Descrição: Converte uma determinada data para o formato desejado.
-     * 
      *  @example:
      *  var_dump(converteData('d m Y', 'Y-m-d', '06 02 2025')); 2025-02-06
      *  var_dump(converteData('d-m-Y', 'm/d/Y H:i', '06-02-2014')); 02/06/2014 12:39
@@ -236,20 +235,42 @@ class MainModel {
         return $query->fetchAll(PDO::FETCH_BOTH);
     }   # End get_table_data()
     
+    /**
+     * @access: public
+     * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
+     * @version: 0.2
+     * @param: mixed variables
+     * @param: string $table_name [required]
+     * @param: array $conditions [required] <code>$conditions['where'=>['colunm'=>value,...]] $conditions['search'=>['colunm'=>value,...]]
+     * </code>
+     * @return: array Retorna um array com os valores
+     */
     public function searchTable($table_name, $conditions = []) {
         $sql = 'SELECT ';
         $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
         $sql .= ' FROM ' . $table_name;
 
-        if (array_key_exists('where', $conditions)) {
+        if(array_key_exists('where', $conditions)) {
             $sql .= ' WHERE ';
             $i = 0;
             foreach ($conditions['where'] as $key => $value) {
                 $pre = ($i > 0) ? ' AND ' : '';
-                $sql .= $pre . $key . " = '" . $value . "'";
+                if(in_array($value, $conditions['where'], TRUE)){
+                    $sql .= $pre . $key . ' = ' . $value;
+                    $i++;    
+                }
+            }
+           
+        }elseif (array_key_exists('search', $conditions)) {
+            $sql .= (strpos($sql, 'WHERE') !== FALSE) ? '' : ' WHERE (';
+            $i = 0;
+            foreach ($conditions['search'] as $key => $value) {
+                $pre = ($i > 0) ? ' OR ' : '';
+                $sql .= $pre . $key . " LIKE '%" . $value . "%'";
                 $i++;
             }
-        } elseif (array_key_exists('active', $conditions) OR array_key_exists('inactive', $conditions)) {
+            $sql.=')';
+        }elseif (array_key_exists('active', $conditions) OR array_key_exists('inactive', $conditions)) {
             $sql .= ' WHERE ';
             $i = 0;
             (array_key_exists('active', $conditions)) ? $type = 'active' : $type = 'inactive';
@@ -258,24 +279,18 @@ class MainModel {
                 $sql .= $pre . $key . " = '" . $value . "'";
                 $i++;
             }
-        } elseif (array_key_exists('search', $conditions)) {
-            $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
-            $i = 0;
-            foreach ($conditions['search'] as $key => $value) {
-                $pre = ($i > 0) ? ' OR ' : '';
-                $sql .= $pre . $key . " LIKE '%" . $value . "%'";
-                $i++;
-            }
-        } if (array_key_exists("order_by", $conditions)) {
+        }if (array_key_exists('and', $conditions)){
+            $sql.= ' AND ( ' . $conditions['and'].' ) ';
+        }if (array_key_exists('order_by', $conditions)) {
             $sql .= ' ORDER BY ' . $conditions['order_by'];
-        } if (array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+        }if (array_key_exists('start', $conditions) && array_key_exists("limit", $conditions)) {
             $sql .= ' LIMIT ' . $conditions['start'] . ',' . $conditions['limit'];
-        } if (!array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+        }if (!array_key_exists('start', $conditions) && array_key_exists("limit", $conditions)) {
             $sql .= ' LIMIT ' . $conditions['limit'];
         }
-
+        //var_dump($sql);
         $result = $this->db->query($sql);
-
+        
         if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
             switch ($conditions['return_type']) {
                 case 'count':

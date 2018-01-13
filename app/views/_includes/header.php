@@ -16,9 +16,6 @@
         <!-- My style -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/public/css/style.css">
 
-        <!-- My icon fon -->
-        <link rel="stylesheet" href="<?= HOME_URI; ?>/public/lib/_font-awesome/css/font-awesome.min.css">
-
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/public/lib/_css/bootstrap/bootstrap.min.css">
         
@@ -30,6 +27,9 @@
 
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/public/css/navbar-top-fixed.css">
+        
+        <!--load everything-->
+        <script defer src="<?= HOME_URI; ?>/public/lib/_fontsWesome/js/fontawesome-all.min.js"></script>
         
          <!-- Bootstrap core JavaScript
         ================================================== -->

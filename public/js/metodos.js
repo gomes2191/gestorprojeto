@@ -10,13 +10,13 @@ function Financeiro() {
     var curso;
     var numUS;
     var idOne, idTwo, nValor, nPorce, calcTotal;
-    var url, id, jsonData, objData;
+    var url, id, jsonData, objData, objAction;
 
-    this.setNome = function ( nome ) {
+    this.setNome = function (nome) {
         this.nome = nome;
     };
-    
-    
+
+
 
     this.setIdade = function (idade) {
         this.idade = idade;
@@ -25,16 +25,16 @@ function Financeiro() {
     this.setCurso = function (curso) {
         this.curso = curso;
     };
-    
-    this.setClear = function (numClear){
+
+    this.setClear = function (numClear) {
         this.numClear = numClear;
     };
-    
+
     // Recebe um numero que contem virgula e substitui po ponto
     this.setUS = function (numUS) {
         this.numUS = numUS;
     };
-    
+
     this.setNumberCalc = function (idOne, idTwo) {
         this.idOne = idOne;
         this.idTwo = idTwo;
@@ -42,33 +42,33 @@ function Financeiro() {
         this.nPorce;
         this.calcTotal;
     };
-    
-    this.setMoneyCashClear = function ( valor, validos, tammax ){
+
+    this.setMoneyCashClear = function (valor, validos, tammax) {
         var result = "";
         var aux;
-        for (var i=0; i < valor.length; i++) {
-            aux = validos.indexOf(valor.substring(i, i+1));
-            if (aux>=0) {
-                if ( result.length < tammax - 1 ) {
+        for (var i = 0; i < valor.length; i++) {
+            aux = validos.indexOf(valor.substring(i, i + 1));
+            if (aux >= 0) {
+                if (result.length < tammax - 1) {
                     result += aux;
                 }
             }
         }
         return result;
     };
-    
-    this.setAjaxData = function ( url ) {
-        this.url = url;
+
+    this.setAjaxData = function (objData) {
+        this.objData = objData;
     };
-    
-    this.setAjaxFilter = function ( url ) {
-        this.url = url;
+
+    this.setAjaxFilter = function (objData) {
+        this.objData = objData;
     };
-    
-    this.setAjaxActionUser = function ( objData ) {
-       this.objData = objData;
+
+    this.setAjaxActionUser = function (objAction) {
+        this.objAction = objAction;
     };
-    
+
 
     this.getNome = function () {
         return this.nome;
@@ -85,76 +85,76 @@ function Financeiro() {
     this.getClear = function () {
         return this.numClear;
     };
-    
+
     this.getUS = function () {
         return this.numUS;
     };
-    
+
     this.getNumberCalc = function () {
-        if(this.calcTotal){
+        if (this.calcTotal) {
             return this.calcTotal;
-        }else{
+        } else {
             return this.calcTotal = '0,00';
         }
     };
-    
+
     this.getAjaxData = function () {
-        return this.url;
-    };
-    
-    this.getAjaxFilter = function () {
-        return this.url;
-    };
-    
-    this.getAjaxActionUser = function () {
         return this.objData;
+    };
+
+    this.getAjaxFilter = function () {
+        return this.objData;
+    };
+
+    this.getAjaxActionUser = function () {
+        return this.objAction;
     };
 
     this.mostraDados = function () {
         alert("Nome do aluno: " + this.nome + "\nIdade: " + this.idade + "\nCurso: " + this.curso);
     };
 
-    this.clearNumber = function (){
-        numsStr = this.numClear.replace(/[^0-9]/g,'');
+    this.clearNumber = function () {
+        numsStr = this.numClear.replace(/[^0-9]/g, '');
         return this.numClear = parseInt(numsStr);
     };
-    
+
     this.mostrarUS = function () {
-        if( (this.numUS.indexOf('.') >= 0 ) && (this.numUS.indexOf(',') >= 0 ) ){
+        if ((this.numUS.indexOf('.') >= 0) && (this.numUS.indexOf(',') >= 0)) {
             this.numUS = this.numUS.replace('.', '');
             this.numUS = this.numUS.replace('.', '');
             this.numUS = this.numUS.replace('.', '');
             this.numUS = this.numUS.replace(',', '.');
             return this.numUS = parseFloat(this.numUS);
-        }else{
+        } else {
             this.numUS = this.numUS.replace(',', '.');
             return this.numUS = parseFloat(this.numUS);
         }
-        
+
     };
-    
-    this.somarNumberCalc = function (){ 
+
+    this.somarNumberCalc = function () {
         this.nValor = document.getElementById(this.idOne).value;
-        
-        if( (this.nValor.indexOf('.') >= 0 ) && (this.nValor.indexOf(',') >= 0 ) ){
+
+        if ((this.nValor.indexOf('.') >= 0) && (this.nValor.indexOf(',') >= 0)) {
             this.nValor = this.nValor.replace('.', '');
             this.nValor = this.nValor.replace('.', '');
             this.nValor = this.nValor.replace('.', '');
             this.nValor = this.nValor.replace(',', '.');
             this.nValor = parseFloat(this.nValor);
-        }else{
+        } else {
             this.nValor = this.nValor.replace(',', '.');
             this.nValor = parseFloat(this.nValor);
         }
-        
+
         this.nPorce = parseFloat(document.getElementById(this.idTwo).value);
-        
-        if(!this.nPorce){
+
+        if (!this.nPorce) {
             this.calcTotal = this.nValor;
-        }else{
-            this.calcTotal =  parseFloat((this.nValor - (this.nValor * this.nPorce / 100)));
+        } else {
+            this.calcTotal = parseFloat((this.nValor - (this.nValor * this.nPorce / 100)));
         }
-        
+
     };
     /*
      * @author: Francisco Aparecido
@@ -208,27 +208,53 @@ function Financeiro() {
     };
 
     this.ajaxData = function () {
-        $.ajax({
-            type: 'POST',
-            dataType: 'html',
-            url: this.url,
-            //data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
-            async: true,
-            beforeSend: function () {
-                $('#loading').show();
-            },
-            success: function (data) {
-                $('#tableData').html(data);
-                $('#loading').fadeOut();
-                if (document.getElementById("tableList")) {
-                    $('#filtros').show();
-                } else {
-                    $('#filtros').hide();
-                }
+        if ((this.objData.url.match(/filters/) && this.objData.url.match(this.objData.url_id))) {
+            if (this.objData.get_decode == null) {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'html',
+                    url: this.objData.url,
+                    //data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
+                    async: true,
+                    beforeSend: function () {
+                        $('#loading').show();
+                    },
+                    success: function (data) {
+                        $('#tableData').html(data);
+                        $('#loading').fadeOut();
+                        if (document.getElementById("tableList")) {
+                            $('#filtros').show();
+                        } else {
+                            $('#filtros').hide();
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'html',
+                    url: this.objData.url,
+                    data: 'get_decode=' + this.objData.get_decode,
+                    async: true,
+                    beforeSend: function () {
+                        $('#loading').show();
+                    },
+                    success: function (data) {
+                        $('#tableData').html(data);
+                        $('#loading').fadeOut();
+                        if (document.getElementById("tableList")) {
+                            $('#filtros').show();
+                        } else {
+                            $('#filtros').hide();
+                        }
+                    }
+                });
             }
-        });
+        } else {
+            return false;
+        }
     };
-    
+
     this.ajaxFilter = function (page_num) {
         page_num = page_num ? page_num : 0;
         var keywords = $('#keywords').val();
@@ -240,53 +266,55 @@ function Financeiro() {
         $.ajax({
             type: 'POST',
             dataType: 'html',
-            url: this.url,
-            data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
+            url: this.objData.url,
+            data: 'page=' + page_num + '&keywords=' + keywords + '&sortBy=' + sortBy + '&qtdLine=' + qtdLine + '&get_decode=' + this.objData.get_decode,
             async: true,
-            beforeSend: function (){
+            beforeSend: function () {
                 $('#loading').show();
             },
-            success: function ( data ){
-                $('#tableData').html( data );
+            success: function (data) {
+                $('#tableData').html(data);
                 $('#loading').fadeOut();
             }
         });
     };
-    
-    
-    
-    this.ajaxActionUser = function(){
-        if( this.objData.type === 'loadEdit' || this.objData.type === 'loadInfo' ){
+
+    this.ajaxActionUser = function () {
+        if ((this.objAction.type === 'loadEdit' || this.objAction.type === 'loadInfo') && this.objAction.url.match(/ajax-process/) && this.objAction.url.match(this.objAction.url_id)) {
             $.ajax({
                 type: 'POST',
-                dataType:'JSON',
-                url: this.objData.url,
-                data: 'action_type=data&id='+this.objData.id,
+                dataType: 'JSON',
+                url: this.objAction.url,
+                data: 'action_type=data&id=' + this.objAction.id,
                 async: true,
-                success:function( data ) {
-                    if( typeExec === 'loadEdit' ){
-                        $.each(data , function(key, value){
+                success: function (data) {
+                    if (typeExec === 'loadEdit') {
+                        $.each(data, function (key, value) {
                             $('#' + key).val(value);
                         });
-                    }else if( typeExec === 'loadInfo' ){
-                        $.each(data , function(key, value){
+                    } else if (typeExec === 'loadInfo') {
+                        $.each(data, function (key, value) {
                             $('.' + key).text((value) ? value : ' Não foi preenchido');
                         });
                     }
                 }
             });
-        }else if ( this.objData.type === 'add' || this.objData.type === 'update' || this.objData.type === 'delete' ) {
+        } else if ((this.objAction.type === 'add' || this.objAction.type === 'update' || this.objAction.type === 'delete') && this.objAction.url.match(/ajax-process/) && this.objAction.url.match(this.objAction.url_id)) {
             $.ajax({
                 type: 'POST',
-                url: this.objData.url,
-                data: this.objData.userData,
+                url: this.objAction.url,
+                data: this.objAction.userData,
                 success: function (msg) {
                     objFinanca.ajaxData();
                     if (msg === 'ok') {
-                        toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
+                        toastr.success(feedback, 'Sucesso!', {
+                            timeOut: 5000
+                        });
                         $('.form-register')[0].reset();
-                    }else {
-                        toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
+                    } else {
+                        toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
+                            timeOut: 5000
+                        });
                     }
                 }
             });
@@ -294,9 +322,8 @@ function Financeiro() {
     };
 }
 
-
 function Metodos() {
-    
+
     //    objSet = { 
     //        form: $("#addForm"),
     //        not_empty: ['laboratory_name','laboratory_id']
@@ -306,39 +333,39 @@ function Metodos() {
     //    objMetodos.getForm();
     //Propriedades da classe
     var objForm, objData;
-    
+
     //Passando parâmetros
-    this.setForm = function ( objForm ) {
+    this.setForm = function (objForm) {
         this.objForm = objForm;
         this.objData = {};
     };
-    
+
     //Pega valores
     this.getForm = function () {
         return this.objData;
     };
-    
+
     //Executa a função
-    this.serializeForm = function(){
+    this.serializeForm = function () {
         var formArray = this.objForm.form.serializeArray();
-        
+
         for (var i = 0, n = formArray.length; i < n; ++i)
             this.objData[formArray[i].name] = formArray[i].value;
     };
-    
-    
+
+
     //Rotina que verifica se a campos vazios
     var arrayData;
-    
-    this.setVerify = function (arrayData){
+
+    this.setVerify = function (arrayData) {
         this.arrayData = arrayData;
-    }
-    
+    };
+
     this.getVerify = function () {
         return this.arrayData;
-    }
-    
-    this.emptyVerify = function (){
+    };
+
+    this.emptyVerify = function () {
         for (i = 0; i < this.arrayData.length; ++i) {
             cond = document.getElementById(this.arrayData[i]).value;
             if (cond == false || cond.length == '') {
@@ -349,7 +376,7 @@ function Metodos() {
 
         }
     };
-    
+
 }
 
 
@@ -371,17 +398,17 @@ function Metodos() {
 //    objFinanca.getAjax();
 //    
 //    objFinanca.mostraAjax();
-    
-    //teste = objFinanca.getUS();
-    
-    //alert( teste * 3);
-    
-    //objFinanca.setCalculo('numero_um', 'numero_dois');
-    
-    //objFinanca.calcNumber();
-    
-    //teste = objFinanca.getUS();
-    
+
+//teste = objFinanca.getUS();
+
+//alert( teste * 3);
+
+//objFinanca.setCalculo('numero_um', 'numero_dois');
+
+//objFinanca.calcNumber();
+
+//teste = objFinanca.getUS();
+
 
 
 
@@ -437,5 +464,3 @@ function Metodos() {
 //        j = (j = i.length) > 3 ? j % 3 : 0;
 //    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 //};
-
-    

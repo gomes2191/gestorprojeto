@@ -703,7 +703,7 @@ $(function () {
     $(' .container ').on('click', '#btn-new-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #group-btn-form-new ').fadeOut();
-        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
+        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
         $('.form-hide, #group-btn-hide, .row-button-hide, .notice-hide ').fadeIn();
         $('.form-register').find('input, textarea').val('');
@@ -723,7 +723,7 @@ $(function () {
     $('#tableData').on('click','.btn-edit-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #btn-show').fadeOut();
-        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR ALTERAÇÃO</span>");
+        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>");
         $('.form-register').attr('id',"editForm");
         $('.form-hide, #group-btn-hide, #group-btn-form-new, .row-button-hide ').fadeIn();
         $('#btn-save, #btn-edit-save').attr('id',"btn-edit-save");
@@ -759,7 +759,7 @@ $(function () {
         $('#btn-edit-save').attr('id',"btn-save");
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - Inserindo registro');
-        $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fa fa-floppy-o'></i> <span>SALVAR</span>");
+        $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
         $('#group-btn-form-new').hide(200);
@@ -778,21 +778,9 @@ $(function(){
     });
 });
 
-// Menu ativo selecionado
-$(function () {
-    var pgurl = window.location.href.substr(window.location.href);
-    $("#navbarCollapse ul li a").each(function () {  
-        if ($(this).attr("href") == pgurl || $(this).attr("href") == ''){
-            
-            $(this).closest('li').addClass('active');
-            //$(this).addClass("active");
-            $(this).parent('div').prev('li').addClass('active');
-        } 
-    });
-});
-
 // Volta para o topo
 $('.top').click(function(){ 
     $('html, body').animate({scrollTop:0}, 'slow');
     return false;
 });
+

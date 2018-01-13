@@ -24,7 +24,7 @@
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
         $conditions['order_by'] = "covenant_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
-    }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
+    }else if(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
         unset($allReg);
         $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
         
@@ -85,17 +85,17 @@
     
     if (!empty($allReg)) {
         echo <<<HTML
-            <table  id="tableList" class="table table-bordered table-sm table-hover" >
-                <thead class="thead-dark">
+            <table  id="tableList" class="table table-bordered table-sm" >
+                <thead class="thead-green">
                     <tr>
-                        <th class="small text-center">#</th>
-                        <th class="small text-center">EMPRESA</th>
-                        <th class="small text-center">CELULAR</th>
-                        <th class="small text-center">TELEFONE</th>
-                        <th class="small text-center">E-MAIL</th>
-                        <th class="small text-center">ATUAÇÃO</th>
-                        <th colspan="1" class="small text-center">UF</th>
-                        <th colspan="3" class="small text-center">AÇÃO</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">EMPRESA</th>
+                        <th class="text-center">TELEFONE</th>
+                        <th class="text-center">REP. NOME</th>
+                        <th class="text-center">REP. CEL</th>
+                        <th colspan="1" class="text-center">UF</th>
+                        <th class="text-center">HONORÁRIOS</th>
+                        <th colspan="3" class="text-center">AÇÃO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,15 +110,15 @@ HTML;
             echo '<td>'.(($reg['covenant_email']) ? $reg['covenant_email'] : '---') .'</td>';
             echo '<td>'.(($reg['covenant_at']) ? $reg['covenant_at'] : '---') .'</td>';
             //echo '<td>'.(($reg['covenant_city']) ? $reg['covenant_city'] : '---') .'</td>';
-            echo '<td>'.(($reg['covenant_uf']) ? $reg['covenant_uf'] : '---') .'</td>';
+            echo '<td><a href="'.HOME_URI.'/fees?get_encode='.$modelo->encode_decode($reg['covenant_id']).'" class="btn btn-outline-info btn-sm" title="Acesse aqui a tabela de honorários."><i class="fas fa-link fa-lg" ></i> ACESSAR</a></td>';
             
             //echo '<td>'.(($reg['covenant_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['covenant_created']) : '---') .'</td>';
             //echo '<td>'.(($reg['covenant_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['covenant_modified']) : '---') .'</td>';
             //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             //echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['covenant_id'])}'})} >EDITAR</button></td>";
-            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['covenant_id'])}'})}>DELETAR</a></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['covenant_id'])}'})} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
+            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['covenant_id'])}'})} ><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
+            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['covenant_id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['covenant_id'])}'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML

@@ -1,29 +1,15 @@
 <?php if (!defined('ABSPATH')) { exit(); }
-
-    if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
-        
-        $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
-        
-        # var_dump($encode_id);die;
-        $modelo->delRegister($encode_id);
-
-        # Destroy variavel não mais utilizadas
-        unset($encode_id);
-    }
-
-    # Verifica se existe a requisição POST se existir executa o método se não faz nada
-    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : false;
-
     # Paginação parametros
     $limit = 5;
-    
+
     # Realiza um consulta na base de dados e reatorna os valores
     $covenants = $modelo->searchTable('covenant', ['order_by' => 'covenant_id DESC ', 'limit' => $limit]);
-    
+
     $pagConfig = [
-        'totalRows' => COUNT($modelo->searchTable('covenant')),
+        'totalRows' => COUNT($covenants),
         'perPage' => $limit,
-        'link_func' => 'searchFilter'];
+        'link_func' => 'searchFilter'
+    ];
 
     $pagination = new Pagination($pagConfig);
 
@@ -152,12 +138,12 @@
                         
                         <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="covenant_rep_nome">Nome:</label>
-                                <input id="covenant_rep_nome" name="covenant_rep_nome" type="text" class="form-control form-control-sm" placeholder="Nome..." >
+                                <label for="covenant_rep_name">Nome:</label>
+                                <input id="covenant_rep_name" name="covenant_rep_name" type="text" class="form-control form-control-sm" placeholder="Nome..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="covenant_rep_apelido">Apelido:</label>
-                                <input id="covenant_rep_apelido" name="covenant_rep_apelido" type="text" class="form-control form-control-sm" placeholder="Apelido..." >
+                                <label for="covenant_rep_nick">Apelido:</label>
+                                <input id="covenant_rep_nick" name="covenant_rep_nick" type="text" class="form-control form-control-sm" placeholder="Apelido..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="covenant_rep_email">E-mail:</label>
@@ -232,10 +218,10 @@
                                     <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
-                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset"><i class="fa fa-eraser"></i> <span>LIMPAR</span></button>
+                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset"><i class="fas fa-eraser fa-lg"></i> <span>LIMPAR</span></button>
                                 </div>
                                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-light btn-sm  marg-top" type="reset"><i class="text-primary glyphicon glyphicon-plus"></i> <span>MODO NOVO REGISTRO</span></button>
+                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-light btn-sm  marg-top" type="reset"><i class="fas  fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span></button>
                                 </div>
                             </div>
                         </div>
@@ -249,11 +235,11 @@
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">
                                     <button id="btn-show" title="Mostrar o formulário" class="btn btn-outline-success btn-sm marg-top" type="reset">
-                                        <i class="fa fa-eye"></i> ABRE FORMULÁRIO
+                                        <i class="fas fa-eye fa-lg"></i> ABRE FORMULÁRIO
                                     </button>
                                 </div>
                                 <div id="group-btn-hide" style="display: none;" class="btn-group">
-                                    <button id="btn-hide" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset"><i class="fa fa-eye-slash"></i> FECHA FORMULÁRIO</button>
+                                    <button id="btn-hide" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset"><i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO</button>
                                 </div>
                             </div>
                         </div>
@@ -264,18 +250,17 @@
         
         <div id="filtros" class="row">
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
-                <div id="custom-search-input">
-                    <div class="input-group">
-                        <input type="text" class="search form-control disable-focus" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
-                        <span class="input-group-btn">
-                            <button class="btn btn-info btn-lg" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
+                
+                <div class="input-group">
+                    <input type="text" class="form-control search" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
+                    <div class="input-group-append">
+                        <span class="input-group-text spanSearch">
+                            <i class="fab fa-searchengin fa-lg"></i>
                         </span>
                     </div>
-                </div><!--End .custom-search-input -->
+                </div><!-- End search engine-->
+                
             </div><!--/End col-->
-
             <div class="col-md-5 col-sm-0 col-xs-0"></div><!--End/-->
 
             <div class="form-group col-md-1  col-sm-3 col-xs-12">
@@ -366,7 +351,6 @@
                             <li class="list-group-item list-group-item-success list-group-item-text"><b>Criado em:</b>&nbsp;<span class="covenant_created">----</span></li>
                             <li class="list-group-item list-group-item-danger list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="covenant_modified">----</span></li>
                             <li class="list-group-item list-group-item-warning list-group-item-text"><b>Observações:</b>&nbsp;<span class="covenant_obs">----</span></li>
-
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -375,14 +359,12 @@
                 </div>
             </div>
         </div><!-- End modal visualizar -->
-        
         <script>
-            
             var objMetodos = new Metodos();
             var objFinanca = new Financeiro();
             
             // Parâmetros necessários para a requisição Ajax
-            objFinanca.setAjaxData('<?= HOME_URI; ?>/covenant/filters');
+            objFinanca.setAjaxData(objSet = {url:'<?= HOME_URI; ?>/covenant/filters', url_id: '/covenant/', get_decode: false});
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
             
@@ -445,5 +427,5 @@
                         return false;
                     }   
                 }
-        }
+            }
         </script>
