@@ -502,6 +502,8 @@ $(document).ready(function () {
     $('.hora').mask('00:00');
     $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
     $('.uf').mask('AA');
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    $('.number').mask('000000000000000');
     
     // Agenda mascara
     $('.dataHora').mask('00/00/0000 00:00');
@@ -750,7 +752,7 @@ $(function () {
         $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
-        $('#group-btn-form-new').hidden(200);
+        $('#group-btn-form-new').hide(200);
         $('#group-btn-hidden').show(200);
         $('html, body').animate({scrollTop:0}, 'slow');
     });

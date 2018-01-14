@@ -65,16 +65,8 @@
             #--> End JS
         }else{
             # Outros plugins
-            //echo '<script src="'.HOME_URI.'/public/_js/moment.js"></script>';
-
-            //echo '<link rel="stylesheet" href="'.HOME_URI. '/public/_css/sweetalert.css">';
-            //echo '<script src="'.HOME_URI.'/public/_js/sweetalert.min.js"></script>';
-            # End outros plugins
-
-            //echo '<script src="'.HOME_URI.'/public/_js/angular.min.js"></script>';
-            //echo '<script src="'.HOME_URI.'/public/_js/angular-locale_pt-br.js"></script>';
-            //echo '<script src="'.HOME_URI.'/public/_js/jquery.maskMoney.min.js"></script>';
             echo '<script src="'.HOME_URI.'/public/js/metodos.js"></script>';
+            # End JS
         }if($this->title == ' Agenda'){
             # Start agenda css -->
             echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/calendar.css">';
@@ -88,5 +80,6 @@
             #--> End JS
         }
         ?>
+
     </head>
     <body data-spy="scroll" data-target="spy-scroll-id">
