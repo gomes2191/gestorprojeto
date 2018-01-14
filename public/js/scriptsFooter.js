@@ -132,9 +132,9 @@
             function clearToast ($toastElement, options, clearOptions) {
                 var force = clearOptions && clearOptions.force ? clearOptions.force : false;
                 if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
-                    $toastElement[options.hideMethod]({
-                        duration: options.hideDuration,
-                        easing: options.hideEasing,
+                    $toastElement[options.hiddenMethod]({
+                        duration: options.hiddenDuration,
+                        easing: options.hiddenEasing,
                         complete: function () { removeToast($toastElement); }
                     });
                     return true;
@@ -162,9 +162,9 @@
                     showDuration: 300,
                     showEasing: 'swing', //swing and linear are built into jQuery
                     onShown: undefined,
-                    hideMethod: 'fadeOut',
-                    hideDuration: 1000,
-                    hideEasing: 'swing',
+                    hiddenMethod: 'fadeOut',
+                    hiddenDuration: 1000,
+                    hiddenEasing: 'swing',
                     onHidden: undefined,
                     closeMethod: false,
                     closeDuration: false,
@@ -223,7 +223,7 @@
                 var $closeElement = $(options.closeHtml);
                 var progressBar = {
                     intervalId: null,
-                    hideEta: null,
+                    hiddenEta: null,
                     maxHideTime: null
                 };
                 var response = {
@@ -291,7 +291,7 @@
                     }
 
                     if (!options.onclick && options.tapToDismiss) {
-                        $toastElement.click(hideToast);
+                        $toastElement.click(hiddenToast);
                     }
 
                     if (options.closeButton && $closeElement) {
@@ -306,14 +306,14 @@
                                 options.onCloseClick(event);
                             }
 
-                            hideToast(true);
+                            hiddenToast(true);
                         });
                     }
 
                     if (options.onclick) {
                         $toastElement.click(function (event) {
                             options.onclick(event);
-                            hideToast();
+                            hiddenToast();
                         });
                     }
                 }
@@ -326,9 +326,9 @@
                     );
 
                     if (options.timeOut > 0) {
-                        intervalId = setTimeout(hideToast, options.timeOut);
+                        intervalId = setTimeout(hiddenToast, options.timeOut);
                         progressBar.maxHideTime = parseFloat(options.timeOut);
-                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+                        progressBar.hiddenEta = new Date().getTime() + progressBar.maxHideTime;
                         if (options.progressBar) {
                             progressBar.intervalId = setInterval(updateProgress, 10);
                         }
@@ -402,11 +402,11 @@
                     return false;
                 }
 
-                function hideToast(override) {
-                    var method = override && options.closeMethod !== false ? options.closeMethod : options.hideMethod;
+                function hiddenToast(override) {
+                    var method = override && options.closeMethod !== false ? options.closeMethod : options.hiddenMethod;
                     var duration = override && options.closeDuration !== false ?
-                        options.closeDuration : options.hideDuration;
-                    var easing = override && options.closeEasing !== false ? options.closeEasing : options.hideEasing;
+                        options.closeDuration : options.hiddenDuration;
+                    var easing = override && options.closeEasing !== false ? options.closeEasing : options.hiddenEasing;
                     if ($(':focus', $toastElement).length && !override) {
                         return;
                     }
@@ -429,22 +429,22 @@
 
                 function delayedHideToast() {
                     if (options.timeOut > 0 || options.extendedTimeOut > 0) {
-                        intervalId = setTimeout(hideToast, options.extendedTimeOut);
+                        intervalId = setTimeout(hiddenToast, options.extendedTimeOut);
                         progressBar.maxHideTime = parseFloat(options.extendedTimeOut);
-                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+                        progressBar.hiddenEta = new Date().getTime() + progressBar.maxHideTime;
                     }
                 }
 
                 function stickAround() {
                     clearTimeout(intervalId);
-                    progressBar.hideEta = 0;
+                    progressBar.hiddenEta = 0;
                     $toastElement.stop(true, true)[options.showMethod](
                         {duration: options.showDuration, easing: options.showEasing}
                     );
                 }
 
                 function updateProgress() {
-                    var percentage = ((progressBar.hideEta - (new Date().getTime())) / progressBar.maxHideTime) * 100;
+                    var percentage = ((progressBar.hiddenEta - (new Date().getTime())) / progressBar.maxHideTime) * 100;
                     $progressElement.width(percentage + '%');
                 }
             }
@@ -485,18 +485,6 @@ $('#user-register-btn').on('click', function() {
    }, 1000);
 });
 
-// Feedback para usuário do sistema
-$(function (){
-    //$(".alert").delay(400).addClass("in").fadeIn(9000).fadeOut(9000);
-    $(".alertH").hide();
-    $(".alertH").alert();
-    $(".alertH").fadeTo(3300, 3300).slideUp(200, function () {
-    $(".alertH").slideUp(500);
-    
-});
-    // Popup alerta
-    //$('#popoverOption').popover({trigger: "hover"});
-});
 // Modal outros
 $('.openBtn').click(function () {
     $('.modal-body').load('/render/62805', function (result) {
@@ -705,14 +693,14 @@ $(function () {
         $('#group-btn-new, #group-btn-form-new ').fadeOut();
         $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
-        $('.form-hide, #group-btn-hide, .row-button-hide, .notice-hide ').fadeIn();
+        $('.form-hidden, #group-btn-hidden, .row-button-hidden, .notice-hidden ').fadeIn();
         $('.form-register').find('input, textarea').val('');
         $('legend span').text(' - Inserindo registro');
     });
     
     //--> Rotina que limpa formulário apos edição e remoção de dados
     $('.container').on('click', '#btn-edit-save, #btn-dell', function (){
-        $('.form-hide, #group-btn-hide, #group-btn-show, .row-button-hide, .notice-hide ').fadeOut();
+        $('.form-hidden, #group-btn-hidden, #group-btn-show, .row-button-hidden, .notice-hidden ').fadeOut();
         $('.form-register').find('input, textarea').val('');
         $('#group-btn-new').fadeIn();
         $('legend span').text('');
@@ -725,19 +713,19 @@ $(function () {
         $('#group-btn-new, #btn-show').fadeOut();
         $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>");
         $('.form-register').attr('id',"editForm");
-        $('.form-hide, #group-btn-hide, #group-btn-form-new, .row-button-hide ').fadeIn();
+        $('.form-hidden, #group-btn-hidden, #group-btn-form-new, .row-button-hidden ').fadeIn();
         $('#btn-save, #btn-edit-save').attr('id',"btn-edit-save");
         $('legend span').text(' - Editando registro');
         $('html, body').animate({scrollTop:0}, 'slow');
     });
     
     // Ação que oculta o formulário
-    $('#btn-hide').click(function(e) {
+    $('#btn-hidden').click(function(e) {
         e.preventDefault();
-        $('#group-btn-hide').fadeOut('slow');
-        $('.form-hide').fadeOut();
-        $('.notice-hide').fadeOut();
-        $('.row-button-hide').fadeOut();
+        $('#group-btn-hidden').fadeOut('slow');
+        $('.form-hidden').fadeOut();
+        $('.notice-hidden').fadeOut();
+        $('.row-button-hidden').fadeOut();
         $('#group-btn-show').fadeIn();
         $('#btn-show').fadeIn();  
     });
@@ -746,9 +734,9 @@ $(function () {
     $('#btn-show').click(function(e) {
         e.preventDefault();
         $('#group-btn-show').fadeOut('slow');
-        $('.form-hide').fadeIn('slow');
-        $('#group-btn-hide').fadeIn('slow');
-        $('.row-button-hide').fadeIn('slow');
+        $('.form-hidden').fadeIn('slow');
+        $('#group-btn-hidden').fadeIn('slow');
+        $('.row-button-hidden').fadeIn('slow');
     });
     
     //Botao que voltar para adicionar novo registro
@@ -762,8 +750,8 @@ $(function () {
         $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
-        $('#group-btn-form-new').hide(200);
-        $('#group-btn-hide').show(200);
+        $('#group-btn-form-new').hidden(200);
+        $('#group-btn-hidden').show(200);
         $('html, body').animate({scrollTop:0}, 'slow');
     });
 });

@@ -414,7 +414,7 @@
                     );
                     objFinanca.ajaxActionUser();
                 }else if(objData.type === 'delete') {
-                    if(confirm('Deseja remover esse registro?')){
+                    if(confirm('Deseja remover esse registro? Também serão removidos todos registro de honorários.')){
                         objData.userData = 'action_type='+objData.type+'&id='+objData.id;
                         feedback = 'Remoção realizada com sucesso!';
                         objFinanca.setAjaxActionUser( 

@@ -3,8 +3,6 @@
     # Parâmetros de páginação
     $tblName = 'fees';
     
-    
-    
     # Recebe o valor da quantidade de registro por páginas.
     $qtdLine = filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT );
 
@@ -17,8 +15,6 @@
     } else {
         $limit = $qtdLine;
     }
-    
-    
     
     $start = !empty(filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT)) ? filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) : 0;
     
@@ -52,7 +48,6 @@
         $count = (int) count($modelo->searchTable($tblName, $conditions));
         $conditions['order_by'] = "fees_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
-        
     }
     
     $pagConfig = [

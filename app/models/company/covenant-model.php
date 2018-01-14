@@ -277,11 +277,12 @@ class covenantModel extends MainModel
             echo 'err';exit();
             
         } else {
-            # Deleta o registro
-            $query_del = $this->db->delete('covenant', 'covenant_id', $decode_id);
+            # Executa a remoção do registro
+            ( $this->db->delete('fees', 'covenant_id', $decode_id) ) ? $this->db->delete('covenant', 'covenant_id', $decode_id) : FALSE;
+            
 
-            #   Destroy variáveis não mais utilizadas
-            unset($parametro, $query_del, $search, $id);
+            # Destroy variáveis não mais utilizadas
+            unset($parametro, $search, $id);
 
             echo 'ok';exit();
         }

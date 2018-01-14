@@ -285,7 +285,7 @@ function Financeiro() {
                 type: 'POST',
                 dataType: 'JSON',
                 url: this.objAction.url,
-                data: 'action_type=data&id=' + this.objAction.id,
+                data: 'action_type='+this.objAction.type+'&id=' + this.objAction.id,
                 async: true,
                 success: function (data) {
                     if (typeExec === 'loadEdit') {
@@ -294,7 +294,7 @@ function Financeiro() {
                         });
                     } else if (typeExec === 'loadInfo') {
                         $.each(data, function (key, value) {
-                            $('.' + key).text((value) ? value : ' Não foi preenchido');
+                            $('.' + key).text( (value) ? value : ' Não foi preenchido' );
                         });
                     }
                 }
@@ -368,7 +368,7 @@ function Metodos() {
     this.emptyVerify = function () {
         for (i = 0; i < this.arrayData.length; ++i) {
             cond = document.getElementById(this.arrayData[i]).value;
-            if (cond == false || cond.length == '') {
+            if (cond == false || cond.length == false) {
                 document.getElementById(this.arrayData[i]).classList.add('is-invalid');
             } else {
                 document.getElementById(this.arrayData[i]).classList.remove('is-invalid');

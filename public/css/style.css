@@ -175,7 +175,6 @@ input, select, textarea{
 
 
 .form-control{
-    border: 1px solid #ced4da !important;
     -webkit-transition: all 0.3s linear 0.3s;
     -moz-transition: all 0.3s linear 0.3s;
     -o-transition: all 0.3s linear 0.3s;
