@@ -693,7 +693,7 @@ $(function () {
     $(' .container ').on('click', '#btn-new-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #group-btn-form-new ').fadeOut();
-        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
+        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
         $('.form-hidden, #group-btn-hidden, .row-button-hidden, .notice-hidden ').fadeIn();
         $('.form-register').find('input, textarea').val('');
@@ -713,7 +713,7 @@ $(function () {
     $('#tableData').on('click','.btn-edit-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #btn-show').fadeOut();
-        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>");
+        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>");
         $('.form-register').attr('id',"editForm");
         $('.form-hidden, #group-btn-hidden, #group-btn-form-new, .row-button-hidden ').fadeIn();
         $('#btn-save, #btn-edit-save').attr('id',"btn-edit-save");
@@ -749,7 +749,7 @@ $(function () {
         $('#btn-edit-save').attr('id',"btn-save");
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - Inserindo registro');
-        $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
+        $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
         $('#group-btn-form-new').hide(200);

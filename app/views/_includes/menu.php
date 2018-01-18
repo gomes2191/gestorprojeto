@@ -24,8 +24,8 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item <?= (isSite('providers')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/providers">Fornecedores</a>
                                 <a class="dropdown-item <?= (isSite('patrimony')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/patrimony">Patrimônio</a>
-                                <a class="dropdown-item" href="<?= HOME_URI; ?>/stock">Controle de Estoque</a>
-                                <a class="dropdown-item" href="<?= HOME_URI; ?>/laboratory">Laboratório</a>
+                                <a class="dropdown-item <?= (isSite('stock')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/stock">Controle de Estoque</a>
+                                <a class="dropdown-item <?= (isSite('laboratory')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/laboratory">Laboratório</a>
                                 <a class="dropdown-item <?= (isSite('covenant', 'fees')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/covenant">Convênios / Planos</a>
                                 <a class="dropdown-item" href="#">Tabela de Honorários</a>
                             </div>

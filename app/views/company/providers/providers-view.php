@@ -218,10 +218,14 @@
                                     <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
-                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset"><i class="fa fa-eraser"></i> <span>LIMPAR</span></button>
+                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset">
+                                        <i class="fas fa-eraser fa-lg"></i> <span>LIMPAR</span>
+                                    </button>
                                 </div>
                                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm  marg-top" type="reset"><i class="text-primary glyphicon glyphicon-plus"></i> <span>MODO NOVO REGISTRO</span></button>
+                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                                        <i class="fas fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span>
+                                    </button>
                                 </div>
                             </div>
                         </div><!-- End div button hidden 1 -->
@@ -229,17 +233,19 @@
                         <div class="row" >
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-new" class="btn-group">
-                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm marg-top" type="reset">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
+                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                                        <i class="fas fa-plus fa-lg" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                                     </button>
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">
-                                    <button id="btn-show" title="Mostrar o formulário" class="btn btn-outline-success btn-sm marg-top" type="reset">
-                                        <i class="fa fa-eye"></i> ABRE FORMULÁRIO
+                                    <button id="btn-show" title="Mostrar o formulário" class="btn btn-outline-success btn-sm" type="reset">
+                                        <i class="fas fa-eye fa-lg"></i> ABRE FORMULÁRIO
                                     </button>
                                 </div>
                                 <div id="group-btn-hidden" style="display: none;" class="btn-group">
-                                    <button id="btn-hidden" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset"><i class="fa fa-eye-slash"></i> FECHA FORMULÁRIO</button>
+                                    <button id="btn-hidden" title="Esconde o formulário" class="btn top btn-outline-success btn-sm" type="reset">
+                                        <i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO
+                                    </button>
                                 </div>
                             </div>
                         </div><!--End row button -->
@@ -252,7 +258,7 @@
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
                 
                 <div class="input-group">
-                    <input type="text" class="form-control search" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
+                    <input type="text" class="form-control inputSearch" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
                     <div class="input-group-append">
                         <span class="input-group-text spanSearch">
                             <i class="fab fa-searchengin fa-lg"></i>
@@ -274,7 +280,7 @@
                 <select id="sortBy" class="custom-select" onchange="objFinanca.ajaxFilter();">
                     <option value="">Ordenar Por</option>
                     <option value="asc">Ascendente</option>
-                    <option value="desc">descendente</option>
+                    <option value="desc">Descendente</option>
                     <option value="active">Ativo</option>
                     <option value="inactive">Inativo</option>
                 </select>
@@ -362,51 +368,51 @@
             });
             
             //Tipo de ação disparada pelo usuário
-            function typeAction( objData ){     
-                id = (typeof objData.id === "undefined") ? '' : objData.id;
-                if(objData.type === 'loadInfo' || objData.type === 'loadEdit'){
-                    typeExec = objData.type;
-                    if(objData.type === 'loadEdit'){
-                        objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/providers/ajax-process', id:objData.id});
+            function typeAction( objAction ){     
+                id = (typeof objAction.id === "undefined") ? '' : objAction.id;
+                if(objAction.type === 'loadInfo' || objAction.type === 'loadEdit'){
+                    typeExec = objAction.type;
+                    if(objAction.type === 'loadEdit'){
+                        objFinanca.setAjaxActionUser(objSet = {type: objAction.type, url:'<?= HOME_URI; ?>/providers/ajax-process', id:objAction.id});
                         objFinanca.ajaxActionUser();
                     }else{
-                        objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/providers/ajax-process', id:objData.id});
+                        objFinanca.setAjaxActionUser(objSet = {type: objAction.type, url:'<?= HOME_URI; ?>/providers/ajax-process', id:objAction.id});
                         objFinanca.ajaxActionUser();
                     }
                     
-                }else if ( objData.type === 'add' ) {
+                }else if ( objAction.type === 'add' ) {
                     
                     if($('#provider_name').val() == '' || $('#provider_cpf_cnpj').val() == ''){
                         alert('Existem campos obrigatórios não preenchido.');
                     }else{
-                        objData.userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
+                        objAction.userData = $("#addForm").serialize()+'&action_type='+objAction.type+'&id='+id;
                         feedback = 'Inserido com sucesso!';
                         $('#filtros').show();
                         objFinanca.setAjaxActionUser( 
-                            objSet = {type: objData.type,
+                            objSet = {type: objAction.type,
                             url:'<?= HOME_URI; ?>/providers/ajax-process',
-                            userData:objData.userData} 
+                            userData:objAction.userData} 
                         );
                         objFinanca.ajaxActionUser();
                     }
                     
-                }else if( objData.type === 'update' ){
-                    objData.userData = $("#editForm").serialize()+'&action_type='+objData.type;
+                }else if( objAction.type === 'update' ){
+                    objAction.userData = $("#editForm").serialize()+'&action_type='+objAction.type;
                     feedback = 'Atualizado com sucessso!';
                     objFinanca.setAjaxActionUser( 
-                        objSet = {type: objData.type,
+                        objSet = {type: objAction.type,
                         url:'<?= HOME_URI; ?>/providers/ajax-process',
-                        userData:objData.userData} 
+                        userData:objAction.userData} 
                     );
                     objFinanca.ajaxActionUser();
-                }else if(objData.type === 'delete') {
+                }else if(objAction.type === 'delete') {
                     if(confirm('Deseja remover esse registro?')){
-                        objData.userData = 'action_type='+objData.type+'&id='+objData.id;
+                        objAction.userData = 'action_type='+objAction.type+'&id='+objAction.id;
                         feedback = 'Remoção realizada com sucesso!';
                         objFinanca.setAjaxActionUser( 
-                            objSet = {type: objData.type,
+                            objSet = {type: objAction.type,
                             url:'<?= HOME_URI; ?>/providers/ajax-process',
-                            userData:objData.userData} 
+                            userData:objAction.userData} 
                         );
                         objFinanca.ajaxActionUser();
                     }else{

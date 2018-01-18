@@ -2,7 +2,6 @@
     
     # Parâmetros de páginação
     $tblName = 'stock';
-    $conditions = [];
 
     # Recebe o valor da quantidade de registro por páginas.
     $qtdLine = filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT );
@@ -78,21 +77,22 @@
         'currentPage' => $start,
         'totalRows' => $count,
         'perPage' => $limit,
-        'link_func' => 'objFinanca.ajaxFilter'];
+        'link_func' => 'objFinanca.ajaxFilter'
+    ];
 
     $pagination =  new Pagination($pagConfig);
     
     if (!empty($allReg)) {
         echo <<<HTML
             <table  id="tableList" class="table table-bordered table-sm table-hover" >
-                <thead class="thead-dark">
+                <thead class="thead-green">
                     <tr>
-                        <th class="small text-center">#</th>
-                        <th class="small text-center">CÓDIGO</th>
-                        <th class="small text-center">DESCRIÇÃO</th>
-                        <th class="small text-center">FORNECEDOR</th>
-                        <th class="small text-center">PREÇO</th>
-                        <th colspan="3" class="small text-center">AÇÃO</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">CÓDIGO</th>
+                        <th class="text-center">DESCRIÇÃO</th>
+                        <th class="text-center">FORNECEDOR</th>
+                        <th class="text-center">PREÇO</th>
+                        <th colspan="3" class="text-center">AÇÃO</th>
                     </tr>
                 </thead>
                 <tbody>
