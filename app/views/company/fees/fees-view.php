@@ -46,10 +46,10 @@
                 <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
                     <fieldset>
                         <legend >HONORÁRIOS <span class="text-success"></span></legend>
-                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                        <div class="row form-hidden" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO HONORÁRIOS</small></div>
                         </div>    
-                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                        <div class="row form-hidden" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="fees_cod">Código:</label>
                                 <input type="hidden" id="fees_id" name="fees_id" value="" >
@@ -110,23 +110,27 @@
                                 </div>
                             </div>
                         </div><!-- End div hidden 1 -->
-                        <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
+                        <div class="row form-hidden" style="display: none;"><!--Start div hidden 4-->
                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                 <label for="fees_obs">Observações:</label>
                                 <textarea id="fees_obs" class="form-control" name="fees_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php echo htmlentities(chk_array($modelo->form_data, 'fees_obs')); ?></textarea>
                             </div>
                         </div><!-- End div hidden 6 -->
                         
-                        <div class="row form-compact row-button-hide" style="display: none;">
+                        <div class="row form-compact row-button-hidden" style="display: none;">
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-save" class="btn-group">
                                     <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
-                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset"><i class="fas fa-eraser fa-lg"></i> <span>LIMPAR</span></button>
+                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset">
+                                        <i class="fas fa-eraser fa-lg"></i> <span>LIMPAR</span>
+                                    </button>
                                 </div>
                                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-light btn-sm  marg-top" type="reset"><i class="fas  fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span></button>
+                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                                        <i class="fas fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -134,8 +138,8 @@
                         <div class="row form-compact" >
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-new" class="btn-group">
-                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm marg-top" type="reset">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
+                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                                        <i class="fas fa-plus fa-lg" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                                     </button>
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">
@@ -143,8 +147,10 @@
                                         <i class="fas fa-eye fa-lg"></i> ABRE FORMULÁRIO
                                     </button>
                                 </div>
-                                <div id="group-btn-hide" style="display: none;" class="btn-group">
-                                    <button id="btn-hide" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset"><i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO</button>
+                                <div id="group-btn-hidden" style="display: none;" class="btn-group">
+                                    <button id="btn-hidden" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset">
+                                        <i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO
+                                    </button>
                                 </div>
                             </div>
                         </div>
