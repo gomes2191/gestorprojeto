@@ -7,7 +7,6 @@
  */
 class MainController extends UserLogin
 {
-
     /**
      * $db
      *
@@ -63,7 +62,7 @@ class MainController extends UserLogin
     {
 
         // Instancia do DB
-        $this->db = new systemControlDB();
+        $this->db = new SystemControlDB();
 
         // Parâmetros
         $this->parametros = $parametros;
@@ -92,7 +91,8 @@ class MainController extends UserLogin
 
         // Inclui o arquivo
         $model_path = ABSPATH . '/app/models/' . $model_name . '.php';
-
+        
+        
         // Verifica se o arquivo existe
         if ( file_exists( $model_path ) ) 
         {
@@ -111,10 +111,8 @@ class MainController extends UserLogin
             # Verifica se a classe existe
             if ( class_exists( $model_name ) ) 
             {
-
                 # Retorna um objeto da classe
                 return new $model_name( $this->db, $this );
-
             }
 
             // The end :)

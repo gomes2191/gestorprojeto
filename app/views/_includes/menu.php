@@ -61,4 +61,4 @@
                 </div>
             </div>
         </nav> <!--End navbar-->
-        <div class="container"><!--Aqui é o inicio do corpo principal todo conteúdo vai aqui -->
+        <main role="main" class="container"><!-- Start Main container principal -->

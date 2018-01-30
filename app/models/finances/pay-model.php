@@ -66,36 +66,26 @@ class PayModel extends MainModel
             
             # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
             foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
-                
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
-                
             } # End foreach
             
-            //var_dump($this->form_data);die;
-            
-//            #   Não será permitido campos vazios
-//            if ( empty( $this->form_data['fees_cod'] )) {
-//                
-//                #   Feedback para o usuário
-//                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
-//                
-//                # Termina
-//                return;
-//            }
+            # Verifica se existe o ID e decodifica se o mesmo existir.
+            ( !empty($this->form_data['patrimony_id']) ) 
+            ? $this->form_data['patrimony_id'] = $this->encode_decode(0, $this->form_data['patrimony_id']) : '';
         }else {
             # Finaliza a execução.
             return 'err';
         } #--> End
-       
+        
         # Verifica se o registro já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = ? ',[
-            chk_array($this->form_data, 'pay_id')
-        ]);        
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = ? ',[
+            chk_array($this->form_data, 'patrimony_id')
+        ]);
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
-            $this->updateRegister(chk_array($this->form_data, 'pay_id'));
+            $this->updateRegister( $this->form_data['patrimony_id'] );
         }else{
             //var_dump($this->form_data);die;
             $this->insertRegister();
@@ -112,16 +102,23 @@ class PayModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))));die;
-        
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'patrimony_date_patrimony'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('bills_to_pay',[
-            'pay_venc'         =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_venc'))),
-            'pay_date_pay'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))),
-            'pay_desc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
-            'pay_cat'          =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
-            'pay_val'          =>  $this->moneyFloat(chk_array($this->form_data, 'pay_val')),
-            'pay_created'      =>  date('Y-m-d H:i:s', time())
+        $query_ins = $this->db->insert('patrimony',[
+            'patrimony_cod'         =>  chk_array($this->form_data, 'patrimony_cod'),
+            'patrimony_desc'        =>  chk_array($this->form_data, 'patrimony_desc'),
+            'patrimony_data_aq'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
+            'patrimony_cor'         =>  chk_array($this->form_data, 'patrimony_cor'),
+            'patrimony_for'         =>  chk_array($this->form_data, 'patrimony_for'),
+            'patrimony_dimen'       =>  chk_array($this->form_data, 'patrimony_dimen'),
+            'patrimony_setor'       =>  chk_array($this->form_data, 'patrimony_setor'),
+            'patrimony_valor'       =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
+            'patrimony_garan'       =>  chk_array($this->form_data, 'patrimony_garan'),
+            'patrimony_quant'       =>  chk_array($this->form_data, 'patrimony_quant'),
+            'patrimony_sit'         =>  chk_array($this->form_data, 'patrimony_sit'),
+            'patrimony_nf'          =>  chk_array($this->form_data, 'patrimony_nf'),
+            'patrimony_obs'         =>  chk_array($this->form_data, 'patrimony_obs'),
+            'patrimony_created'     =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -137,7 +134,6 @@ class PayModel extends MainModel
             //return $this->form_msg;
             echo 'err';
         }
-        
     }
     
     /**
@@ -152,13 +148,21 @@ class PayModel extends MainModel
         # Verifica se existe ID
         if ( $registro_id ) {
             # Efetua o update do registro
-            $query_up = $this->db->update('bills_to_pay', 'pay_id', $registro_id,[
-                'pay_venc'        =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_venc'))),
-                'pay_date_pay'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))),
-                'pay_desc'        =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
-                'pay_cat'         =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
-                'pay_val'         =>  $this->moneyFloat(chk_array($this->form_data, 'pay_val')),
-                'pay_modified'    =>  date('Y-m-d H:i:s', time())
+            $query_up = $this->db->update('patrimony', 'patrimony_id', $registro_id,[
+                'patrimony_cod'        =>  chk_array($this->form_data, 'patrimony_cod'),
+                'patrimony_desc'       =>  chk_array($this->form_data, 'patrimony_desc'),
+                'patrimony_data_aq'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'patrimony_data_aq')),
+                'patrimony_cor'        =>  chk_array($this->form_data, 'patrimony_cor'),
+                'patrimony_for'        =>  chk_array($this->form_data, 'patrimony_for'),
+                'patrimony_dimen'      =>  chk_array($this->form_data, 'patrimony_dimen'),
+                'patrimony_setor'      =>  chk_array($this->form_data, 'patrimony_setor'),
+                'patrimony_valor'      =>  (int) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
+                'patrimony_garan'      =>  chk_array($this->form_data, 'patrimony_garan'),
+                'patrimony_quant'      =>  chk_array($this->form_data, 'patrimony_quant'),
+                'patrimony_nf'         =>  chk_array($this->form_data, 'patrimony_nf'),
+                'patrimony_sit'        =>  chk_array($this->form_data, 'patrimony_sit'),
+                'patrimony_obs'        =>  chk_array($this->form_data, 'patrimony_info'),
+                'patrimony_modified'   =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -226,7 +230,7 @@ class PayModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
@@ -236,7 +240,7 @@ class PayModel extends MainModel
             
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('bills_to_pay', 'pay_id', $decode_id);
+            $query_del = $this->db->delete('patrimony', 'patrimony_id', $decode_id);
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
@@ -244,9 +248,7 @@ class PayModel extends MainModel
             echo 'ok';exit();
         }
     }   #--> End delRegister()
-
-        
-         
+   
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -284,12 +286,12 @@ class PayModel extends MainModel
             
             # The output
             echo '<tr>';			
-            echo '<td class="small">'.$result['pay_id'].'</td>';
-            echo '<td class="small">'.$result['pay_venc'].'</td>';
-            echo '<td class="small">'.$result['pay_date_pay'].'</td>';
-            echo '<td class="small">'.$result['pay_cat'].'</td>';
-            echo '<td class="small">'.$result['pay_desc'].'</td>';
-            echo '<td class="small">'.$result['pay_val'].'</td>';
+            echo '<td class="small">'.$result['patrimony_id'].'</td>';
+            echo '<td class="small">'.$result['patrimony_venc'].'</td>';
+            echo '<td class="small">'.$result['patrimony_date_patrimony'].'</td>';
+            echo '<td class="small">'.$result['patrimony_cat'].'</td>';
+            echo '<td class="small">'.$result['patrimony_desc'].'</td>';
+            echo '<td class="small">'.$result['patrimony_val'].'</td>';
             echo '</tr>';	
         }
     }
@@ -317,14 +319,14 @@ class PayModel extends MainModel
         $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
         
         // Prepara a conversao para o formato desejado
-        foreach ($queryResult as $pay) {
+        foreach ($queryResult as $patrimony) {
             $mysql_data[] = [
-                "pay_id"        => $pay['pay_id'],
-                "pay_venc"      => $pay['pay_venc'],
-                "pay_date_pay"  => $pay['pay_date_pay'],
-                "pay_cat"       => '$ ' . $pay['pay_cat'],
-                "pay_desc"      => $pay['pay_desc'],
-                "pay_val"       => $pay['pay_val']
+                "patrimony_id"        => $patrimony['patrimony_id'],
+                "patrimony_venc"      => $patrimony['patrimony_venc'],
+                "patrimony_date_patrimony"  => $patrimony['patrimony_date_patrimony'],
+                "patrimony_cat"       => '$ ' . $patrimony['patrimony_cat'],
+                "patrimony_desc"      => $patrimony['patrimony_desc'],
+                "patrimony_val"       => $patrimony['patrimony_val']
             ];
         }
         
@@ -350,7 +352,7 @@ class PayModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `bills_to_pay` WHERE `pay_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `patrimony` WHERE `patrimony_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {
@@ -380,7 +382,7 @@ class PayModel extends MainModel
      * @return string A paginação montada
      */
     function paginacao(
-    $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
+        $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
     ) {
         // Obtém o número total de página
         $numero_de_paginas = floor($total_artigos / $artigos_por_pagina);

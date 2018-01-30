@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class covenantModel extends MainModel 
+class CovenantModel extends MainModel 
 {
     /**
      * $form_data
@@ -101,7 +101,7 @@ class covenantModel extends MainModel
     *   @Descrição: Insere o registro no BD.
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
-    public function insertRegister(){
+    private function insertRegister(){
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'covenant_date_covenant'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('covenant',[
@@ -163,7 +163,7 @@ class covenantModel extends MainModel
     *   @Descrição: Atualiza um registro especifico no BD.
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
-    public function updateRegister( $registro_id = NULL ){
+    private function updateRegister( $registro_id = NULL ){
         # Verifica se existe ID
         if ( $registro_id ) {
             # Efetua o update do registro
