@@ -1,7 +1,7 @@
 <?php   if (!defined('ABSPATH')) {  exit(); }
     
     # Parâmetros de páginação
-    $tblName = 'patrimony';
+    $tblName = 'bills_to_pay';
 
     # Recebe o valor da quantidade de registro por páginas.
     $qtdLine = filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT );
@@ -19,46 +19,46 @@
     $start = !empty(filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT)) ? filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) : 0;
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
-        $conditions['search'] = ['patrimony_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'patrimony_cod' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
+        $conditions['search'] = ['pay_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'pay_cod' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-        $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
+        $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
         unset($allReg);
         $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
         switch ($sortBy) {
             case 'active':
-                $conditions['active'] = ['patrimony_sit' => 'active'];
-                $conditions['order_by'] = 'patrimony_id DESC';
+                $conditions['active'] = ['pay_sit' => 'active'];
+                $conditions['order_by'] = 'pay_id DESC';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;            
             case 'inactive':
-                $conditions['inactive'] = ['patrimony_sit' => 'inactive'];
-                $conditions['order_by'] = 'patrimony_id DESC';
+                $conditions['inactive'] = ['pay_sit' => 'inactive'];
+                $conditions['order_by'] = 'pay_id DESC';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'asc':
-                $conditions['order_by'] = "patrimony_id ASC";
+                $conditions['order_by'] = "pay_id ASC";
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'desc':
-                $conditions['order_by'] = "patrimony_id DESC";
+                $conditions['order_by'] = "pay_id DESC";
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'new':
-                $conditions['id'] = 'patrimony_id';
+                $conditions['id'] = 'pay_id';
                 $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;   
@@ -66,9 +66,9 @@
                 break;
         }
     } else {
-        $conditions['order_by'] = "patrimony_id DESC LIMIT 100";
+        $conditions['order_by'] = "pay_id DESC LIMIT 100";
         $count = COUNT($modelo->searchTable( $tblName, $conditions ));
-        $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
+        $conditions['order_by'] = "pay_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }
     
@@ -90,8 +90,10 @@
                         <th class="text-center">#</th>
                         <th class="text-center">CÓDIGO</th>
                         <th class="text-center">DESCRIÇÃO</th>
-                        <th class="text-center">SETOR</th>
-                        <th class="text-center">VALOR</th>
+                        <th class="text-center">CATEGORIA</th>
+                        <th class="text-center">VENCIMENTO</th>
+                        <th class="text-center">PAGAMENTO</th>
+                        <th class="text-center">SITUAÇÃO</th>
                         <th colspan="3" class="text-center">AÇÃO</th>
                     </tr>
                 </thead>
@@ -100,20 +102,22 @@ HTML;
         $count = 0;
         foreach ($allReg as $reg) : $count++;
             echo '<tr class="text-center">';
-            echo '<td>'.$reg['patrimony_id'].'</td>';
-            echo '<td>'.$reg['patrimony_cod'].'</td>';
-            echo '<td>'.(($reg['patrimony_desc']) ? $reg['patrimony_desc'] : '---') .'</td>';
-            echo '<td>'.(($reg['patrimony_setor']) ? $reg['patrimony_setor'] : '---') .'</td>';
-            echo '<td>'.(($reg['patrimony_valor']) ? $reg['patrimony_valor'] : '---') .'</td>';
+            echo '<td>'.$reg['pay_id'].'</td>';
+            echo '<td>'.$reg['pay_cod'].'</td>';
+            echo '<td>'.(($reg['pay_desc']) ? $reg['pay_desc'] : '---') .'</td>';
+            echo '<td>'.(($reg['pay_cat']) ? $reg['pay_cat'] : '---') .'</td>';
+            echo '<td>'.(($reg['pay_venc']) ? $reg['pay_venc'] : '---') .'</td>';
+            echo '<td>'.(($reg['pay_date_pay']) ? $reg['pay_date_pay'] : '---') .'</td>';
+            echo '<td>'.(($reg['pay_sit'] == 'active') ? '<span class="badge badge-success">PAGO</span>' : 'Não Pago') .'</td>';
             
             
             //echo '<td>'.(($reg['patrimony_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_created']) : '---') .'</td>';
             //echo '<td>'.(($reg['patrimony_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_modified']) : '---') .'</td>';
             //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             //echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
-            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
+            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['pay_id'])}'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
+            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['pay_id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['pay_id'])}'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML

@@ -43,68 +43,82 @@
                             </div><!-- End div hidden 1 -->
                             <div class="row form-hidden" style="display: none;"><!-- Start div hidden 2 -->
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                    <label for="patrimony_cod">Código:</label>
-                                    <input type="hidden" id="patrimony_id" name="patrimony_id" value="" >
-                                    <input id="patrimony_cod" name="patrimony_cod" type="text" class="form-control form-control-sm text-center" placeholder="0000000" >
+                                    <label for="pay_cod">Código:</label>
+                                    <input type="hidden" id="pay_id" name="pay_id" value="" >
+                                    <input id="pay_cod" name="pay_cod" type="text" class="form-control form-control-sm text-center" placeholder="GB0000" >
                                     <div class="invalid-feedback">
                                         Preencha esse campo.
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                    <label for="patrimony_desc">Descrição:</label>
-                                    <input id="patrimony_desc" name="patrimony_desc" type="text" class="form-control form-control-sm text-center" placeholder="Conta de luz" >
+                                    <label for="pay_desc">Descrição:</label>
+                                    <input id="pay_desc" name="pay_desc" type="text" class="form-control form-control-sm text-center" placeholder="Boleto - Luz" >
                                     <div class="invalid-feedback">
                                         Preencha esse campo.
                                     </div>
                                 </div>
                                 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12" >
-                                    <label for="patrimony_sit">Categoria:</label><br>
-                                    <select id="patrimony_sit" name="patrimony_sit" class="custom-select form-control-sm">
+                                    <label for="pay_cat">Categoria:</label><br>
+                                    <select id="pay_cat" name="pay_cat" class="custom-select form-control-sm">
                                         <option selected value="active">Ativo</option>
                                         <option value="inactive">Inativo</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                    <label for="patrimony_data_aq">Data de vencimento:</label>
-                                    <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control form-control-sm data text-center" type="text" placeholder="__/__/____" value="">
+                                    <label for="pay_venc">Data de vencimento:</label>
+                                    <input id="pay_venc" name="pay_venc" class="form-control form-control-sm data text-center" type="text" placeholder="__/__/____" value="">
                                 </div>
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                    <label for="patrimony_data_aq">Data de pagamento:</label>
-                                    <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control form-control-sm data text-center" type="text" placeholder="__/__/____" value="">
+                                    <label for="pay_date_pay">Data de pagamento:</label>
+                                    <input id="pay_date_pay" name="pay_date_pay" class="form-control form-control-sm data text-center" type="text" placeholder="__/__/____" value="">
                                 </div>
-                                
-                                <div class="form-group col-md-2 col-sm-12 col-xs-12" >
-                                    <label for="pay_desc">Desconto ( % ):</label>
-                                    <div class="input-group input-group-sm">
-                                        <input type="text" id="pay_desc" class="form-control form-control-sm number text-center" name="pay_desc" placeholder="0">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- End div hidden 2 -->
-
-                            <div class="row form-hidden" style="display: none;"><!--Start div hidden 3-->
                                 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                    <label for="patrimony_valor">Montante em R$:</label>
+                                    <label for="pay_value">Montante em R$:</label>
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">R$</span>
                                         </div>
-                                        <input type="text" id="fees_val_final" class="form-control form-control-sm text-center money" name="fees_val_final" placeholder="0,00">
+                                        <input type="text" id="pay_value" class="form-control form-control-sm text-center money" name="pay_value" placeholder="0,00">
                                         <div class="input-group-append">
                                             <span class="input-group-text">.00</span>
                                         </div>
                                     </div>
                                 </div>
+                                
+                            </div><!-- End div hidden 2 -->
+
+                            <div class="row form-hidden" style="display: none;"><!--Start div hidden 3-->
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12" >
-                                    <label for="patrimony_sit">Situação:</label><br>
-                                    <select id="patrimony_sit" name="patrimony_sit" class="custom-select form-control-sm">
+                                    <label for="pay_perce">Desconto ( % ):</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" id="pay_perce" class="form-control form-control-sm number text-center" name="pay_perce" placeholder="0">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                                    <label for="pay_total">Total com desconto:</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">R$</span>
+                                        </div>
+                                        <input type="text" id="pay_total" class="form-control form-control-sm text-center money" name="pay_total" placeholder="0,00" disabled>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-2 col-sm-12 col-xs-12" >
+                                    <label for="pay_sit">Situação:</label><br>
+                                    <select id="pay_sit" name="pay_sit" class="custom-select form-control-sm">
                                         <option selected value="active">Pago</option>
                                         <option value="inactive">Não pago</option>
                                     </select>
@@ -113,8 +127,8 @@
 
                             <div class="row form-hidden" style="display: none;"><!--Start div hidden 4-->
                                 <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                    <label for="patrimony_obs">Observações:</label>
-                                    <textarea id="patrimony_obs" class="form-control" name="patrimony_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ></textarea>
+                                    <label for="pay_obs">Observações:</label>
+                                    <textarea id="pay_obs" class="form-control" name="pay_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ></textarea>
                                 </div>
                             </div><!--End div hidden 4 -->
                             <div class="row form-compact row-button-hidden" style="display: none;"><!--Start  div hidden button 1-->
@@ -245,7 +259,7 @@
 
 
                     $('input').on('keydown keyup', function (){
-                       objMetodos.setVerify(arrayData = ['patrimony_cod','patrimony_desc']);
+                       objMetodos.setVerify(arrayData = ['pay_cod','pay_desc']);
                        objMetodos.emptyVerify();
                        objMetodos.getVerify();
                     });
@@ -263,7 +277,7 @@
                                 objFinanca.ajaxActionUser();
                             }
                         }else if ( objAction.type === 'add' ) {
-                            if($('#provider_name').val() == '' || $('#provider_cpf_cnpj').val() == ''){
+                            if($('#pay_cod').val() == '' || $('#pay_desc').val() == ''){
                                 alert('Existem campos obrigatórios não preenchido.');
                             }else{
                                 objAction.userData = $("#addForm").serialize()+'&action_type='+objAction.type+'&id='+id;
