@@ -108,7 +108,7 @@ HTML;
             echo '<td>'.(($reg['pay_cat']) ? $reg['pay_cat'] : '---') .'</td>';
             echo '<td>'.(($reg['pay_venc']) ? $reg['pay_venc'] : '---') .'</td>';
             echo '<td>'.(($reg['pay_date_pay']) ? $reg['pay_date_pay'] : '---') .'</td>';
-            echo '<td>'.(($reg['pay_sit'] == 'active') ? '<span class="badge badge-success">PAGO</span>' : 'Não Pago') .'</td>';
+            echo '<td>'.(($reg['pay_sit'] == 'active') ? '<span class="badge badge-pill badge-primary">PAGO</span>' : 'Não Pago') .'</td>';
             
             
             //echo '<td>'.(($reg['patrimony_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_created']) : '---') .'</td>';

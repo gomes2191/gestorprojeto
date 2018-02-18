@@ -90,7 +90,6 @@ class PayModel extends MainModel
             //var_dump($this->form_data);die;
             $this->insertRegister();
         }
-        
     } #--> End validate_register_form()
     
     /**
@@ -258,6 +257,7 @@ class PayModel extends MainModel
         $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
          
         $row = $query->fetch();
+        
         $id = trim($row[0]);
         
         return $id;

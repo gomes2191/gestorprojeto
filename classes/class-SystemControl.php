@@ -1,9 +1,9 @@
 <?php
 
 /**
- * OdontoControl - Gerencia Models, Controllers e Views
+ * FCONTROL - Gerencia Models, Controllers e Views
  *
- * @package OdontoControl
+ * @package FCONTROL
  * @since 0.1
  */
 class SystemControl {
@@ -58,16 +58,15 @@ class SystemControl {
         // Obtém os valores do controlador, ação e parâmetros da URL.
         // E configura as propriedades da classe.
         $this->get_url_data();
-
+        
         /**
          * Verifica se o controlador existe. Caso contrário, adiciona o
          * controlador padrão (controllers/home-controller.php) e chama o método index().
          */
         if (!$this->controlador) {
-
             // Adiciona o controlador padrão
-            require_once $this->getCaminho(ABSPATH . '/app/controllers', 'register-controller.php');
-
+            require_once $this->getFile('register-controller.php');
+            
             // Cria o objeto do controlador "home-controller.php"
             // Este controlador deverá ter uma classe chamada HomeController
             $this->controlador = new RegisterController();
@@ -80,7 +79,8 @@ class SystemControl {
         }
 
         # Se o arquivo do controlador não existir, não faremos nada
-        if (!file_exists($this->getCaminho(ABSPATH . '/app/controllers', $this->controlador . '.php'))) {
+        if (!file_exists($this->getFile($this->controlador . '.php'))) {
+            
             # Página não encontrada
             require_once ABSPATH . $this->not_found;
 
@@ -88,10 +88,8 @@ class SystemControl {
             return;
         }
         
-        $this->getCaminho(ABSPATH . '/app/controllers', $this->controlador . '.php');
-        
         # Inclui o arquivo do controlador
-        require_once $this->getCaminho(ABSPATH . '/app/controllers/', $this->controlador . '.php');
+        require_once $this->getFile($this->controlador . '.php');
 
         # Remove caracteres inválidos do nome do controlador para gerar o nome
         # da classe. Se o arquivo chamar "news-controller.php", a classe deverá
@@ -106,6 +104,7 @@ class SystemControl {
             // FIM :)
             return;
         } // class_exists
+        
         // Cria o objeto da classe do controlador e envia os parâmentros
         $this->controlador = new $this->controlador($this->parametros);
 
@@ -132,29 +131,33 @@ class SystemControl {
         // FIM :)
         return;
     } # __construct
+    
+    function __destruct() {
+    }
 
-    function getCaminho($diretorio, $nomeArquivo) {
-        $encontrados = "";
-        $ponteiro = opendir($diretorio);
+   /**
+     * @access: private
+     * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
+     * @version: 0.2
+     * @param: mixed variables
+     * @param: string $table_name [required]
+     * @param: array $conditions [required] <code>$conditions['where'=>['colunm'=>value,...]] $conditions['search'=>['colunm'=>value,...]]
+     * </code>
+     * @return: array Retorna um array com os valores
+     */
+    private function getFile($controle) {
+        $encontrado = null;
+        $directory = new \RecursiveDirectoryIterator(ABSPATH . '/app/controllers/');
+        $iterator = new \RecursiveIteratorIterator($directory);
 
-        while ($nome_itens = readdir($ponteiro)) {
-            $itens[] = $nome_itens;
-        }
+        foreach ($iterator as $info) {
 
-        sort($itens);
-
-        foreach ($itens as $listar) {
-            if ($listar != "." && $listar != "..") {
-                if (is_dir($diretorio . '/' . $listar)) {
-                    $encontrados .= $this->getCaminho($diretorio . '/' . $listar, $nomeArquivo);
-                } else {
-                    if (preg_match('/' . $nomeArquivo . '/i', $listar)) {
-                        $encontrados .= $diretorio . '/' . $listar;
-                    }
-                }
+            if (strripos($info->getPathname(), $controle)) {
+                $encontrado = $info->getPathname();
             }
         }
-        return $encontrados;
+        unset($directory, $iterator, $info, $controle);
+        return $encontrado;
     }
 
     /**
@@ -168,11 +171,11 @@ class SystemControl {
      */
     public function get_url_data() {
         # Verifica se o parâmetro path foi enviado
-        if ((filter_input(INPUT_GET, 'path'))) {
+        if ((filter_input(INPUT_GET, 'path', FILTER_SANITIZE_URL))) {
 
             # Captura o valor de $_GET['path']
-            $path1 = filter_input(INPUT_GET, 'path');
-
+            $path1 = filter_input(INPUT_GET, 'path', FILTER_SANITIZE_URL);
+            
             # Remove a barra invertida do final
             $path2 = preg_replace('/[\/]$/', "", $path1);
 
@@ -187,9 +190,10 @@ class SystemControl {
             $this->controlador = chk_array($path, 0);
             $this->controlador .= '-controller';
             $this->acao = chk_array($path, 1);
-
+            
             // Configura os parâmetros
             if (chk_array($path, 2)) {
+                
                 unset($path[0]);
                 unset($path[1]);
 

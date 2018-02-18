@@ -8,7 +8,7 @@
      */ 
     define('ABSPATH', __DIR__);
     # Nome do site
-    define('NOME_SITE', 'Odonto C - ');
+    define('NOME_SITE', 'FCONTROL - ');
     # Idioma do sistema
     define('LANG', 'pt_BR');
     # Caminho para a pasta de uploads
