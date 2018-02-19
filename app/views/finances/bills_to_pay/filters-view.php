@@ -81,7 +81,7 @@
     
     # Cria um objeto da classe de páginação
     $pagination =  new Pagination($pagConfig);
-    
+     
     if (!empty($allReg)) {
         echo <<<HTML
             <table  id="tableList" class="table table-bordered table-sm table-hover" >
@@ -106,9 +106,9 @@ HTML;
             echo '<td>'.$reg['pay_cod'].'</td>';
             echo '<td>'.(($reg['pay_desc']) ? $reg['pay_desc'] : '---') .'</td>';
             echo '<td>'.(($reg['pay_cat']) ? $reg['pay_cat'] : '---') .'</td>';
-            echo '<td>'.(($reg['pay_venc']) ? $reg['pay_venc'] : '---') .'</td>';
-            echo '<td>'.(($reg['pay_date_pay']) ? $reg['pay_date_pay'] : '---') .'</td>';
-            echo '<td>'.(($reg['pay_sit'] == 'active') ? '<span class="badge badge-pill badge-primary">PAGO</span>' : 'Não Pago') .'</td>';
+            echo '<td>'.(($reg['pay_venc']) ? $modelo->convertDataHora('Y-m-d','d/m/Y',$reg['pay_venc'])  : '---') .'</td>';
+            echo '<td>'.(($reg['pay_date_pay']) ? $modelo->convertDataHora('Y-m-d','d/m/Y', $reg['pay_date_pay']) : '---') .'</td>';
+            echo '<td>'.(($reg['pay_sit'] == 'active') ? '<span class="badge badge-success">PAGO</span>' : '<span class="badge badge-danger">NÃO PAGO</span>') .'</td>';
             
             
             //echo '<td>'.(($reg['patrimony_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_created']) : '---') .'</td>';
@@ -132,6 +132,6 @@ HTML;
         echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Não há registros na base de dados.</div>';
     }
     
-
-    
+    # Dstroy variáveis
+    unset($start, $limit, $tblName, $qtdLine, $conditions, $allReg, $pagination, $pagConfig, $count, $modelo, $sortBy);
     

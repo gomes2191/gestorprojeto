@@ -69,21 +69,21 @@
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                     <label for="pay_venc">Data de vencimento:</label>
-                                    <input id="pay_venc" name="pay_venc" class="form-control form-control-sm data text-center" type="text" placeholder="__/__/____" value="">
+                                    <input id="pay_venc" name="pay_venc" class="form-control form-control-sm date text-center" type="text" placeholder="__/__/____" value="">
                                 </div>
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                     <label for="pay_date_pay">Data de pagamento:</label>
-                                    <input id="pay_date_pay" name="pay_date_pay" class="form-control form-control-sm data text-center" type="text" placeholder="__/__/____" value="">
+                                    <input id="pay_date_pay" name="pay_date_pay" class="form-control form-control-sm date text-center" type="text" placeholder="__/__/____" value="">
                                 </div>
                                 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                    <label for="pay_value">Montante em R$:</label>
+                                    <label for="pay_value_real">Montante em R$:</label>
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">R$</span>
                                         </div>
-                                        <input type="text" id="pay_value" class="form-control form-control-sm text-center money" name="pay_value" placeholder="0,00">
+                                        <input type="text" id="pay_value_real" class="form-control form-control-sm text-center money" name="pay_value_real" placeholder="0,00">
                                         <div class="input-group-append">
                                             <span class="input-group-text">.00</span>
                                         </div>
@@ -104,12 +104,12 @@
                                 </div>
                                 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                    <label for="pay_total">Total com desconto:</label>
+                                    <label for="pay_value_final">Valor final:</label>
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">R$</span>
                                         </div>
-                                        <input type="text" id="pay_total" class="form-control form-control-sm text-center money" name="pay_total" placeholder="0,00" disabled>
+                                        <input type="text" id="pay_value_final" class="form-control form-control-sm text-center money" name="pay_value_final" placeholder="0,00" disabled>
                                         <div class="input-group-append">
                                             <span class="input-group-text">.00</span>
                                         </div>
@@ -225,20 +225,18 @@
                         </div>
                         <div class="modal-body">
                             <ul class="list-group list-modal-forn">
-                                <li class="list-group-item list-group-item-primary list-group-item-text"><b>Código:</b>&nbsp;<span class="patrimony_cod">----</span></li>
-                                <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Descrição:</b>&nbsp;<span class="patrimony_desc">----</span> </li>
-                                <li class="list-group-item list-group-item-success list-group-item-text"><b>Data de aquisisção:</b>&nbsp;<span class="patrimony_data_aq"></span></li>
-                                <li class="list-group-item list-group-item-danger list-group-item-text"><b>Cor:</b>&nbsp;<span class="patrimony_cor">----</span></li>
-                                <li class="list-group-item list-group-item-warning list-group-item-text"><b>Fornecedor:</b>&nbsp;<span class="patrimony_for">----</span></li>
-                                <li class="list-group-item list-group-item-info list-group-item-text"><b>Dimensão:</b>&nbsp;<span class="patrimony_dimen">----</span></li>
-                                <li class="list-group-item list-group-item-light list-group-item-text"><b>Setor:</b>&nbsp;<span class="patrimony_setor">----</span></li>
-                                <li class="list-group-item list-group-item-dark list-group-item-text"><b>Valor:</b>&nbsp;<span class="patrimony_valor"></span></li> 
-                                <li class="list-group-item list-group-item-text"><b>Garantia:</b>&nbsp;<span class="patrimony_nation">----</span></li>
-                                <li class="list-group-item list-group-item-primary list-group-item-text"><b>Quantidade:</b>&nbsp;<span class="patrimony_quant">----</span> </li>
-                                <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Nota fiscal:</b>&nbsp;<span class="patrimony_nf"></span></li>
-                                <li class="list-group-item list-group-item-success list-group-item-text"><b>Observações:</b>&nbsp;<span class="patrimony_obs">----</span></li>
-                                <li class="list-group-item list-group-item-danger list-group-item-text"><b>Criado em:</b>&nbsp;<span class="patrimony_created">----</span></li>
-                                <li class="list-group-item list-group-item-warning list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="patrimony_modified">----</span></li>
+                                <li class="list-group-item list-group-item-primary list-group-item-text"><b>Código:</b>&nbsp;<span class="pay_cod">----</span></li>
+                                <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Descrição:</b>&nbsp;<span class="pay_desc">----</span> </li>
+                                <li class="list-group-item list-group-item-success list-group-item-text"><b>Categoria:</b>&nbsp;<span class="pay_cat"></span></li>
+                                <li class="list-group-item list-group-item-danger list-group-item-text"><b>Data de vencimento:</b>&nbsp;<span class="pay_venc">----</span></li>
+                                <li class="list-group-item list-group-item-warning list-group-item-text"><b>Data de pagamento:</b>&nbsp;<span class="pay_date_pay">----</span></li>
+                                <li class="list-group-item list-group-item-info list-group-item-text"><b>Valor real:</b>&nbsp;<span class="pay_value_real">----</span></li>
+                                <li class="list-group-item list-group-item-light list-group-item-text"><b>Desconto:</b>&nbsp;<span class="pay_perce">----</span></li>
+                                <li class="list-group-item list-group-item-dark list-group-item-text"><b>Valor final:</b>&nbsp;<span class="pay_value_final"></span></li> 
+                                <li class="list-group-item list-group-item-text"><b>Situação:</b>&nbsp;<span class="pay_sit">----</span></li>
+                                <li class="list-group-item list-group-item-primary list-group-item-text"><b>Observação:</b>&nbsp;<span class="pay_obs">----</span> </li>
+                                <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Criado em:</b>&nbsp;<span class="pay_created"></span></li>
+                                <li class="list-group-item list-group-item-success list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="pay_modified">----</span></li>
                             </ul>
                         </div>
                         <div class="modal-footer">

@@ -139,7 +139,7 @@ class MainModel {
             return $encode;
         } else {
             $decode = base64_decode($decode);
-            $_decode = substr($decode, 0, -3);
+            $_decode = (int) substr($decode, 0, -3);
 
             return $_decode;
         }

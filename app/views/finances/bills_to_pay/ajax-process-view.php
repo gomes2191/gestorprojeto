@@ -5,24 +5,26 @@
     if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST, 'action_type'))) {
 
         if (filter_input(INPUT_POST, 'action_type') == 'loadInfo') {
-            $conditions['where'] = ['patrimony_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
+            $conditions['where'] = ['pay_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
             $conditions['return_type'] = 'single';
-            $allReg = $modelo->searchTable('patrimony', $conditions);
-            $allReg['patrimony_id'] = $modelo->encode_decode($allReg['patrimony_id']);
-            ($allReg['patrimony_sit'] == 'active') ? $allReg['patrimony_sit'] = 'Ativo' : FALSE;
-            ($allReg['patrimony_sit'] == 'inactive') ? $allReg['patrimony_sit'] = 'Inativo' : FALSE;
-            $allReg['patrimony_data_aq'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['patrimony_data_aq']);
-            $allReg['patrimony_created'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['patrimony_created']);
-            $allReg['patrimony_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['patrimony_modified']);
+            $allReg = $modelo->searchTable('bills_to_pay', $conditions);
+            $allReg['pay_id'] = $modelo->encode_decode($allReg['pay_id']);
+            ($allReg['pay_sit'] == 'active') ? $allReg['pay_sit'] = 'Pago' : FALSE;
+            ($allReg['pay_sit'] == 'inactive') ? $allReg['pay_sit'] = 'Não pago' : FALSE;
+            $allReg['pay_venc'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['pay_venc']);
+            $allReg['pay_date_pay'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['pay_date_pay']);
+            $allReg['pay_created'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['pay_created']);
+            $allReg['pay_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['pay_modified']);
             echo json_encode($allReg);
         }elseif(filter_input(INPUT_POST, 'action_type') == 'loadEdit'){
-            $conditions['where'] = ['patrimony_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
+            $conditions['where'] = ['pay_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
             $conditions['return_type'] = 'single';
-            $allReg = $modelo->searchTable('patrimony', $conditions);
-            $allReg['patrimony_id'] = $modelo->encode_decode($allReg['patrimony_id']);
-            $allReg['patrimony_data_aq'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['patrimony_data_aq']);
-            $allReg['patrimony_created'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['patrimony_created']);
-            $allReg['patrimony_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['patrimony_modified']);
+            $allReg = $modelo->searchTable('bills_to_pay', $conditions);
+            $allReg['pay_id'] = $modelo->encode_decode($allReg['pay_id']);
+            $allReg['pay_venc'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['pay_venc']);
+            $allReg['pay_date_pay'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['pay_date_pay']);
+            //$allReg['patrimony_created'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['patrimony_created']);
+            //$allReg['patrimony_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['patrimony_modified']);
             echo json_encode($allReg);
         }elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
             # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
@@ -36,8 +38,9 @@
                 return $modelo->delRegister(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));
             }
         }
+        
+        unset($modelo, $allReg, $conditions);
+        
         exit();
-    } else {
-        //header('Location: ' . HOME_URI . '/');
     }
 

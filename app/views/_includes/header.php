@@ -38,26 +38,27 @@
         <script src="<?= HOME_URI; ?>/public/lib/_js/jquery.mask.min.js"></script>
         <?php
         
-        if (($this->title == ' Agenda') OR ($this->title == ' Contas a receber') OR 
-            ($this->title == ' Controle de cheques')) {
-            //echo '<script>console.log("Bibliotecas inseridas")</script>';
+        if (($this->page_type === 1) OR ($this->title == ' Contas a receber') ) {
+            echo '<script>console.log("Bibliotecas inseridas")</script>';
             
             #--> Start JS
-            echo '<script src="'.HOME_URI.'/public/lib/_js/moment.js"></script>';
+            echo '<script src="'.HOME_URI.'/public/js/metodos.js"></script>';
+            //echo '<script src="'.HOME_URI.'/public/lib/_js/moment.js"></script>';
             echo '<link rel="stylesheet" href="' . HOME_URI . '/public/lib/_css/datetimepicker/jquery.datetimepicker.min.css">';
             echo '<script src="'.HOME_URI.'/public/lib/_js/datetimepicker/jquery.datetimepicker.full.min.js"></script>';
-            echo '<script src="'.HOME_URI.'/public/js/scriptsTop.js"></script>';
+            //echo '<script src="'.HOME_URI.'/public/js/scriptsTop.js"></script>';
             #--> End JS
-        }else{
-            # Outros plugins
-            echo '<script src="'.HOME_URI.'/public/js/metodos.js"></script>';
-            # End JS
         }if($this->title == ' Agenda'){
+            echo '<script>console.log("Bibliotecas inseridas")</script>';
             # Start agenda css -->
             echo '<link rel="stylesheet" href="' . HOME_URI . '/_agenda/css/calendar.css">';
             # End agenda css -->
 
             #--> Start JS
+            echo '<script src="'.HOME_URI.'/public/lib/_js/moment.js"></script>';
+            echo '<link rel="stylesheet" href="' . HOME_URI . '/public/lib/_css/datetimepicker/jquery.datetimepicker.min.css">';
+            echo '<script src="'.HOME_URI.'/public/lib/_js/datetimepicker/jquery.datetimepicker.full.min.js"></script>';
+            echo '<script src="'.HOME_URI.'/public/js/scriptsTop.js"></script>';
             echo '<script src="'.HOME_URI.'/_agenda/js/pt-BR.js"></script>';
             echo '<script src="'.HOME_URI.'/_agenda/js/underscore-min.js"></script>';
             echo '<script src="'.HOME_URI.'/_agenda/js/calendar.js"></script>';

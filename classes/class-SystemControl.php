@@ -139,11 +139,10 @@ class SystemControl {
      * @access: private
      * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
      * @version: 0.2
-     * @param: mixed variables
-     * @param: string $table_name [required]
-     * @param: array $conditions [required] <code>$conditions['where'=>['colunm'=>value,...]] $conditions['search'=>['colunm'=>value,...]]
+     * @param: string variable
+     * @param: string $controle [required]
      * </code>
-     * @return: array Retorna um array com os valores
+     * @return: string Retorna uma string com o valor retornado.
      */
     private function getFile($controle) {
         $encontrado = null;

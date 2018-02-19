@@ -8,14 +8,18 @@
  */
 class PayController extends MainController {
 
+    # Tipo de página [int]
+    public $page_type = 1;
+    
     /**
-     * $login_required
-     *
-     * Se a página precisa de login
-     *
-     * @access public
-     */
+    * $login_required
+    *
+    * Se a página precisa de login
+    *
+    * @access public
+    */
     public $login_required = false;
+    
 
     /**
      * $permission_required
@@ -29,8 +33,7 @@ class PayController extends MainController {
     
     # Carrega a página "/views/user-register/index.php"
     public function index() {
-        
-        // Page title
+        # Page title
         $this->title = ' Contas a pagar';
 
         // Verifica se o usuário está logado

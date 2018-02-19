@@ -579,7 +579,7 @@ $(function () {
     
     if (linkVerfy("agenda") > 1) {
         jQuery.datetimepicker.setLocale('pt-BR');
-        $(".dataTime").datetimepicker({
+        $(".dateTime").datetimepicker({
             format: 'd/m/Y H:i',
             mask: '99/99/9999 99:99',
             validateOnBlur: true,
@@ -587,17 +587,17 @@ $(function () {
             value: true,
             onShow: function (ct) {
                 this.setOptions({
-                    maxDate: jQuery('.dataTimeEnd').val() ? jQuery('.dataTimeEnd').val() : false
+                    maxDate: jQuery('.dateTimeEnd').val() ? jQuery('.dateTimeEnd').val() : false
                 });
             }
         });
-        jQuery('.dataTimeEnd').datetimepicker({
+        jQuery('.dateTimeEnd').datetimepicker({
             format: 'd/m/Y H:i',
             mask: '00/00/0000 00:00',
             value: false,
             onShow: function (ct) {
                 this.setOptions({
-                    minDate: jQuery('.dataTime').val() ? jQuery('.dataTime').val() : false
+                    minDate: jQuery('.dateTime').val() ? jQuery('.dateTime').val() : false
                 });
             }
 
@@ -605,12 +605,11 @@ $(function () {
 
     }
     
-    if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) 
-         || (linkVerfy("finances-checks") > 1) ) {
+    if ( (linkVerfy("pay") > 1) || (linkVerfy("receive") > 1) 
+        || (linkVerfy("checks") > 1) ) {
         jQuery.datetimepicker.setLocale('pt-BR');
-        $(".dateTime").datetimepicker({            
-            format:'d/m/Y',
-            mask:'99/99/9999',
+        $(".date").datetimepicker({            
+            mask:true,format:'d/m/Y',
             validateOnBlur:true,
             closeOnWithoutClick :true,
             value:true,
