@@ -30,13 +30,13 @@
                                 <a class="dropdown-item" href="#">Tabela de Honorários</a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown <?= (isSite('pay', 'receive', '', '', '', '')) ? 'active' : FALSE; ?>">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class='fas fa-chart-bar fa-lg'></i> FINANÇAS
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="<?= HOME_URI; ?>/pay">Contas a Pagar</a>
-                                <a class="dropdown-item" href="<?= HOME_URI; ?>/finances-receive">Contas a Receber</a>
+                                <a class="dropdown-item <?= (isSite('pay')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/pay">Contas a Pagar</a>
+                                <a class="dropdown-item <?= (isSite('receive')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/receive">Contas a Receber</a>
                                 <a class="dropdown-item" href="<?= HOME_URI; ?>/finances-flow">Fluxo de caixa</a>
                                 <a class="dropdown-item" href="<?= HOME_URI; ?>/finances-checks">Controle de Cheques</a>
                                 <a class="dropdown-item" href="<?= HOME_URI; ?>/finances-payments">Pagamentos</a>

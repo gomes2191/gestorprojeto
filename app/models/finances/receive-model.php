@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class ReceiveModel extends MainModel 
+class ReceiveModel extends MainModel implements Model
 {
     /**
      * $form_data
@@ -36,6 +36,7 @@ class ReceiveModel extends MainModel
      * @Acesso: public
      */
     public $db;
+    
 
     /**
      * 
@@ -46,9 +47,9 @@ class ReceiveModel extends MainModel
      * @access public
      */
     public function __construct( $db = FALSE ) {
-            $this->db = $db;
+        $this->db = $db;
     }
-    
+
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -59,48 +60,37 @@ class ReceiveModel extends MainModel
     **/ 
     public function validate_register_form () {
         # Cria o vetor que vai receber os dados do post
-        $this->form_data = [];
+        //$this->form_data = [];
         
         # Verifica se não é vazio o $_POST
         if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
             
             # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
             foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
-                
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
-                
             } # End foreach
             
-            //var_dump($this->form_data);die;
-            
-//            #   Não será permitido campos vazios
-//            if ( empty( $this->form_data['fees_cod'] )) {
-//                
-//                #   Feedback para o usuário
-//                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
-//                
-//                # Termina
-//                return;
-//            }
+            # Verifica se existe o ID e decodifica se o mesmo existir.
+            ( !empty($this->form_data['pay_id']) ) 
+            ? $this->form_data['pay_id'] = $this->encode_decode(0, $this->form_data['pay_id']) : '';
         }else {
             # Finaliza a execução.
             return 'err';
         } #--> End
-       
+        
         # Verifica se o registro já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `bills_to_receive` WHERE `receive_id` = ? ',[
-            chk_array($this->form_data, 'receive_id')
-        ]);        
+        $db_check_ag = $this->db->query (' SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = ? ',[
+            chk_array($this->form_data, 'pay_id')
+        ]);
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
-            $this->updateRegister(chk_array($this->form_data, 'receive_id'));
+            $this->updateRegister( $this->form_data['pay_id'] );
         }else{
             //var_dump($this->form_data);die;
             $this->insertRegister();
         }
-        
     } #--> End validate_register_form()
     
     /**
@@ -112,16 +102,20 @@ class ReceiveModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'receive_date_receive'))));die;
-        
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'patrimony_date_patrimony'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('bills_to_receive',[
-            'receive_venc'         =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'receive_venc'))),
-            'receive_date_pay'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'receive_date_receive'))),
-            'receive_desc'         =>  $this->avaliar(chk_array($this->form_data, 'receive_desc')),
-            'receive_cat'          =>  $this->avaliar(chk_array($this->form_data, 'receive_cat')),
-            'receive_val'          =>  $this->moneyFloat(chk_array($this->form_data, 'receive_val')),
-            'receive_created'      =>  date('Y-m-d H:i:s', time())
+            'receive_cod'           =>  $this->avaliar(chk_array($this->form_data, 'receive_cod')),
+            'receive_desc'          =>  $this->avaliar(chk_array($this->form_data, 'receive_desc')),
+            'receive_cat'           =>  $this->avaliar(chk_array($this->form_data, 'receive_cat')),
+            'receive_date_venc'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'receive_date_venc'))),
+            'receive_date_pay'      =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'receive_date_pay'))),
+            'receive_value_real'    =>  $this->moneyFloat(chk_array($this->form_data, 'receive_value_real')),
+            'receive_perce'         =>  (int) $this->only_filter_number(chk_array($this->form_data, 'receive_perce')),
+            'receive_value_final'   =>  $this->moneyFloat(chk_array($this->form_data, 'receive_value_final')),
+            'receive_sit'           =>  $this->avaliar(chk_array($this->form_data, 'receive_sit')),
+            'receive_obs'           =>  $this->avaliar(chk_array($this->form_data, 'receive_obs')),
+            'receive_created'       =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -137,7 +131,6 @@ class ReceiveModel extends MainModel
             //return $this->form_msg;
             echo 'err';
         }
-        
     }
     
     /**
@@ -151,14 +144,20 @@ class ReceiveModel extends MainModel
     public function updateRegister( $registro_id = NULL ){
         # Verifica se existe ID
         if ( $registro_id ) {
+            
             # Efetua o update do registro
             $query_up = $this->db->update('bills_to_receive', 'receive_id', $registro_id,[
-                'receive_venc'        =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'receive_venc'))),
-                'receive_date_pay'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'receive_date_receive'))),
-                'receive_desc'        =>  $this->avaliar(chk_array($this->form_data, 'receive_desc')),
-                'receive_cat'         =>  $this->avaliar(chk_array($this->form_data, 'receive_cat')),
-                'receive_val'         =>  $this->moneyFloat(chk_array($this->form_data, 'receive_val')),
-                'receive_modified'    =>  date('Y-m-d H:i:s', time())
+                'receive_cod'           =>  parent::avaliar(chk_array($this->form_data, 'receive_cod')),
+                'receive_desc'          =>  parent::avaliar(chk_array($this->form_data, 'receive_desc')),
+                'receive_cat'           =>  parent::avaliar(chk_array($this->form_data, 'receive_cat')),
+                'receive_date_venc'     =>  parent::convertDataHora('d/m/Y', 'Y-m-d',parent::avaliar(chk_array($this->form_data, 'receive_date_venc'))),
+                'receive_date_pay'      =>  parent::convertDataHora('d/m/Y', 'Y-m-d',parent::avaliar(chk_array($this->form_data, 'receive_date_pay'))),
+                'receive_value_real'    =>  parent::moneyFloat(chk_array($this->form_data, 'receive_value_real')),
+                'receive_perce'         =>  (int) parent::only_filter_number(chk_array($this->form_data, 'receive_perce')),
+                'receive_value_final'   =>  parent::moneyFloat(chk_array($this->form_data, 'receive_value_final')),
+                'receive_sit'           =>  parent::avaliar(chk_array($this->form_data, 'receive_sit')),
+                'receive_obs'           =>  parent::savaliar(chk_array($this->form_data, 'receive_obs')),
+                'receive_modified'      =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -187,12 +186,11 @@ class ReceiveModel extends MainModel
     **/ 
     public function get_register_form ( $id_encode ) {
         
+        # Remove cryptográfia
         $id_decode = intval($this->encode_decode(0, $id_encode));
         
         # Verifica na base de dados o registro
         $query_get = $this->db->query('SELECT * FROM `covenant` WHERE `covenant_id` = ?', [ $id_decode ]  );
-
-        
 
         # Obtém os dados da consulta
         $fetch_userdata = $query_get->fetch(PDO::FETCH_ASSOC);
@@ -221,32 +219,32 @@ class ReceiveModel extends MainModel
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
     public function delRegister( $encode_id ) {
-
-        # Recebe o ID do registro converte de string para inteiro.
-        $decode_id = intval($this->encode_decode(0, $encode_id));
+        
+        # Decodifica decodifica id
+        $decode_id = parent::encode_decode(0, $encode_id);
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `bills_to_receive` WHERE `receive_id` = $decode_id ");
-        if ($search->fetchColumn() < 1) {
+        if ($this->db->query("SELECT count(*) FROM `bills_to_receive` WHERE `receive_id` =  $decode_id ")->fetchColumn() < 1) {
 
-            # Destroy variáveis não mais utilizadas
-            unset($encode_id, $search, $decode_id);
+            # Dstroy variável não mas usada
+            unset($encode_id, $decode_id);
             
-            echo 'err';exit();
+            # Feedback usuário (erro)
+            $feedback = 'err';
             
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('bills_to_receive', 'receive_id', $decode_id);
-
-            #   Destroy variáveis não mais utilizadas
-            unset($parametro, $query_del, $search, $id);
-
-            echo 'ok';exit();
+            $this->db->delete('bills_to_receive', 'receive_id', $decode_id);
+            
+            # Dstroy variável não mas usada
+            unset($encode_id, $decode_id);
+            
+            # Feedback usuário (successo)
+             $feedback = 'ok';
         }
-    }   #--> End delRegister()
-
-        
-         
+        echo $feedback;unset($feedback);return;
+    } #--> End delRegister()
+   
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -259,40 +257,12 @@ class ReceiveModel extends MainModel
         $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
          
         $row = $query->fetch();
+        
         $id = trim($row[0]);
         
         return $id;
         
      } // End get_ultimo_id()
-     
-     
-    
-    public function getSelect_return($sql){
-        # Simplesmente seleciona os dados na base de dados
-        $queryGet = $this->db->query($sql);
-        
-        # Declara o vetor
-        $result_array = [];
-        
-       
-        # Retorna os valores da consulta
-        while($results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
-            $result_array = $results;
-        }
-       
-        foreach ($result_array as $result) {
-            
-            # The output
-            echo '<tr>';			
-            echo '<td class="small">'.$result['receive_id'].'</td>';
-            echo '<td class="small">'.$result['receive_venc'].'</td>';
-            echo '<td class="small">'.$result['receive_date_receive'].'</td>';
-            echo '<td class="small">'.$result['receive_cat'].'</td>';
-            echo '<td class="small">'.$result['receive_desc'].'</td>';
-            echo '<td class="small">'.$result['receive_val'].'</td>';
-            echo '</tr>';	
-        }
-    }
     
     /**
     *   @Acesso: public
@@ -317,14 +287,14 @@ class ReceiveModel extends MainModel
         $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
         
         // Prepara a conversao para o formato desejado
-        foreach ($queryResult as $receive) {
+        foreach ($queryResult as $patrimony) {
             $mysql_data[] = [
-                "receive_id"        => $receive['receive_id'],
-                "receive_venc"      => $receive['receive_venc'],
-                "receive_date_receive"  => $receive['receive_date_receive'],
-                "receive_cat"       => '$ ' . $receive['receive_cat'],
-                "receive_desc"      => $receive['receive_desc'],
-                "receive_val"       => $receive['receive_val']
+                "patrimony_id"        => $patrimony['patrimony_id'],
+                "patrimony_venc"      => $patrimony['patrimony_venc'],
+                "patrimony_date_patrimony"  => $patrimony['patrimony_date_patrimony'],
+                "patrimony_cat"       => '$ ' . $patrimony['patrimony_cat'],
+                "patrimony_desc"      => $patrimony['patrimony_desc'],
+                "patrimony_val"       => $patrimony['patrimony_val']
             ];
         }
         
@@ -350,7 +320,7 @@ class ReceiveModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `bills_to_receive` WHERE `receive_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `patrimony` WHERE `patrimony_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {
@@ -368,142 +338,5 @@ class ReceiveModel extends MainModel
         
     } # End get_registro()
     
-     /**
-     * Paginação
-     *
-     * Cria uma paginação simples.
-     *
-     * @param int $total_artigos Número total de artigos da sua consulta
-     * @param int $artigos_por_pagina Número de artigos a serem exibidos nas páginas
-     * @param int $offset Número de páginas a serem exibidas para o usuário
-     *
-     * @return string A paginação montada
-     */
-    function paginacao(
-    $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
-    ) {
-        // Obtém o número total de página
-        $numero_de_paginas = floor($total_artigos / $artigos_por_pagina);
-
-        // Obtém a página atual
-        $pagina_atual = 1;
-
-        // Atualiza a página atual se tiver o parâmetro pagina=n
-        if (!empty($_GET['pagina'])) {
-            $pagina_atual = (int) $_GET['pagina'];
-        }
-
-        // Vamos preencher essa variável com a paginação
-        $paginas = null;
-
-        // Primeira página
-        $paginas .= " <a href='?pagina=0'>Home</a> ";
-
-        // Faz o loop da paginação
-        // $pagina_atual - 1 da a possibilidade do usuário voltar
-        for ($i = ( $pagina_atual - 1 ); $i < ( $pagina_atual - 1 ) + $offset; $i++) {
-
-            // Eliminamos a primeira página (que seria a home do site)
-            if ($i < $numero_de_paginas && $i > 0) {
-                // A página atual
-                $página = $i;
-
-                // O estilo da página atual
-                $estilo = null;
-
-                // Verifica qual dos números é a página atual
-                // E cria um estilo extremamente simples para diferenciar
-                if ($i == @$parametros[1]) {
-                    $estilo = ' style="color:red;" ';
-                }
-
-                // Inclui os links na variável $paginas
-                $paginas .= " <a $estilo href='?pagina=$página'>$página</a> ";
-            }
-        } // for
-
-        $paginas .= " <a href='?pagina=$numero_de_paginas'>Última</a> ";
-
-        // Retorna o que foi criado
-        return $paginas;
-    }
-    
-    
-     /*
-     * Returns rows from the database based on the conditions
-     * @param string name of the table
-     * @param array select, where, search, order_by, limit and return_type conditions
-     */
-    public function getRows($table, $conditions = []){
-        $sql = 'SELECT ';
-        $sql .= array_key_exists('select',$conditions) ? $conditions['select']: '*';
-        $sql .= ' FROM '.$table;             
-        
-        if(array_key_exists('where',$conditions)){
-            $sql .= ' WHERE ';
-            $i = 0;
-            foreach($conditions['where'] as $key => $value){
-                $pre = ($i > 0) ? ' AND ' : '';
-                $sql .= $pre.$key." = '".$value."'";
-                $i++;
-            }
-        }
-        
-        if(array_key_exists('where_limit',$conditions)){
-            $sql .= ' WHERE '.$conditions['where_limit']['key_where']. ' = '.$conditions['where_limit']['value_where'];
-            //$sql .=  $conditions['where_limit']['value_limit'];
-            //var_dump($sql);die;
-            
-        }
-        
-        if(array_key_exists('search',$conditions)){
-            $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
-            $i = 0;
-            foreach($conditions['search'] as $key => $value){
-                $pre = ($i > 0)?' OR ':'';
-                $sql .= $pre.$key." LIKE '%".$value."%'";
-                $i++;
-            }
-        }
-        
-        
-        
-        if(array_key_exists("order_by",$conditions)){
-            $sql .= ' ORDER BY '.$conditions['order_by']; 
-        }
-        var_dump($sql);
-        
-        if(array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
-            
-            $sql .= ' LIMIT '.$conditions['start'].','.$conditions['limit']; 
-            
-        }elseif(!array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
-            $sql .= ' LIMIT '.$conditions['limit']; 
-            
-        }
-        
-        $result = $this->db->query($sql);
-        
-        if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
-            switch($conditions['return_type']){
-                case 'count':
-                    $data = count($result);
-                    break;
-                case 'single':
-                    $data = $result->fetch(PDO::FETCH_ASSOC);
-                    break;
-                default:
-                    $data = '';
-            }
-        }else{
-            if(count($result) > 0){
-                while($row = $result->fetch(PDO::FETCH_ASSOC)){
-                    $data[] = $row;
-                    //var_dump($data);
-                }
-            }
-        }
-        return !empty($data) ? $data : false;
-    }
 
 } #Fees_Model

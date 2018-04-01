@@ -22,7 +22,7 @@
     # Usuário do banco
     define('DB_USER', 'root');
     # Senha do banco
-    define('DB_PASSWORD', '123456');
+    define('DB_PASSWORD', 'Vectra');
     # Charset da conexão PDO
     define('DB_CHARSET', 'utf8');
     // DEFINE O FUSO HORARIO COMO O HORARIO DE BRASILIA

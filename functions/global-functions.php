@@ -1,15 +1,15 @@
 <?php
 
     /**
-     * Verifica chaves de arrays
-     *
-     * Verifica se a chave existe no array e se ela tem algum valor.
-     * Obs.: Essa função está no escopo global, pois, vamos precisar muito da mesma.
-     *
-     * @param array  $array O array
-     * @param string $key   A chave do array
-     * @return string|null  O valor da chave do array ou nulo
-     */
+    * Verifica chaves de arrays
+    *
+    * Verifica se a chave existe no array e se ela tem algum valor.
+    * Obs.: Essa função está no escopo global, pois, vamos precisar muito da mesma.
+    *
+    * @param array  $array O array
+    * @param string $key   A chave do array
+    * @return string|null  O valor da chave do array ou nulo
+    **/
     function chk_array($array, $key) {
         // Verifica se a chave existe no array
         if (isset($array[$key]) && !empty($array[$key])) {
@@ -34,12 +34,12 @@
     function isSite() {
         if (filter_input(INPUT_SERVER, 'REDIRECT_URL')) {
             $url_vetor = ( array_filter(explode('/', filter_input(INPUT_SERVER, 'REDIRECT_URL')), function($value) {
-                        return $value !== '';
-                    }) );
+                return $value !== '';
+            }));
         } else {
             $url_vetor = ( array_filter(explode('/', filter_input(INPUT_SERVER, 'REQUEST_URI')), function($value) {
-                        return $value !== '';
-                    }) );
+                return $value !== '';
+            }) );
         }
         ( count($url_vetor) > 1) ? array_shift($url_vetor) : FALSE;
         $sites = func_get_args();
@@ -52,20 +52,31 @@
     }
 
     /**
-     * Função para carregar automaticamente todas as classes padrão
-     * Ver: http://php.net/manual/pt_BR/function.autoload.php.
-     * Nossas classes estão na pasta classes/.
-     * O nome do arquivo deverá ser class-NomeDaClasse.php.
-     * Por exemplo: para a classe OdontoControl, o arquivo vai chamar class-OdontoControl.php
-     */
-    function __autoload($class_name) {
-        $file = ABSPATH . '/classes/class-' . $class_name . '.php';
-
-        if (!file_exists($file)) {
-            require_once ABSPATH . '/includes/404.php';
-            return;
+    * @access: public
+    * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
+    * @version: 0.2
+    * @param: mixed variables
+    * @return: object Retorna um object com os valores
+    **/
+    function autoLoad($nomeDaClasse) {
+        
+        $pastas = ['/classes/', '/interfaces/'];
+        
+        foreach ($pastas as $pasta) {
+            $fileParcial = ABSPATH . $pasta . $nomeDaClasse;
+            if (( file_exists($fileParcial . '.class.php') ) OR ( file_exists($fileParcial . '.interf.php'))) {
+                ($pasta === '/classes/') ? require_once($fileParcial . '.class.php') : require_once($fileParcial . '.interf.php');
+                unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
+                return;
+            }
         }
+        require_once (ABSPATH . '/includes/404.php');
+        unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
+        exit();
+    }
+    
+    # Registra a função dada como implementação de __autoload()
+    spl_autoload_register('autoLoad');
 
-        // Inclui o arquivo da classe
-        require_once $file;
-    }// __autoload
+
+
