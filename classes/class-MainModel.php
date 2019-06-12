@@ -303,11 +303,17 @@ class MainModel {
                     $data = '';
             }
         } else {
-            if (count($result) > 0) {
+            //var_dump($result);
+           /*if ( (empty($result)) ? count($result) > 0 : 1 ) {
+                echo 'Eu';
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     $data[] = $row;
                 }
+            }*/
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = $row;
             }
+            
          }
          return !empty($data) ? $data : false;
     }   # End searchTable()

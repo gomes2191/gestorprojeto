@@ -7,8 +7,9 @@
     # Realiza uma consulta na base de dados e retorna todos os registro caso exista
     $providers = $modelo->searchTable('providers', ['order_by' => 'provider_id DESC ', 'limit' => $limit]);
     
+
     $pagConfig = [
-        'totalRows' => COUNT($providers),
+        'totalRows' => is_array($providers) ? COUNT($providers) : 0 ,
         'perPage'   => $limit,
         'link_func' => 'searchFilter'
     ];

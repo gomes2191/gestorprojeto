@@ -67,7 +67,7 @@
         }
     } else {
         $conditions['order_by'] = "provider_id DESC LIMIT 100";
-        $count = count($modelo->searchTable( $tblName, $conditions ));
+        $count = (is_array($modelo->searchTable( $tblName, $conditions ))) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
         $conditions['order_by'] = "provider_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }
