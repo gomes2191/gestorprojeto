@@ -132,7 +132,3 @@ HTML;
     }else{
         echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Não há registros na base de dados.</div>';
     }
-    
-
-    
-    

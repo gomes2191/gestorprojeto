@@ -19,12 +19,12 @@
                     <li class="nav-item <?= (isSite('agenda')) ? 'active' : FALSE; ?>">
                         <a class="nav-link" href="<?= HOME_URI; ?>/agenda" title="Agenda"><i class='fas fa-calendar-alt fa-lg' style='color: #F5F5F5;'></i> AGENDA</a>
                     </li>
-                    <li class="nav-item dropdown <?= (isSite('covenant','fees')) ? 'active' : FALSE; ?>">
+                    <li class="nav-item dropdown <?= (isSite('covenant','providers')) ? 'active' : FALSE; ?>">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class='fas fa-building fa-lg' style='color: #F5F5F5;' ></i> EMPRESA
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="<?= HOME_URI; ?>/providers">Fornecedores</a>
+                            <a class="dropdown-item <?= (isSite('providers')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/providers">Fornecedores</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/patrimony">Patrimônio</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/stock">Controle de Estoque</a>
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/laboratory">Laboratório</a>
