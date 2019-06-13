@@ -381,7 +381,7 @@
                         alert('Existem campos obrigatórios não preenchido.');
                     }else{
                         objData.userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
-                        feedback = 'Inserido com sucesso!';
+                        feedback = 'Inserção realizada com sucesso!';
                         $('#filtros').show();
                         objFinanca.setAjaxActionUser( 
                             objSet = {type: objData.type,

@@ -307,9 +307,26 @@ function Financeiro() {
                 success: function (msg) {
                     objFinanca.ajaxData();
                     if (msg === 'ok') {
-                        toastr.success(feedback, 'Sucesso!', {
-                            timeOut: 5000
+                        $.toaster({
+                            title: {
+                                text: 'Sucesso!',
+                                icon: 'fas fa-check-circle',
+                                //info: 'just now',
+                                close: true
+                            },
+                            content: feedback,
+                            delay: 4000,
+                            position: 'top right'
                         });
+
+
+                        /*toastr.success(feedback, 'Sucesso!', {
+                            "closeButton": true,
+                            timeOut: 5000,
+                            "progressBar": true
+                        });*/
+
+
                         $('.form-register')[0].reset();
                     } else {
                         toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
