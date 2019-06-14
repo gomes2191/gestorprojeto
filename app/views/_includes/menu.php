@@ -2,7 +2,7 @@
     if(($this->login_required && !$this->logged_in) && !defined ('ABSPATH') ) { return; }
 ?>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top top-mix">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top top-mix navbar-icon-top">
         <div class="container">
             <a class="navbar-brand" href="#"><b>BETA</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,16 +12,21 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item <?= (isSite('soc')) ? 'active' : '' ?>">
                         <a class="nav-link" href="<?= HOME_URI; ?>" title="Página inicial">
-                            <i class="fas fa-home fa-lg" style='color: #F5F5F5;'></i> HOME
+                        <i class="fal fa-home"></i>
+                            HOME
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item <?= (isSite('agenda')) ? 'active' : FALSE; ?>">
-                        <a class="nav-link" href="<?= HOME_URI; ?>/agenda" title="Agenda"><i class='fas fa-calendar-alt fa-lg' style='color: #F5F5F5;'></i> AGENDA</a>
+                        <a class="nav-link" href="<?= HOME_URI; ?>/agenda" title="Agenda">
+                            <i class="fal fa-calendar-alt"></i>
+                            AGENDA
+                        </a>
                     </li>
                     <li class="nav-item dropdown <?= (isSite('covenant','providers')) ? 'active' : FALSE; ?>">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class='fas fa-building fa-lg' style='color: #F5F5F5;' ></i> EMPRESA
+                            <i class="fal fa-building"></i>
+                            EMPRESA
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item <?= (isSite('providers')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/providers">Fornecedores</a>
@@ -34,7 +39,8 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class='fas fa-chart-bar fa-lg' style='color: #F5F5F5;'></i> FINANÇAS
+                            <i class="fal fa-chart-pie"></i>
+                            FINANÇAS
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/finances-pay">Contas a Pagar</a>
@@ -46,7 +52,8 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-users fa-lg" style='color: #F5F5F5;'></i> USUÁRIOS
+                            <i class="fal fa-users"></i>
+                            USUÁRIOS
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="<?= HOME_URI; ?>/users/register-dentist">Inserir Dentista</a>
@@ -56,7 +63,8 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= HOME_URI; ?>/patient-control" title="Gerenciar pacientes no sistema">
-                            <i class="fas fa-handshake fa-lg" style='color: #F5F5F5;'></i> CLIENTES
+                            <i class="fal fa-handshake"></i>
+                            CLIENTES
                         </a>
                     </li>
                 </ul>

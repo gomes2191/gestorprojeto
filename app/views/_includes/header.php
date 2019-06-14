@@ -28,8 +28,8 @@
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="<?= HOME_URI; ?>/public/css/navbar-top-fixed.css">
         
-        <!--load everything-->
-        <script defer src="<?= HOME_URI; ?>/public/lib/_fontsWesome/js/fontawesome-all.min.js"></script>
+        <!-- Load icones... -->
+        <link href="<?= HOME_URI; ?>/public/lib/_fontaWesome/css/all.min.css" rel="stylesheet">
         
          <!-- Bootstrap core JavaScript
         ================================================== -->
