@@ -20,7 +20,7 @@
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
         $conditions['search'] = ['provider_name' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE), 'provider_at' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-        $count = (int) count($modelo->searchTable( $tblName, $conditions ));
+        $count = (int) is_array($modelo->searchTable( $tblName, $conditions )) ? count($modelo->searchTable( $tblName, $conditions )) : FALSE;
         $conditions['order_by'] = "provider_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
@@ -124,7 +124,4 @@ HTML;
     }else{
         echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Não há registros na base de dados.</div>';
     }
-    
-
-    
     

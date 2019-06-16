@@ -58,3 +58,8 @@ fabric.properties
 ## Config ##
 #config.php
 error_log.txt
+.buildpath
+.project
+launch.json
+.vscode
+
