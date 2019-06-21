@@ -58,7 +58,7 @@
      * O nome do arquivo deverá ser class-NomeDaClasse.php.
      * Por exemplo: para a classe OdontoControl, o arquivo vai chamar class-OdontoControl.php
      */
-    function __autoload($class_name) {
+    spl_autoload_register (function ($class_name) {
         $file = ABSPATH . '/classes/class-' . $class_name . '.php';
 
         if (!file_exists($file)) {
@@ -68,4 +68,5 @@
 
         // Inclui o arquivo da classe
         require_once $file;
-    }// __autoload
+        unset($file, $class_name);
+    }); #--> End autoload;
