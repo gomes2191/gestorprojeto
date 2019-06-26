@@ -385,13 +385,8 @@
                     if($('#provider_name').val() == '' || $('#provider_cpf_cnpj').val() == ''){
                         alert('Existem campos obrigatórios não preenchido.');
                     }else{
-<<<<<<< HEAD
-                        objData.userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
-                        feedback = 'Inserção realizada com sucesso!';
-=======
                         objAction.userData = $("#addForm").serialize()+'&action_type='+objAction.type+'&id='+id;
                         feedback = 'Inserido com sucesso!';
->>>>>>> update_pages
                         $('#filtros').show();
                         objFinanca.setAjaxActionUser( 
                             objSet = {type: objAction.type,

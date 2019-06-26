@@ -52,20 +52,6 @@
     }
 
     /**
-<<<<<<< HEAD
-     * Função para carregar automaticamente todas as classes padrão
-     * Ver: http://php.net/manual/pt_BR/function.autoload.php.
-     * Nossas classes estão na pasta classes/.
-     * O nome do arquivo deverá ser class-NomeDaClasse.php.
-     * Por exemplo: para a classe OdontoControl, o arquivo vai chamar class-OdontoControl.php
-     */
-    spl_autoload_register (function ($class_name) {
-        $file = ABSPATH . '/classes/class-' . $class_name . '.php';
-
-        if (!file_exists($file)) {
-            require_once ABSPATH . '/includes/404.php';
-            return;
-=======
     * @access: public
     * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
     * @version: 0.2
@@ -83,7 +69,6 @@
                 unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
                 return;
             }
->>>>>>> update_pages
         }
         require_once (ABSPATH . '/includes/404.php');
         unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
@@ -95,10 +80,3 @@
 
 
 
-<<<<<<< HEAD
-        // Inclui o arquivo da classe
-        require_once $file;
-        unset($file, $class_name);
-    }); #--> End autoload;
-=======
->>>>>>> update_pages

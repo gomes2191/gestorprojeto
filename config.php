@@ -9,12 +9,7 @@
     define('ABSPATH', __DIR__);
 
     # Nome do site
-<<<<<<< HEAD
-    define('NOME_SITE', 'Odonto C - ');
-
-=======
     define('NOME_SITE', 'FCONTROL - ');
->>>>>>> update_pages
     # Idioma do sistema
     define('LANG', 'pt_BR');
 
@@ -35,10 +30,6 @@
 
     # Senha do banco
     define('DB_PASSWORD', 'Vectra');
-<<<<<<< HEAD
-
-=======
->>>>>>> update_pages
     # Charset da conexão PDO
     define('DB_CHARSET', 'utf8');
 
