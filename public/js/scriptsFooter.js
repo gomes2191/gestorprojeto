@@ -241,6 +241,8 @@ $(document).ready(function () {
     $('.hora').mask('00:00');
     $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
     $('.uf').mask('AA');
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    $('.number').mask('000000000000000');
     
     // Agenda mascara
     $('.dataHora').mask('00/00/0000 00:00');
@@ -316,7 +318,7 @@ $(function () {
     
     if (linkVerfy("agenda") > 1) {
         jQuery.datetimepicker.setLocale('pt-BR');
-        $(".dataTime").datetimepicker({
+        $(".dateTime").datetimepicker({
             format: 'd/m/Y H:i',
             mask: '99/99/9999 99:99',
             validateOnBlur: true,
@@ -324,17 +326,17 @@ $(function () {
             value: true,
             onShow: function (ct) {
                 this.setOptions({
-                    maxDate: jQuery('.dataTimeEnd').val() ? jQuery('.dataTimeEnd').val() : false
+                    maxDate: jQuery('.dateTimeEnd').val() ? jQuery('.dateTimeEnd').val() : false
                 });
             }
         });
-        jQuery('.dataTimeEnd').datetimepicker({
+        jQuery('.dateTimeEnd').datetimepicker({
             format: 'd/m/Y H:i',
             mask: '00/00/0000 00:00',
             value: false,
             onShow: function (ct) {
                 this.setOptions({
-                    minDate: jQuery('.dataTime').val() ? jQuery('.dataTime').val() : false
+                    minDate: jQuery('.dateTime').val() ? jQuery('.dateTime').val() : false
                 });
             }
 
@@ -342,12 +344,11 @@ $(function () {
 
     }
     
-    if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) 
-         || (linkVerfy("finances-checks") > 1) ) {
+    if ( (linkVerfy("pay") > 1) || (linkVerfy("receive") > 1) 
+        || (linkVerfy("checks") > 1) ) {
         jQuery.datetimepicker.setLocale('pt-BR');
-        $(".dateTime").datetimepicker({            
-            format:'d/m/Y',
-            mask:'99/99/9999',
+        $(".date").datetimepicker({            
+            mask:true,format:'d/m/Y',
             validateOnBlur:true,
             closeOnWithoutClick :true,
             value:true,
@@ -430,7 +431,7 @@ $(function () {
     $(' .container ').on('click', '#btn-new-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #group-btn-form-new ').fadeOut();
-        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
+        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"addForm");
         $('.form-hidden, #group-btn-hidden, .row-button-hidden, .notice-hidden ').fadeIn();
         $('.form-register').find('input, textarea').val('');
@@ -450,7 +451,7 @@ $(function () {
     $('#tableData').on('click','.btn-edit-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #btn-show').fadeOut();
-        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>");
+        $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>");
         $('.form-register').attr('id',"editForm");
         $('.form-hidden, #group-btn-hidden, #group-btn-form-new, .row-button-hidden ').fadeIn();
         $('#btn-save, #btn-edit-save').attr('id',"btn-edit-save");
@@ -486,10 +487,10 @@ $(function () {
         $('#btn-edit-save').attr('id',"btn-save");
         // Insere o texto indicando o tipo de formulario
         $('legend span').text(' - Inserindo registro');
-        $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='far fa-save fa-lg'></i> <span>SALVAR</span>");
+        $('#btn-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>");
         $('.form-register').attr('id',"#addForm");
         // Mostra o botão para voltar para formulario de inserção.
-        $('#group-btn-form-new').hidden(200);
+        $('#group-btn-form-new').hide(200);
         $('#group-btn-hidden').show(200);
         $('html, body').animate({scrollTop:0}, 'slow');
     });

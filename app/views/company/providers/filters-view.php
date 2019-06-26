@@ -28,15 +28,15 @@
         $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
         switch ($sortBy) {
             case 'active':
-                $conditions['active'] = ['payments_status' => 2];
+                $conditions['active'] = ['provider_sit' => 'active'];
                 $conditions['order_by'] = 'provider_id DESC';
-                $count = count($modelo->searchTable( $tblName, $conditions ));
+                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;            
             case 'inactive':
-                $conditions['inactive'] = ['payments_status' => 1];
+                $conditions['inactive'] = ['provider_sit' => 'inactive'];
                 $conditions['order_by'] = 'provider_id DESC';
                 $count = count($modelo->searchTable( $tblName, $conditions ));
                 $conditions['start'] = $start;

@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class covenantModel extends MainModel 
+class CovenantModel extends MainModel 
 {
     /**
      * $form_data
@@ -101,7 +101,7 @@ class covenantModel extends MainModel
     *   @Descrição: Insere o registro no BD.
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
-    public function insertRegister(){
+    private function insertRegister(){
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'covenant_date_covenant'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('covenant',[
@@ -163,7 +163,7 @@ class covenantModel extends MainModel
     *   @Descrição: Atualiza um registro especifico no BD.
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
-    public function updateRegister( $registro_id = NULL ){
+    private function updateRegister( $registro_id = NULL ){
         # Verifica se existe ID
         if ( $registro_id ) {
             # Efetua o update do registro
@@ -185,8 +185,8 @@ class covenantModel extends MainModel
                 'covenant_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_web_url')),
                 'covenant_sit'          =>  chk_array($this->form_data, 'covenant_sit'),
                 'covenant_email'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_email')),
-                'covenant_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_nome')),
-                'covenant_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_apelido')),
+                'covenant_rep_name'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_name')),
+                'covenant_rep_nick'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_nick')),
                 'covenant_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_email')),
                 'covenant_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_cel')),
                 'covenant_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_1')),
@@ -287,9 +287,7 @@ class covenantModel extends MainModel
             echo 'ok';exit();
         }
     }   #--> End delRegister()
-
-        
-         
+   
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>

@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class feesModel extends MainModel 
+class FeesModel extends MainModel 
 {
     /**
      * $form_data

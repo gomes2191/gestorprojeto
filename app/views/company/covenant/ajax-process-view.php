@@ -4,17 +4,25 @@
 
     if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST, 'action_type'))) {
 
-        if (filter_input(INPUT_POST, 'action_type') == 'data') {
+        if (filter_input(INPUT_POST, 'action_type') == 'loadInfo') {
             $conditions['where'] = ['covenant_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
             $conditions['return_type'] = 'single';
             $allReg = $modelo->searchTable('covenant', $conditions);
             $allReg['covenant_id'] = $modelo->encode_decode($allReg['covenant_id']);
-            #$allReg['payments_date_pay'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['payments_date_pay']);
-            #$allReg['payments_venc'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['payments_venc']);
+            ($allReg['covenant_sit'] == 'active') ? $allReg['covenant_sit'] = 'Ativo' : FALSE;
+            ($allReg['covenant_sit'] == 'inactive') ? $allReg['covenant_sit'] = 'Inativo' : FALSE;
             $allReg['covenant_created'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['covenant_created']);
             $allReg['covenant_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['covenant_modified']);
             echo json_encode($allReg);
-        } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
+        }elseif(filter_input(INPUT_POST, 'action_type') == 'loadEdit'){
+            $conditions['where'] = ['covenant_id' => $modelo->encode_decode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
+            $conditions['return_type'] = 'single';
+            $allReg = $modelo->searchTable('covenant', $conditions);
+            $allReg['covenant_id'] = $modelo->encode_decode($allReg['covenant_id']);
+            $allReg['covenant_created'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['covenant_created']);
+            $allReg['covenant_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['covenant_modified']);
+            echo json_encode($allReg);
+        }elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
             # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
             return $modelo->validate_register_form();
         } elseif (filter_input(INPUT_POST, 'action_type') == 'update') {

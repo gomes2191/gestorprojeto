@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class laboratoryController extends MainController {
+class LaboratoryController extends MainController {
 
     /**
      * $login_required

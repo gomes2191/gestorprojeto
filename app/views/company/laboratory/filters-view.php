@@ -2,8 +2,7 @@
     
     # Parâmetros de páginação
     $tblName = 'laboratory';
-    $conditions = [];
-
+   
     # Recebe o valor da quantidade de registro por páginas.
     $qtdLine = filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT );
 
@@ -86,16 +85,16 @@
     if (!empty($allReg)) {
         echo <<<HTML
             <table  id="tableList" class="table table-bordered table-sm table-hover" >
-                <thead class="thead-dark">
+                <thead class="thead-green">
                     <tr>
-                        <th class="small text-center">#</th>
-                        <th class="small text-center">EMPRESA</th>
-                        <th class="small text-center">CELULAR</th>
-                        <th class="small text-center">TELEFONE</th>
-                        <th class="small text-center">E-MAIL</th>
-                        <th class="small text-center">ATUAÇÃO</th>
-                        <th colspan="1" class="small text-center">UF</th>
-                        <th colspan="3" class="small text-center">AÇÃO</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">EMPRESA</th>
+                        <th class="text-center">CELULAR</th>
+                        <th class="text-center">TELEFONE</th>
+                        <th class="text-center">E-MAIL</th>
+                        <th class="text-center">ATUAÇÃO</th>
+                        <th colspan="1" class="text-center">UF</th>
+                        <th colspan="3" class="text-center">AÇÃO</th>
                     </tr>
                 </thead>
                 <tbody>

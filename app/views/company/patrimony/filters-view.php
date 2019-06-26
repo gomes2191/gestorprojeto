@@ -2,7 +2,6 @@
     
     # Parâmetros de páginação
     $tblName = 'patrimony';
-    $conditions = [];
 
     # Recebe o valor da quantidade de registro por páginas.
     $qtdLine = filter_input( INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT );
@@ -27,7 +26,6 @@
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
         unset($allReg);
         $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
-        
         switch ($sortBy) {
             case 'active':
                 $conditions['active'] = ['patrimony_sit' => 'active'];
@@ -75,24 +73,26 @@
     }
     
     $pagConfig = [
-        'currentPage' => $start,
-        'totalRows' => $count,
-        'perPage' => $limit,
-        'link_func' => 'objFinanca.ajaxFilter'];
-
+        'currentPage'   => $start,
+        'totalRows'     => $count,
+        'perPage'       => $limit,
+        'link_func'     => 'objFinanca.ajaxFilter'
+    ];
+    
+    # Cria um objeto da classe de páginação
     $pagination =  new Pagination($pagConfig);
     
     if (!empty($allReg)) {
         echo <<<HTML
             <table  id="tableList" class="table table-bordered table-sm table-hover" >
-                <thead class="thead-dark">
+                <thead class="thead-green">
                     <tr>
-                        <th class="small text-center">#</th>
-                        <th class="small text-center">CÓDIGO</th>
-                        <th class="small text-center">DESCRIÇÃO</th>
-                        <th class="small text-center">SETOR</th>
-                        <th class="small text-center">VALOR</th>
-                        <th colspan="3" class="small text-center">AÇÃO</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">CÓDIGO</th>
+                        <th class="text-center">DESCRIÇÃO</th>
+                        <th class="text-center">SETOR</th>
+                        <th class="text-center">VALOR</th>
+                        <th colspan="3" class="text-center">AÇÃO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -111,9 +111,9 @@ HTML;
             //echo '<td>'.(($reg['patrimony_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_modified']) : '---') .'</td>';
             //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             //echo '<td>' . $status . '</td>';
-            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})} >EDITAR</button></td>";
-            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}>DELETAR</a></td>";
-            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})} data-toggle='modal' data-target='#inforView'>VISUALIZAR</a></td>";
+            echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
+            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
+            echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
             echo '</tr>';
         endforeach;
         echo <<<HTML

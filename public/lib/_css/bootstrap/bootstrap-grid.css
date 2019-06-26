@@ -1,7 +1,13 @@
 /*!
+<<<<<<< HEAD
  * Bootstrap Grid v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
+=======
+ * Bootstrap Grid v4.0.0 (https://getbootstrap.com)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+>>>>>>> update_pages
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 html {
@@ -180,11 +186,19 @@ html {
 }
 
 .order-last {
+<<<<<<< HEAD
+=======
+  -webkit-box-ordinal-group: 14;
+>>>>>>> update_pages
   -ms-flex-order: 13;
   order: 13;
 }
 
 .order-0 {
+<<<<<<< HEAD
+=======
+  -webkit-box-ordinal-group: 1;
+>>>>>>> update_pages
   -ms-flex-order: 0;
   order: 0;
 }
@@ -372,10 +386,18 @@ html {
     order: -1;
   }
   .order-sm-last {
+<<<<<<< HEAD
+=======
+    -webkit-box-ordinal-group: 14;
+>>>>>>> update_pages
     -ms-flex-order: 13;
     order: 13;
   }
   .order-sm-0 {
+<<<<<<< HEAD
+=======
+    -webkit-box-ordinal-group: 1;
+>>>>>>> update_pages
     -ms-flex-order: 0;
     order: 0;
   }
@@ -544,10 +566,18 @@ html {
     order: -1;
   }
   .order-md-last {
+<<<<<<< HEAD
+=======
+    -webkit-box-ordinal-group: 14;
+>>>>>>> update_pages
     -ms-flex-order: 13;
     order: 13;
   }
   .order-md-0 {
+<<<<<<< HEAD
+=======
+    -webkit-box-ordinal-group: 1;
+>>>>>>> update_pages
     -ms-flex-order: 0;
     order: 0;
   }
@@ -716,10 +746,18 @@ html {
     order: -1;
   }
   .order-lg-last {
+<<<<<<< HEAD
+=======
+    -webkit-box-ordinal-group: 14;
+>>>>>>> update_pages
     -ms-flex-order: 13;
     order: 13;
   }
   .order-lg-0 {
+<<<<<<< HEAD
+=======
+    -webkit-box-ordinal-group: 1;
+>>>>>>> update_pages
     -ms-flex-order: 0;
     order: 0;
   }
@@ -888,10 +926,18 @@ html {
     order: -1;
   }
   .order-xl-last {
+<<<<<<< HEAD
+=======
+    -webkit-box-ordinal-group: 14;
+>>>>>>> update_pages
     -ms-flex-order: 13;
     order: 13;
   }
   .order-xl-0 {
+<<<<<<< HEAD
+=======
+    -webkit-box-ordinal-group: 1;
+>>>>>>> update_pages
     -ms-flex-order: 0;
     order: 0;
   }
@@ -1010,11 +1056,19 @@ html {
 }
 
 .d-flex {
+<<<<<<< HEAD
+=======
+  display: -webkit-box !important;
+>>>>>>> update_pages
   display: -ms-flexbox !important;
   display: flex !important;
 }
 
 .d-inline-flex {
+<<<<<<< HEAD
+=======
+  display: -webkit-inline-box !important;
+>>>>>>> update_pages
   display: -ms-inline-flexbox !important;
   display: inline-flex !important;
 }
@@ -1042,10 +1096,18 @@ html {
     display: table-cell !important;
   }
   .d-sm-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-box !important;
+>>>>>>> update_pages
     display: -ms-flexbox !important;
     display: flex !important;
   }
   .d-sm-inline-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-inline-box !important;
+>>>>>>> update_pages
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
   }
@@ -1074,10 +1136,18 @@ html {
     display: table-cell !important;
   }
   .d-md-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-box !important;
+>>>>>>> update_pages
     display: -ms-flexbox !important;
     display: flex !important;
   }
   .d-md-inline-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-inline-box !important;
+>>>>>>> update_pages
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
   }
@@ -1106,10 +1176,18 @@ html {
     display: table-cell !important;
   }
   .d-lg-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-box !important;
+>>>>>>> update_pages
     display: -ms-flexbox !important;
     display: flex !important;
   }
   .d-lg-inline-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-inline-box !important;
+>>>>>>> update_pages
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
   }
@@ -1138,10 +1216,18 @@ html {
     display: table-cell !important;
   }
   .d-xl-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-box !important;
+>>>>>>> update_pages
     display: -ms-flexbox !important;
     display: flex !important;
   }
   .d-xl-inline-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-inline-box !important;
+>>>>>>> update_pages
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
   }
@@ -1170,10 +1256,18 @@ html {
     display: table-cell !important;
   }
   .d-print-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-box !important;
+>>>>>>> update_pages
     display: -ms-flexbox !important;
     display: flex !important;
   }
   .d-print-inline-flex {
+<<<<<<< HEAD
+=======
+    display: -webkit-inline-box !important;
+>>>>>>> update_pages
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
   }

@@ -1,6 +1,11 @@
 /*!
+<<<<<<< HEAD
   * Bootstrap v4.3.1 (https://getbootstrap.com/)
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+=======
+  * Bootstrap v4.0.0 (https://getbootstrap.com)
+  * Copyright 2011-2018 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+>>>>>>> update_pages
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
@@ -62,11 +67,20 @@
     return target;
   }
 
+<<<<<<< HEAD
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
     subClass.prototype.constructor = subClass;
     subClass.__proto__ = superClass;
   }
+=======
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): util.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+>>>>>>> update_pages
 
   /**
    * --------------------------------------------------------------------------
@@ -79,10 +93,15 @@
    * Private TransitionEnd Helpers
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var TRANSITION_END = 'transitionend';
   var MAX_UID = 1000000;
   var MILLISECONDS_MULTIPLIER = 1000; // Shoutout AngusCroll (https://goo.gl/pxwQGp)
+=======
+  var transition = false;
+  var MAX_UID = 1000000; // Shoutout AngusCroll (https://goo.gl/pxwQGp)
+>>>>>>> update_pages
 
   function toType(obj) {
     return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
@@ -102,6 +121,19 @@
     };
   }
 
+<<<<<<< HEAD
+=======
+  function transitionEndTest() {
+    if (typeof window !== 'undefined' && window.QUnit) {
+      return false;
+    }
+
+    return {
+      end: 'transitionend'
+    };
+  }
+
+>>>>>>> update_pages
   function transitionEndEmulator(duration) {
     var _this = this;
 
@@ -118,8 +150,24 @@
   }
 
   function setTransitionEndSupport() {
+<<<<<<< HEAD
     $.fn.emulateTransitionEnd = transitionEndEmulator;
     $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
+=======
+    transition = transitionEndTest();
+    $$$1.fn.emulateTransitionEnd = transitionEndEmulator;
+
+    if (Util.supportsTransitionEnd()) {
+      $$$1.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
+    }
+  }
+
+  function escapeId(selector) {
+    // We escape IDs in case of special selectors (selector = '#myId:something')
+    // $.escapeSelector does not exist in jQuery < 3
+    selector = typeof $$$1.escapeSelector === 'function' ? $$$1.escapeSelector(selector).substr(1) : selector.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1');
+    return selector;
+>>>>>>> update_pages
   }
   /**
    * --------------------------------------------------------------------------
@@ -142,12 +190,26 @@
       var selector = element.getAttribute('data-target');
 
       if (!selector || selector === '#') {
+<<<<<<< HEAD
         var hrefAttr = element.getAttribute('href');
         selector = hrefAttr && hrefAttr !== '#' ? hrefAttr.trim() : '';
       }
 
       try {
         return document.querySelector(selector) ? selector : null;
+=======
+        selector = element.getAttribute('href') || '';
+      } // If it's an ID
+
+
+      if (selector.charAt(0) === '#') {
+        selector = escapeId(selector);
+      }
+
+      try {
+        var $selector = $$$1(document).find(selector);
+        return $selector.length > 0 ? selector : null;
+>>>>>>> update_pages
       } catch (err) {
         return null;
       }
@@ -223,6 +285,17 @@
   };
   setTransitionEndSupport();
 
+<<<<<<< HEAD
+=======
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): alert.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Alert = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
@@ -230,7 +303,11 @@
    */
 
   var NAME = 'alert';
+<<<<<<< HEAD
   var VERSION = '4.3.1';
+=======
+  var VERSION = '4.0.0';
+>>>>>>> update_pages
   var DATA_KEY = 'bs.alert';
   var EVENT_KEY = "." + DATA_KEY;
   var DATA_API_KEY = '.data-api';
@@ -285,8 +362,13 @@
     _proto.dispose = function dispose() {
       $.removeData(this._element, DATA_KEY);
       this._element = null;
+<<<<<<< HEAD
     } // Private
     ;
+=======
+    }; // Private
+
+>>>>>>> update_pages
 
     _proto._getRootElement = function _getRootElement(element) {
       var selector = Util.getSelectorFromElement(element);
@@ -327,9 +409,15 @@
     };
 
     _proto._destroyElement = function _destroyElement(element) {
+<<<<<<< HEAD
       $(element).detach().trigger(Event.CLOSED).remove();
     } // Static
     ;
+=======
+      $$$1(element).detach().trigger(Event.CLOSED).remove();
+    }; // Static
+
+>>>>>>> update_pages
 
     Alert._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
@@ -388,11 +476,26 @@
     return Alert._jQueryInterface;
   };
 
+<<<<<<< HEAD
+=======
+  return Alert;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): button.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Button = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var NAME$1 = 'button';
   var VERSION$1 = '4.3.1';
@@ -401,6 +504,15 @@
   var DATA_API_KEY$1 = '.data-api';
   var JQUERY_NO_CONFLICT$1 = $.fn[NAME$1];
   var ClassName$1 = {
+=======
+  var NAME = 'button';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.button';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var ClassName = {
+>>>>>>> update_pages
     ACTIVE: 'active',
     BUTTON: 'btn',
     FOCUS: 'focus'
@@ -481,8 +593,13 @@
     _proto.dispose = function dispose() {
       $.removeData(this._element, DATA_KEY$1);
       this._element = null;
+<<<<<<< HEAD
     } // Static
     ;
+=======
+    }; // Static
+
+>>>>>>> update_pages
 
     Button._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
@@ -542,11 +659,26 @@
     return Button._jQueryInterface;
   };
 
+<<<<<<< HEAD
+=======
+  return Button;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): carousel.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Carousel = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var NAME$2 = 'carousel';
   var VERSION$2 = '4.3.1';
@@ -554,6 +686,15 @@
   var EVENT_KEY$2 = "." + DATA_KEY$2;
   var DATA_API_KEY$2 = '.data-api';
   var JQUERY_NO_CONFLICT$2 = $.fn[NAME$2];
+=======
+  var NAME = 'carousel';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.carousel';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 600;
+>>>>>>> update_pages
   var ARROW_LEFT_KEYCODE = 37; // KeyboardEvent.which value for left arrow key
 
   var ARROW_RIGHT_KEYCODE = 39; // KeyboardEvent.which value for right arrow key
@@ -744,8 +885,13 @@
       this._isSliding = null;
       this._activeElement = null;
       this._indicatorsElement = null;
+<<<<<<< HEAD
     } // Private
     ;
+=======
+    }; // Private
+
+>>>>>>> update_pages
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, Default, config);
@@ -789,6 +935,7 @@
         });
       }
 
+<<<<<<< HEAD
       if (this._config.touch) {
         this._addTouchEventListeners();
       }
@@ -826,6 +973,9 @@
         _this3._handleSwipe();
 
         if (_this3._config.pause === 'hover') {
+=======
+        if ('ontouchstart' in document.documentElement) {
+>>>>>>> update_pages
           // If it's a touch-enabled device, mouseenter/leave are fired as
           // part of the mouse compatibility events on first tap - the carousel
           // would stop cycling until user tapped out of it;
@@ -1032,8 +1182,13 @@
       if (isCycling) {
         this.cycle();
       }
+<<<<<<< HEAD
     } // Static
     ;
+=======
+    }; // Static
+
+>>>>>>> update_pages
 
     Carousel._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
@@ -1142,11 +1297,26 @@
     return Carousel._jQueryInterface;
   };
 
+<<<<<<< HEAD
+=======
+  return Carousel;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): collapse.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Collapse = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var NAME$3 = 'collapse';
   var VERSION$3 = '4.3.1';
@@ -1155,6 +1325,16 @@
   var DATA_API_KEY$3 = '.data-api';
   var JQUERY_NO_CONFLICT$3 = $.fn[NAME$3];
   var Default$1 = {
+=======
+  var NAME = 'collapse';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.collapse';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 600;
+  var Default = {
+>>>>>>> update_pages
     toggle: true,
     parent: ''
   };
@@ -1210,6 +1390,12 @@
         if (selector !== null && filterElement.length > 0) {
           this._selector = selector;
 
+<<<<<<< HEAD
+=======
+        if (selector !== null && $$$1(selector).filter(element).length > 0) {
+          this._selector = selector;
+
+>>>>>>> update_pages
           this._triggerArray.push(elem);
         }
       }
@@ -1248,6 +1434,7 @@
       var activesData;
 
       if (this._parent) {
+<<<<<<< HEAD
         actives = [].slice.call(this._parent.querySelectorAll(Selector$3.ACTIVES)).filter(function (elem) {
           if (typeof _this._config.parent === 'string') {
             return elem.getAttribute('data-parent') === _this._config.parent;
@@ -1255,6 +1442,9 @@
 
           return elem.classList.contains(ClassName$3.COLLAPSE);
         });
+=======
+        actives = $$$1.makeArray($$$1(this._parent).find(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
+>>>>>>> update_pages
 
         if (actives.length === 0) {
           actives = null;
@@ -1262,7 +1452,11 @@
       }
 
       if (actives) {
+<<<<<<< HEAD
         activesData = $(actives).not(this._selector).data(DATA_KEY$3);
+=======
+        activesData = $$$1(actives).not(this._selector).data(DATA_KEY);
+>>>>>>> update_pages
 
         if (activesData && activesData._isTransitioning) {
           return;
@@ -1277,7 +1471,11 @@
       }
 
       if (actives) {
+<<<<<<< HEAD
         Collapse._jQueryInterface.call($(actives).not(this._selector), 'hide');
+=======
+        Collapse._jQueryInterface.call($$$1(actives).not(this._selector), 'hide');
+>>>>>>> update_pages
 
         if (!activesData) {
           $(actives).data(DATA_KEY$3, null);
@@ -1289,8 +1487,13 @@
       $(this._element).removeClass(ClassName$3.COLLAPSE).addClass(ClassName$3.COLLAPSING);
       this._element.style[dimension] = 0;
 
+<<<<<<< HEAD
       if (this._triggerArray.length) {
         $(this._triggerArray).removeClass(ClassName$3.COLLAPSED).attr('aria-expanded', true);
+=======
+      if (this._triggerArray.length > 0) {
+        $$$1(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', true);
+>>>>>>> update_pages
       }
 
       this.setTransitioning(true);
@@ -1332,8 +1535,13 @@
       $(this._element).addClass(ClassName$3.COLLAPSING).removeClass(ClassName$3.COLLAPSE).removeClass(ClassName$3.SHOW);
       var triggerArrayLength = this._triggerArray.length;
 
+<<<<<<< HEAD
       if (triggerArrayLength > 0) {
         for (var i = 0; i < triggerArrayLength; i++) {
+=======
+      if (this._triggerArray.length > 0) {
+        for (var i = 0; i < this._triggerArray.length; i++) {
+>>>>>>> update_pages
           var trigger = this._triggerArray[i];
           var selector = Util.getSelectorFromElement(trigger);
 
@@ -1371,11 +1579,19 @@
       this._element = null;
       this._triggerArray = null;
       this._isTransitioning = null;
+<<<<<<< HEAD
     } // Private
     ;
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, Default$1, config);
+=======
+    }; // Private
+
+
+    _proto._getConfig = function _getConfig(config) {
+      config = _extends({}, Default, config);
+>>>>>>> update_pages
       config.toggle = Boolean(config.toggle); // Coerce string values
 
       Util.typeCheckConfig(NAME$3, config, DefaultType$1);
@@ -1413,11 +1629,20 @@
     _proto._addAriaAndCollapsedClass = function _addAriaAndCollapsedClass(element, triggerArray) {
       var isOpen = $(element).hasClass(ClassName$3.SHOW);
 
+<<<<<<< HEAD
       if (triggerArray.length) {
         $(triggerArray).toggleClass(ClassName$3.COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
       }
     } // Static
     ;
+=======
+        if (triggerArray.length > 0) {
+          $$$1(triggerArray).toggleClass(ClassName.COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
+        }
+      }
+    }; // Static
+
+>>>>>>> update_pages
 
     Collapse._getTargetFromElement = function _getTargetFromElement(element) {
       var selector = Util.getSelectorFromElement(element);
@@ -1502,11 +1727,26 @@
     return Collapse._jQueryInterface;
   };
 
+<<<<<<< HEAD
+=======
+  return Collapse;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): dropdown.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Dropdown = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var NAME$4 = 'dropdown';
   var VERSION$4 = '4.3.1';
@@ -1514,6 +1754,14 @@
   var EVENT_KEY$4 = "." + DATA_KEY$4;
   var DATA_API_KEY$4 = '.data-api';
   var JQUERY_NO_CONFLICT$4 = $.fn[NAME$4];
+=======
+  var NAME = 'dropdown';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.dropdown';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+>>>>>>> update_pages
   var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
 
   var SPACE_KEYCODE = 32; // KeyboardEvent.which value for space key
@@ -1634,6 +1882,7 @@
          * Popper - https://popper.js.org
          */
         if (typeof Popper === 'undefined') {
+<<<<<<< HEAD
           throw new TypeError('Bootstrap\'s dropdowns require Popper.js (https://popper.js.org/)');
         }
 
@@ -1643,6 +1892,12 @@
           referenceElement = parent;
         } else if (Util.isElement(this._config.reference)) {
           referenceElement = this._config.reference; // Check if it's jQuery element
+=======
+          throw new TypeError('Bootstrap dropdown require Popper.js (https://popper.js.org)');
+        }
+
+        var element = this._element; // For dropup with alignment we use the parent as popper container
+>>>>>>> update_pages
 
           if (typeof this._config.reference.jquery !== 'undefined') {
             referenceElement = this._config.reference[0];
@@ -1656,15 +1911,24 @@
           $(parent).addClass(ClassName$4.POSITION_STATIC);
         }
 
+<<<<<<< HEAD
         this._popper = new Popper(referenceElement, this._menu, this._getPopperConfig());
+=======
+        this._popper = new Popper(element, this._menu, this._getPopperConfig());
+>>>>>>> update_pages
       } // If this is a touch-enabled device we add extra
       // empty mouseover listeners to the body's immediate children;
       // only needed because of broken event delegation on iOS
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
 
 
+<<<<<<< HEAD
       if ('ontouchstart' in document.documentElement && $(parent).closest(Selector$4.NAVBAR_NAV).length === 0) {
         $(document.body).children().on('mouseover', null, $.noop);
+=======
+      if ('ontouchstart' in document.documentElement && $$$1(parent).closest(Selector.NAVBAR_NAV).length === 0) {
+        $$$1('body').children().on('mouseover', null, $$$1.noop);
+>>>>>>> update_pages
       }
 
       this._element.focus();
@@ -1738,8 +2002,13 @@
       if (this._popper !== null) {
         this._popper.scheduleUpdate();
       }
+<<<<<<< HEAD
     } // Private
     ;
+=======
+    }; // Private
+
+>>>>>>> update_pages
 
     _proto._addEventListeners = function _addEventListeners() {
       var _this = this;
@@ -1826,6 +2095,11 @@
         } // Disable Popper.js if we have a static display
 
       };
+<<<<<<< HEAD
+=======
+      return popperConfig;
+    }; // Static
+>>>>>>> update_pages
 
       if (this._config.display === 'static') {
         popperConfig.modifiers.applyStyle = {
@@ -1919,8 +2193,13 @@
       }
 
       return parent || element.parentNode;
+<<<<<<< HEAD
     } // eslint-disable-next-line complexity
     ;
+=======
+    }; // eslint-disable-next-line complexity
+
+>>>>>>> update_pages
 
     Dropdown._dataApiKeydownHandler = function _dataApiKeydownHandler(event) {
       // If not input/textarea:
@@ -2028,11 +2307,37 @@
     return Dropdown._jQueryInterface;
   };
 
+<<<<<<< HEAD
+=======
+  return Dropdown;
+}($, Popper);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): modal.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Modal = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
+=======
+  var NAME = 'modal';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.modal';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 300;
+  var BACKDROP_TRANSITION_DURATION = 150;
+  var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
+>>>>>>> update_pages
 
   var NAME$5 = 'modal';
   var VERSION$5 = '4.3.1';
@@ -2230,8 +2535,13 @@
 
     _proto.handleUpdate = function handleUpdate() {
       this._adjustDialog();
+<<<<<<< HEAD
     } // Private
     ;
+=======
+    }; // Private
+
+>>>>>>> update_pages
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, Default$3, config);
@@ -2295,9 +2605,15 @@
     _proto._enforceFocus = function _enforceFocus() {
       var _this4 = this;
 
+<<<<<<< HEAD
       $(document).off(Event$5.FOCUSIN) // Guard against infinite focus loop
       .on(Event$5.FOCUSIN, function (event) {
         if (document !== event.target && _this4._element !== event.target && $(_this4._element).has(event.target).length === 0) {
+=======
+      $$$1(document).off(Event.FOCUSIN) // Guard against infinite focus loop
+      .on(Event.FOCUSIN, function (event) {
+        if (document !== event.target && _this4._element !== event.target && $$$1(_this4._element).has(event.target).length === 0) {
+>>>>>>> update_pages
           _this4._element.focus();
         }
       });
@@ -2518,8 +2834,13 @@
       var scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
       document.body.removeChild(scrollDiv);
       return scrollbarWidth;
+<<<<<<< HEAD
     } // Static
     ;
+=======
+    }; // Static
+
+>>>>>>> update_pages
 
     Modal._jQueryInterface = function _jQueryInterface(config, relatedTarget) {
       return this.each(function () {
@@ -2666,6 +2987,7 @@
 
   var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i;
 
+<<<<<<< HEAD
   function allowedAttribute(attr, allowedAttributeList) {
     var attrName = attr.nodeName.toLowerCase();
 
@@ -2730,18 +3052,35 @@
 
     return createdDocument.body.innerHTML;
   }
+=======
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): tooltip.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+>>>>>>> update_pages
 
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var NAME$6 = 'tooltip';
   var VERSION$6 = '4.3.1';
   var DATA_KEY$6 = 'bs.tooltip';
   var EVENT_KEY$6 = "." + DATA_KEY$6;
   var JQUERY_NO_CONFLICT$6 = $.fn[NAME$6];
+=======
+  var NAME = 'tooltip';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.tooltip';
+  var EVENT_KEY = "." + DATA_KEY;
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 150;
+>>>>>>> update_pages
   var CLASS_PREFIX = 'bs-tooltip';
   var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
   var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
@@ -2833,7 +3172,11 @@
        * Popper - https://popper.js.org
        */
       if (typeof Popper === 'undefined') {
+<<<<<<< HEAD
         throw new TypeError('Bootstrap\'s tooltips require Popper.js (https://popper.js.org/)');
+=======
+        throw new TypeError('Bootstrap tooltips require Popper.js (https://popper.js.org)');
+>>>>>>> update_pages
       } // private
 
 
@@ -2989,7 +3332,11 @@
             return _this._handlePopperPlacementChange(data);
           }
         });
+<<<<<<< HEAD
         $(tip).addClass(ClassName$6.SHOW); // If this is a touch-enabled device we add extra
+=======
+        $$$1(tip).addClass(ClassName.SHOW); // If this is a touch-enabled device we add extra
+>>>>>>> update_pages
         // empty mouseover listeners to the body's immediate children;
         // only needed because of broken event delegation on iOS
         // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
@@ -3053,7 +3400,11 @@
         return;
       }
 
+<<<<<<< HEAD
       $(tip).removeClass(ClassName$6.SHOW); // If this is a touch-enabled device we remove the extra
+=======
+      $$$1(tip).removeClass(ClassName.SHOW); // If this is a touch-enabled device we remove the extra
+>>>>>>> update_pages
       // empty mouseover listeners we added for iOS support
 
       if ('ontouchstart' in document.documentElement) {
@@ -3078,8 +3429,13 @@
       if (this._popper !== null) {
         this._popper.scheduleUpdate();
       }
+<<<<<<< HEAD
     } // Protected
     ;
+=======
+    }; // Protected
+
+>>>>>>> update_pages
 
     _proto.isWithContent = function isWithContent() {
       return Boolean(this.getTitle());
@@ -3103,8 +3459,13 @@
     _proto.setElementContent = function setElementContent($element, content) {
       if (typeof content === 'object' && (content.nodeType || content.jquery)) {
         // Content is a DOM node or a jQuery
+<<<<<<< HEAD
         if (this.config.html) {
           if (!$(content).parent().is($element)) {
+=======
+        if (html) {
+          if (!$$$1(content).parent().is($element)) {
+>>>>>>> update_pages
             $element.empty().append(content);
           }
         } else {
@@ -3133,6 +3494,7 @@
       }
 
       return title;
+<<<<<<< HEAD
     } // Private
     ;
 
@@ -3149,6 +3511,9 @@
       } else {
         offset.offset = this.config.offset;
       }
+=======
+    }; // Private
+>>>>>>> update_pages
 
       return offset;
     };
@@ -3366,8 +3731,13 @@
       this.hide();
       this.show();
       this.config.animation = initConfigAnimation;
+<<<<<<< HEAD
     } // Static
     ;
+=======
+    }; // Static
+
+>>>>>>> update_pages
 
     Tooltip._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
@@ -3448,11 +3818,26 @@
     return Tooltip._jQueryInterface;
   };
 
+<<<<<<< HEAD
+=======
+  return Tooltip;
+}($, Popper);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): popover.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Popover = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var NAME$7 = 'popover';
   var VERSION$7 = '4.3.1';
@@ -3463,6 +3848,16 @@
   var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", 'g');
 
   var Default$5 = _objectSpread({}, Tooltip.Default, {
+=======
+  var NAME = 'popover';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.popover';
+  var EVENT_KEY = "." + DATA_KEY;
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var CLASS_PREFIX = 'bs-popover';
+  var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
+  var Default = _extends({}, Tooltip.Default, {
+>>>>>>> update_pages
     placement: 'right',
     trigger: 'click',
     content: '',
@@ -3526,7 +3921,11 @@
     };
 
     _proto.setContent = function setContent() {
+<<<<<<< HEAD
       var $tip = $(this.getTipElement()); // We use append for html objects to maintain js events
+=======
+      var $tip = $$$1(this.getTipElement()); // We use append for html objects to maintain js events
+>>>>>>> update_pages
 
       this.setElementContent($tip.find(Selector$7.TITLE), this.getTitle());
 
@@ -3536,10 +3935,17 @@
         content = content.call(this.element);
       }
 
+<<<<<<< HEAD
       this.setElementContent($tip.find(Selector$7.CONTENT), content);
       $tip.removeClass(ClassName$7.FADE + " " + ClassName$7.SHOW);
     } // Private
     ;
+=======
+      this.setElementContent($tip.find(Selector.CONTENT), content);
+      $tip.removeClass(ClassName.FADE + " " + ClassName.SHOW);
+    }; // Private
+
+>>>>>>> update_pages
 
     _proto._getContent = function _getContent() {
       return this.element.getAttribute('data-content') || this.config.content;
@@ -3552,8 +3958,13 @@
       if (tabClass !== null && tabClass.length > 0) {
         $tip.removeClass(tabClass.join(''));
       }
+<<<<<<< HEAD
     } // Static
     ;
+=======
+    }; // Static
+
+>>>>>>> update_pages
 
     Popover._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
@@ -3635,11 +4046,26 @@
     return Popover._jQueryInterface;
   };
 
+<<<<<<< HEAD
+=======
+  return Popover;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): scrollspy.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var ScrollSpy = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var NAME$8 = 'scrollspy';
   var VERSION$8 = '4.3.1';
@@ -3648,6 +4074,15 @@
   var DATA_API_KEY$6 = '.data-api';
   var JQUERY_NO_CONFLICT$8 = $.fn[NAME$8];
   var Default$6 = {
+=======
+  var NAME = 'scrollspy';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.scrollspy';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var Default = {
+>>>>>>> update_pages
     offset: 10,
     method: 'auto',
     target: ''
@@ -3738,7 +4173,11 @@
 
           if (targetBCR.width || targetBCR.height) {
             // TODO (fat): remove sketch reliance on jQuery position/offset
+<<<<<<< HEAD
             return [$(target)[offsetMethod]().top + offsetBase, targetSelector];
+=======
+            return [$$$1(target)[offsetMethod]().top + offsetBase, targetSelector];
+>>>>>>> update_pages
           }
         }
 
@@ -3765,8 +4204,13 @@
       this._targets = null;
       this._activeTarget = null;
       this._scrollHeight = null;
+<<<<<<< HEAD
     } // Private
     ;
+=======
+    }; // Private
+
+>>>>>>> update_pages
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, Default$6, typeof config === 'object' && config ? config : {});
@@ -3868,6 +4312,7 @@
     };
 
     _proto._clear = function _clear() {
+<<<<<<< HEAD
       [].slice.call(document.querySelectorAll(this._selector)).filter(function (node) {
         return node.classList.contains(ClassName$8.ACTIVE);
       }).forEach(function (node) {
@@ -3875,6 +4320,11 @@
       });
     } // Static
     ;
+=======
+      $$$1(this._selector).filter(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+    }; // Static
+
+>>>>>>> update_pages
 
     ScrollSpy._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
@@ -3942,11 +4392,26 @@
     return ScrollSpy._jQueryInterface;
   };
 
+<<<<<<< HEAD
+=======
+  return ScrollSpy;
+}($);
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): tab.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+var Tab = function ($$$1) {
+>>>>>>> update_pages
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+<<<<<<< HEAD
 
   var NAME$9 = 'tab';
   var VERSION$9 = '4.3.1';
@@ -3960,6 +4425,21 @@
     SHOW: "show" + EVENT_KEY$9,
     SHOWN: "shown" + EVENT_KEY$9,
     CLICK_DATA_API: "click" + EVENT_KEY$9 + DATA_API_KEY$7
+=======
+  var NAME = 'tab';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.tab';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
+  var TRANSITION_DURATION = 150;
+  var Event = {
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+>>>>>>> update_pages
   };
   var ClassName$9 = {
     DROPDOWN_MENU: 'dropdown-menu',
@@ -4057,8 +4537,13 @@
     _proto.dispose = function dispose() {
       $.removeData(this._element, DATA_KEY$9);
       this._element = null;
+<<<<<<< HEAD
     } // Private
     ;
+=======
+    }; // Private
+
+>>>>>>> update_pages
 
     _proto._activate = function _activate(element, container, callback) {
       var _this2 = this;
@@ -4119,8 +4604,13 @@
       if (callback) {
         callback();
       }
+<<<<<<< HEAD
     } // Static
     ;
+=======
+    }; // Static
+
+>>>>>>> update_pages
 
     Tab._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
@@ -4219,7 +4709,14 @@
      * ------------------------------------------------------------------------
      */
 
+<<<<<<< HEAD
   };
+=======
+(function ($$$1) {
+  if (typeof $$$1 === 'undefined') {
+    throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
+  }
+>>>>>>> update_pages
 
   var Toast =
   /*#__PURE__*/

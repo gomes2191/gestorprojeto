@@ -1,25 +1,25 @@
-<?php if (!defined('ABSPATH')) { exit(); }
-    # Paginação parametros
-    $limit = 5;
+        <?php if (!defined('ABSPATH')) { exit(); }
+            # Paginação parametros
+            $limit = 5;
 
-    # Realiza um consulta na base de dados e reatorna os valores
-    $covenants = $modelo->searchTable('covenant', ['order_by' => 'covenant_id DESC ', 'limit' => $limit]);
+            # Realiza um consulta na base de dados e reatorna os valores
+            $covenants = $modelo->searchTable('covenant', ['order_by' => 'covenant_id DESC ', 'limit' => $limit]);
 
-    $pagConfig = [
-        'totalRows' => COUNT($covenants),
-        'perPage' => $limit,
-        'link_func' => 'searchFilter'
-    ];
+            $pagConfig = [
+                'totalRows' => COUNT($covenants),
+                'perPage' => $limit,
+                'link_func' => 'searchFilter'
+            ];
 
-    $pagination = new Pagination($pagConfig);
+            $pagination = new Pagination($pagConfig);
 
-    # Verifica se existe feedback e retorna o feedback se sim se não retorna false
-    $form_msg = $modelo->form_msg;
+            # Verifica se existe feedback e retorna o feedback se sim se não retorna false
+            $form_msg = $modelo->form_msg;
 
-    #date_default_timezone_set('America/Sao_Paulo');
-    $date = (date('Y-m-d H:i'));
-    date('Y-m-d H:i:s', time());
-?>
+            #date_default_timezone_set('America/Sao_Paulo');
+            $date = (date('Y-m-d H:i'));
+            date('Y-m-d H:i:s', time());
+        ?>
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
             <div class="col-md-10  col-sm-12 col-xs-12">
@@ -39,10 +39,10 @@
                 <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
                     <fieldset>
                         <legend >CONVÊNIO / PLANOS <span class="text-success"></span></legend>
-                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                        <div class="row form-hidden" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO CONVÊNIO</small></div>
                         </div>    
-                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                        <div class="row form-hidden" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                 <label for="covenant_name">Empresa:</label>
                                 <input type="hidden" id="covenant_id" name="covenant_id" value="" >
@@ -75,7 +75,7 @@
                             </div>
                         </div><!-- End div hidden 1 -->
                         
-                        <div class="row form-hide" style="display: none;"><!--Start div hidden 2-->
+                        <div class="row form-hidden" style="display: none;"><!--Start div hidden 2-->
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                 <label for="covenant_district">Bairro:</label>
                                 <input id="covenant_district" name="covenant_district" type="text" class="form-control form-control-sm" placeholder="Bairro..." >
@@ -102,7 +102,7 @@
                             </div>
                         </div><!-- End row hidden 2 -->
                         
-                        <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
+                        <div class="row form-hidden" style="display: none;"><!--Start div hidden 3-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="covenant_tel_1">Telefone 1:</label>
                                 <input id="covenant_tel_1" name="covenant_tel_1" type="text" class="form-control form-control-sm tel" placeholder="(00) 00000-0000" >
@@ -132,11 +132,11 @@
                             </div>
                         </div><!-- End div hidden 3 -->
                         
-                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                        <div class="row form-hidden" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO REPRESENTANTE - PESSOA DE CONTATO</small></div>
                         </div> 
                         
-                        <div class="row form-hide" style="display: none;"><!--Start div hidden 3-->
+                        <div class="row form-hidden" style="display: none;"><!--Start div hidden 3-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="covenant_rep_name">Nome:</label>
                                 <input id="covenant_rep_name" name="covenant_rep_name" type="text" class="form-control form-control-sm" placeholder="Nome..." >
@@ -163,11 +163,11 @@
                             </div>
                         </div><!-- End div hidden 3 -->
                         
-                        <div class="row form-hide" style="display: none;"><!-- Start div hidden 1 -->
+                        <div class="row form-hidden" style="display: none;"><!-- Start div hidden 1 -->
                             <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES BANCÁRIAS</small></div>
                         </div> 
                         
-                        <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
+                        <div class="row form-hidden" style="display: none;"><!--Start div hidden 4-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="covenant_banco_1">Banco 1:</label>
                                 <input id="covenant_banco_1" name="covenant_banco_1" type="text" class="form-control form-control-sm" placeholder="Nome banco..." >
@@ -186,7 +186,7 @@
                             </div>
                         </div><!-- End div hidden 4 -->
                         
-                        <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
+                        <div class="row form-hidden" style="display: none;"><!--Start div hidden 4-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="covenant_banco_2">Banco 2:</label>
                                 <input id="covenant_banco_2" name="covenant_banco_2" type="text" class="form-control form-control-sm" placeholder="Nome banco..." >
@@ -205,14 +205,14 @@
                             </div>
                         </div><!-- End div hidden 5 -->
                         
-                        <div class="row form-hide" style="display: none;"><!--Start div hidden 4-->
+                        <div class="row form-hidden" style="display: none;"><!--Start div hidden 4-->
                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                 <label for="covenant_obs">Observações:</label>
                                 <textarea id="covenant_obs" class="form-control" name="covenant_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..." ><?php echo htmlentities(chk_array($modelo->form_data, 'covenant_obs')); ?></textarea>
                             </div>
                         </div><!-- End div hidden 6 -->
                         
-                        <div class="row form-compact row-button-hide" style="display: none;">
+                        <div class="row form-compact row-button-hidden" style="display: none;">
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-save" class="btn-group">
                                     <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
@@ -221,7 +221,7 @@
                                     <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset"><i class="fas fa-eraser fa-lg"></i> <span>LIMPAR</span></button>
                                 </div>
                                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-light btn-sm  marg-top" type="reset"><i class="fas  fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span></button>
+                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset"><i class="fas fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span></button>
                                 </div>
                             </div>
                         </div>
@@ -238,8 +238,8 @@
                                         <i class="fas fa-eye fa-lg"></i> ABRE FORMULÁRIO
                                     </button>
                                 </div>
-                                <div id="group-btn-hide" style="display: none;" class="btn-group">
-                                    <button id="btn-hide" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset"><i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO</button>
+                                <div id="group-btn-hidden" style="display: none;" class="btn-group">
+                                    <button id="btn-hidden" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset"><i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO</button>
                                 </div>
                             </div>
                         </div>
@@ -360,10 +360,11 @@
             </div>
         </div><!-- End modal visualizar -->
         <script>
+           //Instância os objetos das classses
             var objMetodos = new Metodos();
             var objFinanca = new Financeiro();
             
-            // Parâmetros necessários para a requisição Ajax
+            // Efetua a requisição ajax e retorna os registros
             objFinanca.setAjaxData(objSet = {url:'<?= HOME_URI; ?>/covenant/filters', url_id: '/covenant/', get_decode: false});
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
@@ -376,51 +377,51 @@
             });
             
             //Tipo de ação disparada pelo usuário
-            function typeAction( objData ){     
-                id = (typeof objData.id === "undefined") ? '' : objData.id;
-                if(objData.type === 'loadInfo' || objData.type === 'loadEdit'){
-                    typeExec = objData.type;
-                    if(objData.type === 'loadEdit'){
-                        objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/covenant/ajax-process', id:objData.id});
+            function typeAction( objAction ){     
+                id = (typeof objAction.id === "undefined") ? '' : objAction.id;
+                if(objAction.type === 'loadInfo' || objAction.type === 'loadEdit'){
+                    typeExec = objAction.type;
+                    if(objAction.type === 'loadEdit'){
+                        objFinanca.setAjaxActionUser(objSet = {type: objAction.type, url:'<?= HOME_URI; ?>/covenant/ajax-process', id:objAction.id});
                         objFinanca.ajaxActionUser();
                     }else{
-                        objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/covenant/ajax-process', id:objData.id});
+                        objFinanca.setAjaxActionUser(objSet = {type: objAction.type, url:'<?= HOME_URI; ?>/covenant/ajax-process', id:objAction.id});
                         objFinanca.ajaxActionUser();
                     }
                     
-                }else if ( objData.type === 'add' ) {
+                }else if ( objAction.type === 'add' ) {
                     
                     if($('#covenant_name').val() == '' || $('#covenant_cpf_cnpj').val() == ''){
                         alert('Existem campos obrigatórios não preenchido.');
                     }else{
-                        objData.userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
+                        objAction.userData = $("#addForm").serialize()+'&action_type='+objAction.type+'&id='+id;
                         feedback = 'Inserido com sucesso!';
                         $('#filtros').show();
                         objFinanca.setAjaxActionUser( 
-                            objSet = {type: objData.type,
+                            objSet = {type: objAction.type,
                             url:'<?= HOME_URI; ?>/covenant/ajax-process',
-                            userData:objData.userData} 
+                            userData:objAction.userData} 
                         );
                         objFinanca.ajaxActionUser();
                     }
                     
-                }else if( objData.type === 'update' ){
-                    objData.userData = $("#editForm").serialize()+'&action_type='+objData.type;
+                }else if( objAction.type === 'update' ){
+                    objAction.userData = $("#editForm").serialize()+'&action_type='+objAction.type;
                     feedback = 'Atualizado com sucessso!';
                     objFinanca.setAjaxActionUser( 
-                        objSet = {type: objData.type,
+                        objSet = {type: objAction.type,
                         url:'<?= HOME_URI; ?>/covenant/ajax-process',
-                        userData:objData.userData} 
+                        userData:objAction.userData} 
                     );
                     objFinanca.ajaxActionUser();
-                }else if(objData.type === 'delete') {
-                    if(confirm('Deseja remover esse registro? Também serão removidos todos registro de honorários.')){
-                        objData.userData = 'action_type='+objData.type+'&id='+objData.id;
+                }else if(objAction.type === 'delete') {
+                    if(confirm('Deseja remover esse registro?')){
+                        objAction.userData = 'action_type='+objAction.type+'&id='+objAction.id;
                         feedback = 'Remoção realizada com sucesso!';
                         objFinanca.setAjaxActionUser( 
-                            objSet = {type: objData.type,
+                            objSet = {type: objAction.type,
                             url:'<?= HOME_URI; ?>/covenant/ajax-process',
-                            userData:objData.userData} 
+                            userData:objAction.userData} 
                         );
                         objFinanca.ajaxActionUser();
                     }else{

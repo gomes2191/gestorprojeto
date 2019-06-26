@@ -1,26 +1,25 @@
-<?php if (!defined('ABSPATH')) { exit(); }
+        <?php if (!defined('ABSPATH')) { exit(); }
 
-    
-    # Define o limite padrão de registro por página
-    $limit = 5;
-    
-    # Realiza uma consulta na base de dados e retorna todos os registro caso exista
-    $providers = $modelo->searchTable('providers', ['order_by' => 'provider_id DESC ', 'limit' => $limit]);
-    
 
-    $pagConfig = [
-        'totalRows' => is_array($providers) ? COUNT($providers) : 0 ,
-        'perPage'   => $limit,
-        'link_func' => 'searchFilter'
-    ];
-    
-    # Cria um objeto da classe páginação
-    $pagination = new Pagination($pagConfig);
+            # Define o limite padrão de registro por página
+            $limit = 5;
 
-    date_default_timezone_set('America/Sao_Paulo');
-    $date = (date('Y-m-d H:i'));
-    date('Y-m-d H:i:s', time());
-?>
+            # Realiza uma consulta na base de dados e retorna todos os registro caso exista
+            $providers = $modelo->searchTable('providers', ['order_by' => 'provider_id DESC ', 'limit' => $limit]);
+
+            $pagConfig = [
+                'totalRows' => COUNT($providers),
+                'perPage'   => $limit,
+                'link_func' => 'searchFilter'
+            ];
+
+            # Cria um objeto da classe páginação
+            $pagination = new Pagination($pagConfig);
+
+            date_default_timezone_set('America/Sao_Paulo');
+            $date = (date('Y-m-d H:i'));
+            date('Y-m-d H:i:s', time());
+        ?>
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div> <!--div ocupa espaço left-->
             <div class="col-md-10  col-sm-12 col-xs-12">
@@ -47,7 +46,7 @@
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                 <label for="provider_venc">Empresa:</label>
                                 <input type="hidden" id="provider_id" name="provider_id" value="" >
-                                <input id="provider_name" name="provider_name" type="text" class="form-control form-control-sm" placeholder="Nome da empresa..." >
+                                <input id="provider_name" name="provider_name" type="text" class="form-control form-control-sm text-center" placeholder="Nome da empresa" >
                                 <div class="invalid-feedback">
                                     Preencha esse campo.
                                 </div>
@@ -55,78 +54,78 @@
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_cpf_cnpj">CPF/CNPJ:</label>
-                                <input id="provider_cpf_cnpj" name="provider_cpf_cnpj" type="text" class="form-control form-control-sm" placeholder="CPF/CNPJ" >
+                                <input id="provider_cpf_cnpj" name="provider_cpf_cnpj" type="text" class="form-control form-control-sm text-center" placeholder="CPF/CNPJ" >
                                 <div class="invalid-feedback">
                                     Preencha esse campo.
                                 </div>
                             </div>
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                                <label for="provider_rs"> Razão social:</label>
-                                <input id="provider_rs" name="provider_rs" class="form-control form-control-sm" type="text" placeholder="Razão social..." value="">
+                                <label for="provider_rs">Razão social:</label>
+                                <input id="provider_rs" name="provider_rs" class="form-control form-control-sm text-center" type="text" placeholder="Razão social" value="">
                             </div>
 
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_atua">Área de atuação:</label>
-                                <input id="provider_atua" name="provider_atua" class="form-control form-control-sm" type="text" placeholder="Área de atuação..." value="">
+                                <input id="provider_atua" name="provider_atua" class="form-control form-control-sm text-center" type="text" placeholder="Área de atuação" value="">
                             </div>
                             <div class="form-group col-md-3 col-sm-12 col-xs-12" >
                                 <label for="provider_end">Endereço:</label>
-                                <input id="provider_end" name="provider_end" type="text" class="form-control form-control-sm" placeholder="Endereço..." >
+                                <input id="provider_end" name="provider_end" type="text" class="form-control form-control-sm text-center" placeholder="Endereço" >
                             </div>
                         </div><!-- /End div hidden 1 -->
                         
                         <div class="row form-hidden" style="display: none;"><!--Start div hidden 2-->
                             <div class="form-group col-md-3 col-sm-12 col-xs-12">
                                 <label for="provider_district">Bairro:</label>
-                                <input id="provider_district" name="provider_district" type="text" class="form-control form-control-sm" placeholder="Bairro..." >
+                                <input id="provider_district" name="provider_district" type="text" class="form-control form-control-sm text-center" placeholder="Bairro" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_city">Cidade:</label>
-                                <input id="provider_city" name="provider_city" type="text" class="form-control form-control-sm" placeholder="Cidade..." >
+                                <input id="provider_city" name="provider_city" type="text" class="form-control form-control-sm text-center" placeholder="Cidade" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_cep">CEP:</label>
-                                <input id="provider_cep" name="provider_cep" type="text" class="form-control form-control-sm cep" placeholder="00000-000" >
+                                <input id="provider_cep" name="provider_cep" type="text" class="form-control form-control-sm text-center cep" placeholder="00000-000" >
                             </div>
                             <div class="form-group col-md-1 col-sm-12 col-xs-12">
                                 <label for="provider_uf">UF:</label>
-                                <input id="provider_uf" name="provider_uf" type="text" class="form-control form-control-sm uf" placeholder="UF..." >
+                                <input id="provider_uf" name="provider_uf" type="text" class="form-control form-control-sm text-center uf" placeholder="UF" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_nation">Território:</label>
-                                <input id="provider_nation" name="provider_nation" type="text" class="form-control form-control-sm" placeholder="Território..." >
+                                <input id="provider_nation" name="provider_nation" type="text" class="form-control form-control-sm text-center" placeholder="País" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_cel">Celular:</label>
-                                <input id="provider_cel" name="provider_cel" type="text" class="form-control form-control-sm phone_cel" placeholder="(00) 00000-0000" >
+                                <input id="provider_cel" name="provider_cel" type="text" class="form-control form-control-sm phone_cel text-center" placeholder="(00) 00000-0000" >
                             </div>
                         </div><!-- End div hidden 2 -->
                         
                         <div class="row form-hidden" style="display: none;"><!-- Start div hidden 3 -->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_tel_1">Telefone 1:</label>
-                                <input id="provider_tel_1" name="provider_tel_1" type="text" class="form-control form-control-sm phone_tel" placeholder="(00) 0000-00000" >
+                                <input id="provider_tel_1" name="provider_tel_1" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_tel_2">Telefone 2:</label>
-                                <input id="provider_tel_2" name="provider_tel_2" type="text" class="form-control form-control-sm phone_tel" placeholder="(00) 0000-00000" >
+                                <input id="provider_tel_2" name="provider_tel_2" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_insc">Inscrição Estadual:</label>
-                                <input id="provider_insc" name="provider_insc" type="text" class="form-control form-control-sm" placeholder="Inscrição estadual..." >
+                                <input id="provider_insc" name="provider_insc" type="text" class="form-control form-control-sm text-center" placeholder="Inscrição estadual..." >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_email">E-mail:</label>
-                                <input id="provider_email" name="provider_email" type="text" class="form-control form-control-sm" placeholder="E-mail..." >
+                                <input id="provider_email" name="provider_email" type="text" class="form-control form-control-sm text-center" placeholder="exemplo@email.com" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_site">Site:</label>
-                                <input id="provider_site" name="provider_site" type="text" class="form-control form-control-sm" placeholder="www.exemplo.com..." >
+                                <input id="provider_site" name="provider_site" type="text" class="form-control form-control-sm text-center" placeholder="www.exemplo.com" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                                 <label for="provider_sit">Situação:</label><br>
-                                <select id="provider_sit" name="provider_sit" class="custom-select form-control-sm">
+                                <select id="provider_sit" name="provider_sit" class="custom-select form-control-sm text-center">
                                     <option selected value="active">Ativo</option>
                                     <option value="inactive">Inativo</option>
                                 </select>
@@ -140,27 +139,27 @@
                         <div class="row form-hidden" style="display: none;"><!--Start div hidden 5-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_nome">Nome:</label>
-                                <input id="provider_rep_nome" name="provider_rep_nome" type="text" class="form-control form-control-sm" placeholder="Nome..." >
+                                <input id="provider_rep_nome" name="provider_rep_nome" type="text" class="form-control form-control-sm text-center" placeholder="Nome" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_apel">Apelido:</label>
-                                <input id="provider_rep_apel" name="provider_rep_apel" type="text" class="form-control form-control-sm" placeholder="Apelido..." >
+                                <input id="provider_rep_apel" name="provider_rep_apel" type="text" class="form-control form-control-sm text-center" placeholder="Apelido" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_email">E-mail:</label>
-                                <input id="provider_rep_email" name="provider_rep_email" type="text" class="form-control form-control-sm" placeholder="E-mail..." >
+                                <input id="provider_rep_email" name="provider_rep_email" type="text" class="form-control form-control-sm text-center" placeholder="email@exemplo.com" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_cel">Celular:</label>
-                                <input id="provider_rep_cel" name="provider_rep_cel" type="text" class="form-control form-control-sm" placeholder="(00) 00000-0000" >
+                                <input id="provider_rep_cel" name="provider_rep_cel" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_tel_1">Telefone 1:</label>
-                                <input id="provider_rep_tel_1" name="provider_rep_tel_1" type="text" class="form-control form-control-sm" placeholder="(00) 00000-0000" >
+                                <input id="provider_rep_tel_1" name="provider_rep_tel_1" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_rep_tel_2">Telefone 2:</label>
-                                <input id="provider_rep_tel_2" name="provider_rep_tel_2" type="text" class="form-control form-control-sm" placeholder="(00) 0000-00000" >
+                                <input id="provider_rep_tel_2" name="provider_rep_tel_2" type="text" class="form-control form-control-sm text-center" placeholder="(00) 0000-00000" >
                             </div>
                         </div><!-- /End div hidden 5 -->
                         
@@ -171,38 +170,38 @@
                         <div class="row form-hidden" style="display: none;"><!--Start div hidden 7-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ban_1">Banco 1:</label>
-                                <input id="provider_ban_1" name="provider_ban_1" type="text" class="form-control form-control-sm" placeholder="Banco..." >
+                                <input id="provider_ban_1" name="provider_ban_1" type="text" class="form-control form-control-sm text-center" placeholder="Banco" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ag_1">Agência 1:</label>
-                                <input id="provider_ag_1" name="provider_ag_1" type="text" class="form-control form-control-sm" placeholder="Agência..." >
+                                <input id="provider_ag_1" name="provider_ag_1" type="text" class="form-control form-control-sm text-center" placeholder="Agência" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_con_1">Conta 1:</label>
-                                <input id="provider_con_1" name="provider_con_1" type="text" class="form-control form-control-sm" placeholder="Conta..." >
+                                <input id="provider_con_1" name="provider_con_1" type="text" class="form-control form-control-sm text-center" placeholder="Conta" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ti_1">Titular 1:</label>
-                                <input id="provider_ti_1" name="provider_ti_1" type="text" class="form-control form-control-sm" placeholder="Titular..." >
+                                <input id="provider_ti_1" name="provider_ti_1" type="text" class="form-control form-control-sm text-center" placeholder="Titular" >
                             </div>
                         </div><!-- End div hidden 7 -->
                         
                         <div class="row form-hidden" style="display: none;"><!--Start div hidden 8-->
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ban_2">Banco 2:</label>
-                                <input id="provider_ban_2" name="provider_ban_2" type="text" class="form-control form-control-sm" placeholder="Banco..." >
+                                <input id="provider_ban_2" name="provider_ban_2" type="text" class="form-control form-control-sm text-center" placeholder="Banco" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ag_2">Agência 2:</label>
-                                <input id="provider_ag_2" name="provider_ag_2" type="text" class="form-control form-control-sm" placeholder="Agência..." >
+                                <input id="provider_ag_2" name="provider_ag_2" type="text" class="form-control form-control-sm text-center" placeholder="Agência" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_con_2">Conta 2:</label>
-                                <input id="provider_con_2" name="provider_con_2" type="text" class="form-control form-control-sm" placeholder="Conta..." >
+                                <input id="provider_con_2" name="provider_con_2" type="text" class="form-control form-control-sm text-center" placeholder="Conta" >
                             </div>
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="provider_ti_2">Titular 2:</label>
-                                <input id="provider_ti_2" name="provider_ti_2" type="text" class="form-control form-control-sm" placeholder="Titular..." >
+                                <input id="provider_ti_2" name="provider_ti_2" type="text" class="form-control form-control-sm text-center" placeholder="Titular" >
                             </div>
                         </div><!-- End div hidden 8 -->
                         
@@ -219,10 +218,14 @@
                                     <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
                                 </div>
                                 <div id="group-btn-reset" class="btn-group">
-                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset"><i class="fa fa-eraser"></i> <span>LIMPAR</span></button>
+                                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset">
+                                        <i class="fas fa-eraser fa-lg"></i> <span>LIMPAR</span>
+                                    </button>
                                 </div>
                                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm  marg-top" type="reset"><i class="text-primary glyphicon glyphicon-plus"></i> <span>MODO NOVO REGISTRO</span></button>
+                                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                                        <i class="fas fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span>
+                                    </button>
                                 </div>
                             </div>
                         </div><!-- End div button hidden 1 -->
@@ -230,17 +233,19 @@
                         <div class="row" >
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-new" class="btn-group">
-                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm marg-top" type="reset">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
+                                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                                        <i class="fas fa-plus fa-lg" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                                     </button>
                                 </div>
                                 <div id="group-btn-show" style="display: none;" class="btn-group">
-                                    <button id="btn-show" title="Mostrar o formulário" class="btn btn-outline-success btn-sm marg-top" type="reset">
-                                        <i class="fa fa-eye"></i> ABRE FORMULÁRIO
+                                    <button id="btn-show" title="Mostrar o formulário" class="btn btn-outline-success btn-sm" type="reset">
+                                        <i class="fas fa-eye fa-lg"></i> ABRE FORMULÁRIO
                                     </button>
                                 </div>
                                 <div id="group-btn-hidden" style="display: none;" class="btn-group">
-                                    <button id="btn-hidden" title="Esconde o formulário" class="btn top btn-outline-success btn-sm marg-top" type="reset"><i class="fa fa-eye-slash"></i> FECHA FORMULÁRIO</button>
+                                    <button id="btn-hidden" title="Esconde o formulário" class="btn top btn-outline-success btn-sm" type="reset">
+                                        <i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO
+                                    </button>
                                 </div>
                             </div>
                         </div><!--End row button -->
@@ -253,7 +258,7 @@
             <div class="form-group col-md-4 col-sm-10 col-xs-12">
                 
                 <div class="input-group">
-                    <input type="text" class="form-control search" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
+                    <input type="text" class="form-control inputSearch" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
                     <div class="input-group-append">
                         <span class="input-group-text spanSearch">
                             <i class="fab fa-searchengin fa-lg"></i>
@@ -275,7 +280,7 @@
                 <select id="sortBy" class="custom-select" onchange="objFinanca.ajaxFilter();">
                     <option value="">Ordenar Por</option>
                     <option value="asc">Ascendente</option>
-                    <option value="desc">descendente</option>
+                    <option value="desc">Descendente</option>
                     <option value="active">Ativo</option>
                     <option value="inactive">Inativo</option>
                 </select>
@@ -363,51 +368,56 @@
             });
             
             //Tipo de ação disparada pelo usuário
-            function typeAction( objData ){     
-                id = (typeof objData.id === "undefined") ? '' : objData.id;
-                if(objData.type === 'loadInfo' || objData.type === 'loadEdit'){
-                    typeExec = objData.type;
-                    if(objData.type === 'loadEdit'){
-                        objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/providers/ajax-process', id:objData.id});
+            function typeAction( objAction ){     
+                id = (typeof objAction.id === "undefined") ? '' : objAction.id;
+                if(objAction.type === 'loadInfo' || objAction.type === 'loadEdit'){
+                    typeExec = objAction.type;
+                    if(objAction.type === 'loadEdit'){
+                        objFinanca.setAjaxActionUser(objSet = {type: objAction.type, url:'<?= HOME_URI; ?>/providers/ajax-process', id:objAction.id});
                         objFinanca.ajaxActionUser();
                     }else{
-                        objFinanca.setAjaxActionUser(objSet = {type: objData.type, url:'<?= HOME_URI; ?>/providers/ajax-process', id:objData.id});
+                        objFinanca.setAjaxActionUser(objSet = {type: objAction.type, url:'<?= HOME_URI; ?>/providers/ajax-process', id:objAction.id});
                         objFinanca.ajaxActionUser();
                     }
                     
-                }else if ( objData.type === 'add' ) {
+                }else if ( objAction.type === 'add' ) {
                     
                     if($('#provider_name').val() == '' || $('#provider_cpf_cnpj').val() == ''){
                         alert('Existem campos obrigatórios não preenchido.');
                     }else{
+<<<<<<< HEAD
                         objData.userData = $("#addForm").serialize()+'&action_type='+objData.type+'&id='+id;
                         feedback = 'Inserção realizada com sucesso!';
+=======
+                        objAction.userData = $("#addForm").serialize()+'&action_type='+objAction.type+'&id='+id;
+                        feedback = 'Inserido com sucesso!';
+>>>>>>> update_pages
                         $('#filtros').show();
                         objFinanca.setAjaxActionUser( 
-                            objSet = {type: objData.type,
+                            objSet = {type: objAction.type,
                             url:'<?= HOME_URI; ?>/providers/ajax-process',
-                            userData:objData.userData} 
+                            userData:objAction.userData} 
                         );
                         objFinanca.ajaxActionUser();
                     }
                     
-                }else if( objData.type === 'update' ){
-                    objData.userData = $("#editForm").serialize()+'&action_type='+objData.type;
+                }else if( objAction.type === 'update' ){
+                    objAction.userData = $("#editForm").serialize()+'&action_type='+objAction.type;
                     feedback = 'Atualizado com sucessso!';
                     objFinanca.setAjaxActionUser( 
-                        objSet = {type: objData.type,
+                        objSet = {type: objAction.type,
                         url:'<?= HOME_URI; ?>/providers/ajax-process',
-                        userData:objData.userData} 
+                        userData:objAction.userData} 
                     );
                     objFinanca.ajaxActionUser();
-                }else if(objData.type === 'delete') {
+                }else if(objAction.type === 'delete') {
                     if(confirm('Deseja remover esse registro?')){
-                        objData.userData = 'action_type='+objData.type+'&id='+objData.id;
+                        objAction.userData = 'action_type='+objAction.type+'&id='+objAction.id;
                         feedback = 'Remoção realizada com sucesso!';
                         objFinanca.setAjaxActionUser( 
-                            objSet = {type: objData.type,
+                            objSet = {type: objAction.type,
                             url:'<?= HOME_URI; ?>/providers/ajax-process',
-                            userData:objData.userData} 
+                            userData:objAction.userData} 
                         );
                         objFinanca.ajaxActionUser();
                     }else{

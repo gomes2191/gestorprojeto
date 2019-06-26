@@ -46,7 +46,7 @@ class PayModel extends MainModel
      * @access public
      */
     public function __construct( $db = FALSE ) {
-            $this->db = $db;
+        $this->db = $db;
     }
     
     /**
@@ -59,48 +59,37 @@ class PayModel extends MainModel
     **/ 
     public function validate_register_form () {
         # Cria o vetor que vai receber os dados do post
-        $this->form_data = [];
+        //$this->form_data = [];
         
         # Verifica se não é vazio o $_POST
         if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
             
             # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
             foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
-                
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
-                
             } # End foreach
             
-            //var_dump($this->form_data);die;
-            
-//            #   Não será permitido campos vazios
-//            if ( empty( $this->form_data['fees_cod'] )) {
-//                
-//                #   Feedback para o usuário
-//                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
-//                
-//                # Termina
-//                return;
-//            }
+            # Verifica se existe o ID e decodifica se o mesmo existir.
+            ( !empty($this->form_data['pay_id']) ) 
+            ? $this->form_data['pay_id'] = $this->encode_decode(0, $this->form_data['pay_id']) : '';
         }else {
             # Finaliza a execução.
             return 'err';
         } #--> End
-       
+        
         # Verifica se o registro já existe.
         $db_check_ag = $this->db->query (' SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = ? ',[
             chk_array($this->form_data, 'pay_id')
-        ]);        
+        ]);
         
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
-            $this->updateRegister(chk_array($this->form_data, 'pay_id'));
+            $this->updateRegister( $this->form_data['pay_id'] );
         }else{
             //var_dump($this->form_data);die;
             $this->insertRegister();
         }
-        
     } #--> End validate_register_form()
     
     /**
@@ -112,16 +101,20 @@ class PayModel extends MainModel
     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
     **/ 
     public function insertRegister(){
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))));die;
-        
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'patrimony_date_patrimony'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('bills_to_pay',[
-            'pay_venc'         =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_venc'))),
-            'pay_date_pay'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))),
-            'pay_desc'         =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
-            'pay_cat'          =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
-            'pay_val'          =>  $this->moneyFloat(chk_array($this->form_data, 'pay_val')),
-            'pay_created'      =>  date('Y-m-d H:i:s', time())
+            'pay_cod'           =>  $this->avaliar(chk_array($this->form_data, 'pay_cod')),
+            'pay_desc'          =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
+            'pay_cat'           =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
+            'pay_venc'          =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_venc'))),
+            'pay_date_pay'      =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))),
+            'pay_value_real'    =>  $this->moneyFloat(chk_array($this->form_data, 'pay_value_real')),
+            'pay_perce'         =>  (int) $this->only_filter_number(chk_array($this->form_data, 'pay_perce')),
+            'pay_value_final'   =>  $this->moneyFloat(chk_array($this->form_data, 'pay_value_final')),
+            'pay_sit'           =>  $this->avaliar(chk_array($this->form_data, 'pay_sit')),
+            'pay_obs'           =>  $this->avaliar(chk_array($this->form_data, 'pay_obs')),
+            'pay_created'       =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -137,7 +130,6 @@ class PayModel extends MainModel
             //return $this->form_msg;
             echo 'err';
         }
-        
     }
     
     /**
@@ -151,14 +143,20 @@ class PayModel extends MainModel
     public function updateRegister( $registro_id = NULL ){
         # Verifica se existe ID
         if ( $registro_id ) {
+            
             # Efetua o update do registro
             $query_up = $this->db->update('bills_to_pay', 'pay_id', $registro_id,[
-                'pay_venc'        =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_venc'))),
-                'pay_date_pay'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))),
-                'pay_desc'        =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
-                'pay_cat'         =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
-                'pay_val'         =>  $this->moneyFloat(chk_array($this->form_data, 'pay_val')),
-                'pay_modified'    =>  date('Y-m-d H:i:s', time())
+                'pay_cod'           =>  $this->avaliar(chk_array($this->form_data, 'pay_cod')),
+                'pay_desc'          =>  $this->avaliar(chk_array($this->form_data, 'pay_desc')),
+                'pay_cat'           =>  $this->avaliar(chk_array($this->form_data, 'pay_cat')),
+                'pay_venc'          =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_venc'))),
+                'pay_date_pay'      =>  $this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'pay_date_pay'))),
+                'pay_value_real'    =>  $this->moneyFloat(chk_array($this->form_data, 'pay_value_real')),
+                'pay_perce'         =>  (int) $this->only_filter_number(chk_array($this->form_data, 'pay_perce')),
+                'pay_value_final'   =>  $this->moneyFloat(chk_array($this->form_data, 'pay_value_final')),
+                'pay_sit'           =>  $this->avaliar(chk_array($this->form_data, 'pay_sit')),
+                'pay_obs'           =>  $this->avaliar(chk_array($this->form_data, 'pay_obs')),
+                'pay_modified'      =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -187,12 +185,11 @@ class PayModel extends MainModel
     **/ 
     public function get_register_form ( $id_encode ) {
         
+        # Remove cryptográfia
         $id_decode = intval($this->encode_decode(0, $id_encode));
         
         # Verifica na base de dados o registro
         $query_get = $this->db->query('SELECT * FROM `covenant` WHERE `covenant_id` = ?', [ $id_decode ]  );
-
-        
 
         # Obtém os dados da consulta
         $fetch_userdata = $query_get->fetch(PDO::FETCH_ASSOC);
@@ -221,32 +218,32 @@ class PayModel extends MainModel
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
     public function delRegister( $encode_id ) {
-
-        # Recebe o ID do registro converte de string para inteiro.
-        $decode_id = intval($this->encode_decode(0, $encode_id));
+        
+        # Decodifica decodifica id
+        $decode_id = $this->encode_decode(0, $encode_id);
         
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` = $decode_id ");
-        if ($search->fetchColumn() < 1) {
+        if ($this->db->query("SELECT count(*) FROM `bills_to_pay` WHERE `pay_id` =  $decode_id ")->fetchColumn() < 1) {
 
-            # Destroy variáveis não mais utilizadas
-            unset($encode_id, $search, $decode_id);
+            # Dstroy variável não mas usada
+            unset($encode_id, $decode_id);
             
-            echo 'err';exit();
+            # Feedback usuário (erro)
+            $feedback = 'err';
             
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('bills_to_pay', 'pay_id', $decode_id);
-
-            #   Destroy variáveis não mais utilizadas
-            unset($parametro, $query_del, $search, $id);
-
-            echo 'ok';exit();
+            $this->db->delete('bills_to_pay', 'pay_id', $decode_id);
+            
+            # Dstroy variável não mas usada
+            unset($encode_id, $decode_id);
+            
+            # Feedback usuário (successo)
+             $feedback = 'ok';
         }
-    }   #--> End delRegister()
-
-        
-         
+        echo $feedback;unset($feedback);return;
+    } #--> End delRegister()
+   
     /**
     *   @Acesso: public
     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -259,6 +256,7 @@ class PayModel extends MainModel
         $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
          
         $row = $query->fetch();
+        
         $id = trim($row[0]);
         
         return $id;
@@ -284,12 +282,12 @@ class PayModel extends MainModel
             
             # The output
             echo '<tr>';			
-            echo '<td class="small">'.$result['pay_id'].'</td>';
-            echo '<td class="small">'.$result['pay_venc'].'</td>';
-            echo '<td class="small">'.$result['pay_date_pay'].'</td>';
-            echo '<td class="small">'.$result['pay_cat'].'</td>';
-            echo '<td class="small">'.$result['pay_desc'].'</td>';
-            echo '<td class="small">'.$result['pay_val'].'</td>';
+            echo '<td class="small">'.$result['patrimony_id'].'</td>';
+            echo '<td class="small">'.$result['patrimony_venc'].'</td>';
+            echo '<td class="small">'.$result['patrimony_date_patrimony'].'</td>';
+            echo '<td class="small">'.$result['patrimony_cat'].'</td>';
+            echo '<td class="small">'.$result['patrimony_desc'].'</td>';
+            echo '<td class="small">'.$result['patrimony_val'].'</td>';
             echo '</tr>';	
         }
     }
@@ -317,14 +315,14 @@ class PayModel extends MainModel
         $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
         
         // Prepara a conversao para o formato desejado
-        foreach ($queryResult as $pay) {
+        foreach ($queryResult as $patrimony) {
             $mysql_data[] = [
-                "pay_id"        => $pay['pay_id'],
-                "pay_venc"      => $pay['pay_venc'],
-                "pay_date_pay"  => $pay['pay_date_pay'],
-                "pay_cat"       => '$ ' . $pay['pay_cat'],
-                "pay_desc"      => $pay['pay_desc'],
-                "pay_val"       => $pay['pay_val']
+                "patrimony_id"        => $patrimony['patrimony_id'],
+                "patrimony_venc"      => $patrimony['patrimony_venc'],
+                "patrimony_date_patrimony"  => $patrimony['patrimony_date_patrimony'],
+                "patrimony_cat"       => '$ ' . $patrimony['patrimony_cat'],
+                "patrimony_desc"      => $patrimony['patrimony_desc'],
+                "patrimony_val"       => $patrimony['patrimony_val']
             ];
         }
         
@@ -350,7 +348,7 @@ class PayModel extends MainModel
         $decode_id = intval($this->encode_decode(0, $encode_id));
         
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `bills_to_pay` WHERE `pay_id`= $decode_id " );
+        $query_get = $this->db->query( " SELECT * FROM  `patrimony` WHERE `patrimony_id`= $decode_id " );
 
         # Verifica se a consulta está OK
         if ( !$query_get ) {
@@ -380,7 +378,7 @@ class PayModel extends MainModel
      * @return string A paginação montada
      */
     function paginacao(
-    $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
+        $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
     ) {
         // Obtém o número total de página
         $numero_de_paginas = floor($total_artigos / $artigos_por_pagina);

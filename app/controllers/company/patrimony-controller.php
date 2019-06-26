@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class patrimonyController extends MainController {
+class PatrimonyController extends MainController {
 
     /**
      * $login_required
@@ -61,7 +61,9 @@ class patrimonyController extends MainController {
 
         # Carrega o modelo para este view
         $modelo = $this->load_model('company/patrimony-model');
-
+        
+        print_r($modelo);
+            
         #   Carrega os arquivos do view 
         #-->   /views/_includes/header.php
         require_once (ABSPATH . '/app/views/_includes/header.php');

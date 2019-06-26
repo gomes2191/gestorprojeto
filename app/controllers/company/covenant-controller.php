@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class covenantController extends MainController {
+class CovenantController extends MainController {
 
     /**
      * $login_required

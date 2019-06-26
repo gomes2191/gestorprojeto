@@ -27,4 +27,4 @@
     require_once (ABSPATH . '/functions/global-functions.php');
 
     // Carrega a aplicação
-    $system_control = new systemControl();
+    $system_control = new SystemControl();
