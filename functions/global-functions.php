@@ -27,8 +27,7 @@
      * @version: 0.2
      * @param: mixed variables
      * @param: string $table_name [required]
-     * @param: array $conditions [required] <code>$conditions['where'=>['colunm'=>value,...]] $conditions['search'=>['colunm'=>value,...]]
-     * </code>
+     * @param: array $conditions [required] <code>$conditions['where'=>['colunm'=>value,...]] $conditions['search'=>['colunm'=>value,...]]</code>
      * @return: array Retorna um array com os valores
      */
     function isSite() {

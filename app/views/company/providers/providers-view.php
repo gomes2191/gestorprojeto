@@ -6,19 +6,22 @@
 
             # Realiza uma consulta na base de dados e retorna todos os registro caso exista
             $providers = $modelo->searchTable('providers', ['order_by' => 'provider_id DESC ', 'limit' => $limit]);
-
+            
             $pagConfig = [
-                'totalRows' => COUNT($providers),
+                'totalRows' => (is_array($providers) ? COUNT($providers) : 0 ), 
                 'perPage'   => $limit,
                 'link_func' => 'searchFilter'
             ];
 
-            # Cria um objeto da classe páginação
+            # Cria um objeto da classe paginação
             $pagination = new Pagination($pagConfig);
 
             date_default_timezone_set('America/Sao_Paulo');
             $date = (date('Y-m-d H:i'));
             date('Y-m-d H:i:s', time());
+
+            # Finaliza variáveis não mais utilizada.
+            unset($providers, $date, $pagination);
         ?>
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div> <!--div ocupa espaço left-->
