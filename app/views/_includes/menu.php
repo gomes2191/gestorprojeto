@@ -1,6 +1,6 @@
     <?php if(($this->login_required && !$this->logged_in) && !defined ('ABSPATH') ) {   return;   } ?>
 
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top top-mix "><!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top top-mix navbar-icon-top"><!-- Fixed navbar -->
             <div class="container">
                 <a class="navbar-brand" href="#"><b>BETA</b></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,18 +10,18 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item <?= (isSite('soc')) ? 'active' : FALSE ?>">
                             <a class="nav-link" href="<?= HOME_URI; ?>" title="Página inicial">
-                                <i class="fal fa-home fa-lg"></i> HOME
+                                <i class="fal fa-home"></i> HOME
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item <?= (isSite('agenda')) ? 'active' : FALSE; ?>">
                             <a class="nav-link" href="<?= HOME_URI; ?>/agenda" title="Agenda">
-                                <i class='fal fa-calendar-alt fa-lg'></i> AGENDA
+                                <i class='fal fa-calendar-alt'></i> AGENDA
                             </a>
                         </li>
                         <li class="nav-item dropdown <?= (isSite('covenant', 'fees', 'providers', 'patrimony', 'stock', 'laboratory')) ? 'active' : FALSE; ?>">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class='fal fa-building fa-lg'></i> EMPRESA
+                                <i class='fal fa-building '></i> EMPRESA
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item <?= (isSite('providers')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/providers">Fornecedores</a>
@@ -34,7 +34,7 @@
                         </li>
                         <li class="nav-item dropdown <?= (isSite('pay', 'receive', '', '', '', '')) ? 'active' : FALSE; ?>">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class='fal fa-chart-bar fa-lg'></i> FINANÇAS
+                                <i class='fal fa-chart-bar'></i> FINANÇAS
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item <?= (isSite('pay')) ? 'active' : FALSE; ?>" href="<?= HOME_URI; ?>/pay">Contas a Pagar</a>
@@ -46,7 +46,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fal fa-users fa-lg"></i> USUÁRIOS
+                                <i class="fal fa-users"></i> USUÁRIOS
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="<?= HOME_URI; ?>/users/register-dentist">Inserir Dentista</a>
@@ -56,7 +56,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= HOME_URI; ?>/patient-control" title="Gerenciar pacientes no sistema">
-                                <i class="fal fa-handshake fa-lg"></i> CLIENTES
+                                <i class="fal fa-handshake"></i> CLIENTES
                             </a>
                         </li>
                     </ul>
