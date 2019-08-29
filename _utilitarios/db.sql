@@ -43,7 +43,7 @@ CREATE TABLE `agendas` (
 
 LOCK TABLES `agendas` WRITE;
 /*!40000 ALTER TABLE `agendas` DISABLE KEYS */;
-INSERT INTO `agendas` VALUES (6,'1474944960000','1474944960000','26/09/2016 23:56','26/09/2016 23:56','event-info','http://127.0.0.1/soc/agenda/box-visao?ag=Njg5Ng==','Canal','Francisco','Francisco');
+INSERT INTO `agendas` VALUES (6,'1474944960000','1474944960000','26/09/2016 23:56','26/09/2016 23:56','event-info','http://127.0.0.1/gclinic/agenda/box-visao?ag=Njg5Ng==','Canal','Francisco','Francisco');
 /*!40000 ALTER TABLE `agendas` ENABLE KEYS */;
 UNLOCK TABLES;
 

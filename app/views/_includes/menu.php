@@ -8,7 +8,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item <?= (isSite('soc')) ? 'active' : FALSE ?>">
+                        <li class="nav-item <?= (isSite('gclinic')) ? 'active' : FALSE ?>">
                             <a class="nav-link" href="<?= HOME_URI; ?>" title="Página inicial">
                                 <i class="fal fa-home"></i> HOME
                                 <span class="sr-only">(current)</span>

@@ -1,6 +1,6 @@
 $(function (){
     //Montando a URL
-    newURL = window.location.protocol + '//' + window.location.host + '/' + 'soc/';
+    newURL = window.location.protocol + '//' + window.location.host + '/' + 'gclinic/';
 
     //window.history.pushState("agenda", "", "agenda");
     "use strict";

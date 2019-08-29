@@ -25,5 +25,5 @@ Options All -Indexes
 ErrorDocument 404 /erros/notfound.html
 ErrorDocument 400 /erros/badrequest.html
 ErrorDocument 401 /erros/authreqd.html
-ErrorDocument 403 /soc/public_html/forbidden.html
+ErrorDocument 403 /gclinic/public_html/forbidden.html
 ErrorDocument 500 /erros/serverr.html

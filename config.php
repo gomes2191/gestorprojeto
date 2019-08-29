@@ -9,7 +9,7 @@
     define('ABSPATH', __DIR__);
 
     # Nome do site
-    define('NOME_SITE', 'FCONTROL - ');
+    define('NOME_SITE', 'Gestor Clínico - ');
     # Idioma do sistema
     define('LANG', 'pt_BR');
 
@@ -17,13 +17,13 @@
     define('UP_ABSPATH', ABSPATH . '/app/views/_uploads');
 
     # URL da home
-    define('HOME_URI', '/soc');
+    define('HOME_URI', '/gclinic');
 
     # Nome do host da base de dados
     define('HOSTNAME', 'localhost');
 
     # Nome do banco
-    define('DB_NAME', 'migration_ov');
+    define('DB_NAME', 'gclinic');
 
     # Usuário do banco
     define('DB_USER', 'root');
@@ -31,7 +31,7 @@
     # Senha do banco
     define('DB_PASSWORD', 'Vectra');
     # Charset da conexão PDO
-    define('DB_CHARSET', 'utf8');
+    define('DB_CHARSET', 'utf8mb4');
 
     # DEFINE O FUSO HORÁRIO COMO O HORÁRIO DE BRASÍLIA
     define('TIME_ZONE', date_default_timezone_set('America/Sao_Paulo'));
