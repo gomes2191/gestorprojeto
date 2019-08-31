@@ -1,8 +1,8 @@
 <?php
 
-    // Evita que usuários acesse este arquivo diretamente
+    # Evita que usuários acesse este arquivo diretamente.
     if (!defined('ABSPATH')) {
-        exit;
+        exit();
     }
 
     # Inicia a sessão
@@ -26,5 +26,5 @@
     # Funções globais
     require_once (ABSPATH . '/functions/global-functions.php');
 
-    // Carrega a aplicação
-    $system_control = new SystemControl();
+    # Carrega a aplicação
+    $systemControl = new SystemControl();

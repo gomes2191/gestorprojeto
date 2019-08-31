@@ -1,24 +1,25 @@
-            <?php   if (!defined('ABSPATH')) {  exit();  }
-                # Define o limite padrão de registro por página
-                $limit = 5;
+<?php   if (!defined('ABSPATH')) {  exit();  }
 
-                # Realiza uma consulta na base de dados e retorna todos os registro caso exista
-                $patrimonys = $modelo->searchTable('patrimony', ['order_by' => 'patrimony_id DESC ', 'limit' => $limit]);
+    # Define o limite padrão de registro por página
+    $limit = 5;
 
-                # Monta os parametros necessarios para a páginação
-                $pagConfig = [
-                    'totalRows' => COUNT($patrimonys),
-                    'perPage' => $limit,
-                    'link_func' => 'searchFilter'
-                ];
+    # Realiza uma consulta na base de dados e retorna todos os registro caso exista
+    $patrimonys = $modelo->searchTable('patrimony', ['order_by' => 'patrimony_id DESC ', 'limit' => $limit]);
 
-                # Cria o objeto da classe páginação
-                $pagination = new Pagination($pagConfig);
+    # Monta os parametros necessarios para a páginação
+    $pagConfig = [
+        'totalRows' => COUNT($patrimonys),
+        'perPage' => $limit,
+        'link_func' => 'searchFilter'
+    ];
 
-                date_default_timezone_set('America/Sao_Paulo');
-                $date = (date('Y-m-d H:i'));
-                date('Y-m-d H:i:s', time());
-            ?>
+    # Cria o objeto da classe páginação
+    $pagination = new Pagination($pagConfig);
+
+    date_default_timezone_set('America/Sao_Paulo');
+    $date = (date('Y-m-d H:i'));
+    date('Y-m-d H:i:s', time());
+?>
             <div class="row"><!--Start row loading  -->
                 <div class="col-md-1  col-sm-0 col-xs-0"></div>
                 <div class="col-md-10  col-sm-12 col-xs-12">

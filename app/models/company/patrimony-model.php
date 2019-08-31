@@ -473,7 +473,8 @@ class PatrimonyModel extends MainModel
         if(array_key_exists("order_by",$conditions)){
             $sql .= ' ORDER BY '.$conditions['order_by']; 
         }
-        var_dump($sql);
+    
+        //var_dump($sql);
         
         if(array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
             
@@ -508,4 +509,4 @@ class PatrimonyModel extends MainModel
         return !empty($data) ? $data : false;
     }
 
-} #Fees_Model
+} # Patrimony-Model

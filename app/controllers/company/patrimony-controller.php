@@ -8,6 +8,9 @@
  */
 class PatrimonyController extends MainController {
 
+    # Tipo de página [int]
+    public $page_type = 1;
+
     /**
      * $login_required
      *
@@ -62,7 +65,7 @@ class PatrimonyController extends MainController {
         # Carrega o modelo para este view
         $modelo = $this->load_model('company/patrimony-model');
         
-        print_r($modelo);
+        //print_r($modelo);
             
         #   Carrega os arquivos do view 
         #-->   /views/_includes/header.php

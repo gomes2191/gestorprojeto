@@ -4,12 +4,14 @@
     #  Configuração Geral  #
     #======================#
 
-    /* Caminho para a raiz. O diretório do arquivo. 
-     * Se usado dentro de um include, o diretório do arquivo incluído é retornado.*/ 
+    /** 
+     * Retorna o diretório do arquivo. 
+     * Se usado dentro de um include, o diretório do arquivo incluído é retornado.
+     * */ 
     define('ABSPATH', __DIR__);
 
     # Nome do site
-    define('NOME_SITE', 'Gestor Clínico - ');
+    define('NOME_SITE', 'GC - Gestor Clínico - ');
     # Idioma do sistema
     define('LANG', 'pt_BR');
 
