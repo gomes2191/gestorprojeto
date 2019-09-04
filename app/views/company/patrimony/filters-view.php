@@ -20,7 +20,7 @@
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
         $conditions['search'] = ['patrimony_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'patrimony_cod' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-        $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+        $count = (is_array($modelo->searchTable( $tblName, $conditions))) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
         $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
@@ -30,7 +30,7 @@
             case 'active':
                 $conditions['active'] = ['patrimony_sit' => 'active'];
                 $conditions['order_by'] = 'patrimony_id DESC';
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = (is_array($modelo->searchTable( $tblName, $conditions ))) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
@@ -38,28 +38,28 @@
             case 'inactive':
                 $conditions['inactive'] = ['patrimony_sit' => 'inactive'];
                 $conditions['order_by'] = 'patrimony_id DESC';
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = (is_array($modelo->searchTable( $tblName, $conditions ))) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'asc':
                 $conditions['order_by'] = "patrimony_id ASC";
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = is_array($modelo->searchTable( $tblName, $conditions )) ? count($modelo->searchTable( $tblName, $conditions )) : 0 ;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'desc':
                 $conditions['order_by'] = "patrimony_id DESC";
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = is_array($modelo->searchTable( $tblName, $conditions )) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'new':
                 $conditions['id'] = 'patrimony_id';
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = is_array($modelo->searchTable( $tblName, $conditions )) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;   
             default:
@@ -67,7 +67,7 @@
         }
     } else {
         $conditions['order_by'] = "patrimony_id DESC LIMIT 100";
-        $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+        $count = (is_array($modelo->searchTable( $tblName, $conditions )) ? count($modelo->searchTable( $tblName, $conditions )) : 0 );
         $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }
@@ -104,7 +104,7 @@ HTML;
             echo '<td>'.$reg['patrimony_cod'].'</td>';
             echo '<td>'.(($reg['patrimony_desc']) ? $reg['patrimony_desc'] : '---') .'</td>';
             echo '<td>'.(($reg['patrimony_setor']) ? $reg['patrimony_setor'] : '---') .'</td>';
-            echo '<td>'.(($reg['patrimony_valor']) ? $reg['patrimony_valor'] : '---') .'</td>';
+            echo '<td>'.'R$ '.(($reg['patrimony_valor']) ? number_format($reg['patrimony_valor'], 2, ',', '.') : '---') .'</td>';
             
             
             //echo '<td>'.(($reg['patrimony_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_created']) : '---') .'</td>';

@@ -8,7 +8,7 @@
 
     # Monta os parametros necessarios para a páginação
     $pagConfig = [
-        'totalRows' => COUNT($patrimonys),
+        'totalRows' => (is_array($patrimonys) ? COUNT($patrimonys) : 0),
         'perPage' => $limit,
         'link_func' => 'searchFilter'
     ];
@@ -38,7 +38,7 @@
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
                         <fieldset>
-                            <legend >PATRIMÔNIO <span class="text-success"></span></legend>
+                            <legend>PATRIMÔNIO <span class="text-success"></span></legend>
                             <div class="row form-hidden" style="display: none;"><!-- Start div hidden 1 -->
                                 <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO PATRIMÔNIO</small></div>
                             </div><!-- End div hidden 1 -->
@@ -46,7 +46,7 @@
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                     <label for="patrimony_cod">Código:</label>
                                     <input type="hidden" id="patrimony_id" name="patrimony_id" value="" >
-                                    <input id="patrimony_cod" name="patrimony_cod" type="text" class="form-control form-control-sm text-center" placeholder="GB-300" >
+                                    <input id="patrimony_cod" name="patrimony_cod" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: C300" >
                                     <div class="invalid-feedback">
                                         Preencha esse campo.
                                     </div>
@@ -54,7 +54,7 @@
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                     <label for="patrimony_desc">Descrição:</label>
-                                    <input id="patrimony_desc" name="patrimony_desc" type="text" class="form-control form-control-sm text-center" placeholder="Ex: Cadeiras" >
+                                    <input id="patrimony_desc" name="patrimony_desc" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Cadeiras" >
                                     <div class="invalid-feedback">
                                         Preencha esse campo.
                                     </div>
@@ -67,17 +67,17 @@
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                     <label for="patrimony_cor">Cor:</label>
-                                    <input id="patrimony_cor" name="patrimony_cor" class="form-control form-control-sm text-center" type="text" placeholder="Ex: Preto" value="">
+                                    <input id="patrimony_cor" name="patrimony_cor" class="form-control form-control-sm text-center" type="text" placeholder="Ex.: Branco" value="">
                                 </div>
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                                     <label for="patrimony_for">Fornecedor:</label>
-                                    <input id="patrimony_for" name="patrimony_for" type="text" class="form-control form-control-sm text-center" placeholder="Fornecedor..." >
+                                    <input id="patrimony_for" name="patrimony_for" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Fornecedor" >
                                 </div>
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                     <label for="patrimony_dimen">Dimensões:</label>
-                                    <input id="patrimony_dimen" name="patrimony_dimen" type="text" class="form-control form-control-sm text-center" placeholder="Dimensões do patrimônio..." >
+                                    <input id="patrimony_dimen" name="patrimony_dimen" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: 53 x 43 x 91 cm" >
                                 </div>
 
                             </div><!-- End div hidden 2 -->
@@ -85,7 +85,7 @@
                             <div class="row form-hidden" style="display: none;"><!--Start div hidden 3-->
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                     <label for="patrimony_setor">Setor:</label>
-                                    <input id="patrimony_setor" name="patrimony_setor" type="text" class="form-control form-control-sm text-center" placeholder="Informática" >
+                                    <input id="patrimony_setor" name="patrimony_setor" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Almoxarifado" >
                                 </div>
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
