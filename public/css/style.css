@@ -338,13 +338,13 @@ used to vertically center elements, may need modification if you're not using de
 }
 
 /* Loading carregemnto imagem */
-
 #loading {
     /*background: #f4f4f2 url("img/page-bg.png") repeat scroll 0 0;*/
     height: 100%;
     left: 0;
     margin: auto;
     position: fixed;
+    z-index: 100;
     top: 0;
     width: 100%;
 }

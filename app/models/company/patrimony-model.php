@@ -112,7 +112,7 @@ class PatrimonyModel extends MainModel
             'patrimony_for'         =>  chk_array($this->form_data, 'patrimony_for'),
             'patrimony_dimen'       =>  chk_array($this->form_data, 'patrimony_dimen'),
             'patrimony_setor'       =>  chk_array($this->form_data, 'patrimony_setor'),
-            'patrimony_valor'       =>  (float) $this->only_filter_number(chk_array($this->form_data, 'patrimony_valor')),
+            'patrimony_valor'       =>  number_format(moeda($this->form_data['patrimony_valor']), 2, '.', ''),
             'patrimony_garan'       =>  chk_array($this->form_data, 'patrimony_garan'),
             'patrimony_quant'       =>  chk_array($this->form_data, 'patrimony_quant'),
             'patrimony_sit'         =>  chk_array($this->form_data, 'patrimony_sit'),

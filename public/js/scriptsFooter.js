@@ -345,21 +345,19 @@ $(function () {
     }
     
     if ( (linkVerfy("pay") > 1) || (linkVerfy("receive") > 1) 
-        || (linkVerfy("checks") > 1) ) {
+        || (linkVerfy("checks") > 1) || (linkVerfy("patrimony") > 1)) {
         jQuery.datetimepicker.setLocale('pt-BR');
+        console.log('Patrimonio');
         $(".date").datetimepicker({            
             mask:true,format:'d/m/Y',
             validateOnBlur:true,
             closeOnWithoutClick :true,
             value:true,
-            timepicker:false
+            timepicker:false,
+            focusOnShow: true,
+            showTodayButton: true,
         });
     }
-    
-
-
-    
-    
     
 //    if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) 
 //         || (linkVerfy("finances-checks") > 1)  )  {
@@ -403,7 +401,6 @@ $(function () {
 
 // Validação dos campos data hora do evento modal de edição da agenda
 function InvalidMsg(textbox) {
-    
     if (textbox.value == '') {
         textbox.setCustomValidity('Este campo deve ser preenchido. Ex: dd/mm/aaaa hh:mm');
     }

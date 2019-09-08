@@ -62,7 +62,7 @@
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                     <label for="patrimony_data_aq">Data da aquisição:</label>
-                                    <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control form-control-sm data text-center" type="text" placeholder="__/__/____" value="">
+                                    <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control form-control-sm date text-center" type="text" placeholder="dd/mm/aaaa" value="">
                                 </div>
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12">
@@ -110,7 +110,7 @@
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                                     <label for="patrimony_sit">Situação:</label><br>
-                                    <select id="patrimony_sit" name="patrimony_sit" class="custom-select form-control-sm">
+                                    <select id="patrimony_sit" name="patrimony_sit" class=" custom-select custom-select-sm">
                                         <option selected value="active">Ativo</option>
                                         <option value="inactive">Inativo</option>
                                     </select>
