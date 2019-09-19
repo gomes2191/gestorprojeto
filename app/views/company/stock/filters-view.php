@@ -20,7 +20,7 @@
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
         $conditions['search'] = ['stock_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'stock_cod' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-        $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+        $count = (int) is_array( $modelo->searchTable( $tblName, $conditions ) ) ? COUNT($modelo->searchTable( $tblName, $conditions )) : 0 ;
         $conditions['order_by'] = "stock_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
@@ -46,21 +46,21 @@
 //                break;
             case 'asc':
                 $conditions['order_by'] = "stock_id ASC";
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = (int) is_array( $modelo->searchTable( $tblName, $conditions ) ) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'desc':
                 $conditions['order_by'] = "stock_id DESC";
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = (int) is_array( $modelo->searchTable( $tblName, $conditions ) ) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'new':
                 $conditions['id'] = 'stock_id';
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = is_array( $modelo->searchTable( $tblName, $conditions ) ) ?  count($modelo->searchTable( $tblName, $conditions )) : 0 ;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;   
             default:
@@ -68,7 +68,7 @@
         }
     } else {
         $conditions['order_by'] = "stock_id DESC LIMIT 100";
-        $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+        $count = (int) is_array( $modelo->searchTable( $tblName, $conditions ) ) ? COUNT($modelo->searchTable( $tblName, $conditions )) : 0;
         $conditions['order_by'] = "stock_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }

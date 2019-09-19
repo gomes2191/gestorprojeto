@@ -6,8 +6,8 @@
         $stock = $modelo->searchTable('stock', ['order_by' => 'stock_id DESC ', 'limit' => $limit]);
 
         $pagConfig = [
-            'totalRows' => COUNT($modelo->searchTable('stock')),
-            'perPage' => $limit,
+            'totalRows' => (int) is_array( $modelo->searchTable('stock') ) ? COUNT($modelo->searchTable('stock')) : 0,
+            'perPage'   => $limit,
             'link_func' => 'searchFilter'
         ];
 
@@ -56,7 +56,7 @@
 
                         <div class="form-group col-md-2 col-sm-12 col-xs-12">
                             <label for="stock_tipo_unit">Tipo unitário:</label><br>
-                            <select id="stock_tipo_unit" name="stock_tipo_unit" class="custom-select form-control-sm">
+                            <select id="stock_tipo_unit" name="stock_tipo_unit" class="custom-select custom-select-sm">
                                 <?php foreach ($modelo->get_table_data('*', 'stock_tipo_unitario', 'tipo_unitario_id') as $fetch_userdata): ?>
                                     <option value="<?= $fetch_userdata['tipo_unitario']; ?>" <?= ($fetch_userdata['tipo_unitario'] == htmlentities(chk_array($modelo->form_data, 'stock_tipo_unit'))) ? 'selected' : ''; ?>><?= $fetch_userdata['tipo_unitario']; ?></option>
                                 <?php endforeach; unset($fetch_userdata); ?>

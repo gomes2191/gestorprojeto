@@ -1,4 +1,8 @@
-<?php   if (!defined('ABSPATH')) {  exit(); }
+<?php
+
+    if ( defined('ABSPATH') && (!filter_has_var(INPUT_POST, 'get_decode')) ) {
+       Swoole\Http\Request::__destruct;
+    }
     
     # Parâmetros de páginação
     $tblName = 'patrimony';
@@ -20,7 +24,7 @@
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
         $conditions['search'] = ['patrimony_desc' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING), 'patrimony_cod' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-        $count = (is_array($modelo->searchTable( $tblName, $conditions))) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
+        $count = (int) ( is_array($modelo->searchTable( $tblName, $conditions)) ) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
         $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 

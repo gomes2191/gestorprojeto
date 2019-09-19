@@ -234,7 +234,7 @@ function Financeiro() {
                     type: 'POST',
                     dataType: 'html',
                     url: this.objData.url,
-                    data: 'get_decode=' + this.objData.get_decode,
+                    data: {get_decode:this.objData.get_decode},
                     async: true,
                     beforeSend: function () {
                         $('#loading').show();

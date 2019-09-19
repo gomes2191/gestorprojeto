@@ -144,7 +144,7 @@
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_sit">Situação:</label><br>
-                        <select id="provider_sit" name="provider_sit" class="custom-select form-control-sm text-center">
+                        <select id="provider_sit" name="provider_sit" class="custom-select custom-select-sm">
                             <option selected value="active">Ativo</option>
                             <option value="inactive">Inativo</option>
                         </select>

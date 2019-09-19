@@ -1,4 +1,8 @@
-<?php   if (!defined('ABSPATH')) {  exit(); }
+<?php
+
+    if ( defined('ABSPATH') && (!filter_has_var(INPUT_POST, 'get_decode')) ) {
+       Swoole\Http\Request::__destruct;
+    }
     
     # Parâmetros de páginação
     $tblName = 'providers';
@@ -20,7 +24,7 @@
     
     if(!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
         $conditions['search'] = ['provider_name' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE), 'provider_at' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-        $count = (int) is_array($modelo->searchTable( $tblName, $conditions )) ? count($modelo->searchTable( $tblName, $conditions )) : FALSE;
+        $count = (int) ( is_array($modelo->searchTable( $tblName, $conditions )) ) ? count($modelo->searchTable( $tblName, $conditions )) : FALSE;
         $conditions['order_by'] = "provider_id DESC LIMIT $start, $limit";
         $allReg = $modelo->searchTable( $tblName, $conditions );
     }elseif(!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) { 
@@ -30,7 +34,7 @@
             case 'active':
                 $conditions['active'] = ['provider_sit' => 'active'];
                 $conditions['order_by'] = 'provider_id DESC';
-                $count = COUNT($modelo->searchTable( $tblName, $conditions ));
+                $count = (is_array($modelo->searchTable( $tblName, $conditions ))) ? COUNT($modelo->searchTable( $tblName, $conditions )) : 0 ;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
@@ -38,28 +42,28 @@
             case 'inactive':
                 $conditions['inactive'] = ['provider_sit' => 'inactive'];
                 $conditions['order_by'] = 'provider_id DESC';
-                $count = count($modelo->searchTable( $tblName, $conditions ));
+                $count = (is_array($modelo->searchTable( $tblName, $conditions ))) ? COUNT($modelo->searchTable( $tblName, $conditions )) : 0 ;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'asc':
                 $conditions['order_by'] = "provider_id ASC";
-                $count = count($modelo->searchTable( $tblName, $conditions ));
+                $count = (is_array($modelo->searchTable( $tblName, $conditions ))) ? COUNT($modelo->searchTable( $tblName, $conditions )) : 0;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'desc':
                 $conditions['order_by'] = "provider_id DESC";
-                $count = count($modelo->searchTable( $tblName, $conditions ));
+                $count = ( $modelo->searchTable( $tblName, $conditions ) ) ? COUNT($modelo->searchTable( $tblName, $conditions )) : 0;
                 $conditions['start'] = $start;
                 $conditions['limit'] = $limit;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;
             case 'new':
                 $conditions['id'] = 'provider_id';
-                $count = count($modelo->searchTable( $tblName, $conditions ));
+                $count = ( $modelo->searchTable( $tblName, $conditions ) ) ? count($modelo->searchTable( $tblName, $conditions )) : 0;
                 $allReg = $modelo->searchTable( $tblName, $conditions );
                 break;   
             default:

@@ -19,6 +19,8 @@
     date_default_timezone_set('America/Sao_Paulo');
     $date = (date('Y-m-d H:i'));
     date('Y-m-d H:i:s', time());
+    
+    unset($patrimonys, $limit, $date, $pagination);
 ?>
             <div class="row"><!--Start row loading  -->
                 <div class="col-md-1  col-sm-0 col-xs-0"></div>
@@ -110,7 +112,7 @@
 
                                 <div class="form-group col-md-2 col-sm-12 col-xs-12" >
                                     <label for="patrimony_sit">Situação:</label><br>
-                                    <select id="patrimony_sit" name="patrimony_sit" class=" custom-select custom-select-sm">
+                                    <select id="patrimony_sit" name="patrimony_sit" class="custom-select custom-select-sm">
                                         <option selected value="active">Ativo</option>
                                         <option value="inactive">Inativo</option>
                                     </select>
@@ -245,7 +247,12 @@
                     var objFinanca = new Financeiro();
 
                     // Efetua a requisição ajax e retorna os registros
-                    objFinanca.setAjaxData(objSet = {url:'<?= HOME_URI; ?>/patrimony/filters', url_id: '/patrimony/', get_decode: false});
+                    objFinanca.setAjaxData(objSet = {
+                        url:'<?= HOME_URI; ?>/patrimony/filters', 
+                        url_id: '/patrimony/',
+                        get_decode: false,
+                        sinc: true
+                    });
                     objFinanca.ajaxData();
                     objFinanca.getAjaxData();
 

@@ -7,6 +7,9 @@
  * @since 0.1
  */
 class StockController extends MainController {
+    
+    # Tipo de página [int]
+    public $page_type = 1;
 
     /**
      * $login_required
