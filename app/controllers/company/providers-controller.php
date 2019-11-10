@@ -8,8 +8,8 @@
  */
 class ProvidersController extends MainController {
 
-     # Tipo de página [int]
-     public $page_type = 1;
+    # Tipo de página [int]
+    public $page_type = 1;
      
     /**
      * $login_required

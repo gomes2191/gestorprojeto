@@ -7,6 +7,9 @@
  * @since 0.1
  */
 class LaboratoryController extends MainController {
+    
+    # Tipo de página [int]
+    public $page_type = 1;
 
     /**
      * $login_required

@@ -329,8 +329,20 @@ function Financeiro() {
 
                         $('.form-register')[0].reset();
                     } else {
-                        toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
+                        /*toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
                             timeOut: 5000
+                        });*/
+                        
+                        $.toaster({
+                            title: {
+                                text: 'Erro!',
+                                icon: 'far fa-exclamation-triangle',
+                                //info: 'just now',
+                                close: true
+                            },
+                            content: 'Ocorreu algum problema, tente novamente',
+                            delay: 4000,
+                            position: 'top right'
                         });
                     }
                 }

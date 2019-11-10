@@ -241,6 +241,30 @@
                     </div>
                 </div>
             </div><!-- End modal infoView -->
+            
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Remoção de registro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <p>Você, realmente, deseja proseguir com a remoção desse registro?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" id="deleteExecute" id>Remover</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
                 <script>
                     // Instância os objetos das classses
                     var objMetodos = new Metodos();

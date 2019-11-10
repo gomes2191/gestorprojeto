@@ -116,7 +116,7 @@ HTML;
             //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
             //echo '<td>' . $status . '</td>';
             echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
-            echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
+            echo "<td><a href='#deleteModal' data-toggle='modal' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
             echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encode_decode($reg['patrimony_id'])}'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
             echo '</tr>';
         endforeach;
