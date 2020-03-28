@@ -1,0 +1,30 @@
+{
+"name": "gclinic/mvc-php",
+"description": "Framework PHP MVC-Blade",
+"minimum-stability": "stable",
+"license": "proprietary",
+"authors": [
+    {
+        "name": "Francisco - FAGA",
+        "email": "gomes.tisystem@gmail.com",
+        "role": "Web Developer",
+        "homepage": "http://www.gclinic.com"
+    }
+],
+"config": {
+    "vendor-dir": "vendor"
+},
+    "autoload": {
+        "psr-4": {
+             "Core\\": "Core/",
+             "App\\": "App/"
+        },
+        "files": [
+            "Core/Config.php",
+            "Core/GlobalFunctions.php"
+        ]   
+    },
+    "require": {
+        "jenssegers/blade": "^1.2"
+    }
+}
