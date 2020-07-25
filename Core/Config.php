@@ -43,8 +43,6 @@
      * */ 
     define('ABSPATH', dirname(__DIR__));
 
-    //var_dump(ABSPATH);die;
-
     # Nome do site
     define('NOME_SITE', 'GClinic - ');
     

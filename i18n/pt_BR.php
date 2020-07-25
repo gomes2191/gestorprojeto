@@ -1,5 +1,5 @@
 <?php
-    return array(
+    return [
         # <Start home>
         'hMsg_1'=>'Seja Bem-vindo! ao nosso sistema',
         'hMsg_2'=>'PARA TESTE',
@@ -35,4 +35,4 @@
         'usersMsg_11'=>'Excluir cadastro',
         'usersMsg_12'=>'Visualizar ficha cadastral',
         # < /End users page >
-    );
+    ];

@@ -1,18 +1,18 @@
 <?php
 
 /**
- *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
- *  @Class: Translate
- *  @Descrição: Essa classe será responsável por efetuar a tradução do sistema.
+ *  Classe responsável pela tradução do sistema.
  * 
- *  @Pacote: OdontoControl
- *  @Versão: 0.1
+ *  @author F.A.G.A <gomes.tisystem@gmail.com>
+ *  @package SystemControl
+ *  @version 0.1
+ *  @since 0.1
+ *  @see Translate
  **/
-
 class Translate
 {
     static $_languageDefault = LANG; //--> Idioma padrão para a tradução
-    static $_pathFileTranslate ='translate/'; //--> path onde ficarão os arquivos com as traduções
+    static $_pathFileTranslate ='i18n/'; //--> path onde ficarão os arquivos com as traduções
 
     public static function getLanguageDefault()
     {
@@ -58,10 +58,5 @@ class Translate
         {
             return $str;
         }
-
-
     }
-
-
-
-}
+} #--> End Class
