@@ -1,24 +1,18 @@
-
-
-
-
-
 ### Composer ###
 composer.phar
 /vendor/
 
-
-## Config ##
-#config.php
-error_log.txt
-.buildpath
-.project
-launch.json
-
-
 ### VisualStudioCode ###
-.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+## GClinic
+/logs/*
