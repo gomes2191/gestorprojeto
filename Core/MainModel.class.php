@@ -8,6 +8,11 @@
  *  @Versão: 0.1
  * */
 class MainModel{
+
+    public $tb_prefix = TB_PREFIX;
+    
+    $objSystemControlDB = new SystemControlDB();
+
     
     /**
      *  @Acesso: public
@@ -92,6 +97,9 @@ class MainModel{
      * @return: array Retorna um array com os valores
      */
     public function searchTable($table_name, $conditions = []) {
+
+        $table_name = $this->tb_prefix.$table_name;
+
         $sql = 'SELECT ';
         $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
         $sql .= ' FROM ' . $table_name;

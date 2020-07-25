@@ -6,48 +6,47 @@
  * @package OdontoControl
  * @since 0.1
  */
-class SystemControlDB {
-
-    /** DB properties */
-    public $host = 'localhost', // Host da base de dados 
-            $db_name = '', // Nome do banco de dados
-            $password = '', // Senha do usuário da base de dados
-            $user = 'root', // Usuário da base de dados
-            $charset = 'utf8', // Charset da base de dados
-            $pdo = null, // Nossa conexão com o BD
-            $error = null, // Configura o erro
-            $debug = false, // Mostra todos os erros 
-            $last_id = null;        // Último ID inserido
+class SystemControlDB{
+   # Database propriedades - atributos
+    private $db_host = "localhost", # Host da base de dados
+    $db_driver = "mysql",
+    $db_name, # Nome do banco de dados
+    $tb_prefix,
+    $db_password, # Senha do usuário da base de dados
+    $db_user, # Usuário da base de dados
+    $db_charset, # Charset da base de dados
+    $pdo, # Nossa conexão com o BD
+    $error, # Configura o erro
+    $debug, # Mostra todos os erros 
 
     /**
      * Construtor da classe
      *
      * @since 0.1
      * @access public
-     * @param string $host     
+     * @param string $db_host
+     * @param string $db_driver
      * @param string $db_name
+     * @param string $tb_prefix
      * @param string $password
      * @param string $user
      * @param string $charset
      * @param string $debug
      */
-
-    public function __construct( $host = null, $db_name = null, $password = null, $user = null, $charset = null, $debug = null)
-    {
-        // Configura as propriedades novamente.
-        // Se você fez isso no início dessa classe, as constantes não serão
-        // necessárias. Você escolhe...
-        $this->host = defined('HOSTNAME') ? HOSTNAME : $this->host;
-        $this->db_name = defined('DB_NAME') ? DB_NAME : $this->db_name;
-        $this->password = defined('DB_PASSWORD') ? DB_PASSWORD : $this->password;
-        $this->user = defined('DB_USER') ? DB_USER : $this->user;
-        $this->charset = defined('DB_CHARSET') ? DB_CHARSET : $this->charset;
-        $this->debug = defined('DEBUG') ? DEBUG : $this->debug;
-
-        // Conecta
+    function __construct(){ #Start __construct
+        $this->db_host      = defined('DB_HOSTNAME') ? DB_HOSTNAME : $this->db_host;
+        $this->db_driver    = defined('DB_DRIVER') ? DB_DRIVER : $this->db_driver;
+        $this->db_name      = defined('DB_NAME') ? DB_NAME : $this->db_name;
+        $this->tb_prefix    = defined('TB_PREFIX') ? TB_PREFIX : $this->tb_prefix;
+        $this->db_password  = defined('DB_PASSWORD') ? DB_PASSWORD : $this->db_password;
+        $this->db_user      = defined('DB_USER') ? DB_USER : $this->db_user;
+        $this->db_charset   = defined('DB_CHARSET') ? DB_CHARSET : $this->db_charset;
+        $this->debug        = defined('DEBUG') ? DEBUG : $this->debug;
+        
+        # Efetua a conexão
         $this->connect();
+    }# End __construct
 
-    }# __construct
 
     /**
      * Cria a conexão PDO
@@ -57,11 +56,12 @@ class SystemControlDB {
      * @access protected
      */
     final protected function connect() {
-
         /* Os detalhes da nossa conexão PDO */
-        $pdo_details = "mysql:host={$this->host};";
+        $pdo_details  = "{$this->db_driver}:host={$this->db_host};";
         $pdo_details .= "dbname={$this->db_name};";
-        $pdo_details .= "charset={$this->charset};";
+        //$pdo_details .= "charset={$this->db_charset};";
+        $pdo_details.="options='--client_encoding={$this->db_charset}'";
+
 
         // Tenta conectar
         try {
@@ -143,7 +143,7 @@ class SystemControlDB {
         $place_holders = '(';
 
         // Configura o array de valores
-        $values = array();
+        $values = [];
 
         // O $j will assegura que colunas serão configuradas apenas uma vez
         $j = 1;

@@ -60,17 +60,23 @@
     # Nome do host da base de dados
     define('HOSTNAME', 'localhost');
 
+    # Tipo de driver Ex.: pgsql, mysql...
+    define('DB_DRIVER', 'pgsql');
+
     # Nome do banco
     define('DB_NAME', 'gclinic');
 
+    # Tabela prefixo
+    define('TB_PREFIX', '');
+
     # Usuário do banco
-    define('DB_USER', 'root');
+    define('DB_USER', 'postgres');
 
     # Senha do banco
     define('DB_PASSWORD', 'Vectra');
     
     # Charset da conexão PDO
-    define('DB_CHARSET', 'utf8mb4');
+    define('DB_CHARSET', 'utf8');
  
     # DEFINE O FUSO HORÁRIO COMO O HORÁRIO DE BRASÍLIA
     define('TIME_ZONE', date_default_timezone_set('America/Sao_Paulo'));
