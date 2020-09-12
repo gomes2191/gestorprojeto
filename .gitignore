@@ -1,6 +1,5 @@
 ### Composer ###
 composer.phar
-/vendor/
 
 ### VisualStudioCode ###
 .vscode/*
@@ -17,3 +16,4 @@ composer.phar
 ## GClinic
 /logs/*
 /cache/*
+/vendor/*
