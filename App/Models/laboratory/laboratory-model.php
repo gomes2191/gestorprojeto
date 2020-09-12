@@ -46,251 +46,251 @@ class LaboratoryModel extends MainModel
      * @since 0.1
      * @access public
      */
-    public function __construct( $db = FALSE ) {
-            $this->db = $db;
+    public function __construct($db = FALSE)
+    {
+        $this->db = $db;
     }
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: validate_register_form()
-    *   @Versão: 0.2 
-    *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
-    *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
-    **/ 
-    public function validate_register_form () {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: validate_register_form()
+     *   @Versão: 0.2 
+     *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
+     *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
+     **/
+    public function validate_register_form()
+    {
         # Cria o vetor que vai receber os dados do post
         $this->form_data = [];
 
         # Verifica se algo foi postado no formulário
-        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
-            
+        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
+
             # Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
-                
+            foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
+
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
-                
             } # End foreach
-            
+
             #   Não será permitido campos vazios
-            if ( empty( $this->form_data['laboratory_nome'] )) {
-                
+            if (empty($this->form_data['laboratory_nome'])) {
+
                 #   Feedback para o usuário
-                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
-                
+                $this->form_msg = [0 => 'alert-warning', 1 => 'glyphicon glyphicon-info-sign', 2 => 'Opa! ', 3 => 'Campos marcados com <strong>*</strong> são obrigatórios .'];
+
                 # Termina
                 return;
             }
-        }else {
-            
+        } else {
+
             # Finaliza se nada foi enviado
             return FALSE;
-            
         } #--> End
-        
+
         # Rotina que verifica se o registro já existe
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `laboratory` WHERE `laboratory_id` = ? ',[
-            chk_array($this->form_data, 'laboratory_id')
+        $db_check_ag = $this->db->query(' SELECT count(*) FROM `laboratory` WHERE `laboratory_id` = ? ', [
+            chkArray($this->form_data, 'laboratory_id')
         ]);
-        
+
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
-        if ( ($db_check_ag->fetchColumn()) >= 1 ) {
-            $this->updateRegister(chk_array($this->form_data, 'laboratory_id'));
+        if (($db_check_ag->fetchColumn()) >= 1) {
+            $this->updateRegister(chkArray($this->form_data, 'laboratory_id'));
             return;
-        }else{
-             $this->insertRegister();
-             return;
+        } else {
+            $this->insertRegister();
+            return;
         }
-        
     } #--> End validate_register_form()
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: insertRegister()
-    *   @Versão: 0.2 
-    *   @Descrição: Insere o registro no BD.
-    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
-    **/ 
-    public function insertRegister(){
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: insertRegister()
+     *   @Versão: 0.2 
+     *   @Descrição: Insere o registro no BD.
+     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+     **/
+    public function insertRegister()
+    {
         //var_dump($this->form_data['laboratory_tipo_unit']);die;
-        //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'laboratory_data_aq')).'== novo==');die;
+        //var_dump('==Insert=='.  $this->converteData('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'laboratory_data_aq')).'== novo==');die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('laboratory',[
-            'laboratory_nome'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_nome')),
-            'laboratory_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cpf_cnpj')),
-            'laboratory_rs'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rs')),
-            'laboratory_at'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_at')),
-            'laboratory_end'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_end')),
-            'laboratory_bair'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_bair')),
-            'laboratory_cid'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cid')),
-            'laboratory_uf'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_uf')),
-            'laboratory_pais'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_pais')),
-            'laboratory_cep'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cep')),
-            'laboratory_cel'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cel')),
-            'laboratory_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_1')),
-            'laboratory_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_2')),
-            'laboratory_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_insc_uf')),
-            'laboratory_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_web_url')),
-            'laboratory_email'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_email')),
-            'laboratory_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_nome')),
-            'laboratory_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_apelido')),
-            'laboratory_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_email')),
-            'laboratory_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_cel')),
-            'laboratory_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_1')),
-            'laboratory_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_2')),
-            'laboratory_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_1')),
-            'laboratory_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_1')),
-            'laboratory_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_1')),
-            'laboratory_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_1')),
-            'laboratory_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_2')),
-            'laboratory_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_2')),
-            'laboratory_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_2')),
-            'laboratory_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_2')),
-            'laboratory_obs'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_obs'))
+        $query_ins = $this->db->insert('laboratory', [
+            'laboratory_nome'         =>  $this->avaliar(chkArray($this->form_data, 'laboratory_nome')),
+            'laboratory_cpf_cnpj'     =>  $this->avaliar(chkArray($this->form_data, 'laboratory_cpf_cnpj')),
+            'laboratory_rs'           =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rs')),
+            'laboratory_at'           =>  $this->avaliar(chkArray($this->form_data, 'laboratory_at')),
+            'laboratory_end'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_end')),
+            'laboratory_bair'         =>  $this->avaliar(chkArray($this->form_data, 'laboratory_bair')),
+            'laboratory_cid'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_cid')),
+            'laboratory_uf'           =>  $this->avaliar(chkArray($this->form_data, 'laboratory_uf')),
+            'laboratory_pais'         =>  $this->avaliar(chkArray($this->form_data, 'laboratory_pais')),
+            'laboratory_cep'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_cep')),
+            'laboratory_cel'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_cel')),
+            'laboratory_tel_1'        =>  $this->avaliar(chkArray($this->form_data, 'laboratory_tel_1')),
+            'laboratory_tel_2'        =>  $this->avaliar(chkArray($this->form_data, 'laboratory_tel_2')),
+            'laboratory_insc_uf'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_insc_uf')),
+            'laboratory_web_url'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_web_url')),
+            'laboratory_email'        =>  $this->avaliar(chkArray($this->form_data, 'laboratory_email')),
+            'laboratory_rep_nome'     =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_nome')),
+            'laboratory_rep_apelido'  =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_apelido')),
+            'laboratory_rep_email'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_email')),
+            'laboratory_rep_cel'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_cel')),
+            'laboratory_rep_tel_1'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_tel_1')),
+            'laboratory_rep_tel_2'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_tel_2')),
+            'laboratory_banco_1'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_banco_1')),
+            'laboratory_agencia_1'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_agencia_1')),
+            'laboratory_conta_1'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_conta_1')),
+            'laboratory_titular_1'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_titular_1')),
+            'laboratory_banco_2'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_banco_2')),
+            'laboratory_agencia_2'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_agencia_2')),
+            'laboratory_conta_2'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_conta_2')),
+            'laboratory_titular_2'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_titular_2')),
+            'laboratory_obs'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_obs'))
         ]);
 
         #   Verifica se a consulta está OK se sim envia o Feedback para o usuário.
-        if ( $query_ins ) {
-            
+        if ($query_ins) {
+
             # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro efetuado com sucesso!'];
-                
+            $this->form_msg = [0 => 'alert-success', 1 => 'glyphicon glyphicon-info-sign', 2 => 'Sucesso! ', 3 => 'Registro efetuado com sucesso!'];
+
             # Redireciona de volta para a página após dez segundos
             echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory/cad">';
-            
+
             # Destroy variável não mais utilizada
             unset($query_ins);
-            
+
             # Finaliza execução.
             return;
-        }else{
-            
+        } else {
+
             # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
-            
+            $this->form_msg = [0 => 'alert-danger', 1 => 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
+
             # Destroy variáveis não mais utilizadas.
             unset($query_ins);
-            
+
             # Finaliza execução.
             return;
         }
-        
     }
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: updateRegister()
-    *   @Versão: 0.2 
-    *   @Descrição: Atualiza um registro especifico no BD.
-    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
-    **/ 
-    public function updateRegister( $registro_id = NULL ){
-        
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: updateRegister()
+     *   @Versão: 0.2 
+     *   @Descrição: Atualiza um registro especifico no BD.
+     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+     **/
+    public function updateRegister($registro_id = NULL)
+    {
+
         //var_dump($this->form_data['laboratory_valor']);die;
-        
+
         #   Se o ID não estiver vazio, atualiza os dados
-        if ( $registro_id ) {
+        if ($registro_id) {
             # Efetua o update do registro
-            $query_up = $this->db->update('laboratory', 'laboratory_id', $registro_id,[
-                'laboratory_nome'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_nome')),
-                'laboratory_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cpf_cnpj')),
-                'laboratory_rs'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rs')),
-                'laboratory_at'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_at')),
-                'laboratory_end'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_end')),
-                'laboratory_bair'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_bair')),
-                'laboratory_cid'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cid')),
-                'laboratory_uf'           =>  $this->avaliar(chk_array($this->form_data, 'laboratory_uf')),
-                'laboratory_pais'         =>  $this->avaliar(chk_array($this->form_data, 'laboratory_pais')),
-                'laboratory_cep'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cep')),
-                'laboratory_cel'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_cel')),
-                'laboratory_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_1')),
-                'laboratory_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_tel_2')),
-                'laboratory_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_insc_uf')),
-                'laboratory_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_web_url')),
-                'laboratory_email'        =>  $this->avaliar(chk_array($this->form_data, 'laboratory_email')),
-                'laboratory_rep_nome'     =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_nome')),
-                'laboratory_rep_apelido'  =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_apelido')),
-                'laboratory_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_email')),
-                'laboratory_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_cel')),
-                'laboratory_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_1')),
-                'laboratory_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_rep_tel_2')),
-                'laboratory_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_1')),
-                'laboratory_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_1')),
-                'laboratory_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_1')),
-                'laboratory_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_1')),
-                'laboratory_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_banco_2')),
-                'laboratory_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_agencia_2')),
-                'laboratory_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'laboratory_conta_2')),
-                'laboratory_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'laboratory_titular_2')),
-                'laboratory_obs'          =>  $this->avaliar(chk_array($this->form_data, 'laboratory_obs'))
+            $query_up = $this->db->update('laboratory', 'laboratory_id', $registro_id, [
+                'laboratory_nome'         =>  $this->avaliar(chkArray($this->form_data, 'laboratory_nome')),
+                'laboratory_cpf_cnpj'     =>  $this->avaliar(chkArray($this->form_data, 'laboratory_cpf_cnpj')),
+                'laboratory_rs'           =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rs')),
+                'laboratory_at'           =>  $this->avaliar(chkArray($this->form_data, 'laboratory_at')),
+                'laboratory_end'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_end')),
+                'laboratory_bair'         =>  $this->avaliar(chkArray($this->form_data, 'laboratory_bair')),
+                'laboratory_cid'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_cid')),
+                'laboratory_uf'           =>  $this->avaliar(chkArray($this->form_data, 'laboratory_uf')),
+                'laboratory_pais'         =>  $this->avaliar(chkArray($this->form_data, 'laboratory_pais')),
+                'laboratory_cep'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_cep')),
+                'laboratory_cel'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_cel')),
+                'laboratory_tel_1'        =>  $this->avaliar(chkArray($this->form_data, 'laboratory_tel_1')),
+                'laboratory_tel_2'        =>  $this->avaliar(chkArray($this->form_data, 'laboratory_tel_2')),
+                'laboratory_insc_uf'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_insc_uf')),
+                'laboratory_web_url'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_web_url')),
+                'laboratory_email'        =>  $this->avaliar(chkArray($this->form_data, 'laboratory_email')),
+                'laboratory_rep_nome'     =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_nome')),
+                'laboratory_rep_apelido'  =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_apelido')),
+                'laboratory_rep_email'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_email')),
+                'laboratory_rep_cel'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_cel')),
+                'laboratory_rep_tel_1'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_tel_1')),
+                'laboratory_rep_tel_2'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_rep_tel_2')),
+                'laboratory_banco_1'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_banco_1')),
+                'laboratory_agencia_1'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_agencia_1')),
+                'laboratory_conta_1'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_conta_1')),
+                'laboratory_titular_1'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_titular_1')),
+                'laboratory_banco_2'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_banco_2')),
+                'laboratory_agencia_2'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_agencia_2')),
+                'laboratory_conta_2'      =>  $this->avaliar(chkArray($this->form_data, 'laboratory_conta_2')),
+                'laboratory_titular_2'    =>  $this->avaliar(chkArray($this->form_data, 'laboratory_titular_2')),
+                'laboratory_obs'          =>  $this->avaliar(chkArray($this->form_data, 'laboratory_obs'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
-            if ( $query_up ) {
-                
+            if ($query_up) {
+
                 # Feedback para o usuário
-                $this->form_msg = [0 => 'alert-success',1=> 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
-                
+                $this->form_msg = [0 => 'alert-success', 1 => 'glyphicon glyphicon-info-sign', 2 => 'Informção! ', 3 => 'Os dados foram atualizados com sucesso!'];
+
                 # Redireciona de volta para a página após dez segundos
                 #echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory/cad">';
-                
+
                 # Destroy variáveis nao mais utilizadas
-                unset( $registro_id, $query_up  );
-                
+                unset($registro_id, $query_up);
+
                 # Finaliza execução.
                 return;
-            }else{
-                
+            } else {
+
                 # Feedback para o usuário
-                $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
-                
+                $this->form_msg = [0 => 'alert-danger', 1 => 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador. Erro: 800'];
+
                 # Destroy variáveis nao mais utilizadas
-                unset( $registro_id, $query_up  );
-                
+                unset($registro_id, $query_up);
+
                 # Finaliza   
                 return;
             }
         }
     } #--> End updateRegister()
-    
-    /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: get_register_form()
-    *   @Versão: 0.2 
-    *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
-    **/ 
-    public function get_register_form ( $id_encode ) {
-        
-        $id_decode = intval($this->encode_decode(0, $id_encode));
-        
-        # Verifica na base de dados o registro
-        $query_get = $this->db->query('SELECT * FROM `laboratory` WHERE `laboratory_id` = ?', [ $id_decode ]  );
 
-        
+    /**
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: get_register_form()
+     *   @Versão: 0.2 
+     *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
+     **/
+    public function get_register_form($id_encode)
+    {
+
+        $id_decode = intval($this->encodeDecode(0, $id_encode));
+
+        # Verifica na base de dados o registro
+        $query_get = $this->db->query('SELECT * FROM `laboratory` WHERE `laboratory_id` = ?', [$id_decode]);
+
+
 
         # Obtém os dados da consulta
         $fetch_userdata = $query_get->fetch(PDO::FETCH_ASSOC);
-        
+
         # Faz um loop dos dados, guardando os no vetor $form_data
-        foreach ( $fetch_userdata as $key => $value ) {
+        foreach ($fetch_userdata as $key => $value) {
             $this->form_data[$key] = $value;
         }
-        
+
         # Tratamento da data para o modelo visao do fomulario
         #$this->form_data['laboratory_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['laboratory_data_aq']);
-        
+
         # Destroy variaveis não mais utilizadas
         unset($query_get, $fetch_userdata);
-        
+
         return;
-        
     } # End get_register_form()
-        
-        
+
+
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -298,11 +298,12 @@ class LaboratoryModel extends MainModel
      *   @Versão: 0.2 
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
-    public function delRegister( $encode_id ) {
+    public function delRegister($encode_id)
+    {
 
         # Recebe o ID do registro converte de string para inteiro.
-        $decode_id = intval($this->encode_decode(0, $encode_id));
-        
+        $decode_id = intval($this->encodeDecode(0, $encode_id));
+
         # Executa a consulta na base de dados
         $search = $this->db->query("SELECT count(*) FROM `laboratory` WHERE `laboratory_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
@@ -310,10 +311,10 @@ class LaboratoryModel extends MainModel
             #   Feedback para o usuário, a duas forma de utilizar o Feedback uma e por requisição php e a outra por requisição ajax
             #$this->form_msg = [0 => 'alert-danger', 1=>'fa fa-info-circle', 2 => 'Erro! ', 3 => 'Erro interno do sistema. Contate o administrador. Cod: 800'];
             $this->form_msg = 0;
-            
+
             # Redireciona de volta para a página após 4 segundos
             //echo '<meta http-equiv="Refresh" content="4; url=' . HOME_URI . '/laboratory">';
-            
+
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
 
@@ -324,7 +325,7 @@ class LaboratoryModel extends MainModel
             $query_del = $this->db->delete('laboratory', 'laboratory_id', $decode_id);
 
             #   Feedback para o usuário
-            $this->form_msg = [0 => 'alert-success', 1=>'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
+            $this->form_msg = [0 => 'alert-success', 1 => 'fa fa-info-circle', 2 => 'Sucesso! ', 3 => 'Registro removido com sucesso!'];
             //$this->form_msg = 1;
 
             #   Destroy variáveis não mais utilizadas
@@ -337,77 +338,78 @@ class LaboratoryModel extends MainModel
             return;
         }
     }   #--> End delRegister()
-    
-    
+
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: get_ultimo_id() 
-    *   @Descrição: Pega o ultimo ID do registro.
-    **/
-    public function get_ultimo_id() {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_ultimo_id() 
+     *   @Descrição: Pega o ultimo ID do registro.
+     **/
+    public function get_ultimo_id()
+    {
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
-         
+
         $row = $query->fetch();
         $id = trim($row[0]);
-        
+
         return $id;
-        
-     } // End get_ultimo_id()
-     
-     /**
+    } // End get_ultimo_id()
+
+    /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
      *   @Função: get_table_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_table_data($campo, $table, $id) {
+    public function get_table_data($campo, $table, $id)
+    {
 
         #   Simplesmente seleciona os dados na base de dados
         $query = $this->db->query("SELECT  $campo FROM $table ORDER BY $id");
 
         // Verifica se a consulta está OK
         if (!$query) {
-            
+
             # Finaliza
             return;
         }
-        
+
         # Retorna os valores da consulta
         return $query->fetchAll(PDO::FETCH_BOTH);
     }   # End get_table_data()
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: get_registro() 
-    *   @Descrição: Pega o ID passado na função e retorna os valores do id solicitado.
-    **/ 
-    public function get_registro( $encode_id = NULL ) {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_registro() 
+     *   @Descrição: Pega o ID passado na função e retorna os valores do id solicitado.
+     **/
+    public function get_registro($encode_id = NULL)
+    {
         #   Recebe o ID codficado e decodifica depois converte e inteiro
-        $decode_id = intval($this->encode_decode(0, $encode_id));
-        
+        $decode_id = intval($this->encodeDecode(0, $encode_id));
+
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `laboratory` WHERE `laboratory_id`= $decode_id " );
+        $query_get = $this->db->query(" SELECT * FROM  `laboratory` WHERE `laboratory_id`= $decode_id ");
 
         # Verifica se a consulta está OK
-        if ( !$query_get ) {
-            
+        if (!$query_get) {
+
             # Finaliza
             return;
         }
-        
+
         # Destroy variaveis não mais utilizadas
         unset($decode_id, $encode_id);
 
-        
+
         # Retorna os valores da consulta
         return $query_get->fetch(PDO::FETCH_ASSOC);
-        
     } # End get_registro()
 
 }

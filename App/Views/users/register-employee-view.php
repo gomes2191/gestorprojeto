@@ -1,34 +1,34 @@
 <?php
-    if (!defined('ABSPATH')) {
-        exit();
-    }
-    $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
+if (!defined('ABSPATH')) {
+    exit();
+}
+$get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
 
-    if (isset($get['emp'])) {
-        $parametros = $get['emp'];
-    }
+if (isset($get['emp'])) {
+    $parametros = $get['emp'];
+}
 
-    #   Carrega todos os métodos do modelo
-    (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
-    $form_msg = $modelo->form_msg;
-    $modelo->get_register_form($parametros, 1);
-    unset($parametros, $get);
+#   Carrega todos os métodos do modelo
+(filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+$form_msg = $modelo->form_msg;
+$modelo->get_register_form($parametros, 1);
+unset($parametros, $get);
 ?>
 
-<div class="row-fluid">  
+<div class="row-fluid">
     <div class="col-md-1 col-xs-0 col-sm-0"></div>
     <div class="col-md-10  col-sm-12 col-xs-12">
         <?php
-            if ($form_msg == true) {
-                echo'<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
+        if ($form_msg == true) {
+            echo '<div class="alert alertH ' . $form_msg[0] . '  alert-dismissible fade in">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <i class="'. $form_msg[1] .'" >&nbsp;</i>
+                            <i class="' . $form_msg[1] . '" >&nbsp;</i>
                             <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
                         </div>';
-                unset($form_msg);
-            }
+            unset($form_msg);
+        }
         ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             <div class="row form-compact">
@@ -42,7 +42,7 @@
                             <span class="btn btn-default btn-file">
                                 <span class="fileinput-new">Selecionar imagem</span>
                                 <span class="fileinput-exists">Alterar</span>
-                                <input type="file"  name="user_img_profile" >
+                                <input type="file" name="user_img_profile">
                             </span>
                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                         </div>
@@ -50,15 +50,13 @@
                 </div>
             </div>
 
-            <fieldset >
+            <fieldset>
                 <legend>Informações cadastrais</legend>
                 <div class="row form-compact">
                     <div class="form-group col-md-4 col-sm-12 col-xs-12">
                         <label for="user_name">Nome:</label>
-                        <input type="hidden" name="user_id" value="<?= htmlentities(chk_array($modelo->form_data, 'user_id')); ?>">
-                        <input type="text" name="user_name" placeholder="Nome completo... " value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_name')); ?>" class="form-control" id="user_name" 
-                               data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
-                               data-validation-help="Digite um nome com (3) ou mais caracteres.">
+                        <input type="hidden" name="user_id" value="<?= htmlentities(chkArray($modelo->form_data, 'user_id')); ?>">
+                        <input type="text" name="user_name" placeholder="Nome completo... " value="<?php echo htmlentities(chkArray($modelo->form_data, 'user_name')); ?>" class="form-control" id="user_name" data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo." data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-12 cpf">
@@ -76,16 +74,16 @@
 
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="user_birth">Data de nascimento:</label>
-                        <input id="user_birth" name="user_birth" class=" data form-control" type="text" placeholder="dd/mm/aaaa" >
+                        <input id="user_birth" name="user_birth" class=" data form-control" type="text" placeholder="dd/mm/aaaa">
                         <br>
                     </div>
 
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="user_gen">Sexo:</label>
                         <select name="user_gen" class="form-control">
-                            <option value="1" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Não informado') ? 'selected'  : FALSE; ?> selected  >Não informado</option>
-                            <option value="2" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Masculino') ? 'selected'  : FALSE; ?>>Masculino</option>
-                            <option value="3" <?= (htmlentities(chk_array($modelo->form_data, 'user_gen')) == 'Feminino') ? 'selected'  : FALSE; ?>>Feminino</option>
+                            <option value="1" <?= (htmlentities(chkArray($modelo->form_data, 'user_gen')) == 'Não informado') ? 'selected'  : FALSE; ?> selected>Não informado</option>
+                            <option value="2" <?= (htmlentities(chkArray($modelo->form_data, 'user_gen')) == 'Masculino') ? 'selected'  : FALSE; ?>>Masculino</option>
+                            <option value="3" <?= (htmlentities(chkArray($modelo->form_data, 'user_gen')) == 'Feminino') ? 'selected'  : FALSE; ?>>Feminino</option>
                         </select>
                     </div>
                     <br>
@@ -97,10 +95,10 @@
                         <select name="user_civil_status" class="form-control">
                             <?php
                             $lista = $modelo->get_col_data('civil_status', 'users_civil_status', 'civil_status_id');
-                            foreach ($lista as $fetch_userdata):
-                                ?>
-                                <option value="<?= $fetch_userdata['civil_status']; ?>" <?= ($fetch_userdata['civil_status'] == htmlentities(chk_array($modelo->form_data, 'user_civil_status'))) ? 'selected' : ''; ?>><?= $fetch_userdata['civil_status']; ?></option>
-                                <?php
+                            foreach ($lista as $fetch_userdata) :
+                            ?>
+                                <option value="<?= $fetch_userdata['civil_status']; ?>" <?= ($fetch_userdata['civil_status'] == htmlentities(chkArray($modelo->form_data, 'user_civil_status'))) ? 'selected' : ''; ?>><?= $fetch_userdata['civil_status']; ?></option>
+                            <?php
                             endforeach;
                             unset($lista, $fetch_userdata);
                             ?>
@@ -169,29 +167,29 @@
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="user_date_dem">Data de Admissão:</label>
-                        <input id="user_date_dem" name="user_date_dem" class="data form-control" type="text" placeholder="dd/mm/aaaa" >
+                        <input id="user_date_dem" name="user_date_dem" class="data form-control" type="text" placeholder="dd/mm/aaaa">
                         <br>
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-12">
                         <label for="user_date_adm">Data de Demissão:</label>
-                        <input id="user_date_adm" name="user_date_adm" class="data form-control" type="text" placeholder="dd/mm/aaaa" >
+                        <input id="user_date_adm" name="user_date_adm" class="data form-control" type="text" placeholder="dd/mm/aaaa">
                         <br>
                     </div>
                     <div class="form-group col-md-2 col-sm-4 col-xs-6">
                         <label for="user_active">Status ativo: Não / Sim</label>
                         <select name="user_active" class="form-control">
-                            <option value="0" <?= (htmlentities(chk_array($modelo->form_data, 'user_active')) == 0) ? 'selected'  : FALSE; ?> selected  >Não</option>
-                            <option value="1" <?= (htmlentities(chk_array($modelo->form_data, 'user_active')) == 1) ? 'selected'  : FALSE; ?>>Sim</option>
+                            <option value="0" <?= (htmlentities(chkArray($modelo->form_data, 'user_active')) == 0) ? 'selected'  : FALSE; ?> selected>Não</option>
+                            <option value="1" <?= (htmlentities(chkArray($modelo->form_data, 'user_active')) == 1) ? 'selected'  : FALSE; ?>>Sim</option>
                         </select>
                         <br>
                     </div>
                 </div>
             </fieldset>
-            
+
             <div class="row form-compact">
                 <div class="form-group col-md-4 col-sm-12 col-xs-12">
-                    <b>NÍVEIS DE ACESSO: 
-                        <i style="color: #dd5600;"  data-toggle="tooltip" title="Olá, para utilizar as permissões selecio ao lado para selecionar mais de uma permissao mantenha a tecla ctrl presionada e click nas permissões desejada. !" class="fa fa-question-circle" aria-hidden="true"  ></i>
+                    <b>NÍVEIS DE ACESSO:
+                        <i style="color: #dd5600;" data-toggle="tooltip" title="Olá, para utilizar as permissões selecio ao lado para selecionar mais de uma permissao mantenha a tecla ctrl presionada e click nas permissões desejada. !" class="fa fa-question-circle" aria-hidden="true"></i>
                     </b>
                     <div class="acess-card input-group btn-group">
                         <span class="card input-group-addon">
@@ -199,46 +197,50 @@
                         </span>
 
                         <select name="user_permissions[]" style="text-align: justify;" id="permission-select" class="form-control" multiple="multiple">
-                            <?php   foreach ($modelo->get_all_col('users_permissions', 'permissions_id') as $fetch_userdata):   ?>
-                            <option value="<?= $fetch_userdata['permissions_id']; ?>" <?php if (isset($modelo->form_data['user_permissions'])) {if (in_array($fetch_userdata['permissions_id'], $modelo->form_data['user_permissions'])) {echo 'selected';}} ?> > <?= $fetch_userdata['permissions']; ?> </option>
-                            <?php   endforeach; unset($fetch_userdata); ?>
+                            <?php foreach ($modelo->get_all_col('users_permissions', 'permissions_id') as $fetch_userdata) :   ?>
+                                <option value="<?= $fetch_userdata['permissions_id']; ?>" <?php if (isset($modelo->form_data['user_permissions'])) {
+                                                                                                if (in_array($fetch_userdata['permissions_id'], $modelo->form_data['user_permissions'])) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            } ?>> <?= $fetch_userdata['permissions']; ?> </option>
+                            <?php endforeach;
+                            unset($fetch_userdata); ?>
                         </select>
                     </div>
                 </div>
             </div>
             <br>
-            <fieldset >
+            <fieldset>
                 <legend>Informações de login</legend>
                 <div class="row form-compact">
                     <div class="form-group  col-md-4 col-sm-12 col-xs-12">
                         <label for="user_email">Email este será o usuário:</label>
-                        <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?= htmlentities(chk_array($modelo->form_data, 'user_email')); ?>" class="form-control" id="user_email" >
+                        <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?= htmlentities(chkArray($modelo->form_data, 'user_email')); ?>" class="form-control" id="user_email">
                         <p></p>
 
                     </div>
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="user_password"> Senha:</label>
-                        <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..."
-                               value="<?= htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
+                        <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..." value="<?= htmlentities(chkArray($modelo->form_data, 'user_password')); ?>">
                         <br>
                     </div>
 
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <br>
                         <div class="btn-group">
-                            <button id="user-register-btn" type="submit" class="btn btn-default" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >
+                            <button id="user-register-btn" type="submit" class="btn btn-default" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando...">
                                 <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i> Cadastra
-                                
+
                             </button>
                         </div>
                         <div class="btn-group">
                             <a href="<?= HOME_URI; ?>/users" class="btn btn-default">
-                                <i class="glyphicon glyphicon-list" aria-hidden="true"></i> Listar cadastros 
+                                <i class="glyphicon glyphicon-list" aria-hidden="true"></i> Listar cadastros
                             </a>
                         </div>
                         <div class="btn-group">
                             <button type="reset" class="btn btn-default marg-top">
-                                <i class="glyphicon glyphicon-erase" aria-hidden="true"></i> Limpar 
+                                <i class="glyphicon glyphicon-erase" aria-hidden="true"></i> Limpar
                             </button>
                         </div>
                     </div>
@@ -250,12 +252,11 @@
     <div class="col-md-1 col-sm-0 col-xs-0"></div>
 </div> <!-- /row  -->
 <script>
-    
-//    $("select").change(function() {
-//        $(this).css('color','red');
-//    });
-    
-    $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
+    //    $("select").change(function() {
+    //        $(this).css('color','red');
+    //    });
+
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>

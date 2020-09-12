@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class CovenantModel extends MainModel 
+class CovenantModel extends MainModel
 {
     /**
      * $form_data
@@ -27,7 +27,7 @@ class CovenantModel extends MainModel
      * @Acesso: public
      */
     public $form_msg;
-    
+
     /**
      * $db
      *
@@ -45,216 +45,221 @@ class CovenantModel extends MainModel
      * @since 0.1
      * @access public
      */
-    public function __construct( $db = FALSE ) {
-            $this->db = $db;
+    public function __construct($db = FALSE)
+    {
+        $this->db = $db;
     }
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: validate_register_form()
-    *   @Versão: 0.2 
-    *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
-    *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
-    **/ 
-    public function validate_register_form () {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: validate_register_form()
+     *   @Versão: 0.2 
+     *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
+     *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
+     **/
+    public function validate_register_form()
+    {
         # Cria o vetor que vai receber os dados do post
         $this->form_data = [];
-        
+
         # Verifica se não é vazio o $_POST
-        if ( (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT) ) ) ) {
-            
+        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
+
             # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
-            foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
+            foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
                 # Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
             } # End foreach
-            
+
             # Verifica se existe o ID e decodifica se o mesmo existir.
-            ( !empty($this->form_data['covenant_id']) ) 
-            ? $this->form_data['covenant_id'] = $this->encode_decode(0, $this->form_data['covenant_id']) : '';
-        }else {
+            (!empty($this->form_data['covenant_id']))
+                ? $this->form_data['covenant_id'] = $this->encodeDecode(0, $this->form_data['covenant_id']) : '';
+        } else {
             # Finaliza a execução.
             return 'err';
         } #--> End
-        
+
         # Verifica se o registro já existe.
-        $db_check_ag = $this->db->query (' SELECT count(*) FROM `covenant` WHERE `covenant_id` = ? ',[
-            chk_array($this->form_data, 'covenant_id')
+        $db_check_ag = $this->db->query(' SELECT count(*) FROM `covenant` WHERE `covenant_id` = ? ', [
+            chkArray($this->form_data, 'covenant_id')
         ]);
-        
+
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
-        if ( ($db_check_ag->fetchColumn()) >= 1 ) {           
-            $this->updateRegister( $this->form_data['covenant_id'] );
-        }else{
+        if (($db_check_ag->fetchColumn()) >= 1) {
+            $this->updateRegister($this->form_data['covenant_id']);
+        } else {
             //var_dump($this->form_data);die;
             $this->insertRegister();
         }
-        
     } #--> End validate_register_form()
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: insertRegister()
-    *   @Versão: 0.2 
-    *   @Descrição: Insere o registro no BD.
-    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
-    **/ 
-    private function insertRegister(){
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chk_array($this->form_data, 'covenant_date_covenant'))));die;
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: insertRegister()
+     *   @Versão: 0.2 
+     *   @Descrição: Insere o registro no BD.
+     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+     **/
+    private function insertRegister()
+    {
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'covenant_date_covenant'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('covenant',[
-            'covenant_name'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_name')),
-            'covenant_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_cpf_cnpj')),
-            'covenant_rs'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_rs')),
-            'covenant_at'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_at')),
-            'covenant_end'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_end')),
-            'covenant_district'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_district')),
-            'covenant_city'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_city')),
-            'covenant_uf'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_uf')),
-            'covenant_nation'       =>  $this->avaliar(chk_array($this->form_data, 'covenant_nation')),
-            'covenant_cep'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cep')),
-            'covenant_cel'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cel')),
-            'covenant_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_1')),
-            'covenant_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_2')),
-            'covenant_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_insc_uf')),
-            'covenant_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_web_url')),
-            'covenant_sit'          =>  chk_array($this->form_data, 'covenant_sit'),
-            'covenant_email'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_email')),
-            'covenant_rep_name'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_name')),
-            'covenant_rep_nick'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_nick')),
-            'covenant_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_email')),
-            'covenant_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_cel')),
-            'covenant_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_1')),
-            'covenant_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_2')),
-            'covenant_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_1')),
-            'covenant_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_1')),
-            'covenant_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_1')),
-            'covenant_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_1')),
-            'covenant_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_2')),
-            'covenant_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_2')),
-            'covenant_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_2')),
-            'covenant_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_2')),
-            'covenant_obs'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_obs')),
+        $query_ins = $this->db->insert('covenant', [
+            'covenant_name'         =>  $this->avaliar(chkArray($this->form_data, 'covenant_name')),
+            'covenant_cpf_cnpj'     =>  $this->avaliar(chkArray($this->form_data, 'covenant_cpf_cnpj')),
+            'covenant_rs'           =>  $this->avaliar(chkArray($this->form_data, 'covenant_rs')),
+            'covenant_at'           =>  $this->avaliar(chkArray($this->form_data, 'covenant_at')),
+            'covenant_end'          =>  $this->avaliar(chkArray($this->form_data, 'covenant_end')),
+            'covenant_district'     =>  $this->avaliar(chkArray($this->form_data, 'covenant_district')),
+            'covenant_city'         =>  $this->avaliar(chkArray($this->form_data, 'covenant_city')),
+            'covenant_uf'           =>  $this->avaliar(chkArray($this->form_data, 'covenant_uf')),
+            'covenant_nation'       =>  $this->avaliar(chkArray($this->form_data, 'covenant_nation')),
+            'covenant_cep'          =>  $this->avaliar(chkArray($this->form_data, 'covenant_cep')),
+            'covenant_cel'          =>  $this->avaliar(chkArray($this->form_data, 'covenant_cel')),
+            'covenant_tel_1'        =>  $this->avaliar(chkArray($this->form_data, 'covenant_tel_1')),
+            'covenant_tel_2'        =>  $this->avaliar(chkArray($this->form_data, 'covenant_tel_2')),
+            'covenant_insc_uf'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_insc_uf')),
+            'covenant_web_url'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_web_url')),
+            'covenant_sit'          =>  chkArray($this->form_data, 'covenant_sit'),
+            'covenant_email'        =>  $this->avaliar(chkArray($this->form_data, 'covenant_email')),
+            'covenant_rep_name'     =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_name')),
+            'covenant_rep_nick'     =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_nick')),
+            'covenant_rep_email'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_email')),
+            'covenant_rep_cel'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_cel')),
+            'covenant_rep_tel_1'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_tel_1')),
+            'covenant_rep_tel_2'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_tel_2')),
+            'covenant_banco_1'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_banco_1')),
+            'covenant_agencia_1'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_agencia_1')),
+            'covenant_conta_1'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_conta_1')),
+            'covenant_titular_1'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_titular_1')),
+            'covenant_banco_2'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_banco_2')),
+            'covenant_agencia_2'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_agencia_2')),
+            'covenant_conta_2'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_conta_2')),
+            'covenant_titular_2'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_titular_2')),
+            'covenant_obs'          =>  $this->avaliar(chkArray($this->form_data, 'covenant_obs')),
             'covenant_created'      =>  date('Y-m-d H:i:s', time())
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
-        if ( $query_ins ) {
+        if ($query_ins) {
             //$this->form_msg = ['result'=>'success', 'message'=>'query success'];
             //return $this->form_msg;
             echo 'ok';
-        }else{
+        } else {
             # Feedback
             //$this->form_msg = ['result'=>'error', 'message'=>'query error'];
-            
+
             # Retorna o valor e finaliza execução
             //return $this->form_msg;
             echo 'err';
         }
     }
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: updateRegister()
-    *   @Versão: 0.2 
-    *   @Descrição: Atualiza um registro especifico no BD.
-    *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
-    **/ 
-    private function updateRegister( $registro_id = NULL ){
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: updateRegister()
+     *   @Versão: 0.2 
+     *   @Descrição: Atualiza um registro especifico no BD.
+     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
+     **/
+    private function updateRegister($registro_id = NULL)
+    {
         # Verifica se existe ID
-        if ( $registro_id ) {
+        if ($registro_id) {
             # Efetua o update do registro
-            $query_up = $this->db->update('covenant', 'covenant_id', $registro_id,[
-                'covenant_name'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_name')),
-                'covenant_cpf_cnpj'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_cpf_cnpj')),
-                'covenant_rs'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_rs')),
-                'covenant_at'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_at')),
-                'covenant_end'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_end')),
-                'covenant_district'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_district')),
-                'covenant_city'         =>  $this->avaliar(chk_array($this->form_data, 'covenant_city')),
-                'covenant_uf'           =>  $this->avaliar(chk_array($this->form_data, 'covenant_uf')),
-                'covenant_nation'       =>  $this->avaliar(chk_array($this->form_data, 'covenant_nation')),
-                'covenant_cep'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cep')),
-                'covenant_cel'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_cel')),
-                'covenant_tel_1'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_1')),
-                'covenant_tel_2'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_tel_2')),
-                'covenant_insc_uf'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_insc_uf')),
-                'covenant_web_url'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_web_url')),
-                'covenant_sit'          =>  chk_array($this->form_data, 'covenant_sit'),
-                'covenant_email'        =>  $this->avaliar(chk_array($this->form_data, 'covenant_email')),
-                'covenant_rep_name'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_name')),
-                'covenant_rep_nick'     =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_nick')),
-                'covenant_rep_email'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_email')),
-                'covenant_rep_cel'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_cel')),
-                'covenant_rep_tel_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_1')),
-                'covenant_rep_tel_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_rep_tel_2')),
-                'covenant_banco_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_1')),
-                'covenant_agencia_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_1')),
-                'covenant_conta_1'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_1')),
-                'covenant_titular_1'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_1')),
-                'covenant_banco_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_banco_2')),
-                'covenant_agencia_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_agencia_2')),
-                'covenant_conta_2'      =>  $this->avaliar(chk_array($this->form_data, 'covenant_conta_2')),
-                'covenant_titular_2'    =>  $this->avaliar(chk_array($this->form_data, 'covenant_titular_2')),
-                'covenant_obs'          =>  $this->avaliar(chk_array($this->form_data, 'covenant_obs')),
+            $query_up = $this->db->update('covenant', 'covenant_id', $registro_id, [
+                'covenant_name'         =>  $this->avaliar(chkArray($this->form_data, 'covenant_name')),
+                'covenant_cpf_cnpj'     =>  $this->avaliar(chkArray($this->form_data, 'covenant_cpf_cnpj')),
+                'covenant_rs'           =>  $this->avaliar(chkArray($this->form_data, 'covenant_rs')),
+                'covenant_at'           =>  $this->avaliar(chkArray($this->form_data, 'covenant_at')),
+                'covenant_end'          =>  $this->avaliar(chkArray($this->form_data, 'covenant_end')),
+                'covenant_district'     =>  $this->avaliar(chkArray($this->form_data, 'covenant_district')),
+                'covenant_city'         =>  $this->avaliar(chkArray($this->form_data, 'covenant_city')),
+                'covenant_uf'           =>  $this->avaliar(chkArray($this->form_data, 'covenant_uf')),
+                'covenant_nation'       =>  $this->avaliar(chkArray($this->form_data, 'covenant_nation')),
+                'covenant_cep'          =>  $this->avaliar(chkArray($this->form_data, 'covenant_cep')),
+                'covenant_cel'          =>  $this->avaliar(chkArray($this->form_data, 'covenant_cel')),
+                'covenant_tel_1'        =>  $this->avaliar(chkArray($this->form_data, 'covenant_tel_1')),
+                'covenant_tel_2'        =>  $this->avaliar(chkArray($this->form_data, 'covenant_tel_2')),
+                'covenant_insc_uf'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_insc_uf')),
+                'covenant_web_url'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_web_url')),
+                'covenant_sit'          =>  chkArray($this->form_data, 'covenant_sit'),
+                'covenant_email'        =>  $this->avaliar(chkArray($this->form_data, 'covenant_email')),
+                'covenant_rep_name'     =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_name')),
+                'covenant_rep_nick'     =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_nick')),
+                'covenant_rep_email'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_email')),
+                'covenant_rep_cel'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_cel')),
+                'covenant_rep_tel_1'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_tel_1')),
+                'covenant_rep_tel_2'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_rep_tel_2')),
+                'covenant_banco_1'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_banco_1')),
+                'covenant_agencia_1'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_agencia_1')),
+                'covenant_conta_1'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_conta_1')),
+                'covenant_titular_1'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_titular_1')),
+                'covenant_banco_2'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_banco_2')),
+                'covenant_agencia_2'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_agencia_2')),
+                'covenant_conta_2'      =>  $this->avaliar(chkArray($this->form_data, 'covenant_conta_2')),
+                'covenant_titular_2'    =>  $this->avaliar(chkArray($this->form_data, 'covenant_titular_2')),
+                'covenant_obs'          =>  $this->avaliar(chkArray($this->form_data, 'covenant_obs')),
                 'covenant_modified'     =>  date('Y-m-d H:i:s', time())
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
-            if ( $query_up ) {
+            if ($query_up) {
                 # Destroy variáveis nao mais utilizadas.
-                unset( $registro_id, $query_up  );
-                
+                unset($registro_id, $query_up);
+
                 # Retorna o valor e finaliza execução.
-                echo 'ok';exit();
-            }else{
+                echo 'ok';
+                exit();
+            } else {
                 # Destroy variavel nao mais utilizadas.
-                unset( $registro_id, $query_up  );
-                
+                unset($registro_id, $query_up);
+
                 # Retorna o valor e finaliza execução.   
-                echo 'err';exit();
+                echo 'err';
+                exit();
             }
         }
     } #--> End updateRegister()
-    
-    /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Função: get_register_form()
-    *   @Versão: 0.2 
-    *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
-    **/ 
-    public function get_register_form ( $id_encode ) {
-        
-        $id_decode = intval($this->encode_decode(0, $id_encode));
-        
-        # Verifica na base de dados o registro
-        $query_get = $this->db->query('SELECT * FROM `covenant` WHERE `covenant_id` = ?', [ $id_decode ]  );
 
-        
+    /**
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Função: get_register_form()
+     *   @Versão: 0.2 
+     *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
+     **/
+    public function get_register_form($id_encode)
+    {
+
+        $id_decode = intval($this->encodeDecode(0, $id_encode));
+
+        # Verifica na base de dados o registro
+        $query_get = $this->db->query('SELECT * FROM `covenant` WHERE `covenant_id` = ?', [$id_decode]);
+
+
 
         # Obtém os dados da consulta
         $fetch_userdata = $query_get->fetch(PDO::FETCH_ASSOC);
-        
+
         # Faz um loop dos dados, guardando os no vetor $form_data
-        foreach ( $fetch_userdata as $key => $value ) {
+        foreach ($fetch_userdata as $key => $value) {
             $this->form_data[$key] = $value;
         }
-        
+
         # Tratamento da data para o modelo visao do fomulario
         #$this->form_data['covenant_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['covenant_data_aq']);
-        
+
         # Destroy variaveis não mais utilizadas
         unset($query_get, $fetch_userdata);
-        
+
         return;
-        
     } # End get_register_form()
-        
-        
+
+
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -262,87 +267,91 @@ class CovenantModel extends MainModel
      *   @Versão: 0.2 
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
-    public function delRegister( $encode_id ) {
+    public function delRegister($encode_id)
+    {
 
         # Recebe o ID do registro converte de string para inteiro.
-        $decode_id = intval($this->encode_decode(0, $encode_id));
-        
+        $decode_id = intval($this->encodeDecode(0, $encode_id));
+
         # Executa a consulta na base de dados
         $search = $this->db->query("SELECT count(*) FROM `covenant` WHERE `covenant_id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
-            
-            echo 'err';exit();
-            
+
+            echo 'err';
+            exit();
         } else {
             # Executa a remoção do registro
-            ( $this->db->delete('fees', 'covenant_id', $decode_id) ) ? $this->db->delete('covenant', 'covenant_id', $decode_id) : FALSE;
-            
+            ($this->db->delete('fees', 'covenant_id', $decode_id)) ? $this->db->delete('covenant', 'covenant_id', $decode_id) : FALSE;
+
 
             # Destroy variáveis não mais utilizadas
             unset($parametro, $search, $id);
 
-            echo 'ok';exit();
+            echo 'ok';
+            exit();
         }
     }   #--> End delRegister()
-   
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: get_ultimo_id() 
-    *   @Descrição: Pega o ultimo ID do registro.
-    **/
-    public function get_ultimo_id() {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_ultimo_id() 
+     *   @Descrição: Pega o ultimo ID do registro.
+     **/
+    public function get_ultimo_id()
+    {
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
-         
+
         $row = $query->fetch();
         $id = trim($row[0]);
-        
+
         return $id;
-        
-     } // End get_ultimo_id()
-     
-     
-    
-    public function getSelect_return($sql){
+    } // End get_ultimo_id()
+
+
+
+    public function getSelect_return($sql)
+    {
         # Simplesmente seleciona os dados na base de dados
         $queryGet = $this->db->query($sql);
-        
+
         # Declara o vetor
         $result_array = [];
-        
-       
+
+
         # Retorna os valores da consulta
-        while($results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
+        while ($results = $queryGet->fetchAll(PDO::FETCH_ASSOC)) {
             $result_array = $results;
         }
-       
+
         foreach ($result_array as $result) {
-            
+
             # The output
-            echo '<tr>';			
-            echo '<td class="small">'.$result['covenant_id'].'</td>';
-            echo '<td class="small">'.$result['covenant_venc'].'</td>';
-            echo '<td class="small">'.$result['covenant_date_covenant'].'</td>';
-            echo '<td class="small">'.$result['covenant_cat'].'</td>';
-            echo '<td class="small">'.$result['covenant_desc'].'</td>';
-            echo '<td class="small">'.$result['covenant_val'].'</td>';
-            echo '</tr>';	
+            echo '<tr>';
+            echo '<td class="small">' . $result['covenant_id'] . '</td>';
+            echo '<td class="small">' . $result['covenant_venc'] . '</td>';
+            echo '<td class="small">' . $result['covenant_date_covenant'] . '</td>';
+            echo '<td class="small">' . $result['covenant_cat'] . '</td>';
+            echo '<td class="small">' . $result['covenant_desc'] . '</td>';
+            echo '<td class="small">' . $result['covenant_val'] . '</td>';
+            echo '</tr>';
         }
     }
-    
+
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: getJSON() 
-    *   @Descrição: Recebe a tabela e o id, e retorna um JSON dos dados.
-    **/ 
-  public function getJSON($table, $id) {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: getJSON() 
+     *   @Descrição: Recebe a tabela e o id, e retorna um JSON dos dados.
+     **/
+    public function getJSON($table, $id)
+    {
 
         # Simplesmente seleciona os dados na base de dados
         $query = $this->db->query("SELECT * FROM $table ORDER BY $id");
@@ -356,7 +365,7 @@ class CovenantModel extends MainModel
 
         # Retorna os valores da consulta
         $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
-        
+
         // Prepara a conversao para o formato desejado
         foreach ($queryResult as $covenant) {
             $mysql_data[] = [
@@ -368,7 +377,7 @@ class CovenantModel extends MainModel
                 "covenant_val"       => $covenant['covenant_val']
             ];
         }
-        
+
         # Cria o arquivo JSON
         $fp = fopen('arquivo.json', 'w');
         fwrite($fp, json_encode($mysql_data));
@@ -376,40 +385,39 @@ class CovenantModel extends MainModel
 
         # Finaliza execução
         return;
-        
     } # End getJSON()
 
     /**
-    *   @Acesso: public
-    *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-    *   @Versão: 0.1
-    *   @Função: get_registro() 
-    *   @Descrição: Pega o ID passado na função e retorna os valores do id solicitado.
-    **/ 
-    public function get_registro( $encode_id = NULL ) {
+     *   @Acesso: public
+     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
+     *   @Versão: 0.1
+     *   @Função: get_registro() 
+     *   @Descrição: Pega o ID passado na função e retorna os valores do id solicitado.
+     **/
+    public function get_registro($encode_id = NULL)
+    {
         #   Recebe o ID codficado e decodifica depois converte e inteiro
-        $decode_id = intval($this->encode_decode(0, $encode_id));
-        
+        $decode_id = intval($this->encodeDecode(0, $encode_id));
+
         # Simplesmente seleciona os dados na base de dados
-        $query_get = $this->db->query( " SELECT * FROM  `covenant` WHERE `covenant_id`= $decode_id " );
+        $query_get = $this->db->query(" SELECT * FROM  `covenant` WHERE `covenant_id`= $decode_id ");
 
         # Verifica se a consulta está OK
-        if ( !$query_get ) {
-            
+        if (!$query_get) {
+
             # Finaliza
             return;
         }
-        
+
         # Destroy variaveis não mais utilizadas
         unset($decode_id, $encode_id);
 
-        
+
         # Retorna os valores da consulta
         return $query_get->fetch(PDO::FETCH_ASSOC);
-        
     } # End get_registro()
-    
-     /**
+
+    /**
      * Paginação
      *
      * Cria uma paginação simples.
@@ -421,7 +429,9 @@ class CovenantModel extends MainModel
      * @return string A paginação montada
      */
     function paginacao(
-        $total_artigos = 0, $artigos_por_pagina = 10, $offset = 5
+        $total_artigos = 0,
+        $artigos_por_pagina = 10,
+        $offset = 5
     ) {
         // Obtém o número total de página
         $numero_de_paginas = floor($total_artigos / $artigos_por_pagina);
@@ -442,7 +452,7 @@ class CovenantModel extends MainModel
 
         // Faz o loop da paginação
         // $pagina_atual - 1 da a possibilidade do usuário voltar
-        for ($i = ( $pagina_atual - 1 ); $i < ( $pagina_atual - 1 ) + $offset; $i++) {
+        for ($i = ($pagina_atual - 1); $i < ($pagina_atual - 1) + $offset; $i++) {
 
             // Eliminamos a primeira página (que seria a home do site)
             if ($i < $numero_de_paginas && $i > 0) {
@@ -468,65 +478,64 @@ class CovenantModel extends MainModel
         // Retorna o que foi criado
         return $paginas;
     }
-    
-    
-     /*
+
+
+    /*
      * Returns rows from the database based on the conditions
      * @param string name of the table
      * @param array select, where, search, order_by, limit and return_type conditions
      */
-    public function getRows($table, $conditions = []){
+    public function getRows($table, $conditions = [])
+    {
         $sql = 'SELECT ';
-        $sql .= array_key_exists('select',$conditions) ? $conditions['select']: '*';
-        $sql .= ' FROM '.$table;             
-        
-        if(array_key_exists('where',$conditions)){
+        $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
+        $sql .= ' FROM ' . $table;
+
+        if (array_key_exists('where', $conditions)) {
             $sql .= ' WHERE ';
             $i = 0;
-            foreach($conditions['where'] as $key => $value){
+            foreach ($conditions['where'] as $key => $value) {
                 $pre = ($i > 0) ? ' AND ' : '';
-                $sql .= $pre.$key." = '".$value."'";
+                $sql .= $pre . $key . " = '" . $value . "'";
                 $i++;
             }
         }
-        
-        if(array_key_exists('where_limit',$conditions)){
-            $sql .= ' WHERE '.$conditions['where_limit']['key_where']. ' = '.$conditions['where_limit']['value_where'];
+
+        if (array_key_exists('where_limit', $conditions)) {
+            $sql .= ' WHERE ' . $conditions['where_limit']['key_where'] . ' = ' . $conditions['where_limit']['value_where'];
             //$sql .=  $conditions['where_limit']['value_limit'];
             //var_dump($sql);die;
-            
+
         }
-        
-        if(array_key_exists('search',$conditions)){
+
+        if (array_key_exists('search', $conditions)) {
             $sql .= (strpos($sql, 'WHERE') !== false) ? '' : ' WHERE ';
             $i = 0;
-            foreach($conditions['search'] as $key => $value){
-                $pre = ($i > 0)?' OR ':'';
-                $sql .= $pre.$key." LIKE '%".$value."%'";
+            foreach ($conditions['search'] as $key => $value) {
+                $pre = ($i > 0) ? ' OR ' : '';
+                $sql .= $pre . $key . " LIKE '%" . $value . "%'";
                 $i++;
             }
         }
-        
-        
-        
-        if(array_key_exists("order_by",$conditions)){
-            $sql .= ' ORDER BY '.$conditions['order_by']; 
+
+
+
+        if (array_key_exists("order_by", $conditions)) {
+            $sql .= ' ORDER BY ' . $conditions['order_by'];
         }
         var_dump($sql);
-        
-        if(array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
-            
-            $sql .= ' LIMIT '.$conditions['start'].','.$conditions['limit']; 
-            
-        }elseif(!array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
-            $sql .= ' LIMIT '.$conditions['limit']; 
-            
+
+        if (array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+
+            $sql .= ' LIMIT ' . $conditions['start'] . ',' . $conditions['limit'];
+        } elseif (!array_key_exists("start", $conditions) && array_key_exists("limit", $conditions)) {
+            $sql .= ' LIMIT ' . $conditions['limit'];
         }
-        
+
         $result = $this->db->query($sql);
-        
-        if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
-            switch($conditions['return_type']){
+
+        if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
+            switch ($conditions['return_type']) {
                 case 'count':
                     $data = count($result);
                     break;
@@ -536,9 +545,9 @@ class CovenantModel extends MainModel
                 default:
                     $data = '';
             }
-        }else{
-            if(count($result) > 0){
-                while($row = $result->fetch(PDO::FETCH_ASSOC)){
+        } else {
+            if (count($result) > 0) {
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     $data[] = $row;
                     //var_dump($data);
                 }
@@ -546,5 +555,4 @@ class CovenantModel extends MainModel
         }
         return !empty($data) ? $data : false;
     }
-
 } #Fees_Model

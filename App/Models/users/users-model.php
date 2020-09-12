@@ -6,7 +6,8 @@
  * @package OdontoControl
  * @since 0.1
  */
-class UsersModel extends MainModel {
+class UsersModel extends MainModel
+{
 
     /**
      * $form_data
@@ -43,7 +44,8 @@ class UsersModel extends MainModel {
      * @since 0.1
      * @access public
      */
-    public function __construct($db = false) {
+    public function __construct($db = false)
+    {
         $this->db = $db;
     }
 
@@ -56,13 +58,14 @@ class UsersModel extends MainModel {
      * @since 0.1
      * @access public
      * */
-    public function validate_register_form() {
+    public function validate_register_form()
+    {
         #   Cria o vetor que vai receber os dados do post
         $this->form_data = [];
-        
+
         #   Verifica se algo foi postado no formulário
         if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
-            
+
             if (empty(filter_input(INPUT_POST, 'user_email', FILTER_VALIDATE_EMAIL))) {
                 #   Feedback para o usuário
                 $this->form_msg = [0 => 'alert-warning', 1 => 'Opa! ', 2 => 'Email não válido verifique o email e tente novamente.'];
@@ -71,59 +74,57 @@ class UsersModel extends MainModel {
             }
 
             #   Faz o loop dos dados do formulário inserindo os no vetor @form_data.
-            foreach ( filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value ) {
+            foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
 
                 #   Configura os dados do post para a propriedade $form_data
                 $this->form_data[$key] = $value;
-                
             } #-->  Fim foreach
-            
+
             #var_dump($this->form_data['user_gen']);die;
-            
-            if($this->process_data() == FALSE){
+
+            if ($this->process_data() == FALSE) {
                 #   Feedback para o usuário
-                $this->form_msg = [0 => 'alert-warning', 1=>'glyphicon glyphicon-eye-open', 2 => 'Opa! ', 3 => 'Não faça isso! sua ação  foi guardada para eventual auditoria.'];
+                $this->form_msg = [0 => 'alert-warning', 1 => 'glyphicon glyphicon-eye-open', 2 => 'Opa! ', 3 => 'Não faça isso! sua ação  foi guardada para eventual auditoria.'];
                 #unset($db_check_email);
                 return;
             }
-            
+
             #   Destroy variaveis não mais utilizadas
             unset($value, $key);
-             
+
             #   Verifica se ambos os campos não estão vazio 
-            if (empty($this->form_data['user_name'] AND $this->form_data['user_email'] AND $this->form_data['user_password'])) {
-                
+            if (empty($this->form_data['user_name'] and $this->form_data['user_email'] and $this->form_data['user_password'])) {
+
                 #   Feedback para o usuário
                 $this->form_msg = [0 => 'alert-warning', 1 => 'Opa! ', 2 => 'Os campos nome, email e senha são obrigatorios verfique esses campos e tente novamente.'];
                 #   Termina
                 return;
             }
         } else {
-            
+
             #   Feedback para o usuário
-                $this->form_msg = [0 => 'alert-warning', 1 => 'glyphicon glyphicon-eye-open ', 2 => 'Informação!', 2 => 'Nada foi enviado'];
+            $this->form_msg = [0 => 'alert-warning', 1 => 'glyphicon glyphicon-eye-open ', 2 => 'Informação!', 2 => 'Nada foi enviado'];
             #   Finaliza se nada foi enviado
             return;
-            
         }   #---> End
-         
+
         #    Chama o método de envio de imagem
         $imagem = $this->upload_imagem();
 
         #    Implementa a imagem no vetor inserindo a no mesmo
         $this->form_data['user_img_profile'] = $imagem;
-        
+
         #   Destroy a variavel
         unset($imagem);
-        
-        if(empty($this->form_data['user_img_profile'])){
+
+        if (empty($this->form_data['user_img_profile'])) {
             echo "<script>alert('Não a imagem')</script>";
-        }else{
+        } else {
             echo "<script>alert('Imagem foi carregada')</script>";
         }
 
         $db_check_email = $this->db->query(' SELECT count(*) FROM `users` WHERE `user_email` = ? ', [
-            chk_array($this->form_data, 'user_email')
+            chkArray($this->form_data, 'user_email')
         ]);
 
         // Verifica se a consulta foi realizada com sucesso
@@ -141,19 +142,19 @@ class UsersModel extends MainModel {
         /*  Converte a senha enviada através do formulário para o hash (Criptografa) com API PHP
             passando a hash para o vetor @form_data  */
         $this->form_data['user_password'] = password_hash($this->form_data['user_password'], PASSWORD_DEFAULT);
-        
-        
+
+
         #   Variáveis para inserção na base de dados
         $role_id = 1; // Onde 1 é adm e 2 user
-        
+
         #   Executa a consulta na base de dados a procura do ID
         $db_check_id = $this->db->query(' SELECT count(*) FROM `users` WHERE `user_id` = ? ', [
-            chk_array($this->form_data, 'user_id')
+            chkArray($this->form_data, 'user_id')
         ]);
 
         #   Verifica se o ID existe
         if (($db_check_id->fetchColumn()) >= 1) {
-            $this->updateRegister(chk_array($this->form_data, 'user_id'));
+            $this->updateRegister(chkArray($this->form_data, 'user_id'));
             unset($db_check_id);
             return;
         } else {
@@ -161,11 +162,10 @@ class UsersModel extends MainModel {
             unset($db_check_id);
             return;
         }
-        
     }   #--> End validate_register_form()
-    
-    
-    
+
+
+
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -173,22 +173,19 @@ class UsersModel extends MainModel {
      *   @Função: get_listar() 
      *   @Descrição: Pega o ID passado na função e retorna os valores.
      * */
-    public function process_data() {
-        if($this->form_data['user_active'] != 0 && $this->form_data['user_active'] != 1){
-            
+    public function process_data()
+    {
+        if ($this->form_data['user_active'] != 0 && $this->form_data['user_active'] != 1) {
+
             return false;
-            
-        }elseif($this->form_data['user_gen'] != 1 && $this->form_data['user_gen'] != 2 && $this->form_data['user_gen'] != 3){
-            
+        } elseif ($this->form_data['user_gen'] != 1 && $this->form_data['user_gen'] != 2 && $this->form_data['user_gen'] != 3) {
+
             return false;
-        }else{
+        } else {
             return true;
         }
-        
-      
-        
     }   # End process_data()
-    
+
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -197,68 +194,69 @@ class UsersModel extends MainModel {
      *   @Descrição: Insere o registro no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      * */
-    public function insertRegister() {
+    public function insertRegister()
+    {
 
-//        #   insere o nome da clinica (revisar)
-//        $this->db->insert('clinics', [
-//            'clinic_name' => chk_array($this->form_data, 'clinic_name'),
-//        ]);
-//
-//        # Obtem ultimo id inserido
-//        $user_clinic_id = $this->db->lastInsertId();
+        //        #   insere o nome da clinica (revisar)
+        //        $this->db->insert('clinics', [
+        //            'clinic_name' => chkArray($this->form_data, 'clinic_name'),
+        //        ]);
+        //
+        //        # Obtem ultimo id inserido
+        //        $user_clinic_id = $this->db->lastInsertId();
 
         //var_dump($this->form_data['user_mother_name']);die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('users', [
-            'user_img_profile'      => chk_array($this->form_data, 'user_img_profile'),
-            'user_name'             => chk_array($this->form_data, 'user_name'),
-            'user_email'            => chk_array($this->form_data, 'user_email'),
-            'user_password'         => chk_array($this->form_data, 'user_password'),
+            'user_img_profile'      => chkArray($this->form_data, 'user_img_profile'),
+            'user_name'             => chkArray($this->form_data, 'user_name'),
+            'user_email'            => chkArray($this->form_data, 'user_email'),
+            'user_password'         => chkArray($this->form_data, 'user_password'),
             'user_session_id'       => md5(time()),
-            'user_permissions'      => serialize((chk_array($this->form_data, 'user_permissions'))),
+            'user_permissions'      => serialize((chkArray($this->form_data, 'user_permissions'))),
             'user_role_id'          => 1,
             'user_clinic_id'        => 1,
-            'user_cpf'              => $this->only_filter_number(chk_array($this->form_data, 'user_cpf')),
-            'user_rg'               => $this->only_filter_number(chk_array($this->form_data, 'user_rg')),
-            'user_birth'            => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_birth')),
-            'user_gen'              => (int) $this->only_filter_number(chk_array($this->form_data, 'user_gen')),
-            'user_civil_status'     => chk_array($this->form_data, 'user_civil_status'),
-            'user_home_phone'       => $this->only_filter_number(chk_array($this->form_data, 'user_phone_home')),
-            'user_cel_phone'        => $this->only_filter_number(chk_array($this->form_data, 'user_cel_phone')),
+            'user_cpf'              => $this->only_filter_number(chkArray($this->form_data, 'user_cpf')),
+            'user_rg'               => $this->only_filter_number(chkArray($this->form_data, 'user_rg')),
+            'user_birth'            => $this->converteData('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'user_birth')),
+            'user_gen'              => (int) $this->only_filter_number(chkArray($this->form_data, 'user_gen')),
+            'user_civil_status'     => chkArray($this->form_data, 'user_civil_status'),
+            'user_home_phone'       => $this->only_filter_number(chkArray($this->form_data, 'user_phone_home')),
+            'user_cel_phone'        => $this->only_filter_number(chkArray($this->form_data, 'user_cel_phone')),
             'user_father_name'      => $this->form_data['user_father_name'],
             'user_mother_name'      => $this->form_data['user_mother_name'],
-            'user_address'          => chk_array($this->form_data, 'user_address'),
-            'user_city'             => chk_array($this->form_data, 'user_city'),
-            'user_state'            => chk_array($this->form_data, 'user_state'),
-            'user_cep'              => $this->only_filter_number(chk_array($this->form_data, 'user_cep')),
-            'user_func_pri'         => chk_array($this->form_data, 'user_func_pri'),
-            'user_func_sec'         => chk_array($this->form_data, 'user_func_sec'),
-            'user_date_adm'         => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_date_adm')),
-            'user_date_dem'         => $this->converteData('d/m/Y', 'Y-m-d', chk_array($this->form_data, 'user_date_dem')),
-            'user_active'           => (int) $this->only_filter_number(chk_array($this->form_data, 'user_active'))
-            
-            
+            'user_address'          => chkArray($this->form_data, 'user_address'),
+            'user_city'             => chkArray($this->form_data, 'user_city'),
+            'user_state'            => chkArray($this->form_data, 'user_state'),
+            'user_cep'              => $this->only_filter_number(chkArray($this->form_data, 'user_cep')),
+            'user_func_pri'         => chkArray($this->form_data, 'user_func_pri'),
+            'user_func_sec'         => chkArray($this->form_data, 'user_func_sec'),
+            'user_date_adm'         => $this->converteData('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'user_date_adm')),
+            'user_date_dem'         => $this->converteData('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'user_date_dem')),
+            'user_active'           => (int) $this->only_filter_number(chkArray($this->form_data, 'user_active'))
+
+
         ]);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ($query_ins) {
             # Feedback para o usuário
             $this->form_msg = [0 => 'alert-info', 1 => 'Sucesso! ', 2 => 'O registro foi efetuado com sucesso!'];
-            
+
             # Redireciona de volta para a página após dez segundos
-            echo '<meta http-equiv="Refresh" content="5"; url='.HOME_URI.'/users/register-employee';
-            
+            echo '<meta http-equiv="Refresh" content="5"; url=' . HOME_URI . '/users/register-employee';
+
             # Destroy variáveis não mais utilizadas.
             unset($query_ins);
 
             # Finaliza execução.
             return;
-        }else{
+        } else {
             # Destroy variáveis não mais utilizadas.
             unset($query_ins);
 
             # Feedback para o usuário
-            $this->form_msg = [0 => 'alert-danger',1=> 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador!'];
+            $this->form_msg = [0 => 'alert-danger', 1 => 'fa fa-exclamation-triangle fa-2', 2 => 'Erro! ', 3 => 'Erro interno do sistema se o problema persistir contate o administrador!'];
 
             # Finaliza execução.
             return;
@@ -273,44 +271,45 @@ class UsersModel extends MainModel {
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      * */
-    public function updateRegister($registro_id = NULL) {
+    public function updateRegister($registro_id = NULL)
+    {
 
         # Se o ID não estiver vazio, atualiza os dados
         if ($registro_id) {
 
             # Atualiza os dados
             $query = $this->db->update('providers', 'provider_id', $registro_id, [
-                'provider_nome' => $this->avaliar(chk_array($this->form_data, 'provider_nome')),
-                'provider_cpf_cnpj' => $this->avaliar(chk_array($this->form_data, 'provider_cpf_cnpj')),
-                'provider_rs' => $this->avaliar(chk_array($this->form_data, 'provider_rs')),
-                'provider_at' => $this->avaliar(chk_array($this->form_data, 'provider_at')),
-                'provider_end' => $this->avaliar(chk_array($this->form_data, 'provider_end')),
-                'provider_bair' => $this->avaliar(chk_array($this->form_data, 'provider_bair')),
-                'provider_cid' => $this->avaliar(chk_array($this->form_data, 'provider_cid')),
-                'provider_uf' => $this->avaliar(chk_array($this->form_data, 'provider_uf')),
-                'provider_pais' => $this->avaliar(chk_array($this->form_data, 'provider_pais')),
-                'provider_cep' => $this->avaliar(chk_array($this->form_data, 'provider_cep')),
-                'provider_cel' => $this->avaliar(chk_array($this->form_data, 'provider_cel')),
-                'provider_tel_1' => $this->avaliar(chk_array($this->form_data, 'provider_tel_1')),
-                'provider_tel_2' => $this->avaliar(chk_array($this->form_data, 'provider_tel_2')),
-                'provider_insc_uf' => $this->avaliar(chk_array($this->form_data, 'provider_insc_uf')),
-                'provider_web_url' => $this->avaliar(chk_array($this->form_data, 'provider_web_url')),
-                'provider_email' => $this->avaliar(chk_array($this->form_data, 'provider_email')),
-                'provider_rep_nome' => $this->avaliar(chk_array($this->form_data, 'provider_rep_nome')),
-                'provider_rep_apelido' => $this->avaliar(chk_array($this->form_data, 'provider_rep_apelido')),
-                'provider_rep_email' => $this->avaliar(chk_array($this->form_data, 'provider_rep_email')),
-                'provider_rep_cel' => $this->avaliar(chk_array($this->form_data, 'provider_rep_cel')),
-                'provider_rep_tel_1' => $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_1')),
-                'provider_rep_tel_2' => $this->avaliar(chk_array($this->form_data, 'provider_rep_tel_2')),
-                'provider_banco_1' => $this->avaliar(chk_array($this->form_data, 'provider_banco_1')),
-                'provider_agencia_1' => $this->avaliar(chk_array($this->form_data, 'provider_agencia_1')),
-                'provider_conta_1' => $this->avaliar(chk_array($this->form_data, 'provider_conta_1')),
-                'provider_titular_1' => $this->avaliar(chk_array($this->form_data, 'provider_titular_1')),
-                'provider_banco_2' => $this->avaliar(chk_array($this->form_data, 'provider_banco_2')),
-                'provider_agencia_2' => $this->avaliar(chk_array($this->form_data, 'provider_agencia_2')),
-                'provider_conta_2' => $this->avaliar(chk_array($this->form_data, 'provider_conta_2')),
-                'provider_titular_2' => $this->avaliar(chk_array($this->form_data, 'provider_titular_2')),
-                'provider_obs' => $this->avaliar(chk_array($this->form_data, 'provider_obs'))
+                'provider_nome' => $this->avaliar(chkArray($this->form_data, 'provider_nome')),
+                'provider_cpf_cnpj' => $this->avaliar(chkArray($this->form_data, 'provider_cpf_cnpj')),
+                'provider_rs' => $this->avaliar(chkArray($this->form_data, 'provider_rs')),
+                'provider_at' => $this->avaliar(chkArray($this->form_data, 'provider_at')),
+                'provider_end' => $this->avaliar(chkArray($this->form_data, 'provider_end')),
+                'provider_bair' => $this->avaliar(chkArray($this->form_data, 'provider_bair')),
+                'provider_cid' => $this->avaliar(chkArray($this->form_data, 'provider_cid')),
+                'provider_uf' => $this->avaliar(chkArray($this->form_data, 'provider_uf')),
+                'provider_pais' => $this->avaliar(chkArray($this->form_data, 'provider_pais')),
+                'provider_cep' => $this->avaliar(chkArray($this->form_data, 'provider_cep')),
+                'provider_cel' => $this->avaliar(chkArray($this->form_data, 'provider_cel')),
+                'provider_tel_1' => $this->avaliar(chkArray($this->form_data, 'provider_tel_1')),
+                'provider_tel_2' => $this->avaliar(chkArray($this->form_data, 'provider_tel_2')),
+                'provider_insc_uf' => $this->avaliar(chkArray($this->form_data, 'provider_insc_uf')),
+                'provider_web_url' => $this->avaliar(chkArray($this->form_data, 'provider_web_url')),
+                'provider_email' => $this->avaliar(chkArray($this->form_data, 'provider_email')),
+                'provider_rep_nome' => $this->avaliar(chkArray($this->form_data, 'provider_rep_nome')),
+                'provider_rep_apelido' => $this->avaliar(chkArray($this->form_data, 'provider_rep_apelido')),
+                'provider_rep_email' => $this->avaliar(chkArray($this->form_data, 'provider_rep_email')),
+                'provider_rep_cel' => $this->avaliar(chkArray($this->form_data, 'provider_rep_cel')),
+                'provider_rep_tel_1' => $this->avaliar(chkArray($this->form_data, 'provider_rep_tel_1')),
+                'provider_rep_tel_2' => $this->avaliar(chkArray($this->form_data, 'provider_rep_tel_2')),
+                'provider_banco_1' => $this->avaliar(chkArray($this->form_data, 'provider_banco_1')),
+                'provider_agencia_1' => $this->avaliar(chkArray($this->form_data, 'provider_agencia_1')),
+                'provider_conta_1' => $this->avaliar(chkArray($this->form_data, 'provider_conta_1')),
+                'provider_titular_1' => $this->avaliar(chkArray($this->form_data, 'provider_titular_1')),
+                'provider_banco_2' => $this->avaliar(chkArray($this->form_data, 'provider_banco_2')),
+                'provider_agencia_2' => $this->avaliar(chkArray($this->form_data, 'provider_agencia_2')),
+                'provider_conta_2' => $this->avaliar(chkArray($this->form_data, 'provider_conta_2')),
+                'provider_titular_2' => $this->avaliar(chkArray($this->form_data, 'provider_titular_2')),
+                'provider_obs' => $this->avaliar(chkArray($this->form_data, 'provider_obs'))
             ]);
 
             # Verifica se a consulta foi realizada com sucesso
@@ -334,12 +333,13 @@ class UsersModel extends MainModel {
      *   @Versão: 0.1 
      *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
      * */
-    public function get_register_form($parametros) {
+    public function get_register_form($parametros)
+    {
 
-        $id = intval($this->encode_decode(0, $parametros));
+        $id = intval($this->encodeDecode(0, $parametros));
 
         // Verifica na base de dados
-        $query = $this->db->query('SELECT * FROM `users` WHERE `user_id` = ?', [ $id]);
+        $query = $this->db->query('SELECT * FROM `users` WHERE `user_id` = ?', [$id]);
 
         // Verifica se a consulta foi realizada com sucesso!
         if (!$query) {
@@ -354,12 +354,12 @@ class UsersModel extends MainModel {
         foreach ($fetch_userdata as $key => $value) {
             $this->form_data[$key] = $value;
         }
-        
+
         // Por questões de segurança, a senha só poderá ser atualizada
         $this->form_data['user_password'] = null;
         # Remove a serialização das permissões
         $this->form_data['user_permissions'] = unserialize($this->form_data['user_permissions']);
-        
+
 
         // Destroy variaveis não mais utilizadas
         unset($id, $query, $fetch_userdata);
@@ -372,10 +372,11 @@ class UsersModel extends MainModel {
      *   @Versão: 0.2 
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
-    public function delRegister($id) {
+    public function delRegister($id)
+    {
 
         # Recebe o ID do registro converte de string para inteiro.
-        $parametro = intval($this->encode_decode(0, $id));
+        $parametro = intval($this->encodeDecode(0, $id));
         //echo $ag_id; die();
 
         $search = $this->db->query("SELECT count(*) FROM `users` WHERE `user_id` = $parametro ");
@@ -417,7 +418,8 @@ class UsersModel extends MainModel {
      *   @Função: get_ultimo_id() 
      *   @Descrição: Pega o ultimo ID do agendamento.
      * */
-    public function get_ultimo_id() {
+    public function get_ultimo_id()
+    {
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query(' SELECT MAX(agenda_id) AS `agenda_id` FROM `agendas` ');
 
@@ -425,10 +427,9 @@ class UsersModel extends MainModel {
         $id = trim($row[0]);
 
         return $id;
-        
     }   # End get_ultimo_id()
-    
-    
+
+
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -436,7 +437,8 @@ class UsersModel extends MainModel {
      *   @Função: get_col_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_col_data($campo, $table, $id) {
+    public function get_col_data($campo, $table, $id)
+    {
 
         #   Simplesmente seleciona os dados na base de dados
         $query = $this->db->query("SELECT  $campo FROM $table ORDER BY $id");
@@ -445,11 +447,11 @@ class UsersModel extends MainModel {
         if (!$query) {
             return [];
         }
-        
+
         // Retorna os valores da consulta
         return $query->fetchAll(PDO::FETCH_BOTH);
     }   // End get_listar()
-    
+
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
@@ -457,7 +459,8 @@ class UsersModel extends MainModel {
      *   @Função: get_col_data() 
      *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
      * */
-    public function get_all_col($table, $id) {
+    public function get_all_col($table, $id)
+    {
 
         #   Simplesmente seleciona os dados na base de dados
         $query = $this->db->query("SELECT  * FROM $table ORDER BY $id");
@@ -466,7 +469,7 @@ class UsersModel extends MainModel {
         if (!$query) {
             return [];
         }
-        
+
         // Retorna os valores da consulta
         return $query->fetchAll(PDO::FETCH_BOTH);
     }   // End get_listar()
@@ -478,9 +481,10 @@ class UsersModel extends MainModel {
      *   @Função: get_listar() 
      *   @Descrição: Pega o ID passado na função e retorna os valores.
      * */
-    public function get_registro($id = NULL) {
+    public function get_registro($id = NULL)
+    {
         #   Recebe o ID codficado e decodifica depois converte e inteiro
-        $id_decode = intval($this->encode_decode(0, $id));
+        $id_decode = intval($this->encodeDecode(0, $id));
 
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query(" SELECT * FROM  `users` WHERE `user_id`= $id_decode ");
@@ -491,7 +495,6 @@ class UsersModel extends MainModel {
         }
         // Retorna os valores da consulta
         return $query->fetch(PDO::FETCH_ASSOC);
-        
     }   // End get_registro()
 
     /**
@@ -501,7 +504,8 @@ class UsersModel extends MainModel {
      *   @Função: jsonPagination() 
      *   @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
      * */
-    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL) {
+    public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL)
+    {
 
         // Cria os vetores necessarios
         $jsondata = [];
@@ -531,7 +535,7 @@ class UsersModel extends MainModel {
                 $jsondataperson['agenda_proc'] = $fila['agenda_proc'];
                 $jsondataperson['agenda_start_normal'] = $fila['agenda_start_normal'];
 
-                $jsondataList [] = $jsondataperson;
+                $jsondataList[] = $jsondataperson;
             }
 
             $jsondata['lista'] = array_values($jsondataList);
@@ -546,7 +550,8 @@ class UsersModel extends MainModel {
      *   @Função: upload_imagem() 
      *   @Descrição: Simplesmente trata a imagem e a envia.
      * */
-    public function upload_imagem() {
+    public function upload_imagem()
+    {
         /*
          * @var $imagem_atri recebe os valores referente a imagem.
          * @var $erro_imagem recebe o valor referente ao erro "0" não ouve erro maior que zero ouve erro.
@@ -609,7 +614,7 @@ class UsersModel extends MainModel {
                         break;
                 }
                 // Cria duas variáveis com a largura e altura da imagem
-                list( $largura, $altura ) = getimagesize($tmp_imagem);
+                list($largura, $altura) = getimagesize($tmp_imagem);
                 // Nova largura e altura
                 //$proporcao = 0.5;
                 //$nova_largura = $largura * $proporcao;
@@ -620,16 +625,16 @@ class UsersModel extends MainModel {
                 $image_new = imagecreatetruecolor($nova_largura, $nova_altura);
                 // Copia a imagem para a nova imagem com o novo tamanho
                 imagecopyresampled(
-                        $image_new, // Nova imagem
-                        $image_format, // Imagem original
-                        0, // Coordenada X da nova imagem
-                        0, // Coordenada Y da nova imagem
-                        0, // Coordenada X da imagem
-                        0, // Coordenada Y da imagem
-                        $nova_largura, // Nova largura
-                        $nova_altura, // Nova altura
-                        $largura, // Largura original
-                        $altura // Altura original
+                    $image_new, // Nova imagem
+                    $image_format, // Imagem original
+                    0, // Coordenada X da nova imagem
+                    0, // Coordenada Y da nova imagem
+                    0, // Coordenada X da imagem
+                    0, // Coordenada Y da imagem
+                    $nova_largura, // Nova largura
+                    $nova_altura, // Nova altura
+                    $largura, // Largura original
+                    $altura // Altura original
                 );
                 // Cria a imagem sobrescrevendo a anterior
                 switch ($tipo_imagem) {
@@ -663,5 +668,5 @@ class UsersModel extends MainModel {
             }
         }
     }   # End upload_imagem()
-    
-}   
+
+}

@@ -62,7 +62,7 @@ class MainController extends UserLogin
     public function __construct ( $parametros = [] ) 
     {
         # Instancia do DB
-        $this->db = new SystemControlDB();
+        $this->db = new SystemDB();
 
         # Parâmetros
         $this->parametros = $parametros;

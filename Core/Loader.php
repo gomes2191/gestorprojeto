@@ -1,6 +1,6 @@
 <?php
 
-    # Evita que usuários acesse este arquivo diretamente.
+    // Evita que usuários acesse este arquivo diretamente.
     if (!defined('ABSPATH')) {
         exit();
     }
@@ -29,9 +29,9 @@
         //echo "<script>alert('Modo Debug ativado!');</script>";
     }
 
-    # Funções globais
+    // Funções globais
     //print_r(dirname(__DIR__));die('<br>'.'Loader.php');
-    require_once (dirname(__DIR__).'/Core/GlobalFunctions.php');
+    require_once dirname(__DIR__).'/Core/GlobalFunctions.php';
 
-    # Carrega a aplicação
-    $systemControl = new SystemControl();
+    // Carrega toda aplicação.
+    $loadApplication = new SystemCore();

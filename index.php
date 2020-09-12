@@ -7,7 +7,8 @@
 
     /* 
     * Dependências composer */
-    require_once(dirname(__FILE__) . '/vendor/autoload.php');
+    require_once dirname(__FILE__) . '/vendor/autoload.php';
 
     # Inclui o config no sistema
-    require_once(dirname(__FILE__).'/Core/Config.php');
+    require_once dirname(__FILE__).'/Core/Config.php';
+

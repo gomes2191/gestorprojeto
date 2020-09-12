@@ -1,11 +1,13 @@
 <?php
+
 /**
  * Classe para registros de usuários
  *
  * @package OdontoVision
  * @since 0.1
  */
-class registerModel {
+class registerModel
+{
     /**
      * $form_data
      *
@@ -38,7 +40,8 @@ class registerModel {
      * @since 0.1
      * @access public
      */
-    public function __construct($db = false) {
+    public function __construct($db = false)
+    {
         $this->db = $db;
     }
     /**
@@ -50,7 +53,8 @@ class registerModel {
      * @since 0.1
      * @access public
      * */
-    public function validate_register_form() {
+    public function validate_register_form()
+    {
         // Configura os dados do formulário
         $this->form_data = array();
         // Verifica se algo foi postado
@@ -84,9 +88,10 @@ class registerModel {
         }
         // Verifica se o usuário existe
         $db_check_user = $this->db->query(
-                'SELECT * FROM `users` WHERE `user_email` = ?', array(
-            chk_array($this->form_data, 'user_email')
-                )
+            'SELECT * FROM `users` WHERE `user_email` = ?',
+            array(
+                chkArray($this->form_data, 'user_email')
+            )
         );
         // Verifica se a consulta foi realizada com sucesso
         if (!$db_check_user) {
@@ -131,9 +136,9 @@ class registerModel {
         $permissions = serialize($permissions);*/
         /*
           // Se o ID do usuário não estiver vazio, atualiza os dados
-          if (!empty($user_id) and chk_array($this->form_data, 'user_email') === $fetch_user['user_email'] ) {
+          if (!empty($user_id) and chkArray($this->form_data, 'user_email') === $fetch_user['user_email'] ) {
           $query = $this->db->update('users', 'user_id', $user_id, array(
-          'user_name' => chk_array($this->form_data, 'user_name'),
+          'user_name' => chkArray($this->form_data, 'user_name'),
           'user_email' => $user_email,
           'user_password' => $password,
           'user_session_id' => md5(time()),
@@ -157,14 +162,14 @@ class registerModel {
           //  --->
           // insere o nome da clinica (revisar)
           $this->db->insert('clinics', array(
-          'clinic_name' => chk_array($this->form_data, 'clinic_name'),
+          'clinic_name' => chkArray($this->form_data, 'clinic_name'),
           ));
           $user_clinic_id = $this->db->lastInsertId();
           // <----
           // Executa a consulta
           $query = $this->db->insert('users', array(
-          //'user_user' => chk_array($this->form_data, 'user_user'),
-          'user_name' => chk_array($this->form_data, 'user_name'),
+          //'user_user' => chkArray($this->form_data, 'user_user'),
+          'user_name' => chkArray($this->form_data, 'user_name'),
           'user_email' => $user_email,
           'user_password' => $password,
           'user_session_id' => md5(time()),
@@ -184,9 +189,9 @@ class registerModel {
           return;
           }
           } */
-        
+
         // Verifica se o email digitado já existe na base de dados
-        if (!empty($user_id) and GlobalFunctions::chk_array($this->form_data, 'user_email') === $fetch_user['user_email']) {
+        if (!empty($user_id) and GlobalFunctions::chkArray($this->form_data, 'user_email') === $fetch_user['user_email']) {
             $this->form_msg = '<div class="alert alertH alert-warning alert-dismissible fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -196,17 +201,17 @@ class registerModel {
         } else {
             // insere o nome da clinica (revisar)
             $this->db->insert('clinics', array(
-                'clinic_name' => GlobalFunctions::chk_array($this->form_data, 'clinic_name'),
+                'clinic_name' => GlobalFunctions::chkArray($this->form_data, 'clinic_name'),
             ));
             $user_clinic_id = $this->db->lastInsertId();
-            
+
             // Executa a consulta
             $query = $this->db->insert('users', array(
-                //'user_user' => chk_array($this->form_data, 'user_user'),
-                'user_name'         => GlobalFunctions::chk_array($this->form_data, 'user_name'),
+                //'user_user' => chkArray($this->form_data, 'user_user'),
+                'user_name'         => GlobalFunctions::chkArray($this->form_data, 'user_name'),
                 'user_email'        => $user_email,
                 'user_password'     => $password,
-                'user_session_id'   => md5(time()),                
+                'user_session_id'   => md5(time()),
                 'user_clinic_id'    => $user_clinic_id,
                 'user_role_id'      => $role_id,
                 'user_status'       => $user_status,
@@ -228,7 +233,7 @@ class registerModel {
             }
         } // End insert
     }
-// validate_register_form
+    // validate_register_form
     /**
      * Obtém os dados do formulário
      *
@@ -237,7 +242,8 @@ class registerModel {
      * @since 0.1
      * @access public
      * */
-    public function get_register_form($user_id = false) {
+    public function get_register_form($user_id = false)
+    {
         // O ID de usuário que vamos pesquisar
         $s_user_id = false;
         // Verifica se você enviou algum ID para o método
@@ -276,27 +282,28 @@ class registerModel {
         // Separa as permissões por vírgula
         $this->form_data['user_permissions'] = implode(',', $this->form_data['user_permissions']);*/
     }
-// get_register_form
+    // get_register_form
     /**
      * Apaga usuários
      *
      * @since 0.1
      * @access public
      */
-    public function del_user($parametros = array()) {
+    public function del_user($parametros = array())
+    {
         // O ID do usuário
         $user_id = null;
         // Verifica se existe o parâmetro "del" na URL
-        if (GlobalFunctions::chk_array($parametros, 0) == 'del') {
-            
+        if (GlobalFunctions::chkArray($parametros, 0) == 'del') {
+
             //Era aqui
-            
+
             // Verifica se o valor do parâmetro é um número
             if (
-                    is_numeric(GlobalFunctions::chk_array($parametros, 1)) && GlobalFunctions::chk_array($parametros, 2) == 'confirma'
+                is_numeric(GlobalFunctions::chkArray($parametros, 1)) && GlobalFunctions::chkArray($parametros, 2) == 'confirma'
             ) {
                 // Configura o ID do usuário a ser apagado
-                $user_id = GlobalFunctions::chk_array($parametros, 1);
+                $user_id = GlobalFunctions::chkArray($parametros, 1);
             }
         }
         // Verifica se o ID não está vazio
@@ -310,14 +317,15 @@ class registerModel {
             echo '<script type="text/javascript">window.location.href = "' . HOME_URI . '/user-register/";</script>';
             return;
         }
-    }// del_user
+    } // del_user
     /**
      * Obtém a lista de usuários
      *
      * @since 0.1
      * @access public
      */
-    public function get_user_list() { 
+    public function get_user_list()
+    {
         // Simplesmente seleciona os dados na base de dados
         $query = $this->db->query('SELECT * FROM `users` ORDER BY user_id');
         // Verifica se a consulta está OK
@@ -327,5 +335,5 @@ class registerModel {
         // Preenche a tabela com os dados do usuário
         return $query->fetchAll();
     } // End get_user_list
-	
+
 }

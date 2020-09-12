@@ -1,86 +1,94 @@
 <?php
-    #======================#
-    #  PHP Version: 7.>  #
-    #  Configuração Geral  #
-    #======================#
 
-    class Config {
+/**
+ * Config - Classe para gerenciamento da Base de dados.
+ *
+ * @category Class
+ * @package  Config
+ * @author   F.A.G.A - <gomes.tisystem@gmail.com>
+ * @license  gclinic.com Private
+ * @link     www.gclinic.com
+ * @since    0.2
+ */
+class Config
+{
 
-        /**
-         * Database host
-         * @var string
-         */
-        const DB_HOST = 'localhost';
+    /**
+     * Define o endereço do banco de dados.
+     * 
+     * @var DB_HOST
+     */
+    const DB_HOST = 'localhost';
 
-        /**
-         * Database name
-         * @var string
-         */
-        const DB_NAME = 'gclinic';
+    /**
+     * Database name
+     * @var string
+     */
+    const DB_NAME = 'gclinic';
 
-        /**
-         * Database user
-         * @var string
-         */
-        const DB_USER = 'root';
+    /**
+     * Database user
+     * @var string
+     */
+    const DB_USER = 'root';
 
-        /**
-         * Database password
-         * @var string
-         */
-        const DB_PASSWORD = 'Vectra';
+    /**
+     * Database password
+     * @var string
+     */
+    const DB_PASSWORD = 'Vectra';
 
-        /**
-         * Show or hide error messages on screen
-         * @var boolean
-         */
-        const SHOW_ERRORS = true;
-    }
+    /**
+     * Show or hide error messages on screen
+     * @var boolean
+     */
+    const SHOW_ERRORS = true;
+}
 
-    /** 
-     * Retorna o diretório do arquivo. 
-     * Se usado dentro de um include, o diretório do arquivo incluído é retornado.
-     * */ 
-    define('ABSPATH', dirname(__DIR__));
+/** 
+ * Retorna o diretório do arquivo. 
+ * Se usado dentro de um include, o diretório do arquivo incluído é retornado.
+ * */
+define('ABSPATH', dirname(__DIR__));
 
-    # Nome do site
-    define('NOME_SITE', 'GClinic - ');
-    
-    # Idioma do sistema
-    define('LANG', 'pt_BR');
+# Nome do site
+define('NOME_SITE', 'GClinic - ');
 
-    # Caminho para a pasta de uploads
-    define('UP_ABSPATH', ABSPATH . '/App/Views/_uploads');
+# Idioma do sistema
+define('LANG', 'pt_BR');
 
-    # URL da home
-    define('HOME_URI', '/gclinic');
+# Caminho para a pasta de uploads
+define('UP_ABSPATH', ABSPATH . '/App/Views/_uploads');
 
-    # Nome do host da base de dados
-    define('HOSTNAME', 'localhost');
+# URL da home
+define('HOME_URI', '');
 
-    # Tipo de driver Ex.: pgsql, mysql...
-    define('DB_DRIVER', 'pgsql');
+# Nome do host da base de dados
+define('HOSTNAME', 'localhost');
 
-    # Nome do banco
-    define('DB_NAME', 'gclinic');
+# Tipo de driver Ex.: pgsql, mysql...
+define('DB_DRIVER', 'pgsql');
 
-    # Tabela prefixo
-    define('TB_PREFIX', '');
+# Nome do banco
+define('DB_NAME', 'gclinic');
 
-    # Usuário do banco
-    define('DB_USER', 'postgres');
+# Tabela prefixo
+define('TB_PREFIX', '');
 
-    # Senha do banco
-    define('DB_PASSWORD', 'Vectra');
-    
-    # Charset da conexão PDO
-    define('DB_CHARSET', 'utf8');
- 
-    # DEFINE O FUSO HORÁRIO COMO O HORÁRIO DE BRASÍLIA
-    define('TIME_ZONE', date_default_timezone_set('America/Sao_Paulo'));
-    
-    # Liga ou desliga o DEBUG "TRUE" liga "FALSE" desliga
-    define('DEBUG', TRUE);
- 
-    # Carrega o loader, que vai carregar a aplicação inteira
-    require_once (dirname(__DIR__).'/Core/Loader.php');
+# Usuário do banco
+define('DB_USER', 'postgres');
+
+# Senha do banco
+define('DB_PASSWORD', 'Vectra');
+
+# Charset da conexão PDO
+define('DB_CHARSET', 'utf8');
+
+# DEFINE O FUSO HORÁRIO COMO O HORÁRIO DE BRASÍLIA
+define('TIME_ZONE', date_default_timezone_set('America/Sao_Paulo'));
+
+# Liga ou desliga o DEBUG "TRUE" liga "FALSE" desliga
+define('DEBUG', TRUE);
+
+# Carrega o loader, que vai carregar a aplicação inteira
+require_once(dirname(__DIR__) . '/Core/Loader.php');

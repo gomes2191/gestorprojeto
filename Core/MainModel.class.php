@@ -11,7 +11,7 @@ class MainModel{
 
     public $tb_prefix = TB_PREFIX;
     
-    $objSystemControlDB = new SystemControlDB();
+    $objSystemDB = new SystemDB();
 
     
     /**

@@ -1,18 +1,21 @@
 <?php
-    if (!defined('ABSPATH')) {  exit();   }
+if (!defined('ABSPATH')) {
+    exit();
+}
 
-    // Carrega todos os métodos do modelo
-    $modelo->validate_register_form();
-    $modelo->get_register_form(chk_array($parametros, 1));
-    $modelo->del_user($parametros);
+// Carrega todos os métodos do modelo
+$modelo->validate_register_form();
+$modelo->get_register_form(chkArray($parametros, 1));
+$modelo->del_user($parametros);
 ?>
 
 
 <p id="resultado"></p>
-<div class="row-fluid">  
+<div class="row-fluid">
     <div class="col-md-1 col-xs-1"></div>
     <div class="col-md-10  col-xs-10">
-        <?= $modelo->form_msg;  $modelo->form_data; ?>
+        <?= $modelo->form_msg;
+        $modelo->form_data; ?>
         <form id="form-register" enctype="multipart/form-data" method="post" role="form" class="validate-form">
             <div class="row form-compact">
                 <div class="tipo-user form-group col-md-2 col-sm-2 col-xs-6">
@@ -35,7 +38,7 @@
                             <span class="btn btn-default btn-file">
                                 <span class="fileinput-new">Selecionar imagem</span>
                                 <span class="fileinput-exists">Alterar</span>
-                                <input type="file"  name="img_perfil" >
+                                <input type="file" name="img_perfil">
                             </span>
                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                         </div>
@@ -49,10 +52,8 @@
                     <div class="form-group hide-show col-md-4 col-sm-12 col-xs-12">
                         <label for="user_name">Nome:</label>
                         <input type="text" name="user_name" placeholder="Nome completo... " value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_name'));
-                        ?>" class="form-control" id="user_name" 
-                               data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo."
-                               data-validation-help="Digite um nome com (3) ou mais caracteres.">
+                                                                                                    echo htmlentities(chkArray($modelo->form_data, 'user_name'));
+                                                                                                    ?>" class="form-control" id="user_name" data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$" data-validation-error-msg="Preencha corretamente o campo." data-validation-help="Digite um nome com (3) ou mais caracteres.">
                         <br>
                     </div>
 
@@ -71,7 +72,7 @@
 
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-12">
                         <label for="nascimento">Data de nascimento:</label>
-                        <input id="nasc" name="nasc" class="form-control" type="text" placeholder="dd/mm/aaaa" >
+                        <input id="nasc" name="nasc" class="form-control" type="text" placeholder="dd/mm/aaaa">
                         <br>
                     </div>
 
@@ -258,8 +259,8 @@
 
                 <div class="row form-compact">
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
-                        <label for="ini-ativi">início de atividades  na clínica:</label>
-                        <input name="ini-ativi" id="ini-ativi" class="form-control" type="text" placeholder="dd/mm/aaaa">                            
+                        <label for="ini-ativi">início de atividades na clínica:</label>
+                        <input name="ini-ativi" id="ini-ativi" class="form-control" type="text" placeholder="dd/mm/aaaa">
                     </div>
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
                         <label for="fim-ativi">Fim de atividades na clínica:</label>
@@ -269,10 +270,10 @@
                 </div>
             </fieldset>
 
-           
+
             <br>
             <fieldset class="hide-show-geral">
-                <legend >Horário de Atendimento</legend>
+                <legend>Horário de Atendimento</legend>
                 <div class="row form-compact">
                     <div class="form-group hide-show col-md-2 col-sm-4 col-xs-6">
                         <label for="dom-1">Domingo:</label>
@@ -340,19 +341,18 @@
                     <div class="form-group hide-show col-md-3 col-sm-2 col-xs-6">
                         <label for="user-email">Email este será o usuário:</label>
                         <input type="text" name="user_email" placeholder="Seu email será seu usuário de login..." value="<?php
-                        echo htmlentities(chk_array($modelo->form_data, 'user_email'));
-                        ?>" class="form-control" id="user_email" >
+                                                                                                                            echo htmlentities(chkArray($modelo->form_data, 'user_email'));
+                                                                                                                            ?>" class="form-control" id="user_email">
                     </div>
                     <div class="form-group hide-show col-md-3 col-sm-3 col-xs-6">
                         <label for="user_password"> Senha: </label>
-                        <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..."
-                               value="<?php echo htmlentities(chk_array($modelo->form_data, 'user_password')); ?>">
+                        <input type="password" title="Sua senha" name="user_password" class="form-control" placeholder="Sua senha..." value="<?php echo htmlentities(chkArray($modelo->form_data, 'user_password')); ?>">
                     </div>
                 </div>
                 <br>
             </fieldset>
             <div class="btn-group hide-show-geral">
-                <button id="user-register-btn" type="submit" class="btn btn-default" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando..." >Cadastra
+                <button id="user-register-btn" type="submit" class="btn btn-default" title="Cadastrar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processando...">Cadastra
                     <i class="glyphicon glyphicon-floppy-save" aria-hidden="true"></i>
                 </button>
             </div>
@@ -363,7 +363,7 @@
             </div>
             <div class="btn-group hide-show-geral">
 
-                <button type="reset" class="btn btn-warning">Limpar 
+                <button type="reset" class="btn btn-warning">Limpar
                     <i class="glyphicon glyphicon-erase" aria-hidden="true"></i>
                 </button>
             </div>

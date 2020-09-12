@@ -16,3 +16,4 @@ composer.phar
 
 ## GClinic
 /logs/*
+/cache/*

@@ -1,13 +1,13 @@
-<?php 
+<?php
 // Evita acesso direto a este arquivo
-if ( ! defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) exit;
 
 // Configura as URLs
 $adm_uri = HOME_URI . '/noticias/adm/';
 $edit_uri = $adm_uri . 'edit/';
 $delete_uri = $adm_uri . 'del/';
 
-		
+
 // Carrega o método para obter uma notícia
 $modelo->obtem_noticia();
 
@@ -23,7 +23,7 @@ $modelo->sem_limite = true;
 
 <div class="wrap">
 
-	<?php 
+	<?php
 	// Mensagem de configuração caso o usuário tente apagar algo
 	echo $modelo->form_confirma;
 	?>
@@ -34,46 +34,46 @@ $modelo->sem_limite = true;
 			<tr>
 				<td>
 					Título: <br>
-					<input type="text" name="noticia_titulo" value="<?php 
-					echo htmlentities( chk_array( $modelo->form_data, 'noticia_titulo') );
-					?>" />
+					<input type="text" name="noticia_titulo" value="<?php
+																	echo htmlentities(chkArray($modelo->form_data, 'noticia_titulo'));
+																	?>" />
 				</td>
 			</tr>
 			<tr>
 				<td>
 					Imagem: <br>
-					<input type="file" name="noticia_imagem" >
+					<input type="file" name="noticia_imagem">
 				</td>
 			</tr>
 			<tr>
 				<td>
 					Data: <br>
-					<input type="text" name="noticia_data" value="<?php 
-					$data = chk_array( $modelo->form_data, 'noticia_data');
-					if ( $data && $data != '0000-00-00 00:00:00' )
-					echo date('d-m-Y H:i:s', strtotime( $data ) );
-					?>" />
+					<input type="text" name="noticia_data" value="<?php
+																	$data = chkArray($modelo->form_data, 'noticia_data');
+																	if ($data && $data != '0000-00-00 00:00:00')
+																		echo date('d-m-Y H:i:s', strtotime($data));
+																	?>" />
 				</td>
 			</tr>
 			<tr>
 				<td>
 					Autor: <br>
-					<input type="text" name="noticia_autor" value="<?php 
-					echo htmlentities( $_SESSION['userdata']['user_name'] );
-					?>" />
+					<input type="text" name="noticia_autor" value="<?php
+																	echo htmlentities($_SESSION['userdata']['user_name']);
+																	?>" />
 				</td>
 			</tr>
 			<tr>
 				<td>
 					Texto da notícia: <br>
 					<textarea name="noticia_texto"><?php
-					echo htmlentities( chk_array( $modelo->form_data, 'noticia_texto') );
-					?></textarea>
+													echo htmlentities(chkArray($modelo->form_data, 'noticia_texto'));
+													?></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<?php 
+					<?php
 					// Mensagem de feedback para o usuário
 					echo $modelo->form_msg;
 					?>
@@ -81,30 +81,30 @@ $modelo->sem_limite = true;
 				</td>
 			</tr>
 		</table>
-		
+
 		<input type="hidden" name="insere_noticia" value="1" />
 	</form>
-	
+
 	<!-- LISTA AS NOTICIAS -->
 	<?php $lista = $modelo->listar_noticias(); ?>
 
 	<table class="list-table">
 
-		<?php foreach( $lista as $noticia ):?>
-			
+		<?php foreach ($lista as $noticia) : ?>
+
 			<tr>
-				<td><?php echo $noticia['noticia_titulo']?></td>
+				<td><?php echo $noticia['noticia_titulo'] ?></td>
 				<td>
-					<a href="<?php echo $edit_uri . $noticia['noticia_id']?>">
+					<a href="<?php echo $edit_uri . $noticia['noticia_id'] ?>">
 						Editar
-					</a> 
-					
-					<a href="<?php echo $delete_uri . $noticia['noticia_id']?>">
+					</a>
+
+					<a href="<?php echo $delete_uri . $noticia['noticia_id'] ?>">
 						Apagar
 					</a>
 				</td>
 			</tr>
-			
+
 		<?php endforeach; ?>
 
 	</table>
