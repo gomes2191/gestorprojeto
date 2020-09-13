@@ -4,7 +4,7 @@
  *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
  *  @Class: MainModel - Modelo base
  *  @Descrição: Essa classe servirá para manter os métodos que poderão ser utilizados em todos os modelos, ou seja, ela o ajuda a manter a reutilização de código sempre ativa.
- * 
+ *
  *  @Pacote: SystemControl
  *  @Versão: 0.1
  * */
@@ -71,7 +71,7 @@ class MainModel
      *   @Função: validaDataHora()
      *   @Descrição: Recebe uma determinada data e um verificador, verifica se a data atende
      *   o verificador passado e retorna true se sim e false se não
-     *  
+     *
      *   Exemplos:
      *   var_dump(validaDataHora('2014-02-28 12:12:12')); # true
      *   var_dump(validaDataHora('2014-02-30 12:12:12')); # false
@@ -162,7 +162,7 @@ class MainModel
      *  @Função: encodeDecode()
      *  @Descrição: Remove tudo o que não for número.
      * */
-    public function only_filter_number($valor)
+    public function onlyFilterNumber($valor)
     {
         return (int) (preg_replace('/[^0-9]/', '', $valor));
     }
@@ -183,10 +183,10 @@ class MainModel
      *  @Acesso: public
      *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *  @Versão: 0.1
-     *  @Função: format_padrao()
+     *  @Função: formatPadrao()
      *  @Descrição: Verifica se o valor passado corresponde ao campo requerido
      * */
-    public function format_padrao($string, $tipo = "")
+    public function formatPadrao($string, $tipo = "")
     {
         $valor = preg_replace("[^0-9]", "", $string);
         if (!$tipo) {
@@ -234,8 +234,8 @@ class MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_table_data() 
-     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
+     *   @Função: get_table_data()
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado.
      * */
     public function get_table_data($campo, $table, $id)
     {

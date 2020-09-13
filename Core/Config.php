@@ -91,4 +91,4 @@ define('TIME_ZONE', date_default_timezone_set('America/Sao_Paulo'));
 define('DEBUG', TRUE);
 
 # Carrega o loader, que vai carregar a aplicação inteira
-require_once(dirname(__DIR__) . '/Core/Loader.php');
+require_once dirname(__DIR__) . '/Core/Loader.php';

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * GlobalFunctions  possui  inúmeras funções.
+ * GlobalFunctions - possui inúmeras funções amplamente utilizadas no sistema.
  *
  * @category Class
  * @package  GlobalFunctions
- * @author   Francisco <gomes.tisystem@gmail.com>
- * @license  gclinic.com Private
+ * @author   F.A.G.A <gomes.tisystem@gmail.com>
+ * @license  gclinic.com Proprietário
  * @link     www.gclinic.com
  * @since    0.2
  */
@@ -18,10 +18,10 @@ class GlobalFunctions
      *
      * @param array $array O array
      * @param int   $key   chave do array
-     * 
-     * @return array|null Retorna array ou null.
-     **/
-    static function chkArray($array, $key)
+     *
+     * @return null|array Retorna array ou null.
+     */
+    public static function chkArray($array, $key)
     {
         // Verifica se a chave existe no array
         if (isset($array[$key]) && !empty($array[$key])) {
@@ -31,63 +31,62 @@ class GlobalFunctions
 
         // Retorna nulo por padrão
         return null;
-    } // chkArray
-
-
-    function moeda($get_valor)
-    {
-
-        $source = array('.', ',');
-        $replace = array('', '.');
-        $valor = str_replace($source, $replace, $get_valor); //remove os pontos e substitui a virgula pelo ponto
-        return $valor; //retorna o valor formatado para gravar no banco
     }
 
     /**
-     * @access: public
-     * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
-     * @version: 0.2
-     * @param: mixed variables
-     * @param: string $table_name [required]
-     * @param: array $conditions [required] <code>$conditions['where'=>['colunm'=>value,...]] $conditions['search'=>['colunm'=>value,...]]</code>
-     * @return: array Retorna um array com os valores
+     * Verifica se a chave existe no array e se ela tem algum valor.
+     * Obs.: Essa função está no escopo global, pois, vamos precisar muito da mesma.
+     *
+     * @param string $getValor - valor do tipo string.
+     * @param string $source - valor do tipo string.
+     * @param string $replace - valor do tipo string.
+     *
+     * @return float Retorna a o float para inserção no BD
      */
-    static function isSite()
+    public function moeda($getValor)
+    {
+        $source = ['.', ','];
+        $replace = ['', '.'];
+        // remove os pontos e substitui a virgula pelo ponto.
+        return str_replace($source, $replace, $getValor);
+        // Retorna o valor formatado pronto para gravar no BD.
+    }
+
+    /**
+     * Verifica se a url possui o valor passado se sim, aplica
+     * a classe de menu ativo se não, não faz nada.
+     *
+     * @param array  $url_vetor - valor do tipo array
+     * @param string $value - valor do tipo string
+     *
+     * @return string|true|false Retorna um valor dinâmico.
+     */
+    public static function isSite()
     {
         if (filter_input(INPUT_SERVER, 'REDIRECT_URL')) {
             $url_vetor = (array_filter(explode('/', filter_input(INPUT_SERVER, 'REDIRECT_URL')), function ($value) {
-                return $value !== '';
+                return '' !== $value;
             }));
         } else {
             $url_vetor = (array_filter(explode('/', filter_input(INPUT_SERVER, 'REQUEST_URI')), function ($value) {
-                return $value !== '';
+                return '' !== $value;
             }));
         }
-        (count($url_vetor) > 1) ? array_shift($url_vetor) : FALSE;
+        (count($url_vetor) > 1) ? array_shift($url_vetor) : false;
         $sites = func_get_args();
         foreach ($sites as $site) {
             if (in_array($site, $url_vetor)) {
                 return true;
             }
         }
+
         return false;
     }
 
-
-
-
-    //    public function __construct() {
-    //        $this->db = new SystemDB();
-    //    }
-
     /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Função: validaDataHora()
-     *   @Descrição: Recebe uma determinada data e um verificador, verifica se a data atende
-     *   o verificador passado e retorna true se sim e false se não
-     *  
-     *   Exemplos:
+     *  Recebe uma determinada data e um verificador, verifica se a data atende
+     *  o verificador passado e retorna true se sim e false se não.
+     *  Exemplos:
      *   var_dump(validaDataHora('2014-02-28 12:12:12')); # true
      *   var_dump(validaDataHora('2014-02-30 12:12:12')); # false
      *   var_dump(validaDataHora('2015-06-26', 'Y-m-d')); # true
@@ -98,122 +97,123 @@ class GlobalFunctions
      *   var_dump(validaDataHora('14:77', 'H:i')); # false
      *   var_dump(validaDataHora(14, 'H')); # true
      *   var_dump(validaDataHora('14', 'H')); # true
+     *
+     * @param mixed $date
+     * @param mixed $format
+     * @param mixed $v_date
+     *
+     * @return true|false retorna true ou false
      * */
-    function validaDataHora($date, $format = 'Y-m-d H:i:s')
+    public function validaDataHora($date, $format = 'Y-m-d H:i:s')
     {
         if (!empty($date) && $v_date = date_create_from_format($format, $date)) {
             $v_date = date_format($v_date, $format);
-            return ($v_date && $v_date == $date);
+
+            return $v_date && $v_date == $date;
         }
+
         return null;
     } // End :) ValidaDataHora()
 
     /**
-     *  @Acesso: public
-     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Versão: 0.1
-     *  @Função: converteData()
-     *  @Descrição: Converte uma determinada data para o formato desejado.
-     *  @example:
+     *  Converte uma determinada data para o formato desejado.
+     *  Exemplos:
      *  var_dump(converteData('d m Y', 'Y-m-d', '06 02 2025')); 2025-02-06
      *  var_dump(converteData('d-m-Y', 'm/d/Y H:i', '06-02-2014')); 02/06/2014 12:39
      *  var_dump(converteData('Y-m-d', 'l F Y  H:i', '2014-02-06')); Thursday February 2014  12:38
-     **/
-    function convertDataHora($format, $to_format, $date = null, $timezone = null)
+     *
+     * @param mixed $format    tipo mixed
+     * @param mixed $to_format tipo mixed
+     * @param mixed $date      tipo mixed
+     * @param mixed $timezone  tipo mixed
+     *
+     * @return null|string retorna o resultado
+     */
+    public function convertDataHora($format, $to_format, $date = null, $timezone = null)
     {
         // Verifica se a data informada e verdadeira se sim executa a função se não retorna NULL
         if ($this->validaDataHora($date, $format)) {
             $timezone = $timezone ? $timezone : new DateTimeZone(date_default_timezone_get());
             $f_date = date_create_from_format($format, $date, $timezone);
-            $date_end = date_format($f_date, $to_format);
-            return $date_end;
+
+            return date_format($f_date, $to_format);
         }
+
         return null;
     } // End :) converteData()
 
     /**
      * Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
-     * 
-     * @param string $valor_ini a string.    
-     * 
+     *
+     * @param string $valor_ini a string.
+     *
      * @return string retorna a string avaliada.
-     **/
-    function avaliar($valor_ini)
+     */
+    public function avaliar($valor_ini)
     {
-        $nopermitido = ["'", '\\', '<', '>', "\""];
-        $valor_1 = str_replace($nopermitido, "", $valor_ini);
+        $nopermitido = ["'", '\\', '<', '>', '"'];
+        $valor_1 = str_replace($nopermitido, '', $valor_ini);
 
-        $valor = filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-        return $valor;
+        return filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
     } //End :) Avaliar()
-
-    /**
-     *  @Acesso: public
-     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Versão: 0.1
-     *  @Função: encodeDecode()
-     *  @Descrição: Codifica e decodifica  a string passada dependendo do parâmetro.
-     * */
-
 
     /**
      * Codifica e Decodifica  a string passada dependendo do parâmetro.
      *
-     * @param bool   $encode Valor true ou false. 
+     * @param bool   $encode Valor true ou false.
      * @param string $decode Valor do tipo string.
-     * 
-     * @return string Retorna a codificação ou a decodificação da encriptação.
-     **/
-    function encodeDecode($encode = false, $decode = false)
+     *
+     * @return int|string Retorna a codificação ou a decodificação da encriptação.
+     */
+    public function encodeDecode($encode = false, $decode = false)
     {
-        if ($encode == true) {
-
+        if (true == $encode) {
             $rand = rand(100, 900);
 
-            $encode = base64_encode($encode . $rand);
-            return $encode;
-        } else {
-            $decode = base64_decode($decode);
-            $_decode = (int) substr($decode, 0, -3);
-
-            return $_decode;
+            return base64_encode($encode . $rand);
         }
+        $decode = base64_decode($decode);
+
+        return (int) substr($decode, 0, -3);
     }
 
+
     /**
-     *  @Acesso: public
-     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Versão: 0.1
-     *  @Função: encodeDecode()
-     *  @Descrição: Remove tudo o que não for número.
-     * */
-    function only_filter_number($valor)
+     * Remove tudo o que não for número.
+     *
+     * @param string $valor recebe número formato string.
+     *
+     * @return int Retorna um valor inteiro.
+     */
+    public function onlyFilterNumber($valor)
     {
         return (int) (preg_replace('/[^0-9]/', '', $valor));
     }
 
     /**
-     *  @Acesso: public
-     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Versão: 0.2
-     *  @Função: moneyFloat()
-     *  @Descrição: Converte o valor da moeda em real para float para armazenar na base de dado.
-     * */
-    function moneyFloat($str)
+     * Converte o valor da moeda de real para float
+     * para armazenar na base de dado.
+     *
+     * @param string $str recebe número formato string.
+     *
+     * @return float Retorna um valor float.
+     */
+    public function moneyFloat($str)
     {
         return (float) str_replace(',', '.', str_replace('.', '', $str));
     }
 
     /**
-     *  @Acesso: public
-     *  @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Versão: 0.1
-     *  @Função: format_padrao()
-     *  @Descrição: Verifica se o valor passado corresponde ao campo requerido
-     * */
-    function format_padrao($string, $tipo = "")
+     * Verifica se o valor passado corresponde ao campo requerido.
+     *
+     * @param string $string recebe número no formato string.
+     * @param string $tipo   recebe número no formato string.
+     *
+     * @return string Retorna o valor correspondente.
+     */
+    public function formatPadrao($string, $tipo = '')
     {
-        $valor = preg_replace("[^0-9]", "", $string);
+        $valor = preg_replace('[^0-9]', '', $string);
         if (!$tipo) {
             switch (strlen($valor)) {
                 case 11:
@@ -234,59 +234,62 @@ class GlobalFunctions
             case 'fone':
                 $valor = '(' . substr($valor, 0, 2) . ') ' . substr($valor, 2, 4) .
                     '-' . substr($valor, 6);
+
                 break;
             case 'cep':
                 $valor = substr($valor, 0, 5) . '-' . substr($valor, 5, 3);
+
                 break;
             case 'cpf':
                 $valor = substr($valor, 0, 3) . '.' . substr($valor, 3, 3) .
                     '.' . substr($valor, 6, 3) . '-' . substr($valor, 9, 2);
+
                 break;
             case 'cnpj':
                 $valor = substr($valor, 0, 2) . '.' . substr($valor, 2, 3) .
                     '.' . substr($valor, 5, 3) . '/' .
                     substr($valor, 8, 4) . '-' . substr($valor, 12, 2);
+
                 break;
             case 'rg':
                 $valor = substr($valor, 0, 2) . '.' . substr($valor, 2, 3) .
                     '.' . substr($valor, 5, 3);
                 break;
         }
+
         return $valor;
     }
 
     /**
-     * @access: public
-     * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
-     * @version: 0.2
-     * @description: Nome das classes
-     * @param: mixed variables
-     * @return: object Retorna um object com os valores
-     **/
+     * Recebe a requisição e verifica se classe existe.
+     *
+     * @param string $nomeDaClasse recebe um valor no formato string.
+     *
+     * @return object object Retorna um object com os valores.
+     */
     public static function autoLoad($nomeDaClasse)
     {
-
         $pastas = ['/Core/', '/interfaces/'];
 
         foreach ($pastas as $pasta) {
             $fileParcial = ABSPATH . $pasta . $nomeDaClasse;
             if ((file_exists($fileParcial . '.class.php')) or (file_exists($fileParcial . '.interf.php'))) {
-                ($pasta === '/Core/') ? require_once($fileParcial . '.class.php') : require_once($fileParcial . '.interf.php');
+                ('/Core/' === $pasta) ? include_once $fileParcial . '.class.php' : include_once $fileParcial . '.interf.php';
 
                 unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
 
                 return;
             }
-        } #End autoLoad
+        } // End autoLoad
 
-        //require_once (dirname(__DIR__) . '/includes/404.php');
+        include_once dirname(__DIR__) . '/includes/404.php';
 
         die('Erro: Classes não encontrada.');
 
         unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
         exit();
     }
-} // End Class
+} // End :) Class
 
 // Registra a função dada como implementação de __autoload()
 spl_autoload_register('GlobalFunctions::autoLoad');

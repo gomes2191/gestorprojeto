@@ -92,7 +92,7 @@ class UsersModel extends MainModel
             #   Destroy variaveis não mais utilizadas
             unset($value, $key);
 
-            #   Verifica se ambos os campos não estão vazio 
+            #   Verifica se ambos os campos não estão vazio
             if (empty($this->form_data['user_name'] and $this->form_data['user_email'] and $this->form_data['user_password'])) {
 
                 #   Feedback para o usuário
@@ -170,7 +170,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_listar() 
+     *   @Função: get_listar()
      *   @Descrição: Pega o ID passado na função e retorna os valores.
      * */
     public function process_data()
@@ -190,7 +190,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: insertRegister()
-     *   @Versão: 0.1 
+     *   @Versão: 0.1
      *   @Descrição: Insere o registro no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      * */
@@ -216,24 +216,24 @@ class UsersModel extends MainModel
             'user_permissions'      => serialize((chkArray($this->form_data, 'user_permissions'))),
             'user_role_id'          => 1,
             'user_clinic_id'        => 1,
-            'user_cpf'              => $this->only_filter_number(chkArray($this->form_data, 'user_cpf')),
-            'user_rg'               => $this->only_filter_number(chkArray($this->form_data, 'user_rg')),
+            'user_cpf'              => $this->onlyFilterNumber(chkArray($this->form_data, 'user_cpf')),
+            'user_rg'               => $this->onlyFilterNumber(chkArray($this->form_data, 'user_rg')),
             'user_birth'            => $this->converteData('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'user_birth')),
-            'user_gen'              => (int) $this->only_filter_number(chkArray($this->form_data, 'user_gen')),
+            'user_gen'              => (int) $this->onlyFilterNumber(chkArray($this->form_data, 'user_gen')),
             'user_civil_status'     => chkArray($this->form_data, 'user_civil_status'),
-            'user_home_phone'       => $this->only_filter_number(chkArray($this->form_data, 'user_phone_home')),
-            'user_cel_phone'        => $this->only_filter_number(chkArray($this->form_data, 'user_cel_phone')),
+            'user_home_phone'       => $this->onlyFilterNumber(chkArray($this->form_data, 'user_phone_home')),
+            'user_cel_phone'        => $this->onlyFilterNumber(chkArray($this->form_data, 'user_cel_phone')),
             'user_father_name'      => $this->form_data['user_father_name'],
             'user_mother_name'      => $this->form_data['user_mother_name'],
             'user_address'          => chkArray($this->form_data, 'user_address'),
             'user_city'             => chkArray($this->form_data, 'user_city'),
             'user_state'            => chkArray($this->form_data, 'user_state'),
-            'user_cep'              => $this->only_filter_number(chkArray($this->form_data, 'user_cep')),
+            'user_cep'              => $this->onlyFilterNumber(chkArray($this->form_data, 'user_cep')),
             'user_func_pri'         => chkArray($this->form_data, 'user_func_pri'),
             'user_func_sec'         => chkArray($this->form_data, 'user_func_sec'),
             'user_date_adm'         => $this->converteData('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'user_date_adm')),
             'user_date_dem'         => $this->converteData('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'user_date_dem')),
-            'user_active'           => (int) $this->only_filter_number(chkArray($this->form_data, 'user_active'))
+            'user_active'           => (int) $this->onlyFilterNumber(chkArray($this->form_data, 'user_active'))
 
 
         ]);
@@ -267,7 +267,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: updateRegister()
-     *   @Versão: 0.1 
+     *   @Versão: 0.1
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      * */
@@ -330,7 +330,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: get_register_form()
-     *   @Versão: 0.1 
+     *   @Versão: 0.1
      *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
      * */
     public function get_register_form($parametros)
@@ -369,7 +369,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: delRegister()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
     public function delRegister($id)
@@ -415,7 +415,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_ultimo_id() 
+     *   @Função: get_ultimo_id()
      *   @Descrição: Pega o ultimo ID do agendamento.
      * */
     public function get_ultimo_id()
@@ -434,8 +434,8 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_col_data() 
-     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
+     *   @Função: get_col_data()
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado.
      * */
     public function get_col_data($campo, $table, $id)
     {
@@ -456,8 +456,8 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_col_data() 
-     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
+     *   @Função: get_col_data()
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado.
      * */
     public function get_all_col($table, $id)
     {
@@ -478,7 +478,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_listar() 
+     *   @Função: get_listar()
      *   @Descrição: Pega o ID passado na função e retorna os valores.
      * */
     public function get_registro($id = NULL)
@@ -501,7 +501,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: jsonPagination() 
+     *   @Função: jsonPagination()
      *   @Descrição: Função que recebe os valores passado e executa a consulta SQL e imprime o retorno do json para a paginação.
      * */
     public function jsonPagination($param1 = NULL, $limit = NULL, $offset = NULL)
@@ -522,7 +522,7 @@ class UsersModel extends MainModel
 
             $jsondata['total'] = $fila['total'];
 
-            // Verifica se o parametro existe e retorna a consulta.    
+            // Verifica se o parametro existe e retorna a consulta.
         } elseif ($param1 == 'dame') {
 
             $resultadoT = $this->db->query(" SELECT * FROM `agendas` LIMIT $limit OFFSET $offset ");
@@ -547,7 +547,7 @@ class UsersModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: upload_imagem() 
+     *   @Função: upload_imagem()
      *   @Descrição: Simplesmente trata a imagem e a envia.
      * */
     public function upload_imagem()

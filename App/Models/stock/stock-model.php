@@ -38,7 +38,7 @@ class StockModel extends MainModel
     public $db;
 
     /**
-     * 
+     *
      *
      * @Descrição: Construtor, carrega  o DB.
      *
@@ -54,7 +54,7 @@ class StockModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: validate_register_form()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
      *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
      **/
@@ -107,7 +107,7 @@ class StockModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: insertRegister()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Insere o registro no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
@@ -121,10 +121,10 @@ class StockModel extends MainModel
             'stock_desc'        =>  $this->avaliar(chkArray($this->form_data, 'stock_desc')),
             'stock_tipo_unit'   =>  $this->avaliar(chkArray($this->form_data, 'stock_tipo_unit')),
             'stock_fornecedor'  =>  $this->avaliar(chkArray($this->form_data, 'stock_fornecedor')),
-            'stock_inicial'     =>  (int) $this->only_filter_number(chkArray($this->form_data, 'stock_inicial')),
-            'stock_minimo'      =>  (int) $this->only_filter_number(chkArray($this->form_data, 'stock_minimo')),
-            'stock_atual'       =>  (int) $this->only_filter_number(chkArray($this->form_data, 'stock_atual')),
-            'stock_valor'       =>  (int) $this->only_filter_number(chkArray($this->form_data, 'stock_valor')),
+            'stock_inicial'     =>  (int) $this->onlyFilterNumber(chkArray($this->form_data, 'stock_inicial')),
+            'stock_minimo'      =>  (int) $this->onlyFilterNumber(chkArray($this->form_data, 'stock_minimo')),
+            'stock_atual'       =>  (int) $this->onlyFilterNumber(chkArray($this->form_data, 'stock_atual')),
+            'stock_valor'       =>  (int) $this->onlyFilterNumber(chkArray($this->form_data, 'stock_valor')),
             'stock_info'        =>  $this->avaliar(chkArray($this->form_data, 'stock_info'))
         ]);
 
@@ -159,7 +159,7 @@ class StockModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: updateRegister()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
@@ -176,10 +176,10 @@ class StockModel extends MainModel
                 'stock_desc'        =>  $this->avaliar(chkArray($this->form_data, 'stock_desc')),
                 'stock_tipo_unit'   =>  $this->avaliar(chkArray($this->form_data, 'stock_tipo_unit')),
                 'stock_fornecedor'  =>  $this->avaliar(chkArray($this->form_data, 'stock_fornecedor')),
-                'stock_inicial'     =>  (int) $this->only_filter_number(chkArray($this->form_data, 'stock_inicial')),
-                'stock_minimo'      =>  (int) $this->only_filter_number(chkArray($this->form_data, 'stock_minimo')),
-                'stock_atual'       =>  (int) $this->only_filter_number(chkArray($this->form_data, 'stock_atual')),
-                'stock_valor'       =>  (int) $this->only_filter_number(chkArray($this->form_data, 'stock_valor')),
+                'stock_inicial'     =>  (int) $this->onlyFilterNumber(chkArray($this->form_data, 'stock_inicial')),
+                'stock_minimo'      =>  (int) $this->onlyFilterNumber(chkArray($this->form_data, 'stock_minimo')),
+                'stock_atual'       =>  (int) $this->onlyFilterNumber(chkArray($this->form_data, 'stock_atual')),
+                'stock_valor'       =>  (int) $this->onlyFilterNumber(chkArray($this->form_data, 'stock_valor')),
                 'stock_info'        =>  $this->avaliar(chkArray($this->form_data, 'stock_info'))
             ]);
 
@@ -205,7 +205,7 @@ class StockModel extends MainModel
                 # Destroy variáveis nao mais utilizadas
                 unset($registro_id, $query_up);
 
-                # Finaliza   
+                # Finaliza
                 return;
             }
         }
@@ -215,7 +215,7 @@ class StockModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: get_register_form()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
      **/
     public function get_register_form($id_encode)
@@ -250,7 +250,7 @@ class StockModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: delRegister()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
     public function delRegister($encode_id)
@@ -298,7 +298,7 @@ class StockModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_ultimo_id() 
+     *   @Função: get_ultimo_id()
      *   @Descrição: Pega o ultimo ID do registro.
      **/
     public function get_ultimo_id()
@@ -316,8 +316,8 @@ class StockModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_table_data() 
-     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado. 
+     *   @Função: get_table_data()
+     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado.
      * */
     public function get_table_data($campo, $table, $id)
     {
@@ -340,7 +340,7 @@ class StockModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_registro() 
+     *   @Função: get_registro()
      *   @Descrição: Pega o ID passado na função e retorna os valores do id solicitado.
      **/
     public function get_registro($encode_id = NULL)
