@@ -13,9 +13,12 @@
 class Config
 {
 
+
+    const HOME_URI = '/p_gclinic';
+
     /**
      * Define o endereço do banco de dados.
-     * 
+     *
      * @var DB_HOST
      */
     const DB_HOST = 'localhost';
@@ -45,11 +48,11 @@ class Config
     const SHOW_ERRORS = true;
 }
 
-/** 
- * Retorna o diretório do arquivo. 
+/**
+ * Retorna o diretório do arquivo.
  * Se usado dentro de um include, o diretório do arquivo incluído é retornado.
  * */
-define('ABSPATH', dirname(__DIR__));
+define('ABS_PATH', dirname(__DIR__));
 
 # Nome do site
 define('NOME_SITE', 'GClinic - ');
@@ -58,10 +61,10 @@ define('NOME_SITE', 'GClinic - ');
 define('LANG', 'pt_BR');
 
 # Caminho para a pasta de uploads
-define('UP_ABSPATH', ABSPATH . '/App/Views/_uploads');
+define('UP_PATH', '/App/Views/_uploads');
 
-# URL da home
-define('HOME_URI', '');
+// URL da home coloque o nome do diretório do projeto logo após a barra
+//define('HOME_URI', '/p_gclinic');
 
 # Nome do host da base de dados
 define('HOSTNAME', 'localhost');
@@ -73,7 +76,7 @@ define('DB_DRIVER', 'pgsql');
 define('DB_NAME', 'gclinic');
 
 # Tabela prefixo
-define('TB_PREFIX', '');
+define('TB_PREFIX', '_');
 
 # Usuário do banco
 define('DB_USER', 'postgres');

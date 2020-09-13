@@ -1,6 +1,6 @@
 <?php
 // Evita acesso direto a este arquivo
-if (!defined('ABSPATH')) exit;
+if (!defined('Config::HOME_URI')) exit;
 ?>
 
 <div class="wrap">
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) exit;
 
 		<?php
 		// Verifica se estamos visualizando uma única notícia
-		if (is_numeric(chkArray($modelo->parametros, 0))) : // single
+		if (is_numeric(chkArray($modelo->_parameters, 0))) : // single
 		?>
 
 			<p>
@@ -39,7 +39,7 @@ if (!defined('ABSPATH')) exit;
 
 			<?php echo $noticia['noticia_texto']; ?>
 
-		<?php endif;  // single 
+		<?php endif;  // single
 		?>
 
 	<?php endforeach; ?>

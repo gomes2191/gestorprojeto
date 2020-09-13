@@ -1,11 +1,11 @@
-<?php if (!defined('ABSPATH')) exit; ?>
+<?php if (!defined('Config::HOME_URI')) exit; ?>
 
 <div class="row-fluid">
     <?php
         // Carrega todos os métodos do modelo
         $modelo->validate_register_form();
-        $modelo->get_register_form(chkArray($parametros, 1));
-        $modelo->del_user($parametros);
+        $modelo->get_register_form(chkArray($_parameters, 1));
+        $modelo->del_user($_parameters);
     ?>
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -17,14 +17,14 @@
                 <form method="post" action="">
 
                   <?php echo ($modelo->form_msg); ?>
-                    
+
                     <div class="form-group">
                         <label for="clinic_name">Nome da clinica:</label>
                         <input type="text" name="clinic_name" placeholder="Nome da clinica..." value="<?php
                         echo htmlentities(chkArray($modelo->form_data, 'clinic_name'));
                         ?>" class="form-control" id="clinic_name" required >
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="user_name">Seu nome:</label>
                         <input type="text" name="user_name" placeholder="Nome do responsavel pelo cadastro..." value="<?php
@@ -71,7 +71,7 @@
         ?>
         <div class="panel panel-primary"> <!-- Start panel -->
             <div class="panel-heading text-center"><?= Translate::t('dMsg_2'); ?></div>
-            
+
             <table class="table table-hover  table-text-center table-responsive">
                 <thead>
                     <tr>
@@ -120,7 +120,7 @@
             </table>
             <div class="panel-footer"></div>
         </div> <!-- /End start panel -->
-        
+
         <div class="modal in fade"  role="dialog" id="myModal">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
@@ -140,7 +140,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-        
+
 
     </div>
     <div class="col-md-2"></div>

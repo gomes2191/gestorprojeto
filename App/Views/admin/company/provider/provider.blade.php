@@ -353,7 +353,7 @@
 
     // Efetua a requisição ajax e retorna os registros
     objFinanca.setAjaxData(objSet = {
-        url: '<?= HOME_URI; ?>/providers/filters',
+        url: '<?= Config::HOME_URI; ?>/providers/filters',
         url_id: '/providers/',
         get_decode: false
     });
@@ -375,14 +375,14 @@
             if (objAction.type === 'loadEdit') {
                 objFinanca.setAjaxActionUser(objSet = {
                     type: objAction.type,
-                    url: '<?= HOME_URI; ?>/providers/ajax-process',
+                    url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
                     id: objAction.id
                 });
                 objFinanca.ajaxActionUser();
             } else {
                 objFinanca.setAjaxActionUser(objSet = {
                     type: objAction.type,
-                    url: "{{HOME_URI}}/providers/ajax-process",
+                    url: "{{Config::HOME_URI}}/providers/ajax-process",
                     id: objAction.id
                 });
                 objFinanca.ajaxActionUser();
@@ -399,7 +399,7 @@
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,
-                        url: '<?= HOME_URI; ?>/providers/ajax-process',
+                        url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
                         userData: objAction.userData
                     }
                 );
@@ -412,7 +412,7 @@
             objFinanca.setAjaxActionUser(
                 objSet = {
                     type: objAction.type,
-                    url: '<?= HOME_URI; ?>/providers/ajax-process',
+                    url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
                     userData: objAction.userData
                 }
             );
@@ -424,7 +424,7 @@
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,
-                        url: '<?= HOME_URI; ?>/providers/ajax-process',
+                        url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
                         userData: objAction.userData
                     }
                 );

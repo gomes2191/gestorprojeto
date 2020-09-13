@@ -1,12 +1,12 @@
 <?php
-    if (!defined('ABSPATH')) {
+    if (!defined('Config::HOME_URI')) {
         exit();
     }
 
     # Verifica se existe o método get se existir chama função
     if (filter_input(INPUT_GET, 'v', FILTER_DEFAULT)) {
         $id_encode = filter_input(INPUT_GET, 'v', FILTER_DEFAULT);
-        
+
         # Recebe os valores da consulta
         $modelo = $modelo->get_registro($id_encode);
 
@@ -25,7 +25,7 @@
 </div>
 <div class="modal-body">
     <ul class="list-inline list-modal-forn">
-       <?= ($modelo['pay_venc']) ? '<li style="color: #666666" class="list-for list-group-item list-group-item-info list-group-item-text"><b>DATA DE VENCIMENTO:</b> '.$modelo['pay_venc'].'</li>' : '' ?> 
+       <?= ($modelo['pay_venc']) ? '<li style="color: #666666" class="list-for list-group-item list-group-item-info list-group-item-text"><b>DATA DE VENCIMENTO:</b> '.$modelo['pay_venc'].'</li>' : '' ?>
        <?= ($modelo['pay_date_pay']) ? '<li style="color: #666666" class="list-group-item list-group-item-warning list-group-item-text"><b>DATA DE PAGAMENTO:</b> '.$modelo['pay_date_pay'].'</li>' : '' ?>
        <?= ($modelo['pay_cat']) ? '<li style="color: #666666" class="list-group-item list-group-item-success list-group-item-text"><b>CATEGORIA:</b> '.$modelo['pay_cat'].'</li>' : '' ?>
        <?= ($modelo['pay_desc']) ? '<li style="color: #666666" class="list-group-item list-group-item-info list-group-item-text"><b>DESCRIÇÃO:</b> '.$modelo['pay_desc'].'</li>' : '' ?>
@@ -36,8 +36,8 @@
     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
 </div>
 
-<?php 
+<?php
     # Dstroy a variavel não mais utilizada
-    //unset($modelo); 
-    flush($modelo); 
+    //unset($modelo);
+    flush($modelo);
 ?>

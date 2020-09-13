@@ -289,21 +289,21 @@ class registerModel
      * @since 0.1
      * @access public
      */
-    public function del_user($parametros = array())
+    public function del_user($_parameters = array())
     {
         // O ID do usuário
         $user_id = null;
         // Verifica se existe o parâmetro "del" na URL
-        if (GlobalFunctions::chkArray($parametros, 0) == 'del') {
+        if (GlobalFunctions::chkArray($_parameters, 0) == 'del') {
 
             //Era aqui
 
             // Verifica se o valor do parâmetro é um número
             if (
-                is_numeric(GlobalFunctions::chkArray($parametros, 1)) && GlobalFunctions::chkArray($parametros, 2) == 'confirma'
+                is_numeric(GlobalFunctions::chkArray($_parameters, 1)) && GlobalFunctions::chkArray($_parameters, 2) == 'confirma'
             ) {
                 // Configura o ID do usuário a ser apagado
-                $user_id = GlobalFunctions::chkArray($parametros, 1);
+                $user_id = GlobalFunctions::chkArray($_parameters, 1);
             }
         }
         // Verifica se o ID não está vazio

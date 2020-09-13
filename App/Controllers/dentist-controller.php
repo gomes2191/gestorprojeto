@@ -6,34 +6,36 @@
  * @package OdontoControl
  * @since 0.1
  */
-class DentistController extends MainController {
-    /**
-     * $login_required
-     *
-     * Se a página precisa de login
-     *
-     * @access public
-     */
-    //public $login_required = true;
+class DentistController extends MainController
+{
+  /**
+   * $login_required
+   *
+   * Se a página precisa de login
+   *
+   * @access public
+   */
+  //public $login_required = true;
 
-    /**
-     * $permission_required
-     *
-     * Permissão necessária
-     *
-     * @access public
-     */
-    //public $permission_required = 'user-register';
+  /**
+   * $permission_required
+   *
+   * Permissão necessária
+   *
+   * @access public
+   */
+  //public $permission_required = 'user-register';
 
-    /**
-     * Carrega a página "/views/user-register/index.php"
-     */
-    public function index() {
-        // Page title
-        $this->title = 'User Register';
+  /**
+   * Carrega a página "/views/user-register/index.php"
+   */
+  public function index()
+  {
+    // Page title
+    $this->title = 'User Register';
 
-        // Verifica se o usuário está logado
-        /* if ( ! $this->logged_in ) {
+    // Verifica se o usuário está logado
+    /* if ( ! $this->logged_in ) {
 
           // Se não; garante o logout
           $this->logout();
@@ -58,27 +60,27 @@ class DentistController extends MainController {
 
 
 
-        // Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+    // Parametros da função
+    $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : array();
 
-        // Carrega o modelo para este view
-        $modelo = $this->load_model('user-register/user-register-model');
+    // Carrega o modelo para este view
+    $modelo = $this->load_model('user-register/user-register-model');
 
-        /** Carrega os arquivos do view * */
-        // /views/_includes/header.php
-        require ABSPATH . '/views/_includes/header.php';
+    /** Carrega os arquivos do view * */
+    // /views/_includes/header.php
+    require Config::HOME_URI . '/views/_includes/header.php';
 
-        // /views/_includes/menu.php
-        require ABSPATH . '/views/_includes/menu.php';
+    // /views/_includes/menu.php
+    require Config::HOME_URI . '/views/_includes/menu.php';
 
-        // /views/user-register/index.php
-        require ABSPATH . '/views/dentist/register-dentist-view.php';
+    // /views/user-register/index.php
+    require Config::HOME_URI . '/views/dentist/register-dentist-view.php';
 
-        // /views/_includes/footer.php
-        require ABSPATH . '/views/_includes/footer.php';
-    }
+    // /views/_includes/footer.php
+    require Config::HOME_URI . '/views/_includes/footer.php';
+  }
 
-// index
+  // index
 }
 
 // class home

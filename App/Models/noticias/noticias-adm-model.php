@@ -12,8 +12,8 @@ class NoticiasAdmModel extends MainModel
 	/**
 	 * $posts_per_page
 	 *
-	 * Receberá o número de posts por página para configurar a listagem de 
-	 * notícias. Também utilizada na paginação. 
+	 * Receberá o número de posts por página para configurar a listagem de
+	 * notícias. Também utilizada na paginação.
 	 *
 	 * @access public
 	 */
@@ -38,7 +38,7 @@ class NoticiasAdmModel extends MainModel
 		$this->controller = $controller;
 
 		// Configura os parâmetros
-		$this->parametros = $this->controller->parametros;
+		$this->_parameters = $this->controller->_parameters;
 
 		// Configura os dados do usuário
 		$this->userdata = $this->controller->userdata;
@@ -58,17 +58,17 @@ class NoticiasAdmModel extends MainModel
 		$id = $where = $query_limit = null;
 
 		// Verifica se um parâmetro foi enviado para carregar uma notícia
-		if (is_numeric(chkArray($this->parametros, 0))) {
+		if (is_numeric(chkArray($this->_parameters, 0))) {
 
 			// Configura o ID para enviar para a consulta
-			$id = array(chkArray($this->parametros, 0));
+			$id = array(chkArray($this->_parameters, 0));
 
 			// Configura a cláusula where da consulta
 			$where = " WHERE noticia_id = ? ";
 		}
 
 		// Configura a página a ser exibida
-		$pagina = !empty($this->parametros[1]) ? $this->parametros[1] : 1;
+		$pagina = !empty($this->_parameters[1]) ? $this->_parameters[1] : 1;
 
 		// A páginação inicia do 0
 		$pagina--;
@@ -79,7 +79,7 @@ class NoticiasAdmModel extends MainModel
 		// O offset dos posts da consulta
 		$offset = $pagina * $posts_por_pagina;
 
-		/* 
+		/*
 		Esta propriedade foi configurada no noticias-adm-model.php para
 		prevenir limite ou paginação na administração.
 		*/
@@ -113,22 +113,22 @@ class NoticiasAdmModel extends MainModel
 	{
 
 		// Verifica se o primeiro parâmetro é "edit"
-		if (chkArray($this->parametros, 0) != 'edit') {
+		if (chkArray($this->_parameters, 0) != 'edit') {
 			return;
 		}
 
 		// Verifica se o segundo parâmetro é um número
-		if (!is_numeric(chkArray($this->parametros, 1))) {
+		if (!is_numeric(chkArray($this->_parameters, 1))) {
 			return;
 		}
 
 		// Configura o ID da notícia
-		$noticia_id = chkArray($this->parametros, 1);
+		$noticia_id = chkArray($this->_parameters, 1);
 
-		/* 
+		/*
 		Verifica se algo foi postado e se está vindo do form que tem o campo
 		insere_noticia.
-		
+
 		Se verdadeiro, atualiza os dados conforme a requisição.
 		*/
 		if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST['insere_noticia'])) {
@@ -145,7 +145,7 @@ class NoticiasAdmModel extends MainModel
 			*/
 			$nova_data = $this->inverte_data($data);
 
-			// Adiciona a data no $_POST		
+			// Adiciona a data no $_POST
 			$_POST['noticia_data'] = $nova_data;
 
 			// Tenta enviar a imagem
@@ -194,7 +194,7 @@ class NoticiasAdmModel extends MainModel
 	public function insere_noticia()
 	{
 
-		/* 
+		/*
 		Verifica se algo foi postado e se está vindo do form que tem o campo
 		insere_noticia.
 		*/
@@ -206,12 +206,12 @@ class NoticiasAdmModel extends MainModel
 		Para evitar conflitos apenas inserimos valores se o parâmetro edit
 		não estiver configurado.
 		*/
-		if (chkArray($this->parametros, 0) == 'edit') {
+		if (chkArray($this->_parameters, 0) == 'edit') {
 			return;
 		}
 
 		// Só pra garantir que não estamos atualizando nada
-		if (is_numeric(chkArray($this->parametros, 1))) {
+		if (is_numeric(chkArray($this->_parameters, 1))) {
 			return;
 		}
 
@@ -261,17 +261,17 @@ class NoticiasAdmModel extends MainModel
 	{
 
 		// O parâmetro del deverá ser enviado
-		if (chkArray($this->parametros, 0) != 'del') {
+		if (chkArray($this->_parameters, 0) != 'del') {
 			return;
 		}
 
 		// O segundo parâmetro deverá ser um ID numérico
-		if (!is_numeric(chkArray($this->parametros, 1))) {
+		if (!is_numeric(chkArray($this->_parameters, 1))) {
 			return;
 		}
 
 		// Para excluir, o terceiro parâmetro deverá ser "confirma"
-		if (chkArray($this->parametros, 2) != 'confirma') {
+		if (chkArray($this->_parameters, 2) != 'confirma') {
 
 			// Configura uma mensagem de confirmação para o usuário
 			$mensagem  = '<p class="alert">Tem certeza que deseja apgar a notícia?</p>';
@@ -283,7 +283,7 @@ class NoticiasAdmModel extends MainModel
 		}
 
 		// Configura o ID da notícia
-		$noticia_id = (int)chkArray($this->parametros, 1);
+		$noticia_id = (int)chkArray($this->_parameters, 1);
 
 		// Executa a consulta
 		$query = $this->db->delete('noticias', 'noticia_id', $noticia_id);
@@ -341,7 +341,7 @@ class NoticiasAdmModel extends MainModel
 		}
 
 		// Tenta mover o arquivo enviado
-		if (!move_uploaded_file($tmp_imagem, UP_ABSPATH . '/' . $nome_imagem)) {
+		if (!move_uploaded_file($tmp_imagem, UP_Config::HOME_URI . '/' . $nome_imagem)) {
 			// Retorna uma mensagem
 			$this->form_msg = '<p class="error">Erro ao enviar imagem.</p>';
 			return;
@@ -360,11 +360,11 @@ class NoticiasAdmModel extends MainModel
 	public function paginacao()
 	{
 
-		/* 
+		/*
 		Verifica se o primeiro parâmetro não é um número. Se for é um single
 		e não precisa de paginação.
 		*/
-		if (is_numeric(chkArray($this->parametros, 0))) {
+		if (is_numeric(chkArray($this->_parameters, 0))) {
 			return;
 		}
 
@@ -392,7 +392,7 @@ class NoticiasAdmModel extends MainModel
 		$offset2 = 6;
 
 		// Página atual
-		$current = $this->parametros[1] ? $this->parametros[1] : 1;
+		$current = $this->_parameters[1] ? $this->_parameters[1] : 1;
 
 		// Exibe a primeira página e reticências no início
 		if ($current > 4) {

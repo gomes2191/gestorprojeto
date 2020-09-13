@@ -45,11 +45,11 @@ class MainController extends UserLogin
     public $permission_required = 'any';
 
     /**
-     * $parametros
+     * $_parameters
      *
      * @access public
      */
-    public $parametros = [];
+    public $_parameters = [];
 
     /**
      * Construtor da classe
@@ -59,17 +59,16 @@ class MainController extends UserLogin
      * @since 0.1
      * @access public
      */
-    public function __construct ( $parametros = [] ) 
+    public function __construct($_parameters = [])
     {
         # Instancia do DB
         $this->db = new SystemDB();
 
         # Parâmetros
-        $this->parametros = $parametros;
+        $this->_parameters = $_parameters;
 
         # Verifica o login
         $this->check_userlogin();
-
     } # __construct
 
     /**
@@ -80,23 +79,22 @@ class MainController extends UserLogin
      * @since 0.1
      * @access public
      */
-    public function load_model( $model_name = false ) 
+    public function load_model($model_name = false)
     {
 
         // Um arquivo deverá ser enviado
-        if ( ! $model_name ) return;
+        if (!$model_name) return;
 
-        
+
         // Garante que o nome do modelo tenha letras minúsculas
         //$model_name =  strtolower( $model_name );
-      
+
         // Inclui o arquivo
-        $model_path = ABSPATH . '/App/Models/' . $model_name . '.php';
-        
+        $model_path = ABS_PATH . '/App/Models/' . $model_name . '.php';
+
 
         // Verifica se o arquivo existe
-        if ( file_exists( $model_path ) ) 
-        {
+        if (file_exists($model_path)) {
             # Inclui o arquivo
             require_once $model_path;
 
@@ -104,27 +102,25 @@ class MainController extends UserLogin
             $model_name = explode('/', $model_name);
 
             # Pega só o nome final do caminho
-            $model_name = end( $model_name );
+            $model_name = end($model_name);
 
             # Remove caracteres inválidos do nome do arquivo
-            $model_name = preg_replace( '/[^a-zA-Z0-9]/is', '', $model_name );
-            
+            $model_name = preg_replace('/[^a-zA-Z0-9]/is', '', $model_name);
+
             # Verifica se a classe existe
-            if ( class_exists( $model_name ) ) 
-            {
+            if (class_exists($model_name)) {
                 # Retorna um objeto da classe
-                return new $model_name( $this->db, $this );
+                return new $model_name($this->db, $this);
             }
 
             // The end :)
             return;
         }
-
     } // Fim :) load_model
 
 
 
 
-    
+
 
 } // Fim :) class MainController

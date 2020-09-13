@@ -1,6 +1,6 @@
 <?php
 
-    if (!defined('ABSPATH')) {
+    if (!defined('Config::HOME_URI')) {
         exit();
     }
 
@@ -9,7 +9,7 @@
 
     # instantiate and use the dompdf class
     $dompdf = new Dompdf();
-    
+
     # Carrega seu Html
     $dompdf->loadHtml('Teste');
 
@@ -19,7 +19,7 @@
     # Renderiza
     $dompdf->render();
 
-    # Exibe 
+    # Exibe
     $dompdf->stream(
-            "laboratory", /* Nome do arquivo de saída */ ["Attachment" => false /* Para download, altere para true */]    
+            "laboratory", /* Nome do arquivo de saída */ ["Attachment" => false /* Para download, altere para true */]
     );

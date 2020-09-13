@@ -1,4 +1,4 @@
-<?php if (!defined('ABSPATH')) exit; ?>
+<?php if (!defined('Config::HOME_URI')) exit; ?>
 
 <div class="row">
     <div class="col-md-4"></div>
@@ -13,7 +13,7 @@
         <?php
         if ($this->login_error) {
             echo
-            '
+                '
                 <div class="alert alert-info" role="alert">
                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                          <span aria-hidden="true">&times;</span></button>

@@ -1,63 +1,68 @@
         <?php
-            if (!defined('ABSPATH')) {  exit(); }
+        if (!defined('Config::HOME_URI')) {
+            exit();
+        }
 
-            if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
-                $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
-                //var_dump($encode_id);die;
-                $modelo->delRegister($encode_id);
+        if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
+            $encode_id = filter_input(INPUT_GET, 're', FILTER_DEFAULT);
+            //var_dump($encode_id);die;
+            $modelo->delRegister($encode_id);
 
-                # Destroy variavel não mais utilizadas
-                unset($encode_id);
-            }
-                # Verifica se existe a requisição POST se existir executa o método se não faz nada
-                (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
+            # Destroy variavel não mais utilizadas
+            unset($encode_id);
+        }
+        # Verifica se existe a requisição POST se existir executa o método se não faz nada
+        (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
 
-                # Paginação parametros-------->
-                $limit = 5;
-                $pagConfig = [
-                    'totalRows' => COUNT($modelo->searchTable('cash_flow')),
-                    'perPage'   => $limit,
-                    'link_func' => 'searchFilter'];
+        # Paginação _parameters-------->
+        $limit = 5;
+        $pagConfig = [
+            'totalRows' => COUNT($modelo->searchTable('cash_flow')),
+            'perPage'   => $limit,
+            'link_func' => 'searchFilter'
+        ];
 
-                $pagination =  new Pagination($pagConfig);
+        $pagination =  new Pagination($pagConfig);
 
-                #-->
-                $flow = $modelo->searchTable('cash_flow', ['order_by'=>'flow_id DESC ', 'limit'=>$limit]);
+        #-->
+        $flow = $modelo->searchTable('cash_flow', ['order_by' => 'flow_id DESC ', 'limit' => $limit]);
 
-                # Verifica se existe feedback e retorna o feedback se sim se não retorna false
-                $form_msg = $modelo->form_msg;
+        # Verifica se existe feedback e retorna o feedback se sim se não retorna false
+        $form_msg = $modelo->form_msg;
 
-                //date_default_timezone_set('America/Sao_Paulo');
-                $date = date('Y-m-d H:i');
-                date('Y-m-d H:i:s', time());
-                
+        //date_default_timezone_set('America/Sao_Paulo');
+        $date = date('Y-m-d H:i');
+        date('Y-m-d H:i:s', time());
+
         ?>
         <div class="row">
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
             <div class="col-md-10  col-sm-12 col-xs-12">
-                <div id="loading" style="display: none;"><!--Loading.. este aqui-->
+                <div id="loading" style="display: none;">
+                    <!--Loading.. este aqui-->
                     <ul class="bokeh">
                         <li></li>
                         <li></li>
                         <li></li>
                     </ul>
-                </div><!--End loandind-->
+                </div>
+                <!--End loandind-->
             </div>
             <div class="col-md-1  col-sm-0 col-xs-0"></div>
         </div><!-- End row feedback -->
-        
+
         <div class="row">
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form" >
+                <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
                     <fieldset>
-                        <legend >FLUXO DE CAIXA <span></span></legend>
+                        <legend>FLUXO DE CAIXA <span></span></legend>
                         <div class="row form-compact form-hide" style="display: none;">
                             <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="flow_venc">Data de vencimento:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                                    <input type="hidden" id="flow_id" name="flow_id" value="" >
-                                    <input id="flow_venc" name="flow_venc" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
+                                    <input type="hidden" id="flow_id" name="flow_id" value="">
+                                    <input id="flow_venc" name="flow_venc" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa">
                                     <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
                                 </div>
                                 <br>
@@ -67,7 +72,7 @@
                                 <label for="flow_date_pay">Data de pagamento:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                                    <input id="flow_date_pay" name="flow_date_pay" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa" >
+                                    <input id="flow_date_pay" name="flow_date_pay" style="border-radius: 0px !important;" type="text" class="form-control data" placeholder="dd/mm/aaaa">
                                     <!--<div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>-->
                                 </div>
                                 <br>
@@ -87,11 +92,11 @@
                                 </select>
                                 <br>
                             </div>
-                            <div class="form-group col-md-2 col-sm-12 col-xs-12" >
+                            <div class="form-group col-md-2 col-sm-12 col-xs-12">
                                 <label for="flow_val">Valor montante ( em reais )</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">R$</div>
-                                    <input id="flow_val" name="flow_val" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" onkeydown="objFinanca.moneyCash(this,28,event,2,'.',',');" >
+                                    <input id="flow_val" name="flow_val" style="border-radius: 0px !important;" type="text" class="form-control" placeholder="0,00" onkeydown="objFinanca.moneyCash(this,28,event,2,'.',',');">
                                     <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                                 </div>
                                 <br>
@@ -112,7 +117,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-compact" >
+                        <div class="row form-compact">
                             <div class="form-group col-md-5 col-sm-12 col-xs-12">
                                 <div id="group-btn-new" class="btn-group">
                                     <button id="btn-new-show" title="Insere novo registro" class="btn btn-sm btn-default marg-top" type="reset">
@@ -134,45 +139,49 @@
             </div>
         </div><!-- End row button new form -->
         <?php if (!empty($flow)) { ?>
-        <div id="filtros" class="row">
-            <div class="form-group col-md-4 col-sm-10 col-xs-12">
-                <div class="input-group">
-                    <div class="input-group-addon" >
-                        <i class="glyphicon glyphicon-search text-primary" title="Efetue um pesqisa no sistema." aria-hidden="true"></i>
+            <div id="filtros" class="row">
+                <div class="form-group col-md-4 col-sm-10 col-xs-12">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="glyphicon glyphicon-search text-primary" title="Efetue um pesqisa no sistema." aria-hidden="true"></i>
+                        </div>
+                        <input style="border-radius: 0px !important;" type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
                     </div>
-                    <input style="border-radius: 0px !important;" type="text" class="search form-control " id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
                 </div>
-            </div><!--/End col-->
+                <!--/End col-->
 
-            <div class="col-md-5 col-sm-0 col-xs-0"></div><!--End/-->
+                <div class="col-md-5 col-sm-0 col-xs-0"></div>
+                <!--End/-->
 
-            <div class="form-group col-md-1  col-sm-3 col-xs-12">
-                <div class="input-group">
-                    <input type="text" class="text-center form-control" id="qtdLine"  placeholder="5" onkeyup="objFinanca.ajaxFilter();" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página de 1 até 50." >
+                <div class="form-group col-md-1  col-sm-3 col-xs-12">
+                    <div class="input-group">
+                        <input type="text" class="text-center form-control" id="qtdLine" placeholder="5" onkeyup="objFinanca.ajaxFilter();" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página de 1 até 50.">
+                    </div>
                 </div>
-            </div><!--/End col-->
+                <!--/End col-->
 
-            <div class="form-group col-md-2  col-sm-3 col-xs-12">
-                <select id="sortBy" class="form-control" onchange="objFinanca.ajaxFilter();">
-                    <option value="">Ordenar Por</option>
-                    <option value="asc">Ascendente</option>
-                    <option value="desc">descendente</option>
-                    <option value="active">Pago</option>
-                    <option value="inactive">Não Pago</option>
-                </select>
-            </div><!--/End col-->
-        </div><!-- End row filtros -->
-        
+                <div class="form-group col-md-2  col-sm-3 col-xs-12">
+                    <select id="sortBy" class="form-control" onchange="objFinanca.ajaxFilter();">
+                        <option value="">Ordenar Por</option>
+                        <option value="asc">Ascendente</option>
+                        <option value="desc">descendente</option>
+                        <option value="active">Pago</option>
+                        <option value="inactive">Não Pago</option>
+                    </select>
+                </div>
+                <!--/End col-->
+            </div><!-- End row filtros -->
+
         <?php } ?>
         <div class="row">
             <div class="col-md-12  col-sm-12 col-xs-12">
                 <div id="tableData" class="table-responsive" style="border: none;">
-                    
+
                 </div>
             </div>
         </div><!-- End row table -->
         <!-- Start Modal deletar fornecedores -->
-        <div class="modal in fade"  role="dialog" id="dellReg">
+        <div class="modal in fade" role="dialog" id="dellReg">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -184,14 +193,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <a href="javascript:void();" class="btn btn-danger delete-yes" >Eliminar</a>
+                        <a href="javascript:void();" class="btn btn-danger delete-yes">Eliminar</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
         <!-- Start Modal Informações de pagamentos -->
-        <div id="inforView" class="modal fade" >
+        <div id="inforView" class="modal fade">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -202,7 +211,7 @@
                     </div>
                     <div class="modal-body">
                         <ul class="list-inline list-modal-forn">
-                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Vencimento: </b> <span class="flow_venc">---</span></li> 
+                            <li class="list-group-item list-group-item-info list-group-item-text"><b>Vencimento: </b> <span class="flow_venc">---</span></li>
                             <li class="list-group-item list-group-item-warning list-group-item-text"><b>Data de Pagamento: </b> <span class="flow_date_pay">----</span></li>
                             <li class="list-group-item list-group-item-success list-group-item-text"><b>Categoria: </b> <span class="flow_cat">----</span> </li>
                             <li class="list-group-item list-group-item-info list-group-item-text"><b>Descrição: </b> <span class="flow_desc"></span></li>
@@ -218,7 +227,7 @@
                 </div>
             </div>
         </div><!-- End modal visualizar -->
-        
+
         <!-- Modal editar inserir -->
         <div class="modal fade" id="modalForm" role="dialog">
             <div class="modal-dialog">
@@ -238,11 +247,11 @@
                         <form class="form" role="form">
                             <div class="form-group">
                                 <label for="inputName">Name</label>
-                                <input type="text" class="form-control" id="inputName" placeholder="Enter your name"/>
+                                <input type="text" class="form-control" id="inputName" placeholder="Enter your name" />
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email"/>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email" />
                             </div>
                             <div class="form-group">
                                 <label for="inputMessage">Message</label>
@@ -258,14 +267,15 @@
                     </div>
                 </div>
             </div>
-        </div><!--End modal editar inserir-->
+        </div>
+        <!--End modal editar inserir-->
         <script>
             //Setando valores do ajax
             var objFinanca = new Financeiro();
             objFinanca.setAjaxData('finances-flow/filters');
             objFinanca.ajaxData();
             objFinanca.getAjaxData();
-            
+
             //  Muda url da pagina
             //  window.history.pushState("fees", "", "fees");
             //  Faz um refresh de url apos fechar modal
@@ -276,14 +286,14 @@
             //});
 
             // Invoca a edição de registro
-            function editRegister( id ){
-               $.ajax({
+            function editRegister(id) {
+                $.ajax({
                     type: 'POST',
-                    dataType:'JSON',
-                    url: '<?=HOME_URI;?>/finances-flow/ajax-process',
-                    data: 'action_type=data&id='+id,
+                    dataType: 'JSON',
+                    url: '<?= HOME_URI; ?>/finances-flow/ajax-process',
+                    data: 'action_type=data&id=' + id,
                     async: true,
-                    success:function(result) {
+                    success: function(result) {
                         console.log(result);
                         document.getElementById('flow_id').value = result.flow_id;
                         document.getElementById('flow_venc').value = result.flow_venc;
@@ -294,60 +304,63 @@
                     }
                 });
             }
-            
+
             //Açoes de remoção e inserção
-            function userAction(type,id){
+            function userAction(type, id) {
                 id = (typeof id === "undefined") ? '' : id;
                 //var statusArr = {add:"added",edit:"updated",delete:"deleted"};
                 var userData = '';
                 if (type === 'add') {
-                    userData = $("#addForm").serialize()+'&action_type='+type+'&id='+id;
+                    userData = $("#addForm").serialize() + '&action_type=' + type + '&id=' + id;
                     feedback = 'Inserido com sucesso!';
-                }else if (type === 'edit'){
-                    userData = $("#editForm").serialize()+'&action_type='+type;
+                } else if (type === 'edit') {
+                    userData = $("#editForm").serialize() + '&action_type=' + type;
                     feedback = 'Atualizado com sucessso!';
-                }else{
-                    if(confirm('Deseja remover esse registro?')){
-                        userData = 'action_type='+type+'&id='+id;
+                } else {
+                    if (confirm('Deseja remover esse registro?')) {
+                        userData = 'action_type=' + type + '&id=' + id;
                         feedback = 'Remoção realizada com sucesso!';
-                    }else{
+                    } else {
                         return false;
-                    }   
+                    }
                 }
                 $.ajax({
                     type: 'POST',
                     url: '<?= HOME_URI; ?>/finances-flow/ajax-process',
                     data: userData,
-                    success:function(msg){
+                    success: function(msg) {
                         objFinanca.ajaxData();
-                        if(msg === 'ok'){
-                            toastr.success(feedback, 'Sucesso!', {timeOut: 5000});
+                        if (msg === 'ok') {
+                            toastr.success(feedback, 'Sucesso!', {
+                                timeOut: 5000
+                            });
                             $('.form-register')[0].reset();
-                        }else{
-                            toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {timeOut: 5000});
+                        } else {
+                            toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
+                                timeOut: 5000
+                            });
                         }
                     }
                 });
             }
             // Invoca a visualização do registro
-            function infoView(id){
+            function infoView(id) {
                 $.ajax({
                     type: 'POST',
-                    dataType:'JSON',
-                    url: '<?=HOME_URI;?>/finances-flow/ajax-process',
-                    data: 'action_type=data&id='+id,
-                    success:function(data){
-                        $('.flow_venc').text((data.flow_venc) ? data.flow_venc : '---' );
+                    dataType: 'JSON',
+                    url: '<?= HOME_URI; ?>/finances-flow/ajax-process',
+                    data: 'action_type=data&id=' + id,
+                    success: function(data) {
+                        $('.flow_venc').text((data.flow_venc) ? data.flow_venc : '---');
                         $('.flow_date_pay').text((data.flow_date_pay) ? data.flow_date_pay : '---');
-                        $('.flow_cat').text((data.flow_cat) ? data.flow_cat  : '---');
+                        $('.flow_cat').text((data.flow_cat) ? data.flow_cat : '---');
                         $('.flow_desc').text((data.flow_desc) ? data.flow_desc : '---');
                         $('.flow_val').text((data.flow_val) ? data.flow_val : '---');
                         $('.flow_created').text((data.flow_created) ? data.flow_created : ' ---');
-                        $('.flow_modified').text((data.flow_modified) ? data.flow_modified  : '');
+                        $('.flow_modified').text((data.flow_modified) ? data.flow_modified : '');
                         $('.flow_status').text((data.flow_date_pay) ? 'Pago' : 'Em débito');
                         //$('#editForm').slideDown();
                     }
                 });
             }
-            
         </script>

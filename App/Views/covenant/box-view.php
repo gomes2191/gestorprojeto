@@ -1,12 +1,12 @@
 <?php
-    if (!defined('ABSPATH')) {
+    if (!defined('Config::HOME_URI')) {
         exit();
     }
 
     # Verifica se existe o método get se existir chama função
     if (filter_input(INPUT_GET, 'v', FILTER_DEFAULT)) {
         $id_encode = filter_input(INPUT_GET, 'v', FILTER_DEFAULT);
-        
+
         # Recebe os valores da consulta
         $modelo = $modelo->get_registro($id_encode);
 
@@ -25,7 +25,7 @@
 </div>
 <div class="modal-body">
     <ul class="list-inline list-modal-forn">
-       <?= ($modelo['covenant_nome']) ? '<li style="color: #666666" class="list-for list-group-item list-group-item-info list-group-item-text"><b>LABORATÓRIO:</b> '.$modelo['covenant_nome'].'</li>' : '' ?> 
+       <?= ($modelo['covenant_nome']) ? '<li style="color: #666666" class="list-for list-group-item list-group-item-info list-group-item-text"><b>LABORATÓRIO:</b> '.$modelo['covenant_nome'].'</li>' : '' ?>
        <?= ($modelo['covenant_cpf_cnpj']) ? '<li style="color: #666666" class="list-group-item list-group-item-warning list-group-item-text"><b>CPF / CNPJ:</b> '.$modelo['covenant_cpf_cnpj'].'</li>' : '' ?>
        <?= ($modelo['covenant_rs']) ? '<li style="color: #666666" class="list-group-item list-group-item-success list-group-item-text"><b>RAZÃO SOCIAL:</b> '.$modelo['covenant_rs'].'</li>' : '' ?>
        <?= ($modelo['covenant_at']) ? '<li style="color: #666666" class="list-group-item list-group-item-info list-group-item-text"><b>AREA DE ATUAÇÃO:</b> '.$modelo['covenant_at'].'</li>' : '' ?>
@@ -62,7 +62,7 @@
     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
 </div>
 
-<?php 
+<?php
     # Destroy a variavl não mais utilizada
-    unset($modelo); 
+    unset($modelo);
 ?>

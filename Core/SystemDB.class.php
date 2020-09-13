@@ -23,7 +23,7 @@ class SystemDB extends Config
         $_dbCharset, // Charset da base de dados
         $_pdo, // Nossa conexão com o BD
         $_error, // Configura o erro
-        $_debug; // Mostra todos os erros 
+        $_debug; // Mostra todos os erros
 
     /**
      * Construtor da classe
@@ -57,7 +57,7 @@ class SystemDB extends Config
 
 
     /**
-     * Junta os parametros e tenta efetuar a conexão com o BD.
+     * Junta os _parameters e tenta efetuar a conexão com o BD.
      *
      * @return array
      */
@@ -112,8 +112,8 @@ class SystemDB extends Config
     public function query($stmt, $data_array = null)
     {
 
-        # Prepara e executa
-        $query = $this->pdo->prepare($stmt);
+        // Prepara e executa
+        $query = $this->_pdo->prepare($stmt);
         $check_exec = $query->execute($data_array);
 
         # Verifica se a consulta aconteceu
@@ -330,7 +330,7 @@ class SystemDB extends Config
         return;
     } // delete
 
-    // Metodo para pegar o id da ultima inserção na tabela    
+    // Metodo para pegar o id da ultima inserção na tabela
     public function lastInsertId()
     {
         return $this->pdo->lastInsertId();

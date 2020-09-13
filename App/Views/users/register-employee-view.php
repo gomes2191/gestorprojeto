@@ -1,18 +1,18 @@
 <?php
-if (!defined('ABSPATH')) {
+if (!defined('Config::HOME_URI')) {
     exit();
 }
 $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
 
 if (isset($get['emp'])) {
-    $parametros = $get['emp'];
+    $_parameters = $get['emp'];
 }
 
 #   Carrega todos os métodos do modelo
 (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
 $form_msg = $modelo->form_msg;
-$modelo->get_register_form($parametros, 1);
-unset($parametros, $get);
+$modelo->get_register_form($_parameters, 1);
+unset($_parameters, $get);
 ?>
 
 <div class="row-fluid">
@@ -25,7 +25,7 @@ unset($parametros, $get);
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . '
                         </div>';
             unset($form_msg);
         }

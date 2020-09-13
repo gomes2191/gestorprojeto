@@ -333,10 +333,10 @@ class UsersModel extends MainModel
      *   @Versão: 0.1
      *   @Descrição: Obtém os dados de agendamentos cadastrados método usado para edição de agendamentos.
      * */
-    public function get_register_form($parametros)
+    public function get_register_form($_parameters)
     {
 
-        $id = intval($this->encodeDecode(0, $parametros));
+        $id = intval($this->encodeDecode(0, $_parameters));
 
         // Verifica na base de dados
         $query = $this->db->query('SELECT * FROM `users` WHERE `user_id` = ?', [$id]);
@@ -654,7 +654,7 @@ class UsersModel extends MainModel
                 imagedestroy($image_format);
                 imagedestroy($image_new);
                 // Tenta mover o arquivo enviado
-                if (!move_uploaded_file($tmp_imagem, UP_ABSPATH . '/img/perfil/' . $nome_imagem)) {
+                if (!move_uploaded_file($tmp_imagem, UP_Config::HOME_URI . '/img/perfil/' . $nome_imagem)) {
                     # Feedback para o usuário
                     $this->form_msg = [0 => 'alert-danger', 1 => 'Sucesso! ', 2 => 'Não foi possível mover imagem para o diretorio'];
                     return;

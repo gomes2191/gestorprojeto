@@ -1,14 +1,14 @@
-<?php 
-    if (!defined('ABSPATH')){ exit; }
-    
+<?php
+    if (!defined('Config::HOME_URI')){ exit; }
+
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
-    //$modelo->get_register_form(GlobalFunctions::chkArray($parametros, 1));
-    //$modelo->del_user($parametros);
+    //$modelo->get_register_form(GlobalFunctions::chkArray($_parameters, 1));
+    //$modelo->del_user($_parameters);
 ?>
 
 <div class="row">
-    <div class="col-md-8  col-sm-12 col-xs-12"> 
+    <div class="col-md-8  col-sm-12 col-xs-12">
         <h4 style="color: #007fff;">Seja Bem-vindo</h4>
     </div>
     <div class="col-md-4  col-sm-12 col-xs-12">
@@ -16,7 +16,7 @@
             <div class="card-header">
                 <h3 style="color: #007fff">Cadastra-se</h3>
             </div>
-          
+
           <div class="card-body">
                 <form role="form" method="post" action="">
 

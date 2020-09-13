@@ -1,4 +1,4 @@
-<?php if (!defined('ABSPATH')) {
+<?php if (!defined('Config::HOME_URI')) {
     exit();
 }
 
@@ -10,7 +10,7 @@ $qtdLine = filter_input(INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT);
 
 /*
      * Rotina que verifica se o valor da quantidade
-     * de pagina e = ou menor 0 ou superior a 50. 
+     * de pagina e = ou menor 0 ou superior a 50.
      */
 if (($qtdLine <= 0) or ($qtdLine > 50)) {
     $limit = 5;
@@ -37,7 +37,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             //                $conditions['start'] = $start;
             //                $conditions['limit'] = $limit;
             //                $allReg = $modelo->searchTable( $tblName, $conditions );
-            //                break;            
+            //                break;
             //            case 'inactive':
             //                $conditions['inactive'] = ['patrimony_sit' => 'inactive'];
             //                $conditions['order_by'] = 'patrimony_id DESC';
@@ -120,7 +120,7 @@ HTML;
     endforeach;
     echo <<<HTML
                 </tbody>
-            </table>    
+            </table>
 HTML;
     echo $pagination->createLinks();
     echo '<p></p>';

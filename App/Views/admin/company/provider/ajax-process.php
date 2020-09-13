@@ -1,6 +1,6 @@
 <?php
 # Verifica se constatante referente ao caminho foi definida
-if (!defined('ABSPATH')) {
+if (!defined('ABS_PATH')) {
     exit();
 }
 

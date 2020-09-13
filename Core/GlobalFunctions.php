@@ -272,22 +272,23 @@ class GlobalFunctions
         $pastas = ['/Core/', '/interfaces/'];
 
         foreach ($pastas as $pasta) {
-            $fileParcial = ABSPATH . $pasta . $nomeDaClasse;
+            $fileParcial = ABS_PATH . $pasta . $nomeDaClasse;
+
             if ((file_exists($fileParcial . '.class.php')) or (file_exists($fileParcial . '.interf.php'))) {
                 ('/Core/' === $pasta) ? include_once $fileParcial . '.class.php' : include_once $fileParcial . '.interf.php';
 
-                unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
+                unset($fileParcial, $pasta, $pastas, $nomeDaClasse);
 
                 return;
             }
         } // End autoLoad
 
-        include_once dirname(__DIR__) . '/includes/404.php';
+        //include_once dirname(__DIR__) . '/includes/404.php';
 
-        die('Erro: Classes não encontrada.');
+        //die('Erro: Classes não encontrada.');
 
         unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
-        exit();
+        //exit();
     }
 } // End :) Class
 

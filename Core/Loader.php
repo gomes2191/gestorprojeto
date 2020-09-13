@@ -1,8 +1,8 @@
 <?php
 
 // Evita que usuários acesse este arquivo diretamente.
-if (!defined('ABSPATH')) {
-    exit('Não foi definido o diretório do sistem.');
+if (!defined('ABS_PATH')) {
+    exit('Não foi definido o diretório do sistema.');
 }
 
 // Inicia a sessão
@@ -18,14 +18,14 @@ if (!defined('DEBUG') || DEBUG == false) {
 
     // Mostra todos os erros
     ini_set('display_errors', 1);
-
+    ini_set('display_startup_errors', 1);
     ini_set('log_errors', 1);
+    ini_set('error_reporting', -1);
+    ini_set('html_errors', 1);
 
     // print_r(dirname(__DIR__));die;
-
     ini_set('error_log', dirname(__DIR__) . '/logs/error_log.txt');
 
-    error_reporting(E_ALL);
     echo "<script>alert('Modo Debug ativado!');</script>";
 }
 

@@ -1,5 +1,5 @@
 <?php
-if (!defined('ABSPATH')) {
+if (!defined('Config::HOME_URI')) {
     exit();
 }
 
@@ -35,7 +35,7 @@ $form_msg = $modelo->form_msg;
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                                <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                                <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . '
                             </div>';
                 unset($form_msg);
             } else {

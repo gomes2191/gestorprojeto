@@ -11,7 +11,8 @@ class ExemploModel extends MainModel
 	 * @param object $db Objeto da nossa conexão PDO
 	 * @param object $controller Objeto do controlador
 	 */
-	public function __construct( $db = false, $controller = null ) {
+	public function __construct($db = false, $controller = null)
+	{
 		// Configura o DB (PDO)
 		$this->db = $db;
 
@@ -19,13 +20,13 @@ class ExemploModel extends MainModel
 		$this->controller = $controller;
 
 		// Configura os parâmetros
-		$this->parametros = $this->controller->parametros;
+		$this->_parameters = $this->controller->_parameters;
 
 		// Configura os dados do usuário
 		$this->userdata = $this->controller->userdata;
-		
+
 		echo 'Modelo carregado... <br>';
 	}
-	
+
 	// Crie seus próprios métodos daqui em diante
 }

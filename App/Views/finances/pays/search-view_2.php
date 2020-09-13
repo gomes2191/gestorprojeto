@@ -1,11 +1,11 @@
-<?php if (!defined('ABSPATH')) {
+<?php if (!defined('Config::HOME_URI')) {
     exit();
 }
 
 $tblName = 'bills_to_pay';
 $conditions = [];
 //var_dump($_POST);die;
-# Paginação parametros-------->
+# Paginação _parameters-------->
 $start = !empty($_POST['page']) ? $_POST['page']  : 0;
 var_dump($_POST);
 $limit = 3;
@@ -56,7 +56,7 @@ if (!empty(filter_input(INPUT_POST, 'type', FILTER_DEFAULT)) && !empty(filter_in
 $pays = $modelo->getRows($tblName, $conditions);
 var_dump($pays);
 echo <<<HTML
-            
+
             <table  class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -99,7 +99,7 @@ if (!empty($pays)) {
 }
 echo <<<HTML
         </tbody>
-    </table>    
+    </table>
 HTML;
 
 echo '<span>' . $pagination->createLinks() . '</span>';

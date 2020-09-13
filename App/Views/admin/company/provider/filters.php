@@ -1,7 +1,7 @@
 <?php
 
 
-if (defined('ABSPATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) {
+if (defined('ABS_PATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) {
     Swoole\Http\Request::__destruct;
 }
 
@@ -12,9 +12,9 @@ $tblName = 'providers';
 $qtdLine = filter_input(INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT);
 
 /*
-     * Rotina que verifica se o valor da quantidade
-     * de pagina e = ou menor 0 ou superior a 50. 
-     */
+* Rotina que verifica se o valor da quantidade
+* de pagina e = ou menor que 0 ou superior a 50.
+*/
 if (($qtdLine <= 0) or ($qtdLine > 50)) {
     $limit = 5;
 } else {
@@ -71,15 +71,15 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             break;
     }
 } else {
-    $conditions['order_by'] = "id DESC LIMIT 100";
-    $count = (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : 0;
-    $conditions['order_by'] = "id DESC LIMIT $start, $limit";
+    //$conditions['order_by'] = "id DESC LIMIT 100";
+    //$count = (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : 0;
+    $conditions['order_by'] = "id DESC LIMIT $start offset $limit";
     $allReg = $modelo->searchTable($tblName, $conditions);
 }
 
 $pagConfig = [
     'currentPage'   => $start,
-    'totalRows'     => $count,
+    'totalRows'     => $count = count((array)$allReg),
     'perPage'       => $limit,
     'link_func'     => 'objFinanca.ajaxFilter'
 ];
@@ -120,7 +120,7 @@ HTML;
     endforeach;
     echo <<<HTML
                 </tbody>
-            </table>    
+            </table>
 HTML;
     echo $pagination->createLinks();
     echo '<p></p>';

@@ -8,38 +8,40 @@ use Core\View;
  * @package OdontoControl
  * @since 0.1
  */
-class RegisterController extends MainController {
-  
-     # Tipo de página [int]
-     public $page_type = 1;
+class RegisterController extends MainController
+{
 
-    /**
-     * $login_required
-     *
-     * Se a página precisa de login
-     *
-     * @access public
-     */
-    //public $login_required = true;
+  # Tipo de página [int]
+  public $page_type = 1;
 
-    /**
-     * $permission_required
-     *
-     * Permissão necessária
-     *
-     * @access public
-     */
-    //public $permission_required = 'user-register';
+  /**
+   * $login_required
+   *
+   * Se a página precisa de login
+   *
+   * @access public
+   */
+  //public $login_required = true;
 
-    /**
-     * Carrega a página "/views/user-register/index.php"
-     */
-    public function index() {
-        // Page title
-        $this->title = 'Seja Bem-vindo';
+  /**
+   * $permission_required
+   *
+   * Permissão necessária
+   *
+   * @access public
+   */
+  //public $permission_required = 'user-register';
 
-        // Verifica se o usuário está logado
-        /* if ( ! $this->logged_in ) {
+  /**
+   * Carrega a página "/views/user-register/index.php"
+   */
+  public function index()
+  {
+    // Page title
+    $this->title = 'Seja Bem-vindo';
+
+    // Verifica se o usuário está logado
+    /* if ( ! $this->logged_in ) {
 
           // Se não; garante o logout
           $this->logout();
@@ -64,27 +66,27 @@ class RegisterController extends MainController {
 
 
 
-        // Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+    // Parametros da função
+    $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : [];
 
-        // Carrega o modelo para este view
-        $modelo = $this->load_model('register/register-model');
+    // Carrega o modelo para este view
+    $modelo = $this->load_model('register/register-model');
 
-        /** Carrega os arquivos do view * */
-        // /views/_includes/header.php
-        require ABSPATH . '/App/Views/_includes/header.php';
+    /** Carrega os arquivos do view * */
+    // /views/_includes/header.php
+    require Config::HOME_URI . '/App/Views/_includes/header.php';
 
-        // /views/_includes/menu.php
-        require ABSPATH . '/App/Views/_includes/menu.php';
+    // /views/_includes/menu.php
+    require Config::HOME_URI . '/App/Views/_includes/menu.php';
 
-        // /views/user-register/index.php
-        // require ABSPATH . '/App/Views/Register/register.php';
+    // /views/user-register/index.php
+    // require Config::HOME_URI . '/App/Views/Register/register.php';
 
-         View::renderTemplate('/admin/register/register', ['modelo' => $modelo]);
+    View::renderTemplate('/admin/register/register', ['modelo' => $modelo]);
 
-        // /views/_includes/footer.php
-        require ABSPATH . '/App/Views/_includes/footer.php';
-    }
+    // /views/_includes/footer.php
+    require Config::HOME_URI . '/App/Views/_includes/footer.php';
+  }
 
-// index
+  // index
 }// class home

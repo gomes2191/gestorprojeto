@@ -417,7 +417,7 @@ class StockModel extends MainModel
 
                 // Verifica qual dos números é a página atual
                 // E cria um estilo extremamente simples para diferenciar
-                if ($i == @$parametros[1]) {
+                if ($i == @$_parameters[1]) {
                     $estilo = ' style="color:red;" ';
                 }
 

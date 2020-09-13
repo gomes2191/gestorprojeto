@@ -1,5 +1,5 @@
 <?php
-if (!defined('ABSPATH')) {
+if (!defined('Config::HOME_URI')) {
     exit();
 }
 
@@ -44,7 +44,7 @@ $pagina_atual = $pagina_atual * $artigos_por_pagina;
         });
     });
 
-    // Chama o paginador da tabela    
+    // Chama o paginador da tabela
     $(function() {
         if ($('.text-center').hasClass('vazio') === false) {
             $('#table-fees').DataTable({
@@ -68,7 +68,7 @@ $pagina_atual = $pagina_atual * $artigos_por_pagina;
             //            valorVetor['fees_total']    =  $(this).closest('tr').find('#fees_total').text().replace(' ','');
             //            //alert($(this).closest('tr').find('input').val());
             //            console.log(valorVetor);
-            //            
+            //
             //            $('input#fees_id').val(valorVetor['fees_id']);
             //            $('input#fees_cod').val(valorVetor['fees_cod']);
             //            $('input#fees_proc').val(valorVetor['fees_proc']);
@@ -100,7 +100,7 @@ $pagina_atual = $pagina_atual * $artigos_por_pagina;
     //                  extend: 'excel',
     //                  text: 'Gerar excel'},{
     //                  extend: 'pdf',
-    //                  text: 'Gerar PDF'  
+    //                  text: 'Gerar PDF'
     //                }
     //            ],
     //            "language": {url: 'Portuguese-Brasil.json'},
@@ -112,10 +112,10 @@ $pagina_atual = $pagina_atual * $artigos_por_pagina;
     //                {"data": "pay_desc"},
     //                {"data": "pay_val"},
     //                {"data": null, "defaultContent": "<button>Click!</button>| <button>Click!</button>" }
-    //                
-    //                
+    //
+    //
     //            ],
-    //            
+    //
     //            "processing": true,
     //            "serverSide": true,
     //            "ajax": {
@@ -123,12 +123,12 @@ $pagina_atual = $pagina_atual * $artigos_por_pagina;
     //                        type: 'POST'
     //                    }
     //                });
-    //                
+    //
     //                $('#example tbody').on( 'click', 'button', function () {
     //        var data = table.row( $(this).parents('tr') ).data();
     //        alert( data[3] +"'s salary is: "+ data[1] + ' '+ data[0] );
-    //    } ); 
-    //    
+    //    } );
+    //
     //    });
 
 
@@ -340,7 +340,7 @@ $pagina_atual = $pagina_atual * $artigos_por_pagina;
 
                         //                        var app = angular.module('myFess', []);
                         //                        app.controller('myFessController', function($scope){
-                        //                            $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};            
+                        //                            $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
                         //                            $scope.somarValores = function(){
                         //                                objFinanca.setUS(String($scope.operacao.fees_part));
                         //                                objFinanca.mostrarUS();

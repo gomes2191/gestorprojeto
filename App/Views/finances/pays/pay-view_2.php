@@ -1,5 +1,5 @@
 <?php
-if (!defined('ABSPATH')) {
+if (!defined('Config::HOME_URI')) {
     exit();
 }
 
@@ -14,7 +14,7 @@ if (filter_input(INPUT_GET, 're', FILTER_DEFAULT)) {
 # Verifica se existe a requisição POST se existir executa o método se não faz nada
 (filter_input_array(INPUT_POST)) ? $modelo->validate_register_form() : FALSE;
 
-# Paginação parametros-------->
+# Paginação _parameters-------->
 $limit = 3;
 $pagConfig = [
     'totalRows' => COUNT($modelo->getRows('bills_to_pay')),
@@ -79,7 +79,7 @@ $form_msg = $modelo->form_msg;
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                                <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                                <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . '
                             </div>';
                     unset($form_msg);
                 } else {

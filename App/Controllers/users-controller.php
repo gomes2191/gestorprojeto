@@ -6,7 +6,8 @@
  * @package OdontoControl
  * @since 0.1
  */
-class UsersController extends MainController {
+class UsersController extends MainController
+{
     /**
      * $login_required
      *
@@ -28,7 +29,8 @@ class UsersController extends MainController {
     /**
      * Carrega a página "/views/user-register/index.php"
      */
-    public function index() {
+    public function index()
+    {
         // Page title
         $this->title = ' Usuarios';
 
@@ -57,82 +59,83 @@ class UsersController extends MainController {
           } */
 
         // Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : array();
         // Carrega o modelo para este view
         $modelo = $this->load_model('users/users-model');
 
         /** Carrega os arquivos do view * */
         // /views/_includes/header.php
-        require ABSPATH . '/views/_includes/header.php';
+        require Config::HOME_URI . '/views/_includes/header.php';
 
         // /views/_includes/menu.php
-        require ABSPATH . '/views/_includes/menu.php';
+        require Config::HOME_URI . '/views/_includes/menu.php';
 
         // /views/user-register/index.php
-        require ABSPATH . '/views/users/users-view.php';
+        require Config::HOME_URI . '/views/users/users-view.php';
 
         // /views/_includes/footer.php
-        require ABSPATH . '/views/_includes/footer.php';
+        require Config::HOME_URI . '/views/_includes/footer.php';
     }
 
-// index
+    // index
 
-    public function RegisterDentist() {
+    public function RegisterDentist()
+    {
         # Page title
         $this->title = ' Cadastro de desntista';
 
         // Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
+        $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : array();
         // Carrega o modelo para este view
         $modelo = $this->load_model('users/users-model');
 
         /** Carrega os arquivos do view * */
         // /views/_includes/header.php
-        require ABSPATH . '/views/_includes/header.php';
+        require Config::HOME_URI . '/views/_includes/header.php';
 
         // /views/_includes/menu.php
-        require ABSPATH . '/views/_includes/menu.php';
+        require Config::HOME_URI . '/views/_includes/menu.php';
 
         // /views/user-register/index.php
-        require ABSPATH . '/views/users/register-dentist-view.php';
+        require Config::HOME_URI . '/views/users/register-dentist-view.php';
 
         // /views/_includes/footer.php
-        require ABSPATH . '/views/_includes/footer.php';
-        
+        require Config::HOME_URI . '/views/_includes/footer.php';
     }   #---> RegisterEmployee
 
-    public function RegisterEmployee() {
+    public function RegisterEmployee()
+    {
         # Page title
         $this->title = ' Cadastro de funcionario';
 
         // Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
-        
+        $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : array();
+
         // Carrega o modelo para este view
         $modelo = $this->load_model('users/users-model');
 
         /** Carrega os arquivos do view * */
         // /views/_includes/header.php
-        require ABSPATH . '/views/_includes/header.php';
+        require Config::HOME_URI . '/views/_includes/header.php';
 
         // /views/_includes/menu.php
-        require ABSPATH . '/views/_includes/menu.php';
+        require Config::HOME_URI . '/views/_includes/menu.php';
 
         // /views/user-register/index.php
-        require ABSPATH . '/views/users/register-employee-view.php';
+        require Config::HOME_URI . '/views/users/register-employee-view.php';
 
         // /views/_includes/footer.php
-        require ABSPATH . '/views/_includes/footer.php';
+        require Config::HOME_URI . '/views/_includes/footer.php';
     }   #---> RegisterEmployee
-    
-    public function BoxView(){
-        
+
+    public function BoxView()
+    {
+
         #   Carrega o modelo
         $modelo = $this->load_model('users/users-model');
-        
+
         #   Carrega o view
-        require_once (ABSPATH . '/views/users/box-view.php');
-        
+        require_once(Config::HOME_URI . '/views/users/box-view.php');
     }   #--> End BoxView
-    
+
 }   #---> class home

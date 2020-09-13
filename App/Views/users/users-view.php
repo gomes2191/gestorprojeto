@@ -1,11 +1,11 @@
-<?php if (!defined('ABSPATH')) {
+<?php if (!defined('Config::HOME_URI')) {
     exit();
 }
 
 #   Verifica se existe o metodo get se exsite passa para variavel $get com o filtro necessario
 $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
 
-#   Verifica se existe o método $get['p'] na requisição   
+#   Verifica se existe o método $get['p'] na requisição
 if (isset($get['d'])) {
     $modelo->delRegister($get['d']);
 }
@@ -28,7 +28,7 @@ unset($get);
         });
     });
 
-    // Chama o paginador da tabela    
+    // Chama o paginador da tabela
     $(function() {
         $('#table-users').DataTable({
             language: {
@@ -48,7 +48,7 @@ unset($get);
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <i class="fa fa-info-circle fa-4" >&nbsp;</i>
-                        <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . ' 
+                        <strong>' . $form_msg[1] . '</strong>&nbsp;' . $form_msg[2] . '
                     </div>';
             unset($form_msg);
         }

@@ -51,7 +51,7 @@ class MainModel
      *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
      *  @Descrição: Parâmetros da URL
      * */
-    public $parametros;
+    public $_parameters;
 
     /**
      *  @Acesso: public

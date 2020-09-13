@@ -1,6 +1,6 @@
 <?php
 // Evita acesso direto a este arquivo
-if (!defined('ABSPATH')) exit;
+if (!defined('Config::HOME_URI')) exit;
 
 // Configura as URLs
 $adm_uri = HOME_URI . '/noticias/adm/';

@@ -1,5 +1,5 @@
 <?php
-if (!defined('ABSPATH')) {
+if (!defined('Config::HOME_URI')) {
     exit;
 }
 
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 //var_dump($modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'));
 
 //    if(in_array($get_decode, $modelo->get_table_data(2, 'covenant_id',  'covenant', 'covenant_id', $get_decode, 'covenant_id'))) {
-//        
+//
 //    }else{
 //        # Retorna para página 'covenant' caso não exista o id correspondente
 //        echo'<script>window.location="'.HOME_URI.'/covenant";</script>';
@@ -29,7 +29,7 @@ if (!defined('ABSPATH')) {
 //    if (filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT)) {
 //        $encode_id = filter_input(INPUT_GET, 'get_three', FILTER_DEFAULT);
 //        $modelo->delRegister($encode_id);
-//        
+//
 //        # Destroy variável não mais utilizadas
 //        unset($encode_id);
 //    }
@@ -43,7 +43,7 @@ $form_msg = $modelo->form_msg;
     //  Muda url da pagina
     //  window.history.pushState("fees", "", "fees");
 
-    // Chama o paginador da tabela    
+    // Chama o paginador da tabela
     $(function() {
         if ($('.text-center').hasClass('vazio') === false) {
             $('#table-fees').DataTable({
@@ -200,7 +200,7 @@ $form_msg = $modelo->form_msg;
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . '
                         </div>';
             unset($form_msg);
         } else {
@@ -289,7 +289,7 @@ $form_msg = $modelo->form_msg;
         <div class="table-responsive">
             <br>
             <table id="table-fees" class="table table-bordered table-condensed table-hover table-format">
-                <?php #if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')): 
+                <?php #if ($modelo->get_table_data(2, 'fees_id',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id')):
                 ?>
                 <thead>
                     <tr class="cabe-title">
@@ -304,7 +304,7 @@ $form_msg = $modelo->form_msg;
                     </tr>
                 </thead>
                 <tbody>
-                    <?php //foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ): 
+                    <?php //foreach ( $modelo->get_table_data(2, '*',  'covenant_fees', 'covenant_fees_id', $get_decode, 'fees_id') as $fetch_userdata  ):
                     ?>
                     <tr class="text-center">
                         <td id="fees_id"><span></span></td>
@@ -330,11 +330,11 @@ $form_msg = $modelo->form_msg;
                         </td>-->
 
                     </tr>
-                    <?php #endforeach; 
+                    <?php #endforeach;
                     ?>
                     <?php
-                    /*else: 
-                            echo '<tbody><tr><td class="text-center vazio" style="color: red;" >Não há registros cadastrado no sistema.</td></tr>'; 
+                    /*else:
+                            echo '<tbody><tr><td class="text-center vazio" style="color: red;" >Não há registros cadastrado no sistema.</td></tr>';
                         endif;*/
                     ?>
 
@@ -363,7 +363,7 @@ $form_msg = $modelo->form_msg;
 
                         //                        var app = angular.module('myFess', []);
                         //                        app.controller('myFessController', function($scope){
-                        //                            $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};            
+                        //                            $scope.operacao = {fees_part:0, valorReal:0, fees_desc:0, fees_total:0};
                         //                            $scope.somarValores = function(){
                         //                                objFinanca.setUS(String($scope.operacao.fees_part));
                         //                                objFinanca.mostrarUS();

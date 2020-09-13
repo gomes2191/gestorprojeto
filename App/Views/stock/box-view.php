@@ -1,12 +1,12 @@
 <?php
-    if (!defined('ABSPATH')) {
+    if (!defined('Config::HOME_URI')) {
         exit();
     }
 
     # Verifica se existe o método get se existir chama função
     if (filter_input(INPUT_GET, 'v', FILTER_DEFAULT)) {
         $id_encode = filter_input(INPUT_GET, 'v', FILTER_DEFAULT);
-        
+
         # Recebe os valores da consulta
         $modelo = $modelo->get_registro($id_encode);
 
@@ -25,7 +25,7 @@
 </div>
 <div class="modal-body">
     <ul class="list-inline list-modal-forn">
-       <?= ($modelo['stock_cod']) ? '<li class="list-for list-group-item list-group-item-info list-group-item-text"><b>Código:</b> '.$modelo['stock_cod'].'</li>' : '' ?> 
+       <?= ($modelo['stock_cod']) ? '<li class="list-for list-group-item list-group-item-info list-group-item-text"><b>Código:</b> '.$modelo['stock_cod'].'</li>' : '' ?>
        <?= ($modelo['stock_desc']) ? '<li class="list-group-item list-group-item-warning list-group-item-text"><b>Descrição:</b> '.$modelo['stock_desc'].'</li>' : '' ?>
        <?= ($modelo['stock_tipo_unit']) ? '<li class="list-group-item list-group-item-success list-group-item-text"><b>Tipo unitário:</b> '.$modelo['stock_tipo_unit'].'</li>' : '' ?>
        <?= ($modelo['stock_fornecedor']) ? '<li class="list-group-item list-group-item-info list-group-item-text"><b>Fornecedor:</b> '.$modelo['stock_fornecedor'].'</li>' : '' ?>
@@ -40,7 +40,7 @@
     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar X</button>
 </div>
 
-<?php 
+<?php
     # Destroy a variavl não mais utilizada
-    unset($modelo); 
+    unset($modelo);
 ?>

@@ -38,7 +38,7 @@ class FeesModel extends MainModel
     public $db;
 
     /**
-     * 
+     *
      *
      * @Descrição: Construtor, carrega  o DB.
      *
@@ -54,7 +54,7 @@ class FeesModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: validate_register_form()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
      *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
      **/
@@ -98,7 +98,7 @@ class FeesModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: insertRegister()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Insere o registro no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
@@ -137,7 +137,7 @@ class FeesModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: updateRegister()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
@@ -171,7 +171,7 @@ class FeesModel extends MainModel
                 # Destroy variavel nao mais utilizadas.
                 unset($registro_id, $query_up);
 
-                # Retorna o valor e finaliza execução.   
+                # Retorna o valor e finaliza execução.
                 echo 'err';
                 exit();
             }
@@ -182,7 +182,7 @@ class FeesModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: get_register_form()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
      **/
     public function get_register_form($id_encode)
@@ -217,7 +217,7 @@ class FeesModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Função: delRegister()
-     *   @Versão: 0.2 
+     *   @Versão: 0.2
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
     public function delRegister($encode_id)
@@ -253,7 +253,7 @@ class FeesModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_ultimo_id() 
+     *   @Função: get_ultimo_id()
      *   @Descrição: Pega o ultimo ID do registro.
      **/
     public function get_ultimo_id()
@@ -301,7 +301,7 @@ class FeesModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: getJSON() 
+     *   @Função: getJSON()
      *   @Descrição: Recebe a tabela e o id, e retorna um JSON dos dados.
      **/
     public function getJSON($table, $id)
@@ -345,7 +345,7 @@ class FeesModel extends MainModel
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
      *   @Versão: 0.1
-     *   @Função: get_registro() 
+     *   @Função: get_registro()
      *   @Descrição: Pega o ID passado na função e retorna os valores do id solicitado.
      **/
     public function get_registro($encode_id = NULL)
@@ -418,7 +418,7 @@ class FeesModel extends MainModel
 
                 // Verifica qual dos números é a página atual
                 // E cria um estilo extremamente simples para diferenciar
-                if ($i == @$parametros[1]) {
+                if ($i == @$_parameters[1]) {
                     $estilo = ' style="color:red;" ';
                 }
 

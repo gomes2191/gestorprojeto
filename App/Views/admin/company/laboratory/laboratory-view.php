@@ -1,8 +1,8 @@
-        <?php if (!defined('ABSPATH')) {
+        <?php if (!defined('Config::HOME_URI')) {
             exit();
         }
 
-        # Paginação parametros
+        # Paginação _parameters
         $limit = 5;
 
         # Realiza um consulta na base de dados e reatorna os valores

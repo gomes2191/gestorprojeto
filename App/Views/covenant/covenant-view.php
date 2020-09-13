@@ -1,5 +1,5 @@
 <?php
-if (!defined('ABSPATH')) {
+if (!defined('Config::HOME_URI')) {
     exit();
 }
 
@@ -26,7 +26,7 @@ $form_msg = $modelo->form_msg;
     //        });
     //    });
 
-    // Chama o paginador da tabela    
+    // Chama o paginador da tabela
     $(function() {
         if ($('.text-center').hasClass('vazio') == false) {
             $('#table-laboratory').DataTable({
@@ -56,7 +56,7 @@ $form_msg = $modelo->form_msg;
                         window.location.href = '<?= HOME_URI; ?>/covenant?get=' + id;
                     }, 400);
 
-                    //swal({title:'Eliminado!' ,type: "success", timer: 1250, showConfirmButton: false}, 
+                    //swal({title:'Eliminado!' ,type: "success", timer: 1250, showConfirmButton: false},
                     //function(){ window.location.href = '<?= HOME_URI; ?>/laboratory?get=' + id; });
 
                 } else {
@@ -76,7 +76,7 @@ $form_msg = $modelo->form_msg;
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <i class="' . $form_msg[1] . '" >&nbsp;</i>
-                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . ' 
+                            <strong>' . $form_msg[2] . '</strong>&nbsp;' . $form_msg[3] . '
                         </div>';
             unset($form_msg);
         } else {

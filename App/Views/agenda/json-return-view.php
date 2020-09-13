@@ -1,4 +1,4 @@
-<?php if (!defined('ABSPATH')) {
+<?php if (!defined('Config::HOME_URI')) {
     exit();
 }
 

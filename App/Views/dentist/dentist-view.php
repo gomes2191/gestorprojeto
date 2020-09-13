@@ -1,12 +1,12 @@
 <?php
-if (!defined('ABSPATH')) {
+if (!defined('Config::HOME_URI')) {
     exit();
 }
 
 // Carrega todos os métodos do modelo
 $modelo->validate_register_form();
-$modelo->get_register_form(chkArray($parametros, 1));
-$modelo->del_user($parametros);
+$modelo->get_register_form(chkArray($_parameters, 1));
+$modelo->del_user($_parameters);
 ?>
 <p id="resultado"></p>
 <div class="row-fluid">

@@ -1,7 +1,7 @@
-<?php if (!defined('ABSPATH')) {
+<?php if (!defined('Config::HOME_URI')) {
     exit();
 }
-/* Estrutura que verifica se existe a requisição get e se existe valor se o valor 
+/* Estrutura que verifica se existe a requisição get e se existe valor se o valor
      * se o valor existir a mesma chega na base de dados se este valor existe
      * se não existir a mesma retorna para á página de convênio.
      */
@@ -12,7 +12,7 @@ if (filter_input(INPUT_GET, 'get_encode', FILTER_DEFAULT, TRUE) && $modelo->sear
     echo '<script>window.location.href ="' . HOME_URI . '/covenant";</script>';
 }
 
-# Paginação parametros
+# Paginação _parameters
 $limit = 5;
 
 # Realiza um consulta na base de dados e reatorna os valores

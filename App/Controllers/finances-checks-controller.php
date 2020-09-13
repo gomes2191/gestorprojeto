@@ -6,7 +6,8 @@
  * @package OdontoControl
  * @since 0.1
  */
-class FinancesChecksController extends MainController {
+class FinancesChecksController extends MainController
+{
 
     /**
      * $login_required
@@ -24,186 +25,189 @@ class FinancesChecksController extends MainController {
      *
      * @access public
      */
-     #public $permission_required = 'user-register';
+    #public $permission_required = 'user-register';
 
-    
+
     # Carrega a página "/views/user-register/index.php"
-    public function index() {
-        
-       
+    public function index()
+    {
+
+
         // Page title
         $this->title = ' Controle de cheques';
 
         // Verifica se o usuário está logado
-//		if ( ! $this->logged_in ) {
-//
-//			// Se não; garante o logout
-//			$this->logout();
-//
-//			// Redireciona para a página de login
-//			$this->goto_login();
-//
-//			// Garante que o script não vai passar daqui
-//			return;
-//
-//		}
-//		// Verifica se o usuário tem a permissão para acessar essa página
-//		if (!$this->check_permissions($this->permission_required, $this->userdata['user_permissions'])) {
-//
-//			// Exibe uma mensagem
-//			echo 'Você não tem permissões para acessar essa página.';
-//
-//			// Finaliza aqui
-//			return;
-//		}
+        //		if ( ! $this->logged_in ) {
+        //
+        //			// Se não; garante o logout
+        //			$this->logout();
+        //
+        //			// Redireciona para a página de login
+        //			$this->goto_login();
+        //
+        //			// Garante que o script não vai passar daqui
+        //			return;
+        //
+        //		}
+        //		// Verifica se o usuário tem a permissão para acessar essa página
+        //		if (!$this->check_permissions($this->permission_required, $this->userdata['user_permissions'])) {
+        //
+        //			// Exibe uma mensagem
+        //			echo 'Você não tem permissões para acessar essa página.';
+        //
+        //			// Finaliza aqui
+        //			return;
+        //		}
         # Parametros da função
-        $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+        $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : [];
 
         # Carrega o modelo para este view
         $modelo = $this->load_model('finances/checks-model');
 
-        #   Carrega os arquivos do view 
+        #   Carrega os arquivos do view
         #-->   /views/_includes/header.php
-        require_once (ABSPATH . '/views/_includes/header.php');
+        require_once(Config::HOME_URI . '/views/_includes/header.php');
 
         #--> /views/_includes/menu.php
-        require_once (ABSPATH . '/views/_includes/menu.php');
+        require_once(Config::HOME_URI . '/views/_includes/menu.php');
 
         #--> /views/user-register/index.php
-        require_once (ABSPATH . '/views/finances/checks/checks-view.php');
+        require_once(Config::HOME_URI . '/views/finances/checks/checks-view.php');
 
         #--> /views/_includes/footer.php
-        require_once (ABSPATH . '/views/_includes/footer.php');
+        require_once(Config::HOME_URI . '/views/_includes/footer.php');
     }   #--> End index
-    
+
     # URL: dominio.com/exemplo/exemplo
-    public function Cad() {
+    public function Cad()
+    {
         #   Parametros da função
-        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
-        
+        #$_parameters = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+
         #   Page title
         $this->title = ' Cadastro de convênio';
-        
+
         #---> Inclua seus models e views aqui
-        
+
         #   Carrega o modelo
         $modelo = $this->load_model('covenant/covenant-model');
 
         #   Carrega o topo
-        require_once (ABSPATH . '/views/_includes/header.php');
-        
+        require_once(Config::HOME_URI . '/views/_includes/header.php');
+
         #   Carrega menus
-        require_once (ABSPATH.'/views/_includes/menu.php');
+        require_once(Config::HOME_URI . '/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/covenant/cad-view.php');
+        require_once(Config::HOME_URI . '/views/covenant/cad-view.php');
 
-        require_once (ABSPATH . '/views/_includes/footer.php');
-        
+        require_once(Config::HOME_URI . '/views/_includes/footer.php');
     }   #--> End cad
-    
-    public function BoxView(){
-        
+
+    public function BoxView()
+    {
+
         #   Carrega o modelo
         $modelo = $this->load_model('finances/receive-model');
-        
+
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/receive/box-view.php');
-        
+        require_once(Config::HOME_URI . '/views/finances/receive/box-view.php');
     }   #--> End BoxView
-    
-    public function Card(){
-        
+
+    public function Card()
+    {
+
         # Carrega o modelo
         $modelo = $this->load_model('covenant/covenant-model');
-        
+
         # Carrega a classe que gera o pdf
-        require_once (ABSPATH . '/dompdf/autoload.inc.php');
-        
+        require_once(Config::HOME_URI . '/dompdf/autoload.inc.php');
+
         # Carrega o view
-        require_once (ABSPATH . '/views/covenant/card-view.php');
-        
+        require_once(Config::HOME_URI . '/views/covenant/card-view.php');
     }   #--> End Card
-    
-    
+
+
     # URL: dominio.com/exemplo/exemplo
-    public function Fees() {
+    public function Fees()
+    {
         #   Parametros da função
-        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
-        
+        #$_parameters = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+
         #   Page title
         $this->title = ' Contas a pagar';
-        
+
         #---> Inclua seus models e views aqui
-        
+
         #   Carrega o modelo
         $modelo = $this->load_model('covenant/fees-model');
 
         #   Carrega o topo
-        require_once (ABSPATH . '/views/_includes/header.php');
-        
+        require_once(Config::HOME_URI . '/views/_includes/header.php');
+
         #   Carrega menus
-        require_once (ABSPATH.'/views/_includes/menu.php');
+        require_once(Config::HOME_URI . '/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/covenant/fees-view.php');
+        require_once(Config::HOME_URI . '/views/covenant/fees-view.php');
 
-        require_once (ABSPATH . '/views/_includes/footer.php');
-        
+        require_once(Config::HOME_URI . '/views/_includes/footer.php');
     }   #--> End cad
-    
+
     # URL: dominio.com/exemplo/exemplo
-    public function Filters() {
+    public function Filters()
+    {
         //$search_string = $_POST['query'];
-       //echo $search_string;
+        //echo $search_string;
         #   Parametros da função
-        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
-        
+        #$_parameters = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+
         #   Page title
         #$this->title = ' Honorários';
-        
+
         #---> Inclua seus models e views aqui
-        
+
         #   Carrega o modelo
         $modelo = $this->load_model('finances/checks-model');
 
         #   Carrega o topo
-        //require_once (ABSPATH . '/views/_includes/header.php');
-        
+        //require_once (Config::HOME_URI . '/views/_includes/header.php');
+
         #   Carrega menus
-        //require_once (ABSPATH.'/views/_includes/menu.php');
+        //require_once (Config::HOME_URI.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/checks/filters-view.php');
+        require_once(Config::HOME_URI . '/views/finances/checks/filters-view.php');
 
-        //require_once (ABSPATH . '/views/_includes/footer.php');
-        
+        //require_once (Config::HOME_URI . '/views/_includes/footer.php');
+
     }   #--> End Search
-    
+
     # URL: dominio.com/exemplo/exemplo
-    public function AjaxProcess() {
+    public function AjaxProcess()
+    {
         #   Parametros da função
-        #$parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
-        
+        #$_parameters = ( func_num_args() >= 1 ) ? func_get_arg(0) : [];
+
         #   Page title
         #$this->title = ' Honorários';
-        
+
         #---> Inclua seus models e views aqui
-        
+
         #   Carrega o modelo
         $modelo = $this->load_model('finances/checks-model');
 
         #   Carrega o topo
-        //require_once (ABSPATH . '/views/_includes/header.php');
-        
+        //require_once (Config::HOME_URI . '/views/_includes/header.php');
+
         #   Carrega menus
-        //require_once (ABSPATH.'/views/_includes/menu.php');
+        //require_once (Config::HOME_URI.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once (ABSPATH . '/views/finances/checks/ajax-process-view.php');
+        require_once(Config::HOME_URI . '/views/finances/checks/ajax-process-view.php');
 
-        //require_once (ABSPATH . '/views/_includes/footer.php');
-        
+        //require_once (Config::HOME_URI . '/views/_includes/footer.php');
+
     }   #--> End TopSearch
-    
+
 }   #--> End FonecedoresController
