@@ -146,7 +146,7 @@ class MainModel
         if (!array_key_exists('start', $conditions) && array_key_exists("limit", $conditions)) {
             $sql .= ' LIMIT ' . $conditions['limit'];
         }
-        echo "($sql)" . '<br>';
+        //echo "($sql)" . '<br>';
         $result = $this->db->query($sql);
 
         if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
