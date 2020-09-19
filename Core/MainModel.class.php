@@ -91,16 +91,25 @@ class MainModel
      * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
      * @version: 0.2
      * @param: mixed variables
-     * @param: string $table_name [required]
+     * @param: string $table [required]
      * @param: array $conditions [required] <code>$conditions['where'=>['colunm'=>value,...]] $conditions['search'=>['colunm'=>value,...]]
      * </code>
      * @return: array Retorna um array com os valores
+     */
+
+    /**
+     * Método que retorna o resultado de uma consulta
+     * a partir dos parâmetros passados.
+     *
+     * @param string $tabela     nome da tabela no formato string.
+     * @param array  $conditions parâmetros passado no formato array.
+     *
+     * @return array retorna o resultado da consulta.
      */
     public function searchTable($table, $conditions = [])
     {
 
         (defined('Config::TB_PREFIX')) ? $table = Config::TB_PREFIX . $table : $table;
-
 
         $sql = 'SELECT ';
         $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
@@ -174,9 +183,10 @@ class MainModel
             }
         }
 
-        // Desocupa a memória...
+        // Limpa a memória...
         unset($table, $sql, $result, $row, $conditions, $type, $key, $value, $pre, $i);
-        return !empty($data) ? $data : false;
-    }   # End searchTable()
 
-}   # End MainModel
+        return !empty($data) ? $data : false;
+    } // End searchTable()
+
+} // End MainModel

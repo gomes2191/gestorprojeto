@@ -23,7 +23,7 @@ class SystemDB extends Config
         $_dbCharset, // Charset da base de dados
         $_pdo, // Nossa conexão com o BD
         $_error, // Configura o erro
-        $_debug; // Mostra todos os erros
+        $_showErrors = true; // Mostra todos os erros
 
     /**
      * Construtor da classe
@@ -47,9 +47,9 @@ class SystemDB extends Config
         $this->_dbName      = defined('Config::DB_NAME') ? Config::DB_NAME : $this->_dbName;
         $this->_tbPrefix    = defined('Config::TB_PREFIX') ? Config::TB_PREFIX : $this->_tbPrefix;
         $this->_dbPassword  = defined('Config::DB_PASSWORD') ? Config::DB_PASSWORD : $this->_dbPassword;
-        $this->_dbUser      = defined('DB_USER') ? DB_USER : $this->_dbCharset;
-        $this->_dbCharset   = defined('DB_CHARSET') ? DB_CHARSET : $this->_dbCharset;
-        $this->_debug       = defined('DEBUG') ? DEBUG : $this->_debug;
+        $this->_dbUser      = defined('Config::DB_USER') ? Config::DB_USER : $this->_dbCharset;
+        $this->_dbCharset   = defined('Config::DB_CHARSET') ? Config::DB_CHARSET : $this->_dbCharset;
+        $this->_showErrors  = defined('Config::SHOW_ERRORS') ? Config::SHOW_ERRORS : $this->_showErrors;
 
         // Efetua a conexão
         $this->connectDb();
@@ -76,7 +76,7 @@ class SystemDB extends Config
             $this->_pdo = new PDO($pdoDetails, $this->_dbUser, $this->_dbPassword);
 
             // Verifica se devemos debugar
-            if ($this->_debug === true) {
+            if ($this->_showErrors === true) {
 
                 // Configura o PDO ERROR MODE
                 $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -84,21 +84,20 @@ class SystemDB extends Config
 
             // Descarta propriedades, não mais usadas.
             unset($this->_dbHost);
-            unset($this->db_name);
-            unset($this->password);
-            unset($this->user);
-            unset($this->charset);
+            unset($this->_dbName);
+            unset($this->_password);
+            unset($this->_user);
+            unset($this->_charset);
         } catch (PDOException $e) {
 
             // Verifica se devemos debugar
-            if ($this->_debug === true) {
+            if ($this->_showErrors === true) {
 
                 // Mostra a mensagem de erro
-                echo "Erro: " . $e->getMessage();
+                echo '<pre>';
+                var_dump("Erro: " . $e->getMessage());
+                echo '<pre>';
             }
-
-            // Kills the script
-            die();
         } // catch
     } // connect
 

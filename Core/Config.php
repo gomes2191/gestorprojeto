@@ -50,36 +50,64 @@ class Config
 
     /**
      * Tipo de driver ex.: pgsql, mysql...
+     *
      * @var string
      */
     const DB_DRIVER = 'pgsql';
 
     /**
      * Nome do banco de dados.
+     *
      * @var string
      */
     const DB_NAME = 'gclinic';
 
     /**
      * Prefixo da tabela do banco de dados.
+     *
      * @var string
      */
     const TB_PREFIX = '_';
 
     /**
      * Usuário do banco de dados.
+     *
      * @var string
      */
     const DB_USER = 'postgres';
 
     /**
      * Usuário do banco de dados.
+     *
      * @var string
      */
     const DB_PASSWORD = 'Vectra';
 
     /**
-     * Show or hide error messages on screen
+     * Charset da conexão PDO.
+     *
+     * @var string
+     */
+    const DB_CHARSET = 'utf8';
+
+    /**
+     * Define o TIME_ZONE, ex.: 'America/Sao_Paulo'
+     * se especificado o fuso horário retorna ele,
+     * se não, retorna o fuso horário padrão 'UTC'.
+     *
+     * @var array
+     */
+    const TIME_ZONE = ['set' => false, 'show' => false];
+
+    /**
+     * Mostra o TIME_ZONE atual, ex.: true liga, false desliga.
+     *
+     * @var string
+     */
+    const SHOW_TIME_ZONE = true;
+
+    /**
+     * Liga ou desliga o DEBUG "TRUE" liga "FALSE" desliga.
      * @var boolean
      */
     const SHOW_ERRORS = true;
@@ -116,19 +144,19 @@ define('UP_PATH', '/App/Views/_uploads');
 //define('TB_PREFIX', '_');
 
 # Usuário do banco
-define('DB_USER', 'postgres');
+//define('DB_USER', 'postgres');
 
 # Senha do banco
-define('DB_PASSWORD', 'Vectra');
+//define('DB_PASSWORD', 'Vectra');
 
 # Charset da conexão PDO
-define('DB_CHARSET', 'utf8');
+//define('DB_CHARSET', 'utf8');
 
 # DEFINE O FUSO HORÁRIO COMO O HORÁRIO DE BRASÍLIA
-define('TIME_ZONE', date_default_timezone_set('America/Sao_Paulo'));
+//define('TIME_ZONE', date_default_timezone_set('America/Sao_Paulo'));
 
 # Liga ou desliga o DEBUG "TRUE" liga "FALSE" desliga
-define('DEBUG', TRUE);
+//define('DEBUG', TRUE);
 
 # Carrega o loader, que vai carregar a aplicação inteira
 require_once dirname(__DIR__) . '/Core/Loader.php';

@@ -61,15 +61,16 @@ class MainController extends UserLogin
      */
     public function __construct($_parameters = [])
     {
-        # Instancia do DB
+
+        // Instancia do DB
         $this->db = new SystemDB();
 
-        # Parâmetros
+        // Parâmetros
         $this->_parameters = $_parameters;
 
-        # Verifica o login
+        // Verifica o login
         $this->check_userlogin();
-    } # __construct
+    } // __construct
 
     /**
      * Load model

@@ -86,8 +86,9 @@ class SystemCore
         // Se o arquivo do controlador não existir, não faremos nada
         if (!file_exists($this->_getFile($this->controlador . '.php'))) {
 
+
             // Página não encontrada
-            include_once ABS_PATH . $this->_notFound;
+            include_once Config::ABS_PATH . $this->_notFound;
 
             // FIM :)
             return;
