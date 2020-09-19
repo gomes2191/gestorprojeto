@@ -106,7 +106,7 @@ class SystemCore
         if (!class_exists($this->controlador)) {
             echo 'Aqui';
             // Página não encontrada
-            include_once ABS_PATH . $this->_notFound;
+            include_once Config::ABS_PATH . $this->_notFound;
 
             // FIM :)
             return;
@@ -133,7 +133,7 @@ class SystemCore
             return;
         } // ! $this->acao
         // Página não encontrada
-        include_once ABS_PATH . $this->_notFound;
+        include_once Config::ABS_PATH . $this->_notFound;
 
         // FIM :)
         return;
@@ -152,7 +152,7 @@ class SystemCore
     {
         $encontrado = null;
 
-        $directory = new \RecursiveDirectoryIterator(ABS_PATH . '/App/Controllers/');
+        $directory = new \RecursiveDirectoryIterator(Config::ABS_PATH . '/App/Controllers/');
 
         $iterator = new \RecursiveIteratorIterator($directory);
 

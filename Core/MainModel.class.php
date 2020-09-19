@@ -11,7 +11,7 @@
 class MainModel
 {
 
-    public $tb_prefix = TB_PREFIX;
+    //public $tb_prefix = TB_PREFIX;
 
     /**
      *  @Acesso: public
@@ -96,14 +96,15 @@ class MainModel
      * </code>
      * @return: array Retorna um array com os valores
      */
-    public function searchTable($table_name, $conditions = [])
+    public function searchTable($table, $conditions = [])
     {
 
-        $table_name = $this->tb_prefix . $table_name;
+        (defined('Config::TB_PREFIX')) ? $table = Config::TB_PREFIX . $table : $table;
+
 
         $sql = 'SELECT ';
         $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
-        $sql .= ' FROM ' . $table_name;
+        $sql .= ' FROM ' . $table;
 
         if (array_key_exists('where', $conditions)) {
             $sql .= ' WHERE ';
@@ -172,6 +173,9 @@ class MainModel
                 $data[] = $row;
             }
         }
+
+        // Desocupa a memória...
+        unset($table, $sql, $result, $row, $conditions, $type, $key, $value, $pre, $i);
         return !empty($data) ? $data : false;
     }   # End searchTable()
 

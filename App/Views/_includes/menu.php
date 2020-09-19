@@ -13,7 +13,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item <?= (GlobalFunctions::isSite('gclinic')) ? 'active' : false ?>">
                         <a class="nav-link" href="<?= Config::HOME_URI; ?>" title="Página inicial">
                             <i class="fal fa-home"></i> HOME
                             <span class="sr-only">(current)</span>

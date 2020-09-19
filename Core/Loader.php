@@ -1,9 +1,11 @@
 <?php
 
 // Evita que usuários acesse este arquivo diretamente.
-if (!defined('ABS_PATH')) {
-    exit('Não foi definido o diretório do sistema.');
+if (!Config::ABS_PATH) {
+    echo 'Não foi definido o diretório do sistema.';
 }
+
+echo Config::ABS_PATH;
 
 // Inicia a sessão
 session_start();
@@ -26,7 +28,9 @@ if (!defined('DEBUG') || DEBUG == false) {
     // print_r(dirname(__DIR__));die;
     ini_set('error_log', dirname(__DIR__) . '/logs/error_log.txt');
 
-    echo "<script>alert('Modo Debug ativado!');</script>";
+    echo "Modo Debug ativado.";
+
+    //echo "<script>alert('Modo Debug ativado!');</script>";
 }
 
 // Funções globais

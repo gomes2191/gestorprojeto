@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Config - Classe para gerenciamento da Base de dados.
+ * Config - classe com os parâmetros de configuração.
  *
  * @category Class
  * @package  Config
@@ -12,31 +12,68 @@
  */
 class Config
 {
+    /**
+     * Caminho do projeto.
+     *
+     * @var string
+     */
+    const ABS_PATH = '/home/gomes/development/p_gclinic';
 
-
+    /**
+     * Diretório do projeto..
+     *
+     * @var string
+     */
     const HOME_URI = '/p_gclinic';
 
     /**
-     * Define o endereço do banco de dados.
+     * Define o nome do site;
      *
-     * @var DB_HOST
+     * @var string
      */
-    const DB_HOST = 'localhost';
+    const NOME_SITE = 'GClinic - ';
 
     /**
-     * Database name
+     * Define o idioma do site.
+     *
+     * @var string
+     */
+    const LANG = 'pt_BR';
+    /**
+     * Define o endereço do banco de dados.
+     *
+     * @var string
+     */
+
+    const DB_HOST = 'localhost';
+
+
+    /**
+     * Tipo de driver ex.: pgsql, mysql...
+     * @var string
+     */
+    const DB_DRIVER = 'pgsql';
+
+    /**
+     * Nome do banco de dados.
      * @var string
      */
     const DB_NAME = 'gclinic';
 
     /**
-     * Database user
+     * Prefixo da tabela do banco de dados.
      * @var string
      */
-    const DB_USER = 'root';
+    const TB_PREFIX = '_';
 
     /**
-     * Database password
+     * Usuário do banco de dados.
+     * @var string
+     */
+    const DB_USER = 'postgres';
+
+    /**
+     * Usuário do banco de dados.
      * @var string
      */
     const DB_PASSWORD = 'Vectra';
@@ -46,23 +83,19 @@ class Config
      * @var boolean
      */
     const SHOW_ERRORS = true;
-
-    function static debugMode(){
-        
-    }
 }
 
 /**
  * Retorna o diretório do arquivo.
  * Se usado dentro de um include, o diretório do arquivo incluído é retornado.
  * */
-define('ABS_PATH', dirname(__DIR__));
+//define('ABS_PATH', dirname(__DIR__));
 
 # Nome do site
-define('NOME_SITE', 'GClinic - ');
+///define('NOME_SITE', 'GClinic - ');
 
 # Idioma do sistema
-define('LANG', 'pt_BR');
+//define('LANG', 'pt_BR');
 
 # Caminho para a pasta de uploads
 define('UP_PATH', '/App/Views/_uploads');
@@ -71,16 +104,16 @@ define('UP_PATH', '/App/Views/_uploads');
 //define('HOME_URI', '/p_gclinic');
 
 # Nome do host da base de dados
-define('HOSTNAME', 'localhost');
+//define('HOSTNAME', 'localhost');
 
 # Tipo de driver Ex.: pgsql, mysql...
-define('DB_DRIVER', 'pgsql');
+//define('DB_DRIVER', 'pgsql');
 
 # Nome do banco
-define('DB_NAME', 'gclinic');
+//('DB_NAME', 'gclinic');
 
 # Tabela prefixo
-define('TB_PREFIX', '_');
+//define('TB_PREFIX', '_');
 
 # Usuário do banco
 define('DB_USER', 'postgres');

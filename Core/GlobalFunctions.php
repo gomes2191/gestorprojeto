@@ -272,7 +272,7 @@ class GlobalFunctions
         $pastas = ['/Core/', '/interfaces/'];
 
         foreach ($pastas as $pasta) {
-            $fileParcial = ABS_PATH . $pasta . $nomeDaClasse;
+            $fileParcial = Config::ABS_PATH . $pasta . $nomeDaClasse;
 
             if ((file_exists($fileParcial . '.class.php')) or (file_exists($fileParcial . '.interf.php'))) {
                 ('/Core/' === $pasta) ? include_once $fileParcial . '.class.php' : include_once $fileParcial . '.interf.php';

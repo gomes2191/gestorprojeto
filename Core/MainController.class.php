@@ -90,7 +90,7 @@ class MainController extends UserLogin
         //$model_name =  strtolower( $model_name );
 
         // Inclui o arquivo
-        $model_path = ABS_PATH . '/App/Models/' . $model_name . '.php';
+        $model_path = Config::ABS_PATH . '/App/Models/' . $model_name . '.php';
 
 
         // Verifica se o arquivo existe

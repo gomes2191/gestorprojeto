@@ -1,6 +1,10 @@
-            <?php if (!defined('ABS_PATH')) {
-                exit();
-            } ?>
+            <?php
+
+            if (!Config::ABS_PATH) {
+                echo "<b style='color: red;'>Erro: </b>footer não inserido.";
+            }
+
+            ?>
 
             </main> <!-- End Main container principal -->
 
@@ -14,9 +18,9 @@
             <?php
 
             if (isset($modelo->pag_type) && $modelo->pag_type == 'calendar') {
-                #--> Start JS
+                //--> Start JS
                 echo '<script src="' . Config::HOME_URI . '/_agenda/js/calendar-param.js"></script>';
-                #--> End JS
+                //--> End JS
             }
             ?>
 

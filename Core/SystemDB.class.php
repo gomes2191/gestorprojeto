@@ -43,10 +43,10 @@ class SystemDB extends Config
     {
 
         $this->_dbHost      = defined('Config::DB_HOST') ? Config::DB_HOST : $this->_dbHost;
-        $this->_dbDriver    = defined('DB_DRIVER') ? DB_DRIVER : $this->_dbDriver;
-        $this->_dbName      = defined('DB_NAME') ? DB_NAME : $this->_dbName;
-        $this->_tbPrefix    = defined('TB_PREFIX') ? TB_PREFIX : $this->_tbPrefix;
-        $this->_dbPassword  = defined('DB_PASSWORD') ? DB_PASSWORD : $this->_dbPassword;
+        $this->_dbDriver    = defined('Config::DB_DRIVER') ? Config::DB_DRIVER : $this->_dbDriver;
+        $this->_dbName      = defined('Config::DB_NAME') ? Config::DB_NAME : $this->_dbName;
+        $this->_tbPrefix    = defined('Config::TB_PREFIX') ? Config::TB_PREFIX : $this->_tbPrefix;
+        $this->_dbPassword  = defined('Config::DB_PASSWORD') ? Config::DB_PASSWORD : $this->_dbPassword;
         $this->_dbUser      = defined('DB_USER') ? DB_USER : $this->_dbCharset;
         $this->_dbCharset   = defined('DB_CHARSET') ? DB_CHARSET : $this->_dbCharset;
         $this->_debug       = defined('DEBUG') ? DEBUG : $this->_debug;

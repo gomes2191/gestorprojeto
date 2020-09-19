@@ -2,9 +2,10 @@
 
 /**
  * Verifica se o diretório do arquivo foi definido.
- * Evita acesso direto ao arquivo.*/
-if (!defined('ABS_PATH')) {
-    exit();
+ * Evita acesso direto ao arquivo.
+ **/
+if (!Config::ABS_PATH) {
+    echo "Erro: diretório do projeto não definido.";
 }
 
 
@@ -13,7 +14,7 @@ if (!defined('ABS_PATH')) {
 
 TIME_ZONE;
 ?>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="pt-br">
 
 <head>
@@ -21,16 +22,16 @@ TIME_ZONE;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="FAGA - TECNOLOGIA">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= Config::HOME_URI; ?>/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?= Config::HOME_URI; ?>/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= Config::HOME_URI; ?>/favicon/favicon-16x16.png">
-    <link rel="manifest" href="<?= Config::HOME_URI; ?>/favicon/site.webmanifest">
-    <link rel="mask-icon" href="<?= Config::HOME_URI; ?>/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= Config::HOME_URI; ?>/public/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= Config::HOME_URI; ?>/public/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= Config::HOME_URI; ?>/public/favicon/favicon-16x16.png">
+    <link rel="manifest" href="<?= Config::HOME_URI; ?>/public/favicon/site.webmanifest">
+    <link rel="mask-icon" href="<?= Config::HOME_URI; ?>/public/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Titulo do site -->
-    <title><?= NOME_SITE . $this->title; ?></title>
+    <title><?= Config::NOME_SITE . $this->title; ?></title>
 
     <!-- My style -->
     <link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/css/style.css">
@@ -59,24 +60,24 @@ TIME_ZONE;
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <script src="<?= Config::HOME_URI; ?>/public/lib/_js/jquery.mask.min.js"></script>
     <?php
-    if (($this->page_type === 1) or ($this->title == ' Contas a receber')) {
+    if (($this->pageType === 1) or ($this->title == ' Contas a receber')) {
         echo '<script>console.log("Bibliotecas inseridas")</script>';
 
-        #--> Start JS
+        //--> Start JS
         echo '<script src="' . Config::HOME_URI . '/public/js/metodos.js"></script>';
         //echo '<script src="'.HOME_URI.'/public/lib/_js/moment.js"></script>';
         echo '<link rel="stylesheet" href="' . Config::HOME_URI . '/public/lib/_css/datetimepicker/jquery.datetimepicker.min.css">';
         echo '<script src="' . Config::HOME_URI . '/public/lib/_js/datetimepicker/jquery.datetimepicker.full.min.js"></script>';
         //echo '<script src="'.HOME_URI.'/public/js/scriptsTop.js"></script>';
-        #--> End JS
+        //--> End JS
     }
     if ($this->title == ' Agenda') {
         echo '<script>console.log("Bibliotecas inseridas")</script>';
-        # Start agenda css -->
+        // Start agenda css -->
         echo '<link rel="stylesheet" href="' . Config::HOME_URI . '/_agenda/css/calendar.css">';
-        # End agenda css -->
+        // End agenda css -->
 
-        #--> Start JS
+        //--> Start JS
         echo '<script src="' . Config::HOME_URI . '/public/lib/_js/moment.js"></script>';
         echo '<link rel="stylesheet" href="' . Config::HOME_URI . '/public/lib/_css/datetimepicker/jquery.datetimepicker.min.css">';
         echo '<script src="' . Config::HOME_URI . '/public/lib/_js/datetimepicker/jquery.datetimepicker.full.min.js"></script>';
@@ -85,7 +86,7 @@ TIME_ZONE;
         echo '<script src="' . Config::HOME_URI . '/_agenda/js/underscore-min.js"></script>';
         echo '<script src="' . Config::HOME_URI . '/_agenda/js/calendar.js"></script>';
         echo '<script src="' . Config::HOME_URI . '/_agenda/js/calendar-param.js"></script>';
-        #--> End JS
+        //--> End JS
     }
     ?>
 

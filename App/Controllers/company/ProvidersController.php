@@ -11,8 +11,8 @@ use Core\View;
 class ProvidersController extends MainController
 {
 
-    // Tipo de página [int]
-    public $page_type = 1;
+    // Tipo de página int
+    public $pageType = 1;
 
     /**
      * $login_required
@@ -45,8 +45,8 @@ class ProvidersController extends MainController
          * Verifica se o diretório do arquivo foi definido.
          * Evita o acesso direto ao arquivo.
          *******/
-        if (!defined('ABS_PATH')) {
-            exit('Erro: Diretório {ABS_PATH} não foi definido.');
+        if (!Config::ABS_PATH) {
+            echo 'Erro: O diretório da aplicação não foi definido.';
         }
 
         # Define o limite padrão de registro por página
@@ -105,10 +105,10 @@ class ProvidersController extends MainController
         #   Carrega os arquivos do view
         #-->   /views/_includes/header.php
 
-        include_once ABS_PATH . '/App/Views/_includes/header.php';
+        include_once Config::ABS_PATH . '/App/Views/_includes/header.php';
 
         #--> /views/_includes/menu.php
-        include_once ABS_PATH . '/App/Views/_includes/menu.php';
+        include_once Config::ABS_PATH . '/App/Views/_includes/menu.php';
 
         #--> /views/user-register/index.php
         //require_once (Config::HOME_URI . '/App/Views/company/providers/providers.php');
@@ -117,10 +117,8 @@ class ProvidersController extends MainController
 
         View::renderTemplate('/admin/company/provider/provider', ['']);
 
-        GlobalFunctions::isSite();
-
         #--> /views/_includes/footer.php
-        include_once ABS_PATH . '/App/Views/_includes/footer.php';
+        include_once Config::ABS_PATH . '/App/Views/_includes/footer.php';
     }   #--> End index
 
     # URL: dominio.com/exemplo/exemplo

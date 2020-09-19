@@ -11,8 +11,8 @@ use Core\View;
 class RegisterController extends MainController
 {
 
-  # Tipo de página [int]
-  public $page_type = 1;
+  // Tipo de página int
+  public $pageType = 1;
 
   /**
    * $login_required
@@ -74,19 +74,19 @@ class RegisterController extends MainController
 
     /** Carrega os arquivos do view * */
     // /views/_includes/header.php
-    require Config::HOME_URI . '/App/Views/_includes/header.php';
+    require Config::ABS_PATH . '/App/Views/_includes/header.php';
 
     // /views/_includes/menu.php
-    require Config::HOME_URI . '/App/Views/_includes/menu.php';
+    require Config::ABS_PATH . '/App/Views/_includes/menu.php';
 
     // /views/user-register/index.php
-    // require Config::HOME_URI . '/App/Views/Register/register.php';
+    // require Config::ABS_PATH . '/App/Views/Register/register.php';
 
     View::renderTemplate('/admin/register/register', ['modelo' => $modelo]);
 
     // /views/_includes/footer.php
-    require Config::HOME_URI . '/App/Views/_includes/footer.php';
-  }
+    require Config::ABS_PATH . '/App/Views/_includes/footer.php';
+  } // index
 
-  // index
+
 }// class home
