@@ -20,9 +20,8 @@
              "App\\": "App/"
         },
         "files": [
-            "Core/Config.php",
-            "Core/GlobalFunctions.php"
-        ]   
+            "Core/Config.php"
+        ]
     },
     "require": {
         "jenssegers/blade": "^1.2"

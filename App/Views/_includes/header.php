@@ -1,7 +1,7 @@
 <?php
 
 // chama o metódo mostrar erros.
-ligaDebug();
+Loader::ligaDebug();
 
 /**
  * Verifica se o diretório do arquivo foi definido.
@@ -12,10 +12,10 @@ if (!Config::ABS_PATH) {
 }
 
 // Inicializa o metódo que seta o Time_Zone.
-loadTimeZone();
+Loader::loadTimeZone();
 
 // Mostra o Time_Zone atual caso esteja setado no Config.
-showTimeZone();
+Loader::showTimeZone();
 
 
 
