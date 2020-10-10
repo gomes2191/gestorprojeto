@@ -3,7 +3,7 @@
 
     // Carrega todos os métodos do modelo
     $modelo->validate_register_form();
-    //$modelo->get_register_form(GlobalFunctions::chkArray($_parameters, 1));
+    //$modelo->get_register_form(GFunc::chkArray($_parameters, 1));
     //$modelo->del_user($_parameters);
 ?>
 
@@ -25,13 +25,13 @@
                     <div class="form-group">
                         <label class="sr-only" for="clinic_name">Nome da clinica:</label>
                         <input type="text" title="Nome da clínica" name="clinic_name" class="form-control form-control-sm" id="clinic_name" placeholder="Nome da clinica..."
-                        value="<?php echo htmlentities(GlobalFunctions::chkArray($modelo->form_data, 'clinic_name'));?>">
+                        value="<?php echo htmlentities(GFunc::chkArray($modelo->form_data, 'clinic_name'));?>">
                     </div>
 
                     <div class="form-group">
                         <label class="sr-only" for="user_name">Seu nome:</label>
                         <input type="text" title="Seu nome" name="user_name" class="form-control form-control-sm" id="user_name"
-                        placeholder="Seu nome completo..." value="<?php echo htmlentities(GlobalFunctions::chkArray($modelo->form_data, 'user_name'));?>"
+                        placeholder="Seu nome completo..." value="<?php echo htmlentities(GFunc::chkArray($modelo->form_data, 'user_name'));?>"
                         data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$"
                         data-validation-help="Digite um nome com (3) ou mais caracteres."
                         data-validation-error-msg="Não é permitido campo em branco.">
@@ -40,7 +40,7 @@
                     <div class="form-group has-feedback has-feedback-left">
                         <label class="sr-only" for="user_name">Seu nome:</label>
                         <input type="text" title="Seu email" name="user_email" class="form-control form-control-sm email" id="user_email"
-                        placeholder="Seu email aqui, este será seu usuario..." value="<?php echo htmlentities(GlobalFunctions::chkArray($modelo->form_data, 'user_email'));?>"
+                        placeholder="Seu email aqui, este será seu usuario..." value="<?php echo htmlentities(GFunc::chkArray($modelo->form_data, 'user_email'));?>"
                         data-validation="custom" data-validation-regexp="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                         data-validation-help="Digite um email válido Ex: user@gmail.com"
                         data-validation-error-msg="Email digitado de forma incorreta.">
@@ -57,7 +57,7 @@
                     <div class="form-group has-feedback has-feedback-left">
                         <label class="sr-only" for="user_password"> Senha: </label>
                         <input type="password" title="Sua senha" name="user_password" class="form-control form-control-sm error" placeholder="Sua senha..."
-                        value="<?php echo htmlentities(GlobalFunctions::chkArray($modelo->form_data, 'user_password'));?>"
+                        value="<?php echo htmlentities(GFunc::chkArray($modelo->form_data, 'user_password'));?>"
                         data-validation="custom" data-validation-regexp="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                         data-validation-error-msg="A senha não cumpre os requisitos solicitados"
                         data-validation-help="A senha deve conter no minimo 6 caracteres inluindo um número e uma letra maiuscula Ex: User226.">

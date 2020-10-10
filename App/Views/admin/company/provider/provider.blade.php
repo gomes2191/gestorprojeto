@@ -199,7 +199,7 @@
                     <!--Start div hidden 9-->
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
                         <label for="provider_obs">Observações:</label>
-                        <textarea id="provider_obs" class="form-control" name="provider_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..."><?= htmlentities(GlobalFunctions::chkArray($modelo->form_data, 'providers_obs')); ?></textarea>
+                        <textarea id="provider_obs" class="form-control" name="provider_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..."><?= htmlentities(GFunc::chkArray($modelo->form_data, 'providers_obs')); ?></textarea>
                     </div>
                 </div><!-- End div hidden 9 -->
 

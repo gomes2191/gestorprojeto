@@ -13,37 +13,37 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item <?= (GlobalFunctions::isSite('p_gclinic')) ? 'active' : FALSE ?>">
+                    <li class="nav-item <?= (GFunc::isSite('p_gclinic')) ? 'active' : FALSE ?>">
                         <a class="nav-link" href="<?= Config::HOME_URI; ?>" title="Página inicial">
                             <i class="fal fa-home"></i> HOME
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item <?= (GlobalFunctions::isSite('agenda')) ? 'active' : false; ?>">
+                    <li class="nav-item <?= (GFunc::isSite('agenda')) ? 'active' : false; ?>">
                         <a class="nav-link" href="<?= Config::HOME_URI; ?>/agenda" title="Agenda">
                             <i class='fal fa-calendar-alt'></i> AGENDA
                         </a>
                     </li>
-                    <li class="nav-item dropdown <?= (GlobalFunctions::isSite('covenant', 'fees', 'providers', 'patrimony', 'stock', 'laboratory')) ? 'active' : false; ?>">
+                    <li class="nav-item dropdown <?= (GFunc::isSite('covenant', 'fees', 'providers', 'patrimony', 'stock', 'laboratory')) ? 'active' : false; ?>">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class='fal fa-building '></i> EMPRESA
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item <?= (GlobalFunctions::isSite('providers')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/providers">Fornecedores</a>
-                            <a class="dropdown-item <?= (GlobalFunctions::isSite('patrimony')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/patrimony">Patrimônio</a>
-                            <a class="dropdown-item <?= (GlobalFunctions::isSite('stock')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/stock">Controle de Estoque</a>
-                            <a class="dropdown-item <?= (GlobalFunctions::isSite('laboratory')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/laboratory">Laboratório</a>
-                            <a class="dropdown-item <?= (GlobalFunctions::isSite('covenant', 'fees')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/covenant">Convênios / Planos</a>
+                            <a class="dropdown-item <?= (GFunc::isSite('providers')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/providers">Fornecedores</a>
+                            <a class="dropdown-item <?= (GFunc::isSite('patrimony')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/patrimony">Patrimônio</a>
+                            <a class="dropdown-item <?= (GFunc::isSite('stock')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/stock">Controle de Estoque</a>
+                            <a class="dropdown-item <?= (GFunc::isSite('laboratory')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/laboratory">Laboratório</a>
+                            <a class="dropdown-item <?= (GFunc::isSite('covenant', 'fees')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/covenant">Convênios / Planos</a>
                             <a class="dropdown-item" href="#">Tabela de Honorários</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown <?= (GlobalFunctions::isSite('pay', 'receive', '', '', '', '')) ? 'active' : FALSE; ?>">
+                    <li class="nav-item dropdown <?= (GFunc::isSite('pay', 'receive', '', '', '', '')) ? 'active' : FALSE; ?>">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class='fal fa-chart-bar'></i> FINANÇAS
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item <?= (GlobalFunctions::isSite('pay')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/pay">Contas a Pagar</a>
-                            <a class="dropdown-item <?= (GlobalFunctions::isSite('receive')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/receive">Contas a Receber</a>
+                            <a class="dropdown-item <?= (GFunc::isSite('pay')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/pay">Contas a Pagar</a>
+                            <a class="dropdown-item <?= (GFunc::isSite('receive')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/receive">Contas a Receber</a>
                             <a class="dropdown-item" href="<?= Config::HOME_URI; ?>/finances-flow">Fluxo de caixa</a>
                             <a class="dropdown-item" href="<?= Config::HOME_URI; ?>/finances-checks">Controle de Cheques</a>
                             <a class="dropdown-item" href="<?= Config::HOME_URI; ?>/finances-payments">Pagamentos</a>

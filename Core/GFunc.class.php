@@ -10,7 +10,7 @@
  * @link     www.gclinic.com
  * @since    0.2
  */
-class GlobalFunctions
+class GFunc
 {
     /**
      * Verifica se a chave existe no array e se ela tem algum valor.
@@ -21,7 +21,7 @@ class GlobalFunctions
      *
      * @return null|array Retorna array ou null.
      */
-    public static function chkArray($array, $key)
+    static function chkArray($array, $key)
     {
         // Verifica se a chave existe no array
         if (isset($array[$key]) && !empty($array[$key])) {
@@ -259,38 +259,4 @@ class GlobalFunctions
 
         return $valor;
     }
-
-    /**
-     * Recebe a requisição e verifica se classe existe.
-     *
-     * @param string $nomeDaClasse recebe um valor no formato string.
-     *
-     * @return object object Retorna um object com os valores.
-     */
-    public static function autoLoad($nomeDaClasse)
-    {
-        $pastas = ['/Core/', '/interfaces/'];
-
-        foreach ($pastas as $pasta) {
-            $fileParcial = Config::ABS_PATH . $pasta . $nomeDaClasse;
-
-            if ((file_exists($fileParcial . '.class.php')) or (file_exists($fileParcial . '.interf.php'))) {
-                ('/Core/' === $pasta) ? include_once $fileParcial . '.class.php' : include_once $fileParcial . '.interf.php';
-
-                unset($fileParcial, $pasta, $pastas, $nomeDaClasse);
-
-                return;
-            }
-        } // End autoLoad
-
-        //include_once dirname(__DIR__) . '/includes/404.php';
-
-        //die('Erro: Classes não encontrada.');
-
-        unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
-        //exit();
-    }
 } // End :) Class
-
-// Registra a função dada como implementação de __autoload()
-spl_autoload_register('GlobalFunctions::autoLoad');

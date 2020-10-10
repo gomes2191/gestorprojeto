@@ -19,8 +19,24 @@ if (!Config::ABS_PATH) {
  * @link     www.gclinic.com
  * @since    0.2
  */
-class Loader
+class AutoLoad
 {
+
+    public function __construct()
+    {
+        //spl_autoload_extensions('.class.php');
+        spl_autoload_register(array($this, 'load'));
+
+        // Carrega o método mostrar erros.
+        $this->ligaDebug();
+
+        // Carrega o metódo que seta o Time_Zone.
+        $this->loadTimeZone();
+
+        // Carrega o Time_Zone atual caso esteja setado no Config.
+        $this->showTimeZone();
+    }
+
     static function ligaDebug($showErros =  Config::SHOW_ERRORS)
     {
         // Verifica o modo para debugar
@@ -66,20 +82,43 @@ class Loader
             echo "<h6><span class='badge badge-pill badge-primary'>FUSO HORÁRIO: " . date_default_timezone_get() . "</span></h6>";
         }
     }
+
+    /**
+     * Recebe a requisição e verifica se classe existe.
+     *
+     * @param string $nomeDaClasse recebe um valor no formato string.
+     *
+     * @return object object Retorna um object com os valores.
+     */
+    public static function load($nomeDaClasse)
+    {
+        $pastas = ['/Core/', '/interfaces/'];
+
+        $extension =  spl_autoload_extensions();
+
+        foreach ($pastas as $pasta) {
+            $fileParcial = Config::ABS_PATH . $pasta . $nomeDaClasse;
+
+            if ((file_exists($fileParcial . '.class.php')) or (file_exists($fileParcial . '.interf.php'))) {
+                ('/Core/' === $pasta) ? include_once $fileParcial . '.class.php' : include_once $fileParcial . '.interf.php';
+
+                unset($fileParcial, $pasta, $pastas, $nomeDaClasse);
+
+                return;
+            }
+        } // End autoLoad
+
+        //include_once dirname(__DIR__) . '/includes/404.php';
+
+        //die('Erro: Classes não encontrada.');
+
+        unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
+        //exit();
+    }
 }
 
-// Carrega o método mostrar erros.
-Loader::ligaDebug();
-
-// Carrega o metódo que seta o Time_Zone.
-Loader::loadTimeZone();
-
-// Carrega o Time_Zone atual caso esteja setado no Config.
-Loader::showTimeZone();
-
-// Funções globais
-// print_r(dirname(__DIR__));die('<br>'.'Loader.php');
-include_once dirname(__DIR__) . '/Core/GlobalFunctions.php';
+// Carrega a classe AutoLoad
+$autoload = new AutoLoad();
 
 // Carrega toda aplicação.
 $loadApplication = new SystemCore();

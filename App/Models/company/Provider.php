@@ -38,6 +38,8 @@ class Provider extends MainModel
      */
     public $db;
 
+    public $global;
+
     /**
      *
      *
@@ -46,9 +48,10 @@ class Provider extends MainModel
      * @since 0.1
      * @access public
      */
-    public function __construct($db = FALSE)
+    public function __construct($db = null)
     {
         $this->db = $db;
+        $this->gFun = new GlobalFunctions;
     }
 
     /**
@@ -75,7 +78,7 @@ class Provider extends MainModel
 
             # Verifica se existe o ID e decodifica se o mesmo existir.
             (!empty($this->form_data['id']))
-                ? $this->form_data['id'] = $this->encodeDecode(0, $this->form_data['id']) : '';
+                ? $this->form_data['id'] = $this->gFun->encodeDecode(0, $this->form_data['id']) : '';
         } else {
             # Finaliza a execução.
             return 'err';
@@ -83,7 +86,7 @@ class Provider extends MainModel
 
         # Verifica se o registro já existe.
         $db_check_ag = $this->db->query(' SELECT count(*) FROM `providers` WHERE `id` = ? ', [
-            chkArray($this->form_data, 'id')
+            $this->gFun->chkArray($this->form_data, 'id')
         ]);
 
         # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
@@ -108,38 +111,38 @@ class Provider extends MainModel
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('providers', [
-            'name'              =>  chkArray($this->form_data,     'provider_name'),
-            'cpf_cnpj'          =>  chkArray($this->form_data,     'provider_cpf_cnpj'),
-            'razao_social'      =>  chkArray($this->form_data,     'provider_rs'),
-            'area_de_atuacao'   =>  chkArray($this->form_data,     'provider_atua'),
-            'address'           =>  chkArray($this->form_data,     'provider_address'),
-            'district'          =>  chkArray($this->form_data,     'provider_district'),
-            'city'              =>  chkArray($this->form_data,     'provider_city'),
-            'states'            =>  chkArray($this->form_data,     'provider_states'),
-            'cep'               =>  chkArray($this->form_data,     'provider_cep'),
-            'nation'            =>  chkArray($this->form_data,     'provider_nation'),
-            'celular'           =>  chkArray($this->form_data,     'provider_celular'),
-            'phone_1'           =>  chkArray($this->form_data,     'provider_tel_1'),
-            'phone_2'           =>  chkArray($this->form_data,     'provider_tel_2'),
-            'insc_uf'           =>  chkArray($this->form_data,     'provider_insc_uf'),
-            'web_url'           =>  chkArray($this->form_data,     'web_url'),
-            'status'            =>  chkArray($this->form_data,     'provider_status'),
-            'email'             =>  chkArray($this->form_data,     'email'),
-            'rep_name'          =>  chkArray($this->form_data,     'rep_name'),
-            'rep_nickname'      =>  chkArray($this->form_data,     'rep_nickname'),
-            'rep_celular'       =>  chkArray($this->form_data,     'rep_celular'),
-            'rep_phone_1'       =>  chkArray($this->form_data,     'rep_phone_1'),
-            'rep_phone_2'       =>  chkArray($this->form_data,     'rep_phone_2'),
-            'rep_email'         =>  chkArray($this->form_data,     'rep_email'),
-            'banco_1'           =>  chkArray($this->form_data,     'banco_1'),
-            'agencia_1'         =>  chkArray($this->form_data,     'agencia_1'),
-            'conta_1'           =>  chkArray($this->form_data,     'conta_1'),
-            'titular_1'         =>  chkArray($this->form_data,     'titular_1'),
-            'banco_2'           =>  chkArray($this->form_data,     'banco_2'),
-            'agencia_2'         =>  chkArray($this->form_data,     'agencia_2'),
-            'conta_2'           =>  chkArray($this->form_data,     'conta_2'),
-            'titular_2'         =>  chkArray($this->form_data,     'titular_2'),
-            'obs'               =>  chkArray($this->form_data,     'obs'),
+            'name'              =>  GFunc::chkArray($this->form_data,     'provider_name'),
+            'cpf_cnpj'          =>  $this->gFun->chkArray($this->form_data,     'provider_cpf_cnpj'),
+            'razao_social'      =>  $this->gFun->chkArray($this->form_data,     'provider_rs'),
+            'area_de_atuacao'   =>  $this->gFun->chkArray($this->form_data,     'provider_atua'),
+            'address'           =>  $this->gFun->chkArray($this->form_data,     'provider_address'),
+            'district'          =>  $this->gFun->chkArray($this->form_data,     'provider_district'),
+            'city'              =>  $this->gFun->chkArray($this->form_data,     'provider_city'),
+            'states'            =>  $this->gFun->chkArray($this->form_data,     'provider_states'),
+            'cep'               =>  $this->gFun->chkArray($this->form_data,     'provider_cep'),
+            'nation'            =>  $this->gFun->chkArray($this->form_data,     'provider_nation'),
+            'celular'           =>  $this->gFun->chkArray($this->form_data,     'provider_celular'),
+            'phone_1'           =>  $this->gFun->chkArray($this->form_data,     'provider_tel_1'),
+            'phone_2'           =>  $this->gFun->chkArray($this->form_data,     'provider_tel_2'),
+            'insc_uf'           =>  $this->gFun->chkArray($this->form_data,     'provider_insc_uf'),
+            'web_url'           =>  $this->gFun->chkArray($this->form_data,     'web_url'),
+            'status'            =>  $this->gFun->chkArray($this->form_data,     'provider_status'),
+            'email'             =>  $this->gFun->chkArray($this->form_data,     'email'),
+            'rep_name'          =>  $this->gFun->chkArray($this->form_data,     'rep_name'),
+            'rep_nickname'      =>  $this->gFun->chkArray($this->form_data,     'rep_nickname'),
+            'rep_celular'       =>  $this->gFun->chkArray($this->form_data,     'rep_celular'),
+            'rep_phone_1'       =>  $this->gFun->chkArray($this->form_data,     'rep_phone_1'),
+            'rep_phone_2'       =>  $this->gFun->chkArray($this->form_data,     'rep_phone_2'),
+            'rep_email'         =>  $this->gFun->chkArray($this->form_data,     'rep_email'),
+            'banco_1'           =>  $this->gFun->chkArray($this->form_data,     'banco_1'),
+            'agencia_1'         =>  $this->gFun->chkArray($this->form_data,     'agencia_1'),
+            'conta_1'           =>  $this->gFun->chkArray($this->form_data,     'conta_1'),
+            'titular_1'         =>  $this->gFun->chkArray($this->form_data,     'titular_1'),
+            'banco_2'           =>  $this->gFun->chkArray($this->form_data,     'banco_2'),
+            'agencia_2'         =>  $this->gFun->chkArray($this->form_data,     'agencia_2'),
+            'conta_2'           =>  $this->gFun->chkArray($this->form_data,     'conta_2'),
+            'titular_2'         =>  $this->gFun->chkArray($this->form_data,     'titular_2'),
+            'obs'               =>  $this->gFun->chkArray($this->form_data,     'obs'),
             'created_at'        =>  date('Y-m-d H:i:s', time())
         ]);
 
@@ -236,7 +239,7 @@ class Provider extends MainModel
     public function get_register_form($id_encode)
     {
 
-        $id_decode = intval($this->encodeDecode(0, $id_encode));
+        $id_decode = intval($this->gFun->encodeDecode(0, $id_encode));
 
         # Verifica na base de dados o registro
         $query_get = $this->db->query('SELECT * FROM `covenant` WHERE `covenant_id` = ?', [$id_decode]);

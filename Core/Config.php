@@ -126,4 +126,4 @@ class Config
  * Primordial para o funcionamento da Aplicação,
  * sem essa classe o sistema não fuciona. (0_0)
  */
-include_once dirname(__DIR__) . '/Core/Loader.php';
+include_once dirname(__DIR__) . '/Core/AutoLoad.php';
