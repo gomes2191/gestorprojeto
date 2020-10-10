@@ -68,7 +68,7 @@ class RegisterController extends MainController
     $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : [];
 
     // Carrega o modelo para este view
-    $modelo = $this->load_model('register/register-model');
+    $modelo = $this->loadModel('register/register-model');
 
     /** Carrega os arquivos do view * */
     // /views/_includes/header.php

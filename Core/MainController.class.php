@@ -80,7 +80,7 @@ class MainController extends UserLogin
      * @since 0.1
      * @access public
      */
-    public function load_model($model_name = false)
+    function loadModel($model_name = false)
     {
 
         // Um arquivo deverá ser enviado
