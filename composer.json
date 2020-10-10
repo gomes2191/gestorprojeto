@@ -20,7 +20,7 @@
              "App\\": "App/"
         },
         "files": [
-            "Core/Config.php"
+
         ]
     },
     "require": {

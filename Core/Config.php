@@ -94,6 +94,7 @@ class Config
      * Define o TIME_ZONE, ex.: 'America/Sao_Paulo'
      * se especificado o fuso horário retorna ele,
      * se não, retorna o fuso horário padrão 'UTC'.
+     * Ex.: set => 'America/Sao_Paulo' & 'show' => true
      *
      * @var array
      */
@@ -102,7 +103,7 @@ class Config
     /**
      * Mostra o TIME_ZONE atual, ex.: true liga, false desliga.
      *
-     * @var string
+     * @var boolean
      */
     const SHOW_TIME_ZONE = true;
 

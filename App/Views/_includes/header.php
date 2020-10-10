@@ -1,8 +1,5 @@
 <?php
 
-// chama o metódo mostrar erros.
-Loader::ligaDebug();
-
 /**
  * Verifica se o diretório do arquivo foi definido.
  * Evita acesso direto ao arquivo.
@@ -11,15 +8,8 @@ if (!Config::ABS_PATH) {
     echo "Erro: diretório do projeto não definido.";
 }
 
-// Inicializa o metódo que seta o Time_Zone.
-Loader::loadTimeZone();
-
-// Mostra o Time_Zone atual caso esteja setado no Config.
-Loader::showTimeZone();
-
-
-
 ?>
+
 <!DOCTYPE HTML>
 <html lang="pt-br">
 

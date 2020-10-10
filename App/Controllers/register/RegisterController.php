@@ -1,7 +1,5 @@
 <?php
 
-use Core\View;
-
 /**
  * UserRegisterController - Controller de exemplo
  *
@@ -82,7 +80,7 @@ class RegisterController extends MainController
     // /views/user-register/index.php
     // require Config::ABS_PATH . '/App/Views/Register/register.php';
 
-    View::renderTemplate('/admin/register/register', ['modelo' => $modelo]);
+    Core\View::renderTemplate('/admin/register/register', ['modelo' => $modelo]);
 
     // /views/_includes/footer.php
     require Config::ABS_PATH . '/App/Views/_includes/footer.php';

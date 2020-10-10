@@ -1,7 +1,5 @@
 <?php
 
-
-
 // Inicia a sessão
 session_start();
 
@@ -9,7 +7,6 @@ session_start();
 if (!Config::ABS_PATH) {
     (Config::SHOW_ERRORS) ? var_dump('Não foi definido o diretório do sistema.') : die('Erro fatal...');
 }
-
 
 /**
  * Loader - classe responsável por fazer a carga do
@@ -71,9 +68,18 @@ class Loader
     }
 }
 
+// Carrega o método mostrar erros.
+Loader::ligaDebug();
+
+// Carrega o metódo que seta o Time_Zone.
+Loader::loadTimeZone();
+
+// Carrega o Time_Zone atual caso esteja setado no Config.
+Loader::showTimeZone();
+
 // Funções globais
 // print_r(dirname(__DIR__));die('<br>'.'Loader.php');
-require_once dirname(__DIR__) . '/Core/GlobalFunctions.php';
+include_once dirname(__DIR__) . '/Core/GlobalFunctions.php';
 
 // Carrega toda aplicação.
 $loadApplication = new SystemCore();
