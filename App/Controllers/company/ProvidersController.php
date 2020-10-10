@@ -39,7 +39,7 @@ class ProvidersController extends MainController
     {
 
         // Carrega o modelo para esta view
-        $modelo = $this->load_model('company/Provider');
+        $modelo = $this->loadModel('company/Provider');
 
         /******
          * Verifica se o diretório do arquivo foi definido.
@@ -213,8 +213,8 @@ class ProvidersController extends MainController
         #   Carrega o modelo
         //$modelo = $this->load_model('company/Provider');
 
-        // Carrega a classe GlobalFunctions
-        //$globalF = new GlobalFunctions;
+        // Carrega a classe GFunc
+        //$globalF = new GFunc;
 
         #   Carrega o topo
         //require_once (Config::HOME_URI . '/views/_includes/header.php');
@@ -225,7 +225,7 @@ class ProvidersController extends MainController
         #   Carrega o view
         //require_once (Config::HOME_URI . '/App/Views/company/provider/filters.php');
 
-        View::render('/admin/company/provider/filters.php', ['modelo' => $this->load_model('company/Provider'), 'globalF' => new GlobalFunctions]);
+        View::render('/admin/company/provider/filters.php', ['modelo' => $this->loadModel('company/Provider'), 'globalF' => new GFunc]);
 
         //require_once (Config::HOME_URI . '/app/views/_includes/footer.php');
 

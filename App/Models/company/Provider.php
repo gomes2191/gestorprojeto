@@ -51,7 +51,7 @@ class Provider extends MainModel
     public function __construct($db = null)
     {
         $this->db = $db;
-        $this->gFun = new GlobalFunctions;
+        $this->gFun = new GFunc;
     }
 
     /**

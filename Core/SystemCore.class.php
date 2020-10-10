@@ -196,12 +196,12 @@ class SystemCore
             $path = explode('/', $path4);
 
             // Configura as propriedades
-            $this->controlador = GlobalFunctions::chkArray($path, 0);
+            $this->controlador = GFunc::chkArray($path, 0);
             $this->controlador .= 'Controller';
-            $this->acao = GlobalFunctions::chkArray($path, 1);
+            $this->acao = GFunc::chkArray($path, 1);
 
             // Configura os parâmetros
-            if (GlobalFunctions::chkArray($path, 2)) {
+            if (GFunc::chkArray($path, 2)) {
 
                 unset($path[0]);
                 unset($path[1]);
