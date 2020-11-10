@@ -1,8 +1,6 @@
 <?php
 # Verifica se constatante referente ao caminho foi definida
-if (!defined('ABS_PATH')) {
-    exit();
-}
+
 
 if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST, 'action_type'))) {
 
@@ -26,10 +24,10 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
         echo json_encode($allReg);
     } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        return $modelo->validate_register_form();
+        return $modelo->formValidation();
     } elseif (filter_input(INPUT_POST, 'action_type') == 'update') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        return $modelo->validate_register_form();
+        return $modelo->formValidation();
     } elseif (filter_input(INPUT_POST, 'action_type') == 'delete') {
         if (!empty(filter_input(INPUT_POST, 'id'))) {
             return $modelo->delRegister(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));

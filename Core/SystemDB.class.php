@@ -43,7 +43,7 @@ class SystemDB extends Config
     {
 
         $this->_dbHost      = defined('Config::DB_HOST') ? Config::DB_HOST : $this->_dbHost;
-        $this->_dbDriver    = defined('Config::DB_DRIVER') ? Config::DB_DRIVER : $this->_dbDriver;
+        $this->_dbDriver    = defined('Config::DB_DRIVER') ? Config::DB_DRIVER['driver'] : $this->_dbDriver;
         $this->_dbName      = defined('Config::DB_NAME') ? Config::DB_NAME : $this->_dbName;
         $this->_tbPrefix    = defined('Config::TB_PREFIX') ? Config::TB_PREFIX : $this->_tbPrefix;
         $this->_dbPassword  = defined('Config::DB_PASSWORD') ? Config::DB_PASSWORD : $this->_dbPassword;
@@ -206,9 +206,9 @@ class SystemDB extends Config
         if ($insert) {
 
             // Verifica se temos o último ID enviado
-            if (method_exists($this->pdo, 'lastInsertId') && $this->pdo->lastInsertId()) {
+            if (method_exists($this->_pdo, 'lastInsertId') && $this->_pdo->lastInsertId()) {
                 // Configura o último ID
-                $this->last_id = $this->pdo->lastInsertId();
+                $this->last_id = $this->_pdo->lastInsertId();
             }
 
             // Retorna a consulta
@@ -332,6 +332,6 @@ class SystemDB extends Config
     // Metodo para pegar o id da ultima inserção na tabela
     public function lastInsertId()
     {
-        return $this->pdo->lastInsertId();
+        return $this->_pdo->lastInsertId();
     }
-}// Class OdontoControlDB
+}// Class SystemDB

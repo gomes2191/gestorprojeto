@@ -165,7 +165,7 @@ class GFunc
      *
      * @return int|string Retorna a codificação ou a decodificação da encriptação.
      */
-    public function encodeDecode($encode = false, $decode = false)
+    public static function encodeDecode($encode = false, $decode = false)
     {
         if (true == $encode) {
             $rand = rand(100, 900);

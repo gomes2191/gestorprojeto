@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -168,7 +168,7 @@ function Financeiro() {
      * onkeydown="this.moneyCash(this,28,event,7,'.',',')"
      * onkeydown="this.moneyCash(this,28,event,8,'.',',')"
      * onkeydown="this.moneyCash(this,28,event,12,'.',',')"
-     * 
+     *
      */
     this.moneyCash = function (campo, tammax, teclapres, decimal, ptmilhar, ptdecimal) {
         var tecla = teclapres.keyCode;
@@ -234,7 +234,7 @@ function Financeiro() {
                     type: 'POST',
                     dataType: 'html',
                     url: this.objData.url,
-                    data: {get_decode:this.objData.get_decode},
+                    data: { get_decode: this.objData.get_decode },
                     async: true,
                     beforeSend: function () {
                         $('#loading').show();
@@ -285,7 +285,7 @@ function Financeiro() {
                 type: 'POST',
                 dataType: 'JSON',
                 url: this.objAction.url,
-                data: 'action_type='+this.objAction.type+'&id=' + this.objAction.id,
+                data: 'action_type=' + this.objAction.type + '&id=' + this.objAction.id,
                 async: true,
                 success: function (data) {
                     if (typeExec === 'loadEdit') {
@@ -294,7 +294,7 @@ function Financeiro() {
                         });
                     } else if (typeExec === 'loadInfo') {
                         $.each(data, function (key, value) {
-                            $('.' + key).text( (value) ? value : ' campo ainda não preenchido' );
+                            $('.' + key).text((value) ? value : ' campo ainda não preenchido');
                         });
                     }
                 }
@@ -332,7 +332,7 @@ function Financeiro() {
                         /*toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
                             timeOut: 5000
                         });*/
-                        
+
                         $.toaster({
                             title: {
                                 text: 'Erro!',
@@ -353,7 +353,7 @@ function Financeiro() {
 
 function Metodos() {
 
-    //    objSet = { 
+    //    objSet = {
     //        form: $("#addForm"),
     //        not_empty: ['laboratory_name','laboratory_id']
     //    };
@@ -419,13 +419,13 @@ function Metodos() {
 //
 //    var objFinanca = new Financeiro();
 //
-//    
+//
 //    // ------------------
-//    
+//
 //    objFinanca.setAjax('btn-dell');
-//    
+//
 //    objFinanca.getAjax();
-//    
+//
 //    objFinanca.mostraAjax();
 
 //teste = objFinanca.getUS();
@@ -476,13 +476,13 @@ function Metodos() {
 //          } else {
 //            //português
 //             return parseFloat(value.replace(/./gi,'').replace(/,/gi,'.'));
-//          }      
+//          }
 //      } else {
 //         return parseFloat(value);
 //      }
 //   }
 //
-////prototype para formatar a saída  
+////prototype para formatar a saída
 //Number.prototype.formatMoney = function (c, d, t) {
 //    var n = this,
 //        c = isNaN(c = Math.abs(c)) ? 2 : c,
@@ -493,3 +493,62 @@ function Metodos() {
 //        j = (j = i.length) > 3 ? j % 3 : 0;
 //    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 //};
+
+
+class EventAction {
+    static setVal(id1, id2) {
+
+        document.querySelector(id1).addEventListener('click', function () {
+            document.querySelectorAll(id2).forEach(function (group) {
+                'use strict';
+                var s = group.style;
+                s.opacity = 1;
+                (function fadeOut() { // name the function
+                    /**
+                    * Verifica se opacity é menor que 0.1,
+                    * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                    if (((s.opacity -= .1) < 0.1))
+                        s.display = "none";
+                    else
+                        //setTimeout(fadeOut, 30); // use the name of the function
+                        requestAnimationFrame(fadeOut);
+                })();
+            });
+
+            document.querySelectorAll(".form-hidden, #group-btn-hidden, .row-button-hidden, .notice-hidden").forEach(function (group) {
+                'use strict';
+                var s = group.style;
+                s.opacity = 0;
+                s.display = 'flex' || '';
+
+                (function fadeIn() { // name the function
+                    var val = parseFloat(s.opacity);
+                    /**
+                    * Verifica se opacity é menor que 0.1,
+                    * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                    if ( !((val += 0.1) > 1) )
+                        s.opacity = val;
+                        requestAnimationFrame(fadeIn); // use the name of the function
+                })();
+            });
+
+            document.querySelectorAll('#btn-save, .form-register').forEach(function (group) {
+                //console.log(group.getAttributeNode("class").value);
+                if(group.getAttributeNode("class").value === 'form-register'){
+
+                    group.setAttribute("id", "addForm");
+
+
+
+                } else if(group.getAttributeNode("id").value === 'btn-save'){
+
+                    group.setAttribute("onclick", "typeAction(objData={type:'add'})");
+                    group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
+
+                }
+
+            });
+
+        });
+    }
+}

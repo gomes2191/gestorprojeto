@@ -101,7 +101,7 @@ class MainModel
      * Método que retorna o resultado de uma consulta
      * a partir dos parâmetros passados.
      *
-     * @param string $tabela     nome da tabela no formato string.
+     * @param string $tabela nome da tabela no formato string.
      * @param array  $conditions parâmetros passado no formato array.
      *
      * @return array retorna o resultado da consulta.
@@ -156,6 +156,7 @@ class MainModel
         if (!array_key_exists('start', $conditions) && array_key_exists("limit", $conditions)) {
             $sql .= ' LIMIT ' . $conditions['limit'];
         }
+
         //echo "($sql)" . '<br>';
         $result = $this->db->query($sql);
 
@@ -178,7 +179,8 @@ class MainModel
                     $data[] = $row;
                 }
             }*/
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+
+            while ($row = $result->fetch(PDO::FETCH_UNIQUE)) {
                 $data[] = $row;
             }
         }

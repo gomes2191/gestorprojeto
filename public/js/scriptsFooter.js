@@ -8,9 +8,9 @@
     typeof define === 'function' && define.amd ? define(['exports', 'jquery'], factory) :
     (global = global || self, factory(global['bootstrap-toaster'] = {}, global.jQuery));
   }(this, function (exports, $) { 'use strict';
-  
+
     $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
-  
+
     function _defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
@@ -20,13 +20,13 @@
         Object.defineProperty(target, descriptor.key, descriptor);
       }
     }
-  
+
     function _createClass(Constructor, protoProps, staticProps) {
       if (protoProps) _defineProperties(Constructor.prototype, protoProps);
       if (staticProps) _defineProperties(Constructor, staticProps);
       return Constructor;
     }
-  
+
     function _defineProperty(obj, key, value) {
       if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -38,35 +38,35 @@
       } else {
         obj[key] = value;
       }
-  
+
       return obj;
     }
-  
+
     function _objectSpread(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i] != null ? arguments[i] : {};
         var ownKeys = Object.keys(source);
-  
+
         if (typeof Object.getOwnPropertySymbols === 'function') {
           ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
             return Object.getOwnPropertyDescriptor(source, sym).enumerable;
           }));
         }
-  
+
         ownKeys.forEach(function (key) {
           _defineProperty(target, key, source[key]);
         });
       }
-  
+
       return target;
     }
-  
+
     /**
      * ------------------------------------------------------------------------
      * Constants
      * ------------------------------------------------------------------------
      */
-  
+
     var NAME = 'toaster';
     var VERSION = '0.0.1';
     var Default = {
@@ -89,20 +89,20 @@
      * Class Definition
      * ------------------------------------------------------------------------
      */
-  
+
     var Toaster =
     /*#__PURE__*/
     function () {
       function Toaster(opt, title) {
         if (null === opt) return;
         if (!ToasterObject) ToasterObject = new Toaster(null);
-  
+
         ToasterObject._open(opt, title);
       } // Privates
-  
-  
+
+
       var _proto = Toaster.prototype;
-  
+
       _proto._getContainer = function _getContainer(config) {
         var position = (config.position || 'top right').split(' ');
         var ver = position[0] || 'top';
@@ -111,31 +111,31 @@
         if (!['left', 'center', 'right'].includes(hor)) hor = 'right';
         position = ver + " " + hor;
         if (ToasterContainer[position]) return ToasterContainer[position];
-  
+
         var html = this._makeContainer(ver, hor);
-  
+
         ToasterContainer[position] = $(html).appendTo('body');
         return ToasterContainer[position];
       };
-  
+
       _proto._makeBody = function _makeBody(config) {
         return "<div class=\"toast-body\">" + config.content + "</div>";
       };
-  
+
       _proto._makeContainer = function _makeContainer(ver, hor) {
         var css = "position:fixed;width:320px;" + ver + ":20px;z-index:1060;";
         if (hor === 'center') css += 'left:50%;margin-left:-160px';else css += hor + ":20px";
         return "<div aria-live=\"polite\" aria-atomic=\"true\" style=\"" + css + "\"></div>";
       };
-  
+
       _proto._makeHeader = function _makeHeader(config) {
         if (!config.title) return '';
         if (typeof config.title === 'string') config.title = {
           text: config.title
         };
-  
+
         var title = _objectSpread({}, DefaultTitle, config.title);
-  
+
         var eImage = '';
         if (title.image) eImage = "<img src=\"" + title.image + "\" class=\"rounded mr-2\" alt=\"#\">";else if (title.icon) eImage = "<i class=\"" + title.icon + " mr-2\"></i>";
         var eTitle = !title.text ? '' : "<strong class=\"mr-auto\">" + title.text + "</strong>";
@@ -143,15 +143,15 @@
         var eClose = !title.close ? '' : " <button type=\"button\" class=\"ml-2 mb-1 close\" data-dismiss=\"toast\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                </button>";
         return "\n            <div class=\"toast-header\">\n                " + eImage + "\n                " + eTitle + "\n                " + eInfo + "\n                " + eClose + "\n            </div>\n        ";
       };
-  
+
       _proto._makeHtml = function _makeHtml(config) {
         var header = this._makeHeader(config);
-  
+
         var body = this._makeBody(config);
-  
+
         return "\n            <div class=\"toast\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\">\n                " + header + " " + body + "\n            </div>";
       };
-  
+
       _proto._open = function _open(opt, title) {
         if (typeof opt !== 'object') {
           opt = {
@@ -159,11 +159,11 @@
           };
           if (undefined !== title) opt.title = title;
         }
-  
+
         var config = _objectSpread({}, Default, opt);
-  
+
         var html = this._makeHtml(config);
-  
+
         $(html).appendTo(this._getContainer(config)).toast({
           animation: true,
           autohide: true,
@@ -173,14 +173,14 @@
         });
       } // Getters
       ;
-  
+
       // Static
       Toaster.setDefault = function setDefault(opts) {
         for (var k in opts) {
           Default[k] = opts[k];
         }
       };
-  
+
       _createClass(Toaster, null, [{
         key: "VERSION",
         get: function get() {
@@ -192,7 +192,7 @@
           return Default;
         }
       }]);
-  
+
       return Toaster;
     }();
     /**
@@ -200,14 +200,14 @@
      * jQuery
      * ------------------------------------------------------------------------
      */
-  
-  
+
+
     $[NAME] = Toaster;
-  
+
     exports.Toaster = Toaster;
-  
+
     Object.defineProperty(exports, '__esModule', { value: true });
-  
+
   }));
   //# sourceMappingURL=bootstrap-toaster.js.map
 
@@ -243,7 +243,7 @@ $(document).ready(function () {
     $('.uf').mask('AA');
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
     $('.number').mask('000000000000000');
-    
+
     // Agenda mascara
     $('.dataHora').mask('00/00/0000 00:00');
 });//------------------> End mask
@@ -254,7 +254,7 @@ $(document).ready(function () {
 //  validateOnBlur : true, // disable validation when input looses focus
 //  errorMessagePosition : 'top', // Instead of 'inline' which is default
 //  scrollToTopOnError : false, // Set this property to true on longer forms
-//  modules : 'security, brazil', 
+//  modules : 'security, brazil',
 //  onModulesLoaded : function() {
 //    var optionalConfig = {
 //      fontSize: '12pt',
@@ -267,7 +267,7 @@ $(document).ready(function () {
 //    };
 //    $('input[name="user_password"]').displayPasswordStrength(optionalConfig);
 //  }
-//  
+//
 //});
 
 // Agenda popup inserção
@@ -307,7 +307,7 @@ $(document).ready(function () {
 //                pickSecond: 'Pick Second',
 //                decrementSecond:'Decrement Second'
 //            }
-//            
+//
 //        });
 //    }
 
@@ -315,7 +315,7 @@ $(function () {
     var linkVerfy = function(href){
         return window.location.href.indexOf(href);
     };
-    
+
     if (linkVerfy("agenda") > 1) {
         jQuery.datetimepicker.setLocale('pt-BR');
         $(".dateTime").datetimepicker({
@@ -343,12 +343,12 @@ $(function () {
         });
 
     }
-    
-    if ( (linkVerfy("pay") > 1) || (linkVerfy("receive") > 1) 
+
+    if ( (linkVerfy("pay") > 1) || (linkVerfy("receive") > 1)
         || (linkVerfy("checks") > 1) || (linkVerfy("patrimony") > 1)) {
         jQuery.datetimepicker.setLocale('pt-BR');
         console.log('Patrimonio');
-        $(".date").datetimepicker({            
+        $(".date").datetimepicker({
             mask:true,format:'d/m/Y',
             validateOnBlur:true,
             closeOnWithoutClick :true,
@@ -358,8 +358,8 @@ $(function () {
             showTodayButton: true,
         });
     }
-    
-//    if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1) 
+
+//    if ( (linkVerfy("finances-pay") > 1) || (linkVerfy("finances-receive") > 1)
 //         || (linkVerfy("finances-checks") > 1)  )  {
 //        $(".data").datetimepicker({
 //            locale: 'pt-br',
@@ -411,8 +411,8 @@ function InvalidMsg(textbox) {
         textbox.setCustomValidity('');
     }
     return true;
-}  
-   
+}
+
 $(function () {
     $('input').focus(function () {
         $(this).css({"background-color": "rgba(0, 188, 212, 0.09)"});
@@ -425,16 +425,16 @@ $(function () {
 //----Parametros para o formulario hibrido dois em um
 $(function () {
     //Ativa modo de novo registro
-    $(' .container ').on('click', '#btn-new-show', function(e) {
+   /*  $('.container').on('click', '#btn-new-show', function(e) {
         e.preventDefault();
-        $('#group-btn-new, #group-btn-form-new ').fadeOut();
+        $('#group-btn-new, #group-btn-form-new').fadeOut();
         $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>");
-        $('.form-register').attr('id',"addForm");
-        $('.form-hidden, #group-btn-hidden, .row-button-hidden, .notice-hidden ').fadeIn();
+       // $('.form-register').attr('id',"addForm");
+        $('.form-hidden, #group-btn-hidden, .row-button-hidden, .notice-hidden').fadeIn();
         $('.form-register').find('input, textarea').val('');
         $('legend span').text(' - Inserindo registro');
-    });
-    
+    }); */
+
     //--> Rotina que limpa formulário apos edição e remoção de dados
     $('.container').on('click', '#btn-edit-save, #btn-dell', function (){
         $('.form-hidden, #group-btn-hidden, #group-btn-show, .row-button-hidden, .notice-hidden ').fadeOut();
@@ -443,7 +443,7 @@ $(function () {
         $('legend span').text('');
         $('html, body').animate({scrollTop:0}, 'slow');
     });
-    
+
     //Modo edição ativo
     $('#tableData').on('click','.btn-edit-show', function(e) {
         e.preventDefault();
@@ -455,7 +455,7 @@ $(function () {
         $('legend span').text(' - Editando registro');
         $('html, body').animate({scrollTop:0}, 'slow');
     });
-    
+
     // Ação que oculta o formulário
     $('#btn-hidden').click(function(e) {
         e.preventDefault();
@@ -464,9 +464,9 @@ $(function () {
         $('.notice-hidden').fadeOut();
         $('.row-button-hidden').fadeOut();
         $('#group-btn-show').fadeIn();
-        $('#btn-show').fadeIn();  
+        $('#btn-show').fadeIn();
     });
-    
+
     // Dispara o evento mostrar formulário ao clica no botao
     $('#btn-show').click(function(e) {
         e.preventDefault();
@@ -475,7 +475,7 @@ $(function () {
         $('#group-btn-hidden').fadeIn('slow');
         $('.row-button-hidden').fadeIn('slow');
     });
-    
+
     //Botao que voltar para adicionar novo registro
     $('.container').on('click', '#btn-form-new', function(e) {
         e.preventDefault();
@@ -496,7 +496,7 @@ $(function () {
 // Limpeza de filtros de pesquisa
 $(function(){
     $('#sortBy').mousedown( function (){
-        $('#keywords').val(''); 
+        $('#keywords').val('');
     });
     $('#keywords ').mousedown( function (){
         $('#sortBy').val('');
@@ -504,8 +504,16 @@ $(function(){
 });
 
 // Volta para o topo
-$('.top').click(function(){ 
+$('.top').click(function(){
     $('html, body').animate({scrollTop:0}, 'slow');
     return false;
 });
 
+function evBut(e){
+  e.addEventListener("click", function(e){
+    e.preventDefault()
+  });
+
+  alert('Foi acionado o buttão');
+  x = document.querySelectorAll("#teste, #teste");
+}

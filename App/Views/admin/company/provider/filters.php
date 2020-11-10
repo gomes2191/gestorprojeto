@@ -1,12 +1,15 @@
 <?php
 
 
-if (defined('ABS_PATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) {
+if (defined('Config::ABS_PATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) {
     Swoole\Http\Request::__destruct;
 }
 
 # Parâmetros de páginação
-$tblName = 'providers';
+$tblName = 'providers a, contact b, address c, representative d, bank_account f';
+
+// Recebe os parâmetros do tipo de banco.
+$offset = Config::DB_DRIVER['offset'];
 
 # Recebe o valor da quantidade de registro por páginas.
 $qtdLine = filter_input(INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT);
@@ -73,8 +76,13 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
 } else {
     //$conditions['order_by'] = "id DESC LIMIT 100";
     //$count = (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : 0;
-    $conditions['order_by'] = "id DESC LIMIT $start offset $limit";
+    $conditions['select'] = "a.id, a.name, b.phone, a.id, a.occupation_area, a.email, c.states, f.bank, f.agency";
+    $conditions['where'] = ['a.id' => 'b.ref_id AND a.id = c.ref_id AND a.id = d.ref_id AND (a.id = d.ref_id AND d.id = f.ref_id)'];
+    //$conditions['and'] = ['a.id' => 'c.ref_id'];
+    $conditions['order_by'] = "a.id DESC LIMIT $start $offset $limit";
     $allReg = $modelo->searchTable($tblName, $conditions);
+
+    var_dump($allReg);
 }
 
 $pagConfig = [
@@ -108,10 +116,10 @@ HTML;
         echo '<tr class="text-center">';
         echo '<td>' . $reg['id'] . '</td>';
         echo '<td>' . $reg['name'] . '</td>';
-        echo '<td>' . (($reg['celular']) ? $reg['celular'] : '---') . '</td>';
-        echo '<td>' . (($reg['phone_1']) ? $reg['phone_1'] : '---') . '</td>';
+        echo '<td>' . (($reg['phone']) ? $reg['phone'] : '---') . '</td>';
+        echo '<td>' . (($reg['phone']) ? $reg['phone'] : '---') . '</td>';
         echo '<td>' . (($reg['email']) ? $reg['email'] : '---') . '</td>';
-        echo '<td>' . (($reg['area_de_atuacao']) ? $reg['area_de_atuacao'] : '---') . '</td>';
+        echo '<td>' . (($reg['occupation_area']) ? $reg['occupation_area'] : '---') . '</td>';
         echo '<td>' . (($reg['states']) ? $reg['states'] : '---') . '</td>';
         echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$globalF->encodeDecode($reg['id'])}'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
         echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$globalF->encodeDecode($reg['id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";

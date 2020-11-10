@@ -115,7 +115,7 @@ class ProvidersController extends MainController
         // View::renderTemplate('/Admin/home/index', ['home' => '']);
 
 
-        View::renderTemplate('/admin/company/provider/provider', ['']);
+        View::renderTemplate('/admin/company/provider/provider', ['modelo' => $modelo]);
 
         #--> /views/_includes/footer.php
         include_once Config::ABS_PATH . '/App/Views/_includes/footer.php';
@@ -133,7 +133,7 @@ class ProvidersController extends MainController
         #---> Inclua seus models e views aqui
 
         #   Carrega o modelo
-        $modelo = $this->load_model('covenant/covenant-model');
+        $modelo = $this->loadModel('covenant/covenant-model');
 
         #   Carrega o topo
         require_once(Config::HOME_URI . '/views/_includes/header.php');
@@ -151,7 +151,7 @@ class ProvidersController extends MainController
     {
 
         #   Carrega o modelo
-        $modelo = $this->load_model('finances/receive-model');
+        $modelo = $this->loadModel('finances/receive-model');
 
         #   Carrega o view
         require_once(Config::HOME_URI . '/views/finances/receive/box-view.php');
@@ -161,7 +161,7 @@ class ProvidersController extends MainController
     {
 
         # Carrega o modelo
-        $modelo = $this->load_model('covenant/covenant-model');
+        $modelo = $this->loadModel('covenant/covenant-model');
 
         # Carrega a classe que gera o pdf
         //require_once (Config::HOME_URI . '/dompdf/autoload.inc.php');
@@ -183,7 +183,7 @@ class ProvidersController extends MainController
         #---> Inclua seus models e views aqui
 
         #   Carrega o modelo
-        $modelo = $this->load_model('covenant/fees-model');
+        $modelo = $this->loadModel('covenant/fees-model');
 
         #   Carrega o topo
         require_once(Config::HOME_URI . '/views/_includes/header.php');
@@ -211,7 +211,7 @@ class ProvidersController extends MainController
         #---> Inclua seus models e views aqui
 
         #   Carrega o modelo
-        //$modelo = $this->load_model('company/Provider');
+        //$modelo = $this->loadModel('company/Provider');
 
         // Carrega a classe GFunc
         //$globalF = new GFunc;
@@ -243,7 +243,7 @@ class ProvidersController extends MainController
         #---> Inclua seus models e views aqui
 
         #   Carrega o modelo
-        $modelo = $this->load_model('company/Provider');
+        $modelo = $this->loadModel('company/Provider');
 
         //print_r($modelo);die();
 
@@ -254,7 +254,7 @@ class ProvidersController extends MainController
         //require_once (Config::HOME_URI.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once(Config::HOME_URI . '/App/Views/company/provider/ajax-process.php');
+        require_once(Config::ABS_PATH . '/App/Views/admin/company/provider/ajax-process.php');
 
         //require_once (Config::HOME_URI . '/views/_includes/footer.php');
 

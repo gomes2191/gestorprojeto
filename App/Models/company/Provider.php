@@ -40,6 +40,9 @@ class Provider extends MainModel
 
     public $global;
 
+    // Responsável por armazenar os dados do formulário.
+    private $formData = [];
+
     /**
      *
      *
@@ -51,7 +54,6 @@ class Provider extends MainModel
     public function __construct($db = null)
     {
         $this->db = $db;
-        $this->gFun = new GFunc;
     }
 
     /**
@@ -62,34 +64,31 @@ class Provider extends MainModel
      *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
      *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
      **/
-    public function validate_register_form()
+    public function formValidation()
     {
-        # Cria o vetor que vai receber os dados do post
-        $this->form_data = [];
-
         # Verifica se não é vazio o $_POST
         if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
 
-            # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
+            // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
             foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
                 # Configura os dados do post para a propriedade $form_data
-                $this->form_data[$key] = $value;
-            } # End foreach
+                $this->formData[$key] = $value;
+            } // End foreach
 
-            # Verifica se existe o ID e decodifica se o mesmo existir.
-            (!empty($this->form_data['id']))
-                ? $this->form_data['id'] = $this->gFun->encodeDecode(0, $this->form_data['id']) : '';
+            // Verifica se existe o ID e decodifica se o mesmo existir.
+            (!empty($this->formData['id']))
+                ? $this->formData['id'] = GFunc::encodeDecode(0, $this->formData['id']) : '';
         } else {
-            # Finaliza a execução.
+            // Finaliza a execução.
             return 'err';
-        } #--> End
+        } //--> End
 
-        # Verifica se o registro já existe.
+        // Verifica se o registro já existe.
         $db_check_ag = $this->db->query(' SELECT count(*) FROM `providers` WHERE `id` = ? ', [
             $this->gFun->chkArray($this->form_data, 'id')
         ]);
 
-        # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
+        // Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
         if (($db_check_ag->fetchColumn()) >= 1) {
             $this->updateRegister($this->form_data['id']);
         } else {
@@ -112,45 +111,104 @@ class Provider extends MainModel
         # Se o ID do agendamento estiver vazio, insere os dados
         $query_ins = $this->db->insert('providers', [
             'name'              =>  GFunc::chkArray($this->form_data,     'provider_name'),
-            'cpf_cnpj'          =>  $this->gFun->chkArray($this->form_data,     'provider_cpf_cnpj'),
-            'razao_social'      =>  $this->gFun->chkArray($this->form_data,     'provider_rs'),
-            'area_de_atuacao'   =>  $this->gFun->chkArray($this->form_data,     'provider_atua'),
-            'address'           =>  $this->gFun->chkArray($this->form_data,     'provider_address'),
-            'district'          =>  $this->gFun->chkArray($this->form_data,     'provider_district'),
-            'city'              =>  $this->gFun->chkArray($this->form_data,     'provider_city'),
-            'states'            =>  $this->gFun->chkArray($this->form_data,     'provider_states'),
-            'cep'               =>  $this->gFun->chkArray($this->form_data,     'provider_cep'),
-            'nation'            =>  $this->gFun->chkArray($this->form_data,     'provider_nation'),
-            'celular'           =>  $this->gFun->chkArray($this->form_data,     'provider_celular'),
-            'phone_1'           =>  $this->gFun->chkArray($this->form_data,     'provider_tel_1'),
-            'phone_2'           =>  $this->gFun->chkArray($this->form_data,     'provider_tel_2'),
-            'insc_uf'           =>  $this->gFun->chkArray($this->form_data,     'provider_insc_uf'),
-            'web_url'           =>  $this->gFun->chkArray($this->form_data,     'web_url'),
-            'status'            =>  $this->gFun->chkArray($this->form_data,     'provider_status'),
-            'email'             =>  $this->gFun->chkArray($this->form_data,     'email'),
-            'rep_name'          =>  $this->gFun->chkArray($this->form_data,     'rep_name'),
-            'rep_nickname'      =>  $this->gFun->chkArray($this->form_data,     'rep_nickname'),
-            'rep_celular'       =>  $this->gFun->chkArray($this->form_data,     'rep_celular'),
-            'rep_phone_1'       =>  $this->gFun->chkArray($this->form_data,     'rep_phone_1'),
-            'rep_phone_2'       =>  $this->gFun->chkArray($this->form_data,     'rep_phone_2'),
-            'rep_email'         =>  $this->gFun->chkArray($this->form_data,     'rep_email'),
-            'banco_1'           =>  $this->gFun->chkArray($this->form_data,     'banco_1'),
-            'agencia_1'         =>  $this->gFun->chkArray($this->form_data,     'agencia_1'),
-            'conta_1'           =>  $this->gFun->chkArray($this->form_data,     'conta_1'),
-            'titular_1'         =>  $this->gFun->chkArray($this->form_data,     'titular_1'),
-            'banco_2'           =>  $this->gFun->chkArray($this->form_data,     'banco_2'),
-            'agencia_2'         =>  $this->gFun->chkArray($this->form_data,     'agencia_2'),
-            'conta_2'           =>  $this->gFun->chkArray($this->form_data,     'conta_2'),
-            'titular_2'         =>  $this->gFun->chkArray($this->form_data,     'titular_2'),
-            'obs'               =>  $this->gFun->chkArray($this->form_data,     'obs'),
+            'cpf_cnpj'          =>  GFunc::chkArray($this->form_data,     'provider_cpf_cnpj'),
+            'razao_social'      =>  GFunc::chkArray($this->form_data,     'provider_rs'),
+            'occupation_area'   =>  GFunc::chkArray($this->form_data,     'provider_atua'),
+            'insc_uf'           =>  GFunc::chkArray($this->form_data,     'provider_insc_uf'),
+            'web_url'           =>  GFunc::chkArray($this->form_data,     'web_url'),
+            'status'            =>  GFunc::chkArray($this->form_data,     'provider_status'),
+            'email'             =>  GFunc::chkArray($this->form_data,     'email'),
+            'obs'               =>  GFunc::chkArray($this->form_data,     'obs'),
             'created_at'        =>  date('Y-m-d H:i:s', time())
         ]);
+
+        $lastId[0] =  (int) $this->db->lastInsertId();
+
+        $this->db->insert('address', [
+            'ref_id'    =>  $lastId[0],
+            'address'   =>  GFunc::chkArray($this->form_data, 'provider_address'),
+            'district'  =>  GFunc::chkArray($this->form_data, 'provider_district'),
+            'city'      =>  GFunc::chkArray($this->form_data, 'provider_city'),
+            'states'    =>  GFunc::chkArray($this->form_data, 'provider_states'),
+            'cep'       =>  GFunc::chkArray($this->form_data, 'provider_cep'),
+            'nation'    =>  GFunc::chkArray($this->form_data, 'provider_nation'),
+        ]);
+
+        $this->db->insert('representative', [
+            'ref_id'    =>  $lastId[0],
+            'name'      =>  GFunc::chkArray($this->form_data,     'rep_name'),
+            'nickname'  =>  GFunc::chkArray($this->form_data,     'rep_nickname'),
+            'email'     =>  GFunc::chkArray($this->form_data,     'rep_email'),
+        ]);
+
+        // Captura o id do último registro inserido.
+        $lastId[1] =  (int) $this->db->lastInsertId();
+
+        $this->db->insert('bank_account', [
+            'ref_id'    =>  $lastId[1],
+            'bank'      =>  GFunc::chkArray($this->form_data,     'banco_1'),
+            'agency'    =>  GFunc::chkArray($this->form_data,     'agencia_1'),
+            'account'   =>  GFunc::chkArray($this->form_data,     'conta_1'),
+            'owner'     =>  GFunc::chkArray($this->form_data,     'titular_1'),
+            'bank'      =>  GFunc::chkArray($this->form_data,     'banco_2'),
+            'agency'    =>  GFunc::chkArray($this->form_data,     'agencia_2'),
+            'account'   =>  GFunc::chkArray($this->form_data,     'conta_2'),
+            'owner'     =>  'representative',
+        ]);
+
+        $this->db->insert('contact', [
+            'ref_id'    =>  $lastId[0],
+            'type'      =>  'cell',
+            'phone'     =>  GFunc::chkArray($this->form_data, 'provCell'),
+            'owner'     => 'providers'
+        ]);
+
+        $this->db->insert('contact', [
+            'ref_id'    =>  $lastId[0],
+            'type'      =>  'phone',
+            'phone'     =>  GFunc::chkArray($this->form_data, 'provPhoneFix_1'),
+            'owner'     => 'providers'
+        ]);
+
+        $this->db->insert('contact', [
+            'ref_id'    =>  $lastId[0],
+            'type'      =>  'phone',
+            'phone'     =>  GFunc::chkArray($this->form_data, 'provPhoneFix_2'),
+            'owner'     => 'providers'
+        ]);
+
+        $this->db->insert('contact', [
+            'ref_id'    =>  $lastId[1],
+            'type'      =>  'cell',
+            'phone'     =>  GFunc::chkArray($this->form_data, 'repCell'),
+            'owner'     => 'representative'
+        ]);
+
+        $this->db->insert('contact', [
+            'ref_id'    =>   $lastId[1],
+            'type'      =>  'phone',
+            'phone'     =>   GFunc::chkArray($this->form_data, 'repPhoneFix_1'),
+            'owner'     => 'representative'
+        ]);
+
+        $this->db->insert('contact', [
+            'ref_id'    =>  $lastId[1],
+            'type'      =>  'phone',
+            'phone'     =>  GFunc::chkArray($this->form_data, 'repPhoneFix_2'),
+            'owner'     => 'representative'
+        ]);
+
+        // Deleta a variável.
+        unset($lastId);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ($query_ins) {
             //$this->form_msg = ['result'=>'success', 'message'=>'query success'];
             //return $this->form_msg;
             echo 'ok';
+
+            // Deleta a variável.
+            unset($query_ins);
         } else {
             # Feedback
             //$this->form_msg = ['result'=>'error', 'message'=>'query error'];

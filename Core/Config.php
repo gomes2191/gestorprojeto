@@ -12,12 +12,6 @@
  */
 class Config
 {
-    /**
-     * Caminho do projeto.
-     *
-     * @var string
-     */
-    const ABS_PATH = '/home/gomes/development/p_gclinic';
 
     /**
      * Diretório do projeto..
@@ -25,6 +19,13 @@ class Config
      * @var string
      */
     const HOME_URI = '/p_gclinic';
+
+    /**
+     * Caminho do projeto.
+     *
+     * @var string
+     */
+    const ABS_PATH = '/home/gomes/development/p_gclinic';
 
     /**
      * Caminho para a pasta de uploads.
@@ -55,13 +56,17 @@ class Config
 
     const DB_HOST = 'localhost';
 
-
     /**
-     * Tipo de driver ex.: pgsql, mysql...
+     * Tipo de driver ex.: pgsql, mysql.
+     * Tipo de offset ex.: pgsql -> ' offset ', mysql -> ' , '.
+     * Exemplos de configuração: ['driver' => 'mysql', 'offset' => ' , '] para mysql,
+     * ['driver' => 'pgsql', 'offset' => ' offset '] para postgres.
      *
-     * @var string
+     * @var array
      */
-    const DB_DRIVER = 'pgsql';
+    const DB_DRIVER = ['driver' => 'mysql', 'offset' => ' , '];
+
+
 
     /**
      * Nome do banco de dados.
@@ -75,14 +80,14 @@ class Config
      *
      * @var string
      */
-    const TB_PREFIX = '_';
+    const TB_PREFIX = '';
 
     /**
      * Usuário do banco de dados.
      *
      * @var string
      */
-    const DB_USER = 'postgres';
+    const DB_USER = 'admin';
 
     /**
      * Usuário do banco de dados.

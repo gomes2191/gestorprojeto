@@ -29,7 +29,7 @@
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="provider_name">Empresa:</label>
                         <input type="hidden" id="provider_id" name="provider_id" value="">
-                        <input id="provider_name" name="provider_name" type="text" class="form-control form-control-sm text-center" placeholder="Nome da empresa">
+                        <input id="provider_name" name="provider_name" type="text" class="form-control form-control-sm text-center" placeholder="Nome da empresa" value="Ola">
                         <div class="invalid-feedback">
                             Preencha esse campo.
                         </div>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_cel">Celular:</label>
-                        <input id="provider_cel" name="provider_cel" type="text" class="form-control form-control-sm phone_cel text-center" placeholder="(00) 00000-0000">
+                        <input id="provider_cel" name="provCell" type="text" class="form-control form-control-sm phone_cel text-center" placeholder="(00) 00000-0000">
                     </div>
                 </div><!-- End div hidden 2 -->
 
@@ -90,11 +90,11 @@
                     <!-- Start div hidden 3 -->
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_tel_1">Telefone 1:</label>
-                        <input id="provider_tel_1" name="provider_tel_1" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000">
+                        <input id="provider_tel_1" name="provPhoneFix_1" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_tel_2">Telefone 2:</label>
-                        <input id="provider_tel_2" name="provider_tel_2" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000">
+                        <input id="provider_tel_2" name="provPhoneFix_2" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_insc">Inscrição Estadual:</label>
@@ -138,15 +138,15 @@
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_rep_cel">Celular:</label>
-                        <input id="provider_rep_cel" name="provider_rep_cel" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
+                        <input id="provider_rep_cel" name="repCell" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_rep_tel_1">Telefone 1:</label>
-                        <input id="provider_rep_tel_1" name="provider_rep_tel_1" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
+                        <input id="provider_rep_tel_1" name="repPhoneFix_1" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_rep_tel_2">Telefone 2:</label>
-                        <input id="provider_rep_tel_2" name="provider_rep_tel_2" type="text" class="form-control form-control-sm text-center" placeholder="(00) 0000-00000">
+                        <input id="provider_rep_tel_2" name="repPhoneFix_2" type="text" class="form-control form-control-sm text-center" placeholder="(00) 0000-00000">
                     </div>
                 </div><!-- /End div hidden 5 -->
 
@@ -225,7 +225,7 @@
                 <div class="row">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div id="group-btn-new" class="btn-group">
-                            <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                            <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm" type="reset" >
                                 <i class="fas fa-plus fa-lg" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                             </button>
                         </div>
@@ -351,6 +351,8 @@
     var objMetodos = new Metodos();
     var objFinanca = new Financeiro();
 
+EventAction.setVal(".container #btn-new-show", ".container #group-btn-new, .container #group-btn-form-new");
+
     // Efetua a requisição ajax e retorna os registros
     objFinanca.setAjaxData(objSet = {
         url: '<?= Config::HOME_URI; ?>/providers/filters',
@@ -359,7 +361,6 @@
     });
     objFinanca.ajaxData();
     objFinanca.getAjaxData();
-
 
     $('input').on('keydown keyup', function() {
         objMetodos.setVerify(arrayData = ['provider_name', 'provider_cpf_cnpj']);
