@@ -48,7 +48,7 @@ if (!Config::ABS_PATH) {
         ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?= Config::HOME_URI; ?>/public/lib/_js/jquery.min.js"></script>
-    <script src="<?= Config::HOME_URI; ?>/public/lib/_js/popper.min.js"></script>
+    <script src="<?= Config::HOME_URI; ?>/public/lib/_js/popper/popper.min.js"></script>
     <!--Necessário para que funcione os dropdowns-->
     <!--<script src="<?= Config::HOME_URI; ?>/public/lib/_js/tether.min.js"></script>-->
     <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.min.js"></script>
@@ -74,7 +74,7 @@ if (!Config::ABS_PATH) {
         // End agenda css -->
 
         //--> Start JS
-        echo '<script src="' . Config::HOME_URI . '/public/lib/_js/moment.js"></script>';
+        echo '<script src="' . Config::HOME_URI . '/public/lib/_js/moment.min.js"></script>';
         echo '<link rel="stylesheet" href="' . Config::HOME_URI . '/public/lib/_css/datetimepicker/jquery.datetimepicker.min.css">';
         echo '<script src="' . Config::HOME_URI . '/public/lib/_js/datetimepicker/jquery.datetimepicker.full.min.js"></script>';
         echo '<script src="' . Config::HOME_URI . '/public/js/scriptsTop.js"></script>';

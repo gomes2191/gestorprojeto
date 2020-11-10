@@ -2,7 +2,7 @@
 
 
 if (defined('Config::ABS_PATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) {
-    Swoole\Http\Request::__destruct;
+    exit();
 }
 
 # Parâmetros de páginação
