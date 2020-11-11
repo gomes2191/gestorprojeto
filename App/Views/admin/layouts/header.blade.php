@@ -27,7 +27,7 @@ if (!Config::ABS_PATH) {
     <meta name="theme-color" content="#ffffff">
 
     <!-- Titulo do site -->
-    <title><?= Config::NOME_SITE . $this->title; ?></title>
+    <title>{{ Config::NOME_SITE }} @yield('title')</title>
 
     <!-- My style -->
     <link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/css/style.css">
@@ -56,7 +56,7 @@ if (!Config::ABS_PATH) {
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <script src="<?= Config::HOME_URI; ?>/public/lib/_js/jquery.mask.min.js"></script>
     <?php
-    if (($this->pageType === 1) or ($this->title == ' Contas a receber')) {
+    if (($pageType === 1) or ($title == ' Contas a receber')) {
         echo '<script>console.log("Bibliotecas inseridas")</script>';
 
         //--> Start JS
@@ -67,7 +67,7 @@ if (!Config::ABS_PATH) {
         //echo '<script src="'.HOME_URI.'/public/js/scriptsTop.js"></script>';
         //--> End JS
     }
-    if ($this->title == ' Agenda') {
+    if ($title == ' Agenda') {
         echo '<script>console.log("Bibliotecas inseridas")</script>';
         // Start agenda css -->
         echo '<link rel="stylesheet" href="' . Config::HOME_URI . '/_agenda/css/calendar.css">';

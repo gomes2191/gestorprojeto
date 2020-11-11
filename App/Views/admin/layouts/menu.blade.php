@@ -67,7 +67,4 @@
                 </ul>
             </div>
         </div>
-    </nav>
-    <!--End navbar-->
-    <main role="main" class="container">
-        <!-- Start Main container principal -->
+    </nav><!--End navbar-->

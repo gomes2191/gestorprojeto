@@ -1,3 +1,11 @@
+
+
+@extends('admin.layouts.app')
+
+@section('title','Home')
+
+@section('content')
+
 <div class="row">
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
     <!--div ocupa espaço left-->
@@ -346,6 +354,7 @@
         </div>
     </div>
 </div><!-- End modal visualizar -->
+
 <script>
     //Instância os objetos das classses
     var objMetodos = new Metodos();
@@ -436,3 +445,5 @@ EventAction.setVal(".container #btn-new-show", ".container #group-btn-new, .cont
         }
     }
 </script>
+
+@endsection

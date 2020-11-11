@@ -111,7 +111,7 @@ class Config
      *
      * @var array
      */
-    const TIME_ZONE = ['set' => false, 'show' => false];
+    const TIME_ZONE = ['set' => false, 'show' => true];
 
     /**
      * Mostra o TIME_ZONE atual, ex.: true liga, false desliga.

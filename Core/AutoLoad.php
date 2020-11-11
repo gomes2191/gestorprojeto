@@ -28,16 +28,16 @@ class AutoLoad
         spl_autoload_register(array($this, 'load'));
 
         // Carrega o método mostrar erros.
-        $this->ligaDebug();
+        //$this->ligaDebug();
 
         // Carrega o metódo que seta o Time_Zone.
         $this->loadTimeZone();
 
         // Carrega o Time_Zone atual caso esteja setado no Config.
-        $this->showTimeZone();
+        //$this->showTimeZone();
     }
 
-    static function ligaDebug($showErros =  Config::SHOW_ERRORS)
+    public static function ligaDebug($showErros =  Config::SHOW_ERRORS)
     {
         // Verifica o modo para debugar
         if (!$showErros || $showErros == false) {
@@ -63,7 +63,7 @@ class AutoLoad
         }
     }
 
-    static function loadTimeZone()
+    public static function loadTimeZone()
     {
         if (Config::TIME_ZONE['set']) {
 
@@ -76,7 +76,7 @@ class AutoLoad
         }
     }
 
-    static function showTimeZone()
+    public static function showTimeZone()
     {
         if (Config::TIME_ZONE['show']) {
             echo "<h6><span class='badge badge-pill badge-primary'>FUSO HORÁRIO: " . date_default_timezone_get() . "</span></h6>";
@@ -118,7 +118,7 @@ class AutoLoad
 }
 
 // Carrega a classe AutoLoad
-$autoload = new AutoLoad();
+$autoLoad = new AutoLoad();
 
 // Carrega toda aplicação.
 $loadApplication = new SystemCore();

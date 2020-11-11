@@ -306,7 +306,7 @@ function Financeiro() {
                 data: this.objAction.userData,
                 success: function (msg) {
                     objFinanca.ajaxData();
-                    if (msg === 'ok') {
+                    if (msg === 0) {
                         $.toaster({
                             title: {
                                 text: 'Sucesso!',
@@ -332,7 +332,6 @@ function Financeiro() {
                         /*toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
                             timeOut: 5000
                         });*/
-
                         $.toaster({
                             title: {
                                 text: 'Erro!',

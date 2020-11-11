@@ -105,20 +105,20 @@ class ProvidersController extends MainController
         #   Carrega os arquivos do view
         #-->   /views/_includes/header.php
 
-        include_once Config::ABS_PATH . '/App/Views/_includes/header.php';
+        //include_once Config::ABS_PATH . '/App/Views/_includes/header.php';
 
         #--> /views/_includes/menu.php
-        include_once Config::ABS_PATH . '/App/Views/_includes/menu.php';
+        //include_once Config::ABS_PATH . '/App/Views/_includes/menu.php';
 
         #--> /views/user-register/index.php
         //require_once (Config::HOME_URI . '/App/Views/company/providers/providers.php');
         // View::renderTemplate('/Admin/home/index', ['home' => '']);
 
 
-        View::renderTemplate('/admin/company/provider/provider', ['modelo' => $modelo]);
+        View::renderTemplate('/admin/company/provider/provider', ['modelo' => $modelo, 'pageType' => $this->pageType, 'title' => $this->title]);
 
         #--> /views/_includes/footer.php
-        include_once Config::ABS_PATH . '/App/Views/_includes/footer.php';
+        //include_once Config::ABS_PATH . '/App/Views/_includes/footer.php';
     }   #--> End index
 
     # URL: dominio.com/exemplo/exemplo

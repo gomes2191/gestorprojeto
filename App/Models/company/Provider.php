@@ -66,22 +66,30 @@ class Provider extends MainModel
      **/
     public function formValidation()
     {
-        # Verifica se não é vazio o $_POST
-        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
+        try {
+            # Verifica se não é vazio o $_POST
+            if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
 
-            // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
-            foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
-                # Configura os dados do post para a propriedade $form_data
-                $this->formData[$key] = $value;
-            } // End foreach
+                // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
+                foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
+                    # Configura os dados do post para a propriedade $form_data
+                    $this->formData[$key] = $value;
+                } // End foreach
 
-            // Verifica se existe o ID e decodifica se o mesmo existir.
-            (!empty($this->formData['id']))
-                ? $this->formData['id'] = GFunc::encodeDecode(0, $this->formData['id']) : '';
-        } else {
-            // Finaliza a execução.
-            return 'err';
-        } //--> End
+                // Verifica se existe o ID e decodifica se o mesmo existir.
+                if (!empty($this->formData['id'])) {
+                    $this->formData['id'] = GFunc::encodeDecode(0, $this->formData['id']);
+                }
+            } else {
+                // Finaliza a execução e retorna o erro.
+                throw new Exception("Requisição post não declarada ou campos vázios.");
+            } #--> End
+
+        } catch (Exception $e) {
+            
+        }
+
+
 
         // Verifica se o registro já existe.
         $db_check_ag = $this->db->query(' SELECT count(*) FROM `providers` WHERE `id` = ? ', [
@@ -203,12 +211,13 @@ class Provider extends MainModel
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ($query_ins) {
-            //$this->form_msg = ['result'=>'success', 'message'=>'query success'];
-            //return $this->form_msg;
-            echo 'ok';
 
             // Deleta a variável.
             unset($query_ins);
+
+            //$this->form_msg = ['result'=>'success', 'message'=>'query success'];
+            //return $this->form_msg;
+            exit(0);
         } else {
             # Feedback
             //$this->form_msg = ['result'=>'error', 'message'=>'query error'];
