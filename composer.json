@@ -1,7 +1,7 @@
 {
 "name": "gclinic/mvc-php",
 "description": "Framework PHP MVC-Blade",
-"minimum-stability": "stable",
+"minimum-stability": "dev",
 "license": "proprietary",
 "authors": [
     {
