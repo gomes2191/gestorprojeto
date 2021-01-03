@@ -72,10 +72,12 @@ class RegisterController extends MainController
 
     /** Carrega os arquivos do view * */
     // /views/_includes/header.php
-    require Config::ABS_PATH . '/App/Views/_includes/header.php';
+
+    //Core\View::renderTemplate('/admin/layout/header', ['modelo' => $modelo]);
+
 
     // /views/_includes/menu.php
-    require Config::ABS_PATH . '/App/Views/_includes/menu.php';
+    //require Config::ABS_PATH . '/App/Views/admin/layout/menu.php';
 
     // /views/user-register/index.php
     // require Config::ABS_PATH . '/App/Views/Register/register.php';
@@ -83,7 +85,7 @@ class RegisterController extends MainController
     Core\View::renderTemplate('/admin/register/register', ['modelo' => $modelo]);
 
     // /views/_includes/footer.php
-    require Config::ABS_PATH . '/App/Views/_includes/footer.php';
+    //require Config::ABS_PATH . '/App/Views/_includes/footer.php';
   } // index
 
 

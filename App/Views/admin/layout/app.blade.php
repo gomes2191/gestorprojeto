@@ -82,11 +82,11 @@ Evita acesso direto ao arquivo. --}}
     </head>
     <body data-spy="scroll" data-target="spy-scroll-id">
 
-        @include('admin.layouts.menu')
+        @include('admin.layout.menu')
 
-        <main role="main" class="container"><!-- Start Main container principal -->
+        <main role="main" class="container-fluid"><!-- Start Main container principal -->
 
-            {{ AutoLoad::ligaDebug() }}
+            {{ ControleErros::showStatusDebug() }}
 
             {{ AutoLoad::showTimeZone() }}
 

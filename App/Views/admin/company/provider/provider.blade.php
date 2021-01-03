@@ -1,8 +1,8 @@
 
 
-@extends('admin.layouts.app')
+@extends('admin.layout.app')
 
-@section('title','Home')
+@section('title',' Fornecedores')
 
 @section('content')
 
@@ -360,7 +360,7 @@
     var objMetodos = new Metodos();
     var objFinanca = new Financeiro();
 
-EventAction.setVal(".container #btn-new-show", ".container #group-btn-new, .container #group-btn-form-new");
+    EventAction.setVal("#btn-new-show", "#group-btn-new, #group-btn-form-new");
 
     // Efetua a requisição ajax e retorna os registros
     objFinanca.setAjaxData(objSet = {

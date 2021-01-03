@@ -1,5 +1,8 @@
 <?php
 
+// Inclui o config no sistema
+use Core\ControleErros;
+
 /**
  * Config - classe com os parâmetros de configuração.
  *
@@ -10,7 +13,7 @@
  * @link     www.gclinic.com
  * @since    0.2
  */
-class Config
+class Config extends ControleErros
 {
 
     /**
@@ -25,7 +28,7 @@ class Config
      *
      * @var string
      */
-    const ABS_PATH = '/home/gomes/development/p_gclinic';
+    const ABS_PATH = '/home/francisco/development/p_gclinic';
 
     /**
      * Caminho para a pasta de uploads.
@@ -94,7 +97,7 @@ class Config
      *
      * @var string
      */
-    const DB_PASSWORD = 'Vectra';
+    const DB_PASSWORD = '123456';
 
     /**
      * Charset da conexão PDO.
@@ -111,7 +114,7 @@ class Config
      *
      * @var array
      */
-    const TIME_ZONE = ['set' => false, 'show' => true];
+    const TIME_ZONE = ['set' => 'America/Sao_Paulo', 'show' => true];
 
     /**
      * Mostra o TIME_ZONE atual, ex.: true liga, false desliga.
@@ -125,7 +128,61 @@ class Config
      * @var boolean
      */
     const SHOW_ERRORS = true;
+
+    /*
+    * Método construtor
+    */
+    public function __construct()
+    {
+        $this->setTimeZone();
+        //$this->ligaDebug();
+
+        set_error_handler(array(&$this, 'controlar'));
+    }
+
+
+    public static function setTimeZone()
+    {
+        if (Config::TIME_ZONE['set']) {
+
+            // retorna o TIME_ZONE especificado na constante...
+            return date_default_timezone_set(Config::TIME_ZONE['set']);
+        } else {
+
+            // retorna o TIME_ZONE padrão UTC ...
+            return date_default_timezone_set(DateTimeZone::listIdentifiers(DateTimeZone::UTC)[0]);
+        }
+    }
+
+    public static function ligaDebug($showErros =  Config::SHOW_ERRORS)
+    {
+        // Verifica o modo para debugar
+        if (!$showErros || $showErros == false) {
+            // Esconde todos os erros
+            error_reporting(0);
+            ini_set('display_errors', 0);
+            //echo "<script>alert('Modo debug desativado!');</script>";
+        } else {
+
+            // Mostra todos os erros
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            ini_set('log_errors', 1);
+            ini_set('error_reporting', -1);
+            ini_set('html_errors', 1);
+
+            print_r(dirname(__DIR__));
+
+            ini_set('error_log', dirname(__DIR__) . '/logs/error_log.txt');
+
+            //echo "<h6><span class='badge badge-pill badge-primary'>MOSTRAR ERROS: ATIVO</span></h6>";
+
+            //echo "<script>alert('Modo Debug ativado!');</script>";
+        }
+    }
 }
+
+$Config = new Config();
 
 /***
  * Primordial para o funcionamento da Aplicação,

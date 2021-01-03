@@ -157,7 +157,10 @@ class MainModel
             $sql .= ' LIMIT ' . $conditions['limit'];
         }
 
-        //echo "($sql)" . '<br>';
+        echo '<pre>';
+        print_r($sql);
+        echo '</pre>';
+
         $result = $this->db->query($sql);
 
         if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {

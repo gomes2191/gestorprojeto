@@ -1,10 +1,12 @@
-    <?php if (($this->login_required && !$this->logged_in) && !defined('Config::Config::HOME_URI')) {
-        return;
-    } ?>
+    <?php
+        if (($objCodntrol->login_required && !$this->logged_in) && !defined('Config::HOME_URI')) {
+            return;
+        }
+    ?>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top top-mix navbar-icon-top">
         <!-- Fixed navbar -->
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="javascript:void(0)">
                 <img src="<?= Config::HOME_URI; ?>/logo.png" alt="Gestor Clínico" title="GC - Gestor Clínico">
             </a>

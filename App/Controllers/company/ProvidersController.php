@@ -30,8 +30,7 @@ class ProvidersController extends MainController
      *
      * @access public
      */
-    #public $permission_required = 'user-register';
-
+    public $permission_required = 'user-register';
 
 
     # Carrega a página "/views/user-register/index.php"
@@ -73,7 +72,7 @@ class ProvidersController extends MainController
 
 
         // Page title
-        $this->title = ' Fornecedores';
+        //$this->title = ' Fornecedores';
 
         // Verifica se o usuário está logado
         //		if ( ! $this->logged_in ) {
@@ -115,7 +114,7 @@ class ProvidersController extends MainController
         // View::renderTemplate('/Admin/home/index', ['home' => '']);
 
 
-        View::renderTemplate('/admin/company/provider/provider', ['modelo' => $modelo, 'pageType' => $this->pageType, 'title' => $this->title]);
+        View::renderTemplate('/admin/company/provider/provider', ['modelo' => $modelo, 'objControl' => new ProvidersController(), 'pageType' => $this->pageType, 'title' => $this->title]);
 
         #--> /views/_includes/footer.php
         //include_once Config::ABS_PATH . '/App/Views/_includes/footer.php';
