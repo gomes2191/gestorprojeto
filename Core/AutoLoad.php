@@ -5,7 +5,7 @@ session_start();
 
 // Evita que usuários acesse este arquivo diretamente.
 if (!Config::ABS_PATH) {
-    (Config::SHOW_ERRORS) ? var_dump('Não foi definido o diretório do sistema.') : die('Erro fatal...');
+    (Config::DEBUG['show']) ? var_dump('Não foi definido o diretório do sistema.') : die('Erro fatal...');
 }
 
 /**
@@ -44,6 +44,13 @@ class AutoLoad
         }
     }
 
+    public static function statusDebug()
+    {
+        if (Config::DEBUG['display']) {
+            echo "<h6><span class='badge badge-pill badge-primary'>MODO DEBUG: ativo </span></h6>";
+        }
+    }
+
 
 
     /**
@@ -62,9 +69,9 @@ class AutoLoad
 
         foreach ($pastas as $pasta) {
             $fileParcial = Config::ABS_PATH . $pasta . $nomeDaClasse;
-            echo '<pre>';
+            /* echo '<pre>';
             print_r($fileParcial);
-            echo '</pre>';
+            echo '</pre>'; */
 
             if ((file_exists($fileParcial . '.php'))) {
 

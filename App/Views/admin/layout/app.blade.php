@@ -86,9 +86,10 @@ Evita acesso direto ao arquivo. --}}
 
         <main role="main" class="container-fluid"><!-- Start Main container principal -->
 
-            {{ ControleErros::showStatusDebug() }}
+
 
             {{ AutoLoad::showTimeZone() }}
+            {{ AutoLoad::statusDebug() }}
 
             @yield('content')
 

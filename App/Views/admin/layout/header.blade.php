@@ -24,7 +24,7 @@ if (!Config::ABS_PATH) {
     <link rel="mask-icon" href="<?= Config::HOME_URI; ?>/public/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-
+teu cu
     <!-- Titulo do site -->
     <title>{{ Config::NOME_SITE }} @yield('title')</title>
 

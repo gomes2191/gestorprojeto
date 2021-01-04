@@ -1,7 +1,7 @@
 <?php
 
-// Inclui o config no sistema
-use Core\ControleErros;
+//namespace Core;
+
 
 /**
  * Config - classe com os parâmetros de configuração.
@@ -13,7 +13,7 @@ use Core\ControleErros;
  * @link     www.gclinic.com
  * @since    0.2
  */
-class Config extends ControleErros
+class Config
 {
 
     /**
@@ -111,6 +111,7 @@ class Config extends ControleErros
      * se especificado o fuso horário retorna ele,
      * se não, retorna o fuso horário padrão 'UTC'.
      * Ex.: set => 'America/Sao_Paulo' & 'show' => true
+     * mostra o TIME_ZONE atual, ex.: true liga, false desliga.
      *
      * @var array
      */
@@ -121,13 +122,15 @@ class Config extends ControleErros
      *
      * @var boolean
      */
-    const SHOW_TIME_ZONE = true;
+    //const SHOW_TIME_ZONE = true;
 
     /**
-     * Liga ou desliga o DEBUG "TRUE" liga "FALSE" desliga.
+     * 'set' => true, liga ou desliga o DEBUG "true" liga "false" desliga.
+     * 'show' => true, mostra se o debug está ativo
+     *
      * @var boolean
      */
-    const SHOW_ERRORS = true;
+    const DEBUG = ['display' => true];
 
     /*
     * Método construtor
@@ -135,54 +138,72 @@ class Config extends ControleErros
     public function __construct()
     {
         $this->setTimeZone();
-        //$this->ligaDebug();
 
-        set_error_handler(array(&$this, 'controlar'));
+        $this->debug();
     }
 
-
+    /**
+     * Seta os parâmetros do fuso horário.
+     *
+     * @param string $timeZone recebe um valor no formato array.
+     *
+     * @return object object Retorna um object com os valores.
+     */
     public static function setTimeZone()
     {
-        if (Config::TIME_ZONE['set']) {
+        // Recebe a constante com os parâmetros
+        $timeZone = Config::TIME_ZONE;
 
+        if ($timeZone['set']) {
             // retorna o TIME_ZONE especificado na constante...
-            return date_default_timezone_set(Config::TIME_ZONE['set']);
+            return date_default_timezone_set($timeZone['set']);
         } else {
 
             // retorna o TIME_ZONE padrão UTC ...
-            return date_default_timezone_set(DateTimeZone::listIdentifiers(DateTimeZone::UTC)[0]);
+            return date_default_timezone_set(\DateTimeZone::listIdentifiers(\DateTimeZone::UTC)[0]);
         }
     }
 
-    public static function ligaDebug($showErros =  Config::SHOW_ERRORS)
+    public static function debug()
     {
-        // Verifica o modo para debugar
-        if (!$showErros || $showErros == false) {
+        // Recebe a constante
+        $debug = Config::DEBUG;
+
+        // Verifica se o debug esta ativo.
+        if (!$debug['display'] || $debug['display'] === false) {
             // Esconde todos os erros
-            error_reporting(0);
+            error_reporting(1);
+            ini_set('ignore_repeated_source', 1);
+            ini_set('ignore_repeated_errors', 1);
             ini_set('display_errors', 0);
+            ini_set('display_startup_errors', 0);
+            ini_set('html_errors', 1);
+            ini_set('log_errors', 1);
+            ini_set('error_log', dirname(__DIR__) . '/logs/error_log.txt');
+
+            //echo ini_get('display_errors');
+            //echo ini_get('error_reporting');
+            //echo ini_get('display_errors');
+            //echo ini_get('log_errors');
+
             //echo "<script>alert('Modo debug desativado!');</script>";
         } else {
-
             // Mostra todos os erros
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
+            ini_set('error_reporting', 1);
             ini_set('log_errors', 1);
-            ini_set('error_reporting', -1);
             ini_set('html_errors', 1);
-
-            print_r(dirname(__DIR__));
-
             ini_set('error_log', dirname(__DIR__) . '/logs/error_log.txt');
-
-            //echo "<h6><span class='badge badge-pill badge-primary'>MOSTRAR ERROS: ATIVO</span></h6>";
 
             //echo "<script>alert('Modo Debug ativado!');</script>";
         }
     }
 }
 
-$Config = new Config();
+$config = new Config();
+
+
 
 /***
  * Primordial para o funcionamento da Aplicação,

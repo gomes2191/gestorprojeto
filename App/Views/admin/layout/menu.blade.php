@@ -1,5 +1,5 @@
     <?php
-        if (($objCodntrol->login_required && !$this->logged_in) && !defined('Config::HOME_URI')) {
+        if (($objControl->login_required && !$this->logged_in) && !defined('Config::HOME_URI')) {
             return;
         }
     ?>

@@ -5,7 +5,7 @@ namespace Core;
 /**
  * View
  *
- * PHP version 7.0
+ * PHP version 7.>
  */
 class View
 {
@@ -39,7 +39,8 @@ class View
      *
      * @return void
      */
-    public static function renderTemplate($template, $args = []){
+    public static function renderTemplate($template, $args = [])
+    {
         static $blade = null;
         // var_dump(dirname(__DIR__));die;
         if ($blade === null) {

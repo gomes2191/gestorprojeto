@@ -86,14 +86,11 @@ class Provider extends MainModel
             } #--> End
 
         } catch (Exception $e) {
-            
         }
-
-
 
         // Verifica se o registro já existe.
         $db_check_ag = $this->db->query(' SELECT count(*) FROM `providers` WHERE `id` = ? ', [
-            $this->gFun->chkArray($this->form_data, 'id')
+            GFunc::chkArray($this->form_data, 'id')
         ]);
 
         // Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
