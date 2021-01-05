@@ -86,6 +86,8 @@ class Provider extends MainModel
             } #--> End
 
         } catch (Exception $e) {
+
+            echo 'Erro: ' . $e->getMessage();
         }
 
         // Verifica se o registro já existe.
