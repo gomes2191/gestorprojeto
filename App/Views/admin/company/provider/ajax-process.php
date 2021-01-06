@@ -7,7 +7,7 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
     if (filter_input(INPUT_POST, 'action_type') == 'loadInfo') {
         $conditions['where'] = ['id' => $modelo->encodeDecode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
         $conditions['return_type'] = 'single';
-        $allReg = $modelo->searchTable('providers', $conditions);
+        $allReg = $modelo->searchTable('Providers', $conditions);
         $allReg['id'] = $modelo->encodeDecode($allReg['id']);
         ($allReg['provider_sit'] == 'active') ? $allReg['provider_sit'] = 'Ativo' : FALSE;
         ($allReg['provider_sit'] == 'inactive') ? $allReg['provider_sit'] = 'Inativo' : FALSE;
@@ -17,7 +17,7 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
     } elseif (filter_input(INPUT_POST, 'action_type') == 'loadEdit') {
         $conditions['where'] = ['id' => $modelo->encodeDecode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
         $conditions['return_type'] = 'single';
-        $allReg = $modelo->searchTable('providers', $conditions);
+        $allReg = $modelo->searchTable('Providers', $conditions);
         $allReg['id'] = $modelo->encodeDecode($allReg['id']);
         $allReg['provider_created'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['provider_created']);
         $allReg['provider_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['provider_modified']);

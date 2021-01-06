@@ -6,7 +6,7 @@ if (defined('Config::ABS_PATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) 
 }
 
 # Parâmetros de páginação
-$tblName = 'providers a, contact b, address c, representative d, bank_account f';
+$tblName = 'Providers a, Contacts b, Address c, Representatives d, BankAccounts f';
 
 // Recebe os parâmetros do tipo de banco.
 $offset = Config::DB_DRIVER['offset'];
@@ -77,7 +77,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     //$conditions['order_by'] = "id DESC LIMIT 100";
     //$count = (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : 0;
     $conditions['select'] = "a.id, a.name, b.phone, a.id, a.occupation_area, a.email, c.states, f.bank, f.agency";
-    $conditions['where'] = ['a.id' => 'b.ref_id AND a.id = c.ref_id AND a.id = d.ref_id AND (a.id = d.ref_id AND d.id = f.ref_id)'];
+    $conditions['where'] = ['a.id' => 'b.idProvider AND a.id = c.idProvider AND a.id = d.idProvider AND (a.id = d.idProvider AND d.id = f.idRepresentative)'];
     //$conditions['and'] = ['a.id' => 'c.ref_id'];
     $conditions['order_by'] = "a.id DESC LIMIT $start $offset $limit";
     $allReg = $modelo->searchTable($tblName, $conditions);

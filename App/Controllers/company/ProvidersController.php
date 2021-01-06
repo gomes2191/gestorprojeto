@@ -52,7 +52,7 @@ class ProvidersController extends MainController
         $limit = 5;
 
         # Realiza uma consulta na base de dados e retorna todos os registro caso exista
-        $providers = $modelo->searchTable('providers', ['order_by' => 'id DESC ', 'limit' => $limit]);
+        $providers = $modelo->searchTable('Providers', ['order_by' => 'id DESC ', 'limit' => $limit]);
 
         $pagConfig = [
             'totalRows' => (is_array($providers) ? COUNT($providers) : 0),
