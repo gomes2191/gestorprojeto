@@ -77,7 +77,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     //$conditions['order_by'] = "id DESC LIMIT 100";
     //$count = (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : 0;
     $conditions['select'] = "a.id, a.name, b.phone, a.id, a.occupation_area, a.email, c.states, f.bank, f.agency";
-    $conditions['where'] = ['a.id' => 'b.idProvider AND a.id = c.idProvider AND a.id = d.idProvider AND (a.id = d.idProvider AND d.id = f.idRepresentative)'];
+    $conditions['where'] = ['a.id' => 'b.id_provider AND a.id = c.id_provider AND a.id = d.id_provider AND (a.id = d.id_provider AND d.id = f.id_representative)'];
     //$conditions['and'] = ['a.id' => 'c.ref_id'];
     $conditions['order_by'] = "a.id DESC LIMIT $start $offset $limit";
     $allReg = $modelo->searchTable($tblName, $conditions);

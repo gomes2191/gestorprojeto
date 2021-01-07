@@ -205,14 +205,17 @@ class SystemDB extends Config
         // Verifica se a consulta foi realizada com sucesso
         if ($insert) {
 
+            // Destrói as varáveis não mais usadas.
+            unset($insert, $stmt, $cols, $place_holders,$data, $values, $place_holders);
+
             // Verifica se temos o último ID enviado
             if (method_exists($this->_pdo, 'lastInsertId') && $this->_pdo->lastInsertId()) {
                 // Configura o último ID
-                $this->last_id = $this->_pdo->lastInsertId();
+                return $this->_pdo->lastInsertId();
             }
 
             // Retorna a consulta
-            return $insert;
+
         }
 
         // The end :)

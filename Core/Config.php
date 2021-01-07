@@ -189,11 +189,13 @@ class Config
             //echo "<script>alert('Modo debug desativado!');</script>";
         } else {
             // Mostra todos os erros
+            ini_set('ignore_repeated_source', 1);
+            ini_set('ignore_repeated_errors', 1);
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             ini_set('error_reporting', 1);
-            ini_set('log_errors', 1);
             ini_set('html_errors', 1);
+            ini_set('log_errors', 1);
             ini_set('error_log', dirname(__DIR__) . '/logs/error_log.txt');
 
             //echo "<script>alert('Modo Debug ativado!');</script>";
