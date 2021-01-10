@@ -351,6 +351,13 @@ class Provider extends MainModel
 
 
 
+
+
+    public function listar($table = 'Providers', $column = '*', $condition = null)
+    {
+        return $this->db->select($table, $column, $condition);
+    }
+
     /**
      *   @Acesso: public
      *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>

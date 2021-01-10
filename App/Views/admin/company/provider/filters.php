@@ -5,8 +5,6 @@ if (defined('Config::ABS_PATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) 
     exit();
 }
 
-$db = new SystemDB();
-
 # Parâmetros de páginação
 //$tblName = 'Providers p';
 
@@ -43,8 +41,8 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     switch ($sortBy) {
         case 'active':
 
-            $count = (is_array($count = $db->select('Providers p', '*', "WHERE p.status='active'"))) ? COUNT($count) : 0;
-            $allReg = $db->select('Providers p', '*', "INNER JOIN Address ON p.id = Address.id_provider
+            $count = (is_array($count = $modelo->listar('Providers p', '*', "WHERE p.status='active'"))) ? COUNT($count) : 0;
+            $allReg = $modelo->listar('Providers p', '*', "INNER JOIN Address ON p.id = Address.id_provider
             INNER JOIN BankAccounts ON p.id = BankAccounts.id_representative WHERE p.status='active' ORDER BY p.id DESC LIMIT {$start}{$offset}{$limit}");
 
 
@@ -98,8 +96,9 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     //$conditions['where'] = ['a.id' => 'b.id_provider AND a.id = c.id_provider AND a.id = d.id_provider AND (a.id = d.id_provider AND d.id = f.id_representative)'];
     //$conditions['and'] = ['a.id' => 'c.ref_id'];
 
-    $allReg = $db->select('Providers p', '*', 'INNER JOIN Address ON p.id = Address.id_provider
-    INNER JOIN BankAccounts ON p.id = BankAccounts.id_representative');
+    $count = (is_array($count = $modelo->listar())) ? COUNT($count) : 0;
+    $allReg = $modelo->listar('Providers', '*', "INNER JOIN Address ON Providers.id = Address.id_provider
+    INNER JOIN BankAccounts ON Providers.id = BankAccounts.id_representative ORDER BY Providers.id DESC LIMIT {$start}{$offset}{$limit}");
 
     //$conditions['order_by'] = "p.id DESC LIMIT $start $offset $limit";
     //$allReg = $modelo->searchTable($tblName, $tblJoinName, $conditions);

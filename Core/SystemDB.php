@@ -49,7 +49,7 @@ class SystemDB extends Config
         $this->_dbPassword  = defined('Config::DB_PASSWORD') ? Config::DB_PASSWORD : $this->_dbPassword;
         $this->_dbUser      = defined('Config::DB_USER') ? Config::DB_USER : $this->_dbCharset;
         $this->_dbCharset   = defined('Config::DB_CHARSET') ? Config::DB_CHARSET : $this->_dbCharset;
-        $this->_showErrors  = defined('Config::SHOW_ERRORS') ? Config::SHOW_ERRORS : $this->_showErrors;
+        //$this->_showErrors  = defined('Config::SHOW_ERRORS') ? Config::SHOW_ERRORS : $this->_showErrors;
 
         // Efetua a conexão
         $this->connectDb();
@@ -74,6 +74,8 @@ class SystemDB extends Config
         try {
 
             $this->_pdo = new PDO($pdoDetails, $this->_dbUser, $this->_dbPassword);
+
+            var_dump($this->_pdo);
 
             // Verifica se devemos debugar
             if ($this->_showErrors === true) {
@@ -111,6 +113,7 @@ class SystemDB extends Config
     public function query($stmt, $data_array = null)
     {
 
+        var_dump($stmt);
         // Prepara e executa
         $query = $this->_pdo->prepare($stmt);
         $check_exec = $query->execute($data_array);
@@ -347,13 +350,13 @@ class SystemDB extends Config
      * @param  [type] $condicao string
      * @return [type]           array
      */
-    public function select($table, $column, $condition)
+    public function select($table, $column, $condition = null)
     {
         (defined('Config::TB_PREFIX')) ? $table = Config::TB_PREFIX . $table : $table;
 
-        $result = $this->query("SELECT {$column} FROM {$table} {$condition}");
+        $result =  $this->query("SELECT {$column} FROM {$table} {$condition}");
 
-        var_dump($condition);
+        //var_dump($condition);
         //die;
 
         while ($row = $result->fetch(PDO::FETCH_BOTH)) {

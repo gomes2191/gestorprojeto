@@ -83,7 +83,7 @@ class Config
      *
      * @var string
      */
-    const TB_PREFIX = '';
+    const TB_PREFIX = ' ';
 
     /**
      * Usuário do banco de dados.

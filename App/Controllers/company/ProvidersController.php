@@ -37,6 +37,7 @@ class ProvidersController extends MainController
     public function index()
     {
 
+
         // Carrega o modelo para esta view
         $modelo = $this->loadModel('company/Provider');
 
@@ -48,27 +49,7 @@ class ProvidersController extends MainController
             echo 'Erro: O diretório da aplicação não foi definido.';
         }
 
-        # Define o limite padrão de registro por página
-        $limit = 5;
 
-        # Realiza uma consulta na base de dados e retorna todos os registro caso exista
-        $providers = $modelo->searchTable('Providers', ['order_by' => 'id DESC ', 'limit' => $limit]);
-
-        $pagConfig = [
-            'totalRows' => (is_array($providers) ? COUNT($providers) : 0),
-            'perPage'   => $limit,
-            'link_func' => 'searchFilter'
-        ];
-
-        // Cria um objeto da classe paginação
-        $pagination = new Pagination($pagConfig);
-
-        date_default_timezone_set('America/Sao_Paulo');
-        $date = (date('Y-m-d H:i'));
-        date('Y-m-d H:i:s', time());
-
-        // Finaliza variáveis não mais utilizada.
-        unset($providers, $date, $pagination);
 
 
         // Page title
