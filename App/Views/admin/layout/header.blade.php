@@ -3,7 +3,7 @@
             return;
         }
     ?>
-    <nav class="navbar navbar-dark bg-gclinic navbar-expand-lg fixed-top top-mix navbar-icon-top">
+    <nav class="navbar navbar-dark bg-gclinic navbar-expand-lg fixed-top navbar-icon-top">
         <!-- Fixed navbar -->
         <div class="container-fluid">
             <div class="d-flex w-50 order-0">

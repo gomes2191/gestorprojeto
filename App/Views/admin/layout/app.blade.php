@@ -32,9 +32,6 @@ Evita acesso direto ao arquivo. --}}
         <!-- Outro plugins -->
         <!--<link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/_css/jasny-bootstrap.min.css">-->
 
-        <!-- Custom styles for this template -->
-        <link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/css/navbar-top-fixed.css">
-
         <!-- Load icones... -->
         <link href="<?= Config::HOME_URI; ?>/public/lib/_fontaWesome/css/all.min.css" rel="stylesheet">
 

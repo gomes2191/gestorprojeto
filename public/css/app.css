@@ -1,41 +1,65 @@
 /*Formatação do topo*/
-.top-mix {
-    box-shadow: 0px 2px 3px 0px rgb(133, 133, 133) !important;
-    border-bottom: 4px #007bff solid;
-    padding: 0px 0 0px 10px !important;
 
-    height: 90px !important;
+/* Parâmetros utilizado no topo fixo */
+body {
+  /* Show it's not fixed to the top */
+  min-height: 75rem;
+  padding-top: 5rem;
 }
-
-
-/* .navbar-nav .nav-link {
-    padding-right: 0;
-    padding-left: 4px !important;
-}
-*/
-
 
 .bg-gclinic{
   background-color: #404448;
+  box-shadow: 0px 2px 3px 0px rgb(133, 133, 133) !important;
+  border-bottom: 4px #007bff solid;
+  padding: 0px 0 0px 10px !important;
+  height: 90px !important;
 }
 
-.navbar-nav li:hover{
-background-color: #4da3ff !important;
-border-radius: 3px !important;
-
-
-
+.bg-gclinic .navbar-nav li{
+  transition: background-color 0.3s;
 }
 
-.navbar-nav li.active{
+.bg-gclinic .navbar-nav li:hover{
+  background-color: #4da3ff !important;
+  border-radius: 3px !important;
+  transition: background-color 0.3s;
+}
+
+.bg-gclinic .navbar-nav li.active{
   background-color: #007bff !important;
   border-radius: 3px !important;
+}
 
-  }
+/* Estiliza todos os itens do menu topo menos o último */
+.bg-gclinic .navbar-nav li:not(:last-child) {
+  margin-right: 5px !important;
+  /* background-color: #00c176 !important; */
+}
 
-  .navbar-nav li {
-    margin-right: 3px !important;
-  }
+.bg-gclinic .navbar-nav li > a{
+  color:rgb(255, 255, 255) !important;
+  font-weight: bold !important;
+}
+
+.bg-gclinic .dropdown-menu > a {
+  /* background-color: #4da3ff !important; */
+  /* color:rgb(255, 255, 255) !important; */
+  /* font-weight: bold !important; */
+  /* color:rgb(255, 255, 255); */
+  transition: background-color, color 0.3s;
+}
+
+.bg-gclinic .dropdown-menu > a:hover {
+  /* background-color: #4da3ff !important; */
+  /* color:rgb(255, 255, 255) !important; */
+  /* font-weight: bold !important; */
+  /* color:rgb(255, 255, 255); */
+
+  transition: background-color, color 0.3s;
+}
+
+
+
 
 /*Tabela estilização personalizada*/
 .thead-green{
@@ -677,6 +701,7 @@ used to vertically center elements, may need modification if you're not using de
 .spanSearch{
     color: #fff !important;
     background-color: #404448 !important;
+    border: 1px solid #333 !important;
 }
 
 /* .inputSearch, .spanSearch{
