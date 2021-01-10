@@ -1,10 +1,5 @@
 <?php
 
-namespace Core;
-
-use PDO;
-use Core\Config;
-
 /**
  * Base model
  *
@@ -18,7 +13,7 @@ abstract class Model
      * @return mixed
      */
     protected static function getDB()
-    {   
+    {
         static $db = null;
 
         if ($db === null) {

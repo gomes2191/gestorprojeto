@@ -5,8 +5,14 @@ if (defined('Config::ABS_PATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) 
     exit();
 }
 
+$db = new SystemDB();
+
 # Parâmetros de páginação
-$tblName = 'Providers a, Contacts b, Address c, Representatives d, BankAccounts f';
+//$tblName = 'Providers p';
+
+//$tblJoinName = ['Address', 'BankAccounts'];
+
+//$conditions['innerJoin'] = ['Address.id_provider' => 'p.id', 'BankAccounts.id_representative' => 'p.id'];
 
 // Recebe os parâmetros do tipo de banco.
 $offset = Config::DB_DRIVER['offset'];
@@ -27,21 +33,31 @@ if (($qtdLine <= 0) or ($qtdLine > 50)) {
 $start = !empty(filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT)) ? filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) : 0;
 
 if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
-    $conditions['search'] = ['name' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE), 'area_de_atuacao' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-    $count = (int) (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : FALSE;
-    $conditions['order_by'] = "id DESC LIMIT $start, $limit";
-    $allReg = $modelo->searchTable($tblName, $conditions);
+    //$conditions['search'] = ['name' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE), 'area_de_atuacao' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
+    //$count = (int) (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : FALSE;
+    //$conditions['order_by'] = "id DESC LIMIT $start, $limit";
+    //$allReg = $modelo->searchTable($tblName, $conditions);
 } elseif (!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) {
     unset($allReg);
     $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
     switch ($sortBy) {
         case 'active':
-            $conditions['active'] = ['provider_sit' => 'active'];
+
+            $count = (is_array($count = $db->select('Providers p', '*', "WHERE p.status='active'"))) ? COUNT($count) : 0;
+            $allReg = $db->select('Providers p', '*', "INNER JOIN Address ON p.id = Address.id_provider
+            INNER JOIN BankAccounts ON p.id = BankAccounts.id_representative WHERE p.status='active' ORDER BY p.id DESC LIMIT {$start}{$offset}{$limit}");
+
+
+            var_dump($count);
+            /* $conditions['active'] = ['provider_sit' => 'active'];
+            $conditions['innerJoin'] = ['Address.id_provider' => 'p.id', 'BankAccounts.id_representative' => 'p.id'];
             $conditions['order_by'] = 'id DESC';
             $count = (is_array($modelo->searchTable($tblName, $conditions))) ? COUNT($modelo->searchTable($tblName, $conditions)) : 0;
+
+
             $conditions['start'] = $start;
             $conditions['limit'] = $limit;
-            $allReg = $modelo->searchTable($tblName, $conditions);
+            $allReg = $modelo->searchTable($tblName, $conditions); */
             break;
         case 'inactive':
             $conditions['inactive'] = ['provider_sit' => 'inactive'];
@@ -76,18 +92,24 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
 } else {
     //$conditions['order_by'] = "id DESC LIMIT 100";
     //$count = (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : 0;
-    $conditions['select'] = "a.id, a.name, b.phone, a.id, a.occupation_area, a.email, c.states, f.bank, f.agency";
-    $conditions['where'] = ['a.id' => 'b.id_provider AND a.id = c.id_provider AND a.id = d.id_provider AND (a.id = d.id_provider AND d.id = f.id_representative)'];
-    //$conditions['and'] = ['a.id' => 'c.ref_id'];
-    $conditions['order_by'] = "a.id DESC LIMIT $start $offset $limit";
-    $allReg = $modelo->searchTable($tblName, $conditions);
+    //$conditions['select'] = "";
+    // /$conditions['innerJoin'] = ['Address.id_provider' => 'p.id', 'BankAccounts.id_representative' => 'p.id'];
 
-    var_dump($allReg);
+    //$conditions['where'] = ['a.id' => 'b.id_provider AND a.id = c.id_provider AND a.id = d.id_provider AND (a.id = d.id_provider AND d.id = f.id_representative)'];
+    //$conditions['and'] = ['a.id' => 'c.ref_id'];
+
+    $allReg = $db->select('Providers p', '*', 'INNER JOIN Address ON p.id = Address.id_provider
+    INNER JOIN BankAccounts ON p.id = BankAccounts.id_representative');
+
+    //$conditions['order_by'] = "p.id DESC LIMIT $start $offset $limit";
+    //$allReg = $modelo->searchTable($tblName, $tblJoinName, $conditions);
+
+    //var_dump($allReg);
 }
 
 $pagConfig = [
     'currentPage'   => $start,
-    'totalRows'     => $count = count((array)$allReg),
+    'totalRows'     => $count, //= count((array)$allReg),
     'perPage'       => $limit,
     'link_func'     => 'objFinanca.ajaxFilter'
 ];

@@ -14,6 +14,7 @@ Evita acesso direto ao arquivo. --}}
         <link rel="apple-touch-icon" sizes="180x180" href="<?= Config::HOME_URI; ?>/public/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="<?= Config::HOME_URI; ?>/public/favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="<?= Config::HOME_URI; ?>/public/favicon/favicon-16x16.png">
+        <link rel="shortcut icon" href="<?= Config::HOME_URI; ?>/public/favicon/favicon.ico" type="image/x-icon">
         <link rel="manifest" href="<?= Config::HOME_URI; ?>/public/favicon/site.webmanifest">
         <link rel="mask-icon" href="<?= Config::HOME_URI; ?>/public/favicon/safari-pinned-tab.svg" color="#5bbad5">
         <meta name="msapplication-TileColor" content="#da532c">
@@ -23,7 +24,7 @@ Evita acesso direto ao arquivo. --}}
         <title>{{ Config::NOME_SITE }} @yield('title')</title>
 
         <!-- My style -->
-        <link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/css/style.css">
+        <link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/css/app.css">
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/lib/_css/bootstrap/bootstrap.min.css">
@@ -82,7 +83,7 @@ Evita acesso direto ao arquivo. --}}
     </head>
     <body data-spy="scroll" data-target="spy-scroll-id">
 
-        @include('admin.layout.menu')
+        @include('admin.layout.header')
 
         <main role="main" class="container-fluid"><!-- Start Main container principal -->
 
@@ -94,6 +95,8 @@ Evita acesso direto ao arquivo. --}}
             @yield('content')
 
         </main> <!-- End Main container principal -->
+
+        @include('admin.layout.footer')
 
         <!-- ===== Javascript customizado ===== -->
         <script src="<?= Config::HOME_URI; ?>/public/js/scriptsFooter.js"></script>

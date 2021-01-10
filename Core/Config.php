@@ -189,6 +189,7 @@ class Config
             //echo "<script>alert('Modo debug desativado!');</script>";
         } else {
             // Mostra todos os erros
+            ini_set('xdebug.scream', '1');
             ini_set('ignore_repeated_source', 1);
             ini_set('ignore_repeated_errors', 1);
             ini_set('display_errors', 1);

@@ -206,7 +206,7 @@ class SystemDB extends Config
         if ($insert) {
 
             // Destrói as varáveis não mais usadas.
-            unset($insert, $stmt, $cols, $place_holders,$data, $values, $place_holders);
+            unset($insert, $stmt, $cols, $place_holders, $data, $values, $place_holders);
 
             // Verifica se temos o último ID enviado
             if (method_exists($this->_pdo, 'lastInsertId') && $this->_pdo->lastInsertId()) {
@@ -336,5 +336,30 @@ class SystemDB extends Config
     public function lastInsertId()
     {
         return $this->_pdo->lastInsertId();
+    }
+
+
+    //Método para a consulta na tabela
+    /**
+     * [listar]
+     * @param  [type] $tabela   string
+     * @param  [type] $coluna   string
+     * @param  [type] $condicao string
+     * @return [type]           array
+     */
+    public function select($table, $column, $condition)
+    {
+        (defined('Config::TB_PREFIX')) ? $table = Config::TB_PREFIX . $table : $table;
+
+        $result = $this->query("SELECT {$column} FROM {$table} {$condition}");
+
+        var_dump($condition);
+        //die;
+
+        while ($row = $result->fetch(PDO::FETCH_BOTH)) {
+            $data[] = $row;
+        }
+
+        return !empty($data) ? $data : false;
     }
 }// Class SystemDB

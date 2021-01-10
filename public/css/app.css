@@ -1,24 +1,52 @@
 /*Formatação do topo*/
 .top-mix {
     box-shadow: 0px 2px 3px 0px rgb(133, 133, 133) !important;
-    border-bottom: 4px #1ca854 solid;
+    border-bottom: 4px #007bff solid;
     padding: 0px 0 0px 10px !important;
+
+    height: 90px !important;
 }
 
-.navbar-nav .nav-link {
+
+/* .navbar-nav .nav-link {
     padding-right: 0;
     padding-left: 4px !important;
 }
+*/
 
-.navbar-nav.mr-auto li a {
-    font-weight: bold;
+
+.bg-gclinic{
+  background-color: #404448;
 }
+
+.navbar-nav li:hover{
+background-color: #4da3ff !important;
+border-radius: 3px !important;
+
+
+
+}
+
+.navbar-nav li.active{
+  background-color: #007bff !important;
+  border-radius: 3px !important;
+
+  }
+
+  .navbar-nav li {
+    margin-right: 3px !important;
+  }
 
 /*Tabela estilização personalizada*/
 .thead-green{
-    background-color: #1ca854;
-    color:#fff;
+    background-color: #404448;
+    color:rgb(255, 255, 255);
 }/*End estilização tabela*/
+
+
+/* table, th, td {
+  border: 1px solid #48cfad !important;
+} */
 
 /* Formulario estilização */
 .custom-select{
@@ -640,20 +668,20 @@ used to vertically center elements, may need modification if you're not using de
 /* danger End */
 
 .btn-select.btn-select-light .btn-select-value {
-    background-color: white;
+    background-color: white !important;
     color: black;
 }
 
 
 /* Personalização do search pesquisa em tabelas */
 .spanSearch{
-    color: #FFFFFF !important;
-    background-color: #1ca854 !important;
+    color: #fff !important;
+    background-color: #404448 !important;
 }
 
-.inputSearch, .spanSearch{
-   border: 1px solid #1ca854 !important;
-}
+/* .inputSearch, .spanSearch{
+   border: 1px solid #48cfad !important;
+} */
 
 
 /* ======== Menu responsivo com icones se não usar icones no menu pode remover ======== */
@@ -1002,3 +1030,5 @@ button.toast-close-button {
     padding: 15px 50px 15px 15px;
   }
 }
+
+/* Teste menu centro */

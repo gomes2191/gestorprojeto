@@ -4,12 +4,13 @@
  *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
  *  @Class: Pagination
  *  @Descrição: Essa classe possui os metodos necessarios para a paginação.
- * 
+ *
  *  @Pacote: OdontoControl
  *  @Versão: 0.1
  **/
 
-class Pagination {
+class Pagination
+{
 
     var $baseURL = '';
     var $totalRows = '';
@@ -20,13 +21,13 @@ class Pagination {
     var $nextLink = '&gt;';
     var $prevLink = '&lt;';
     var $lastLink = 'Último &rsaquo;';
-    var $fullTagOpen = '<ul class="pagination pagination-sm">';
-    var $fullTagClose = '</ul>';
+    var $fullTagOpen = '<nav><ul class="pagination pagination-sm justify-content-center">';
+    var $fullTagClose = '</ul></nav>';
     var $firstTagOpen = '';
     var $firstTagClose = '&nbsp;';
     var $lastTagOpen = '&nbsp;';
     var $lastTagClose = '';
-    var $curTagOpen = '&nbsp;<li  class="page-item"><a class="page-link" hre="#">';
+    var $curTagOpen = '&nbsp;<li  class="page-item active"><a class="page-link" hre="#">';
     var $curTagClose = '</a></li>';
     var $nextTagOpen = '&nbsp;';
     var $nextTagClose = '&nbsp;';
@@ -43,19 +44,21 @@ class Pagination {
     var $additionalParam = '';
     var $link_func = '';
 
-    function __construct($params = []) {
+    function __construct($params = [])
+    {
         if (count($params) > 0) {
             $this->initialize($params);
         }
 
-        if ( ($this->anchorClass != '')  OR ($this->linkListClass != '') OR ($this->itemListClass != '') ) {
+        if (($this->anchorClass != '')  or ($this->linkListClass != '') or ($this->itemListClass != '')) {
             ($this->anchorClass)    ? $this->anchorClass    = 'class= "' . $this->anchorClass . '"' : '';
             ($this->itemListClass)  ? $this->anchorClass    = 'class= "' . $this->itemListClass . '"' : '';
             ($this->linkListClass)  ? $this->linkListClass  = 'class= "' . $this->linkListClass . '"' : '';
         }
     }
 
-    function initialize($params = []) {
+    function initialize($params = [])
+    {
         if (count($params) > 0) {
             foreach ($params as $key => $val) {
                 if (isset($this->$key)) {
@@ -68,9 +71,10 @@ class Pagination {
     /**
      * Generate the pagination links
      */
-    function createLinks() {
+    function createLinks()
+    {
         // If total number of rows is zero, do not need to continue
-        if ($this->totalRows == 0 OR $this->perPage == 0) {
+        if ($this->totalRows == 0 or $this->perPage == 0) {
             return '';
         }
 
@@ -81,13 +85,13 @@ class Pagination {
         if ($numPages == 1) {
             if ($this->showCount) {
                 $info = 'Mostrando : ' . $this->totalRows;
-                return $info;
+                return "<div class='justify-content-center'>{$info}</div>";
             } else {
                 return '';
             }
         }
 
-        // Determine the current page	
+        // Determine the current page
         if (!is_numeric($this->currentPage)) {
             $this->currentPage = 0;
         }
@@ -98,16 +102,16 @@ class Pagination {
         // Showing links notification
         if ($this->showCount) {
             $currentOffset = $this->currentPage;
-            $info = "<li $this->itemListClass ><span $this->linkListClass  >".'Mostrando ' . ( $currentOffset + 1 ) . ' de ';
+            $info = "<li $this->itemListClass ><span $this->linkListClass  >" . 'Mostrando ' . ($currentOffset + 1) . ' de ';
 
-            if (( $currentOffset + $this->perPage ) < ( $this->totalRows - 1 ))
+            if (($currentOffset + $this->perPage) < ($this->totalRows - 1))
                 $info .= $currentOffset + $this->perPage;
             else
                 $info .= $this->totalRows;
 
             $info .= ' de ' . $this->totalRows . ' registros ';
 
-            $output .= $info.'</span></li>';
+            $output .= $info . '</span></li>';
         }
 
         $this->numLinks = (int) $this->numLinks;
@@ -121,15 +125,15 @@ class Pagination {
 
         $this->currentPage = floor(($this->currentPage / $this->perPage) + 1);
 
-        // Calculate the start and end numbers. 
+        // Calculate the start and end numbers.
         $start = (($this->currentPage - $this->numLinks) > 0) ? $this->currentPage - ($this->numLinks - 1) : 1;
         $end = (($this->currentPage + $this->numLinks) < $numPages) ? $this->currentPage + $this->numLinks : $numPages;
 
         // Render the "First" link
         if ($this->currentPage > $this->numLinks) {
             $output .= $this->firstTagOpen
-                    . $this->getAJAXlink('', $this->firstLink)
-                    . $this->firstTagClose;
+                . $this->getAJAXlink('', $this->firstLink)
+                . $this->firstTagClose;
         }
 
         // Render the "previous" link
@@ -138,8 +142,8 @@ class Pagination {
             if ($i == 0)
                 $i = '';
             $output .= $this->prevTagOpen
-                    . $this->getAJAXlink($i, $this->prevLink)
-                    . $this->prevTagClose;
+                . $this->getAJAXlink($i, $this->prevLink)
+                . $this->prevTagClose;
         }
 
         // Write the digit links
@@ -152,8 +156,8 @@ class Pagination {
                 } else {
                     $n = ($i == 0) ? '' : $i;
                     $output .= $this->numTagOpen
-                            . $this->getAJAXlink($n, $loop)
-                            . $this->numTagClose;
+                        . $this->getAJAXlink($n, $loop)
+                        . $this->numTagClose;
                 }
             }
         }
@@ -161,8 +165,8 @@ class Pagination {
         // Render the "next" link
         if ($this->currentPage < $numPages) {
             $output .= $this->nextTagOpen
-                    . $this->getAJAXlink($this->currentPage * $this->perPage, $this->nextLink)
-                    . $this->nextTagClose;
+                . $this->getAJAXlink($this->currentPage * $this->perPage, $this->nextLink)
+                . $this->nextTagClose;
         }
 
         // Render the "Last" link
@@ -180,7 +184,8 @@ class Pagination {
         return $output;
     }
 
-    function getAJAXlink($count, $text) {
+    function getAJAXlink($count, $text)
+    {
         if ($this->link_func == '' && $this->contentDiv == '')
             return '<li ><a href="' . $this->baseURL . '?' . $count . '"' . $this->anchorClass . '>' . $text . '</a></li>';
         $pageCount = $count ? $count : 0;
@@ -195,5 +200,4 @@ class Pagination {
         return "<li $this->itemListClass ><a $this->linkListClass href=\"javascript:void(0);\" " . $this->anchorClass . "
 				" . $linkClick . ">" . $text . '</a></li>';
     }
-    
 }

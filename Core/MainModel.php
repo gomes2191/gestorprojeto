@@ -73,7 +73,7 @@ class MainModel
     public function get_table_data($campo, $table, $id)
     {
         #Simplesmente seleciona os dados na base de dados
-        $query = $this->db->query("SELECT  $campo FROM $table ORDER BY $id");
+        $query = $this->db->query("SELECT $campo FROM $table ORDER BY $id");
 
         // Verifica se a consulta está OK
         if (!$query) {
@@ -106,7 +106,7 @@ class MainModel
      *
      * @return array retorna o resultado da consulta.
      */
-    public function searchTable($table, $conditions = [])
+    public function searchTable($table, $tableJoin = [], $conditions = [])
     {
 
         (defined('Config::TB_PREFIX')) ? $table = Config::TB_PREFIX . $table : $table;
@@ -115,7 +115,23 @@ class MainModel
         $sql .= array_key_exists('select', $conditions) ? $conditions['select'] : '*';
         $sql .= ' FROM ' . $table;
 
-        if (array_key_exists('where', $conditions)) {
+        if (array_key_exists('innerJoin', $conditions)) {
+            //$sql .= " INNER JOIN $table ON ";
+            $i = 0;
+
+            foreach ($conditions['innerJoin'] as $key => $value) {
+                $pre = ($i >= 0) ? " INNER JOIN $tableJoin[$i] ON " : '';
+                //echo $value;
+
+                //var_dump($conditions['innerJoin']);
+
+                if (in_array($value, $conditions['innerJoin'], TRUE)) {
+                    //echo $i;
+                    $sql .= $pre . $key . ' = ' . $value;
+                    $i++;
+                }
+            }
+        } elseif (array_key_exists('where', $conditions)) {
             $sql .= ' WHERE ';
             $i = 0;
             foreach ($conditions['where'] as $key => $value) {
@@ -158,10 +174,12 @@ class MainModel
         }
 
         echo '<pre>';
-        print_r($sql);
+        // print_r($sql);
         echo '</pre>';
 
         $result = $this->db->query($sql);
+
+        var_dump($result);
 
         if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
             switch ($conditions['return_type']) {
