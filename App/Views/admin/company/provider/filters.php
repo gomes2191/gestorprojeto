@@ -89,8 +89,8 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             break;
     }
 } else {
-    $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
 
+    $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
     $allReg = $modelo->listar(
         'Providers PR',
         'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
