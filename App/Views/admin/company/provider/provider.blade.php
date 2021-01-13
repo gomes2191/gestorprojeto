@@ -37,7 +37,7 @@
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="provider_name">Empresa:</label>
                         <input type="hidden" id="provider_id" name="provider_id" value="">
-                        <input id="provider_name" name="prov_name" type="text" class="form-control form-control-sm text-center" placeholder="Nome da empresa" value="">
+                        <input id="provider_name" name="prName" type="text" class="form-control form-control-sm text-center" placeholder="Nome da empresa" value="">
                         <div class="invalid-feedback">
                             Preencha esse campo.
                         </div>
@@ -45,7 +45,7 @@
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_cpf_cnpj">CPF/CNPJ:</label>
-                        <input id="provider_cpf_cnpj" name="prov_cpf_cnpj" type="text" class="form-control form-control-sm text-center" placeholder="CPF/CNPJ">
+                        <input id="provider_cpf_cnpj" name="prCpfCnpj" type="text" class="form-control form-control-sm text-center" placeholder="CPF/CNPJ">
                         <div class="invalid-feedback">
                             Preencha esse campo.
                         </div>
@@ -53,16 +53,16 @@
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_rs">Razão social:</label>
-                        <input id="provider_rs" name="prov_rs" class="form-control form-control-sm text-center" type="text" placeholder="Razão social" value="">
+                        <input id="provider_rs" name="prRs" class="form-control form-control-sm text-center" type="text" placeholder="Razão social" value="">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_atua">Área de atuação:</label>
-                        <input id="provider_atua" name="prov_atuacao" class="form-control form-control-sm text-center" type="text" placeholder="Área de atuação" value="">
+                        <input id="provider_atua" name="prAtuacao" class="form-control form-control-sm text-center" type="text" placeholder="Área de atuação" value="">
                     </div>
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="provider_end">Endereço:</label>
-                        <input id="provider_end" name="addr_address" type="text" class="form-control form-control-sm text-center" placeholder="Endereço">
+                        <input id="provider_end" name="addrAddress" type="text" class="form-control form-control-sm text-center" placeholder="Endereço">
                     </div>
                 </div><!-- /End div hidden 1 -->
 
@@ -70,7 +70,7 @@
                     <!--Start div hidden 2-->
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
                         <label for="provider_district">Bairro:</label>
-                        <input id="provider_district" name="addr_district" type="text" class="form-control form-control-sm text-center" placeholder="Bairro">
+                        <input id="provider_district" name="addrDistrict" type="text" class="form-control form-control-sm text-center" placeholder="Bairro">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_city">Cidade:</label>
@@ -78,19 +78,19 @@
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_cep">CEP:</label>
-                        <input id="provider_cep" name="addr_cep" type="text" class="form-control form-control-sm text-center cep" placeholder="00000-000">
+                        <input id="provider_cep" name="addrCep" type="text" class="form-control form-control-sm text-center cep" placeholder="00000-000">
                     </div>
                     <div class="form-group col-md-1 col-sm-12 col-xs-12">
                         <label for="provider_uf">UF:</label>
-                        <input id="provider_uf" name="addr_states" type="text" class="form-control form-control-sm text-center uf" placeholder="UF">
+                        <input id="provider_uf" name="addrStates" type="text" class="form-control form-control-sm text-center uf" placeholder="UF">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_nation">Território:</label>
-                        <input id="provider_nation" name="addr_nation" type="text" class="form-control form-control-sm text-center" placeholder="País">
+                        <input id="provider_nation" name="addrNation" type="text" class="form-control form-control-sm text-center" placeholder="País">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_cel">Celular:</label>
-                        <input id="provider_cel" name="provCell" type="text" class="form-control form-control-sm phone_cel text-center" placeholder="(00) 00000-0000">
+                        <input id="provider_cel" name="prCell" type="text" class="form-control form-control-sm phone_cel text-center" placeholder="(00) 00000-0000">
                     </div>
                 </div><!-- End div hidden 2 -->
 
@@ -98,27 +98,23 @@
                     <!-- Start div hidden 3 -->
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_tel_1">Telefone 1:</label>
-                        <input id="provider_tel_1" name="provPhoneFix_1" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000">
-                    </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="provider_tel_2">Telefone 2:</label>
-                        <input id="provider_tel_2" name="provPhoneFix_2" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000">
+                        <input id="provider_tel_1" name="prPhone" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_insc">Inscrição Estadual:</label>
-                        <input id="provider_insc" name="prov_insc_uf" type="text" class="form-control form-control-sm text-center" placeholder="Inscrição estadual...">
+                        <input id="provider_insc" name="prInscUf" type="text" class="form-control form-control-sm text-center" placeholder="Inscrição estadual...">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_email">E-mail:</label>
-                        <input id="provider_email" name="prov_email" type="text" class="form-control form-control-sm text-center" placeholder="exemplo@email.com">
+                        <input id="provider_email" name="prEmail" type="text" class="form-control form-control-sm text-center" placeholder="exemplo@email.com">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_site">Site:</label>
-                        <input id="provider_site" name="provider_site" type="text" class="form-control form-control-sm text-center" placeholder="www.exemplo.com">
+                        <input id="prSite" name="prSite" type="text" class="form-control form-control-sm text-center" placeholder="www.exemplo.com">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_status">Situação:</label><br>
-                        <select id="prov_status" name="prov_status" class="custom-select custom-select-sm">
+                        <select id="prov_status" name="prStatus" class="custom-select custom-select-sm">
                             <option selected value="active">Ativo</option>
                             <option value="inactive">Inativo</option>
                         </select>
@@ -133,28 +129,24 @@
                 <div class="row form-hidden" style="display: none;">
                     <!--Start div hidden 5-->
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="provider_rep_nome">Nome:</label>
-                        <input id="provider_rep_nome" name="rep_name" type="text" class="form-control form-control-sm text-center" placeholder="Nome">
+                        <label for="rpName">Nome:</label>
+                        <input id="provider_rep_nome" name="rpName" type="text" class="form-control form-control-sm text-center" placeholder="Nome">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="provider_rep_apel">Apelido:</label>
-                        <input id="provider_rep_apel" name="rep_nickname" type="text" class="form-control form-control-sm text-center" placeholder="Apelido">
+                        <label for="rpNickname">Apelido:</label>
+                        <input id="provider_rep_apel" name="rpNickname" type="text" class="form-control form-control-sm text-center" placeholder="Apelido">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_rep_email">E-mail:</label>
-                        <input id="provider_rep_email" name="provider_rep_email" type="text" class="form-control form-control-sm text-center" placeholder="email@exemplo.com">
+                        <input id="provider_rep_email" name="rpNmail" type="text" class="form-control form-control-sm text-center" placeholder="email@exemplo.com">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_rep_cel">Celular:</label>
-                        <input id="provider_rep_cel" name="repCell" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
+                        <input id="provider_rep_cel" name="rpCell" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_rep_tel_1">Telefone 1:</label>
-                        <input id="provider_rep_tel_1" name="repPhoneFix_1" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
-                    </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="provider_rep_tel_2">Telefone 2:</label>
-                        <input id="provider_rep_tel_2" name="repPhoneFix_2" type="text" class="form-control form-control-sm text-center" placeholder="(00) 0000-00000">
+                        <input id="provider_rep_tel_1" name="rpPhone" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
                     </div>
                 </div><!-- /End div hidden 5 -->
 
@@ -167,19 +159,19 @@
                     <!--Start div hidden 7-->
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_ban_1">Banco 1:</label>
-                        <input id="provider_ban_1" name="bank_banco_1" type="text" class="form-control form-control-sm text-center" placeholder="Banco">
+                        <input id="provider_ban_1" name="banBank" type="text" class="form-control form-control-sm text-center" placeholder="Banco">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_ag_1">Agência 1:</label>
-                        <input id="provider_ag_1" name="bank_agencia_1" type="text" class="form-control form-control-sm text-center" placeholder="Agência">
+                        <input id="provider_ag_1" name="banAgency" type="text" class="form-control form-control-sm text-center" placeholder="Agência">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_con_1">Conta 1:</label>
-                        <input id="provider_con_1" name="bank_conta_1" type="text" class="form-control form-control-sm text-center" placeholder="Conta">
+                        <input id="provider_con_1" name="banAccount" type="text" class="form-control form-control-sm text-center" placeholder="Conta">
                     </div>
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
                         <label for="provider_ti_1">Titular 1:</label>
-                        <input id="provider_ti_1" name="bank_titular_1" type="text" class="form-control form-control-sm text-center" placeholder="Titular">
+                        <input id="provider_ti_1" name="banHolder" type="text" class="form-control form-control-sm text-center" placeholder="Titular">
                     </div>
                 </div><!-- End div hidden 7 -->
 
@@ -207,7 +199,7 @@
                     <!--Start div hidden 9-->
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
                         <label for="provider_obs">Observações:</label>
-                        <textarea id="provider_obs" class="form-control" name="prov_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..."><?= htmlentities(GFunc::chkArray($modelo->form_data, 'providers_obs')); ?></textarea>
+                        <textarea id="provider_obs" class="form-control" name="prObs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..."><?= htmlentities(GFunc::chkArray($modelo->form_data, 'providers_obs')); ?></textarea>
                     </div>
                 </div><!-- End div hidden 9 -->
 

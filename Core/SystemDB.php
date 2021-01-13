@@ -75,7 +75,7 @@ class SystemDB extends Config
 
             $this->_pdo = new PDO($pdoDetails, $this->_dbUser, $this->_dbPassword);
 
-            var_dump($this->_pdo);
+            //var_dump($this->_pdo);
 
             // Verifica se devemos debugar
             if ($this->_showErrors === true) {

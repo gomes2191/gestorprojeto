@@ -179,7 +179,7 @@ class MainModel
 
         $result = $this->db->query($sql);
 
-        var_dump($result);
+        //var_dump($result);
 
         if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
             switch ($conditions['return_type']) {

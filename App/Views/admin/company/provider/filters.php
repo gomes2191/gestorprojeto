@@ -42,6 +42,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
         case 'active':
 
             $count = (is_array($count = $modelo->listar('Providers p', '*', "WHERE p.status='active'"))) ? COUNT($count) : 0;
+            echo $limit;
             $allReg = $modelo->listar('Providers p', '*', "INNER JOIN Address ON p.id = Address.id_provider
             INNER JOIN BankAccounts ON p.id = BankAccounts.id_representative WHERE p.status='active' ORDER BY p.id DESC LIMIT {$start}{$offset}{$limit}");
 
@@ -88,34 +89,21 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             break;
     }
 } else {
-    //$conditions['order_by'] = "id DESC LIMIT 100";
-    //$count = (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : 0;
-    //$conditions['select'] = "";
-    // /$conditions['innerJoin'] = ['Address.id_provider' => 'p.id', 'BankAccounts.id_representative' => 'p.id'];
-
-    //$conditions['where'] = ['a.id' => 'b.id_provider AND a.id = c.id_provider AND a.id = d.id_provider AND (a.id = d.id_provider AND d.id = f.id_representative)'];
-    //$conditions['and'] = ['a.id' => 'c.ref_id'];
-
     $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
 
     $allReg = $modelo->listar(
         'Providers PR',
-        'PR.`name`, PR.`email`,  PR.`occupation_area`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
+        'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
         "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
         INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
         GROUP BY PR.id
-        ORDER BY PR.id DESC"
+        ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}"
     );
-
-    //$conditions['order_by'] = "p.id DESC LIMIT $start $offset $limit";
-    //$allReg = $modelo->searchTable($tblName, $tblJoinName, $conditions);
-
-    //var_dump($allReg);
 }
 
 $pagConfig = [
     'currentPage'   => $start,
-    'totalRows'     => $count, //= count((array)$allReg),
+    'totalRows'     => $count,
     'perPage'       => $limit,
     'link_func'     => 'objFinanca.ajaxFilter'
 ];
