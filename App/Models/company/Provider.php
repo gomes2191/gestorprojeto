@@ -152,40 +152,40 @@ class Provider extends MainModel
         //$lastId[1] =  (int) $this->db->lastInsertId();
         var_dump($lastId[1]);
         $this->db->insert('BankAccounts', [
-            'id_representative' =>  $lastId[1],
+            'id_representative' =>  $lastId[0],
             'bank'             =>  GFunc::chkArray($this->formData,     'bank_banco'),
             'agency'           =>  GFunc::chkArray($this->formData,     'bank_agencia'),
             'account'          =>  GFunc::chkArray($this->formData,     'bank_conta'),
             'holder'           =>  GFunc::chkArray($this->formData,     'bank_titular'),
-            'owner'            =>  'representative',
+            'owner'            =>  'R',
         ]);
 
         $this->db->insert('Contacts', [
             'id_provider'        =>  $lastId[0],
-            'type'              =>  'cell',
+            'type'              =>  'C',
             'phone'             =>  GFunc::chkArray($this->formData, 'provCell'),
-            'owner'             => 'providers'
+            'owner'             => 'P'
         ]);
 
         $this->db->insert('Contacts', [
             'id_provider'    =>  $lastId[0],
-            'type'      =>  'phone',
+            'type'      =>  'T',
             'phone'     =>  GFunc::chkArray($this->formData, 'provPhoneFix_1'),
-            'owner'     => 'providers'
+            'owner'     => 'P'
         ]);
 
         $this->db->insert('Contacts', [
-            'id_representative'    =>  $lastId[1],
-            'type'      =>  'cell',
+            'id_provider'    =>  $lastId[0],
+            'type'      =>  'C',
             'phone'     =>  GFunc::chkArray($this->formData, 'repCell'),
-            'owner'     => 'representative'
+            'owner'     => 'R'
         ]);
 
         $this->db->insert('Contacts', [
-            'id_representative'    =>   $lastId[1],
-            'type'      =>  'phone',
+            'id_provider'    =>   $lastId[0],
+            'type'      =>  'T',
             'phone'     =>   GFunc::chkArray($this->formData, 'repPhoneFix_1'),
-            'owner'     => 'representative'
+            'owner'     => 'R'
         ]);
 
         // Deleta a variável.

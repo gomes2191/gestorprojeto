@@ -259,4 +259,25 @@ class GFunc
 
         return $valor;
     }
+
+
+    /**
+     * Recebe uma matriz e um indentificador
+     * verifica se o indetificador existe
+     * caso exista remove o indentificador
+     * e retorna o número.
+     *
+     * @param array $vector recebe o número no formato matriz.
+     * @param string $type recebe o indentificador.
+     *
+     * @return string $code1 retorna o resultado final.
+     */
+    public static function getCode($vector, $type)
+    {
+        foreach ($vector as $typeAndCode) {
+            list($type1, $code1) = explode(":", $typeAndCode);
+            if ($type1 === $type) return $code1;
+        }
+        return false;
+    }
 } // End :) Class

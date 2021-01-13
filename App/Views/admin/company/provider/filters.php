@@ -96,9 +96,16 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     //$conditions['where'] = ['a.id' => 'b.id_provider AND a.id = c.id_provider AND a.id = d.id_provider AND (a.id = d.id_provider AND d.id = f.id_representative)'];
     //$conditions['and'] = ['a.id' => 'c.ref_id'];
 
-    $count = (is_array($count = $modelo->listar())) ? COUNT($count) : 0;
-    $allReg = $modelo->listar('Providers', '*', "INNER JOIN Address ON Providers.id = Address.id_provider
-    INNER JOIN BankAccounts ON Providers.id = BankAccounts.id_representative ORDER BY Providers.id DESC LIMIT {$start}{$offset}{$limit}");
+    $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
+
+    $allReg = $modelo->listar(
+        'Providers PR',
+        'PR.`name`, PR.`email`,  PR.`occupation_area`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
+        "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
+        INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
+        GROUP BY PR.id
+        ORDER BY PR.id DESC"
+    );
 
     //$conditions['order_by'] = "p.id DESC LIMIT $start $offset $limit";
     //$allReg = $modelo->searchTable($tblName, $tblJoinName, $conditions);
@@ -133,12 +140,14 @@ if (!empty($allReg)) {
                 <tbody>
 HTML;
     $count = 0;
+
     foreach ($allReg as $reg) : $count++;
+
         echo '<tr class="text-center">';
         echo '<td>' . $reg['id'] . '</td>';
         echo '<td>' . $reg['name'] . '</td>';
-        echo '<td>' . (($reg['phone']) ? $reg['phone'] : '---') . '</td>';
-        echo '<td>' . (($reg['phone']) ? $reg['phone'] : '---') . '</td>';
+        echo '<td>' . ((GFunc::getCode(explode(',', $reg['phone']), 'CP')) ?  GFunc::getCode(explode(',', $reg['phone']), 'CP') : '---') . '</td>';
+        echo '<td>' . ((GFunc::getCode(explode(',', $reg['phone']), 'TP')) ? GFunc::getCode(explode(',', $reg['phone']), 'TP') : '---') . '</td>';
         echo '<td>' . (($reg['email']) ? $reg['email'] : '---') . '</td>';
         echo '<td>' . (($reg['occupation_area']) ? $reg['occupation_area'] : '---') . '</td>';
         echo '<td>' . (($reg['states']) ? $reg['states'] : '---') . '</td>';
@@ -146,6 +155,7 @@ HTML;
         echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$globalF->encodeDecode($reg['id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
         echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$globalF->encodeDecode($reg['id'])}'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
         echo '</tr>';
+
     endforeach;
     echo <<<HTML
                 </tbody>
