@@ -86,8 +86,8 @@ Evita acesso direto ao arquivo. --}}
 
 
 
-            {{ AutoLoad::showTimeZone() }}
-            {{ AutoLoad::statusDebug() }}
+          {{--   {{ AutoLoad::showTimeZone() }}
+            {{ AutoLoad::statusDebug() }} --}}
 
             @yield('content')
 

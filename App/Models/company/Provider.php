@@ -116,7 +116,7 @@ class Provider extends MainModel
     {
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $lastId[0] = $this->db->insert('Providers', [
+        $lastId = (int) $this->db->insert('Providers', [
             'name'              =>  GFunc::chkArray($this->formData,     'prName'),
             'cpf_cnpj'          =>  GFunc::chkArray($this->formData,     'prCpfCnpj'),
             'razao_social'      =>  GFunc::chkArray($this->formData,     'prRs'),
@@ -132,7 +132,7 @@ class Provider extends MainModel
         //$lastId[0] =  (int) $this->db->lastInsertId();
 
         $this->db->insert('Address', [
-            'id_provider'    =>  $lastId[0],
+            'id_provider'    =>  $lastId,
             'address'       =>  GFunc::chkArray($this->formData, 'addrAddress'),
             'district'      =>  GFunc::chkArray($this->formData, 'addrDistrict'),
             'city'          =>  GFunc::chkArray($this->formData, 'addrCity'),
@@ -141,8 +141,8 @@ class Provider extends MainModel
             'nation'        =>  GFunc::chkArray($this->formData, 'addrNation'),
         ]);
 
-        $lastId[1] = $this->db->insert('Representatives', [
-            'id_provider'    =>  $lastId[0],
+        $this->db->insert('Representatives', [
+            'id_provider'    =>  $lastId,
             'name'          =>  GFunc::chkArray($this->formData,     'rpName'),
             'nickname'      =>  GFunc::chkArray($this->formData,     'rpNickname'),
             'email'         =>  GFunc::chkArray($this->formData,     'rpEmail'),
@@ -150,9 +150,9 @@ class Provider extends MainModel
 
         // Captura o id do último registro inserido.
         //$lastId[1] =  (int) $this->db->lastInsertId();
-        var_dump($lastId[1]);
+
         $this->db->insert('BankAccounts', [
-            'id_representative' =>  $lastId[0],
+            'id_representative' =>  $lastId,
             'bank'             =>  GFunc::chkArray($this->formData,     'banBank'),
             'agency'           =>  GFunc::chkArray($this->formData,     'banAgency'),
             'account'          =>  GFunc::chkArray($this->formData,     'banAccount'),
@@ -161,28 +161,28 @@ class Provider extends MainModel
         ]);
 
         $this->db->insert('Contacts', [
-            'id_provider'        =>  $lastId[0],
+            'id_provider'        =>  $lastId,
             'type'              =>  'C',
             'phone'             =>  GFunc::chkArray($this->formData, 'prCell'),
             'owner'             => 'P'
         ]);
 
         $this->db->insert('Contacts', [
-            'id_provider'    =>  $lastId[0],
+            'id_provider'    =>  $lastId,
             'type'      =>  'T',
             'phone'     =>  GFunc::chkArray($this->formData, 'prPhone'),
             'owner'     => 'P'
         ]);
 
         $this->db->insert('Contacts', [
-            'id_provider'    =>  $lastId[0],
+            'id_provider'    =>  $lastId,
             'type'      =>  'C',
             'phone'     =>  GFunc::chkArray($this->formData, 'rpCell'),
             'owner'     => 'R'
         ]);
 
         $this->db->insert('Contacts', [
-            'id_provider'    =>   $lastId[0],
+            'id_provider'    =>   $lastId,
             'type'      =>  'T',
             'phone'     =>   GFunc::chkArray($this->formData, 'rpPhone'),
             'owner'     => 'R'
@@ -326,10 +326,10 @@ class Provider extends MainModel
     {
 
         # Recebe o ID do registro converte de string para inteiro.
-        $decode_id = intval($this->encodeDecode(0, $encode_id));
+        $decode_id = intval(GFunc::encodeDecode(0, $encode_id));
 
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `providers` WHERE `id` = $decode_id ");
+        $search = $this->db->query("SELECT count(*) FROM `Providers` WHERE `id` = $decode_id ");
         if ($search->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
@@ -339,7 +339,7 @@ class Provider extends MainModel
             exit();
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('providers', 'id', $decode_id);
+            $query_del = $this->db->delete('Providers', 'id', $decode_id);
 
             #   Destroy variáveis não mais utilizadas
             unset($parametro, $query_del, $search, $id);
