@@ -32,6 +32,9 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
             $allReg['phone'] = GFunc::getCode(explode(',', $allReg['phone']), 'TP');
             $allReg['rp_cel'] = GFunc::getCode(explode(',', $allReg['phone']), 'CR');
             $allReg['rp_phone'] = GFunc::getCode(explode(',', $allReg['phone']), 'TR');
+            $allReg['id'] = GFunc::encodeDecode($allReg['id']);
+            $allReg['created_at'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['created_at']);
+            $allReg['modified_at'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['modified_at']);
         }
         // die;
         //unset($id);
