@@ -280,6 +280,7 @@ function Financeiro() {
     };
 
     this.ajaxActionUser = function () {
+
         if ((this.objAction.type === 'loadEdit' || this.objAction.type === 'loadInfo') && this.objAction.url.match(/ajax-process/) && this.objAction.url.match(this.objAction.url_id)) {
             $.ajax({
                 type: 'POST',
@@ -288,8 +289,11 @@ function Financeiro() {
                 data: 'action_type=' + this.objAction.type + '&id=' + this.objAction.id,
                 async: true,
                 success: function (data) {
+
                     if (typeExec === 'loadEdit') {
+                        alert('JSON execute');
                         $.each(data, function (key, value) {
+                            alert(key);
                             $('#' + key).val(value);
                         });
                     } else if (typeExec === 'loadInfo') {

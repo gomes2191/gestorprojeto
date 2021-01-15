@@ -193,14 +193,6 @@ class MainModel
                     $data = '';
             }
         } else {
-            //var_dump($result);
-            /*if ( (empty($result)) ? count($result) > 0 : 1 ) {
-                echo 'Eu';
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    $data[] = $row;
-                }
-            }*/
-
             while ($row = $result->fetch(PDO::FETCH_UNIQUE)) {
                 $data[] = $row;
             }

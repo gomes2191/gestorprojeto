@@ -112,8 +112,6 @@ class SystemDB extends Config
      */
     public function query($stmt, $data_array = null)
     {
-
-        var_dump($stmt);
         // Prepara e executa
         $query = $this->_pdo->prepare($stmt);
         $check_exec = $query->execute($data_array);
@@ -358,10 +356,12 @@ class SystemDB extends Config
 
         //var_dump($condition);
         //die;
-
-        while ($row = $result->fetch(PDO::FETCH_BOTH)) {
-            $data[] = $row;
+        if ($result) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $data[]  = $row;
+            }
         }
+
 
         return !empty($data) ? $data : false;
     }

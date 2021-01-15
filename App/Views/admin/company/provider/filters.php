@@ -89,7 +89,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
     $allReg = $modelo->listar(
         'Providers PR',
-        'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
+        'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
         "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
         INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
         GROUP BY PR.id

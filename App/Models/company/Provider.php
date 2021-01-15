@@ -117,35 +117,35 @@ class Provider extends MainModel
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $lastId = (int) $this->db->insert('Providers', [
-            'name'              =>  GFunc::chkArray($this->formData,     'prName'),
-            'cpf_cnpj'          =>  GFunc::chkArray($this->formData,     'prCpfCnpj'),
-            'razao_social'      =>  GFunc::chkArray($this->formData,     'prRs'),
-            'occupation_area'   =>  GFunc::chkArray($this->formData,     'prAtuacao'),
-            'insc_uf'           =>  GFunc::chkArray($this->formData,     'prInscUf'),
-            'web_url'           =>  GFunc::chkArray($this->formData,     'prSite'),
-            'status'            =>  GFunc::chkArray($this->formData,     'prStatus'),
-            'email'             =>  GFunc::chkArray($this->formData,     'prEmail'),
-            'obs'               =>  GFunc::chkArray($this->formData,     'prObs'),
+            'name'              =>  GFunc::chkArray($this->formData,     'name'),
+            'cpf_cnpj'          =>  GFunc::chkArray($this->formData,     'cpf_cnpj'),
+            'razao_social'      =>  GFunc::chkArray($this->formData,     'razao_social'),
+            'occupation_area'   =>  GFunc::chkArray($this->formData,     'occupation_area'),
+            'insc_uf'           =>  GFunc::chkArray($this->formData,     'insc_uf'),
+            'web_url'           =>  GFunc::chkArray($this->formData,     'web_url'),
+            'status'            =>  GFunc::chkArray($this->formData,     'status'),
+            'email'             =>  GFunc::chkArray($this->formData,     'email'),
+            'obs'               =>  GFunc::chkArray($this->formData,     'obs'),
             'created_at'        =>  date('Y-m-d H:i:s', time())
         ]);
 
         //$lastId[0] =  (int) $this->db->lastInsertId();
 
         $this->db->insert('Address', [
-            'id_provider'    =>  $lastId,
-            'address'       =>  GFunc::chkArray($this->formData, 'addrAddress'),
-            'district'      =>  GFunc::chkArray($this->formData, 'addrDistrict'),
-            'city'          =>  GFunc::chkArray($this->formData, 'addrCity'),
-            'states'        =>  GFunc::chkArray($this->formData, 'addrStates'),
-            'cep'           =>  GFunc::chkArray($this->formData, 'addrCep'),
-            'nation'        =>  GFunc::chkArray($this->formData, 'addrNation'),
+            'id_provider'   =>  $lastId,
+            'address'       =>  GFunc::chkArray($this->formData, 'address'),
+            'district'      =>  GFunc::chkArray($this->formData, 'district'),
+            'city'          =>  GFunc::chkArray($this->formData, 'city'),
+            'uf'            =>  GFunc::chkArray($this->formData, 'uf'),
+            'cep'           =>  GFunc::chkArray($this->formData, 'cep'),
+            'nation'        =>  GFunc::chkArray($this->formData, 'nation'),
         ]);
 
         $this->db->insert('Representatives', [
-            'id_provider'    =>  $lastId,
-            'name'          =>  GFunc::chkArray($this->formData,     'rpName'),
-            'nickname'      =>  GFunc::chkArray($this->formData,     'rpNickname'),
-            'email'         =>  GFunc::chkArray($this->formData,     'rpEmail'),
+            'id_provider'   =>  $lastId,
+            'name'          =>  GFunc::chkArray($this->formData,     'rp_name'),
+            'nickname'      =>  GFunc::chkArray($this->formData,     'rp_nickname'),
+            'email'         =>  GFunc::chkArray($this->formData,     'rp_email'),
         ]);
 
         // Captura o id do último registro inserido.
@@ -153,39 +153,39 @@ class Provider extends MainModel
 
         $this->db->insert('BankAccounts', [
             'id_representative' =>  $lastId,
-            'bank'             =>  GFunc::chkArray($this->formData,     'banBank'),
-            'agency'           =>  GFunc::chkArray($this->formData,     'banAgency'),
-            'account'          =>  GFunc::chkArray($this->formData,     'banAccount'),
-            'holder'           =>  GFunc::chkArray($this->formData,     'banHolder'),
-            'owner'            =>  'R',
+            'bank'              =>  GFunc::chkArray($this->formData,     'bank'),
+            'agency'            =>  GFunc::chkArray($this->formData,     'agency'),
+            'account'           =>  GFunc::chkArray($this->formData,     'account'),
+            'holder'            =>  GFunc::chkArray($this->formData,     'holder'),
+            'owner'             =>  'R',
         ]);
 
         $this->db->insert('Contacts', [
-            'id_provider'        =>  $lastId,
+            'id_provider'       =>  $lastId,
+            'phone'             =>  GFunc::chkArray($this->formData, 'cel'),
             'type'              =>  'C',
-            'phone'             =>  GFunc::chkArray($this->formData, 'prCell'),
-            'owner'             => 'P'
+            'owner'             =>  'P'
         ]);
 
         $this->db->insert('Contacts', [
             'id_provider'    =>  $lastId,
-            'type'      =>  'T',
-            'phone'     =>  GFunc::chkArray($this->formData, 'prPhone'),
+            'phone'     => GFunc::chkArray($this->formData, 'phone'),
+            'type'      => 'T',
             'owner'     => 'P'
         ]);
 
         $this->db->insert('Contacts', [
             'id_provider'    =>  $lastId,
-            'type'      =>  'C',
-            'phone'     =>  GFunc::chkArray($this->formData, 'rpCell'),
-            'owner'     => 'R'
+            'phone'          =>  GFunc::chkArray($this->formData, 'rp_cel'),
+            'type'           =>  'C',
+            'owner'          =>  'R'
         ]);
 
         $this->db->insert('Contacts', [
-            'id_provider'    =>   $lastId,
-            'type'      =>  'T',
-            'phone'     =>   GFunc::chkArray($this->formData, 'rpPhone'),
-            'owner'     => 'R'
+            'id_provider'   =>   $lastId,
+            'phone'         =>   GFunc::chkArray($this->formData, 'rp_phone'),
+            'type'          =>  'T',
+            'owner'         =>  'R'
         ]);
 
         // Deleta a variável.
@@ -335,17 +335,15 @@ class Provider extends MainModel
             # Destroy variáveis não mais utilizadas
             unset($encode_id, $search, $decode_id);
 
-            echo 'err';
-            exit();
+            exit(1);
         } else {
             # Deleta o registro
-            $query_del = $this->db->delete('Providers', 'id', $decode_id);
+            $this->db->delete('Providers', 'id', $decode_id);
 
             #   Destroy variáveis não mais utilizadas
-            unset($parametro, $query_del, $search, $id);
+            unset($parametro, $search, $id);
 
-            echo 'ok';
-            exit();
+            die(0);
         }
     }   #--> End delRegister()
 

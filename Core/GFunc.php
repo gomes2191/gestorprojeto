@@ -104,7 +104,7 @@ class GFunc
      *
      * @return true|false retorna true ou false
      * */
-    public function validaDataHora($date, $format = 'Y-m-d H:i:s')
+    public static function validaDataHora($date, $format = 'Y-m-d H:i:s')
     {
         if (!empty($date) && $v_date = date_create_from_format($format, $date)) {
             $v_date = date_format($v_date, $format);
@@ -129,7 +129,7 @@ class GFunc
      *
      * @return null|string retorna o resultado
      */
-    public function convertDataHora($format, $to_format, $date = null, $timezone = null)
+    public static function convertDataHora($format, $to_format, $date = null, $timezone = null)
     {
         // Verifica se a data informada e verdadeira se sim executa a função se não retorna NULL
         if ($this->validaDataHora($date, $format)) {
