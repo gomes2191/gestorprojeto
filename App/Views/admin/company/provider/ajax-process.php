@@ -15,19 +15,24 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
         $allReg['provider_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['provider_modified']);
         echo json_encode($allReg);
     } elseif (filter_input(INPUT_POST, 'action_type') == 'loadEdit') {
-        $id = GFunc::encodeDecode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));
-        $allReg = $modelo->listar(
+
+        $result = $modelo->listar(
             'Providers PR',
             'PR.*, AD.*, RP.`name` as rp_name, RP.`nickname` as rp_nickname, RP.`email` as rp_email, BK.*, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
             "INNER JOIN Address AS AD ON PR.id = AD.id_provider
             INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
             INNER JOIN Representatives AS RP ON RP.id_provider = PR.id
             INNER JOIN BankAccounts AS BK ON BK.id_representative = RP.id_provider
-            WHERE PR.id = {$id}
+            WHERE PR.id = " . GFunc::encodeDecode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS)) . "
             GROUP BY PR.id"
         );
 
-        //var_dump($allReg);
+        foreach ($result as $allReg) {
+            $allReg['cel'] = GFunc::getCode(explode(',', $allReg['phone']), 'CP');
+            $allReg['phone'] = GFunc::getCode(explode(',', $allReg['phone']), 'TP');
+            $allReg['rp_cel'] = GFunc::getCode(explode(',', $allReg['phone']), 'CR');
+            $allReg['rp_phone'] = GFunc::getCode(explode(',', $allReg['phone']), 'TR');
+        }
         // die;
         //unset($id);
 
@@ -41,7 +46,7 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
         $allReg['provider_created'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['provider_created']);
         $allReg['provider_modified'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['provider_modified']); */
 
-        echo json_encode($allReg[0], JSON_FORCE_OBJECT);
+        echo json_encode($allReg, JSON_FORCE_OBJECT);
     } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
         return $modelo->formValidation();

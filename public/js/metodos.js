@@ -291,9 +291,7 @@ function Financeiro() {
                 success: function (data) {
 
                     if (typeExec === 'loadEdit') {
-                        alert('JSON execute');
                         $.each(data, function (key, value) {
-                            alert(key);
                             $('#' + key).val(value);
                         });
                     } else if (typeExec === 'loadInfo') {

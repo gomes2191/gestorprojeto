@@ -352,17 +352,11 @@ class SystemDB extends Config
     {
         (defined('Config::TB_PREFIX')) ? $table = Config::TB_PREFIX . $table : $table;
 
-        $result =  $this->query("SELECT {$column} FROM {$table} {$condition}");
-
-        //var_dump($condition);
-        //die;
-        if ($result) {
+        if ($result =  $this->query("SELECT {$column} FROM {$table} {$condition}")) {
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $data[]  = $row;
             }
         }
-
-
         return !empty($data) ? $data : false;
     }
 }// Class SystemDB
