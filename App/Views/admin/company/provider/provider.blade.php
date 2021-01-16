@@ -273,8 +273,8 @@
 
 
 <!-- Start Modal Informações -->
-<div id="inforView" class="modal fade">
-    <div class="modal-dialog">
+<div id="inforView" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
         <!-- Modal content-->
         <div class="modal-content">
             <!--Conteudo do modal-->
@@ -283,9 +283,9 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <ul class="list-group list-modal-forn">
-                    <li class="list-group-item list-group-item-text"><b>EMPRESA:</b>&nbsp;<span class="provider_name"></span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>CPF / CNPJ:</b>&nbsp;<span class="provider_cpf_cnpj">----</span></li>
+                <ul class="list-group list-group-flush list-modal-forn">
+                    <li class="list-group-item list-group-item-text"><b>EMPRESA:</b>&nbsp;<span class="name"></span></li>
+                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>CPF / CNPJ:</b>&nbsp;<span class="cpf_cnpj">----</span></li>
                     <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Razão social:</b>&nbsp;<span class="provider_rs">----</span> </li>
                     <li class="list-group-item list-group-item-success list-group-item-text"><b>Área de atuação:</b>&nbsp;<span class="provider_at"></span></li>
                     <li class="list-group-item list-group-item-danger list-group-item-text"><b>Endereço:</b>&nbsp;<span class="provider_end">----</span></li>
@@ -299,7 +299,7 @@
                     <li class="list-group-item list-group-item-success list-group-item-text"><b>Telefone 2:</b>&nbsp;<span class="provider_tel_2">----</span></li>
                     <li class="list-group-item list-group-item-danger list-group-item-text"><b>Inscrição Estadual:</b>&nbsp;<span class="provider_insc_uf">----</span></li>
                     <li class="list-group-item list-group-item-warning list-group-item-text"><b>Site url:</b>&nbsp;<span class="provider_web_url">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Situação:</b>&nbsp;<span class="provider_sit">----</span></li>
+                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Situação:</b>&nbsp;<span class="status">----</span></li>
                     <li class="list-group-item list-group-item-info list-group-item-text"><b>E-mail:</b>&nbsp;<span class="provider_email">----</span></li>
                     <li class="list-group-item list-group-item-light list-group-item-text"><b>Nome do representante:</b>&nbsp;<span class="provider_rep_name">----</span></li>
                     <li class="list-group-item list-group-item-dark list-group-item-text"><b>Apelido representante:</b>&nbsp;<span class="provider_rep_apelido"></span></li>
@@ -315,8 +315,8 @@
                     <li class="list-group-item list-group-item-text"><b>Agência 2:</b>&nbsp;<span class="provider_agencia_2">----</span></li>
                     <li class="list-group-item list-group-item-primary list-group-item-text"><b>Conta 2:</b>&nbsp;<span class="provider_conta_2">----</span> </li>
                     <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Titular 2:</b>&nbsp;<span class="provider_titular_2"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Criado em:</b>&nbsp;<span class="provider_created">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="provider_modified">----</span></li>
+                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Criado em:</b>&nbsp;<span class="created_at">----</span></li>
+                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="modified_at">----</span></li>
                     <li class="list-group-item list-group-item-warning list-group-item-text"><b>Observações:</b>&nbsp;<span class="provider_obs">----</span></li>
                 </ul>
             </div>
@@ -361,7 +361,7 @@
                     id: objAction.id
                 });
                 objFinanca.ajaxActionUser();
-                
+
             } else {
                 objFinanca.setAjaxActionUser(objSet = {
                     type: objAction.type,

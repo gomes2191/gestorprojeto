@@ -127,11 +127,8 @@ HTML;
     $count = 0;
 
     foreach ($allReg as $reg) : $count++;
-
         ($reg['status'] == 'active') ? $reg['status'] = 'Ativo' : FALSE;
-
         ($reg['status'] == 'inactive') ? $reg['status'] = 'Inativo' : FALSE;
-
         echo '<tr class="text-center">';
         echo '<td>' . $reg['id'] . '</td>';
         echo '<td>' . $reg['name'] . '</td>';
@@ -145,7 +142,6 @@ HTML;
         echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
         echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'" . GFunc::encodeDecode($reg['id']) . "'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
         echo '</tr>';
-
     endforeach;
     echo <<<HTML
                 </tbody>
