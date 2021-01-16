@@ -205,17 +205,17 @@
                 <div class="row">
                     <div class="form-group col-md-5 col-sm-12 col-xs-12">
                         <div id="group-btn-new" class="btn-group">
-                            <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm" type="reset" >
+                            <button id="btn-new-show" title="Insere novo registro" class="btn btn-primary btn-sm" type="reset" >
                                 <i class="fas fa-plus fa-lg" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                             </button>
                         </div>
                         <div id="group-btn-show" style="display: none;" class="btn-group">
-                            <button id="btn-show" title="Mostrar o formulário" class="btn btn-outline-success btn-sm" type="reset">
+                            <button id="btn-show" title="Mostrar o formulário" class="btn btn-success btn-sm" type="reset">
                                 <i class="fas fa-eye fa-lg"></i> ABRE FORMULÁRIO
                             </button>
                         </div>
                         <div id="group-btn-hidden" style="display: none;" class="btn-group">
-                            <button id="btn-hidden" title="Esconde o formulário" class="btn top btn-outline-success btn-sm" type="reset">
+                            <button id="btn-hidden" title="Esconde o formulário" class="btn top btn-success btn-sm" type="reset">
                                 <i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO
                             </button>
                         </div>

@@ -35,13 +35,15 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     //$count = (int) (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : FALSE;
     //$conditions['order_by'] = "id DESC LIMIT $start, $limit";
     //$allReg = $modelo->searchTable($tblName, $conditions);
+
+
 } elseif (!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) {
-    unset($allReg);
     $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
+    var_dump('Teste');
     switch ($sortBy) {
         case 'active':
-            $count = (is_array($count = $modelo->listar('Providers p', '*', "WHERE p.status='active'"))) ? COUNT($count) : 0;
-            $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
+            $count = (is_array($count = $modelo->listar('Providers P', '*', "WHERE P.status='active'"))) ? COUNT($count) : 0;
+            $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
             INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
             WHERE PR.status='active'
             GROUP BY PR.id
@@ -49,7 +51,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             break;
         case 'inactive':
             $count = (is_array($count = $modelo->listar('Providers p', '*', "WHERE p.status='inactive'"))) ? COUNT($count) : 0;
-            $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
+            $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
             INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
             WHERE PR.status='inactive'
             GROUP BY PR.id
@@ -59,7 +61,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
             $allReg = $modelo->listar(
                 'Providers PR',
-                'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
+                'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
                 "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
                 INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
                 GROUP BY PR.id
@@ -70,7 +72,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
             $allReg = $modelo->listar(
                 'Providers PR',
-                'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.states, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
+                'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
                 "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
                 INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
                 GROUP BY PR.id
@@ -138,9 +140,9 @@ HTML;
         echo '<td>' . (($reg['occupation_area']) ? $reg['occupation_area'] : '---') . '</td>';
         echo '<td>' . (($reg['states']) ? $reg['states'] : '---') . '</td>';
         echo '<td>' . (($reg['status']) ? $reg['status'] : '---') . '</td>';
-        echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
-        echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
-        echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'" . GFunc::encodeDecode($reg['id']) . "'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
+        echo "<td><button class='btn btn-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
+        echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
+        echo "<td><a href='javaScript:void(0);' class='btn btn-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'" . GFunc::encodeDecode($reg['id']) . "'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
         echo '</tr>';
     endforeach;
     echo <<<HTML
