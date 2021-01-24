@@ -497,7 +497,7 @@ function Metodos() {
 
 
 class EventAction {
-    static setVal(id1, id2) {
+    static setVal(id1, id2, id3, id4) {
 
         document.querySelector(id1).addEventListener('click', function () {
             document.querySelectorAll(id2).forEach(function (group) {
@@ -516,7 +516,27 @@ class EventAction {
                 })();
             });
 
-            document.querySelectorAll(".form-hidden, #group-btn-hidden, .row-button-hidden, .notice-hidden").forEach(function (group) {
+
+            /* Botão Modo Novo Registro */
+            document.querySelector(id3).addEventListener('click', function () {
+                document.querySelectorAll(id2).forEach(function (group) {
+                    'use strict';
+                    var s = group.style;
+                    s.opacity = 1;
+                    (function fadeOut() { // name the function
+                        /**
+                        * Verifica se opacity é menor que 0.1,
+                        * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                        if (((s.opacity -= .1) < 0.1))
+                            s.display = "none";
+                        else
+                            //setTimeout(fadeOut, 30); // use the name of the function
+                            requestAnimationFrame(fadeOut);
+                    })();
+                });
+            });
+
+            document.querySelectorAll(".form-hidden, #group-btn-hidden, .row-button-hidden").forEach(function (group) {
                 'use strict';
                 var s = group.style;
                 s.opacity = 0;
@@ -527,29 +547,96 @@ class EventAction {
                     /**
                     * Verifica se opacity é menor que 0.1,
                     * caso não seja subtrai 0.1 até chegar a 0.0. **/
-                    if ( !((val += 0.1) > 1) )
+                    if (!((val += 0.1) > 1))
                         s.opacity = val;
-                        requestAnimationFrame(fadeIn); // use the name of the function
+                    requestAnimationFrame(fadeIn); // use the name of the function
                 })();
             });
 
             document.querySelectorAll('#btn-save, .form-register').forEach(function (group) {
                 //console.log(group.getAttributeNode("class").value);
-                if(group.getAttributeNode("class").value === 'form-register'){
-
+                if (group.getAttributeNode("class").value === 'form-register') {
                     group.setAttribute("id", "addForm");
-
-
-
-                } else if(group.getAttributeNode("id").value === 'btn-save'){
-
+                } else if (group.getAttributeNode("id").value === 'btn-save') {
                     group.setAttribute("onclick", "typeAction(objData={type:'add'})");
                     group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
-
                 }
 
             });
 
+            var spanMsg = document.querySelector("legend span");
+            spanMsg.innerHTML = ' - Inserir registro';
         });
-    }
+
+        // Start JS ação editar
+        if (id4 = document.querySelector(id4) !== null) {
+            id4.addEventListener('click', function () {
+                document.querySelectorAll(id2).forEach(function (group) {
+                    'use strict';
+                    var s = group.style;
+                    s.opacity = 1;
+                    (function fadeOut() { // name the function
+                        /**
+                        * Verifica se opacity é menor que 0.1,
+                        * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                        if (((s.opacity -= .1) < 0.1))
+                            s.display = "none";
+                        else
+                            //setTimeout(fadeOut, 30); // use the name of the function
+                            requestAnimationFrame(fadeOut);
+                    })();
+                });
+
+                /* Botão Modo Novo Registro */
+                document.querySelector(id3).addEventListener('click', function () {
+                    document.querySelectorAll(id2).forEach(function (group) {
+                        'use strict';
+                        var s = group.style;
+                        s.opacity = 1;
+                        (function fadeOut() { // name the function
+                            /**
+                            * Verifica se opacity é menor que 0.1,
+                            * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                            if (((s.opacity -= .1) < 0.1))
+                                s.display = "none";
+                            else
+                                //setTimeout(fadeOut, 30); // use the name of the function
+                                requestAnimationFrame(fadeOut);
+                        })();
+                    });
+                });
+
+                document.querySelectorAll(".form-hidden, #group-btn-hidden, .row-button-hidden").forEach(function (group) {
+                    'use strict';
+                    var s = group.style;
+                    s.opacity = 0;
+                    s.display = 'flex' || '';
+
+                    (function fadeIn() { // name the function
+                        var val = parseFloat(s.opacity);
+                        /**
+                        * Verifica se opacity é menor que 0.1,
+                        * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                        if (!((val += 0.1) > 1))
+                            s.opacity = val;
+                        requestAnimationFrame(fadeIn); // use the name of the function
+                    })();
+                });
+
+                document.querySelectorAll('#btn-save, .form-register').forEach(function (group) {
+                    //console.log(group.getAttributeNode("class").value);
+                    if (group.getAttributeNode("class").value === 'form-register') {
+                        group.setAttribute("id", "addForm");
+                    } else if (group.getAttributeNode("id").value === 'btn-save') {
+                        group.setAttribute("onclick", "typeAction(objData={type:'add'})");
+                        group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
+                    }
+                });
+
+                var spanMsg = document.querySelector("legend span");
+                spanMsg.innerHTML = ' - Inserir registro';
+            }); // End id4
+        }
+
+    } // End setVal
 }

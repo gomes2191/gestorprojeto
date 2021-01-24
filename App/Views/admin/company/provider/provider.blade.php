@@ -231,7 +231,7 @@
     <div class="form-group col-md-4 col-sm-10 col-xs-12">
 
         <div class="input-group">
-            <input type="text" class="form-control inputSearch" id="keywords" placeholder="Buscar por: Descrição ou Data de Vencimento..." onkeyup="objFinanca.ajaxFilter();">
+            <input type="text" class="form-control inputSearch" id="keywords" placeholder="Buscar por: Nome ou Área de atuação..." onkeyup="objFinanca.ajaxFilter();">
             <div class="input-group-append">
                 <span class="input-group-text spanSearch">
                     <i class="fab fa-searchengin fa-lg"></i>
@@ -330,9 +330,8 @@
 <script>
     //Instância os objetos das classses
     var objMetodos = new Metodos();
-    var objFinanca = new Financeiro();
 
-    EventAction.setVal("#btn-new-show", "#group-btn-new, #group-btn-form-new");
+    var objFinanca = new Financeiro();
 
     // Efetua a requisição ajax e retorna os registros
     objFinanca.setAjaxData(objSet = {
@@ -340,6 +339,7 @@
         url_id: '/providers/',
         get_decode: false
     });
+
     objFinanca.ajaxData();
     objFinanca.getAjaxData();
 
@@ -417,6 +417,15 @@
             }
         }
     }
+
+
+        window.onload = function() {
+        EventAction.setVal("#btn-new-show", "#group-btn-new", "#btn-form-new", ".btn-edit-show");
+    }
+
+
+
+
 </script>
 
 @endsection

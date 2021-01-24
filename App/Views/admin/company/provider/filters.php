@@ -31,15 +31,14 @@ if (($qtdLine <= 0) or ($qtdLine > 50)) {
 $start = !empty(filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT)) ? filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) : 0;
 
 if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
-    //$conditions['search'] = ['name' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE), 'area_de_atuacao' => filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)];
-    //$count = (int) (is_array($modelo->searchTable($tblName, $conditions))) ? count($modelo->searchTable($tblName, $conditions)) : FALSE;
-    //$conditions['order_by'] = "id DESC LIMIT $start, $limit";
-    //$allReg = $modelo->searchTable($tblName, $conditions);
-
-
+    $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
+    INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
+    WHERE PR.name LIKE '" . '%' . filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE) . '%' . "' OR PR.occupation_area LIKE '" . '%' . filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE) . '%' . "'
+    GROUP BY PR.id
+    ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}");
+    $count = count($allReg);
 } elseif (!empty(filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING))) {
     $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
-    var_dump('Teste');
     switch ($sortBy) {
         case 'active':
             $count = (is_array($count = $modelo->listar('Providers P', '*', "WHERE P.status='active'"))) ? COUNT($count) : 0;
@@ -127,7 +126,6 @@ if (!empty($allReg)) {
                 <tbody>
 HTML;
     $count = 0;
-
     foreach ($allReg as $reg) : $count++;
         ($reg['status'] == 'active') ? $reg['status'] = 'Ativo' : FALSE;
         ($reg['status'] == 'inactive') ? $reg['status'] = 'Inativo' : FALSE;
@@ -150,9 +148,15 @@ HTML;
             </table>
 HTML;
     echo $pagination->createLinks();
-    echo '<p></p>';
 } elseif ((filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING) or filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)) && $allReg == false) {
     echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Nenhum registro encontrado.</div>';
 } else {
     echo '<div style="z-index: -100;" class="col-md-12  col-sm-5 col-xs-12 text-center alert alert-info" role="alert">Não há registros na base de dados.</div>';
 }
+
+?>
+
+
+<script>
+
+</script>

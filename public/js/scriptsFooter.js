@@ -425,36 +425,36 @@ $(function () {
 //----Parametros para o formulario hibrido dois em um
 $(function () {
     //Ativa modo de novo registro
-   /*  $('.container').on('click', '#btn-new-show', function(e) {
+   /*  $('.container-fluid').on('click', '#btn-new-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #group-btn-form-new').fadeOut();
         $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'add'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>");
        // $('.form-register').attr('id',"addForm");
-        $('.form-hidden, #group-btn-hidden, .row-button-hidden, .notice-hidden').fadeIn();
+        $('.form-hidden, #group-btn-hidden, .row-button-hidden').fadeIn();
         $('.form-register').find('input, textarea').val('');
         $('legend span').text(' - Inserindo registro');
-    }); */
-
+    });
+ */
     //--> Rotina que limpa formulário apos edição e remoção de dados
-    $('.container').on('click', '#btn-edit-save, #btn-dell', function (){
-        $('.form-hidden, #group-btn-hidden, #group-btn-show, .row-button-hidden, .notice-hidden ').fadeOut();
+    $('.container-fluid').on('click', '#btn-edit-save, #btn-dell', function (){
+        $('.form-hidden, #group-btn-hidden, #group-btn-show, .row-button-hidden').fadeOut();
         $('.form-register').find('input, textarea').val('');
         $('#group-btn-new').fadeIn();
         $('legend span').text('');
         $('html, body').animate({scrollTop:0}, 'slow');
     });
 
-    //Modo edição ativo
+    /* //Modo edição ativo
     $('#tableData').on('click','.btn-edit-show', function(e) {
         e.preventDefault();
         $('#group-btn-new, #btn-show').fadeOut();
         $('#btn-save, #btn-edit-save').attr('onclick',"typeAction(objData={type:'update'})").html("<i class='fas fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>");
         $('.form-register').attr('id',"editForm");
-        $('.form-hidden, #group-btn-hidden, #group-btn-form-new, .row-button-hidden ').fadeIn();
+        $('.form-hidden, #group-btn-hidden,  .row-button-hidden, #group-btn-form-new, #btn-form-new').fadeIn();
         $('#btn-save, #btn-edit-save').attr('id',"btn-edit-save");
         $('legend span').text(' - Editando registro');
         $('html, body').animate({scrollTop:0}, 'slow');
-    });
+    }); */
 
     // Ação que oculta o formulário
     $('#btn-hidden').click(function(e) {
@@ -477,7 +477,7 @@ $(function () {
     });
 
     //Botao que voltar para adicionar novo registro
-    $('.container').on('click', '#btn-form-new', function(e) {
+    $('.container-fluid').on('click', '#btn-form-new', function(e) {
         e.preventDefault();
         // Limpa os campos
         $('.form-register').find('input, textarea').val('');
@@ -517,3 +517,4 @@ function evBut(e){
   alert('Foi acionado o buttão');
   x = document.querySelectorAll("#teste, #teste");
 }
+
