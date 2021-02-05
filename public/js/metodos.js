@@ -234,7 +234,9 @@ function Financeiro() {
                     type: 'POST',
                     dataType: 'html',
                     url: this.objData.url,
-                    data: { get_decode: this.objData.get_decode },
+                    data: {
+                        get_decode: this.objData.get_decode
+                    },
                     async: true,
                     beforeSend: function () {
                         $('#loading').show();
@@ -497,36 +499,33 @@ function Metodos() {
 
 
 class EventAction {
-    static setVal(id1, id2, id3, id4) {
 
-        document.querySelector(id1).addEventListener('click', function () {
-            document.querySelectorAll(id2).forEach(function (group) {
-                'use strict';
-                var s = group.style;
-                s.opacity = 1;
-                (function fadeOut() { // name the function
-                    /**
-                    * Verifica se opacity é menor que 0.1,
-                    * caso não seja subtrai 0.1 até chegar a 0.0. **/
-                    if (((s.opacity -= .1) < 0.1))
-                        s.display = "none";
-                    else
-                        //setTimeout(fadeOut, 30); // use the name of the function
-                        requestAnimationFrame(fadeOut);
-                })();
-            });
+    constructor(id1) {
+        this.id1 = id1;
+        //this.id2 = id2;
+        //this.id3 = id3;
+        //this.id4 = id4;
+    }
 
+    get val() {
+        return this.id1;
+    }
+    set val(id1) {
+        this.id1 = id1;
+    }
 
-            /* Botão Modo Novo Registro */
-            document.querySelector(id3).addEventListener('click', function () {
+    newRegister(id1, id2 = null, id3 = null, id4 = null) {
+        if (document.querySelector(id1)) {
+            document.querySelector(id1).addEventListener('click', function () {
+
                 document.querySelectorAll(id2).forEach(function (group) {
                     'use strict';
                     var s = group.style;
                     s.opacity = 1;
                     (function fadeOut() { // name the function
                         /**
-                        * Verifica se opacity é menor que 0.1,
-                        * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                         * Verifica se opacity é menor que 0.1,
+                         * caso não seja subtrai 0.1 até chegar a 0.0. **/
                         if (((s.opacity -= .1) < 0.1))
                             s.display = "none";
                         else
@@ -534,58 +533,7 @@ class EventAction {
                             requestAnimationFrame(fadeOut);
                     })();
                 });
-            });
 
-            document.querySelectorAll(".form-hidden, #group-btn-hidden, .row-button-hidden").forEach(function (group) {
-                'use strict';
-                var s = group.style;
-                s.opacity = 0;
-                s.display = 'flex' || '';
-
-                (function fadeIn() { // name the function
-                    var val = parseFloat(s.opacity);
-                    /**
-                    * Verifica se opacity é menor que 0.1,
-                    * caso não seja subtrai 0.1 até chegar a 0.0. **/
-                    if (!((val += 0.1) > 1))
-                        s.opacity = val;
-                    requestAnimationFrame(fadeIn); // use the name of the function
-                })();
-            });
-
-            document.querySelectorAll('#btn-save, .form-register').forEach(function (group) {
-                //console.log(group.getAttributeNode("class").value);
-                if (group.getAttributeNode("class").value === 'form-register') {
-                    group.setAttribute("id", "addForm");
-                } else if (group.getAttributeNode("id").value === 'btn-save') {
-                    group.setAttribute("onclick", "typeAction(objData={type:'add'})");
-                    group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
-                }
-
-            });
-
-            var spanMsg = document.querySelector("legend span");
-            spanMsg.innerHTML = ' - Inserir registro';
-        });
-
-        // Start JS ação editar
-        if (id4 = document.querySelector(id4) !== null) {
-            id4.addEventListener('click', function () {
-                document.querySelectorAll(id2).forEach(function (group) {
-                    'use strict';
-                    var s = group.style;
-                    s.opacity = 1;
-                    (function fadeOut() { // name the function
-                        /**
-                        * Verifica se opacity é menor que 0.1,
-                        * caso não seja subtrai 0.1 até chegar a 0.0. **/
-                        if (((s.opacity -= .1) < 0.1))
-                            s.display = "none";
-                        else
-                            //setTimeout(fadeOut, 30); // use the name of the function
-                            requestAnimationFrame(fadeOut);
-                    })();
-                });
 
                 /* Botão Modo Novo Registro */
                 document.querySelector(id3).addEventListener('click', function () {
@@ -595,8 +543,8 @@ class EventAction {
                         s.opacity = 1;
                         (function fadeOut() { // name the function
                             /**
-                            * Verifica se opacity é menor que 0.1,
-                            * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                             * Verifica se opacity é menor que 0.1,
+                             * caso não seja subtrai 0.1 até chegar a 0.0. **/
                             if (((s.opacity -= .1) < 0.1))
                                 s.display = "none";
                             else
@@ -610,13 +558,13 @@ class EventAction {
                     'use strict';
                     var s = group.style;
                     s.opacity = 0;
-                    s.display = 'flex' || '';
+                    s.display = '';
 
                     (function fadeIn() { // name the function
                         var val = parseFloat(s.opacity);
                         /**
-                        * Verifica se opacity é menor que 0.1,
-                        * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                         * Verifica se opacity é menor que 0.1,
+                         * caso não seja subtrai 0.1 até chegar a 0.0. **/
                         if (!((val += 0.1) > 1))
                             s.opacity = val;
                         requestAnimationFrame(fadeIn); // use the name of the function
@@ -631,12 +579,74 @@ class EventAction {
                         group.setAttribute("onclick", "typeAction(objData={type:'add'})");
                         group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
                     }
+
                 });
 
                 var spanMsg = document.querySelector("legend span");
                 spanMsg.innerHTML = ' - Inserir registro';
-            }); // End id4
+            });
         }
 
+
     } // End setVal
+
+    // Método pára edição do registro.
+    editRegister(id1 = null, id2 = null, id3 = null) {
+
+        // Start JS ação editar.
+        if (document.querySelector(id1) != 0) {
+
+            document.querySelectorAll(id1).forEach(function (item) {
+                item.addEventListener('click', function () {
+
+                    document.querySelectorAll(id2).forEach(function (group) {
+                        'use strict';
+                        var s = group.style;
+                        s.opacity = 1;
+                        (function fadeOut() { // name the function
+                            /**
+                             * Verifica se opacity é menor que 0.1,
+                             * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                            if (((s.opacity -= .1) < 0.1))
+                                s.display = "none";
+                            else
+                                //setTimeout(fadeOut, 30); // use the name of the function
+                                requestAnimationFrame(fadeOut);
+                        })();
+                    });
+
+                    document.querySelectorAll(id3).forEach(function (group) {
+                        'use strict';
+                        var s = group.style;
+                        s.opacity = 0;
+                        s.display = '';
+
+                        (function fadeIn() { // name the function
+                            var val = parseFloat(s.opacity);
+                            /**
+                             * Verifica se opacity é menor que 0.1,
+                             * caso não seja subtrai 0.1 até chegar a 0.0. **/
+                            if (!((val += 0.1) > 1))
+                                s.opacity = val;
+                            requestAnimationFrame(fadeIn); // use the name of the function
+                        })();
+                    });
+
+                    document.querySelectorAll('#btn-save, .form-register').forEach(function (group) {
+                        //console.log(group.getAttributeNode("class").value);
+                        if (group.getAttributeNode("class").value === 'form-register') {
+                            group.setAttribute("id", "addForm");
+                        } else if (group.getAttributeNode("id").value === 'btn-save') {
+                            group.setAttribute("onclick", "typeAction(objData={type:'add'})");
+                            group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
+                        }
+                    });
+
+                    var spanMsg = document.querySelector("legend span");
+                    spanMsg.innerHTML = ' - Inserir registro';
+                })
+            });
+        }
+    } //End editRegister
+
 }

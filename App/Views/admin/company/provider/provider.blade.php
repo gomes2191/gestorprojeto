@@ -195,7 +195,7 @@
                             </button>
                         </div>
                         <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                            <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                            <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset" onclick="newRegister();">
                                 <i class="fas fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span>
                             </button>
                         </div>
@@ -333,6 +333,8 @@
 
     var objFinanca = new Financeiro();
 
+    objEvent = new EventAction();
+
     // Efetua a requisição ajax e retorna os registros
     objFinanca.setAjaxData(objSet = {
         url: '<?= Config::HOME_URI; ?>/providers/filters',
@@ -418,14 +420,24 @@
         }
     }
 
+    //mycar = new EventAction("Ford");
+    //console.log(mycar.val);
 
-        window.onload = function() {
-        EventAction.setVal("#btn-new-show", "#group-btn-new", "#btn-form-new", ".btn-edit-show");
+    window.onload = function () {
+        // Chama o modo novo registro.
+        objEvent.newRegister("#btn-new-show", "#group-btn-new", "#btn-form-new");
     }
 
+    table = document.getElementById("tableData");
 
+    waitLoad();
 
+    function waitLoad() {
+        if (table.readyState != "complete") {
+            setTimeout(waitLoad, 100);
+            objEvent.editRegister(".btn-edit-show", "#group-btn-new, #btn-show", ".form-hidden, #group-btn-hidden, .row-button-hidden, #group-btn-form-new, #btn-form-new");
+        }
+    }
 
 </script>
-
 @endsection
