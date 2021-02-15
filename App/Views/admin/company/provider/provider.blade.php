@@ -25,7 +25,7 @@
 
 <div class="row">
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-        <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
+        <form id="regForm" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
             <fieldset>
                 <legend>FORNECEDORES <span class="text-success"></span></legend>
                 <div class="row form-hidden" style="display: none;">
@@ -35,8 +35,8 @@
                 <div class="row form-hidden" style="display: none;">
                     <!-- Start div hidden 1 -->
                     <div class="form-group col-md-3 col-sm-12 col-xs-12">
-                        <label for="provider_name">Empresa:</label>
-                        <input type="hidden" id="id" name="provider_id" value="">
+                        <label for="name">Empresa:</label>
+                        <input type="hidden" id="id" name="id" value="">
                         <input id="name" name="name" type="text" class="form-control form-control-sm text-center" placeholder="Nome da empresa" value="">
                         <div class="invalid-feedback">
                             Preencha esse campo.
@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="provider_cpf_cnpj">CPF/CNPJ:</label>
+                        <label for="cpf_cnpj">CPF/CNPJ:</label>
                         <input id="cpf_cnpj" name="cpf_cnpj" type="text" class="form-control form-control-sm text-center" placeholder="CPF/CNPJ">
                         <div class="invalid-feedback">
                             Preencha esse campo.
@@ -195,7 +195,7 @@
                             </button>
                         </div>
                         <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                            <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset" onclick="newRegister();">
+                            <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset">
                                 <i class="fas fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span>
                             </button>
                         </div>
@@ -378,7 +378,8 @@
             if ($('#name').val() == '' || $('#cpf_cnpj').val() == '') {
                 alert('Existem campos obrigatórios não preenchido.');
             } else {
-                objAction.userData = $("#addForm").serialize() + '&action_type=' + objAction.type + '&id=' + id;
+
+                objAction.userData = $("#regForm").serialize() + '&action_type=' + objAction.type + '&id=' + id;
                 feedback = 'Inserido com sucesso!';
                 $('#filtros').show();
                 objFinanca.setAjaxActionUser(
@@ -389,10 +390,11 @@
                     }
                 );
                 objFinanca.ajaxActionUser();
+                EventAction.resetForm();
             }
 
         } else if (objAction.type === 'update') {
-            objAction.userData = $("#editForm").serialize() + '&action_type=' + objAction.type;
+            objAction.userData = $("#regForm").serialize() + '&action_type=' + objAction.type;
             feedback = 'Atualizado com sucessso!';
             objFinanca.setAjaxActionUser(
                 objSet = {
@@ -425,7 +427,9 @@
 
     window.onload = function () {
         // Chama o modo novo registro.
-        objEvent.newRegister("#btn-new-show", "#group-btn-new", "#btn-form-new");
+        objEvent.newRegister('new', "#btn-new-show", "#group-btn-new, .form-hidden, #group-btn-hidden, .row-button-hidden", "#btn-form-new", "#group-btn-form-new", "#group-btn-form-new, #group-btn-hidden");
+        objEvent.newRecordMode('returnNew', '#btn-form-new','#btn-save', '#group-btn-form-new');
+
     }
 
     table = document.getElementById("tableData");

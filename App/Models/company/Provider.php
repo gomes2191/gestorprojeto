@@ -192,14 +192,15 @@ class Provider extends MainModel
         //unset($lastId);
 
         # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
-        if ($lastId[0]) {
+        if ($lastId) {
 
             // Deleta a variável.
             unset($lastId);
 
             //$this->form_msg = ['result'=>'success', 'message'=>'query success'];
             //return $this->form_msg;
-            exit('ok');
+            echo 0;
+            exit();
         } else {
             # Feedback
             //$this->form_msg = ['result'=>'error', 'message'=>'query error'];
@@ -208,9 +209,10 @@ class Provider extends MainModel
 
             # Retorna o valor e finaliza execução
             //return $this->form_msg;
-            echo 'err';
+            echo 1;
+            exit();
         }
-    }
+    } // end Insert
 
     /**
      *   @Acesso: public

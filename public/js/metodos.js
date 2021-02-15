@@ -309,8 +309,9 @@ function Financeiro() {
                 url: this.objAction.url,
                 data: this.objAction.userData,
                 success: function (msg) {
+                    alert(msg);
                     objFinanca.ajaxData();
-                    if (msg === 0) {
+                    if (msg == 0) {
                         $.toaster({
                             title: {
                                 text: 'Sucesso!',
@@ -500,6 +501,7 @@ function Metodos() {
 
 class EventAction {
 
+
     constructor(id1) {
         this.id1 = id1;
         //this.id2 = id2;
@@ -513,140 +515,232 @@ class EventAction {
     set val(id1) {
         this.id1 = id1;
     }
+    /*
+        scrollTo(element, to, duration) {
+    		if (duration < 0) return;
+    		var difference = to - element.scrollTop,
+    			perTick = difference / duration * 10;
+    		setTimeout(function() {
+    			element.scrollTop = element.scrollTop + perTick;
+    			if (element.scrollTop === to) return;
+    			scrollTo(element, to, duration - 10);
+    		}, 10);
+    	}; */
 
-    newRegister(id1, id2 = null, id3 = null, id4 = null) {
-        if (document.querySelector(id1)) {
-            document.querySelector(id1).addEventListener('click', function () {
 
-                document.querySelectorAll(id2).forEach(function (group) {
+    newRegister(type, id1 = null, id2 = null, id3 = null, id4 = null, id5 = null) {
+        if (type === 'new') {
+            document.querySelector(id1).addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelectorAll(id2).forEach(function (el) {
+                    if (el.id === 'group-btn-new') {
+                        'use strict';
+                        // ** FADE OUT FUNCTION **
+                        el.style.opacity = 1;
+                        (function fadeOut() {
+                            console.log(el.style.opacity);
+                            if ((el.style.opacity -= 1) < 0) {
+                                el.style.display = "none";
+                            } else {
+                                setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
+                                //requestAnimationFrame(fadeOut);
+                            }
+                        })();
+                    } else {
+                        // ** FADE IN FUNCTION **
+                        el.style.opacity = 0;
+                        el.style.display = '';
+                        (function fadeIn() {
+                            var val = parseFloat(el.style.opacity);
+                            if (!((val += .1) > 1)) {
+                                el.style.opacity = val;
+                                setTimeout(fadeIn, 50); // Tempo em que irá desaparecer.
+                                //requestAnimationFrame(fadeIn);
+                            }
+                        })();
+                    }
+                });
+
+                document.querySelectorAll('#btn-save, #regForm').forEach(function (group) {
+                    //console.log(group.getAttributeNode("class").value);
+                    if (group.getAttributeNode("id").value === 'btn-save') {
+                        group.setAttribute("onclick", "typeAction(objData={type:'add'})");
+                        group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
+                    }
+                });
+
+                var spanMsg = document.querySelector("legend span");
+                spanMsg.innerHTML = ' - inserir registro';
+            });
+        }
+
+
+
+        /* Botão Modo Novo Registro */
+    /*     document.querySelector(id3).addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelectorAll(id5).forEach(function (group) {
+                if (group.getAttributeNode("id").value === 'group-btn-form-new') {
                     'use strict';
                     var s = group.style;
                     s.opacity = 1;
                     (function fadeOut() { // name the function
-                        /**
-                         * Verifica se opacity é menor que 0.1,
-                         * caso não seja subtrai 0.1 até chegar a 0.0. **/
-                        if (((s.opacity -= .1) < 0.1))
+                        if (((s.opacity -= .1) < 0))
                             s.display = "none";
                         else
                             //setTimeout(fadeOut, 30); // use the name of the function
                             requestAnimationFrame(fadeOut);
                     })();
-                });
-
-
-                /* Botão Modo Novo Registro */
-                document.querySelector(id3).addEventListener('click', function () {
-                    document.querySelectorAll(id2).forEach(function (group) {
-                        'use strict';
-                        var s = group.style;
-                        s.opacity = 1;
-                        (function fadeOut() { // name the function
-                            /**
-                             * Verifica se opacity é menor que 0.1,
-                             * caso não seja subtrai 0.1 até chegar a 0.0. **/
-                            if (((s.opacity -= .1) < 0.1))
-                                s.display = "none";
-                            else
-                                //setTimeout(fadeOut, 30); // use the name of the function
-                                requestAnimationFrame(fadeOut);
-                        })();
-                    });
-                });
-
-                document.querySelectorAll(".form-hidden, #group-btn-hidden, .row-button-hidden").forEach(function (group) {
+                } else {
                     'use strict';
                     var s = group.style;
                     s.opacity = 0;
                     s.display = '';
-
                     (function fadeIn() { // name the function
                         var val = parseFloat(s.opacity);
-                        /**
-                         * Verifica se opacity é menor que 0.1,
-                         * caso não seja subtrai 0.1 até chegar a 0.0. **/
+
                         if (!((val += 0.1) > 1))
                             s.opacity = val;
                         requestAnimationFrame(fadeIn); // use the name of the function
                     })();
-                });
 
-                document.querySelectorAll('#btn-save, .form-register').forEach(function (group) {
-                    //console.log(group.getAttributeNode("class").value);
-                    if (group.getAttributeNode("class").value === 'form-register') {
-                        group.setAttribute("id", "addForm");
-                    } else if (group.getAttributeNode("id").value === 'btn-save') {
-                        group.setAttribute("onclick", "typeAction(objData={type:'add'})");
-                        group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
-                    }
+                }
 
-                });
-
-                var spanMsg = document.querySelector("legend span");
-                spanMsg.innerHTML = ' - Inserir registro';
             });
-        }
-
-
-    } // End setVal
+            var spanMsg = document.querySelector("legend span");
+            spanMsg.innerHTML = ' - Inserir registro';
+        }); */
+    } // End newRegister
 
     // Método pára edição do registro.
     editRegister(id1 = null, id2 = null, id3 = null) {
 
         // Start JS ação editar.
         if (document.querySelector(id1) != 0) {
-
             document.querySelectorAll(id1).forEach(function (item) {
-                item.addEventListener('click', function () {
-
-                    document.querySelectorAll(id2).forEach(function (group) {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelectorAll(id2).forEach(function (el) {
                         'use strict';
-                        var s = group.style;
-                        s.opacity = 1;
-                        (function fadeOut() { // name the function
-                            /**
-                             * Verifica se opacity é menor que 0.1,
-                             * caso não seja subtrai 0.1 até chegar a 0.0. **/
-                            if (((s.opacity -= .1) < 0.1))
-                                s.display = "none";
-                            else
-                                //setTimeout(fadeOut, 30); // use the name of the function
-                                requestAnimationFrame(fadeOut);
+                        // ** FADE OUT FUNCTION **
+                        el.style.opacity = 1;
+                        (function fadeOut() {
+                            if ((el.style.opacity -= 1) < 0) {
+                                el.style.display = "none";
+                            } else {
+                                setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
+                                //requestAnimationFrame(fadeOut);
+                            }
                         })();
                     });
 
-                    document.querySelectorAll(id3).forEach(function (group) {
-                        'use strict';
-                        var s = group.style;
-                        s.opacity = 0;
-                        s.display = '';
-
-                        (function fadeIn() { // name the function
-                            var val = parseFloat(s.opacity);
-                            /**
-                             * Verifica se opacity é menor que 0.1,
-                             * caso não seja subtrai 0.1 até chegar a 0.0. **/
-                            if (!((val += 0.1) > 1))
-                                s.opacity = val;
-                            requestAnimationFrame(fadeIn); // use the name of the function
+                    document.querySelectorAll(id3).forEach(function (el) {
+                        // ** FADE IN FUNCTION **
+                        el.style.opacity = 0;
+                        el.style.display = '';
+                        (function fadeIn() {
+                            var val = parseFloat(el.style.opacity);
+                            if (!((val += .1) > 1)) {
+                                el.style.opacity = val;
+                                setTimeout(fadeIn, 100); // Tempo em que irá desaparecer.
+                                //requestAnimationFrame(fadeIn);
+                            }
                         })();
                     });
 
-                    document.querySelectorAll('#btn-save, .form-register').forEach(function (group) {
+                    document.querySelectorAll('#btn-save').forEach(function (el) {
                         //console.log(group.getAttributeNode("class").value);
-                        if (group.getAttributeNode("class").value === 'form-register') {
-                            group.setAttribute("id", "addForm");
-                        } else if (group.getAttributeNode("id").value === 'btn-save') {
-                            group.setAttribute("onclick", "typeAction(objData={type:'add'})");
-                            group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
+                        if (el.id === 'btn-save') {
+                            el.setAttribute("onclick", "typeAction(objData={type:'update'})");
+                            el.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>";
                         }
                     });
 
                     var spanMsg = document.querySelector("legend span");
-                    spanMsg.innerHTML = ' - Inserir registro';
+                    spanMsg.innerHTML = ' - editando registro.';
+
+                    /*  scrollTo(document.body, document.body.offsetTop, 300); */
+                    /* window.scroll({ top: 0, behavior: 'smooth' }); */
+                    /* window.scrollBy({ top: -100, behavior: 'smooth' }); */
+                    /* window.scroll(0, 2000); */ // * salta * a página da web para baixo 1000px
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                 })
             });
         }
     } //End editRegister
+
+    // Voltar para o modo de novo registro.
+    newRecordMode(type = null, id1 = null, id2 = null, id3 = null){
+        if(type == 'returnNew'){
+          document.querySelector(id1).addEventListener('click', function(e){
+            e.preventDefault();
+            EventAction.resetForm()
+
+
+            document.querySelectorAll(id3).forEach(function (el) {
+                'use strict';
+                // ** FADE OUT FUNCTION **
+                el.style.opacity = 1;
+                (function fadeOut() {
+                    if ((el.style.opacity -= 1) < 0) {
+                        el.style.display = "none";
+                    } else {
+                        setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
+                        //requestAnimationFrame(fadeOut);
+                    }
+                })();
+            });
+
+          });
+        }
+
+    } // End newRecordMode
+
+    static resetForm() {
+        document.querySelectorAll('.form-hidden, #group-btn-hidden, #group-btn-show, .row-button-hidden').forEach(function (el) {
+            // ** FADE OUT FUNCTION **
+            el.style.opacity = 1;
+            (function fadeOut() {
+                console.log(el.style.opacity);
+                if ((el.style.opacity -= 1) < 0) {
+                    el.style.display = "none";
+                } else {
+                    setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
+                    //requestAnimationFrame(fadeOut);
+                }
+            })();
+        });
+        document.querySelectorAll('#group-btn-new').forEach(function (el) {
+            // ** FADE IN FUNCTION **
+            el.style.opacity = 0;
+            el.style.display = '';
+            (function fadeIn() {
+                var val = parseFloat(el.style.opacity);
+                if (!((val += .1) > 1)) {
+                    el.style.opacity = val;
+                    setTimeout(fadeIn, 50); // Tempo em que irá desaparecer.
+                    //requestAnimationFrame(fadeIn);
+                }
+            })();
+
+        });
+
+        document.querySelector('#regForm').querySelectorAll('input, textarea').forEach(function (el) {
+            el.value = '';
+        });
+
+        document.querySelector('legend span').innerHTML = '';
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+
+
+
+    }
 
 }
