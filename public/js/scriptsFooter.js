@@ -475,7 +475,7 @@ $(function () {
   }); */
 
   // Ação que oculta o formulário
-  $('#btn-hidden').click(function (e) {
+ /*  $('#btn-hidden').click(function (e) {
     e.preventDefault();
     $('#group-btn-hidden').fadeOut('slow');
     $('.form-hidden').fadeOut();
@@ -483,16 +483,16 @@ $(function () {
     $('.row-button-hidden').fadeOut();
     $('#group-btn-show').fadeIn();
     $('#btn-show').fadeIn();
-  });
+  }); */
 
   // Dispara o evento mostrar formulário ao clica no botao
-  $('#btn-show').click(function (e) {
+  /* $('#btn-show').click(function (e) {
     e.preventDefault();
     $('#group-btn-show').fadeOut('slow');
     $('.form-hidden').fadeIn('slow');
     $('#group-btn-hidden').fadeIn('slow');
     $('.row-button-hidden').fadeIn('slow');
-  });
+  }); */
 
   //Botao que volta para adicionar novo registro
   /* $('.container-fluid').on('click', '#btn-form-new', function (e) {

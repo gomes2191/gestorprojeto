@@ -539,7 +539,7 @@ class EventAction {
                         el.style.opacity = 1;
                         (function fadeOut() {
                             console.log(el.style.opacity);
-                            if ((el.style.opacity -= 1) < 0) {
+                            if ((el.style.opacity -= .1) <= 0) {
                                 el.style.display = "none";
                             } else {
                                 setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
@@ -573,59 +573,20 @@ class EventAction {
                 spanMsg.innerHTML = ' - inserir registro';
             });
         }
-
-
-
-        /* Botão Modo Novo Registro */
-    /*     document.querySelector(id3).addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelectorAll(id5).forEach(function (group) {
-                if (group.getAttributeNode("id").value === 'group-btn-form-new') {
-                    'use strict';
-                    var s = group.style;
-                    s.opacity = 1;
-                    (function fadeOut() { // name the function
-                        if (((s.opacity -= .1) < 0))
-                            s.display = "none";
-                        else
-                            //setTimeout(fadeOut, 30); // use the name of the function
-                            requestAnimationFrame(fadeOut);
-                    })();
-                } else {
-                    'use strict';
-                    var s = group.style;
-                    s.opacity = 0;
-                    s.display = '';
-                    (function fadeIn() { // name the function
-                        var val = parseFloat(s.opacity);
-
-                        if (!((val += 0.1) > 1))
-                            s.opacity = val;
-                        requestAnimationFrame(fadeIn); // use the name of the function
-                    })();
-
-                }
-
-            });
-            var spanMsg = document.querySelector("legend span");
-            spanMsg.innerHTML = ' - Inserir registro';
-        }); */
     } // End newRegister
 
     // Método pára edição do registro.
     editRegister(id1 = null, id2 = null, id3 = null) {
-
         // Start JS ação editar.
         if (document.querySelector(id1) != 0) {
             document.querySelectorAll(id1).forEach(function (item) {
                 item.addEventListener('click', function (e) {
                     e.preventDefault();
                     document.querySelectorAll(id2).forEach(function (el) {
-                        'use strict';
                         // ** FADE OUT FUNCTION **
                         el.style.opacity = 1;
                         (function fadeOut() {
-                            if ((el.style.opacity -= 1) < 0) {
+                            if ((el.style.opacity -= .1) <= 0) {
                                 el.style.display = "none";
                             } else {
                                 setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
@@ -642,7 +603,7 @@ class EventAction {
                             var val = parseFloat(el.style.opacity);
                             if (!((val += .1) > 1)) {
                                 el.style.opacity = val;
-                                setTimeout(fadeIn, 100); // Tempo em que irá desaparecer.
+                                setTimeout(fadeIn, 30); // Tempo em que irá desaparecer.
                                 //requestAnimationFrame(fadeIn);
                             }
                         })();
@@ -650,14 +611,12 @@ class EventAction {
 
                     document.querySelectorAll('#btn-save').forEach(function (el) {
                         //console.log(group.getAttributeNode("class").value);
-                        if (el.id === 'btn-save') {
-                            el.setAttribute("onclick", "typeAction(objData={type:'update'})");
-                            el.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>";
-                        }
+                        el.setAttribute("onclick", "typeAction(objData={type:'update'})");
+                        el.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>";
                     });
 
-                    var spanMsg = document.querySelector("legend span");
-                    spanMsg.innerHTML = ' - editando registro.';
+                    document.querySelector("legend span").innerHTML = ' - editando registro.';
+                    //spanMsg.innerHTML = ' - editando registro.';
 
                     /*  scrollTo(document.body, document.body.offsetTop, 300); */
                     /* window.scroll({ top: 0, behavior: 'smooth' }); */
@@ -673,28 +632,26 @@ class EventAction {
     } //End editRegister
 
     // Voltar para o modo de novo registro.
-    newRecordMode(type = null, id1 = null, id2 = null, id3 = null){
-        if(type == 'returnNew'){
-          document.querySelector(id1).addEventListener('click', function(e){
-            e.preventDefault();
-            EventAction.resetForm()
+    newRecordMode(type = null, id1 = null, id2 = null, id3 = null) {
+        if (type == 'returnNew') {
+            document.querySelector(id1).addEventListener('click', function (e) {
+                e.preventDefault();
+                EventAction.resetForm()
+                document.querySelectorAll(id3).forEach(function (el) {
+                    'use strict';
+                    // ** FADE OUT FUNCTION **
+                    el.style.opacity = 1;
+                    (function fadeOut() {
+                        if ((el.style.opacity -= .1) <= 0) {
+                            el.style.display = "none";
+                        } else {
+                            setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
+                            //requestAnimationFrame(fadeOut);
+                        }
+                    })();
+                });
 
-
-            document.querySelectorAll(id3).forEach(function (el) {
-                'use strict';
-                // ** FADE OUT FUNCTION **
-                el.style.opacity = 1;
-                (function fadeOut() {
-                    if ((el.style.opacity -= 1) < 0) {
-                        el.style.display = "none";
-                    } else {
-                        setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
-                        //requestAnimationFrame(fadeOut);
-                    }
-                })();
             });
-
-          });
         }
 
     } // End newRecordMode
@@ -705,7 +662,7 @@ class EventAction {
             el.style.opacity = 1;
             (function fadeOut() {
                 console.log(el.style.opacity);
-                if ((el.style.opacity -= 1) < 0) {
+                if ((el.style.opacity -= .1) <= 0) {
                     el.style.display = "none";
                 } else {
                     setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
@@ -721,13 +678,11 @@ class EventAction {
                 var val = parseFloat(el.style.opacity);
                 if (!((val += .1) > 1)) {
                     el.style.opacity = val;
-                    setTimeout(fadeIn, 50); // Tempo em que irá desaparecer.
+                    setTimeout(fadeIn, 30); // Tempo em que irá desaparecer.
                     //requestAnimationFrame(fadeIn);
                 }
             })();
-
         });
-
         document.querySelector('#regForm').querySelectorAll('input, textarea').forEach(function (el) {
             el.value = '';
         });
@@ -737,10 +692,80 @@ class EventAction {
             top: 0,
             behavior: 'smooth'
         });
+    } //End resetForm
 
 
+    /*
+     * Método ocultar formulário.
+     */
+    static hideForm(id1 = null, id2 = null, id3 = null) {
+        document.querySelector(id1).addEventListener('click', function (e) {
+            e.preventDefault();
 
+            document.querySelectorAll(id2).forEach(function (el) {
+                'use strict';
+                // ** FADE OUT FUNCTION **
+                el.style.opacity = 1;
+                (function fadeOut() {
+                    if ((el.style.opacity -= .1) <= 0) {
+                        el.style.display = "none";
+                    } else {
+                        setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
+                        //requestAnimationFrame(fadeOut);
+                    }
+                })();
+            });
 
-    }
+            document.querySelectorAll(id3).forEach(function (el) {
+                // ** FADE IN FUNCTION **
+                el.style.opacity = 0;
+                el.style.display = '';
+                (function fadeIn() {
+                    var val = parseFloat(el.style.opacity);
+                    if (!((val += .1) > 1)) {
+                        el.style.opacity = val;
+                        setTimeout(fadeIn, 30); // Tempo em que irá desaparecer.
+                        //requestAnimationFrame(fadeIn);
+                    }
+                })();
+            });
+        });
+    } // End hideForm
 
-}
+    /*
+     * Método ocultar formulário.
+     */
+    static showForm(id1 = null, id2 = null, id3 = null) {
+        document.querySelector(id1).addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelectorAll(id2).forEach(function (el) {
+                'use strict';
+                el.style.opacity = 1;
+                (function fadeOut() {
+                    if ((el.style.opacity -= .1) <= 0) {
+                        el.style.display = "none";
+                    } else {
+                        setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
+                        //requestAnimationFrame(fadeOut);
+                    }
+                })();
+            });
+
+            document.querySelectorAll(id3).forEach(function (el) {
+                'use strict';
+                el.style.opacity = 0;
+                el.style.display = '';
+                (function fadeIn() {
+                    var val = parseFloat(el.style.opacity);
+                    if (!((val += .1) > 1)) {
+                        el.style.opacity = val;
+                        setTimeout(fadeIn, 30); // Tempo em que irá desaparecer.
+                        //requestAnimationFrame(fadeIn);
+                    }
+                })();
+            });
+        });
+    } // End hideForm
+
+} //End EventAction

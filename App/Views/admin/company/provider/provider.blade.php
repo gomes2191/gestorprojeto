@@ -429,19 +429,17 @@
         // Chama o modo novo registro.
         objEvent.newRegister('new', "#btn-new-show", "#group-btn-new, .form-hidden, #group-btn-hidden, .row-button-hidden", "#btn-form-new", "#group-btn-form-new", "#group-btn-form-new, #group-btn-hidden");
         objEvent.newRecordMode('returnNew', '#btn-form-new','#btn-save', '#group-btn-form-new');
-
+        EventAction.hideForm('#btn-hidden', '#group-btn-hidden, .form-hidden, .row-button-hidden', '#group-btn-show, #btn-show');
+        EventAction.showForm('#btn-show', '#group-btn-show', '.form-hidden, #group-btn-hidden, .row-button-hidden, #btn-show');
     }
-
-    table = document.getElementById("tableData");
 
     waitLoad();
 
     function waitLoad() {
-        if (table.readyState != "complete") {
+        if (document.getElementById('tableData').readyState != "complete") {
             setTimeout(waitLoad, 100);
             objEvent.editRegister(".btn-edit-show", "#group-btn-new, #btn-show", ".form-hidden, #group-btn-hidden, .row-button-hidden, #group-btn-form-new, #btn-form-new");
         }
     }
-
 </script>
 @endsection
