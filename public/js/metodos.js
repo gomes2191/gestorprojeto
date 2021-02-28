@@ -309,9 +309,9 @@ function Financeiro() {
                 url: this.objAction.url,
                 data: this.objAction.userData,
                 success: function (msg) {
-                    alert(msg);
+                    //alert(msg);
                     objFinanca.ajaxData();
-                    if (msg == 0) {
+                    if (msg == false) {
                         $.toaster({
                             title: {
                                 text: 'Sucesso!',

@@ -12,7 +12,7 @@ class ProvidersController extends MainController
 {
 
     // Tipo de página int
-    public $pageType = 1;
+    //public $pageType = 1;
 
     /**
      * $login_required
@@ -33,13 +33,14 @@ class ProvidersController extends MainController
     public $permission_required = 'user-register';
 
 
-    # Carrega a página "/views/user-register/index.php"
+    /*
+     * Carrega a página (Providers) em:
+     * "Views/admin/company/provider/provider.blade.php"
+     */
     public function index()
     {
-
-
         // Carrega o modelo para esta view
-        $modelo = $this->loadModel('company/Provider');
+        //$modelo = $this->loadModel('admin/company/Provider');
 
         /******
          * Verifica se o diretório do arquivo foi definido.
@@ -81,6 +82,8 @@ class ProvidersController extends MainController
         # Parametros da função
         $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : [];
 
+        var_dump($_parameters);
+
 
         #   Carrega os arquivos do view
         #-->   /views/_includes/header.php
@@ -95,7 +98,15 @@ class ProvidersController extends MainController
         // View::renderTemplate('/Admin/home/index', ['home' => '']);
 
 
-        View::renderTemplate('/admin/company/provider/provider', ['modelo' => $modelo, 'objControl' => new ProvidersController(), 'pageType' => $this->pageType, 'title' => $this->title]);
+        View::renderTemplate(
+            '/admin/company/provider/provider',
+            [
+                'modelo' => $this->loadModel('admin/company/Provider'),
+                'objControl' => new ProvidersController(),
+                'pageType' => 1,
+                'title' => $this->title
+            ]
+        );
 
         #--> /views/_includes/footer.php
         //include_once Config::ABS_PATH . '/App/Views/_includes/footer.php';
@@ -205,7 +216,7 @@ class ProvidersController extends MainController
         #   Carrega o view
         //require_once (Config::HOME_URI . '/App/Views/company/provider/filters.php');
 
-        View::render('/admin/company/provider/filters.php', ['modelo' => $this->loadModel('company/Provider'), 'globalF' => new GFunc]);
+        View::render('/admin/company/provider/filters.php', ['modelo' => $this->loadModel('admin/company/Provider'), 'globalF' => new GFunc]);
 
         //require_once (Config::HOME_URI . '/app/views/_includes/footer.php');
 
@@ -223,7 +234,7 @@ class ProvidersController extends MainController
         #---> Inclua seus models e views aqui
 
         #   Carrega o modelo
-        $modelo = $this->loadModel('company/Provider');
+        $modelo = $this->loadModel('admin/company/Provider');
 
         //print_r($modelo);die();
 

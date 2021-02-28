@@ -51,13 +51,13 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
         echo json_encode($allReg, JSON_FORCE_OBJECT);
     } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        return $modelo->formValidation();
+        $modelo->formValidation();
     } elseif (filter_input(INPUT_POST, 'action_type') == 'update') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        return $modelo->formValidation();
+        $modelo->formValidation();
     } elseif (filter_input(INPUT_POST, 'action_type') == 'delete') {
         if (!empty(filter_input(INPUT_POST, 'id'))) {
-            return $modelo->delRegister(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));
+            $modelo->delRegister(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));
         }
     }
 } else {
