@@ -171,10 +171,11 @@ class GFunc
             $rand = rand(100, 900);
 
             return base64_encode($encode . $rand);
-        }
-        $decode = base64_decode($decode);
+        } else {
+            $decode = base64_decode($decode);
 
-        return (int) substr($decode, 0, -3);
+            return (int) substr($decode, 0, -3);
+        }
     }
 
 

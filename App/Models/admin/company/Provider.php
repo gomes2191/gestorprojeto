@@ -71,15 +71,14 @@ class Provider extends MainModel
             if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
 
                 // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
-                foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
+                foreach (filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS) as $key => $value) {
                     # Configura os dados do post para a propriedade $form_data
                     $this->formData[$key] = $value;
-                } // End foreach
+                } //--> End foreach
 
                 // Verifica se existe o ID e decodifica se o mesmo existir.
-                if (!empty($this->formData['id'])) {
-                    $this->formData['id'] = GFunc::encodeDecode(0, $this->formData['id']);
-                }
+                !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(false, $this->formData['id']) : false;
+
             } else {
                 // Finaliza a execução e retorna o erro.
                 throw new Exception("Requisição post não declarada ou campos vázios.");
@@ -90,17 +89,14 @@ class Provider extends MainModel
             echo 'Erro: ' . $e->getMessage();
         }
 
-        // Verifica se o registro já existe.
-        $checkReg = $this->db->query(' SELECT count(*) FROM `Providers` WHERE `id` = ? ', [
-            GFunc::chkArray($this->formData, 'id')
-        ]);
+        //var_dump($this->formData['id']);die;
 
         // Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
-        if (($checkReg->fetchColumn()) >= 1) {
-            $this->updateRegister($this->formData['id']);
+        if ($this->formData['id'] >= 1) {
+            $this->updateReg($this->formData['id']);
         } else {
             //var_dump($this->form_data);die;
-            $this->insertRegister();
+            $this->insertReg();
         }
     } //--> End formValidation()
 
@@ -112,7 +108,7 @@ class Provider extends MainModel
      *
      * @return bool Retorna um valor boleano (true ou false).
      */
-    public function insertRegister()
+    public function insertReg()
     {
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
@@ -128,8 +124,6 @@ class Provider extends MainModel
             'obs'               =>  GFunc::chkArray($this->formData,     'obs'),
             'created_at'        =>  date('Y-m-d H:i:s', time())
         ]);
-
-        //$lastId[0] =  (int) $this->db->lastInsertId();
 
         $this->db->insert('Address', [
             'id_provider'   =>  $lastId,
@@ -147,9 +141,6 @@ class Provider extends MainModel
             'nickname'      =>  GFunc::chkArray($this->formData,     'rp_nickname'),
             'email'         =>  GFunc::chkArray($this->formData,     'rp_email'),
         ]);
-
-        // Captura o id do último registro inserido.
-        //$lastId[1] =  (int) $this->db->lastInsertId();
 
         $this->db->insert('BankAccounts', [
             'id_representative' =>  $lastId,
@@ -188,9 +179,7 @@ class Provider extends MainModel
             'owner'         =>  'R'
         ]);
 
-        // Deleta a variável.
-        //unset($lastId);
-        # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ($lastId > 0) {
             // Deleta a variável.
             unset($lastId);
@@ -205,7 +194,7 @@ class Provider extends MainModel
             # Feedback erro!
             die(true);
         }
-    } // end Insert
+    } //--> End Insert
 
     /**
      *   @Acesso: public
@@ -215,12 +204,96 @@ class Provider extends MainModel
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
-    public function updateRegister($registro_id = NULL)
+    public function updateReg($id = NULL)
     {
-        # Verifica se existe ID
-        if ($registro_id) {
+        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
+        # Se o ID do agendamento estiver vazio, insere os dados
+        $result = (int) $this->db->update('Providers', "id = {$id}", false, false, [
+            'name'              =>  GFunc::chkArray($this->formData,     'name'),
+            'cpf_cnpj'          =>  GFunc::chkArray($this->formData,     'cpf_cnpj'),
+            'razao_social'      =>  GFunc::chkArray($this->formData,     'razao_social'),
+            'occupation_area'   =>  GFunc::chkArray($this->formData,     'occupation_area'),
+            'insc_uf'           =>  GFunc::chkArray($this->formData,     'insc_uf'),
+            'web_url'           =>  GFunc::chkArray($this->formData,     'web_url'),
+            'status'            =>  GFunc::chkArray($this->formData,     'status'),
+            'email'             =>  GFunc::chkArray($this->formData,     'email'),
+            'obs'               =>  GFunc::chkArray($this->formData,     'obs'),
+            'created_at'        =>  date('Y-m-d H:i:s', time())
+        ]);
+
+        var_dump($result);die;
+
+        $this->db->update('Address', 'id_provider', $id, [
+            'address'       =>  GFunc::chkArray($this->formData, 'address'),
+            'district'      =>  GFunc::chkArray($this->formData, 'district'),
+            'city'          =>  GFunc::chkArray($this->formData, 'city'),
+            'uf'            =>  GFunc::chkArray($this->formData, 'uf'),
+            'cep'           =>  GFunc::chkArray($this->formData, 'cep'),
+            'nation'        =>  GFunc::chkArray($this->formData, 'nation'),
+        ]);
+
+        $this->db->update('Representatives', 'id_provider', $id,[
+            'name'          =>  GFunc::chkArray($this->formData,     'rp_name'),
+            'nickname'      =>  GFunc::chkArray($this->formData,     'rp_nickname'),
+            'email'         =>  GFunc::chkArray($this->formData,     'rp_email'),
+        ]);
+
+        $this->db->update('BankAccounts', 'id_representative', $id, [
+            'bank'              =>  GFunc::chkArray($this->formData,     'bank'),
+            'agency'            =>  GFunc::chkArray($this->formData,     'agency'),
+            'account'           =>  GFunc::chkArray($this->formData,     'account'),
+            'holder'            =>  GFunc::chkArray($this->formData,     'holder'),
+            'owner'             =>  'R',
+        ]);
+
+        $result = $this->db->update('Contacts', 'id_provider', $id.' && type = C && owner = P', [
+            'phone'             =>  GFunc::chkArray($this->formData, 'cel'),
+            'type'              =>  'C',
+            'owner'             =>  'P'
+        ]);
+
+
+        $this->db->insert('Contacts', [
+            'id_provider'    =>  $lastId,
+            'phone'     => GFunc::chkArray($this->formData, 'phone'),
+            'type'      => 'T',
+            'owner'     => 'P'
+        ]);
+
+        $this->db->insert('Contacts', [
+            'id_provider'    =>  $lastId,
+            'phone'          =>  GFunc::chkArray($this->formData, 'rp_cel'),
+            'type'           =>  'C',
+            'owner'          =>  'R'
+        ]);
+
+        $this->db->insert('Contacts', [
+            'id_provider'   =>   $lastId,
+            'phone'         =>   GFunc::chkArray($this->formData, 'rp_phone'),
+            'type'          =>  'T',
+            'owner'         =>  'R'
+        ]);
+
+        // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        if ($lastId > 0) {
+            // Deleta a variável.
+            unset($lastId);
+
+            # Feedback sucesso!
+            die(false);
+        } else {
+
+            // Deleta a variável.
+            unset($lastId);
+
+            # Feedback erro!
+            die(true);
+        }
+
+
+
             # Efetua o update do registro
-            $query_up = $this->db->update('providers', 'id', $registro_id, [
+            $query_up = $this->db->update('providers', 'id', $id, [
                 'provider_name'         =>  chkArray($this->form_data, 'provider_name'),
                 'provider_cpf_cnpj'     =>  chkArray($this->form_data, 'provider_cpf_cnpj'),
                 'provider_rs'           =>  chkArray($this->form_data, 'provider_rs'),
@@ -272,7 +345,7 @@ class Provider extends MainModel
                 echo 'err';
                 exit();
             }
-        }
+
     } #--> End updateRegister()
 
     /**
@@ -317,7 +390,7 @@ class Provider extends MainModel
      *   @Versão: 0.2
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
-    public function delRegister($encode_id)
+    public function delReg($encode_id)
     {
 
         # Recebe o ID do registro converte de string para inteiro.

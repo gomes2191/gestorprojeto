@@ -17,12 +17,8 @@ Evita acesso direto ao arquivo. --}}
         <link rel="shortcut icon" href="<?= Config::HOME_URI; ?>/public/favicon/favicon.ico" type="image/x-icon">
         <link rel="manifest" href="<?= Config::HOME_URI; ?>/public/favicon/site.webmanifest">
         <link rel="mask-icon" href="<?= Config::HOME_URI; ?>/public/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
-
         <!-- Titulo do site -->
         <title>{{ Config::NOME_SITE }} @yield('title')</title>
-
         <!-- My style -->
         <link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/css/app.css">
 
@@ -84,10 +80,8 @@ Evita acesso direto ao arquivo. --}}
 
         <main role="main" class="container-fluid"><!-- Start Main container principal -->
 
-
-
-          {{--   {{ AutoLoad::showTimeZone() }}
-            {{ AutoLoad::statusDebug() }} --}}
+            {{ AutoLoad::showTimeZone() }}
+            {{ AutoLoad::statusDebug() }}
 
             @yield('content')
 

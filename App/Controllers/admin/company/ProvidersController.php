@@ -80,9 +80,9 @@ class ProvidersController extends MainController
         //		}
 
         # Parametros da função
-        $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : [];
+        //$_parameters = (func_num_args() >= 1) ? func_get_args() : [];
 
-        var_dump($_parameters);
+        //var_dump($_parameters);
 
 
         #   Carrega os arquivos do view

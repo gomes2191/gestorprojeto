@@ -238,12 +238,12 @@ class SystemDB extends Config
      * @param array $values Um array com os novos valores
      * @return object|bool Retorna a consulta ou falso
      */
-    public function update($table, $where_field, $where_field_value, $values)
+    public function update($table, $where_single = false, $where_field = false, $where_field_value = false, $values)
     {
         // Você tem que enviar todos os parâmetros
-        if (empty($table) || empty($where_field) || empty($where_field_value)) {
+        /* if (empty($table) || empty($where_field) || empty($where_field_value)) {
             return;
-        }
+        } */
 
         // Começa a declaração
         $stmt = " UPDATE `$table` SET ";
@@ -252,7 +252,14 @@ class SystemDB extends Config
         $set = [];
 
         // Configura a declaração do WHERE campo=valor
-        $where = " WHERE `$where_field` = ? ";
+        if ($where_single) {
+            $where = " WHERE ";
+        }else{
+            $where = " WHERE `$where_field` = ? ";
+        }
+
+
+
 
         // Você precisa enviar um array com valores
         if (!is_array($values)) {
@@ -270,14 +277,20 @@ class SystemDB extends Config
         // Concatena a declaração
         $stmt .= $set . $where;
 
-        // Configura o valor do campo que vamos buscar
-        $values[] = $where_field_value;
+        if (!$where_single) {
+            // Configura o valor do campo que vamos buscar
+            $values[] = $where_field_value;
 
-        // Garante apenas números nas chaves do array
-        $values = array_values($values);
+            // Garante apenas números nas chaves do array
+            $values = array_values($values);
 
-        // Atualiza
-        $update = $this->query($stmt, $values);
+            // Atualiza
+            $update = $this->query($stmt, $values);
+
+        } else {
+            // Atualiza
+            $update = $this->query($stmt, $values);
+        }
 
         // Verifica se a consulta está OK
         if ($update) {

@@ -404,6 +404,7 @@
                 }
             );
             objFinanca.ajaxActionUser();
+            EventAction.resetForm();
         } else if (objAction.type === 'delete') {
             if (confirm('Deseja remover esse registro?')) {
                 objAction.userData = 'action_type=' + objAction.type + '&id=' + objAction.id;
