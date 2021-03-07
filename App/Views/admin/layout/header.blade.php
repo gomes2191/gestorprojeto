@@ -15,7 +15,7 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse justify-content-center order-2" id="collapsingNavbar">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item <?= (GFunc::isSite('p_gclinic')) ? 'active' : FALSE ?>">
                         <a class="nav-link" href="<?= Config::HOME_URI; ?>" title="Página inicial">
                             <i class="fal fa-home"></i> HOME
@@ -28,17 +28,17 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown <?= (GFunc::isSite('covenant', 'fees', 'providers', 'patrimony', 'stock', 'laboratory')) ? 'active' : false; ?>">
-                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class='fal fa-building '></i> EMPRESA
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='fal fa-building'></i> EMPRESA
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item <?= (GFunc::isSite('providers')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/providers">Fornecedores</a>
-                            <a class="dropdown-item <?= (GFunc::isSite('patrimony')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/patrimony">Patrimônio</a>
-                            <a class="dropdown-item <?= (GFunc::isSite('stock')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/stock">Controle de Estoque</a>
-                            <a class="dropdown-item <?= (GFunc::isSite('laboratory')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/laboratory">Laboratório</a>
-                            <a class="dropdown-item <?= (GFunc::isSite('covenant', 'fees')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/covenant">Convênios / Planos</a>
-                            <a class="dropdown-item" href="#">Tabela de Honorários</a>
-                        </div>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                            <li><a class="dropdown-item <?= (GFunc::isSite('providers')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/providers">Fornecedores</a></li>
+                            <li><a class="dropdown-item <?= (GFunc::isSite('patrimony')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/patrimony">Patrimônio</a></li>
+                            <li><a class="dropdown-item <?= (GFunc::isSite('stock')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/stock">Controle de Estoque</a></li>
+                            <li><a class="dropdown-item <?= (GFunc::isSite('laboratory')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/laboratory">Laboratório</a></li>
+                            <li><a class="dropdown-item <?= (GFunc::isSite('covenant', 'fees')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/covenant">Convênios / Planos</a></li>
+                            <li><a class="dropdown-item" href="#">Tabela de Honorários</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown <?= (GFunc::isSite('pay', 'receive', '', '', '', '')) ? 'active' : FALSE; ?>">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

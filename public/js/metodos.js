@@ -388,8 +388,7 @@ function Metodos() {
 
 
     //Rotina que verifica se a campos vazios
-    var arrayData;
-
+    //var arrayData;
     this.setVerify = function (arrayData) {
         this.arrayData = arrayData;
     };

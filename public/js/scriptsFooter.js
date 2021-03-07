@@ -239,18 +239,47 @@ $('.openBtn').click(function () {
 });
 
 // Mascara de campos
+
+// Mascara de CPF/CNPJ
+function formatarCampo(campoTexto) {
+  if (campoTexto.value.length <= 11) {
+    campoTexto.value = mascaraCpf(campoTexto.value);
+  } else {
+    campoTexto.value = mascaraCnpj(campoTexto.value);
+  }
+}
+
+function retirarFormatacao(campoTexto) {
+  campoTexto.value = campoTexto.value.replace(/(\.|\/|\-)/g, "");
+}
+
+function mascaraCpf(valor) {
+  return valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+}
+
+function mascaraCnpj(valor) {
+  return valor.replace(
+    /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,
+    "$1.$2.$3/$4-$5"
+  );
+}
+// End -->
+
+$('.cnpj').mask('00.000.000/0000-00', {
+  reverse: true
+});
+
 $(document).ready(function () {
   $('.cpf').mask('000.000.000-00', {
     reverse: true
   });
+
   $('.cep').mask('00000-000');
   $('.phone_cel').mask('(00) 00000-0000');
   $('.phone_tel').mask('(00) 0000-00000');
   $('.data').mask('00/00/0000');
   $('.hora').mask('00:00');
-  $('.cnpj').mask('00.000.000/0000-00', {
-    reverse: true
-  });
+
   $('.uf').mask('AA');
   $('.money').mask('000.000.000.000.000,00', {
     reverse: true
@@ -475,15 +504,15 @@ $(function () {
   }); */
 
   // Ação que oculta o formulário
- /*  $('#btn-hidden').click(function (e) {
-    e.preventDefault();
-    $('#group-btn-hidden').fadeOut('slow');
-    $('.form-hidden').fadeOut();
-    $('.notice-hidden').fadeOut();
-    $('.row-button-hidden').fadeOut();
-    $('#group-btn-show').fadeIn();
-    $('#btn-show').fadeIn();
-  }); */
+  /*  $('#btn-hidden').click(function (e) {
+     e.preventDefault();
+     $('#group-btn-hidden').fadeOut('slow');
+     $('.form-hidden').fadeOut();
+     $('.notice-hidden').fadeOut();
+     $('.row-button-hidden').fadeOut();
+     $('#group-btn-show').fadeIn();
+     $('#btn-show').fadeIn();
+   }); */
 
   // Dispara o evento mostrar formulário ao clica no botao
   /* $('#btn-show').click(function (e) {

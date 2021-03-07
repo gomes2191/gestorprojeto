@@ -204,11 +204,12 @@ class Provider extends MainModel
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
-    public function updateReg($id = NULL)
+    public function updateReg($id = false)
     {
+
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $result = (int) $this->db->update('Providers', "id = {$id}", false, false, [
+       $r = $this->db->update('Providers', false, 'id', $id, [
             'name'              =>  GFunc::chkArray($this->formData,     'name'),
             'cpf_cnpj'          =>  GFunc::chkArray($this->formData,     'cpf_cnpj'),
             'razao_social'      =>  GFunc::chkArray($this->formData,     'razao_social'),
@@ -221,9 +222,7 @@ class Provider extends MainModel
             'created_at'        =>  date('Y-m-d H:i:s', time())
         ]);
 
-        var_dump($result);die;
-
-        $this->db->update('Address', 'id_provider', $id, [
+        $this->db->update('Address', false, 'id_provider', $id, [
             'address'       =>  GFunc::chkArray($this->formData, 'address'),
             'district'      =>  GFunc::chkArray($this->formData, 'district'),
             'city'          =>  GFunc::chkArray($this->formData, 'city'),
@@ -232,13 +231,13 @@ class Provider extends MainModel
             'nation'        =>  GFunc::chkArray($this->formData, 'nation'),
         ]);
 
-        $this->db->update('Representatives', 'id_provider', $id,[
+        $this->db->update('Representatives', false, 'id_provider', $id,[
             'name'          =>  GFunc::chkArray($this->formData,     'rp_name'),
             'nickname'      =>  GFunc::chkArray($this->formData,     'rp_nickname'),
             'email'         =>  GFunc::chkArray($this->formData,     'rp_email'),
         ]);
 
-        $this->db->update('BankAccounts', 'id_representative', $id, [
+        $this->db->update('BankAccounts', false, 'id_representative', $id, [
             'bank'              =>  GFunc::chkArray($this->formData,     'bank'),
             'agency'            =>  GFunc::chkArray($this->formData,     'agency'),
             'account'           =>  GFunc::chkArray($this->formData,     'account'),
@@ -246,106 +245,45 @@ class Provider extends MainModel
             'owner'             =>  'R',
         ]);
 
-        $result = $this->db->update('Contacts', 'id_provider', $id.' && type = C && owner = P', [
+        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'C' && `owner` = 'P' ", false, false, [
             'phone'             =>  GFunc::chkArray($this->formData, 'cel'),
             'type'              =>  'C',
             'owner'             =>  'P'
         ]);
 
-
-        $this->db->insert('Contacts', [
-            'id_provider'    =>  $lastId,
+        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'T' && `owner` = 'P' ", false, false, [
             'phone'     => GFunc::chkArray($this->formData, 'phone'),
             'type'      => 'T',
             'owner'     => 'P'
         ]);
 
-        $this->db->insert('Contacts', [
-            'id_provider'    =>  $lastId,
+        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'C' && `owner` = 'R' ", false, false, [
             'phone'          =>  GFunc::chkArray($this->formData, 'rp_cel'),
             'type'           =>  'C',
             'owner'          =>  'R'
         ]);
 
-        $this->db->insert('Contacts', [
-            'id_provider'   =>   $lastId,
+        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'T' && `owner` = 'R' ", false, false, [
             'phone'         =>   GFunc::chkArray($this->formData, 'rp_phone'),
             'type'          =>  'T',
             'owner'         =>  'R'
         ]);
 
         // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
-        if ($lastId > 0) {
+        if ($r > 0) {
             // Deleta a variável.
-            unset($lastId);
+            unset($r);
 
             # Feedback sucesso!
             die(false);
         } else {
 
             // Deleta a variável.
-            unset($lastId);
+            unset($r);
 
             # Feedback erro!
             die(true);
         }
-
-
-
-            # Efetua o update do registro
-            $query_up = $this->db->update('providers', 'id', $id, [
-                'provider_name'         =>  chkArray($this->form_data, 'provider_name'),
-                'provider_cpf_cnpj'     =>  chkArray($this->form_data, 'provider_cpf_cnpj'),
-                'provider_rs'           =>  chkArray($this->form_data, 'provider_rs'),
-                'provider_at'           =>  chkArray($this->form_data, 'provider_at'),
-                'provider_end'          =>  chkArray($this->form_data, 'provider_end'),
-                'provider_district'     =>  chkArray($this->form_data, 'provider_district'),
-                'provider_city'         =>  chkArray($this->form_data, 'provider_city'),
-                'provider_uf'           =>  chkArray($this->form_data, 'provider_uf'),
-                'provider_cep'          =>  chkArray($this->form_data, 'provider_cep'),
-                'provider_nation'       =>  chkArray($this->form_data, 'provider_nation'),
-                'provider_cel'          =>  chkArray($this->form_data, 'provider_cel'),
-                'provider_tel_1'        =>  chkArray($this->form_data, 'provider_tel_1'),
-                'provider_tel_2'        =>  chkArray($this->form_data, 'provider_tel_2'),
-                'provider_insc_uf'      =>  chkArray($this->form_data, 'provider_insc_uf'),
-                'provider_web_url'      =>  chkArray($this->form_data, 'provider_web_url'),
-                'provider_sit'          =>  chkArray($this->form_data, 'provider_sit'),
-                'provider_email'        =>  chkArray($this->form_data, 'provider_email'),
-                'provider_rep_name'     =>  chkArray($this->form_data, 'provider_rep_name'),
-                'provider_rep_apelido'  =>  chkArray($this->form_data, 'provider_rep_apelido'),
-                'provider_rep_cel'      =>  chkArray($this->form_data, 'provider_rep_cel'),
-                'provider_rep_tel_1'    =>  chkArray($this->form_data, 'provider_rep_tel_1'),
-                'provider_rep_tel_2'    =>  chkArray($this->form_data, 'provider_rep_tel_2'),
-                'provider_rep_email'    =>  chkArray($this->form_data, 'provider_rep_email'),
-                'provider_banco_1'      =>  chkArray($this->form_data, 'provider_banco_1'),
-                'provider_agencia_1'    =>  chkArray($this->form_data, 'provider_agencia_1'),
-                'provider_conta_1'      =>  chkArray($this->form_data, 'provider_conta_1'),
-                'provider_titular_1'    =>  chkArray($this->form_data, 'provider_titular_1'),
-                'provider_banco_2'      =>  chkArray($this->form_data, 'provider_banco_2'),
-                'provider_agencia_2'    =>  chkArray($this->form_data, 'provider_agencia_2'),
-                'provider_conta_2'      =>  chkArray($this->form_data, 'provider_conta_2'),
-                'provider_titular_2'    =>  chkArray($this->form_data, 'provider_titular_2'),
-                'provider_obs'          =>  chkArray($this->form_data, 'provider_obs'),
-                'provider_modified'     =>  date('Y-m-d H:i:s', time())
-            ]);
-
-            # Verifica se a consulta foi realizada com sucesso
-            if ($query_up) {
-                # Destroy variáveis nao mais utilizadas.
-                unset($registro_id, $query_up);
-
-                # Retorna o valor e finaliza execução.
-                echo 'ok';
-                exit();
-            } else {
-                # Destroy variavel nao mais utilizadas.
-                unset($registro_id, $query_up);
-
-                # Retorna o valor e finaliza execução.
-                echo 'err';
-                exit();
-            }
-
     } #--> End updateRegister()
 
     /**

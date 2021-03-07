@@ -114,19 +114,17 @@ class SystemDB extends Config
     {
         // Prepara e executa
         $query = $this->_pdo->prepare($stmt);
+
         $check_exec = $query->execute($data_array);
 
         # Verifica se a consulta aconteceu
         if ($check_exec) {
-
             # Retorna a consulta
             return $query;
         } else {
-
             // Configura o erro
             $error = $query->errorInfo();
             $this->error = $error[2];
-
             // Retorna falso
             return false;
         }
@@ -162,7 +160,7 @@ class SystemDB extends Config
 
         // É preciso enviar pelo menos um array de chaves e valores
         if (!isset($data[1]) || !is_array($data[1])) {
-            return;
+            return false;
         }
 
         // Faz um laço nos argumentos
@@ -220,7 +218,7 @@ class SystemDB extends Config
         }
 
         // The end :)
-        return;
+        return false;
     }
 
     // insert
@@ -245,6 +243,8 @@ class SystemDB extends Config
             return;
         } */
 
+
+
         // Começa a declaração
         $stmt = " UPDATE `$table` SET ";
 
@@ -252,18 +252,15 @@ class SystemDB extends Config
         $set = [];
 
         // Configura a declaração do WHERE campo=valor
-        if ($where_single) {
-            $where = " WHERE ";
+        if ($where_single <> false) {
+            $where = " WHERE $where_single";
         }else{
-            $where = " WHERE `$where_field` = ? ";
+            $where = " WHERE `$where_field` = ?";
         }
-
-
-
 
         // Você precisa enviar um array com valores
         if (!is_array($values)) {
-            return;
+            return false;
         }
 
         // Configura as colunas a atualizar
@@ -277,7 +274,8 @@ class SystemDB extends Config
         // Concatena a declaração
         $stmt .= $set . $where;
 
-        if (!$where_single) {
+        if ($where_single == false) {
+
             // Configura o valor do campo que vamos buscar
             $values[] = $where_field_value;
 
@@ -286,8 +284,11 @@ class SystemDB extends Config
 
             // Atualiza
             $update = $this->query($stmt, $values);
-
         } else {
+
+            // Garante apenas números nas chaves do array
+            $values = array_values($values);
+
             // Atualiza
             $update = $this->query($stmt, $values);
         }
@@ -299,7 +300,7 @@ class SystemDB extends Config
         }
 
         // The end :)
-        return;
+        return false;
     } // update
 
     /**

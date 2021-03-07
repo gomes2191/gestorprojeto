@@ -26,95 +26,99 @@
 <div class="row">
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <form id="regForm" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
+
             <fieldset>
+
                 <legend>FORNECEDORES <span class="text-success"></span></legend>
-                <div class="row form-hidden" style="display: none;">
+
+                <div class="row form-hidden" style="display: none">
                     <!-- Start div hidden 1 -->
-                    <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO FORNECEDOR</small></div>
+                    <div class="col-md col-sm mb-2"><small class="text-muted">INFORMAÇÕES DO FORNECEDOR</small></div>
                 </div>
-                <div class="row form-hidden" style="display: none;">
+
+                <div class="row mb-3 form-hidden" style="display: none">
                     <!-- Start div hidden 1 -->
-                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="name">Empresa:</label>
                         <input type="hidden" id="id" name="id" value="">
-                        <input id="name" name="name" type="text" class="form-control form-control-sm text-center" placeholder="Nome da empresa" value="">
+                        <input id="name" name="name" type="text" class="form-control form-control-sm" placeholder="Nome da empresa" value="">
                         <div class="invalid-feedback">
                             Preencha esse campo.
                         </div>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="cpf_cnpj">CPF/CNPJ:</label>
-                        <input id="cpf_cnpj" name="cpf_cnpj" type="text" class="form-control form-control-sm text-center" placeholder="CPF/CNPJ">
+                        <input id="cpf_cnpj" name="cpf_cnpj" type="text" class="form-control form-control-sm" placeholder="CPF/CNPJ" onfocus="javascript: retirarFormatacao(this);" onblur="javascript: formatarCampo(this);" maxlength="14">
                         <div class="invalid-feedback">
                             Preencha esse campo.
                         </div>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="razao_social">Razão social:</label>
-                        <input id="razao_social" name="razao_social" class="form-control form-control-sm text-center" type="text" placeholder="Razão social" value="">
+                        <input id="razao_social" name="razao_social" class="form-control form-control-sm" type="text" placeholder="Razão social" value="">
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="occupation_area">Área de atuação:</label>
-                        <input id="occupation_area" name="occupation_area" class="form-control form-control-sm text-center" type="text" placeholder="Área de atuação" value="">
+                        <input id="occupation_area" name="occupation_area" class="form-control form-control-sm" type="text" placeholder="Área de atuação" value="">
                     </div>
-                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="address">Endereço:</label>
-                        <input id="address" name="address" type="text" class="form-control form-control-sm text-center" placeholder="Endereço">
+                        <input id="address" name="address" type="text" class="form-control form-control-sm" placeholder="Endereço">
                     </div>
                 </div><!-- /End div hidden 1 -->
 
-                <div class="row form-hidden" style="display: none;">
+                <div class="row form-hidden mb-3" style="display: none;">
                     <!--Start div hidden 2-->
-                    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="district">Bairro:</label>
-                        <input id="district" name="district" type="text" class="form-control form-control-sm text-center" placeholder="Bairro">
+                        <input id="district" name="district" type="text" class="form-control form-control-sm" placeholder="Bairro">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="city">Cidade:</label>
-                        <input id="city" name="city" type="text" class="form-control form-control-sm text-center" placeholder="Cidade">
+                        <input id="city" name="city" type="text" class="form-control form-control-sm" placeholder="Cidade">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="cep">CEP:</label>
-                        <input id="cep" name="cep" type="text" class="form-control form-control-sm text-center cep" placeholder="00000-000">
+                        <input id="cep" name="cep" type="text" class="form-control form-control-sm cep" placeholder="00000-000">
                     </div>
-                    <div class="form-group col-md-1 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="uf">UF:</label>
-                        <input id="uf" name="uf" type="text" class="form-control form-control-sm text-center uf" placeholder="UF">
+                        <input id="uf" name="uf" type="text" class="form-control form-control-sm uf" placeholder="UF">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="nation">Território:</label>
-                        <input id="nation" name="nation" type="text" class="form-control form-control-sm text-center" placeholder="País">
+                        <input id="nation" name="nation" type="text" class="form-control form-control-sm" placeholder="País">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="cel">Celular:</label>
-                        <input id="cel" name="cel" type="text" class="form-control form-control-sm phone_cel text-center" placeholder="(00) 00000-0000">
+                        <input id="cel" name="cel" type="text" class="form-control form-control-sm phone_cel" placeholder="(00) 00000-0000">
                     </div>
                 </div><!-- End div hidden 2 -->
 
-                <div class="row form-hidden" style="display: none;">
+                <div class="row mb-3 form-hidden" style="display: none;">
                     <!-- Start div hidden 3 -->
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="phone">Telefone 1:</label>
-                        <input id="phone" name="phone" type="text" class="form-control form-control-sm phone_tel text-center" placeholder="(00) 0000-00000">
+                        <input id="phone" name="phone" type="text" class="form-control form-control-sm phone_tel" placeholder="(00) 0000-00000">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="insc_uf">Inscrição Estadual:</label>
-                        <input id="insc_uf" name="insc_uf" type="text" class="form-control form-control-sm text-center" placeholder="Inscrição estadual...">
+                        <input id="insc_uf" name="insc_uf" type="text" class="form-control form-control-sm" placeholder="Inscrição estadual...">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="email">E-mail:</label>
-                        <input id="email" name="email" type="text" class="form-control form-control-sm text-center" placeholder="exemplo@email.com">
+                        <input id="email" name="email" type="text" class="form-control form-control-sm" placeholder="exemplo@email.com">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="web_url">Site:</label>
-                        <input id="web_url" name="web_url" type="text" class="form-control form-control-sm text-center" placeholder="www.exemplo.com">
+                        <input id="web_url" name="web_url" type="text" class="form-control form-control-sm" placeholder="www.exemplo.com">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="status">Situação:</label><br>
-                        <select id="status" name="status" class="custom-select custom-select-sm">
+                        <select id="status" name="status" class="form-select form-select-sm">
                             <option selected value="active">Ativo</option>
                             <option value="inactive">Inativo</option>
                         </select>
@@ -126,27 +130,27 @@
                     <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO REPRESENTANTE - PESSOA DE CONTATO</small></div>
                 </div><!-- End div hidden 4 -->
 
-                <div class="row form-hidden" style="display: none;">
+                <div class="row mb-3 form-hidden" style="display: none;">
                     <!--Start div hidden 5-->
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="rp_name">Nome:</label>
-                        <input id="rp_name" name="rp_name" type="text" class="form-control form-control-sm text-center" placeholder="Nome">
+                        <input id="rp_name" name="rp_name" type="text" class="form-control form-control-sm" placeholder="Nome">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="rp_nickname">Apelido:</label>
-                        <input id="rp_nickname" name="rp_nickname" type="text" class="form-control form-control-sm text-center" placeholder="Apelido">
+                        <input id="rp_nickname" name="rp_nickname" type="text" class="form-control form-control-sm" placeholder="Apelido">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="rp_email">E-mail:</label>
-                        <input id="rp_email" name="rp_email" type="text" class="form-control form-control-sm text-center" placeholder="email@exemplo.com">
+                        <input id="rp_email" name="rp_email" type="text" class="form-control form-control-sm" placeholder="email@exemplo.com">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="rp_cel">Celular:</label>
-                        <input id="rp_cel" name="rp_cel" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
+                        <input id="rp_cel" name="rp_cel" type="text" class="form-control form-control-sm phone_cel" placeholder="(00) 00000-0000">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="rp_phone">Telefone 1:</label>
-                        <input id="rp_phone" name="rp_phone" type="text" class="form-control form-control-sm text-center" placeholder="(00) 00000-0000">
+                        <input id="rp_phone" name="rp_phone" type="text" class="form-control form-control-sm phone_tel" placeholder="(00) 00000-0000">
                     </div>
                 </div><!-- /End div hidden 5 -->
 
@@ -155,27 +159,27 @@
                     <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES BANCÁRIAS</small></div>
                 </div> <!-- End div hidden 6 -->
 
-                <div class="row form-hidden" style="display: none;">
+                <div class="row mb-3 form-hidden" style="display: none;">
                     <!--Start div hidden 7-->
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="bank">Banco 1:</label>
-                        <input id="bank" name="bank" type="text" class="form-control form-control-sm text-center" placeholder="Banco">
+                        <input id="bank" name="bank" type="text" class="form-control form-control-sm" placeholder="Banco">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="agency">Agência 1:</label>
-                        <input id="agency" name="agency" type="text" class="form-control form-control-sm text-center" placeholder="Agência">
+                        <input id="agency" name="agency" type="text" class="form-control form-control-sm" placeholder="Agência">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="account">Conta 1:</label>
-                        <input id="account" name="account" type="text" class="form-control form-control-sm text-center" placeholder="Conta">
+                        <input id="account" name="account" type="text" class="form-control form-control-sm" placeholder="Conta">
                     </div>
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <label for="holder">Titular 1:</label>
-                        <input id="holder" name="holder" type="text" class="form-control form-control-sm text-center" placeholder="Titular">
+                        <input id="holder" name="holder" type="text" class="form-control form-control-sm" placeholder="Titular">
                     </div>
                 </div><!-- End div hidden 7 -->
 
-                <div class="row form-hidden" style="display: none;">
+                <div class="row mb-3 form-hidden" style="display: none;">
                     <!--Start div hidden 9-->
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
                         <label for="obs">Observações:</label>
@@ -183,9 +187,9 @@
                     </div>
                 </div><!-- End div hidden 9 -->
 
-                <div class="row row-button-hidden" style="display: none;">
+                <div class="row mb-2 row-button-hidden" style="display: none;">
                     <!-- Start div button hidden 1 -->
-                    <div class="form-group col-md-5 col-sm-12 col-xs-12">
+                    <div class="form-group col-md col-sm">
                         <div id="group-btn-save" class="btn-group">
                             <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
                         </div>
@@ -202,11 +206,11 @@
                     </div>
                 </div><!-- End div button hidden 1 -->
 
-                <div class="row">
-                    <div class="form-group col-md-5 col-sm-12 col-xs-12">
+                <div class="form-row mb-3">
+                    <div class="form-group col-md col-sm">
                         <div id="group-btn-new" class="btn-group">
                             <button id="btn-new-show" title="Insere novo registro" class="btn btn-primary btn-sm" type="reset" >
-                                <i class="fas fa-plus fa-lg" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
+                                <i class="fas fa-plus fa-lg"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                             </button>
                         </div>
                         <div id="group-btn-show" style="display: none;" class="btn-group">
@@ -286,8 +290,8 @@
                 <ul class="list-group list-group-flush list-modal-forn">
                     <li class="list-group-item list-group-item-text"><b>EMPRESA:</b>&nbsp;<span class="name"></span></li>
                     <li class="list-group-item list-group-item-primary list-group-item-text"><b>CPF / CNPJ:</b>&nbsp;<span class="cpf_cnpj">----</span></li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Razão social:</b>&nbsp;<span class="provider_rs">----</span> </li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Área de atuação:</b>&nbsp;<span class="provider_at"></span></li>
+                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Razão social:</b>&nbsp;<span class="razao_social">----</span> </li>
+                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Área de atuação:</b>&nbsp;<span class="occupation_area"></span></li>
                     <li class="list-group-item list-group-item-danger list-group-item-text"><b>Endereço:</b>&nbsp;<span class="provider_end">----</span></li>
                     <li class="list-group-item list-group-item-warning list-group-item-text"><b>Bairro:</b>&nbsp;<span class="provider_district">----</span></li>
                     <li class="list-group-item list-group-item-info list-group-item-text"><b>Cidade:</b>&nbsp;<span class="provider_city">----</span></li>

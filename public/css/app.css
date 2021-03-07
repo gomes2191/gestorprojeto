@@ -15,28 +15,28 @@ body {
   height: 90px !important;
 }
 
-.bg-gclinic .navbar-nav li{
+.bg-gclinic .navbar-nav > li{
   transition: background-color 0.3s;
 }
 
-.bg-gclinic .navbar-nav li:hover{
+.bg-gclinic .navbar-nav > li:hover{
   background-color: #4da3ff !important;
   border-radius: 3px !important;
   transition: background-color 0.3s;
 }
 
-.bg-gclinic .navbar-nav li.active{
+.bg-gclinic .navbar-nav > li.active{
   background-color: #007bff !important;
   border-radius: 3px !important;
 }
 
 /* Estiliza todos os itens do menu topo menos o último */
-.bg-gclinic .navbar-nav li:not(:last-child) {
+.bg-gclinic .navbar-nav > li:not(:last-child) {
   margin-right: 5px !important;
   /* background-color: #00c176 !important; */
 }
 
-.bg-gclinic .navbar-nav li > a{
+.bg-gclinic .navbar-nav > li > a{
   color:rgb(255, 255, 255) !important;
   font-weight: bold !important;
 }

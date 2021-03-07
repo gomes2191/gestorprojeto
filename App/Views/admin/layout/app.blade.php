@@ -35,10 +35,11 @@ Evita acesso direto ao arquivo. --}}
             ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="<?= Config::HOME_URI; ?>/public/lib/_js/jquery.min.js"></script>
-        <script src="<?= Config::HOME_URI; ?>/public/lib/_js/popper/popper.min.js"></script>
+        {{-- <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.bundle.min.js"></script> --}}
+       {{--  <script src="<?= Config::HOME_URI; ?>/public/lib/_js/popper/popper.min.js"></script> --}}
         <!--Necessário para que funcione os dropdowns-->
         <!--<script src="<?= Config::HOME_URI; ?>/public/lib/_js/tether.min.js"></script>-->
-        <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.min.js"></script>
+        {{-- <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.min.js"></script> --}}
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <script src="<?= Config::HOME_URI; ?>/public/lib/_js/jquery.mask.min.js"></script>
@@ -89,8 +90,12 @@ Evita acesso direto ao arquivo. --}}
 
         @include('admin.layout.footer')
 
+        <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.bundle.min.js"></script>
+
         <!-- ===== Javascript customizado ===== -->
         <script src="<?= Config::HOME_URI; ?>/public/js/scriptsFooter.js"></script>
+
+
 
         <?php
             if (isset($modelo->pag_type) && $modelo->pag_type == 'calendar') {

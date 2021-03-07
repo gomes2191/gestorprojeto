@@ -40,14 +40,14 @@ class AutoLoad
     public static function showTimeZone()
     {
         if (Config::TIME_ZONE['show']) {
-            echo "<h6><span class='badge badge-pill badge-primary'>FUSO HORÁRIO: " . date_default_timezone_get() . "</span></h6>";
+            echo "<h6><span class='badge bg-primary'>FUSO HORÁRIO: " . date_default_timezone_get() . "</span></h6>";
         }
     }
 
     public static function statusDebug()
     {
         if (Config::DEBUG['display']) {
-            echo "<h6><span class='badge badge-pill badge-primary'>MODO DEBUG: ativo </span></h6>";
+            echo "<h6><span class='badge bg-primary'>MODO DEBUG: ativo </span></h6>";
         }
     }
 
