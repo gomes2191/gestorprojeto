@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 function Financeiro() {
     var nome;
@@ -156,6 +152,7 @@ function Financeiro() {
         }
 
     };
+
     /*
      * @author: Francisco Aparecido
      * @version: 1.0
@@ -312,7 +309,7 @@ function Financeiro() {
                     //alert(msg);
                     objFinanca.ajaxData();
                     if (msg == false) {
-                        $.toaster({
+                       /*  $.toaster({
                             title: {
                                 text: 'Sucesso!',
                                 icon: 'fas fa-check-circle',
@@ -322,7 +319,7 @@ function Financeiro() {
                             content: feedback,
                             delay: 4000,
                             position: 'top right'
-                        });
+                        }); */
 
 
                         /*toastr.success(feedback, 'Sucesso!', {
@@ -330,14 +327,22 @@ function Financeiro() {
                             timeOut: 5000,
                             "progressBar": true
                         });*/
+                        if(objFinanca.objAction.type === 'delete'){
+                            Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'remoção realizada com sucesso!', cor: 'text-success'});
+                        }else if(objFinanca.objAction.type === 'add'){
+                            Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'registro inserido com sucesso!', cor: 'text-success'});
+                        }else if(objFinanca.objAction.type === 'update'){
+                            Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'alteração realizada com sucesso!', cor: 'text-success'});
+                        }
 
 
                         $('.form-register')[0].reset();
+                        return true;
                     } else {
                         /*toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
                             timeOut: 5000
                         });*/
-                        $.toaster({
+                        /* $.toaster({
                             title: {
                                 text: 'Erro!',
                                 icon: 'far fa-exclamation-triangle',
@@ -347,7 +352,9 @@ function Financeiro() {
                             content: 'Ocorreu algum problema, tente novamente',
                             delay: 4000,
                             position: 'top right'
-                        });
+                        }); */
+
+                        return false;
                     }
                 }
             });
@@ -496,6 +503,84 @@ function Metodos() {
 //        j = (j = i.length) > 3 ? j % 3 : 0;
 //    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 //};
+
+
+class Modal {
+    // Show toast function
+    static showToast = (parameter = {
+        ico: ['fa', 'fa-check-circle'],
+        title: 'Sucesso',
+        txtmsg: 'remoção realizada com sucesso!',
+        cor: 'text-danger'
+    }) => {
+
+        // Declare variable that will store toast instance
+        let toastInstance;
+
+        // Create empty <div> element
+        let div1 = document.createElement('div');
+        let div2 = document.createElement('div');
+        let div3 = document.createElement('div');
+        let div4 = document.createElement('div');
+        let div5 = document.createElement('div');
+        let i1 = document.createElement('i');
+        let span1 = document.createElement('span');
+        let bt1 = document.createElement('button');
+
+        // Add "toast" and "animate" classes to recently created <div>
+        //toast.classList.add("toast", "animate");
+        div1.classList.add('bg-primary', 'position-relative');
+        div2.classList.add('toast-container');
+        div3.classList.add('toast', 'align-items-center', 'border-0');
+        div4.classList.add('d-flex');
+        div5.classList.add('toast-body', `${parameter.cor}`);
+        i1.classList.add(`${parameter.ico[0]}`, `${parameter.ico[1]}`, 'fa-lg', 'p-2');
+        bt1.classList.add('btn-close', 'me-2', 'm-auto');
+
+
+        // create a helper function
+        function setAttributes(el, attrs) {
+            for (var key in attrs) {
+                el.setAttribute(key, attrs[key]);
+            }
+        }
+
+        setAttributes(div1, {
+            "aria-live": "polite",
+            "aria-atomic": "true"
+        });
+        setAttributes(div3, {
+            "role": "alert",
+            "aria-live": "assertive",
+            "aria-atomic": "true"
+        });
+        setAttributes(bt1, {
+            "data-bs-dismiss": "toast",
+            "aria-label": "Close"
+        });
+
+        div1.appendChild(div2);
+        div2.appendChild(div3);
+        div3.appendChild(div4);
+        div4.appendChild(div5);
+        div5.appendChild(i1);
+        div5.appendChild(span1);
+        span1.innerHTML = `<b>${parameter.title}</b>, ${parameter.txtmsg}`;
+        div4.appendChild(bt1);
+
+        // Insert the toast element as a first child of .toast-canvas and make sure,
+        // that every new toast element will be inserted BEFORE the last one
+        document.body.prepend(div1);
+
+        // Create Bootstrap Toast instance with some options
+        toastInstance = new bootstrap.Toast(div3, {
+            delay: 5000
+        });
+
+        // Use show() method to display a toast
+        toastInstance.show();
+    };
+}
 
 
 class EventAction {

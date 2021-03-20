@@ -210,7 +210,7 @@
                     <div class="form-group col-md col-sm">
                         <div id="group-btn-new" class="btn-group">
                             <button id="btn-new-show" title="Insere novo registro" class="btn btn-primary btn-sm" type="reset" >
-                                <i class="fas fa-plus fa-lg"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
+                                <i class="fas fa-plus"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                             </button>
                         </div>
                         <div id="group-btn-show" style="display: none;" class="btn-group">
@@ -232,31 +232,27 @@
 </div><!-- End row button new form -->
 
 <div id="filtros" class="row">
-    <div class="form-group col-md-4 col-sm-10 col-xs-12">
-
+    <div class="form-group  mb-3 col-md-4 col-sm-10 col-xs-12">
         <div class="input-group">
             <input type="text" class="form-control inputSearch" id="keywords" placeholder="Buscar por: Nome ou Área de atuação..." onkeyup="objFinanca.ajaxFilter();">
-            <div class="input-group-append">
-                <span class="input-group-text spanSearch">
-                    <i class="fab fa-searchengin fa-lg"></i>
-                </span>
-            </div>
+            <span class="input-group-text btn-primary">
+                <i class="fab fa-searchengin fa-lg"></i>
+            </span>
         </div><!-- /End search engine-->
-
     </div><!-- /End col search engine -->
 
     <div class="col-md-5 col-sm-0 col-xs-0"></div>
     <!--End/-->
 
-    <div class="form-group col-md-1  col-sm-3 col-xs-12">
+    <div class="form-group mb-3 col-md-1  col-sm-3 col-xs-12">
         <div class="input-group">
-            <input type="text" class="text-center form-control" id="qtdLine" placeholder="5" onkeyup="objFinanca.ajaxFilter();" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página de 1 até 50.">
+            <input type="text" class="text-center form-control" id="qtdLine" placeholder="5" onkeyup="objFinanca.ajaxFilter();" data-bs-toggle="tooltip" data-bs-placement="top" title="Quantidade de registro por página de 1 até 50.">
         </div>
     </div>
     <!--/End col-->
 
-    <div class="form-group col-md-2  col-sm-3 col-xs-12">
-        <select id="sortBy" class="custom-select" onchange="objFinanca.ajaxFilter();">
+    <div class="form-group mb-3 col-md-2  col-sm-3 col-xs-12">
+        <select id="sortBy" class="form-select" onchange="objFinanca.ajaxFilter();">
             <option value="">Ordenar Por</option>
             <option value="asc">Ascendente</option>
             <option value="desc">Descendente</option>
@@ -283,60 +279,63 @@
         <div class="modal-content">
             <!--Conteudo do modal-->
             <div class="modal-header">
-                <h4 class="modal-title"><i class="fa fa-info-circle" aria-hidden="true"></i> INFORMAÇÕES</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="fa fa-info-circle text-primary" aria-hidden="true"></i> INFORMAÇÕES</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <ul class="list-group list-group-flush list-modal-forn">
-                    <li class="list-group-item list-group-item-text"><b>EMPRESA:</b>&nbsp;<span class="name"></span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>CPF / CNPJ:</b>&nbsp;<span class="cpf_cnpj">----</span></li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Razão social:</b>&nbsp;<span class="razao_social">----</span> </li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Área de atuação:</b>&nbsp;<span class="occupation_area"></span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Endereço:</b>&nbsp;<span class="provider_end">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Bairro:</b>&nbsp;<span class="provider_district">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Cidade:</b>&nbsp;<span class="provider_city">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>UF:</b>&nbsp;<span class="provider_uf">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>CEP:</b>&nbsp;<span class="provider_cep"></span></li>
-                    <li class="list-group-item list-group-item-text"><b>País:</b>&nbsp;<span class="provider_nation">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Celular:</b>&nbsp;<span class="provider_cel">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Telefone 1:</b>&nbsp;<span class="provider_tel_1"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Telefone 2:</b>&nbsp;<span class="provider_tel_2">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Inscrição Estadual:</b>&nbsp;<span class="provider_insc_uf">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Site url:</b>&nbsp;<span class="provider_web_url">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Situação:</b>&nbsp;<span class="status">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>E-mail:</b>&nbsp;<span class="provider_email">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Nome do representante:</b>&nbsp;<span class="provider_rep_name">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Apelido representante:</b>&nbsp;<span class="provider_rep_apelido"></span></li>
-                    <li class="list-group-item list-group-item-text"><b>Representante celular:</b>&nbsp;<span class="provider_rep_cel">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Representante telefone 1:</b>&nbsp;<span class="provider_rep_tel_1">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Representante telefone 2:</b>&nbsp;<span class="provider_rep_tel_2"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Representante E-mail:</b>&nbsp;<span class="provider_rep_email">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Banco 1:</b>&nbsp;<span class="provider_banco_1">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Agência 1:</b>&nbsp;<span class="provider_agencia_1">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Conta 1:</b>&nbsp;<span class="provider_conta_1">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Titular 1:</b>&nbsp;<span class="provider_titular_1">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Banco 2:</b>&nbsp;<span class="provider_banco_2"></span></li>
-                    <li class="list-group-item list-group-item-text"><b>Agência 2:</b>&nbsp;<span class="provider_agencia_2">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Conta 2:</b>&nbsp;<span class="provider_conta_2">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Titular 2:</b>&nbsp;<span class="provider_titular_2"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Criado em:</b>&nbsp;<span class="created_at">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="modified_at">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Observações:</b>&nbsp;<span class="provider_obs">----</span></li>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Empresa:</b>&nbsp;<span class="name"></span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>CPF / CNPJ:</b>&nbsp;<span class="cpf_cnpj">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Razão social:</b>&nbsp;<span class="razao_social">----</span> </li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Área de atuação:</b>&nbsp;<span class="occupation_area"></span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Endereço:</b>&nbsp;<span class="provider_end">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Bairro:</b>&nbsp;<span class="provider_district">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Cidade:</b>&nbsp;<span class="provider_city">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>UF:</b>&nbsp;<span class="provider_uf">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>CEP:</b>&nbsp;<span class="provider_cep"></span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>País:</b>&nbsp;<span class="provider_nation">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Celular:</b>&nbsp;<span class="provider_cel">----</span> </li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Telefone 1:</b>&nbsp;<span class="provider_tel_1"></span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Telefone 2:</b>&nbsp;<span class="provider_tel_2">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Inscrição Estadual:</b>&nbsp;<span class="provider_insc_uf">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Site url:</b>&nbsp;<span class="provider_web_url">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Situação:</b>&nbsp;<span class="status">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>E-mail:</b>&nbsp;<span class="provider_email">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Nome do representante:</b>&nbsp;<span class="provider_rep_name">----</span></li>
+                    <li class="list-group-item list-group-item-primary"><b>Apelido representante:</b>&nbsp;<span class="provider_rep_apelido"></span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Representante celular:</b>&nbsp;<span class="provider_rep_cel">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Representante telefone 1:</b>&nbsp;<span class="provider_rep_tel_1">----</span> </li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Representante telefone 2:</b>&nbsp;<span class="provider_rep_tel_2"></span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Representante E-mail:</b>&nbsp;<span class="provider_rep_email">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Banco 1:</b>&nbsp;<span class="provider_banco_1">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Agência 1:</b>&nbsp;<span class="provider_agencia_1">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Conta 1:</b>&nbsp;<span class="provider_conta_1">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Titular 1:</b>&nbsp;<span class="provider_titular_1">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Banco 2:</b>&nbsp;<span class="provider_banco_2"></span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Agência 2:</b>&nbsp;<span class="provider_agencia_2">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Conta 2:</b>&nbsp;<span class="provider_conta_2">----</span> </li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Titular 2:</b>&nbsp;<span class="provider_titular_2"></span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Criado em:</b>&nbsp;<span class="created_at">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-primary"><b>Modificado em:</b>&nbsp;<span class="modified_at">----</span></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><b>Observações:</b>&nbsp;<span class="provider_obs">----</span></li>
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar X</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar X</button>
             </div>
         </div>
     </div>
 </div><!-- End modal visualizar -->
 
 <script>
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
     //Instância os objetos das classses
-    var objMetodos = new Metodos();
-
-    var objFinanca = new Financeiro();
-
+    objMetodos = new Metodos();
+    objFinanca = new Financeiro();
     objEvent = new EventAction();
 
     // Efetua a requisição ajax e retorna os registros
@@ -412,7 +411,6 @@
         } else if (objAction.type === 'delete') {
             if (confirm('Deseja remover esse registro?')) {
                 objAction.userData = 'action_type=' + objAction.type + '&id=' + objAction.id;
-                feedback = 'Remoção realizada com sucesso!';
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,
@@ -429,6 +427,7 @@
 
     //mycar = new EventAction("Ford");
     //console.log(mycar.val);
+
 
     window.onload = function () {
         // Chama o modo novo registro.

@@ -1,5 +1,4 @@
-
-// Agenda paginador de eventos 
+// Agenda paginador de eventos
 $(function () {
     var paginador;
     var totalPaginas;
@@ -211,7 +210,7 @@ $(function () {
         //console.log( formatReal( 1111 ) );
         //console.log( formatReal( 120090 ) );
         //console.log( formatReal( int ) );
-        
+
     });
 
 //Limpa os dados do modal boostrap apos fechalo
@@ -275,3 +274,4 @@ $(document).on('click', function (e) {
         $(".btn-select").removeClass("active").find("ul").hide();
     }
 });
+//End

@@ -140,7 +140,7 @@ HTML;
         echo '<td>' . (($reg['status']) ? $reg['status'] : '---') . '</td>';
         echo "<td><button class='btn btn-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
         echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
-        echo "<td><a href='javaScript:void(0);' class='btn btn-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'" . GFunc::encodeDecode($reg['id']) . "'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
+        echo "<td><a href='javaScript:void(0);' class='btn btn-primary btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'" . GFunc::encodeDecode($reg['id']) . "'})} data-bs-toggle='modal' data-bs-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
         echo '</tr>';
     endforeach;
     echo <<<HTML

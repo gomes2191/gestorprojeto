@@ -37,6 +37,7 @@ Evita acesso direto ao arquivo. --}}
         <script src="<?= Config::HOME_URI; ?>/public/lib/_js/jquery.min.js"></script>
         {{-- <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.bundle.min.js"></script> --}}
        {{--  <script src="<?= Config::HOME_URI; ?>/public/lib/_js/popper/popper.min.js"></script> --}}
+       <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.bundle.min.js"></script>
         <!--Necessário para que funcione os dropdowns-->
         <!--<script src="<?= Config::HOME_URI; ?>/public/lib/_js/tether.min.js"></script>-->
         {{-- <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.min.js"></script> --}}
@@ -79,7 +80,7 @@ Evita acesso direto ao arquivo. --}}
 
         @include('admin.layout.header')
 
-        <main role="main" class="container-fluid"><!-- Start Main container principal -->
+        <main id="principal" role="main" class="container-fluid"><!-- Start Main container principal -->
 
             {{ AutoLoad::showTimeZone() }}
             {{ AutoLoad::statusDebug() }}
@@ -90,7 +91,7 @@ Evita acesso direto ao arquivo. --}}
 
         @include('admin.layout.footer')
 
-        <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.bundle.min.js"></script>
+     {{--    <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.bundle.min.js"></script> --}}
 
         <!-- ===== Javascript customizado ===== -->
         <script src="<?= Config::HOME_URI; ?>/public/js/scriptsFooter.js"></script>

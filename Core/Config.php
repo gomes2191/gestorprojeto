@@ -115,7 +115,7 @@ class Config
      *
      * @var array
      */
-    const TIME_ZONE = ['set' => 'America/Sao_Paulo', 'show' => true];
+    const TIME_ZONE = ['set' => 'America/Sao_Paulo', 'show' => false];
 
     /**
      * Mostra o TIME_ZONE atual, ex.: true liga, false desliga.
@@ -130,7 +130,7 @@ class Config
      *
      * @var boolean
      */
-    const DEBUG = ['display' => true];
+    const DEBUG = ['display' => false];
 
     /*
     * Método construtor
