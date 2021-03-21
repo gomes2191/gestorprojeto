@@ -8,7 +8,7 @@
  *  @Pacote: OdontoControl
  *  @Versão: 0.2
  */
-class PatrimonyModel extends MainModel
+class Patrimony extends MainModel
 {
     /**
      * $form_data

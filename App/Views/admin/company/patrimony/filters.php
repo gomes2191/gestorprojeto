@@ -1,19 +1,27 @@
 <?php
 
-if (defined('Config::HOME_URI') && (!filter_has_var(INPUT_POST, 'get_decode'))) {
-    Swoole\Http\Request::__destruct;
+
+if (defined('Config::ABS_PATH') && (!filter_has_var(INPUT_POST, 'get_decode'))) {
+    exit();
 }
 
 # Parâmetros de páginação
-$tblName = 'patrimony';
+//$tblName = 'Providers p';
+
+//$tblJoinName = ['Address', 'BankAccounts'];
+
+//$conditions['innerJoin'] = ['Address.id_provider' => 'p.id', 'BankAccounts.id_representative' => 'p.id'];
+
+// Recebe os parâmetros do tipo de banco.
+$offset = Config::DB_DRIVER['offset'];
 
 # Recebe o valor da quantidade de registro por páginas.
 $qtdLine = filter_input(INPUT_POST, 'qtdLine', FILTER_VALIDATE_INT);
 
 /*
-     * Rotina que verifica se o valor da quantidade
-     * de pagina e = ou menor 0 ou superior a 50.
-     */
+* Rotina que verifica se o valor da quantidade
+* de pagina e = ou menor que 0 ou superior a 50.
+*/
 if (($qtdLine <= 0) or ($qtdLine > 50)) {
     $limit = 5;
 } else {

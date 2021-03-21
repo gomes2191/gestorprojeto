@@ -1,5 +1,7 @@
 <?php
 
+use Core\View;
+
 /**
  * StockController - Controller de exemplo
  *
@@ -35,9 +37,16 @@ class PatrimonyController extends MainController
     public function index()
     {
 
+        /******
+         * Verifica se o diretório do arquivo foi definido.
+         * Evita o acesso direto ao arquivo.
+         *******/
+        if (!Config::ABS_PATH) {
+            echo 'Erro: O diretório da aplicação não foi definido.';
+        }
 
         // Page title
-        $this->title = ' Patrimônio';
+        // /$this->title = ' Patrimônio';
 
         // Verifica se o usuário está logado
         //		if ( ! $this->logged_in ) {
@@ -62,26 +71,40 @@ class PatrimonyController extends MainController
         //			return;
         //		}
         # Parametros da função
-        $_parameters = (func_num_args() >= 1) ? func_get_arg(0) : [];
+        // /$_parameters = (func_num_args() >= 1) ? func_get_arg(0) : [];
 
         # Carrega o modelo para este view
-        $modelo = $this->load_model('company/patrimony-model');
+        //$modelo = $this->load_model('company/patrimony-model');
 
         //print_r($modelo);
 
         #   Carrega os arquivos do view
         #-->   /views/_includes/header.php
-        require_once(Config::HOME_URI . '/App/Views/_includes/header.php');
+        //require_once(Config::HOME_URI . '/App/Views/_includes/header.php');
 
         #--> /views/_includes/menu.php
-        require_once(Config::HOME_URI . '/App/Views/_includes/menu.php');
+        //require_once(Config::HOME_URI . '/App/Views/_includes/menu.php');
 
         #--> /views/user-register/index.php
-        require_once(Config::HOME_URI . '/App/Views/company/patrimony/patrimony-view.php');
+        //require_once(Config::HOME_URI . '/App/Views/company/patrimony/patrimony-view.php');
 
         #--> /views/_includes/footer.php
-        require_once(Config::HOME_URI . '/App/Views/_includes/footer.php');
+        //require_once(Config::HOME_URI . '/App/Views/_includes/footer.php');
+
+        View::renderTemplate(
+            '/admin/company/patrimony/patrimony',
+            [
+                'modelo' => $this->loadModel('admin/company/Patrimony'),
+                'objControl' => new PatrimonyController(),
+                'pageType' => 1,
+                'title' => $this->title
+            ]
+        );
+
+        #--> /views/_includes/footer.php
+        //include_once Config::ABS_PATH . '/App/Views/_includes/footer.php';
     }   #--> End index
+
 
     # URL: dominio.com/exemplo/exemplo
     public function Cad()

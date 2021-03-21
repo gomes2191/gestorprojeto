@@ -1,29 +1,9 @@
-<?php if (!defined('Config::HOME_URI')) {
-    exit();
-}
+@extends('admin.layout.app')
 
-# Define o limite padrão de registro por página
-$limit = 5;
+@section('title',' Patrimônio')
 
-# Realiza uma consulta na base de dados e retorna todos os registro caso exista
-$patrimonys = $modelo->searchTable('patrimony', ['order_by' => 'patrimony_id DESC ', 'limit' => $limit]);
+@section('content')
 
-# Monta os _parameters necessarios para a páginação
-$pagConfig = [
-    'totalRows' => (is_array($patrimonys) ? COUNT($patrimonys) : 0),
-    'perPage' => $limit,
-    'link_func' => 'searchFilter'
-];
-
-# Cria o objeto da classe páginação
-$pagination = new Pagination($pagConfig);
-
-date_default_timezone_set('America/Sao_Paulo');
-$date = (date('Y-m-d H:i'));
-date('Y-m-d H:i:s', time());
-
-unset($patrimonys, $limit, $date, $pagination);
-?>
 <div class="row">
     <!--Start row loading  -->
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
@@ -293,16 +273,17 @@ unset($patrimonys, $limit, $date, $pagination);
 
 <script>
     // Instância os objetos das classses
-    var objMetodos = new Metodos();
-    var objFinanca = new Financeiro();
+    objMetodos = new Metodos();
+    objFinanca = new Financeiro();
+    objEvent = new EventAction();
 
     // Efetua a requisição ajax e retorna os registros
     objFinanca.setAjaxData(objSet = {
-        url: '<?= HOME_URI; ?>/patrimony/filters',
+        url: '<?= Config::HOME_URI; ?>/patrimony/filters',
         url_id: '/patrimony/',
-        get_decode: false,
-        sinc: true
+        get_decode: false
     });
+
     objFinanca.ajaxData();
     objFinanca.getAjaxData();
 
@@ -379,3 +360,4 @@ unset($patrimonys, $limit, $date, $pagination);
         }
     }
 </script>
+@endsection
