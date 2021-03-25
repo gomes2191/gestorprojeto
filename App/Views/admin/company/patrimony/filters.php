@@ -78,10 +78,17 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             break;
     }
 } else {
-    $conditions['order_by'] = "patrimony_id DESC LIMIT 100";
+   /*  $conditions['order_by'] = "patrimony_id DESC LIMIT 100";
     $count = (is_array($modelo->searchTable($tblName, $conditions)) ? count($modelo->searchTable($tblName, $conditions)) : 0);
     $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
-    $allReg = $modelo->searchTable($tblName, $conditions);
+    $allReg = $modelo->searchTable($tblName, $conditions); */
+
+    $count = (is_array($count = $modelo->listar('Patrimony P', '*'))) ? COUNT($count) : 0;
+    $allReg = $modelo->listar(
+        'Patrimony PA',
+        'PA.id, PA.`code`, PA.`description`,  PA.`sector`, PA.`value`',
+        "GROUP BY PA.id ORDER BY PA.id DESC LIMIT {$start}{$offset}{$limit}"
+    );
 }
 
 $pagConfig = [
@@ -123,9 +130,9 @@ HTML;
         //echo '<td>'.(($reg['patrimony_modified']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_modified']) : '---') .'</td>';
         //$status = ($reg['payments_date_pay']) ? '<span class="label label-success">Pago</span>' : '<span class="label label-danger">Em débito</span>';
         //echo '<td>' . $status . '</td>';
-        echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'{$modelo->encodeDecode($reg['patrimony_id'])}'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
-        echo "<td><a href='#deleteModal' data-toggle='modal' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'{$modelo->encodeDecode($reg['patrimony_id'])}'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
-        echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'{$modelo->encodeDecode($reg['patrimony_id'])}'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
+        echo "<td><button class='btn btn-outline-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
+        echo "<td><a href='#deleteModal' data-toggle='modal' id='btn-dell' class='btn btn-outline-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
+        echo "<td><a href='javaScript:void(0);' class='btn btn-outline-info btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'" . GFunc::encodeDecode($reg['id']) . "'})} data-toggle='modal' data-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
         echo '</tr>';
     endforeach;
     echo <<<HTML

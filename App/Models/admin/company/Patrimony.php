@@ -45,7 +45,7 @@ class Patrimony extends MainModel
      * @since 0.1
      * @access public
      */
-    public function __construct($db = FALSE)
+    public function __construct($db = null)
     {
         $this->db = $db;
     }
@@ -58,58 +58,58 @@ class Patrimony extends MainModel
      *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
      *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
      **/
-    public function validate_register_form()
+    public function formValidation()
     {
-        # Cria o vetor que vai receber os dados do post
-        $this->form_data = [];
+        try {
+            # Verifica se não é vazio o $_POST
+            if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
 
-        # Verifica se não é vazio o $_POST
-        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
+                // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
+                foreach (filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS) as $key => $value) {
+                    # Configura os dados do post para a propriedade $form_data
+                    $this->formData[$key] = $value;
+                } //--> End foreach
 
-            # Faz o loop dos dados do formulário inserindo os no vetor $form_data.
-            foreach (filter_input_array(INPUT_POST, FILTER_DEFAULT) as $key => $value) {
-                # Configura os dados do post para a propriedade $form_data
-                $this->form_data[$key] = $value;
-            } # End foreach
+                // Verifica se existe o ID e decodifica se o mesmo existir.
+                !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(false, $this->formData['id']) : false;
 
-            # Verifica se existe o ID e decodifica se o mesmo existir.
-            (!empty($this->form_data['patrimony_id']))
-                ? $this->form_data['patrimony_id'] = $this->encodeDecode(0, $this->form_data['patrimony_id']) : '';
-        } else {
-            # Finaliza a execução.
-            return 'err';
-        } #--> End
+            } else {
+                // Finaliza a execução e retorna o erro.
+                throw new Exception("Requisição post não declarada ou campos vázios.");
+            } #--> End
 
-        # Verifica se o registro já existe.
-        $db_check_ag = $this->db->query(' SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = ? ', [
-            chkArray($this->form_data, 'patrimony_id')
-        ]);
+        } catch (Exception $e) {
 
-        # Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
-        if (($db_check_ag->fetchColumn()) >= 1) {
-            $this->updateRegister($this->form_data['patrimony_id']);
+            echo 'Erro: ' . $e->getMessage();
+        }
+
+        //var_dump($this->formData['id']);die;
+
+        // Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
+        if ($this->formData['id'] >= 1) {
+            $this->updateReg($this->formData['id']);
         } else {
             //var_dump($this->form_data);die;
-            $this->insertRegister();
+            $this->insertReg();
         }
-    } #--> End validate_register_form()
+    } //--> End formValidation()
 
-    /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Função: insertRegister()
-     *   @Versão: 0.2
-     *   @Descrição: Insere o registro no BD.
-     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
-     **/
-    public function insertRegister()
+     /**
+     * Faz a inserção do registro no BD.
+     * Obs.: se houver erro na inserção o valor "1" será retornado.
+     *
+     * @param int $lastId - valor do tipo inteiro.
+     *
+     * @return bool Retorna um valor boleano (true ou false).
+     */
+    public function insertReg()
     {
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'patrimony_date_patrimony'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $query_ins = $this->db->insert('patrimony', [
-            'patrimony_cod'         =>  chkArray($this->form_data, 'patrimony_cod'),
-            'patrimony_desc'        =>  chkArray($this->form_data, 'patrimony_desc'),
-            'patrimony_data_aq'     =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'patrimony_data_aq')),
+        $lastId = (int) $this->db->insert('patrimony', [
+            'patrimony_cod'         =>  GFunc::chkArray($this->form_data, 'code'),
+            'patrimony_desc'        =>  GFunc::chkArray($this->form_data, 'description'),
+            'acquisition_date'         =>  GFunc::convertDataHora('d/m/Y', 'Y-m-d', GFunc::chkArray($this->form_data, 'acquisition_date')),
             'patrimony_cor'         =>  chkArray($this->form_data, 'patrimony_cor'),
             'patrimony_for'         =>  chkArray($this->form_data, 'patrimony_for'),
             'patrimony_dimen'       =>  chkArray($this->form_data, 'patrimony_dimen'),
@@ -123,18 +123,20 @@ class Patrimony extends MainModel
             'patrimony_created'     =>  date('Y-m-d H:i:s', time())
         ]);
 
-        # Verifica se a consulta está OK se sim envia o Feedback para o usuário.
-        if ($query_ins) {
-            //$this->form_msg = ['result'=>'success', 'message'=>'query success'];
-            //return $this->form_msg;
-            echo 'ok';
-        } else {
-            # Feedback
-            //$this->form_msg = ['result'=>'error', 'message'=>'query error'];
+        // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        if ($lastId > 0) {
+            // Deleta a variável.
+            unset($lastId);
 
-            # Retorna o valor e finaliza execução
-            //return $this->form_msg;
-            echo 'err';
+            # Feedback sucesso!
+            die(false);
+        } else {
+
+            // Deleta a variável.
+            unset($lastId);
+
+            # Feedback erro!
+            die(true);
         }
     }
 
@@ -146,53 +148,43 @@ class Patrimony extends MainModel
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
-    public function updateRegister($registro_id = NULL)
+    public function updateReg($id = NULL)
     {
-        # Verifica se existe ID
-        if ($registro_id) {
+        # Efetua o update do registro
+        $r = $this->db->update('patrimony', 'patrimony_id', $id, [
+        'code'                     =>            GFunc::chkArray($this->form_data, 'code'),
+            'patrimony_desc'       =>  chkArray($this->form_data, 'patrimony_desc'),
+            'patrimony_data_aq'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'patrimony_data_aq')),
+            'patrimony_cor'        =>  chkArray($this->form_data, 'patrimony_cor'),
+            'patrimony_for'        =>  chkArray($this->form_data, 'patrimony_for'),
+            'patrimony_dimen'      =>  chkArray($this->form_data, 'patrimony_dimen'),
+            'patrimony_setor'      =>  chkArray($this->form_data, 'patrimony_setor'),
+            'patrimony_valor'      =>  number_format(moeda($this->form_data['patrimony_valor']), 2, '.', ''),
+            'patrimony_garan'      =>  chkArray($this->form_data, 'patrimony_garan'),
+            'patrimony_quant'      =>  chkArray($this->form_data, 'patrimony_quant'),
+            'patrimony_nf'         =>  chkArray($this->form_data, 'patrimony_nf'),
+            'patrimony_sit'        =>  chkArray($this->form_data, 'patrimony_sit'),
+            'patrimony_obs'        =>  chkArray($this->form_data, 'patrimony_info'),
+            'patrimony_modified'   =>  date('Y-m-d H:i:s', time())
+        ]);
 
-            //$valor =  moeda($this->form_data['patrimony_valor']);
-            //print_r($valor);die;
-            //$valor = number_format(moeda($this->form_data['patrimony_valor']), 2, '.', '');
-            //$valor = number_format(str_replace(",",".",str_replace(".","",$this->form_data['patrimony_valor'])), 2, '.', '');
-            //print_r($valor);die;
 
-            # Efetua o update do registro
-            $query_up = $this->db->update('patrimony', 'patrimony_id', $registro_id, [
-                'patrimony_cod'        =>  chkArray($this->form_data, 'patrimony_cod'),
-                'patrimony_desc'       =>  chkArray($this->form_data, 'patrimony_desc'),
-                'patrimony_data_aq'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'patrimony_data_aq')),
-                'patrimony_cor'        =>  chkArray($this->form_data, 'patrimony_cor'),
-                'patrimony_for'        =>  chkArray($this->form_data, 'patrimony_for'),
-                'patrimony_dimen'      =>  chkArray($this->form_data, 'patrimony_dimen'),
-                'patrimony_setor'      =>  chkArray($this->form_data, 'patrimony_setor'),
-                'patrimony_valor'      =>  number_format(moeda($this->form_data['patrimony_valor']), 2, '.', ''),
-                'patrimony_garan'      =>  chkArray($this->form_data, 'patrimony_garan'),
-                'patrimony_quant'      =>  chkArray($this->form_data, 'patrimony_quant'),
-                'patrimony_nf'         =>  chkArray($this->form_data, 'patrimony_nf'),
-                'patrimony_sit'        =>  chkArray($this->form_data, 'patrimony_sit'),
-                'patrimony_obs'        =>  chkArray($this->form_data, 'patrimony_info'),
-                'patrimony_modified'   =>  date('Y-m-d H:i:s', time())
-            ]);
+        // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        if ($r > 0) {
+            // Deleta a variável.
+            unset($r);
 
-            # Verifica se a consulta foi realizada com sucesso
-            if ($query_up) {
-                # Destroy variáveis nao mais utilizadas.
-                unset($registro_id, $query_up);
+            # Feedback sucesso!
+            die(false);
+        } else {
 
-                # Retorna o valor e finaliza execução.
-                echo 'ok';
-                exit();
-            } else {
-                # Destroy variavel nao mais utilizadas.
-                unset($registro_id, $query_up);
+            // Deleta a variável.
+            unset($r);
 
-                # Retorna o valor e finaliza execução.
-                echo 'err';
-                exit();
-            }
+            # Feedback erro!
+            die(true);
         }
-    } #--> End updateRegister()
+    } #--> End updateReg()
 
     /**
      *   @Acesso: public
@@ -262,6 +254,13 @@ class Patrimony extends MainModel
             exit();
         }
     }   #--> End delRegister()
+
+
+
+    public function listar($table = 'Providers', $column = '*', $condition = null)
+    {
+        return $this->db->select($table, $column, $condition);
+    }
 
     /**
      *   @Acesso: public

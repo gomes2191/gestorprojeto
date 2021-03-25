@@ -6,6 +6,7 @@
 
 @section('content')
 
+<!--Start row loading  -->
 <div class="row">
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
     <!--div ocupa espaço left-->
@@ -26,9 +27,7 @@
 <div class="row">
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <form id="regForm" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
-
             <fieldset>
-
                 <legend>FORNECEDORES <span class="text-success"></span></legend>
 
                 <div class="row form-hidden" style="display: none">

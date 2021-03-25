@@ -4,8 +4,8 @@
 
 @section('content')
 
+<!--Start row loading  -->
 <div class="row">
-    <!--Start row loading  -->
     <div class="col-md-1  col-sm-0 col-xs-0"></div>
     <div class="col-md-10  col-sm-12 col-xs-12">
         <div id="loading" style="display: none;">
@@ -24,50 +24,52 @@
 <div class="row">
     <!--Start row Form-->
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-        <form id="" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
+        <form id="regForm" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
             <fieldset>
                 <legend>PATRIMÔNIO <span class="text-success"></span></legend>
+
                 <div class="row form-hidden" style="display: none;">
                     <!-- Start div hidden 1 -->
                     <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO PATRIMÔNIO</small></div>
                 </div><!-- End div hidden 1 -->
-                <div class="row form-hidden" style="display: none;">
+
+                <div class="row mb-3 form-hidden" style="display: none;">
                     <!-- Start div hidden 2 -->
-                    <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_cod">Código:</label>
-                        <input type="hidden" id="patrimony_id" name="patrimony_id" value="">
-                        <input id="patrimony_cod" name="patrimony_cod" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: C300">
+                    <div class="form-group col-md col-sm">
+                        <label for="code">Código:</label>
+                        <input type="hidden" id="id" name="id" value="">
+                        <input id="code" name="code" type="text" class="form-control form-control-sm" placeholder="Ex.: C300">
                         <div class="invalid-feedback">
                             Preencha esse campo.
                         </div>
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_desc">Descrição:</label>
-                        <input id="patrimony_desc" name="patrimony_desc" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Cadeiras">
+                        <label for="description">Descrição:</label>
+                        <input id="description" name="description" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Cadeiras">
                         <div class="invalid-feedback">
                             Preencha esse campo.
                         </div>
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_data_aq">Data da aquisição:</label>
-                        <input id="patrimony_data_aq" name="patrimony_data_aq" class="form-control form-control-sm date text-center" type="text" placeholder="dd/mm/aaaa" value="">
+                        <label for="acquisition_date ">Data da aquisição:</label>
+                        <input id="acquisition_date" name="acquisition_date " class="form-control form-control-sm date text-center" type="date" placeholder="dd/mm/aaaa" value="">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_cor">Cor:</label>
-                        <input id="patrimony_cor" name="patrimony_cor" class="form-control form-control-sm text-center" type="text" placeholder="Ex.: Branco" value="">
+                        <label for="color">Cor:</label>
+                        <input id="color" name="color" class="form-control form-control-sm text-center" type="text" placeholder="Ex.: Branco" value="">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_for">Fornecedor:</label>
-                        <input id="patrimony_for" name="patrimony_for" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Fornecedor">
+                        <label for="provider">Fornecedor:</label>
+                        <input id="provider" name="provider" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Fornecedor">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_dimen">Dimensões:</label>
-                        <input id="patrimony_dimen" name="patrimony_dimen" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: 53 x 43 x 91 cm">
+                        <label for="dimension">Dimensões:</label>
+                        <input id="dimension" name="dimension" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: 53 x 43 x 91 cm">
                     </div>
 
                 </div><!-- End div hidden 2 -->
@@ -75,33 +77,33 @@
                 <div class="row form-hidden" style="display: none;">
                     <!--Start div hidden 3-->
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_setor">Setor:</label>
-                        <input id="patrimony_setor" name="patrimony_setor" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Almoxarifado">
+                        <label for="sector">Setor:</label>
+                        <input id="sector" name="sector" type="text" class="form-control form-control-sm text-center" placeholder="Ex.: Almoxarifado">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_valor">Valor do patrimônio:</label>
-                        <input id="patrimony_valor" name="patrimony_valor" type="text" class="form-control form-control-sm text-center money" placeholder="100,00">
+                        <label for="value">Valor do patrimônio:</label>
+                        <input id="value" name="value" type="text" class="form-control form-control-sm text-center money" placeholder="100,00">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_garan">Garantia:</label>
-                        <input id="patrimony_garan" name="patrimony_garan" type="text" class="form-control form-control-sm text-center" placeholder="2 - Anos">
+                        <label for="warranty">Garantia:</label>
+                        <input id="warranty" name="warranty" type="text" class="form-control form-control-sm text-center" placeholder="2 - Anos">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_quant">Quantidade:</label>
-                        <input id="patrimony_quant" name="patrimony_quant" type="text" class="form-control form-control-sm number text-center" placeholder="10">
+                        <label for="quantity">Quantidade:</label>
+                        <input id="quantity" name="quantity" type="text" class="form-control form-control-sm number text-center" placeholder="10">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_nf">Nota fiscal:</label>
-                        <input id="patrimony_nf" name="patrimony_nf" type="text" class="form-control form-control-sm text-center" placeholder="Nota fiscal...">
+                        <label for="receipt">Nota fiscal:</label>
+                        <input id="receipt" name="receipt" type="text" class="form-control form-control-sm text-center" placeholder="Nota fiscal...">
                     </div>
 
                     <div class="form-group col-md-2 col-sm-12 col-xs-12">
-                        <label for="patrimony_sit">Situação:</label><br>
-                        <select id="patrimony_sit" name="patrimony_sit" class="custom-select custom-select-sm">
+                        <label for="situation">Situação:</label><br>
+                        <select id="situation" name="situation" class="custom-select custom-select-sm">
                             <option selected value="active">Ativo</option>
                             <option value="inactive">Inativo</option>
                         </select>
@@ -112,8 +114,8 @@
                 <div class="row form-hidden" style="display: none;">
                     <!--Start div hidden 4-->
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                        <label for="patrimony_obs">Observações:</label>
-                        <textarea id="patrimony_obs" class="form-control" name="patrimony_obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..."></textarea>
+                        <label for="observation">Observações:</label>
+                        <textarea id="observation" class="form-control" name="observation" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..."></textarea>
                     </div>
                 </div>
                 <!--End div hidden 4 -->
@@ -228,15 +230,15 @@
                     <li class="list-group-item list-group-item-primary list-group-item-text"><b>Código:</b>&nbsp;<span class="patrimony_cod">----</span></li>
                     <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Descrição:</b>&nbsp;<span class="patrimony_desc">----</span> </li>
                     <li class="list-group-item list-group-item-success list-group-item-text"><b>Data de aquisisção:</b>&nbsp;<span class="patrimony_data_aq"></span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Cor:</b>&nbsp;<span class="patrimony_cor">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Fornecedor:</b>&nbsp;<span class="patrimony_for">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Dimensão:</b>&nbsp;<span class="patrimony_dimen">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Setor:</b>&nbsp;<span class="patrimony_setor">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Valor:</b>&nbsp;<span class="patrimony_valor"></span></li>
+                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Cor:</b>&nbsp;<span class="color">----</span></li>
+                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Fornecedor:</b>&nbsp;<span class="provider">----</span></li>
+                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Dimensão:</b>&nbsp;<span class="dimension">----</span></li>
+                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Setor:</b>&nbsp;<span class="sector">----</span></li>
+                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Valor:</b>&nbsp;<span class="value"></span></li>
                     <li class="list-group-item list-group-item-text"><b>Garantia:</b>&nbsp;<span class="patrimony_nation">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Quantidade:</b>&nbsp;<span class="patrimony_quant">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Nota fiscal:</b>&nbsp;<span class="patrimony_nf"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Observações:</b>&nbsp;<span class="patrimony_obs">----</span></li>
+                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Quantidade:</b>&nbsp;<span class="quantity">----</span> </li>
+                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Nota fiscal:</b>&nbsp;<span class="receipt"></span></li>
+                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Observações:</b>&nbsp;<span class="observation">----</span></li>
                     <li class="list-group-item list-group-item-danger list-group-item-text"><b>Criado em:</b>&nbsp;<span class="patrimony_created">----</span></li>
                     <li class="list-group-item list-group-item-warning list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="patrimony_modified">----</span></li>
                 </ul>
