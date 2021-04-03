@@ -1,11 +1,6 @@
 <?php
-# Verifica se constatante referente ao caminho foi definida.
-if (!defined('Config::HOME_URI')) {
-    exit();
-}
 
 if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST, 'action_type'))) {
-
     if (filter_input(INPUT_POST, 'action_type') == 'loadInfo') {
         $conditions['where'] = ['patrimony_id' => $modelo->encodeDecode(0, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS))];
         $conditions['return_type'] = 'single';
@@ -25,10 +20,10 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
         $allReg['patrimony_data_aq'] = $modelo->convertDataHora('Y-m-d', 'd/m/Y', $allReg['patrimony_data_aq']);
         $allReg['patrimony_created'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['patrimony_created']);
         $allReg['patrimony_modified'] = $modelo->convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['patrimony_modified']);
-        echo json_encode($allReg);
+        die(json_encode($allReg, JSON_FORCE_OBJECT));
     } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        return $modelo->validate_register_form();
+        $modelo->formValidation();
     } elseif (filter_input(INPUT_POST, 'action_type') == 'update') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
         return $modelo->validate_register_form();

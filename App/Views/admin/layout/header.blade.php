@@ -18,13 +18,13 @@
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item <?= (GFunc::isSite('p_gclinic')) ? 'active' : FALSE ?>">
                         <a class="nav-link" href="<?= Config::HOME_URI; ?>" title="Página inicial">
-                            <i class="fal fa-home"></i> HOME
+                            <i class="fal fa-home-lg"></i> HOME
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item <?= (GFunc::isSite('agenda')) ? 'active' : false; ?>">
                         <a class="nav-link" href="<?= Config::HOME_URI; ?>/agenda" title="Agenda">
-                            <i class='fal fa-calendar-alt'></i> AGENDA
+                            <i class='fal fa-calendar-check'></i> AGENDA
                         </a>
                     </li>
                     <li class="nav-item dropdown <?= (GFunc::isSite('covenant', 'fees', 'providers', 'patrimony', 'stock', 'laboratory')) ? 'active' : false; ?>">
@@ -42,7 +42,7 @@
                     </li>
                     <li class="nav-item dropdown <?= (GFunc::isSite('pay', 'receive', '', '', '', '')) ? 'active' : FALSE; ?>">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class='fal fa-chart-bar'></i> FINANÇAS
+                            <i class='fal fa-analytics'></i> FINANÇAS
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item <?= (GFunc::isSite('pay')) ? 'active' : FALSE; ?>" href="<?= Config::HOME_URI; ?>/pay">Contas a Pagar</a>
@@ -54,7 +54,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fal fa-users"></i> USUÁRIOS
+                            <i class="fal fa-users-cog"></i> USUÁRIOS
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="<?= Config::HOME_URI; ?>/users/register-dentist">Inserir Dentista</a>
@@ -64,7 +64,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= Config::HOME_URI; ?>/patient-control" title="Gerenciar pacientes no sistema">
-                            <i class="fal fa-handshake"></i> CLIENTES
+                            <i class="fal fa-hands-usd"></i> CLIENTES
                         </a>
                     </li>
                 </ul>

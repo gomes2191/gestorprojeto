@@ -44,11 +44,12 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
              WHERE PR.id = " . GFunc::encodeDecode(false, filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS)) . "
              GROUP BY PR.id"
         );
+
         foreach ($result as $allReg) {
+            $allReg['rp_cel']  = GFunc::getCode(explode(',', $allReg['phone']), 'CR');
+            $allReg['rp_phone'] = GFunc::getCode(explode(',', $allReg['phone']), 'TR');
             $allReg['cel'] = GFunc::getCode(explode(',', $allReg['phone']), 'CP');
             $allReg['phone'] = GFunc::getCode(explode(',', $allReg['phone']), 'TP');
-            $allReg['rp_cel'] = GFunc::getCode(explode(',', $allReg['phone']), 'CR');
-            $allReg['rp_phone'] = GFunc::getCode(explode(',', $allReg['phone']), 'TR');
             $allReg['id'] = GFunc::encodeDecode($allReg['id']);
             //$allReg['created_at'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['created_at']);
             //$allReg['modified_at'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['modified_at']);

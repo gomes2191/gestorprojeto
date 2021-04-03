@@ -225,7 +225,7 @@ class PatrimonyController extends MainController
         #---> Inclua seus models e views aqui
 
         #   Carrega o modelo
-        $modelo = $this->load_model('company/patrimony-model');
+        //$modelo = $this->load_model('company/patrimony-model');
 
         #   Carrega o topo
         //require_once (Config::HOME_URI . '/views/_includes/header.php');
@@ -234,7 +234,7 @@ class PatrimonyController extends MainController
         //require_once (Config::HOME_URI.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once(Config::HOME_URI . '/app/views/company/patrimony/ajax-process-view.php');
+        View::render('/admin/company/patrimony/ajax-process.php', ['modelo' => $this->loadModel('admin/company/Patrimony')]);
 
         //require_once (Config::HOME_URI . '/views/_includes/footer.php');
 

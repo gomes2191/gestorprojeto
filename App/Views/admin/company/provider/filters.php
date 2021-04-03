@@ -41,7 +41,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
     switch ($sortBy) {
         case 'active':
-            $count = (is_array($count = $modelo->listar('Providers P', '*', "WHERE P.status='active'"))) ? COUNT($count) : 0;
+            $count = (is_array($count = $modelo->listar('Providers PR', '*', "WHERE PR.status='active'"))) ? COUNT($count) : 0;
             $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
             INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
             WHERE PR.status='active'
@@ -49,7 +49,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}");
             break;
         case 'inactive':
-            $count = (is_array($count = $modelo->listar('Providers p', '*', "WHERE p.status='inactive'"))) ? COUNT($count) : 0;
+            $count = (is_array($count = $modelo->listar('Providers PR', '*', "WHERE PR.status='inactive'"))) ? COUNT($count) : 0;
             $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
             INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
             WHERE PR.status='inactive'
@@ -57,7 +57,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}");
             break;
         case 'asc':
-            $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
+            $count = (is_array($count = $modelo->listar('Providers', '*'))) ? COUNT($count) : 0;
             $allReg = $modelo->listar(
                 'Providers PR',
                 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',

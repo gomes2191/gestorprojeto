@@ -85,7 +85,6 @@ class Provider extends MainModel
             } #--> End
 
         } catch (Exception $e) {
-
             echo 'Erro: ' . $e->getMessage();
         }
 
@@ -328,30 +327,33 @@ class Provider extends MainModel
      *   @Versão: 0.2
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
-    public function delReg($encode_id)
+    public function delReg($id_encode)
     {
-
         # Recebe o ID do registro converte de string para inteiro.
-        $decode_id = intval(GFunc::encodeDecode(0, $encode_id));
+        $id = GFunc::encodeDecode(false, $id_encode);
 
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `Providers` WHERE `id` = $decode_id ");
-        if ($search->fetchColumn() < 1) {
+        $r = $this->db->query("SELECT count(*) FROM `Providers` WHERE `id` = $id ");
+
+        if ($r->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
-            unset($encode_id, $search, $decode_id);
+            unset($id, $r, $id_encode);
 
-            exit(1);
+            // Feedback erro
+            die(true);
         } else {
-            # Deleta o registro
-            $this->db->delete('Providers', 'id', $decode_id);
 
-            #   Destroy variáveis não mais utilizadas
-            unset($parametro, $search, $id);
+            # Efetua a deleção...
+            $this->db->delete('Providers', 'id', $id);
 
-            die(0);
+            // Destroy variáveis não mais utilizadas
+            unset($r,$id,$id_encode);
+
+            // Feedback sucesso!
+            die(false);
         }
-    }   #--> End delRegister()
+    }   //--> End delRegister()
 
 
 

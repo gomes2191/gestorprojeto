@@ -24,11 +24,11 @@
     <div class="col-md-1  col-sm-0 col-xs-0"></div> <!-- div espaço right -->
 </div><!-- End row loading -->
 
-<div class="row">
+<div class="row g-3">
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <form id="regForm" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
             <fieldset>
-                <legend>FORNECEDORES <span class="text-success"></span></legend>
+                <legend>FORNECEDORES <span class="badge bg-light text-dark text-wrap fst-italic"></span></legend>
 
                 <div class="row form-hidden" style="display: none">
                     <!-- Start div hidden 1 -->
@@ -186,19 +186,19 @@
                     </div>
                 </div><!-- End div hidden 9 -->
 
-                <div class="row mb-2 row-button-hidden" style="display: none;">
+                <div class="form-row mb-3 row-button-hidden" style="display: none;">
                     <!-- Start div button hidden 1 -->
                     <div class="form-group col-md col-sm">
                         <div id="group-btn-save" class="btn-group">
-                            <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
+                            <button id="btn-save" title="Salvar informações" class="btn btn-primary btn-sm" type="button"></button>
                         </div>
                         <div id="group-btn-reset" class="btn-group">
-                            <button title="Limpar formulário" class="btn btn-outline-warning btn-sm marg-top fees-clear" type="reset">
+                            <button title="Limpar formulário" class="btn btn-warning btn-sm" type="reset">
                                 <i class="fas fa-eraser fa-lg"></i> <span>LIMPAR</span>
                             </button>
                         </div>
                         <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                            <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset">
+                            <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-primary btn-sm" type="reset">
                                 <i class="fas fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span>
                             </button>
                         </div>
@@ -365,7 +365,6 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
                     id: objAction.id
                 });
                 objFinanca.ajaxActionUser();
-
             } else {
                 objFinanca.setAjaxActionUser(objSet = {
                     type: objAction.type,
@@ -382,8 +381,9 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             } else {
 
                 objAction.userData = $("#regForm").serialize() + '&action_type=' + objAction.type + '&id=' + id;
-                feedback = 'Inserido com sucesso!';
-                $('#filtros').show();
+                //feedback = 'Inserido com sucesso!';
+                //$('#filtros').show();
+                //document.querySelector('#filtros').style.display = 'none';
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,

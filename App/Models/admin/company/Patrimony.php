@@ -79,7 +79,6 @@ class Patrimony extends MainModel
             } #--> End
 
         } catch (Exception $e) {
-
             echo 'Erro: ' . $e->getMessage();
         }
 
@@ -104,23 +103,29 @@ class Patrimony extends MainModel
      */
     public function insertReg()
     {
+
+
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'patrimony_date_patrimony'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-        $lastId = (int) $this->db->insert('patrimony', [
-            'patrimony_cod'         =>  GFunc::chkArray($this->form_data, 'code'),
-            'patrimony_desc'        =>  GFunc::chkArray($this->form_data, 'description'),
-            'acquisition_date'         =>  GFunc::convertDataHora('d/m/Y', 'Y-m-d', GFunc::chkArray($this->form_data, 'acquisition_date')),
-            'patrimony_cor'         =>  chkArray($this->form_data, 'patrimony_cor'),
-            'patrimony_for'         =>  chkArray($this->form_data, 'patrimony_for'),
-            'patrimony_dimen'       =>  chkArray($this->form_data, 'patrimony_dimen'),
-            'patrimony_setor'       =>  chkArray($this->form_data, 'patrimony_setor'),
-            'patrimony_valor'       =>  number_format(moeda($this->form_data['patrimony_valor']), 2, '.', ''),
-            'patrimony_garan'       =>  chkArray($this->form_data, 'patrimony_garan'),
-            'patrimony_quant'       =>  chkArray($this->form_data, 'patrimony_quant'),
-            'patrimony_sit'         =>  chkArray($this->form_data, 'patrimony_sit'),
-            'patrimony_nf'          =>  chkArray($this->form_data, 'patrimony_nf'),
-            'patrimony_obs'         =>  chkArray($this->form_data, 'patrimony_obs'),
-            'patrimony_created'     =>  date('Y-m-d H:i:s', time())
+        $lastId = (int) $this->db->insert('Patrimony', [
+
+
+
+
+            'code'              =>  GFunc::chkArray($this->formData, 'code'),
+            'description'       =>  GFunc::chkArray($this->formData, 'description'),
+            'acquisition_date'  =>  GFunc::chkArray($this->formData, 'acquisition_date'),
+            'color'             =>  GFunc::chkArray($this->formData, 'color'),
+            'provider'          =>  GFunc::chkArray($this->formData, 'provider'),
+            'dimension'         =>  GFunc::chkArray($this->formData, 'dimension'),
+            'sector'            =>  GFunc::chkArray($this->formData, 'sector'),
+            'value'   =>            number_format(GFunc::moeda($this->formData['value']), 2, '.', ''),
+            'warranty'   =>         GFunc::chkArray($this->formData, 'warranty'),
+        'quantity'   =>             GFunc::chkArray($this->formData, 'quantity'),
+            'receipt'   =>          GFunc::chkArray($this->formData, 'receipt'),
+            'situation'     =>      GFunc::chkArray($this->formData, 'situation'),
+            'observation'      =>   GFunc::chkArray($this->formData, 'observation'),
+            'created_at' =>         date('Y-m-d H:i:s', time())
         ]);
 
         // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -129,14 +134,14 @@ class Patrimony extends MainModel
             unset($lastId);
 
             # Feedback sucesso!
-            die(false);
+            die(true);
         } else {
 
             // Deleta a variável.
             unset($lastId);
 
             # Feedback erro!
-            die(true);
+            die(false);
         }
     }
 

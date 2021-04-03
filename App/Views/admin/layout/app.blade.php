@@ -29,7 +29,7 @@ Evita acesso direto ao arquivo. --}}
         <!--<link rel="stylesheet" href="<?= Config::HOME_URI; ?>/public/_css/jasny-bootstrap.min.css">-->
 
         <!-- Load icones... -->
-        <link href="<?= Config::HOME_URI; ?>/public/lib/_fontaWesome/css/all.min.css" rel="stylesheet">
+        <link href="<?= Config::HOME_URI; ?>/public/lib/_icons/css/all.min.css" rel="stylesheet">
 
         <!-- Bootstrap core JavaScript
             ================================================== -->

@@ -1,12 +1,3 @@
-<?php
-    if (!defined('Config::HOME_URI')){ exit; }
-
-    // Carrega todos os métodos do modelo
-    $modelo->validate_register_form();
-    //$modelo->get_register_form(GFunc::chkArray($_parameters, 1));
-    //$modelo->del_user($_parameters);
-?>
-
 <div class="row">
     <div class="col-md-8  col-sm-12 col-xs-12">
         <h4 style="color: #007fff;">Seja Bem-vindo</h4>
@@ -23,13 +14,13 @@
                   <?= $modelo->form_msg; ?>
 
                     <div class="form-group">
-                        <label class="sr-only" for="clinic_name">Nome da clinica:</label>
+                        <label class="sr-only" for="clinic_name">Empresa:</label>
                         <input type="text" title="Nome da clínica" name="clinic_name" class="form-control form-control-sm" id="clinic_name" placeholder="Nome da clinica..."
                         value="<?php echo htmlentities(GFunc::chkArray($modelo->form_data, 'clinic_name'));?>">
                     </div>
 
                     <div class="form-group">
-                        <label class="sr-only" for="user_name">Seu nome:</label>
+                        <label class="sr-only" for="user_name">Nome:</label>
                         <input type="text" title="Seu nome" name="user_name" class="form-control form-control-sm" id="user_name"
                         placeholder="Seu nome completo..." value="<?php echo htmlentities(GFunc::chkArray($modelo->form_data, 'user_name'));?>"
                         data-validation="custom" data-validation-regexp="^([A-z0-9\s]{3,40})$"
@@ -38,7 +29,7 @@
                     </div>
 
                     <div class="form-group has-feedback has-feedback-left">
-                        <label class="sr-only" for="user_name">Seu nome:</label>
+                        <label class="sr-only" for="user_name">E-mail:</label>
                         <input type="text" title="Seu email" name="user_email" class="form-control form-control-sm email" id="user_email"
                         placeholder="Seu email aqui, este será seu usuario..." value="<?php echo htmlentities(GFunc::chkArray($modelo->form_data, 'user_email'));?>"
                         data-validation="custom" data-validation-regexp="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
@@ -47,7 +38,7 @@
                     </div>
 
                     <div class="form-group has-feedback has-feedback-left">
-                        <label class="sr-only" for="user_name">Seu nome:</label>
+                        <label class="sr-only" for="user_name">E-mail novamente:</label>
                         <input type="text" title="Repita seu email" name="repeat" class="form-control form-control-sm email"
                         placeholder="Seu email aqui, este será seu usuario..." data-validation="confirmation"
                         data-validation-help="Repita o email novamente."

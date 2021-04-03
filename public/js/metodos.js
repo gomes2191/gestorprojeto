@@ -308,7 +308,7 @@ function Financeiro() {
                 success: function (msg) {
                     //alert(msg);
                     objFinanca.ajaxData();
-                    if (msg == false) {
+                    if (msg == true) {
                        /*  $.toaster({
                             title: {
                                 text: 'Sucesso!',
@@ -531,10 +531,10 @@ class Modal {
         //toast.classList.add("toast", "animate");
         div1.classList.add('bg-primary', 'position-relative');
         div2.classList.add('toast-container');
-        div3.classList.add('toast', 'align-items-center', 'border-0');
+        div3.classList.add('toast', 'align-items-center', 'border-1');
         div4.classList.add('d-flex');
         div5.classList.add('toast-body', `${parameter.cor}`);
-        i1.classList.add(`${parameter.ico[0]}`, `${parameter.ico[1]}`, 'fa-lg', 'p-2');
+        i1.classList.add(`${parameter.ico[0]}`, `${parameter.ico[1]}`, 'fa-lg', 'p-2', 'float-sm-start');
         bt1.classList.add('btn-close', 'me-2', 'm-auto');
 
 
@@ -559,6 +559,10 @@ class Modal {
             "aria-label": "Close"
         });
 
+        setAttributes(i1, {
+            "aria-hidden": "true"
+        });
+
         div1.appendChild(div2);
         div2.appendChild(div3);
         div3.appendChild(div4);
@@ -574,12 +578,17 @@ class Modal {
 
         // Create Bootstrap Toast instance with some options
         toastInstance = new bootstrap.Toast(div3, {
-            delay: 5000
+            delay: 5500
         });
-
         // Use show() method to display a toast
         toastInstance.show();
     };
+}
+
+
+class Alert{
+
+
 }
 
 

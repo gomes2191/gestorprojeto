@@ -216,7 +216,8 @@ class ProvidersController extends MainController
         #   Carrega o view
         //require_once (Config::HOME_URI . '/App/Views/company/provider/filters.php');
 
-        View::render('/admin/company/provider/filters.php', ['modelo' => $this->loadModel('admin/company/Provider'), 'globalF' => new GFunc]);
+        View::render('/admin/company/provider/filters.php', ['modelo' => $this->loadModel('admin/company/Provider'), 'globalF' => new GFunc
+        ]);
 
         //require_once (Config::HOME_URI . '/app/views/_includes/footer.php');
 
@@ -234,7 +235,7 @@ class ProvidersController extends MainController
         #---> Inclua seus models e views aqui
 
         #   Carrega o modelo
-        $modelo = $this->loadModel('admin/company/Provider');
+        //$modelo = $this->loadModel('admin/company/Provider');
 
         //print_r($modelo);die();
 
@@ -245,9 +246,13 @@ class ProvidersController extends MainController
         //require_once (Config::HOME_URI.'/views/_includes/menu.php');
 
         #   Carrega o view
-        require_once(Config::ABS_PATH . '/App/Views/admin/company/provider/ajax-process.php');
+        //require_once(Config::ABS_PATH . '/App/Views/admin/company/provider/ajax-process.php');
+
+
 
         //require_once (Config::HOME_URI . '/views/_includes/footer.php');
+
+        View::render('/admin/company/provider/ajax-process.php', ['modelo' => $this->loadModel('admin/company/Provider')]);
 
     }   #--> End TopSearch
 

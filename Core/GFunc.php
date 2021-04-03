@@ -43,8 +43,9 @@ class GFunc
      *
      * @return float Retorna a o float para inserção no BD
      */
-    public function moeda($getValor)
+    static function moeda($getValor)
     {
+
         $source = ['.', ','];
         $replace = ['', '.'];
         // remove os pontos e substitui a virgula pelo ponto.
@@ -61,7 +62,7 @@ class GFunc
      *
      * @return string|true|false Retorna um valor dinâmico.
      */
-    public static function isSite()
+    static function isSite()
     {
         if (filter_input(INPUT_SERVER, 'REDIRECT_URL')) {
             $url_vetor = (array_filter(explode('/', filter_input(INPUT_SERVER, 'REDIRECT_URL')), function ($value) {
@@ -167,14 +168,14 @@ class GFunc
      */
     public static function encodeDecode($encode = false, $decode = false)
     {
-        if (true == $encode) {
+        if ($encode == true) {
             $rand = rand(100, 900);
 
             return base64_encode($encode . $rand);
         } else {
             $decode = base64_decode($decode);
 
-            return (int) substr($decode, 0, -3);
+            return substr($decode, 0, -3);
         }
     }
 

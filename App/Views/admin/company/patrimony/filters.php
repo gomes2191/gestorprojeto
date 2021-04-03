@@ -85,9 +85,9 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
 
     $count = (is_array($count = $modelo->listar('Patrimony P', '*'))) ? COUNT($count) : 0;
     $allReg = $modelo->listar(
-        'Patrimony PA',
-        'PA.id, PA.`code`, PA.`description`,  PA.`sector`, PA.`value`',
-        "GROUP BY PA.id ORDER BY PA.id DESC LIMIT {$start}{$offset}{$limit}"
+        'Patrimony PAT',
+        'PAT.id, PAT.`code`, PAT.`description`,  PAT.`sector`, PAT.`value`',
+        "GROUP BY PAT.id ORDER BY PAT.id DESC LIMIT {$start}{$offset}{$limit}"
     );
 }
 
@@ -119,11 +119,11 @@ HTML;
     $count = 0;
     foreach ($allReg as $reg) : $count++;
         echo '<tr class="text-center">';
-        echo '<td>' . $reg['patrimony_id'] . '</td>';
-        echo '<td>' . $reg['patrimony_cod'] . '</td>';
-        echo '<td>' . (($reg['patrimony_desc']) ? $reg['patrimony_desc'] : '---') . '</td>';
-        echo '<td>' . (($reg['patrimony_setor']) ? $reg['patrimony_setor'] : '---') . '</td>';
-        echo '<td>' . 'R$ ' . (($reg['patrimony_valor']) ? number_format($reg['patrimony_valor'], 2, ',', '.') : '---') . '</td>';
+        echo '<td>' . $reg['id'] . '</td>';
+        echo '<td>' . $reg['code'] . '</td>';
+        echo '<td>' . (($reg['description']) ? $reg['description'] : '---') . '</td>';
+        echo '<td>' . (($reg['sector']) ? $reg['sector'] : '---') . '</td>';
+        echo '<td>' . (($reg['value']) ? 'R$ ' . number_format($reg['value'], 2, ',', '.') : '---') . '</td>';
 
 
         //echo '<td>'.(($reg['patrimony_created']) ? $modelo->convertDataHora('Y-m-d H:i:s','d/m/Y H:i:s',$reg['patrimony_created']) : '---') .'</td>';
