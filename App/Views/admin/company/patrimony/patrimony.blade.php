@@ -133,17 +133,15 @@
             <!--Start  div hidden button 1-->
             <div class="form-group col-md col-sm">
                 <div id="group-btn-save" class="btn-group">
-                    <button id="btn-save" title="Salvar informações" class="btn btn-primary btn-sm"
-                        type="button"></button>
+                    <button id="btn-save" title="Salvar informações" class="btn btn-outline-primary btn-sm" type="button"></button>
                 </div>
                 <div id="group-btn-reset" class="btn-group">
-                    <button title="Limpar formulário" class="btn btn-warning btn-sm" type="reset">
+                    <button title="Limpar formulário" class="btn btn-outline-warning btn-sm" type="reset">
                         <i class="fas fa-eraser fa-lg"></i> <span>LIMPAR</span>
                     </button>
                 </div>
                 <div id="group-btn-form-new" class="btn-group" style="display:none;">
-                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro"
-                        class="btn btn-primary btn-sm" type="reset">
+                    <button id="btn-form-new" title="Volta para o modo adicionar novo registro" class="btn btn-outline-primary btn-sm" type="reset">
                         <i class="fas fa-plus fa-lg"></i> <span>MODO NOVO REGISTRO</span>
                     </button>
                 </div>
@@ -155,17 +153,17 @@
             <!--Start  div hidden button 2-->
             <div class="form-group col-md col-sm">
                 <div id="group-btn-new" class="btn-group">
-                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-primary btn-sm" type="reset">
+                    <button id="btn-new-show" title="Insere novo registro" class="btn btn-outline-primary btn-sm" type="reset">
                         <i class="fas fa-plus fa-lg" aria-hidden="true"></i>&nbsp;<span>ADICIONAR REGISTRO</span>
                     </button>
                 </div>
                 <div id="group-btn-show" style="display: none;" class="btn-group">
-                    <button id="btn-show" title="Mostrar o formulário" class="btn btn-success btn-sm" type="reset">
+                    <button id="btn-show" title="Mostrar o formulário" class="btn btn-outline-success btn-sm" type="reset">
                         <i class="fas fa-eye fa-lg"></i>&nbsp;ABRE FORMULÁRIO
                     </button>
                 </div>
                 <div id="group-btn-hidden" style="display:none;" class="btn-group">
-                    <button id="btn-hidden" title="Esconde o formulário" class="btn btn-success btn-sm" type="reset">
+                    <button id="btn-hidden" title="Esconde o formulário" class="btn btn-outline-success btn-sm" type="reset">
                         <i class="fas fa-eye-slash fa-lg"></i> FECHA FORMULÁRIO
                     </button>
                 </div>
@@ -180,7 +178,6 @@
 <div id="filtros" class="row mb-3">
     <!--Start row filtros-->
     <div class="form-group col-md-4 col-sm-10 col-xs-12">
-
         <div class="input-group">
             <input type="text" class="form-control inputSearch" id="keywords" placeholder="Buscar por: Código ou Descrição" onkeyup="objFinanca.ajaxFilter();">
             <span class="input-group-text btn-primary">
@@ -189,18 +186,16 @@
         </div><!-- /End search engine-->
     </div>
     <!--/End col-->
-    <div class="col-md-5 col-sm-0 col-xs-0"></div>
+    <div class="col-md-5 col-sm-0"></div>
     <!--End/-->
-    <div class="form-group col-md-1  col-sm-3 col-xs-12">
+    <div class="form-group col-md-1 col-sm-3">
         <div class="input-group">
-            <input type="text" class="text-center form-control" id="qtdLine" placeholder="5"
-                onkeyup="objFinanca.ajaxFilter();" data-toggle="tooltip" data-placement="bottom"
-                title="Quantidade de registro por página de 1 até 50.">
+            <input type="text" class="text-center form-control" id="qtdLine" placeholder="5" onkeyup="objFinanca.ajaxFilter();" data-toggle="tooltip" data-placement="bottom" title="Quantidade de registro por página de 1 até 50.">
         </div>
     </div>
     <!--/End col-->
 
-    <div class="form-group col-md-2  col-sm-3 col-xs-12">
+    <div class="form-group col-md-2  col-sm-3">
         <select id="sortBy" class="form-select" onchange="objFinanca.ajaxFilter();">
             <option value="">Ordenar Por</option>
             <option value="asc">Ascendente</option>
@@ -215,7 +210,7 @@
 
 <div class="row">
     <!--Start row tableData -->
-    <div class="col-md-12  col-sm-12 col-xs-12">
+    <div class="col-md-12  col-sm-12">
         <div id="tableData" class="table-responsive-sm" style="border: none;">
 
         </div>
@@ -235,34 +230,20 @@
             </div>
             <div class="modal-body">
                 <ul class="list-group list-modal-forn">
-                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Código:</b>&nbsp;<span
-                            class="patrimony_cod">----</span></li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text">
-                        <b>Descrição:</b>&nbsp;<span class="patrimony_desc">----</span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Data de
-                            aquisisção:</b>&nbsp;<span class="patrimony_data_aq"></span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Cor:</b>&nbsp;<span
-                            class="color">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text">
-                        <b>Fornecedor:</b>&nbsp;<span class="provider">----</span></li>
-                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Dimensão:</b>&nbsp;<span
-                            class="dimension">----</span></li>
-                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Setor:</b>&nbsp;<span
-                            class="sector">----</span></li>
-                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Valor:</b>&nbsp;<span
-                            class="value"></span></li>
-                    <li class="list-group-item list-group-item-text"><b>Garantia:</b>&nbsp;<span
-                            class="patrimony_nation">----</span></li>
-                    <li class="list-group-item list-group-item-primary list-group-item-text">
-                        <b>Quantidade:</b>&nbsp;<span class="quantity">----</span> </li>
-                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Nota
-                            fiscal:</b>&nbsp;<span class="receipt"></span></li>
-                    <li class="list-group-item list-group-item-success list-group-item-text">
-                        <b>Observações:</b>&nbsp;<span class="observation">----</span></li>
-                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Criado em:</b>&nbsp;<span
-                            class="patrimony_created">----</span></li>
-                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Modificado
-                            em:</b>&nbsp;<span class="patrimony_modified">----</span></li>
+                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Código:</b>&nbsp;<span class="patrimony_cod">----</span></li>
+                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Descrição:</b>&nbsp;<span class="patrimony_desc">----</span></li>
+                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Data de aquisisção:</b>&nbsp;<span class="patrimony_data_aq"></span></li>
+                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Cor:</b>&nbsp;<span class="color">----</span></li>
+                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Fornecedor:</b>&nbsp;<span class="provider">----</span></li>
+                    <li class="list-group-item list-group-item-info list-group-item-text"><b>Dimensão:</b>&nbsp;<span class="dimension">----</span></li>
+                    <li class="list-group-item list-group-item-light list-group-item-text"><b>Setor:</b>&nbsp;<span class="sector">----</span></li>
+                    <li class="list-group-item list-group-item-dark list-group-item-text"><b>Valor:</b>&nbsp;<span class="value"></span></li>
+                    <li class="list-group-item list-group-item-text"><b>Garantia:</b>&nbsp;<span class="patrimony_nation">----</span></li>
+                    <li class="list-group-item list-group-item-primary list-group-item-text"><b>Quantidade:</b>&nbsp;<span class="quantity">----</span> </li>
+                    <li class="list-group-item list-group-item-secondary list-group-item-text"><b>Nota fiscal:</b>&nbsp;<span class="receipt"></span></li>
+                    <li class="list-group-item list-group-item-success list-group-item-text"><b>Observações:</b>&nbsp;<span class="observation">----</span></li>
+                    <li class="list-group-item list-group-item-danger list-group-item-text"><b>Criado em:</b>&nbsp;<span class="patrimony_created">----</span></li>
+                    <li class="list-group-item list-group-item-warning list-group-item-text"><b>Modificado em:</b>&nbsp;<span class="patrimony_modified">----</span></li>
                 </ul>
             </div>
             <div class="modal-footer">
@@ -271,7 +252,6 @@
         </div>
     </div>
 </div><!-- End modal infoView -->
-
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -299,9 +279,6 @@
     A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-
-
-
 <script>
     // Instância os objetos das classses
     objMetodos = new Metodos();
@@ -374,11 +351,10 @@
         } else if (objAction.type === 'delete') {
             if (confirm('Deseja remover esse registro?')) {
                 objAction.userData = 'action_type=' + objAction.type + '&id=' + objAction.id;
-                feedback = 'Remoção realizada com sucesso!';
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,
-                        url: '<?= HOME_URI; ?>/patrimony/ajax-process',
+                        url: '<?= Config::HOME_URI; ?>/patrimony/ajax-process',
                         userData: objAction.userData
                     }
                 );
@@ -406,8 +382,7 @@
     function waitLoad() {
         if (document.getElementById('tableData').readyState != "complete") {
             setTimeout(waitLoad, 100);
-            objEvent.editRegister(".btn-edit-show", "#group-btn-new, #btn-show",
-                ".form-hidden, #group-btn-hidden, .row-button-hidden, #group-btn-form-new, #btn-form-new");
+            objEvent.editRegister(".btn-edit-show", "#group-btn-new, #btn-show", ".form-hidden, #group-btn-hidden, .row-button-hidden, #group-btn-form-new, #btn-form-new");
         }
     }
 </script>

@@ -108,10 +108,6 @@ class Patrimony extends MainModel
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'patrimony_date_patrimony'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $lastId = (int) $this->db->insert('Patrimony', [
-
-
-
-
             'code'              =>  GFunc::chkArray($this->formData, 'code'),
             'description'       =>  GFunc::chkArray($this->formData, 'description'),
             'acquisition_date'  =>  GFunc::chkArray($this->formData, 'acquisition_date'),
@@ -119,13 +115,13 @@ class Patrimony extends MainModel
             'provider'          =>  GFunc::chkArray($this->formData, 'provider'),
             'dimension'         =>  GFunc::chkArray($this->formData, 'dimension'),
             'sector'            =>  GFunc::chkArray($this->formData, 'sector'),
-            'value'   =>            number_format(GFunc::moeda($this->formData['value']), 2, '.', ''),
-            'warranty'   =>         GFunc::chkArray($this->formData, 'warranty'),
-        'quantity'   =>             GFunc::chkArray($this->formData, 'quantity'),
-            'receipt'   =>          GFunc::chkArray($this->formData, 'receipt'),
-            'situation'     =>      GFunc::chkArray($this->formData, 'situation'),
-            'observation'      =>   GFunc::chkArray($this->formData, 'observation'),
-            'created_at' =>         date('Y-m-d H:i:s', time())
+            'value'             =>  number_format(GFunc::moeda($this->formData['value']), 2, '.', ''),
+            'warranty'          =>  GFunc::chkArray($this->formData, 'warranty'),
+            'quantity'          =>  GFunc::chkArray($this->formData, 'quantity'),
+            'receipt'           =>  GFunc::chkArray($this->formData, 'receipt'),
+            'situation'         =>  GFunc::chkArray($this->formData, 'situation'),
+            'observation'       =>  GFunc::chkArray($this->formData, 'observation'),
+            'created_at'        =>  date('Y-m-d H:i:s', time())
         ]);
 
         // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -233,34 +229,33 @@ class Patrimony extends MainModel
      *   @Versão: 0.2
      *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
      * */
-    public function delRegister($encode_id)
+    public function delReg($id_encode)
     {
-
         # Recebe o ID do registro converte de string para inteiro.
-        $decode_id = intval($this->encodeDecode(0, $encode_id));
+        $id = GFunc::encodeDecode(false, $id_encode);
 
         # Executa a consulta na base de dados
-        $search = $this->db->query("SELECT count(*) FROM `patrimony` WHERE `patrimony_id` = $decode_id ");
-        if ($search->fetchColumn() < 1) {
+        $r = $this->db->query("SELECT count(*) FROM `Patrimony` WHERE `id` = $id ");
+
+        if ($r->fetchColumn() < 1) {
 
             # Destroy variáveis não mais utilizadas
-            unset($encode_id, $search, $decode_id);
+            unset($id, $r, $id_encode);
 
-            echo 'err';
-            exit();
+            // Feedback erro
+            die(false);
         } else {
-            # Deleta o registro
-            $query_del = $this->db->delete('patrimony', 'patrimony_id', $decode_id);
 
-            #   Destroy variáveis não mais utilizadas
-            unset($parametro, $query_del, $search, $id);
+            # Efetua a deleção...
+            $this->db->delete('Patrimony', 'id', $id);
 
-            echo 'ok';
-            exit();
+            // Destroy variáveis não mais utilizadas
+            unset($r, $id, $id_encode);
+
+            // Feedback sucesso!
+            die(true);
         }
-    }   #--> End delRegister()
-
-
+    }   //--> End delRegister()
 
     public function listar($table = 'Providers', $column = '*', $condition = null)
     {

@@ -328,9 +328,9 @@ function Financeiro() {
                             "progressBar": true
                         });*/
                         if(objFinanca.objAction.type === 'delete'){
-                            Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'remoção realizada com sucesso!', cor: 'text-success'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'remoção realizada com sucesso!', cor: 'text-success'});
                         }else if(objFinanca.objAction.type === 'add'){
-                            Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'registro inserido com sucesso!', cor: 'text-success'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'registro inserido com sucesso!', cor: 'text-success'});
                         }else if(objFinanca.objAction.type === 'update'){
                             Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'alteração realizada com sucesso!', cor: 'text-success'});
                         }
@@ -534,7 +534,9 @@ class Modal {
         div3.classList.add('toast', 'align-items-center', 'border-1');
         div4.classList.add('d-flex');
         div5.classList.add('toast-body', `${parameter.cor}`);
-        i1.classList.add(`${parameter.ico[0]}`, `${parameter.ico[1]}`, 'fa-lg', 'p-2', 'float-sm-start');
+        if(parameter.ico[0] && parameter.ico[1]){
+            i1.classList.add(`${parameter.ico[0]}`, `${parameter.ico[1]}`, 'fa-lg', 'p-2', 'float-sm-start');
+        }
         bt1.classList.add('btn-close', 'me-2', 'm-auto');
 
 

@@ -231,7 +231,7 @@
 </div><!-- End row button new form -->
 
 <div id="filtros" class="row">
-    <div class="form-group  mb-3 col-md-4 col-sm-10 col-xs-12">
+    <div class="form-group mb-3 col-md-4 col-sm-10">
         <div class="input-group">
             <input type="text" class="form-control inputSearch" id="keywords" placeholder="Buscar por: Nome ou Área de atuação..." onkeyup="objFinanca.ajaxFilter();">
             <span class="input-group-text btn-primary">
@@ -240,17 +240,17 @@
         </div><!-- /End search engine-->
     </div><!-- /End col search engine -->
 
-    <div class="col-md-5 col-sm-0 col-xs-0"></div>
+    <div class="col-md-5 col-sm-0"></div>
     <!--End/-->
 
-    <div class="form-group mb-3 col-md-1  col-sm-3 col-xs-12">
+    <div class="form-group mb-3 col-md-1 col-sm-">
         <div class="input-group">
             <input type="text" class="text-center form-control" id="qtdLine" placeholder="5" onkeyup="objFinanca.ajaxFilter();" data-bs-toggle="tooltip" data-bs-placement="top" title="Quantidade de registro por página de 1 até 50.">
         </div>
     </div>
     <!--/End col-->
 
-    <div class="form-group mb-3 col-md-2  col-sm-3 col-xs-12">
+    <div class="form-group mb-3 col-md-2  col-sm-3">
         <select id="sortBy" class="form-select" onchange="objFinanca.ajaxFilter();">
             <option value="">Ordenar Por</option>
             <option value="asc">Ascendente</option>
@@ -263,7 +263,7 @@
 </div><!-- End row filtros -->
 
 <div class="row">
-    <div class="col-md-12  col-sm-12 col-xs-12">
+    <div class="col-md-12  col-sm-12">
         <div id="tableData" class="table-responsive" style="border: none;">
 
         </div>
@@ -379,11 +379,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             if ($('#name').val() == '' || $('#cpf_cnpj').val() == '') {
                 alert('Existem campos obrigatórios não preenchido.');
             } else {
-
                 objAction.userData = $("#regForm").serialize() + '&action_type=' + objAction.type + '&id=' + id;
-                //feedback = 'Inserido com sucesso!';
-                //$('#filtros').show();
-                //document.querySelector('#filtros').style.display = 'none';
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,

@@ -29,11 +29,9 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
         return $modelo->validate_register_form();
     } elseif (filter_input(INPUT_POST, 'action_type') == 'delete') {
         if (!empty(filter_input(INPUT_POST, 'id'))) {
-            # Chama o método que remove o registro da base de dados
-            return $modelo->delRegister(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));
+            $modelo->delReg(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));
         }
     }
-    exit();
 } else {
     //header('Location: ' . HOME_URI . '/');
 }
