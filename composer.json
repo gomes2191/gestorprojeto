@@ -12,7 +12,8 @@
     }
 ],
 "config": {
-    "vendor-dir": "vendor"
+    "vendor-dir": "vendor",
+                "disable-tls": false
 },
     "autoload": {
         "psr-4": {
@@ -23,7 +24,7 @@
 
         ]
     },
-    "require": {
-        "jenssegers/blade": "^1.2"
-    }
+        "require": {
+                "jenssegers/blade": "dev-master"
+        }
 }

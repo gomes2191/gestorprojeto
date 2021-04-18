@@ -1,8 +1,8 @@
-@extends('admin.layout.app')
+{% extends 'admin/layout/app.html' %}
 
-@section('title',' Patrimônio')
+{% block title %} Patrimônio{% endblock %}
 
-@section('content')
+{% block content %}
 
 <!--Start row loading  -->
 <div class="row">
@@ -287,7 +287,7 @@
 
     // Efetua a requisição ajax e retorna os registros
     objFinanca.setAjaxData(objSet = {
-        url: '<?= Config::HOME_URI; ?>/patrimony/filters',
+        url: "{{ constant('Config::HOME_URI') }}/patrimony/filters",
         url_id: '/patrimony/',
         get_decode: false
     });
@@ -310,14 +310,14 @@
             if (objAction.type === 'loadEdit') {
                 objFinanca.setAjaxActionUser(objSet = {
                     type: objAction.type,
-                    url: '<?= HOME_URI; ?>/patrimony/ajax-process',
+                    url: "{{ constant('Config::HOME_URI') }}/patrimony/ajax-process",
                     id: objAction.id
                 });
                 objFinanca.ajaxActionUser();
             } else {
                 objFinanca.setAjaxActionUser(objSet = {
                     type: objAction.type,
-                    url: '<?= HOME_URI; ?>/patrimony/ajax-process',
+                    url: "{{ constant('Config::HOME_URI') }}/patrimony/ajax-process",
                     id: objAction.id
                 });
                 objFinanca.ajaxActionUser();
@@ -330,7 +330,7 @@
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,
-                        url: '<?= Config::HOME_URI; ?>/patrimony/ajax-process',
+                        url: "{{ constant('Config::HOME_URI') }}/patrimony/ajax-process",
                         userData: objAction.userData
                     }
                 );
@@ -343,7 +343,7 @@
             objFinanca.setAjaxActionUser(
                 objSet = {
                     type: objAction.type,
-                    url: '<?= HOME_URI; ?>/patrimony/ajax-process',
+                    url: "{{ constant('Config::HOME_URI') }}/patrimony/ajax-process",
                     userData: objAction.userData
                 }
             );
@@ -354,7 +354,7 @@
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,
-                        url: '<?= Config::HOME_URI; ?>/patrimony/ajax-process',
+                        url: "{{ constant('Config::HOME_URI') }}/patrimony/ajax-process",
                         userData: objAction.userData
                     }
                 );
@@ -386,4 +386,4 @@
         }
     }
 </script>
-@endsection
+{% endblock %}

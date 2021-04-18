@@ -2,7 +2,6 @@
 
 //namespace Core;
 
-
 /**
  * Config - classe com os parâmetros de configuração.
  *
@@ -15,7 +14,6 @@
  */
 class Config
 {
-
     /**
      * Diretório do projeto..
      *

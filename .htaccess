@@ -8,7 +8,6 @@ RewriteRule ^(.+)$ index.php?path=$1 [QSA,L]
 # Bloqueia acesso a diretorios
 Options All -Indexes
 
-
 # Protegendo seu arquivo .htaccess
 <files ~ "^.*\.([Hh][Tt][Aa])">
     order allow,deny

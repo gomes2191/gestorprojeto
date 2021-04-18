@@ -1,6 +1,4 @@
 <?php
-
-
 # Verifica se constatante referente ao caminho foi definida
 if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST, 'action_type'))) {
     if (filter_input(INPUT_POST, 'action_type') == 'loadInfo') {

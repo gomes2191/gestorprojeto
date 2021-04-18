@@ -42,7 +42,7 @@ class PatrimonyController extends MainController
          * Evita o acesso direto ao arquivo.
          *******/
         if (!Config::ABS_PATH) {
-            echo 'Erro: O diretório da aplicação não foi definido.';
+            die('Erro: O diretório da aplicação não foi definido.');
         }
 
         // Page title
@@ -92,10 +92,11 @@ class PatrimonyController extends MainController
         //require_once(Config::HOME_URI . '/App/Views/_includes/footer.php');
 
         View::renderTemplate(
-            '/admin/company/patrimony/patrimony',
+            'admin/company/patrimony/patrimony.html',
             [
                 'modelo' => $this->loadModel('admin/company/Patrimony'),
                 'objControl' => new PatrimonyController(),
+                'autoLoad' => new AutoLoad(),
                 'pageType' => 1,
                 'title' => $this->title
             ]
