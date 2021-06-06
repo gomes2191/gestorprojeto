@@ -257,7 +257,7 @@ class Patrimony extends MainModel
         }
     }   //--> End delRegister()
 
-    public function listar($table = 'Providers', $column = '*', $condition = null)
+    public function listar($table = 'Patrimony', $column = '*', $condition = null)
     {
         return $this->db->select($table, $column, $condition);
     }

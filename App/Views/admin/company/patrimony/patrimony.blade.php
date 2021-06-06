@@ -1,9 +1,8 @@
-{% extends 'admin/layout/app.html' %}
+@extends('admin.layouts.app')
 
-{% block title %} Patrimônio{% endblock %}
+@section('title',' Patrimônio')
 
-{% block content %}
-
+@section('content')
 <!--Start row loading  -->
 <div class="row">
     <div class="col-md-1 col-sm-0 col-xs-0"></div>
@@ -386,4 +385,4 @@
         }
     }
 </script>
-{% endblock %}
+@endsection

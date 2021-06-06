@@ -90,10 +90,10 @@
 		<!-- <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.bundle.min.js"></script> -->
 
 		<!-- ===== Javascript customizado ===== --><script src="{{ Config::HOME_URI }}/public/js/scriptsFooter.js"> </script>
-		{% if pageType is defined and pageType == 'calendar' %}
+		@if ( !$pageType and $pageType == 'calendar')
 			<!-- Start JS -->
 			<script src="{{ Config::HOME_URI }}/_agenda/js/calendar-param.js"></script>
 			<!-- End JS -->
-		{% endif %}
+		@endif
 	</body>
 </html>

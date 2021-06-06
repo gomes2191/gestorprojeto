@@ -184,14 +184,14 @@ class Provider extends MainModel
             unset($lastId);
 
             # Feedback sucesso!
-            die(false);
+            die(true);
         } else {
 
             // Deleta a variável.
             unset($lastId);
 
             # Feedback erro!
-            die(true);
+            die(false);
         }
     } //--> End Insert
 
@@ -341,7 +341,7 @@ class Provider extends MainModel
             unset($id, $r, $id_encode);
 
             // Feedback erro
-            die(true);
+            die(false);
         } else {
 
             # Efetua a deleção...
@@ -351,12 +351,9 @@ class Provider extends MainModel
             unset($r,$id,$id_encode);
 
             // Feedback sucesso!
-            die(false);
+            die(true);
         }
     }   //--> End delRegister()
-
-
-
 
 
     public function listar($table = 'Providers', $column = '*', $condition = null)

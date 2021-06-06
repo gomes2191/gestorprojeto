@@ -52,6 +52,7 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
             //$allReg['created_at'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['created_at']);
             //$allReg['modified_at'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['modified_at']);
         }
+
         die(json_encode($allReg, JSON_FORCE_OBJECT));
     } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.

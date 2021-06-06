@@ -288,7 +288,6 @@ function Financeiro() {
                 data: 'action_type=' + this.objAction.type + '&id=' + this.objAction.id,
                 async: true,
                 success: function (data) {
-
                     if (typeExec === 'loadEdit') {
                         $.each(data, function (key, value) {
                             $('#' + key).val(value);
@@ -309,34 +308,15 @@ function Financeiro() {
                     //alert(msg);
                     objFinanca.ajaxData();
                     if (msg == true) {
-                       /*  $.toaster({
-                            title: {
-                                text: 'Sucesso!',
-                                icon: 'fas fa-check-circle',
-                                //info: 'just now',
-                                close: true
-                            },
-                            content: feedback,
-                            delay: 4000,
-                            position: 'top right'
-                        }); */
-
-
-                        /*toastr.success(feedback, 'Sucesso!', {
-                            "closeButton": true,
-                            timeOut: 5000,
-                            "progressBar": true
-                        });*/
                         if(objFinanca.objAction.type === 'delete'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'remoção realizada com sucesso!', cor: 'text-success'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'na remoção do registro!', bgcolor: 'bg-primary', txtcolor: 'text-white'});
                         }else if(objFinanca.objAction.type === 'add'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'registro inserido com sucesso!', cor: 'text-success'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'na inserção do registro!', bgcolor: 'bg-primary', txtcolor: 'text-white'});
                         }else if(objFinanca.objAction.type === 'update'){
                             Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'alteração realizada com sucesso!', cor: 'text-success'});
                         }
 
-
-                        $('.form-register')[0].reset();
+                        EventAction.resetForm();
                         return true;
                     } else {
                         /*toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
@@ -353,6 +333,16 @@ function Financeiro() {
                             delay: 4000,
                             position: 'top right'
                         }); */
+
+                        if(objFinanca.objAction.type === 'delete'){
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'remoção realizada com sucesso!', cor: 'text-success'});
+                        }else if(objFinanca.objAction.type === 'add'){
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'na inserção do registro!', });
+                        }else if(objFinanca.objAction.type === 'update'){
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Falha', txtmsg: 'na alteração do registro, se o erro persistir contate o administrador.', bgcolor: 'bg-danger', txtcolor: 'text-white'});
+                        }
+
+                        EventAction.resetForm();
 
                         return false;
                     }
@@ -417,13 +407,6 @@ function Metodos() {
     };
 
 }
-
-
-
-
-
-
-
 
 //    // Exemplo de uso
 //
@@ -511,32 +494,30 @@ class Modal {
         ico: ['fa', 'fa-check-circle'],
         title: 'Sucesso',
         txtmsg: 'remoção realizada com sucesso!',
-        cor: 'text-danger'
+        bgcolor: 'bg-light',
+        txtcolor: 'text-dark'
     }) => {
 
         // Declare variable that will store toast instance
         let toastInstance;
 
         // Create empty <div> element
-        let div1 = document.createElement('div');
-        let div2 = document.createElement('div');
-        let div3 = document.createElement('div');
-        let div4 = document.createElement('div');
-        let div5 = document.createElement('div');
-        let i1 = document.createElement('i');
-        let span1 = document.createElement('span');
-        let bt1 = document.createElement('button');
+        let div3    = document.createElement('div');
+        let div4    = document.createElement('div');
+        let div5    = document.createElement('div');
+        let i1      = document.createElement('i');
+        let span1   = document.createElement('span');
+        let bt1     = document.createElement('button');
 
         // Add "toast" and "animate" classes to recently created <div>
         //toast.classList.add("toast", "animate");
-        div1.classList.add('bg-primary', 'position-relative');
-        div2.classList.add('toast-container');
-        div3.classList.add('toast', 'align-items-center', 'border-1');
+        div3.classList.add('toast', 'align-items-center', 'border-0', 'fs-6', `${parameter.bgcolor}`, `${parameter.txtcolor}`);
         div4.classList.add('d-flex');
-        div5.classList.add('toast-body', `${parameter.cor}`);
+        div5.classList.add('toast-body');
         if(parameter.ico[0] && parameter.ico[1]){
             i1.classList.add(`${parameter.ico[0]}`, `${parameter.ico[1]}`, 'fa-lg', 'p-2', 'float-sm-start');
         }
+
         bt1.classList.add('btn-close', 'me-2', 'm-auto');
 
 
@@ -547,10 +528,6 @@ class Modal {
             }
         }
 
-        setAttributes(div1, {
-            "aria-live": "polite",
-            "aria-atomic": "true"
-        });
         setAttributes(div3, {
             "role": "alert",
             "aria-live": "assertive",
@@ -565,8 +542,6 @@ class Modal {
             "aria-hidden": "true"
         });
 
-        div1.appendChild(div2);
-        div2.appendChild(div3);
         div3.appendChild(div4);
         div4.appendChild(div5);
         div5.appendChild(i1);
@@ -574,9 +549,32 @@ class Modal {
         span1.innerHTML = `<b>${parameter.title}</b>, ${parameter.txtmsg}`;
         div4.appendChild(bt1);
 
-        // Insert the toast element as a first child of .toast-canvas and make sure,
-        // that every new toast element will be inserted BEFORE the last one
-        document.body.prepend(div1);
+
+        // Armazena a div.toast-container para posterior utilização / verificação
+        var toastContainer = document.querySelector(".toast-container");
+
+        if(toastContainer == null){
+
+            // Create empty <div> element
+            let div1 = document.createElement('div');
+            let div2 = document.createElement('div');
+
+             //toast.classList.add("toast", "animate");
+            div1.classList.add('position-relative');
+            div2.classList.add('toast-container');
+
+            setAttributes(div1, {
+                "aria-live": "polite",
+                "aria-atomic": "true"
+            });
+
+            div1.appendChild(div2);
+            div2.appendChild(div3);
+
+            document.body.prepend(div1);
+        }else{
+            toastContainer.prepend(div3);
+        }
 
         // Create Bootstrap Toast instance with some options
         toastInstance = new bootstrap.Toast(div3, {
@@ -587,16 +585,7 @@ class Modal {
     };
 }
 
-
-class Alert{
-
-
-}
-
-
 class EventAction {
-
-
     constructor(id1) {
         this.id1 = id1;
         //this.id2 = id2;
@@ -610,18 +599,6 @@ class EventAction {
     set val(id1) {
         this.id1 = id1;
     }
-    /*
-        scrollTo(element, to, duration) {
-    		if (duration < 0) return;
-    		var difference = to - element.scrollTop,
-    			perTick = difference / duration * 10;
-    		setTimeout(function() {
-    			element.scrollTop = element.scrollTop + perTick;
-    			if (element.scrollTop === to) return;
-    			scrollTo(element, to, duration - 10);
-    		}, 10);
-    	}; */
-
 
     newRegister(type, id1 = null, id2 = null, id3 = null, id4 = null, id5 = null) {
         if (type === 'new') {
@@ -731,7 +708,7 @@ class EventAction {
         if (type == 'returnNew') {
             document.querySelector(id1).addEventListener('click', function (e) {
                 e.preventDefault();
-                EventAction.resetForm()
+                EventAction.resetForm();
                 document.querySelectorAll(id3).forEach(function (el) {
                     'use strict';
                     // ** FADE OUT FUNCTION **

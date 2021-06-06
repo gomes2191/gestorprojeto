@@ -92,7 +92,7 @@ class PatrimonyController extends MainController
         //require_once(Config::HOME_URI . '/App/Views/_includes/footer.php');
 
         View::renderTemplate(
-            'admin/company/patrimony/patrimony.html',
+            'admin/company/patrimony/patrimony',
             [
                 'modelo' => $this->loadModel('admin/company/Patrimony'),
                 'objControl' => new PatrimonyController(),

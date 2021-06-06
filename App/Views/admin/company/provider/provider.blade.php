@@ -1,5 +1,3 @@
-
-
 @extends('admin.layouts.app')
 
 @section('title',' Fornecedores')
@@ -325,10 +323,9 @@
     </div><!-- End modal visualizar -->
 
     <script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+        /* var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl) }); */
 
         //Instância os objetos das classses
         objMetodos = new Metodos();
@@ -438,5 +435,7 @@
                 objEvent.editRegister(".btn-edit-show", "#group-btn-new, #btn-show", ".form-hidden, #group-btn-hidden, .row-button-hidden, #group-btn-form-new, #btn-form-new");
             }
         }
+
     </script>
+
 @endsection
