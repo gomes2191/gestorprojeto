@@ -60,6 +60,7 @@ class Patrimony extends MainModel
      **/
     public function formValidation()
     {
+        die('Teste');
         try {
             # Verifica se não é vazio o $_POST
             if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
@@ -71,7 +72,7 @@ class Patrimony extends MainModel
                 } //--> End foreach
 
                 // Verifica se existe o ID e decodifica se o mesmo existir.
-                !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(false, $this->formData['id']) : false;
+                //!empty($this->formData['id']) ? $this->formData['id']  =  GFunc::encodeDecode(0, $this->formData['id']) : false;
 
             } else {
                 // Finaliza a execução e retorna o erro.
@@ -103,8 +104,6 @@ class Patrimony extends MainModel
      */
     public function insertReg()
     {
-
-
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'patrimony_date_patrimony'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
         $lastId = (int) $this->db->insert('Patrimony', [
@@ -149,26 +148,27 @@ class Patrimony extends MainModel
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
-    public function updateReg($id = NULL)
+    public function updateReg($id = 0)
     {
-        # Efetua o update do registro
-        $r = $this->db->update('patrimony', 'patrimony_id', $id, [
-        'code'                     =>            GFunc::chkArray($this->form_data, 'code'),
-            'patrimony_desc'       =>  chkArray($this->form_data, 'patrimony_desc'),
-            'patrimony_data_aq'    =>  $this->convertDataHora('d/m/Y', 'Y-m-d', chkArray($this->form_data, 'patrimony_data_aq')),
-            'patrimony_cor'        =>  chkArray($this->form_data, 'patrimony_cor'),
-            'patrimony_for'        =>  chkArray($this->form_data, 'patrimony_for'),
-            'patrimony_dimen'      =>  chkArray($this->form_data, 'patrimony_dimen'),
-            'patrimony_setor'      =>  chkArray($this->form_data, 'patrimony_setor'),
-            'patrimony_valor'      =>  number_format(moeda($this->form_data['patrimony_valor']), 2, '.', ''),
-            'patrimony_garan'      =>  chkArray($this->form_data, 'patrimony_garan'),
-            'patrimony_quant'      =>  chkArray($this->form_data, 'patrimony_quant'),
-            'patrimony_nf'         =>  chkArray($this->form_data, 'patrimony_nf'),
-            'patrimony_sit'        =>  chkArray($this->form_data, 'patrimony_sit'),
-            'patrimony_obs'        =>  chkArray($this->form_data, 'patrimony_info'),
-            'patrimony_modified'   =>  date('Y-m-d H:i:s', time())
-        ]);
 
+
+        # Efetua o update do registro
+        $r = $this->db->update('Patrimony', 0, 'id=?', $id, [
+            'code'              =>  GFunc::chkArray($this->formData, 'code'),
+            'description'       =>  GFunc::chkArray($this->formData, 'description'),
+            'acquisition_date'  =>  GFunc::chkArray($this->formData, 'acquisition_date'),
+            'color'             =>  GFunc::chkArray($this->formData, 'color'),
+            'provider'          =>  GFunc::chkArray($this->formData, 'provider'),
+            'dimension'         =>  GFunc::chkArray($this->formData, 'dimension'),
+            'sector'            =>  GFunc::chkArray($this->formData, 'sector'),
+            'value'             =>  number_format(GFunc::moeda($this->formData['value']), 2, '.', ''),
+            'warranty'          =>  GFunc::chkArray($this->formData, 'warranty'),
+            'quantity'          =>  GFunc::chkArray($this->formData, 'quantity'),
+            'receipt'           =>  GFunc::chkArray($this->formData, 'receipt'),
+            'situation'         =>  GFunc::chkArray($this->formData, 'situation'),
+            'observation'       =>  GFunc::chkArray($this->formData, 'observation'),
+            'modified_at'       =>  date('Y-m-d H:i:s', time())
+        ]);
 
         // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
         if ($r > 0) {
@@ -178,7 +178,6 @@ class Patrimony extends MainModel
             # Feedback sucesso!
             die(false);
         } else {
-
             // Deleta a variável.
             unset($r);
 

@@ -337,17 +337,18 @@
             }
 
         } else if (objAction.type === 'update') {
-            objAction.userData = $("#editForm").serialize() + '&action_type=' + objAction.type;
+            objAction.userData = $("#regForm").serialize() + '&action_type=' + objAction.type;
             feedback = 'Atualizado com sucessso!';
             objFinanca.setAjaxActionUser(
                 objSet = {
                     type: objAction.type,
-                    url: "{{ constant('Config::HOME_URI') }}/patrimony/ajax-process",
+                    url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
                     userData: objAction.userData
                 }
             );
             objFinanca.ajaxActionUser();
-        } else if (objAction.type === 'delete') {
+            EventAction.resetForm();
+        }  else if (objAction.type === 'delete') {
             if (confirm('Deseja remover esse registro?')) {
                 objAction.userData = 'action_type=' + objAction.type + '&id=' + objAction.id;
                 objFinanca.setAjaxActionUser(

@@ -22,17 +22,16 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
 
         foreach ($result as $allReg) {
             $allReg['id'] = GFunc::encodeDecode($allReg['id']);
-            //$allReg['created_at'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['created_at']);
-            //$allReg['modified_at'] = GFunc::convertDataHora('Y-m-d H:i:s', 'd/m/Y H:i:s', $allReg['modified_at']);
         }
 
+        // Imprime o JSON do resultado.
         die(json_encode($allReg, JSON_FORCE_OBJECT));
     } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
         $modelo->formValidation();
     } elseif (filter_input(INPUT_POST, 'action_type') == 'update') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        return $modelo->validate_register_form();
+        $modelo->formValidation();
     } elseif (filter_input(INPUT_POST, 'action_type') == 'delete') {
         if (!empty(filter_input(INPUT_POST, 'id'))) {
             $modelo->delReg(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));

@@ -203,12 +203,11 @@ class Provider extends MainModel
      *   @Descrição: Atualiza um registro especifico no BD.
      *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
      **/
-    public function updateReg($id = false)
+    public function updateReg($id = 0)
     {
-
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-       $r = $this->db->update('Providers', false, 'id', $id, [
+       $r = $this->db->update('Providers', 0, 'id=?', $id, [
             'name'              =>  GFunc::chkArray($this->formData,     'name'),
             'cpf_cnpj'          =>  GFunc::chkArray($this->formData,     'cpf_cnpj'),
             'razao_social'      =>  GFunc::chkArray($this->formData,     'razao_social'),
