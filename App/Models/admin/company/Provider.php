@@ -77,7 +77,7 @@ class Provider extends MainModel
                 } //--> End foreach
 
                 // Verifica se existe o ID e decodifica se o mesmo existir.
-                !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(false, $this->formData['id']) : false;
+                !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(0, $this->formData['id']) : false;
 
             } else {
                 // Finaliza a execução e retorna o erro.
@@ -207,7 +207,7 @@ class Provider extends MainModel
     {
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-       $r = $this->db->update('Providers', 0, 'id=?', $id, [
+       $r = $this->db->update('Providers', 0, 'id', $id, [
             'name'              =>  GFunc::chkArray($this->formData,     'name'),
             'cpf_cnpj'          =>  GFunc::chkArray($this->formData,     'cpf_cnpj'),
             'razao_social'      =>  GFunc::chkArray($this->formData,     'razao_social'),
@@ -217,10 +217,10 @@ class Provider extends MainModel
             'status'            =>  GFunc::chkArray($this->formData,     'status'),
             'email'             =>  GFunc::chkArray($this->formData,     'email'),
             'obs'               =>  GFunc::chkArray($this->formData,     'obs'),
-            'created_at'        =>  date('Y-m-d H:i:s', time())
+            'modified_at'        =>  date('Y-m-d H:i:s', time())
         ]);
 
-        $this->db->update('Address', false, 'id_provider', $id, [
+        $this->db->update('Address', 0, 'id_provider', $id, [
             'address'       =>  GFunc::chkArray($this->formData, 'address'),
             'district'      =>  GFunc::chkArray($this->formData, 'district'),
             'city'          =>  GFunc::chkArray($this->formData, 'city'),
@@ -229,13 +229,13 @@ class Provider extends MainModel
             'nation'        =>  GFunc::chkArray($this->formData, 'nation'),
         ]);
 
-        $this->db->update('Representatives', false, 'id_provider', $id,[
+        $this->db->update('Representatives', 0, 'id_provider', $id,[
             'name'          =>  GFunc::chkArray($this->formData,     'rp_name'),
             'nickname'      =>  GFunc::chkArray($this->formData,     'rp_nickname'),
             'email'         =>  GFunc::chkArray($this->formData,     'rp_email'),
         ]);
 
-        $this->db->update('BankAccounts', false, 'id_representative', $id, [
+        $this->db->update('BankAccounts', 0, 'id_representative', $id, [
             'bank'              =>  GFunc::chkArray($this->formData,     'bank'),
             'agency'            =>  GFunc::chkArray($this->formData,     'agency'),
             'account'           =>  GFunc::chkArray($this->formData,     'account'),
@@ -243,25 +243,25 @@ class Provider extends MainModel
             'owner'             =>  'R',
         ]);
 
-        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'C' && `owner` = 'P' ", false, false, [
+        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'C' && `owner` = 'P' ", 0, 0, [
             'phone'             =>  GFunc::chkArray($this->formData, 'cel'),
             'type'              =>  'C',
             'owner'             =>  'P'
         ]);
 
-        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'T' && `owner` = 'P' ", false, false, [
+        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'T' && `owner` = 'P' ", 0, 0, [
             'phone'     => GFunc::chkArray($this->formData, 'phone'),
             'type'      => 'T',
             'owner'     => 'P'
         ]);
 
-        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'C' && `owner` = 'R' ", false, false, [
+        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'C' && `owner` = 'R' ", 0, 0, [
             'phone'          =>  GFunc::chkArray($this->formData, 'rp_cel'),
             'type'           =>  'C',
             'owner'          =>  'R'
         ]);
 
-        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'T' && `owner` = 'R' ", false, false, [
+        $this->db->update('Contacts', "(`id_provider` = $id) && `type` = 'T' && `owner` = 'R' ", 0, 0, [
             'phone'         =>   GFunc::chkArray($this->formData, 'rp_phone'),
             'type'          =>  'T',
             'owner'         =>  'R'
