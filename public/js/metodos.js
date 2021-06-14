@@ -1,5 +1,4 @@
 
-
 function Financeiro() {
     var nome;
     var idade;
@@ -313,7 +312,7 @@ function Financeiro() {
                         }else if(objFinanca.objAction.type === 'add'){
                             Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'na inserção do registro!', bgcolor: 'bg-primary', txtcolor: 'text-white'});
                         }else if(objFinanca.objAction.type === 'update'){
-                            Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'alteração realizada com sucesso!', cor: 'text-success'});
+                            Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'alteração realizada com sucesso!', bgcolor: 'bg-primary', txtcolor: 'text-white'});
                         }
 
                         EventAction.resetForm();

@@ -273,14 +273,14 @@ class Provider extends MainModel
             unset($r);
 
             # Feedback sucesso!
-            die(false);
+            die(true);
         } else {
 
             // Deleta a variável.
             unset($r);
 
             # Feedback erro!
-            die(true);
+            die(false);
         }
     } #--> End updateRegister()
 
