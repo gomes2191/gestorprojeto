@@ -28,14 +28,12 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
         die(json_encode($allReg, JSON_FORCE_OBJECT));
     } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        $modelo->formValidation();
+        $modelo->actionType('add');
     } elseif (filter_input(INPUT_POST, 'action_type') == 'update') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        $modelo->formValidation();
+        $modelo->actionType('update');
     } elseif (filter_input(INPUT_POST, 'action_type') == 'delete') {
-        if (!empty(filter_input(INPUT_POST, 'id'))) {
-            $modelo->delReg(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS));
-        }
+        $modelo->actionType('delete');
     }
 } else {
     //header('Location: ' . HOME_URI . '/');

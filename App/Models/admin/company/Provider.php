@@ -77,7 +77,7 @@ class Provider extends MainModel
                 } //--> End foreach
 
                 // Verifica se existe o ID e decodifica se o mesmo existir.
-                !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(0, $this->formData['id']) : false;
+                !empty($this->formData['id']) ? $this->formData['id'] = GFunc::encodeDecode(0, $this->formData['id']) : false;
 
             } else {
                 // Finaliza a execução e retorna o erro.
@@ -267,7 +267,7 @@ class Provider extends MainModel
             'owner'         =>  'R'
         ]);
 
-        // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
+        // Verifica se a consulta está OK, se sim envia o Feedback para o usuário.
         if ($r > 0) {
             // Deleta a variável.
             unset($r);
@@ -275,7 +275,6 @@ class Provider extends MainModel
             # Feedback sucesso!
             die(true);
         } else {
-
             // Deleta a variável.
             unset($r);
 

@@ -92,8 +92,7 @@
 
             <div class="form-group col-md-2 col-sm">
                 <label for="warranty">Garantia:</label>
-                <input id="warranty" name="warranty" type="text" class="form-control form-control-sm"
-                    placeholder="2 - Anos">
+                <input id="warranty" name="warranty" type="text" class="form-control form-control-sm" placeholder="2 - Anos">
             </div>
 
             <div class="form-group col-md-1 col-sm">
@@ -342,7 +341,7 @@
             objFinanca.setAjaxActionUser(
                 objSet = {
                     type: objAction.type,
-                    url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
+                    url: '<?= Config::HOME_URI; ?>/patrimony/ajax-process',
                     userData: objAction.userData
                 }
             );

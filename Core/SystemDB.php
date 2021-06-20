@@ -243,8 +243,6 @@ class SystemDB extends Config
             return;
         } */
 
-
-
         // Começa a declaração
         $stmt = " UPDATE `$table` SET ";
 

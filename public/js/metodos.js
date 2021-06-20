@@ -278,7 +278,6 @@ function Financeiro() {
     };
 
     this.ajaxActionUser = function () {
-
         if ((this.objAction.type === 'loadEdit' || this.objAction.type === 'loadInfo') && this.objAction.url.match(/ajax-process/) && this.objAction.url.match(this.objAction.url_id)) {
             $.ajax({
                 type: 'POST',
@@ -308,41 +307,24 @@ function Financeiro() {
                     objFinanca.ajaxData();
                     if (msg == true) {
                         if(objFinanca.objAction.type === 'delete'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'na remoção do registro!', bgcolor: 'bg-primary', txtcolor: 'text-white'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação atendida', txtmsg: 'remoção realizada com sucesso!', bgcolor: ['bg-success', 'bg-gradient'], txtcolor: 'text-white'});
                         }else if(objFinanca.objAction.type === 'add'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'na inserção do registro!', bgcolor: 'bg-primary', txtcolor: 'text-white'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação atendida', txtmsg: 'inserção realizada com sucesso!', bgcolor: ['bg-success', 'bg-gradient'], txtcolor: 'text-white'});
                         }else if(objFinanca.objAction.type === 'update'){
-                            Modal.showToast(parameter = {ico: ['fa', 'fa-check-circle'], title: 'Sucesso', txtmsg: 'alteração realizada com sucesso!', bgcolor: 'bg-primary', txtcolor: 'text-white'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação atendida', txtmsg: 'alteração realizada com sucesso!', bgcolor: ['bg-success', 'bg-gradient'], txtcolor: 'text-white'});
                         }
-
                         EventAction.resetForm();
                         return true;
                     } else {
-                        /*toastr.warning('Ocorreu algum problema, tente novamente', 'Erro!', {
-                            timeOut: 5000
-                        });*/
-                        /* $.toaster({
-                            title: {
-                                text: 'Erro!',
-                                icon: 'far fa-exclamation-triangle',
-                                //info: 'just now',
-                                close: true
-                            },
-                            content: 'Ocorreu algum problema, tente novamente',
-                            delay: 4000,
-                            position: 'top right'
-                        }); */
-
                         if(objFinanca.objAction.type === 'delete'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'remoção realizada com sucesso!', cor: 'text-success'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação não atendida', txtmsg: 'falha na remoção do registro, se o erro persistir contate o administrador.', bgcolor: ['bg-danger', 'bg-gradient'], txtcolor: 'text-white'});
                         }else if(objFinanca.objAction.type === 'add'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Sucesso', txtmsg: 'na inserção do registro!', });
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação não atendida', txtmsg: 'falha na inserção do registro, se o erro persistir contate o administrador.', bgcolor: ['bg-danger', 'bg-gradient'], txtcolor: 'text-white'});
                         }else if(objFinanca.objAction.type === 'update'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Falha', txtmsg: 'na alteração do registro, se o erro persistir contate o administrador.', bgcolor: 'bg-danger', txtcolor: 'text-white'});
+                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação não atendida', txtmsg: 'falha na alteração do registro, se o erro persistir contate o administrador.', bgcolor: ['bg-danger', 'bg-gradient'], txtcolor: 'text-white'});
                         }
 
                         EventAction.resetForm();
-
                         return false;
                     }
                 }
@@ -430,9 +412,6 @@ function Metodos() {
 
 //teste = objFinanca.getUS();
 
-
-
-
 ////em float
 //formatNumber(1234.53);
 ////em string real
@@ -493,7 +472,7 @@ class Modal {
         ico: ['fa', 'fa-check-circle'],
         title: 'Sucesso',
         txtmsg: 'remoção realizada com sucesso!',
-        bgcolor: 'bg-light',
+        bgcolor: ['bg-light'],
         txtcolor: 'text-dark'
     }) => {
 
@@ -510,7 +489,13 @@ class Modal {
 
         // Add "toast" and "animate" classes to recently created <div>
         //toast.classList.add("toast", "animate");
-        div3.classList.add('toast', 'align-items-center', 'border-0', 'fs-6', `${parameter.bgcolor}`, `${parameter.txtcolor}`);
+        div3.classList.add('toast', 'align-items-center', 'border-0', 'fs-6', `${parameter.txtcolor}`);
+        if(parameter.bgcolor[0] && parameter.bgcolor[1]){
+            div3.classList.add(`${parameter.bgcolor[0]}`, `${parameter.bgcolor[1]}`);
+        }else{
+            div3.classList.add(`${parameter.bgcolor[0]}`);
+        }
+
         div4.classList.add('d-flex');
         div5.classList.add('toast-body');
         if(parameter.ico[0] && parameter.ico[1]){
@@ -518,7 +503,6 @@ class Modal {
         }
 
         bt1.classList.add('btn-close', 'me-2', 'm-auto');
-
 
         // create a helper function
         function setAttributes(el, attrs) {
@@ -577,7 +561,7 @@ class Modal {
 
         // Create Bootstrap Toast instance with some options
         toastInstance = new bootstrap.Toast(div3, {
-            delay: 5500
+            delay: 6500
         });
         // Use show() method to display a toast
         toastInstance.show();
