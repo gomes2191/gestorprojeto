@@ -59,7 +59,6 @@ class SystemCore
      */
     public function __construct()
     {
-
         // Obtém os valores do controlador, ação e parâmetros da URL.
         // E configura as propriedades da classe.
         $this->getUrlData();
@@ -178,7 +177,6 @@ class SystemCore
      */
     public function getUrlData()
     {
-
         // Verifica se o parâmetro path foi enviado
         if ((filter_input(INPUT_GET, 'path', FILTER_SANITIZE_URL))) {
 

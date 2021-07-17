@@ -9,7 +9,6 @@ namespace Core;
  */
 class View
 {
-
     /**
      * Render a view file
      *

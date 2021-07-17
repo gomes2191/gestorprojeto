@@ -8,7 +8,7 @@ RewriteRule ^(.+)$ index.php?path=$1 [QSA,L]
 # Bloqueia acesso a diretorios
 Options All -Indexes
 
-# Protegendo seu arquivo .htaccess
+# Protegendo de acesso direto
 <files ~ "^.*\.([Hh][Tt][Aa])">
     order allow,deny
     deny from all
@@ -20,7 +20,7 @@ Options All -Indexes
     AddDefaultCharset UTF-8
 </FilesMatch>
 
-# Páginas de erro personalizadas
+# Páginas de erros personalizadas
 ErrorDocument 404 /erros/notfound.html
 ErrorDocument 400 /erros/badrequest.html
 ErrorDocument 401 /erros/authreqd.html

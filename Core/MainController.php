@@ -82,10 +82,8 @@ class MainController extends UserLogin
      */
     function loadModel($model_name = false)
     {
-
         // Um arquivo deverá ser enviado
         if (!$model_name) return;
-
 
         // Garante que o nome do modelo tenha letras minúsculas
         //$model_name =  strtolower( $model_name );
@@ -118,10 +116,4 @@ class MainController extends UserLogin
             return;
         }
     } // Fim :) load_model
-
-
-
-
-
-
 } // Fim :) class MainController

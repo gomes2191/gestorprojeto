@@ -3,10 +3,10 @@
 //namespace Core;
 
 /**
- * Config - classe com os parâmetros de configuração.
+ * Config - classe com os parâmetros de configuração da Aplicação.
  *
  * @category Class
- * @package  Config
+ * @package  GClinic
  * @author   F.A.G.A - <gomes.tisystem@gmail.com>
  * @license  gclinic.com Private
  * @link     www.gclinic.com
@@ -19,14 +19,15 @@ class Config
      *
      * @var string
      */
-    const HOME_URI = '/p_gclinic';
+    const HOME_URI = '';
 
     /**
      * Caminho do projeto.
      *
      * @var string
      */
-    const ABS_PATH = '/home/francisco/development/p_gclinic';
+    //const ABS_PATH = '/home/francisco/development/p_gclinic';
+    const ABS_PATH = '/var/www';
 
     /**
      * Caminho para a pasta de uploads.
@@ -55,7 +56,7 @@ class Config
      * @var string
      */
 
-    const DB_HOST = 'localhost';
+    const DB_HOST = 'db';
 
     /**
      * Tipo de driver ex.: pgsql, mysql.
@@ -88,14 +89,14 @@ class Config
      *
      * @var string
      */
-    const DB_USER = 'admin';
+    const DB_USER = 'francisco';
 
     /**
      * Usuário do banco de dados.
      *
      * @var string
      */
-    const DB_PASSWORD = '123456';
+    const DB_PASSWORD = 'francisco';
 
     /**
      * Charset da conexão PDO.
@@ -203,8 +204,6 @@ class Config
 }
 
 $config = new Config();
-
-
 
 /***
  * Primordial para o funcionamento da Aplicação,

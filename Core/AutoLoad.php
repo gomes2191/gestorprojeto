@@ -7,7 +7,6 @@ session_start();
 if (!Config::ABS_PATH) {
     (Config::DEBUG['show']) ? var_dump('Não foi definido o diretório do sistema.') : die('Erro fatal...');
 }
-
 /**
  * Loader - classe responsável por fazer a carga do
  * sistema e com algumas funções importantes.
@@ -21,10 +20,8 @@ if (!Config::ABS_PATH) {
  */
 class AutoLoad
 {
-
     public function __construct()
     {
-
         spl_autoload_register(array($this, 'load'));
 
         // Carrega o método mostrar erros.
@@ -50,8 +47,6 @@ class AutoLoad
             echo "<h6><span class='badge bg-primary'>MODO DEBUG: ativo </span></h6>";
         }
     }
-
-
 
     /**
      * Recebe a requisição e verifica se classe existe.

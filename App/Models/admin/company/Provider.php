@@ -64,40 +64,31 @@ class Provider extends MainModel
      *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
      *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
      **/
-    public function formValidation()
+    public function actionType($action = 0)
     {
-        try {
-            # Verifica se não é vazio o $_POST
-            if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
+        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
+            // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
+            foreach (filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS) as $key => $value) {
+                # Configura os dados do post para a propriedade $form_data
+                $this->formData[$key] = $value;
+            } //--> End foreach
 
-                // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
-                foreach (filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS) as $key => $value) {
-                    # Configura os dados do post para a propriedade $form_data
-                    $this->formData[$key] = $value;
-                } //--> End foreach
+             // Verifica se existe o ID e decodifica se o mesmo existir.
+             !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(0, $this->formData['id']) : false;
 
-                // Verifica se existe o ID e decodifica se o mesmo existir.
-                !empty($this->formData['id']) ? $this->formData['id'] = GFunc::encodeDecode(0, $this->formData['id']) : false;
-
-            } else {
-                // Finaliza a execução e retorna o erro.
-                throw new Exception("Requisição post não declarada ou campos vázios.");
-            } #--> End
-
-        } catch (Exception $e) {
-            echo 'Erro: ' . $e->getMessage();
+            if ($action == 'add') {
+                $this->insertReg();
+            } elseif ($action == 'update') {
+                $this->updateReg($this->formData['id']);
+            } elseif ($action == 'delete') {
+                $this->delReg($this->formData['id']);
+            }else{
+                return;
+            }
+        }else{
+            return;
         }
-
-        //var_dump($this->formData['id']);die;
-
-        // Verefica qual tipo de ação a ser tomada se existe ID faz Update se não existir efetua o insert
-        if ($this->formData['id'] >= 1) {
-            $this->updateReg($this->formData['id']);
-        } else {
-            //var_dump($this->form_data);die;
-            $this->insertReg();
-        }
-    } //--> End formValidation()
+    } //--> End actionType
 
     /**
      * Faz a inserção do registro no BD.
