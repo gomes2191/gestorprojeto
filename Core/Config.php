@@ -75,7 +75,7 @@ class Config
      *
      * @var string
      */
-    const DB_NAME = 'gclinic';
+    const DB_NAME = 'bd_dev';
 
     /**
      * Prefixo da tabela do banco de dados.
@@ -89,14 +89,14 @@ class Config
      *
      * @var string
      */
-    const DB_USER = 'francisco';
+    const DB_USER = 'user_dev';
 
     /**
      * Usuário do banco de dados.
      *
      * @var string
      */
-    const DB_PASSWORD = 'francisco';
+    const DB_PASSWORD = 'pass_dev';
 
     /**
      * Charset da conexão PDO.
