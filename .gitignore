@@ -17,3 +17,4 @@ composer.phar
 /logs/*
 /cache/*
 /vendor/*
+phpinfo.php
