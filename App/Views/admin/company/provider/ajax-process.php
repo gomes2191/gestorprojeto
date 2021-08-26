@@ -29,7 +29,8 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
     } elseif (filter_input(INPUT_POST, 'action_type') == 'loadEdit') {
 
         $result = $modelo->listar(
-            'Providers PR', 'PR.`id`, PR.`name`, PR.`cpf_cnpj`, PR.`razao_social`, PR.`occupation_area`,
+            'Providers PR',
+            'PR.`id`, PR.`name`, PR.`cpf_cnpj`, PR.`razao_social`, PR.`occupation_area`,
              PR.`insc_uf`, PR.`web_url`, PR.`status`, PR.`email`, PR.`obs`,
              AD.`address`, AD.`district`, AD.`city`, AD.`uf`, AD.`cep`, AD.`nation`,
              RP.`name` as rp_name, RP.`nickname` as rp_nickname, RP.`email` as rp_email,
@@ -56,7 +57,7 @@ if ((filter_input(INPUT_POST, 'action_type')) && !empty(filter_input(INPUT_POST,
         die(json_encode($allReg, JSON_FORCE_OBJECT));
     } elseif (filter_input(INPUT_POST, 'action_type') == 'add') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
-        $modelo->formValidation();
+        $modelo->actionType('add');
     } elseif (filter_input(INPUT_POST, 'action_type') == 'update') {
         # Chama a função que trata os dados do formulário e faz update o insert conforme a condição passada.
         $modelo->formValidation();

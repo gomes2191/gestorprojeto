@@ -66,7 +66,7 @@ class Provider extends MainModel
      **/
     public function actionType($action = 0)
     {
-        if ((filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST') && (!empty(filter_input_array(INPUT_POST, FILTER_DEFAULT)))) {
+        if (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST' && !empty(filter_input_array(INPUT_POST, FILTER_DEFAULT))) {
             // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
             foreach (filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS) as $key => $value) {
                 # Configura os dados do post para a propriedade $form_data
