@@ -78,7 +78,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             break;
     }
 } else {
-   /*  $conditions['order_by'] = "patrimony_id DESC LIMIT 100";
+    /*  $conditions['order_by'] = "patrimony_id DESC LIMIT 100";
     $count = (is_array($modelo->searchTable($tblName, $conditions)) ? count($modelo->searchTable($tblName, $conditions)) : 0);
     $conditions['order_by'] = "patrimony_id DESC LIMIT $start, $limit";
     $allReg = $modelo->searchTable($tblName, $conditions); */
@@ -86,7 +86,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     $count = (is_array($count = $modelo->listar('Patrimony P', '*'))) ? COUNT($count) : 0;
     $allReg = $modelo->listar(
         'Patrimony PAT',
-        'PAT.id, PAT.`code`, PAT.`description`,  PAT.`sector`, PAT.`value`',
+        'PAT.id, PAT.`code`, PAT.`description`, PAT.`sector`, PAT.`value`',
         "GROUP BY PAT.id ORDER BY PAT.id DESC LIMIT {$start}{$offset}{$limit}"
     );
 }

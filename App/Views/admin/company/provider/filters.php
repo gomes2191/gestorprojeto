@@ -90,10 +90,10 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
     $allReg = $modelo->listar(
         'Providers PR',
-        'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
-        "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
-        INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
-        GROUP BY PR.id
+        'PR.id, PR.`name`, PR.`email`, PR.`occupation_area`, PR.`status`, AD.`uf`, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
+        "LEFT JOIN  Address AS AD ON PR.id = AD.id_provider
+        LEFT JOIN Contacts AS CT ON PR.`id` = CT.`id_provider`
+        GROUP BY PR.id, PR.`name`, PR.`email`, PR.`occupation_area`, PR.`status`, AD.`uf`
         ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}"
     );
 }
@@ -136,7 +136,7 @@ HTML;
         echo '<td>' . ((GFunc::getCode(explode(',', $reg['phone']), 'TP')) ? GFunc::getCode(explode(',', $reg['phone']), 'TP') : '---') . '</td>';
         echo '<td>' . (($reg['email']) ? $reg['email'] : '---') . '</td>';
         echo '<td>' . (($reg['occupation_area']) ? $reg['occupation_area'] : '---') . '</td>';
-        echo '<td>' . (($reg['states']) ? $reg['states'] : '---') . '</td>';
+        echo '<td>' . (($reg['uf']) ? $reg['uf'] : '---') . '</td>';
         echo '<td>' . (($reg['status']) ? $reg['status'] : '---') . '</td>';
         echo "<td><button class='btn btn-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
         echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";

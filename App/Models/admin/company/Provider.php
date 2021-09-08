@@ -54,6 +54,11 @@ class Provider extends MainModel
     public function __construct($db = null)
     {
         $this->db = $db;
+        // Construct other generic data.
+        $this->clientGetMethod = filter_input(INPUT_GET, 'action_type', FILTER_SANITIZE_STRING); // such as list, add, update, etc
+        $this->clientPostMethod = filter_input(INPUT_POST, 'action_type', FILTER_SANITIZE_STRING);
+        $this->getPostValues = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS); // such as POST values;
+        $this->serverRequestMethod = filter_var(getenv('REQUEST_METHOD'), FILTER_SANITIZE_STRING);  //filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_STRING);
     }
 
     /**
@@ -64,28 +69,28 @@ class Provider extends MainModel
      *   @Descrição: Método que trata o fromulário, verifica o tipo de dados passado e executa as validações necessarias.
      *   @Obs: Este método pode inserir ou atualizar dados dependendo do tipo de requisição solicitada pelo usuário.
      **/
-    public function actionType($action = 0)
+    public function actionType()
     {
-        if (filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_DEFAULT) === 'POST' && !empty(filter_input_array(INPUT_POST, FILTER_DEFAULT))) {
+        if ($this->serverRequestMethod === 'POST') {
             // Faz o loop dos dados do formulário inserindo os no vetor $form_data.
-            foreach (filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS) as $key => $value) {
+            foreach ($this->getPostValues as $key => $value) {
                 # Configura os dados do post para a propriedade $form_data
                 $this->formData[$key] = $value;
             } //--> End foreach
 
-             // Verifica se existe o ID e decodifica se o mesmo existir.
-             !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(0, $this->formData['id']) : false;
+            // Verifica se existe o ID e decodifica se o mesmo existir.
+            !empty($this->formData['id']) ? $this->formData['id']  = (int) GFunc::encodeDecode(0, $this->formData['id']) : false;
 
-            if ($action == 'add') {
+            if ($this->clientPostMethod == 'add') {
                 $this->insertReg();
-            } elseif ($action == 'update') {
+            } elseif ($this->clientPostMethod == 'update') {
                 $this->updateReg($this->formData['id']);
-            } elseif ($action == 'delete') {
+            } elseif ($this->clientPostMethod == 'delete') {
                 $this->delReg($this->formData['id']);
-            }else{
+            } else {
                 return;
             }
-        }else{
+        } else {
             return;
         }
     } //--> End actionType
@@ -198,7 +203,7 @@ class Provider extends MainModel
     {
         //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
         # Se o ID do agendamento estiver vazio, insere os dados
-       $r = $this->db->update('Providers', 0, 'id', $id, [
+        $r = $this->db->update('Providers', 0, 'id', $id, [
             'name'              =>  GFunc::chkArray($this->formData,     'name'),
             'cpf_cnpj'          =>  GFunc::chkArray($this->formData,     'cpf_cnpj'),
             'razao_social'      =>  GFunc::chkArray($this->formData,     'razao_social'),
@@ -220,7 +225,7 @@ class Provider extends MainModel
             'nation'        =>  GFunc::chkArray($this->formData, 'nation'),
         ]);
 
-        $this->db->update('Representatives', 0, 'id_provider', $id,[
+        $this->db->update('Representatives', 0, 'id_provider', $id, [
             'name'          =>  GFunc::chkArray($this->formData,     'rp_name'),
             'nickname'      =>  GFunc::chkArray($this->formData,     'rp_nickname'),
             'email'         =>  GFunc::chkArray($this->formData,     'rp_email'),
@@ -337,7 +342,7 @@ class Provider extends MainModel
             $this->db->delete('Providers', 'id', $id);
 
             // Destroy variáveis não mais utilizadas
-            unset($r,$id,$id_encode);
+            unset($r, $id, $id_encode);
 
             // Feedback sucesso!
             die(true);

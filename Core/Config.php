@@ -56,7 +56,7 @@ class Config
      * @var string
      */
 
-    const DB_HOST = 'db';
+    const DB_HOST = 'bd';
 
     /**
      * Tipo de driver ex.: pgsql, mysql.
