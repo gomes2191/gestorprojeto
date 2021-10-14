@@ -42,7 +42,7 @@ class Config
      *
      * @var string
      */
-    const NOME_SITE = 'GClinic - ';
+    const NOME_SITE = 'Gestor de Projeto - ';
 
     /**
      * Define o idioma do site.
@@ -75,7 +75,7 @@ class Config
      *
      * @var string
      */
-    const DB_NAME = 'bd_dev';
+    const DB_NAME = 'eaux';
 
     /**
      * Prefixo da tabela do banco de dados.

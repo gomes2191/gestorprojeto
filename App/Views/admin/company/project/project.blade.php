@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title',' Fornecedores')
+@section('title',' Projetos')
 
 @section('content')
     <!--Start row loading  -->
@@ -25,17 +25,17 @@
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
             <form id="regForm" enctype="multipart/form-data" class="form-register" data-id="" method="post" action="" role="form">
                 <fieldset>
-                    <legend>FORNECEDORES <span class="badge bg-light text-dark text-wrap fst-italic"></span></legend>
+                    <legend>PROJETOS <span class="badge bg-light text-dark text-wrap fst-italic"></span></legend>
 
                     <div class="row form-hidden" style="display: none">
                         <!-- Start div hidden 1 -->
-                        <div class="col-md col-sm mb-2"><small class="text-muted">INFORMAÇÕES DO FORNECEDOR</small></div>
+                        <div class="col-md col-sm mb-2"><small class="text-muted">INFORMAÇÕES DO PROJETO</small></div>
                     </div>
 
                     <div class="row mb-3 form-hidden" style="display: none">
                         <!-- Start div hidden 1 -->
                         <div class="form-group col-md col-sm">
-                            <label for="name">Empresa:</label>
+                            <label for="name">Projeto:</label>
                             <input type="hidden" id="id" name="id" value="">
                             <input id="name" name="name" type="text" class="form-control form-control-sm" placeholder="Nome da empresa" value="">
                             <div class="invalid-feedback">
@@ -123,7 +123,7 @@
 
                     <div class="row form-hidden" style="display: none;">
                         <!-- Start div hidden 4 -->
-                        <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DO REPRESENTANTE - PESSOA DE CONTATO</small></div>
+                        <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DA ATIVIDADE</small></div>
                     </div><!-- End div hidden 4 -->
 
                     <div class="row mb-3 form-hidden" style="display: none;">
@@ -323,10 +323,6 @@
     </div><!-- End modal visualizar -->
 
     <script>
-        /* var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl) }); */
-
         //Instância os objetos das classses
         objMetodos = new Metodos();
         objFinanca = new Financeiro();
@@ -334,8 +330,8 @@
 
         // Efetua a requisição ajax e retorna os registros
         objFinanca.setAjaxData(objSet = {
-            url: '<?= Config::HOME_URI; ?>/providers/filters',
-            url_id: '/providers/',
+            url: '<?= Config::HOME_URI; ?>/projects/filters',
+            url_id: '/projects/',
             get_decode: false
         });
 
@@ -356,14 +352,14 @@
                 if (objAction.type === 'loadEdit') {
                     objFinanca.setAjaxActionUser(objSet = {
                         type: objAction.type,
-                        url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
+                        url: '<?= Config::HOME_URI; ?>/projects/ajax-process',
                         id: objAction.id
                     });
                     objFinanca.ajaxActionUser();
                 } else {
                     objFinanca.setAjaxActionUser(objSet = {
                         type: objAction.type,
-                        url: "{{Config::HOME_URI}}/providers/ajax-process",
+                        url: "{{Config::HOME_URI}}/projects/ajax-process",
                         id: objAction.id
                     });
                     objFinanca.ajaxActionUser();
@@ -378,7 +374,7 @@
                     objFinanca.setAjaxActionUser(
                         objSet = {
                             type: objAction.type,
-                            url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
+                            url: '<?= Config::HOME_URI; ?>/projects/ajax-process',
                             userData: objAction.userData
                         }
                     );
@@ -392,7 +388,7 @@
                 objFinanca.setAjaxActionUser(
                     objSet = {
                         type: objAction.type,
-                        url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
+                        url: '<?= Config::HOME_URI; ?>/projects/ajax-process',
                         userData: objAction.userData
                     }
                 );
@@ -404,7 +400,7 @@
                     objFinanca.setAjaxActionUser(
                         objSet = {
                             type: objAction.type,
-                            url: '<?= Config::HOME_URI; ?>/providers/ajax-process',
+                            url: '<?= Config::HOME_URI; ?>/projects/ajax-process',
                             userData: objAction.userData
                         }
                     );
