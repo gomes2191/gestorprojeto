@@ -75,7 +75,7 @@ class Config
      *
      * @var string
      */
-    const DB_NAME = 'eaux';
+    const DB_NAME = 'projectmanager';
 
     /**
      * Prefixo da tabela do banco de dados.
@@ -89,7 +89,7 @@ class Config
      *
      * @var string
      */
-    const DB_USER = 'user_dev';
+    const DB_USER = 'root';
 
     /**
      * Usuário do banco de dados.

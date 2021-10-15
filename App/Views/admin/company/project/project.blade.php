@@ -37,151 +37,51 @@
                         <div class="form-group col-md col-sm">
                             <label for="name">Projeto:</label>
                             <input type="hidden" id="id" name="id" value="">
-                            <input id="name" name="name" type="text" class="form-control form-control-sm" placeholder="Nome da empresa" value="">
+                            <input id="name" name="name" type="text" class="form-control form-control-sm" placeholder="Projeto nome..." value="">
                             <div class="invalid-feedback">
                                 Preencha esse campo.
                             </div>
                         </div>
 
                         <div class="form-group col-md col-sm">
-                            <label for="cpf_cnpj">CPF/CNPJ:</label>
-                            <input id="cpf_cnpj" name="cpf_cnpj" type="text" class="form-control form-control-sm" placeholder="CPF/CNPJ" onfocus="javascript: retirarFormatacao(this);" onblur="javascript: formatarCampo(this);" maxlength="14">
+                            <label for="start_date ">Data início:</label>
+                            <input id="start_date" name="acquisition_date"
+                                class="form-control form-control-sm date text-center" type="text" placeholder="dd/mm/aaaa" value="">
                             <div class="invalid-feedback">
                                 Preencha esse campo.
                             </div>
                         </div>
 
                         <div class="form-group col-md col-sm">
-                            <label for="razao_social">Razão social:</label>
-                            <input id="razao_social" name="razao_social" class="form-control form-control-sm" type="text" placeholder="Razão social" value="">
+                            <label for="end_date">Data fim:</label>
+                            <input id="end_date" name="end_date"
+                                class="form-control form-control-sm date text-center" type="text" placeholder="dd/mm/aaaa" value="">
+                            <div class="invalid-feedback">
+                                Preencha esse campo.
+                            </div>
                         </div>
 
                         <div class="form-group col-md col-sm">
-                            <label for="occupation_area">Área de atuação:</label>
-                            <input id="occupation_area" name="occupation_area" class="form-control form-control-sm" type="text" placeholder="Área de atuação" value="">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="address">Endereço:</label>
-                            <input id="address" name="address" type="text" class="form-control form-control-sm" placeholder="Endereço">
-                        </div>
-                    </div><!-- /End div hidden 1 -->
-
-                    <div class="row form-hidden mb-3" style="display: none;">
-                        <!--Start div hidden 2-->
-                        <div class="form-group col-md col-sm">
-                            <label for="district">Bairro:</label>
-                            <input id="district" name="district" type="text" class="form-control form-control-sm" placeholder="Bairro">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="city">Cidade:</label>
-                            <input id="city" name="city" type="text" class="form-control form-control-sm" placeholder="Cidade">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="cep">CEP:</label>
-                            <input id="cep" name="cep" type="text" class="form-control form-control-sm cep" placeholder="00000-000">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="uf">UF:</label>
-                            <input id="uf" name="uf" type="text" class="form-control form-control-sm uf" placeholder="UF">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="nation">Território:</label>
-                            <input id="nation" name="nation" type="text" class="form-control form-control-sm" placeholder="País">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="cel">Celular:</label>
-                            <input id="cel" name="cel" type="text" class="form-control form-control-sm phone_cel" placeholder="(00) 00000-0000">
-                        </div>
-                    </div><!-- End div hidden 2 -->
-
-                    <div class="row mb-3 form-hidden" style="display: none;">
-                        <!-- Start div hidden 3 -->
-                        <div class="form-group col-md col-sm">
-                            <label for="phone">Telefone 1:</label>
-                            <input id="phone" name="phone" type="text" class="form-control form-control-sm phone_tel" placeholder="(00) 0000-00000">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="insc_uf">Inscrição Estadual:</label>
-                            <input id="insc_uf" name="insc_uf" type="text" class="form-control form-control-sm" placeholder="Inscrição estadual...">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="email">E-mail:</label>
-                            <input id="email" name="email" type="text" class="form-control form-control-sm" placeholder="exemplo@email.com">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="web_url">Site:</label>
-                            <input id="web_url" name="web_url" type="text" class="form-control form-control-sm" placeholder="www.exemplo.com">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="status">Situação:</label><br>
+                            <label for="status">Atrasado:</label><br>
                             <select id="status" name="status" class="form-select form-select-sm">
-                                <option selected value="active">Ativo</option>
-                                <option value="inactive">Inativo</option>
+                                <option selected value="0">Não</option>
+                                <option value="1">Sim</option>
                             </select>
                         </div>
-                    </div><!-- End div hidden 3 -->
 
-                    <div class="row form-hidden" style="display: none;">
-                        <!-- Start div hidden 4 -->
-                        <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES DA ATIVIDADE</small></div>
-                    </div><!-- End div hidden 4 -->
 
-                    <div class="row mb-3 form-hidden" style="display: none;">
-                        <!--Start div hidden 5-->
-                        <div class="form-group col-md col-sm">
-                            <label for="rp_name">Nome:</label>
-                            <input id="rp_name" name="rp_name" type="text" class="form-control form-control-sm" placeholder="Nome">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="rp_nickname">Apelido:</label>
-                            <input id="rp_nickname" name="rp_nickname" type="text" class="form-control form-control-sm" placeholder="Apelido">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="rp_email">E-mail:</label>
-                            <input id="rp_email" name="rp_email" type="text" class="form-control form-control-sm" placeholder="email@exemplo.com">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="rp_cel">Celular:</label>
-                            <input id="rp_cel" name="rp_cel" type="text" class="form-control form-control-sm phone_cel" placeholder="(00) 00000-0000">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="rp_phone">Telefone 1:</label>
-                            <input id="rp_phone" name="rp_phone" type="text" class="form-control form-control-sm phone_tel" placeholder="(00) 00000-0000">
-                        </div>
-                    </div><!-- /End div hidden 5 -->
 
-                    <div class="row form-hidden" style="display: none;">
-                        <!-- Start div hidden 6 -->
-                        <div class="col-md-12  col-sm-12 col-xs-12"><small class="text-muted">INFORMAÇÕES BANCÁRIAS</small></div>
-                    </div> <!-- End div hidden 6 -->
+                        <div class="form-group col-md col-sm">
+                            <label for="progress">Progresso:</label>
+                            <div class="input-group">
+                                <input id="progress" name="progress" type="text" min="1" max="100" step="1"
+                                    class="form-control form-control-sm number text-center" placeholder="10">
+                                    <span class="input-group-text">%</span>
+                            </div>
 
-                    <div class="row mb-3 form-hidden" style="display: none;">
-                        <!--Start div hidden 7-->
-                        <div class="form-group col-md col-sm">
-                            <label for="bank">Banco 1:</label>
-                            <input id="bank" name="bank" type="text" class="form-control form-control-sm" placeholder="Banco">
                         </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="agency">Agência 1:</label>
-                            <input id="agency" name="agency" type="text" class="form-control form-control-sm" placeholder="Agência">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="account">Conta 1:</label>
-                            <input id="account" name="account" type="text" class="form-control form-control-sm" placeholder="Conta">
-                        </div>
-                        <div class="form-group col-md col-sm">
-                            <label for="holder">Titular 1:</label>
-                            <input id="holder" name="holder" type="text" class="form-control form-control-sm" placeholder="Titular">
-                        </div>
-                    </div><!-- End div hidden 7 -->
 
-                    <div class="row mb-3 form-hidden" style="display: none;">
-                        <!--Start div hidden 9-->
-                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                            <label for="obs">Observações:</label>
-                            <textarea id="obs" class="form-control" name="obs" style="margin-top: 0px; width: 100%; max-width: 100%;  margin-bottom: 0px; height: 150px; text-align: justify;" rows="3" placeholder="Outras informações..."><?= htmlentities(GFunc::chkArray($modelo->form_data, 'providers_obs')); ?></textarea>
-                        </div>
-                    </div><!-- End div hidden 9 -->
+                    </div><!-- /End div hidden 1 -->
 
                     <div class="form-row mb-3 row-button-hidden" style="display: none;">
                         <!-- Start div button hidden 1 -->
@@ -339,7 +239,7 @@
         objFinanca.getAjaxData();
 
         $('input').on('keydown keyup', function() {
-            objMetodos.setVerify(arrayData = ['name', 'cpf_cnpj']);
+            objMetodos.setVerify(arrayData = ['name', 'start_date', 'end_date']);
             objMetodos.emptyVerify();
             objMetodos.getVerify();
         });

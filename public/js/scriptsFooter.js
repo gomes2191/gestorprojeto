@@ -45,11 +45,12 @@ function mascaraCnpj(valor) {
 }
 // End -->
 
-$('.cnpj').mask('00.000.000/0000-00', {
-  reverse: true
-});
+$(document).ready(function (e) {
 
-$(document).ready(function () {
+  $('.cnpj').mask('00.000.000/0000-00', {
+    reverse: true
+  });
+
   $('.cpf').mask('000.000.000-00', {
     reverse: true
   });
@@ -57,14 +58,38 @@ $(document).ready(function () {
   $('.cep').mask('00000-000');
   $('.phone_cel').mask('(00) 00000-0000');
   $('.phone_tel').mask('(00) 0000-00000');
-  $('.data').mask('00/00/0000');
+  //$('.date').mask('00/00/0000');
+
+  $('.date').mask("00/00/0000",{
+    placeholder:"DD/MM/YYYY",
+    clearIfNotMatch: false,
+    onComplete:function(){
+        var v = $dateofbirth.val();
+        if( isValidDate(v) ){
+            // do stuff
+        } else {
+            // do other stuff
+        }
+    }
+});
+
   $('.hora').mask('00:00');
 
   $('.uf').mask('AA');
   $('.money').mask('000.000.000.000.000,00', {
     reverse: true
   });
-  $('.number').mask('000000000000000');
+
+  $('.number').mask('000', {
+    reverse: true,
+    onKeyPress: function(val, e, field, options) {
+      if (val > 100) {
+        console.clear();
+        console.log('Valor maximo 100 !');
+        $('.number').val('');
+      }
+    }
+  });
 
   // Agenda mascara
   $('.dataHora').mask('00/00/0000 00:00');
