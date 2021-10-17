@@ -105,21 +105,12 @@ class Project extends MainModel
      */
     public function insertReg()
     {
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
-        # Se o ID do agendamento estiver vazio, insere os dados
         $lastId = (int) $this->db->insert('Projects', [
             'name'       => GFunc::chkArray($this->formData, 'name'),
             'progress'   => GFunc::chkArray($this->formData, 'progress'),
             'late'       => GFunc::chkArray($this->formData, 'late'),
-            'start_date' => GFunc::chkArray($this->formData, 'start_date'),
-            'end_date'   => GFunc::chkArray($this->formData, 'end_date')
-        ]);
-
-        $this->db->insert('Activities', [
-            'id_project' =>  $lastId,
-            'name'       =>  GFunc::chkArray($this->formData, 'name'),
-            'start_date' => GFunc::chkArray($this->formData, 'start_date'),
-            'end_date'   => GFunc::chkArray($this->formData, 'end_date')
+            'start_date' => GFunc::convertDataHora('d/m/Y', 'Y-m-d', $this->formData['start_date']),
+            'end_date'   => GFunc::convertDataHora('d/m/Y', 'Y-m-d', $this->formData['end_date']),
         ]);
 
         // Verifica se a consulta está OK se sim envia o Feedback para o usuário.
@@ -137,32 +128,17 @@ class Project extends MainModel
             # Feedback erro!
             die(false);
         }
-    } //--> End Insert
+    }
 
-    /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Função: updateRegister()
-     *   @Versão: 0.2
-     *   @Descrição: Atualiza um registro especifico no BD.
-     *   @Obs: Este método só funcionara se for chamado no método validate_register_form() ambos trabalham em conjunto.
-     **/
     public function updateReg($id = 0)
     {
-        //var_dump($this->convertDataHora('d/m/Y', 'Y-m-d',$this->avaliar(chkArray($this->form_data, 'provider_date_provider'))));die;
-        # Se o ID do agendamento estiver vazio, insere os dados
         $r = $this->db->update('Projects', 0, 'id', $id, [
             'name'       => GFunc::chkArray($this->formData, 'name'),
+            'start_date' => GFunc::chkArray($this->formData, 'start_date'),
+            'end_date'   => GFunc::chkArray($this->formData, 'end_date'),
             'progress'   => GFunc::chkArray($this->formData, 'progress'),
-            'late'       => GFunc::chkArray($this->formData, 'late'),
-            'start_date' => GFunc::chkArray($this->formData, 'start_date'),
-            'end_date'   => GFunc::chkArray($this->formData, 'end_date')
-        ]);
+            'late'       => GFunc::chkArray($this->formData, 'late')
 
-        $this->db->update('Activities', 0, 'id_project', $id, [
-            'name'       => GFunc::chkArray($this->formData, 'name'),
-            'start_date' => GFunc::chkArray($this->formData, 'start_date'),
-            'end_date'   => GFunc::chkArray($this->formData, 'end_date')
         ]);
 
         // Verifica se a consulta está OK, se sim envia o Feedback para o usuário.
@@ -179,57 +155,15 @@ class Project extends MainModel
             # Feedback erro!
             die(false);
         }
-    } #--> End updateRegister()
+    }
 
-    /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Função: get_register_form()
-     *   @Versão: 0.2
-     *   @Descrição: Obtém os dados do registro existente e retorna o valor para o usuario codificando e decodificando o mesmo na url.
-     **/
-    public function get_register_form($id_encode)
-    {
-
-        $id_decode = intval($this->gFun->encodeDecode(0, $id_encode));
-
-        # Verifica na base de dados o registro
-        $query_get = $this->db->query('SELECT * FROM `covenant` WHERE `covenant_id` = ?', [$id_decode]);
-
-
-
-        # Obtém os dados da consulta
-        $fetch_userdata = $query_get->fetch(PDO::FETCH_ASSOC);
-
-        # Faz um loop dos dados, guardando os no vetor $form_data
-        foreach ($fetch_userdata as $key => $value) {
-            $this->form_data[$key] = $value;
-        }
-
-        # Tratamento da data para o modelo visao do fomulario
-        #$this->form_data['covenant_data_aq'] = $this->converteData('Y-m-d', 'd/m/Y', $this->form_data['covenant_data_aq']);
-
-        # Destroy variaveis não mais utilizadas
-        unset($query_get, $fetch_userdata);
-
-        return;
-    } # End get_register_form()
-
-
-    /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Função: delRegister()
-     *   @Versão: 0.2
-     *   @Descrição: Recebe o id passado no método e executa a exclusão caso exista o id se não retorna um erro.
-     * */
     public function delReg($id_encode)
     {
         # Recebe o ID do registro converte de string para inteiro.
         $id = GFunc::encodeDecode(false, $id_encode);
 
         # Executa a consulta na base de dados
-        $r = $this->db->query("SELECT count(*) FROM `Providers` WHERE `id` = $id ");
+        $r = $this->db->query("SELECT count(*) FROM `Projects` WHERE `id` = $id ");
 
         if ($r->fetchColumn() < 1) {
 
@@ -239,17 +173,11 @@ class Project extends MainModel
             // Feedback erro
             die(false);
         } else {
-
-            # Efetua a deleção...
-            $this->db->delete('Providers', 'id', $id);
-
-            // Destroy variáveis não mais utilizadas
+            $this->db->delete('Projects', 'id', $id);
             unset($r, $id, $id_encode);
-
-            // Feedback sucesso!
-            die(true);
+            die(true); // Feedback sucesso!
         }
-    }   //--> End delRegister()
+    }
 
 
     public function listar($table = 'Providers', $column = '*', $condition = null)

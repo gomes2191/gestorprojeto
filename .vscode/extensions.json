@@ -1,5 +1,13 @@
 {
     "recommendations": [
-        "mblode.twig-language"
+        "hookyqr.beautify",
+        "hoovercj.vscode-power-mode",
+        "arbitraer.laravel-blade-additional-snippets",
+        "shufo.vscode-blade-formatter",
+        "onecentlin.laravel-blade",
+        "austenc.laravel-blade-spacer",
+        "austenc.laravel-docs",
+        "misterj.laravel-expack",
+        "ahinkle.laravel-model-snippets"
     ]
 }

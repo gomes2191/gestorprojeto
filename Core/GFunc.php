@@ -118,9 +118,9 @@
         /**
          *  Converte uma determinada data para o formato desejado.
          *  Exemplos:
-         *  var_dump(converteData('d m Y', 'Y-m-d', '06 02 2025')); 2025-02-06
-         *  var_dump(converteData('d-m-Y', 'm/d/Y H:i', '06-02-2014')); 02/06/2014 12:39
-         *  var_dump(converteData('Y-m-d', 'l F Y  H:i', '2014-02-06')); Thursday February 2014  12:38
+         *  var_dump(convertDataHora('d m Y', 'Y-m-d', '06 02 2025')); 2025-02-06
+         *  var_dump(convertDataHora('d-m-Y', 'm/d/Y H:i', '06-02-2014')); 02/06/2014 12:39
+         *  var_dump(convertDataHora('Y-m-d', 'l F Y  H:i', '2014-02-06')); Thursday February 2014  12:38
          *
          * @param mixed $format    tipo mixed
          * @param mixed $to_format tipo mixed

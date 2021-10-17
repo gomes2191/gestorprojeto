@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title',' Projetos')
-
 @section('content')
     <!--Start row loading  -->
     <div class="row">
@@ -45,7 +44,7 @@
 
                         <div class="form-group col-md col-sm">
                             <label for="start_date ">Data início:</label>
-                            <input id="start_date" name="acquisition_date"
+                            <input id="start_date" name="start_date"
                                 class="form-control form-control-sm date text-center" type="text" placeholder="dd/mm/aaaa" value="">
                             <div class="invalid-feedback">
                                 Preencha esse campo.
@@ -62,8 +61,8 @@
                         </div>
 
                         <div class="form-group col-md col-sm">
-                            <label for="status">Atrasado:</label><br>
-                            <select id="status" name="status" class="form-select form-select-sm">
+                            <label for="late">Atrasado:</label><br>
+                            <select id="late" name="late" class="form-select form-select-sm">
                                 <option selected value="0">Não</option>
                                 <option value="1">Sim</option>
                             </select>
@@ -152,8 +151,8 @@
                 <option value="">Ordenar Por</option>
                 <option value="asc">Ascendente</option>
                 <option value="desc">Descendente</option>
-                <option value="active">Ativo</option>
-                <option value="inactive">Inativo</option>
+                <option value="active">Projeto(s) fora do prazo</option>
+                <option value="inactive">Projeto(s) </option>
             </select>
         </div>
         <!--/End col-->
@@ -162,7 +161,6 @@
     <div class="row">
         <div class="col-md-12  col-sm-12">
             <div id="tableData" class="table-responsive" style="border: none;">
-
             </div>
         </div>
     </div><!-- End row table -->
@@ -184,35 +182,6 @@
                         <li class="list-group-item list-group-item-action list-group-item-primary"><b>Razão social:</b>&nbsp;<span class="razao_social">----</span> </li>
                         <li class="list-group-item list-group-item-action list-group-item-info"><b>Área de atuação:</b>&nbsp;<span class="occupation_area"></span></li>
                         <li class="list-group-item list-group-item-action list-group-item-primary"><b>Endereço:</b>&nbsp;<span class="provider_end">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Bairro:</b>&nbsp;<span class="provider_district">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Cidade:</b>&nbsp;<span class="provider_city">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>UF:</b>&nbsp;<span class="provider_uf">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>CEP:</b>&nbsp;<span class="provider_cep"></span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>País:</b>&nbsp;<span class="provider_nation">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Celular:</b>&nbsp;<span class="provider_cel">----</span> </li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Telefone 1:</b>&nbsp;<span class="provider_tel_1"></span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Telefone 2:</b>&nbsp;<span class="provider_tel_2">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Inscrição Estadual:</b>&nbsp;<span class="provider_insc_uf">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Site url:</b>&nbsp;<span class="provider_web_url">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Situação:</b>&nbsp;<span class="status">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>E-mail:</b>&nbsp;<span class="provider_email">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Nome do representante:</b>&nbsp;<span class="provider_rep_name">----</span></li>
-                        <li class="list-group-item list-group-item-primary"><b>Apelido representante:</b>&nbsp;<span class="provider_rep_apelido"></span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Representante celular:</b>&nbsp;<span class="provider_rep_cel">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Representante telefone 1:</b>&nbsp;<span class="provider_rep_tel_1">----</span> </li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Representante telefone 2:</b>&nbsp;<span class="provider_rep_tel_2"></span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Representante E-mail:</b>&nbsp;<span class="provider_rep_email">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Banco 1:</b>&nbsp;<span class="provider_banco_1">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Agência 1:</b>&nbsp;<span class="provider_agencia_1">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Conta 1:</b>&nbsp;<span class="provider_conta_1">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Titular 1:</b>&nbsp;<span class="provider_titular_1">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Banco 2:</b>&nbsp;<span class="provider_banco_2"></span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Agência 2:</b>&nbsp;<span class="provider_agencia_2">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Conta 2:</b>&nbsp;<span class="provider_conta_2">----</span> </li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Titular 2:</b>&nbsp;<span class="provider_titular_2"></span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Criado em:</b>&nbsp;<span class="created_at">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-primary"><b>Modificado em:</b>&nbsp;<span class="modified_at">----</span></li>
-                        <li class="list-group-item list-group-item-action list-group-item-info"><b>Observações:</b>&nbsp;<span class="provider_obs">----</span></li>
                     </ul>
                 </div>
                 <div class="modal-footer">

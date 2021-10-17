@@ -31,9 +31,8 @@ if (($qtdLine <= 0) or ($qtdLine > 50)) {
 $start = !empty(filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT)) ? filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT) : 0;
 
 if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
-    $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
-    INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
-    WHERE PR.name LIKE '" . '%' . filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE) . '%' . "' OR PR.occupation_area LIKE '" . '%' . filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE) . '%' . "'
+    $allReg = $modelo->listar('Projects PR', 'PR.*', "
+    WHERE PR.name LIKE '" . '%' . filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING, TRUE) . '%' . "'
     GROUP BY PR.id
     ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}");
     $count = count($allReg);
@@ -41,10 +40,9 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
     $sortBy = filter_input(INPUT_POST, 'sortBy', FILTER_SANITIZE_STRING);
     switch ($sortBy) {
         case 'active':
-            $count = (is_array($count = $modelo->listar('Providers PR', '*', "WHERE PR.status='active'"))) ? COUNT($count) : 0;
-            $allReg = $modelo->listar('Providers PR', 'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone', "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
-            INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
-            WHERE PR.status='active'
+            $count = (is_array($count = $modelo->listar('Projects PR', '*', "WHERE PR.late=true"))) ? COUNT($count) : 0;
+            $allReg = $modelo->listar('Projects PR', 'PR.*', "
+            WHERE PR.late=true
             GROUP BY PR.id
             ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}");
             break;
@@ -60,7 +58,7 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             $count = (is_array($count = $modelo->listar('Providers', '*'))) ? COUNT($count) : 0;
             $allReg = $modelo->listar(
                 'Providers PR',
-                'PR.id, PR.`name`, PR.`email`,  PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
+                'PR.id, PR.`name`, PR.`email`, PR.`occupation_area`, PR.`status`, AD.uf, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
                 "INNER JOIN  Address AS AD ON PR.id = AD.id_provider
                 INNER JOIN Contacts AS CT ON CT.id_provider = PR.id
                 GROUP BY PR.id
@@ -87,14 +85,13 @@ if (!empty(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING))) {
             break;
     }
 } else {
-    $count = (is_array($count = $modelo->listar('Providers P', '*'))) ? COUNT($count) : 0;
+    $count = (is_array($count = $modelo->listar('Projects PR', '*'))) ? COUNT($count) : 0;
     $allReg = $modelo->listar(
-        'Providers PR',
-        'PR.id, PR.`name`, PR.`email`, PR.`occupation_area`, PR.`status`, AD.`uf`, GROUP_CONCAT(DISTINCT CT.`type`,CT.`owner`,":",CT.phone) as phone',
-        "LEFT JOIN  Address AS AD ON PR.id = AD.id_provider
-        LEFT JOIN Contacts AS CT ON PR.`id` = CT.`id_provider`
-        GROUP BY PR.id, PR.`name`, PR.`email`, PR.`occupation_area`, PR.`status`, AD.`uf`
-        ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}"
+        'Projects PR',
+        'PR.*, MAX(AC.end_date) bigDate, group_concat(AC.finished separator ":") finished,
+        sum(if(finished <= 1, 1,0)) total, sum(if(finished=1, 1,0)) totalF',
+        "LEFT JOIN Activities AC On PR.id=AC.id_project
+        GROUP BY PR.id ORDER BY PR.id DESC LIMIT {$start}{$offset}{$limit}"
     );
 }
 
@@ -113,13 +110,11 @@ if (!empty($allReg)) {
                 <thead class="thead-green">
                     <tr>
                         <th class="text-center">#</th>
-                        <th class="text-center">EMPRESA</th>
-                        <th class="text-center">CELULAR</th>
-                        <th class="text-center">TELEFONE</th>
-                        <th class="text-center">E-MAIL</th>
-                        <th class="text-center">ATUAÇÃO</th>
-                        <th colspan="1" class="text-center">UF</th>
-                        <th class="text-center">STATUS</th>
+                        <th class="text-center">NOME PROJETO</th>
+                        <th class="text-center">DATA INÌCIO</th>
+                        <th class="text-center">DATA DE FIM</th>
+                        <th class="text-center">PROGGRESSO</th>
+                        <th class="text-center">ATRASADO</th>
                         <th colspan="3" class="text-center">AÇÃO</th>
                     </tr>
                 </thead>
@@ -132,12 +127,15 @@ HTML;
         echo '<tr class="text-center">';
         echo '<td>' . $reg['id'] . '</td>';
         echo '<td>' . $reg['name'] . '</td>';
-        echo '<td>' . ((GFunc::getCode(explode(',', $reg['phone']), 'CP')) ?  GFunc::getCode(explode(',', $reg['phone']), 'CP') : '---') . '</td>';
-        echo '<td>' . ((GFunc::getCode(explode(',', $reg['phone']), 'TP')) ? GFunc::getCode(explode(',', $reg['phone']), 'TP') : '---') . '</td>';
-        echo '<td>' . (($reg['email']) ? $reg['email'] : '---') . '</td>';
-        echo '<td>' . (($reg['occupation_area']) ? $reg['occupation_area'] : '---') . '</td>';
-        echo '<td>' . (($reg['uf']) ? $reg['uf'] : '---') . '</td>';
-        echo '<td>' . (($reg['status']) ? $reg['status'] : '---') . '</td>';
+        echo '<td>' . GFunc::convertDataHora('Y-m-d', 'd/m/Y', $reg['start_date']) . '</td>';
+        echo '<td>' . GFunc::convertDataHora('Y-m-d', 'd/m/Y', $reg['end_date']) . '</td>';
+        echo '<td>' . (($reg['total'] >= 1) ? (($reg['totalF'] / $reg['total']) * 100) . '%' : '100%') . '</td>';
+        echo '<td>' . (($reg['end_date'] < $reg['bigDate']) ? 'Sim' : 'Não') . '</td>';
+
+
+        //echo '<td>' . ((GFunc::getCode(explode(',', $reg['phone']), 'CP')) ?  GFunc::getCode(explode(',', $reg['phone']), 'CP') : '---') . '</td>';
+        //echo '<td>' . ((GFunc::getCode(explode(',', $reg['phone']), 'TP')) ? GFunc::getCode(explode(',', $reg['phone']), 'TP') : '---') . '</td>';
+        //echo '<td>' . (($reg['email']) ? $reg['email'] : '---') . '</td>';
         echo "<td><button class='btn btn-success btn-sm btn-edit-show' onClick={typeAction(objData={type:'loadEdit',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-edit fa-lg' ></i> EDITAR</button></td>";
         echo "<td><a href='javaScript:void(0);' id='btn-dell' class='btn btn-danger btn-sm' onClick={typeAction(objData={type:'delete',id:'" . GFunc::encodeDecode($reg['id']) . "'})}><i class='far fa-trash-alt fa-lg' ></i> DELETAR</a></td>";
         echo "<td><a href='javaScript:void(0);' class='btn btn-primary btn-sm' onClick={typeAction(objData={type:'loadInfo',id:'" . GFunc::encodeDecode($reg['id']) . "'})} data-bs-toggle='modal' data-bs-target='#inforView'><i class='fas fa-eye fa-lg' ></i> VISUALIZAR</a></td>";
