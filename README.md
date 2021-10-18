@@ -77,4 +77,4 @@ Apos realizar todas essas etapas basta abrir o browser e digitar na url: http://
 ## Considerações finais
 
 Diante do projeto proposto, um dos maiores obstáculo foi o tempo, posto que trabalho e tenho pouco tempo disponível.
-Mas consegui arrumar um tempo na madrugada e finalizar o projeto reaproveitando partes de aplicações que havia desenvolvido adaptando a esse Projeto.
+Mas consegui arrumar um tempo na madrugada e finalizar o projeto reaproveitando partes de aplicações que já havia desenvolvido adaptando a esse Projeto.
