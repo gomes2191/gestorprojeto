@@ -43,6 +43,7 @@ cd ~
 mkdir development
 cd development
 git clone https://github.com/gomes2191/projectmanager.git
+cd projectmanager
 composer install
 ```
 
