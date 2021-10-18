@@ -25,6 +25,7 @@
         ]
     },
         "require": {
-                "jenssegers/blade": "dev-master"
+                "jenssegers/blade": "dev-master",
+                "phpunit/phpunit": "9.5.x-dev"
         }
 }
