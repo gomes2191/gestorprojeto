@@ -1,5 +1,4 @@
-
-function Financeiro() {
+function GMetodo() {
     var nome;
     var idade;
     var curso;
@@ -10,8 +9,6 @@ function Financeiro() {
     this.setNome = function (nome) {
         this.nome = nome;
     };
-
-
 
     this.setIdade = function (idade) {
         this.idade = idade;
@@ -56,6 +53,10 @@ function Financeiro() {
         this.objData = objData;
     };
 
+    this.setAjaxDataSelect = function (objData) {
+        this.objData = objData;
+    };
+
     this.setAjaxFilter = function (objData) {
         this.objData = objData;
     };
@@ -63,7 +64,6 @@ function Financeiro() {
     this.setAjaxActionUser = function (objAction) {
         this.objAction = objAction;
     };
-
 
     this.getNome = function () {
         return this.nome;
@@ -89,11 +89,15 @@ function Financeiro() {
         if (this.calcTotal) {
             return this.calcTotal;
         } else {
-            return this.calcTotal = '0,00';
+            return (this.calcTotal = "0,00");
         }
     };
 
     this.getAjaxData = function () {
+        return this.objData;
+    };
+
+    this.getAjaxDataSelect = function () {
         return this.objData;
     };
 
@@ -106,39 +110,45 @@ function Financeiro() {
     };
 
     this.mostraDados = function () {
-        alert("Nome do aluno: " + this.nome + "\nIdade: " + this.idade + "\nCurso: " + this.curso);
+        alert(
+            "Nome do aluno: " +
+            this.nome +
+            "\nIdade: " +
+            this.idade +
+            "\nCurso: " +
+            this.curso
+        );
     };
 
     this.clearNumber = function () {
-        numsStr = this.numClear.replace(/[^0-9]/g, '');
-        return this.numClear = parseInt(numsStr);
+        numsStr = this.numClear.replace(/[^0-9]/g, "");
+        return (this.numClear = parseInt(numsStr));
     };
 
     this.mostrarUS = function () {
-        if ((this.numUS.indexOf('.') >= 0) && (this.numUS.indexOf(',') >= 0)) {
-            this.numUS = this.numUS.replace('.', '');
-            this.numUS = this.numUS.replace('.', '');
-            this.numUS = this.numUS.replace('.', '');
-            this.numUS = this.numUS.replace(',', '.');
-            return this.numUS = parseFloat(this.numUS);
+        if (this.numUS.indexOf(".") >= 0 && this.numUS.indexOf(",") >= 0) {
+            this.numUS = this.numUS.replace(".", "");
+            this.numUS = this.numUS.replace(".", "");
+            this.numUS = this.numUS.replace(".", "");
+            this.numUS = this.numUS.replace(",", ".");
+            return (this.numUS = parseFloat(this.numUS));
         } else {
-            this.numUS = this.numUS.replace(',', '.');
-            return this.numUS = parseFloat(this.numUS);
+            this.numUS = this.numUS.replace(",", ".");
+            return (this.numUS = parseFloat(this.numUS));
         }
-
     };
 
     this.somarNumberCalc = function () {
         this.nValor = document.getElementById(this.idOne).value;
 
-        if ((this.nValor.indexOf('.') >= 0) && (this.nValor.indexOf(',') >= 0)) {
-            this.nValor = this.nValor.replace('.', '');
-            this.nValor = this.nValor.replace('.', '');
-            this.nValor = this.nValor.replace('.', '');
-            this.nValor = this.nValor.replace(',', '.');
+        if (this.nValor.indexOf(".") >= 0 && this.nValor.indexOf(",") >= 0) {
+            this.nValor = this.nValor.replace(".", "");
+            this.nValor = this.nValor.replace(".", "");
+            this.nValor = this.nValor.replace(".", "");
+            this.nValor = this.nValor.replace(",", ".");
             this.nValor = parseFloat(this.nValor);
         } else {
-            this.nValor = this.nValor.replace(',', '.');
+            this.nValor = this.nValor.replace(",", ".");
             this.nValor = parseFloat(this.nValor);
         }
 
@@ -147,9 +157,10 @@ function Financeiro() {
         if (!this.nPorce) {
             this.calcTotal = this.nValor;
         } else {
-            this.calcTotal = parseFloat((this.nValor - (this.nValor * this.nPorce / 100)));
+            this.calcTotal = parseFloat(
+                this.nValor - (this.nValor * this.nPorce) / 100
+            );
         }
-
     };
 
     /*
@@ -166,7 +177,14 @@ function Financeiro() {
      * onkeydown="this.moneyCash(this,28,event,12,'.',',')"
      *
      */
-    this.moneyCash = function (campo, tammax, teclapres, decimal, ptmilhar, ptdecimal) {
+    this.moneyCash = function (
+        campo,
+        tammax,
+        teclapres,
+        decimal,
+        ptmilhar,
+        ptdecimal
+    ) {
         var tecla = teclapres.keyCode;
         vr = this.setMoneyCashClear(campo.value, "0123456789", tammax);
         tam = vr.length;
@@ -177,74 +195,218 @@ function Financeiro() {
         if (tecla == 8) {
             tam = tam - 1;
         }
-        if (tecla == 8 || tecla >= 48 && tecla <= 57 || tecla >= 96 && tecla <= 105) {
+        if (
+            tecla == 8 ||
+            (tecla >= 48 && tecla <= 57) ||
+            (tecla >= 96 && tecla <= 105)
+        ) {
             if (tam <= dec) {
                 campo.value = vr;
-            } else if ((tam > dec) && (tam <= dec + 3)) {
+            } else if (tam > dec && tam <= dec + 3) {
                 //alert(tam);
-                campo.value = vr.substr(0, tam - dec) + ptdecimal + vr.substr(tam - dec, tam);
-            } else if ((tam >= dec + 4) && (tam <= dec + 6)) {
-                campo.value = vr.substr(0, tam - 3 - dec) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
-            } else if ((tam >= dec + 7) && (tam <= dec + 9)) {
-                campo.value = vr.substr(0, tam - 6 - dec) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
-            } else if ((tam >= dec + 10) && (tam <= dec + 12)) {
-                campo.value = vr.substr(0, tam - 9 - dec) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
-            } else if ((tam >= dec + 13) && (tam <= dec + 15)) {
-                campo.value = vr.substr(0, tam - 12 - dec) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
-            } else if ((tam >= dec + 16) && (tam <= dec + 18)) {
-                campo.value = vr.substr(0, tam - 15 - dec) + ptmilhar + vr.substr(tam - 15 - dec, 3) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
-            } else if ((tam >= dec + 19) && (tam <= dec + 21)) {
-                campo.value = vr.substr(0, tam - 18 - dec) + ptmilhar + vr.substr(tam - 18 - dec, 3) + ptmilhar + vr.substr(tam - 15 - dec, 3) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
-            } else if ((tam >= dec + 22) && (tam <= dec + 24)) {
-                campo.value = vr.substr(0, tam - 21 - dec) + ptmilhar + vr.substr(tam - 21 - dec, 3) + ptmilhar + vr.substr(tam - 18 - dec, 3) + ptmilhar + vr.substr(tam - 15 - dec, 3) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+                campo.value =
+                    vr.substr(0, tam - dec) + ptdecimal + vr.substr(tam - dec, tam);
+            } else if (tam >= dec + 4 && tam <= dec + 6) {
+                campo.value =
+                    vr.substr(0, tam - 3 - dec) +
+                    ptmilhar +
+                    vr.substr(tam - 3 - dec, 3) +
+                    ptdecimal +
+                    vr.substr(tam - dec, 12);
+            } else if (tam >= dec + 7 && tam <= dec + 9) {
+                campo.value =
+                    vr.substr(0, tam - 6 - dec) +
+                    ptmilhar +
+                    vr.substr(tam - 6 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 3 - dec, 3) +
+                    ptdecimal +
+                    vr.substr(tam - dec, 12);
+            } else if (tam >= dec + 10 && tam <= dec + 12) {
+                campo.value =
+                    vr.substr(0, tam - 9 - dec) +
+                    ptmilhar +
+                    vr.substr(tam - 9 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 6 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 3 - dec, 3) +
+                    ptdecimal +
+                    vr.substr(tam - dec, 12);
+            } else if (tam >= dec + 13 && tam <= dec + 15) {
+                campo.value =
+                    vr.substr(0, tam - 12 - dec) +
+                    ptmilhar +
+                    vr.substr(tam - 12 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 9 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 6 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 3 - dec, 3) +
+                    ptdecimal +
+                    vr.substr(tam - dec, 12);
+            } else if (tam >= dec + 16 && tam <= dec + 18) {
+                campo.value =
+                    vr.substr(0, tam - 15 - dec) +
+                    ptmilhar +
+                    vr.substr(tam - 15 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 12 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 9 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 6 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 3 - dec, 3) +
+                    ptdecimal +
+                    vr.substr(tam - dec, 12);
+            } else if (tam >= dec + 19 && tam <= dec + 21) {
+                campo.value =
+                    vr.substr(0, tam - 18 - dec) +
+                    ptmilhar +
+                    vr.substr(tam - 18 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 15 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 12 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 9 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 6 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 3 - dec, 3) +
+                    ptdecimal +
+                    vr.substr(tam - dec, 12);
+            } else if (tam >= dec + 22 && tam <= dec + 24) {
+                campo.value =
+                    vr.substr(0, tam - 21 - dec) +
+                    ptmilhar +
+                    vr.substr(tam - 21 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 18 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 15 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 12 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 9 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 6 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 3 - dec, 3) +
+                    ptdecimal +
+                    vr.substr(tam - dec, 12);
             } else {
-                campo.value = vr.substr(0, tam - 24 - dec) + ptmilhar + vr.substr(tam - 24 - dec, 3) + ptmilhar + vr.substr(tam - 21 - dec, 3) + ptmilhar + vr.substr(tam - 18 - dec, 3) + ptmilhar + vr.substr(tam - 15 - dec, 3) + ptmilhar + vr.substr(tam - 12 - dec, 3) + ptmilhar + vr.substr(tam - 9 - dec, 3) + ptmilhar + vr.substr(tam - 6 - dec, 3) + ptmilhar + vr.substr(tam - 3 - dec, 3) + ptdecimal + vr.substr(tam - dec, 12);
+                campo.value =
+                    vr.substr(0, tam - 24 - dec) +
+                    ptmilhar +
+                    vr.substr(tam - 24 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 21 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 18 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 15 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 12 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 9 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 6 - dec, 3) +
+                    ptmilhar +
+                    vr.substr(tam - 3 - dec, 3) +
+                    ptdecimal +
+                    vr.substr(tam - dec, 12);
             }
         }
     };
 
     this.ajaxData = function () {
-        if ((this.objData.url.match(/filters/) && this.objData.url.match(this.objData.url_id))) {
+        if (
+            this.objData.url.match(/filters/) &&
+            this.objData.url.match(this.objData.url_id)
+        ) {
             if (this.objData.get_decode == null) {
                 $.ajax({
-                    type: 'POST',
-                    dataType: 'html',
+                    type: "POST",
+                    dataType: "html",
                     url: this.objData.url,
                     //data: 'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&qtdLine='+qtdLine,
                     async: true,
                     beforeSend: function () {
-                        $('#loading').show();
+                        $("#loading").show();
                     },
                     success: function (data) {
-                        $('#tableData').html(data);
-                        $('#loading').fadeOut();
+                        $("#tableData").html(data);
+                        $("#loading").fadeOut();
                         if (document.getElementById("tableList")) {
-                            $('#filtros').show();
+                            $("#filtros").show();
                         } else {
-                            $('#filtros').hide();
+                            $("#filtros").hide();
                         }
-                    }
+                    },
                 });
             } else {
                 $.ajax({
-                    type: 'POST',
-                    dataType: 'html',
+                    type: "POST",
+                    dataType: "html",
                     url: this.objData.url,
                     data: {
-                        get_decode: this.objData.get_decode
+                        get_decode: this.objData.get_decode,
                     },
                     async: true,
                     beforeSend: function () {
-                        $('#loading').show();
+                        $("#loading").show();
                     },
                     success: function (data) {
-                        $('#tableData').html(data);
-                        $('#loading').fadeOut();
+                        $("#loading").fadeOut();
+                        $("#tableData").html(data);
                         if (document.getElementById("tableList")) {
-                            $('#filtros').show();
+                            $("#filtros").show();
                         } else {
-                            $('#filtros').hide();
+                            $("#filtros").hide();
                         }
+
+                        if (document.getElementById("notProject")) {
+                            $("#principal").html(data);
+                        }
+                    },
+                });
+            }
+        } else {
+            return false;
+        }
+    };
+
+    this.ajaxDataSelect = function () {
+        if (
+            this.objData.url.match(/filters/) &&
+            this.objData.url.match(this.objData.url_id)
+        ) {
+            if (this.objData.populate) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: this.objData.url,
+                    //contentType: "application/json",
+                    data: {
+                        populate: this.objData.populate,
+                    },
+                    async: true,
+                    beforeSend: function () {
+                    },
+                    success: function (data) {
+                        if (data.length > 0){
+                            var option = `<option value="">Selecione o Projeto</option>`;
+                            $.each(data, function(i, obj){
+                                option += `<option value="`+obj.id+`"
+                                >`+obj.name+`</option>`;
+                            })
+                            $('#id_project').html(option).show();
+                        }
+                    },
+                    error: function (data) {
                     }
                 });
             }
@@ -255,86 +417,153 @@ function Financeiro() {
 
     this.ajaxFilter = function (page_num) {
         page_num = page_num ? page_num : 0;
-        var keywords = $('#keywords').val();
-        var qtdLine = $('#qtdLine').val();
-        var sortBy = $('#sortBy').val();
+        var keywords = $("#keywords").val();
+        var qtdLine = $("#qtdLine").val();
+        var sortBy = $("#sortBy").val();
 
         //var keywords = $('#keywords').val();
         //var sortBy = $('#sortBy').val();
         $.ajax({
-            type: 'POST',
-            dataType: 'html',
+            type: "POST",
+            dataType: "html",
             url: this.objData.url,
-            data: 'page=' + page_num + '&keywords=' + keywords + '&sortBy=' + sortBy + '&qtdLine=' + qtdLine + '&get_decode=' + this.objData.get_decode,
+            data: "page=" +
+                page_num +
+                "&keywords=" +
+                keywords +
+                "&sortBy=" +
+                sortBy +
+                "&qtdLine=" +
+                qtdLine +
+                "&get_decode=" +
+                this.objData.get_decode,
             async: true,
             beforeSend: function () {
-                $('#loading').show();
+                $("#loading").show();
             },
             success: function (data) {
-                $('#tableData').html(data);
-                $('#loading').fadeOut();
-            }
+                $("#tableData").html(data);
+                $("#loading").fadeOut();
+            },
         });
     };
 
     this.ajaxActionUser = function () {
-        if ((this.objAction.type === 'loadEdit' || this.objAction.type === 'loadInfo') && this.objAction.url.match(/ajax-process/) && this.objAction.url.match(this.objAction.url_id)) {
+        if (
+            (this.objAction.type === "loadEdit" ||
+                this.objAction.type === "loadInfo") &&
+            this.objAction.url.match(/ajax-process/) &&
+            this.objAction.url.match(this.objAction.url_id)
+        ) {
             $.ajax({
-                type: 'POST',
-                dataType: 'JSON',
+                type: "POST",
+                dataType: "JSON",
                 url: this.objAction.url,
-                data: 'action_type=' + this.objAction.type + '&id=' + this.objAction.id,
+                data: "action_type=" + this.objAction.type + "&id=" + this.objAction.id,
                 async: true,
                 success: function (data) {
-                    if (typeExec === 'loadEdit') {
+                    if (typeExec === "loadEdit") {
                         $.each(data, function (key, value) {
-                            $('#' + key).val(value);
+                            $("#" + key).val(value);
                         });
-                    } else if (typeExec === 'loadInfo') {
+                    } else if (typeExec === "loadInfo") {
                         $.each(data, function (key, value) {
-                            $('.' + key).text((value) ? value : ' campo ainda não preenchido');
+                            $("." + key).text(value ? value : " campo ainda não preenchido");
                         });
                     }
-                }
+                },
             });
-        } else if ((this.objAction.type === 'add' || this.objAction.type === 'update' || this.objAction.type === 'delete') && this.objAction.url.match(/ajax-process/) && this.objAction.url.match(this.objAction.url_id)) {
+        } else if (
+            (this.objAction.type === "add" ||
+                this.objAction.type === "update" ||
+                this.objAction.type === "delete") &&
+            this.objAction.url.match(/ajax-process/) &&
+            this.objAction.url.match(this.objAction.url_id)
+        ) {
             $.ajax({
-                type: 'POST',
+                type: "POST",
                 url: this.objAction.url,
                 data: this.objAction.userData,
                 success: function (msg) {
                     //alert(msg);
-                    objFinanca.ajaxData();
+                    objGMetodo.ajaxData();
                     if (msg == true) {
-                        if(objFinanca.objAction.type === 'delete'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação atendida', txtmsg: 'remoção realizada com sucesso!', bgcolor: ['bg-success', 'bg-gradient'], txtcolor: 'text-white'});
-                        }else if(objFinanca.objAction.type === 'add'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação atendida', txtmsg: 'inserção realizada com sucesso!', bgcolor: ['bg-success', 'bg-gradient'], txtcolor: 'text-white'});
-                        }else if(objFinanca.objAction.type === 'update'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação atendida', txtmsg: 'alteração realizada com sucesso!', bgcolor: ['bg-success', 'bg-gradient'], txtcolor: 'text-white'});
+                        if (objGMetodo.objAction.type === "delete") {
+                            Modal.showToast(
+                                (parameter = {
+                                    ico: [false, false],
+                                    title: "Solicitação atendida",
+                                    txtmsg: "remoção realizada com sucesso!",
+                                    bgcolor: ["bg-success", "bg-gradient"],
+                                    txtcolor: "text-white",
+                                })
+                            );
+                        } else if (objGMetodo.objAction.type === "add") {
+                            Modal.showToast(
+                                (parameter = {
+                                    ico: [false, false],
+                                    title: "Solicitação atendida",
+                                    txtmsg: "inserção realizada com sucesso!",
+                                    bgcolor: ["bg-success", "bg-gradient"],
+                                    txtcolor: "text-white",
+                                })
+                            );
+                        } else if (objGMetodo.objAction.type === "update") {
+                            Modal.showToast(
+                                (parameter = {
+                                    ico: [false, false],
+                                    title: "Solicitação atendida",
+                                    txtmsg: "alteração realizada com sucesso!",
+                                    bgcolor: ["bg-success", "bg-gradient"],
+                                    txtcolor: "text-white",
+                                })
+                            );
                         }
                         EventAction.resetForm();
                         return true;
                     } else {
-                        if(objFinanca.objAction.type === 'delete'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação não atendida', txtmsg: 'falha na remoção do registro, se o erro persistir contate o administrador.', bgcolor: ['bg-danger', 'bg-gradient'], txtcolor: 'text-white'});
-                        }else if(objFinanca.objAction.type === 'add'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação não atendida', txtmsg: 'falha na inserção do registro, se o erro persistir contate o administrador.', bgcolor: ['bg-danger', 'bg-gradient'], txtcolor: 'text-white'});
-                        }else if(objFinanca.objAction.type === 'update'){
-                            Modal.showToast(parameter = {ico: [false, false], title: 'Solicitação não atendida', txtmsg: 'falha na alteração do registro, se o erro persistir contate o administrador.', bgcolor: ['bg-danger', 'bg-gradient'], txtcolor: 'text-white'});
+                        if (objGMetodo.objAction.type === "delete") {
+                            Modal.showToast(
+                                (parameter = {
+                                    ico: [false, false],
+                                    title: "Solicitação não atendida",
+                                    txtmsg: "falha na remoção do registro, se o erro persistir contate o administrador.",
+                                    bgcolor: ["bg-danger", "bg-gradient"],
+                                    txtcolor: "text-white",
+                                })
+                            );
+                        } else if (objGMetodo.objAction.type === "add") {
+                            Modal.showToast(
+                                (parameter = {
+                                    ico: [false, false],
+                                    title: "Solicitação não atendida",
+                                    txtmsg: "falha na inserção do registro, se o erro persistir contate o administrador.",
+                                    bgcolor: ["bg-danger", "bg-gradient"],
+                                    txtcolor: "text-white",
+                                })
+                            );
+                        } else if (objGMetodo.objAction.type === "update") {
+                            Modal.showToast(
+                                (parameter = {
+                                    ico: [false, false],
+                                    title: "Solicitação não atendida",
+                                    txtmsg: "falha na alteração do registro, se o erro persistir contate o administrador.",
+                                    bgcolor: ["bg-danger", "bg-gradient"],
+                                    txtcolor: "text-white",
+                                })
+                            );
                         }
 
                         EventAction.resetForm();
                         return false;
                     }
-                }
+                },
             });
         }
     };
 }
 
 function Metodos() {
-
     //    objSet = {
     //        form: $("#addForm"),
     //        not_empty: ['laboratory_name','laboratory_id']
@@ -364,7 +593,6 @@ function Metodos() {
             this.objData[formArray[i].name] = formArray[i].value;
     };
 
-
     //Rotina que verifica se a campos vazios
     //var arrayData;
     this.setVerify = function (arrayData) {
@@ -379,130 +607,66 @@ function Metodos() {
         for (i = 0; i < this.arrayData.length; ++i) {
             cond = document.getElementById(this.arrayData[i]).value;
             if (cond == false || cond.length == false) {
-                document.getElementById(this.arrayData[i]).classList.add('is-invalid');
+                document.getElementById(this.arrayData[i]).classList.add("is-invalid");
             } else {
-                document.getElementById(this.arrayData[i]).classList.remove('is-invalid');
+                document
+                    .getElementById(this.arrayData[i])
+                    .classList.remove("is-invalid");
             }
-
         }
     };
-
 }
-
-//    // Exemplo de uso
-//
-//    var objFinanca = new Financeiro();
-//
-//
-//    // ------------------
-//
-//    objFinanca.setAjax('btn-dell');
-//
-//    objFinanca.getAjax();
-//
-//    objFinanca.mostraAjax();
-
-//teste = objFinanca.getUS();
-
-//alert( teste * 3);
-
-//objFinanca.setCalculo('numero_um', 'numero_dois');
-
-//objFinanca.calcNumber();
-
-//teste = objFinanca.getUS();
-
-////em float
-//formatNumber(1234.53);
-////em string real
-//formatNumber('1.234,53');
-////em string real sem ponto
-//formatNumber('1234,53');
-////em string americano
-//formatNumber('1,234.53');
-//
-////retornará 1234.53
-//function formatNumber(value) {
-//    value = convertToFloatNumber(value);
-//    return value.formatMoney(2, '.', '');
-//}
-////retornará 1.234,53
-//function formatNumber(value) {
-//    value = convertToFloatNumber(value);
-//    return value.formatMoney(2, ',', '.');
-//}
-////retornará 1,234.53
-//function formatNumber(value) {
-//    value = convertToFloatNumber(value);
-//    return value.formatMoney(2, '.', ',');
-//}
-//
-// //transforma a entrada em número float
-// var convertToFloatNumber = function(value) {
-//     value = value.toString();
-//      if (value.indexOf('.') !== -1 && value.indexOf(',') !== -1) {
-//          if (value.indexOf('.') <  value.indexOf(',')) {
-//             //inglês
-//             return parseFloat(value.replace(/,/gi,''));
-//          } else {
-//            //português
-//             return parseFloat(value.replace(/./gi,'').replace(/,/gi,'.'));
-//          }
-//      } else {
-//         return parseFloat(value);
-//      }
-//   }
-//
-////prototype para formatar a saída
-//Number.prototype.formatMoney = function (c, d, t) {
-//    var n = this,
-//        c = isNaN(c = Math.abs(c)) ? 2 : c,
-//        d = d == undefined ? "." : d,
-//        t = t == undefined ? "," : t,
-//        s = n < 0 ? "-" : "",
-//        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-//        j = (j = i.length) > 3 ? j % 3 : 0;
-//    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-//};
-
 
 class Modal {
     // Show toast function
-    static showToast = (parameter = {
-        ico: ['fa', 'fa-check-circle'],
-        title: 'Sucesso',
-        txtmsg: 'remoção realizada com sucesso!',
-        bgcolor: ['bg-light'],
-        txtcolor: 'text-dark'
-    }) => {
-
+    static showToast = (
+        parameter = {
+            ico: ["fa", "fa-check-circle"],
+            title: "Sucesso",
+            txtmsg: "remoção realizada com sucesso!",
+            bgcolor: ["bg-light"],
+            txtcolor: "text-dark",
+        }
+    ) => {
         // Declare variable that will store toast instance
         let toastInstance;
 
         // Create empty <div> element
-        let div3    = document.createElement('div');
-        let div4    = document.createElement('div');
-        let div5    = document.createElement('div');
-        let i1      = document.createElement('i');
-        let span1   = document.createElement('span');
-        let bt1     = document.createElement('button');
+        let div3 = document.createElement("div");
+        let div4 = document.createElement("div");
+        let div5 = document.createElement("div");
+        let i1 = document.createElement("i");
+        let span1 = document.createElement("span");
+        let bt1 = document.createElement("button");
 
         // Add "toast" and "animate" classes to recently created <div>
         //toast.classList.add("toast", "animate");
-        div3.classList.add('toast', 'align-items-center', 'border-0', 'fs-6', `${parameter.txtcolor}`);
-        if(parameter.bgcolor[0] && parameter.bgcolor[1]){
+        div3.classList.add(
+            "toast",
+            "align-items-center",
+            "border-0",
+            "fs-6",
+            `${parameter.txtcolor}`
+        );
+        if (parameter.bgcolor[0] && parameter.bgcolor[1]) {
             div3.classList.add(`${parameter.bgcolor[0]}`, `${parameter.bgcolor[1]}`);
-        }else{
+        } else {
             div3.classList.add(`${parameter.bgcolor[0]}`);
         }
 
-        div4.classList.add('d-flex');
-        div5.classList.add('toast-body');
-        if(parameter.ico[0] && parameter.ico[1]){
-            i1.classList.add(`${parameter.ico[0]}`, `${parameter.ico[1]}`, 'fa-lg', 'p-2', 'float-sm-start');
+        div4.classList.add("d-flex");
+        div5.classList.add("toast-body");
+        if (parameter.ico[0] && parameter.ico[1]) {
+            i1.classList.add(
+                `${parameter.ico[0]}`,
+                `${parameter.ico[1]}`,
+                "fa-lg",
+                "p-2",
+                "float-sm-start"
+            );
         }
 
-        bt1.classList.add('btn-close', 'me-2', 'm-auto');
+        bt1.classList.add("btn-close", "me-2", "m-auto");
 
         // create a helper function
         function setAttributes(el, attrs) {
@@ -512,17 +676,17 @@ class Modal {
         }
 
         setAttributes(div3, {
-            "role": "alert",
+            role: "alert",
             "aria-live": "assertive",
-            "aria-atomic": "true"
+            "aria-atomic": "true",
         });
         setAttributes(bt1, {
             "data-bs-dismiss": "toast",
-            "aria-label": "Close"
+            "aria-label": "Close",
         });
 
         setAttributes(i1, {
-            "aria-hidden": "true"
+            "aria-hidden": "true",
         });
 
         div3.appendChild(div4);
@@ -532,36 +696,34 @@ class Modal {
         span1.innerHTML = `<b>${parameter.title}</b>, ${parameter.txtmsg}`;
         div4.appendChild(bt1);
 
-
         // Armazena a div.toast-container para posterior utilização / verificação
         var toastContainer = document.querySelector(".toast-container");
 
-        if(toastContainer == null){
-
+        if (toastContainer == null) {
             // Create empty <div> element
-            let div1 = document.createElement('div');
-            let div2 = document.createElement('div');
+            let div1 = document.createElement("div");
+            let div2 = document.createElement("div");
 
-             //toast.classList.add("toast", "animate");
-            div1.classList.add('position-relative');
-            div2.classList.add('toast-container');
+            //toast.classList.add("toast", "animate");
+            div1.classList.add("position-relative");
+            div2.classList.add("toast-container");
 
             setAttributes(div1, {
                 "aria-live": "polite",
-                "aria-atomic": "true"
+                "aria-atomic": "true",
             });
 
             div1.appendChild(div2);
             div2.appendChild(div3);
 
             document.body.prepend(div1);
-        }else{
+        } else {
             toastContainer.prepend(div3);
         }
 
         // Create Bootstrap Toast instance with some options
         toastInstance = new bootstrap.Toast(div3, {
-            delay: 6500
+            delay: 6500,
         });
         // Use show() method to display a toast
         toastInstance.show();
@@ -583,18 +745,25 @@ class EventAction {
         this.id1 = id1;
     }
 
-    newRegister(type, id1 = null, id2 = null, id3 = null, id4 = null, id5 = null) {
-        if (type === 'new') {
-            document.querySelector(id1).addEventListener('click', function (e) {
+    newRegister(
+        type,
+        id1 = null,
+        id2 = null,
+        id3 = null,
+        id4 = null,
+        id5 = null
+    ) {
+        if (type === "new") {
+            document.querySelector(id1).addEventListener("click", function (e) {
                 e.preventDefault();
                 document.querySelectorAll(id2).forEach(function (el) {
-                    if (el.id === 'group-btn-new') {
-                        'use strict';
+                    if (el.id === "group-btn-new") {
+                        ("use strict");
                         // ** FADE OUT FUNCTION **
                         el.style.opacity = 1;
                         (function fadeOut() {
                             console.log(el.style.opacity);
-                            if ((el.style.opacity -= .1) <= 0) {
+                            if ((el.style.opacity -= 0.1) <= 0) {
                                 el.style.display = "none";
                             } else {
                                 setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
@@ -604,10 +773,10 @@ class EventAction {
                     } else {
                         // ** FADE IN FUNCTION **
                         el.style.opacity = 0;
-                        el.style.display = '';
+                        el.style.display = "";
                         (function fadeIn() {
                             var val = parseFloat(el.style.opacity);
-                            if (!((val += .1) > 1)) {
+                            if (!((val += 0.1) > 1)) {
                                 el.style.opacity = val;
                                 setTimeout(fadeIn, 50); // Tempo em que irá desaparecer.
                                 //requestAnimationFrame(fadeIn);
@@ -616,16 +785,19 @@ class EventAction {
                     }
                 });
 
-                document.querySelectorAll('#btn-save, #regForm').forEach(function (group) {
-                    //console.log(group.getAttributeNode("class").value);
-                    if (group.getAttributeNode("id").value === 'btn-save') {
-                        group.setAttribute("onclick", "typeAction(objData={type:'add'})");
-                        group.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
-                    }
-                });
+                document
+                    .querySelectorAll("#btn-save, #regForm")
+                    .forEach(function (group) {
+                        //console.log(group.getAttributeNode("class").value);
+                        if (group.getAttributeNode("id").value === "btn-save") {
+                            group.setAttribute("onclick", "typeAction(objData={type:'add'})");
+                            group.innerHTML =
+                                "<i class='fas fa-save fa-lg'></i> <span>SALVAR</span>";
+                        }
+                    });
 
                 var spanMsg = document.querySelector("legend span");
-                spanMsg.innerHTML = ' - inserir registro';
+                spanMsg.innerHTML = " - inserir registro";
             });
         }
     } // End newRegister
@@ -635,13 +807,13 @@ class EventAction {
         // Start JS ação editar.
         if (document.querySelector(id1) != 0) {
             document.querySelectorAll(id1).forEach(function (item) {
-                item.addEventListener('click', function (e) {
+                item.addEventListener("click", function (e) {
                     e.preventDefault();
                     document.querySelectorAll(id2).forEach(function (el) {
                         // ** FADE OUT FUNCTION **
                         el.style.opacity = 1;
                         (function fadeOut() {
-                            if ((el.style.opacity -= .1) <= 0) {
+                            if ((el.style.opacity -= 0.1) <= 0) {
                                 el.style.display = "none";
                             } else {
                                 setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
@@ -653,10 +825,10 @@ class EventAction {
                     document.querySelectorAll(id3).forEach(function (el) {
                         // ** FADE IN FUNCTION **
                         el.style.opacity = 0;
-                        el.style.display = '';
+                        el.style.display = "";
                         (function fadeIn() {
                             var val = parseFloat(el.style.opacity);
-                            if (!((val += .1) > 1)) {
+                            if (!((val += 0.1) > 1)) {
                                 el.style.opacity = val;
                                 setTimeout(fadeIn, 30); // Tempo em que irá desaparecer.
                                 //requestAnimationFrame(fadeIn);
@@ -664,13 +836,15 @@ class EventAction {
                         })();
                     });
 
-                    document.querySelectorAll('#btn-save').forEach(function (el) {
+                    document.querySelectorAll("#btn-save").forEach(function (el) {
                         //console.log(group.getAttributeNode("class").value);
                         el.setAttribute("onclick", "typeAction(objData={type:'update'})");
-                        el.innerHTML = "<i class='fas fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>";
+                        el.innerHTML =
+                            "<i class='fas fa-save fa-lg'></i> <span>SALVAR ALTERAÇÃO</span>";
                     });
 
-                    document.querySelector("legend span").innerHTML = ' - editando registro.';
+                    document.querySelector("legend span").innerHTML =
+                        " - editando registro.";
                     //spanMsg.innerHTML = ' - editando registro.';
 
                     /*  scrollTo(document.body, document.body.offsetTop, 300); */
@@ -679,25 +853,25 @@ class EventAction {
                     /* window.scroll(0, 2000); */ // * salta * a página da web para baixo 1000px
                     window.scrollTo({
                         top: 0,
-                        behavior: 'smooth'
+                        behavior: "smooth",
                     });
-                })
+                });
             });
         }
     } //End editRegister
 
     // Voltar para o modo de novo registro.
     newRecordMode(type = null, id1 = null, id2 = null, id3 = null) {
-        if (type == 'returnNew') {
-            document.querySelector(id1).addEventListener('click', function (e) {
+        if (type == "returnNew") {
+            document.querySelector(id1).addEventListener("click", function (e) {
                 e.preventDefault();
                 EventAction.resetForm();
                 document.querySelectorAll(id3).forEach(function (el) {
-                    'use strict';
+                    "use strict";
                     // ** FADE OUT FUNCTION **
                     el.style.opacity = 1;
                     (function fadeOut() {
-                        if ((el.style.opacity -= .1) <= 0) {
+                        if ((el.style.opacity -= 0.1) <= 0) {
                             el.style.display = "none";
                         } else {
                             setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
@@ -705,64 +879,68 @@ class EventAction {
                         }
                     })();
                 });
-
             });
         }
-
     } // End newRecordMode
 
     static resetForm() {
-        document.querySelectorAll('.form-hidden, #group-btn-hidden, #group-btn-show, .row-button-hidden').forEach(function (el) {
-            // ** FADE OUT FUNCTION **
-            el.style.opacity = 1;
-            (function fadeOut() {
-                console.log(el.style.opacity);
-                if ((el.style.opacity -= .1) <= 0) {
-                    el.style.display = "none";
-                } else {
-                    setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
-                    //requestAnimationFrame(fadeOut);
-                }
-            })();
-        });
-        document.querySelectorAll('#group-btn-new').forEach(function (el) {
+        document
+            .querySelectorAll(
+                ".form-hidden, #group-btn-hidden, #group-btn-show, .row-button-hidden"
+            )
+            .forEach(function (el) {
+                // ** FADE OUT FUNCTION **
+                el.style.opacity = 1;
+                (function fadeOut() {
+                    console.log(el.style.opacity);
+                    if ((el.style.opacity -= 0.1) <= 0) {
+                        el.style.display = "none";
+                    } else {
+                        setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
+                        //requestAnimationFrame(fadeOut);
+                    }
+                })();
+            });
+        document.querySelectorAll("#group-btn-new").forEach(function (el) {
             // ** FADE IN FUNCTION **
             el.style.opacity = 0;
-            el.style.display = '';
+            el.style.display = "";
             (function fadeIn() {
                 var val = parseFloat(el.style.opacity);
-                if (!((val += .1) > 1)) {
+                if (!((val += 0.1) > 1)) {
                     el.style.opacity = val;
                     setTimeout(fadeIn, 30); // Tempo em que irá desaparecer.
                     //requestAnimationFrame(fadeIn);
                 }
             })();
         });
-        document.querySelector('#regForm').querySelectorAll('input, textarea').forEach(function (el) {
-            el.value = '';
-        });
+        document
+            .querySelector("#regForm")
+            .querySelectorAll("input, textarea")
+            .forEach(function (el) {
+                el.value = "";
+            });
 
-        document.querySelector('legend span').innerHTML = '';
+        document.querySelector("legend span").innerHTML = "";
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: "smooth",
         });
     } //End resetForm
-
 
     /*
      * Método ocultar formulário.
      */
     static hideForm(id1 = null, id2 = null, id3 = null) {
-        document.querySelector(id1).addEventListener('click', function (e) {
+        document.querySelector(id1).addEventListener("click", function (e) {
             e.preventDefault();
 
             document.querySelectorAll(id2).forEach(function (el) {
-                'use strict';
+                "use strict";
                 // ** FADE OUT FUNCTION **
                 el.style.opacity = 1;
                 (function fadeOut() {
-                    if ((el.style.opacity -= .1) <= 0) {
+                    if ((el.style.opacity -= 0.1) <= 0) {
                         el.style.display = "none";
                     } else {
                         setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
@@ -774,10 +952,10 @@ class EventAction {
             document.querySelectorAll(id3).forEach(function (el) {
                 // ** FADE IN FUNCTION **
                 el.style.opacity = 0;
-                el.style.display = '';
+                el.style.display = "";
                 (function fadeIn() {
                     var val = parseFloat(el.style.opacity);
-                    if (!((val += .1) > 1)) {
+                    if (!((val += 0.1) > 1)) {
                         el.style.opacity = val;
                         setTimeout(fadeIn, 30); // Tempo em que irá desaparecer.
                         //requestAnimationFrame(fadeIn);
@@ -791,14 +969,14 @@ class EventAction {
      * Método ocultar formulário.
      */
     static showForm(id1 = null, id2 = null, id3 = null) {
-        document.querySelector(id1).addEventListener('click', function (e) {
+        document.querySelector(id1).addEventListener("click", function (e) {
             e.preventDefault();
 
             document.querySelectorAll(id2).forEach(function (el) {
-                'use strict';
+                "use strict";
                 el.style.opacity = 1;
                 (function fadeOut() {
-                    if ((el.style.opacity -= .1) <= 0) {
+                    if ((el.style.opacity -= 0.1) <= 0) {
                         el.style.display = "none";
                     } else {
                         setTimeout(fadeOut, 0); // Tempo em que irá desaparecer.
@@ -808,12 +986,12 @@ class EventAction {
             });
 
             document.querySelectorAll(id3).forEach(function (el) {
-                'use strict';
+                "use strict";
                 el.style.opacity = 0;
-                el.style.display = '';
+                el.style.display = "";
                 (function fadeIn() {
                     var val = parseFloat(el.style.opacity);
-                    if (!((val += .1) > 1)) {
+                    if (!((val += 0.1) > 1)) {
                         el.style.opacity = val;
                         setTimeout(fadeIn, 30); // Tempo em que irá desaparecer.
                         //requestAnimationFrame(fadeIn);
@@ -822,5 +1000,4 @@ class EventAction {
             });
         });
     } // End hideForm
-
 } //End EventAction

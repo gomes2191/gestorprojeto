@@ -1,5 +1,3 @@
-// <---------------End Script----------------->
-
 /* global pattern */
 $('#user-register-btn').on('click', function () {
   var $this = $(this);
@@ -17,6 +15,14 @@ $('.openBtn').click(function () {
     });
   });
 });
+
+function validateForm() {
+  let x = document.forms["regForm"]["name"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+}
 
 // Mascara de campos
 
@@ -63,14 +69,6 @@ $(document).ready(function (e) {
   $('.date').mask("00/00/0000",{
     placeholder:"DD/MM/YYYY",
     clearIfNotMatch: false,
-    onComplete:function(){
-        var v = $dateofbirth.val();
-        if( isValidDate(v) ){
-            // do stuff
-        } else {
-            // do other stuff
-        }
-    }
 });
 
   $('.hora').mask('00:00');
@@ -96,74 +94,12 @@ $(document).ready(function (e) {
 }); //------------------> End mask
 
 
-// Formulario cadastro validação form validator
-//$.validate({
-//  validateOnBlur : true, // disable validation when input looses focus
-//  errorMessagePosition : 'top', // Instead of 'inline' which is default
-//  scrollToTopOnError : false, // Set this property to true on longer forms
-//  modules : 'security, brazil',
-//  onModulesLoaded : function() {
-//    var optionalConfig = {
-//      fontSize: '12pt',
-//      fontWeight: 'normal',
-//      padding: '3px',
-//      bad : 'Muito fraca',
-//      weak : 'Fraco',
-//      good : 'Forte',
-//      strong : 'Muito forte'
-//    };
-//    $('input[name="user_password"]').displayPasswordStrength(optionalConfig);
-//  }
-//
-//});
-
-// Agenda popup inserção
-//$(function () {
-//    if (window.location.href.indexOf("agenda") > 1 ) {
-//        $(".dataTime").datetimepicker({
-//            inline: true,
-//            locale: 'pt-br',
-//            format: 'DD/MM/YYYY HH:MM',
-//            showTodayButton: true,
-//            showClear: true,
-//            showClose: true,
-//            disabledHours: false,
-//            focusOnShow: true,
-//            tooltips: {
-//                today: 'Data de Hoje',
-//                clear: 'Limpar Campo',
-//                close: 'Fechar Calendário',
-//                selectMonth: 'Select Month',
-//                prevMonth: 'Previous Month',
-//                nextMonth: 'Next Month',
-//                selectYear: 'Select Year',
-//                prevYear: 'Previous Year',
-//                nextYear: 'Next Year',
-//                selectDecade: 'Select Decade',
-//                prevDecade: 'Previous Decade',
-//                nextDecade: 'Next Decade',
-//                prevCentury: 'Previous Century',
-//                nextCentury: 'Next Century',
-//                incrementHour: 'Increment Hour',
-//                pickHour: 'Pick Hour',
-//                decrementHour:'Decrement Hour',
-//                incrementMinute: 'Increment Minute',
-//                pickMinute: 'Pick Minute',
-//                decrementMinute:'Decrement Minute',
-//                incrementSecond: 'Increment Second',
-//                pickSecond: 'Pick Second',
-//                decrementSecond:'Decrement Second'
-//            }
-//
-//        });
-//    }
-
 $(function () {
   var linkVerfy = function (href) {
     return window.location.href.indexOf(href);
   };
 
-  if (linkVerfy("agenda") > 1) {
+  if (linkVerfy("projects") > 1) {
     jQuery.datetimepicker.setLocale('pt-BR');
     $(".dateTime").datetimepicker({
       format: 'd/m/Y H:i',

@@ -1,56 +1,12 @@
 <?php
-
-/**
- *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
- *  @Class: FeesModel
- *  @Descrição: Classe responsavel por toda intereção com a base de dados e validações
- *
- *  @Pacote: OdontoControl
- *  @Versão: 0.2
- */
 class Project extends MainModel
 {
-
-    /**
-     * $form_data
-     *
-     * @Descrição: Armazena os dados recebido do post.
-     *
-     * @Acesso: public
-     */
-    public $form_data;
-
-    /**
-     * $form_msg
-     *
-     * @Descrição: As mensagens de feedback para o usuário.
-     *
-     * @Acesso: public
-     */
-    public $form_msg;
-
-    /**
-     * $db
-     *
-     * @Descrição: O objeto da nossa conexão PDO
-     *
-     * @Acesso: public
-     */
     public $db;
 
     public $global;
 
-    // Responsável por armazenar os dados do formulário.
     private $formData = [];
 
-    /**
-     *
-     *
-     * @Descrição: Construtor, carrega  o DB.
-     *
-     * @since 0.1
-     * @access public
-     */
     public function __construct($db = null)
     {
         $this->db = $db;
@@ -93,7 +49,7 @@ class Project extends MainModel
         } else {
             return;
         }
-    } //--> End actionType
+    }
 
     /**
      * Faz a inserção do registro no BD.
@@ -107,8 +63,6 @@ class Project extends MainModel
     {
         $lastId = (int) $this->db->insert('Projects', [
             'name'       => GFunc::chkArray($this->formData, 'name'),
-            'progress'   => GFunc::chkArray($this->formData, 'progress'),
-            'late'       => GFunc::chkArray($this->formData, 'late'),
             'start_date' => GFunc::convertDataHora('d/m/Y', 'Y-m-d', $this->formData['start_date']),
             'end_date'   => GFunc::convertDataHora('d/m/Y', 'Y-m-d', $this->formData['end_date']),
         ]);
@@ -134,11 +88,8 @@ class Project extends MainModel
     {
         $r = $this->db->update('Projects', 0, 'id', $id, [
             'name'       => GFunc::chkArray($this->formData, 'name'),
-            'start_date' => GFunc::chkArray($this->formData, 'start_date'),
-            'end_date'   => GFunc::chkArray($this->formData, 'end_date'),
-            'progress'   => GFunc::chkArray($this->formData, 'progress'),
-            'late'       => GFunc::chkArray($this->formData, 'late')
-
+            'start_date' => GFunc::convertDataHora('d/m/Y', 'Y-m-d', $this->formData['start_date']),
+            'end_date'   => GFunc::convertDataHora('d/m/Y', 'Y-m-d', $this->formData['end_date']),
         ]);
 
         // Verifica se a consulta está OK, se sim envia o Feedback para o usuário.

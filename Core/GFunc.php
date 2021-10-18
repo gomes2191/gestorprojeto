@@ -33,26 +33,6 @@
         }
 
         /**
-         * Verifica se a chave existe no array e se ela tem algum valor.
-         * Obs.: Essa função está no escopo global, pois, vamos precisar muito da mesma.
-         *
-         * @param string $getValor - valor do tipo string.
-         * @param string $source - valor do tipo string.
-         * @param string $replace - valor do tipo string.
-         *
-         * @return float Retorna a o float para inserção no BD
-         */
-        static function moeda($getValor)
-        {
-
-            $source = ['.', ','];
-            $replace = ['', '.'];
-            // remove os pontos e substitui a virgula pelo ponto.
-            return str_replace($source, $replace, $getValor);
-            // Retorna o valor formatado pronto para gravar no BD.
-        }
-
-        /**
          * Verifica se a url possui o valor passado se sim, aplica
          * a classe de menu ativo se não, não faz nada.
          *
@@ -113,7 +93,7 @@
             }
 
             return null;
-        } // End :) ValidaDataHora()
+        }
 
         /**
          *  Converte uma determinada data para o formato desejado.
@@ -140,22 +120,7 @@
             }
 
             return null;
-        } // End :) converteData()
-
-        /**
-         * Avaliar os dados inseridos pelo usuário e excluir caracteres indesejados.
-         *
-         * @param string $valor_ini a string.
-         *
-         * @return string retorna a string avaliada.
-         */
-        public function avaliar($valor_ini)
-        {
-            $nopermitido = ["'", '\\', '<', '>', '"'];
-            $valor_1 = str_replace($nopermitido, '', $valor_ini);
-
-            return filter_var($valor_1, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-        } //End :) Avaliar()
+        }
 
         /**
          * Codifica e Decodifica  a string passada dependendo do parâmetro.
@@ -186,97 +151,8 @@
          *
          * @return int Retorna um valor inteiro.
          */
-        public function onlyFilterNumber($valor)
+        public static function onlyFilterNumber($valor)
         {
             return (int) (preg_replace('/[^0-9]/', '', $valor));
         }
-
-        /**
-         * Converte o valor da moeda de real para float
-         * para armazenar na base de dado.
-         *
-         * @param string $str recebe número formato string.
-         *
-         * @return float Retorna um valor float.
-         */
-        public function moneyFloat($str)
-        {
-            return (float) str_replace(',', '.', str_replace('.', '', $str));
-        }
-
-        /**
-         * Verifica se o valor passado corresponde ao campo requerido.
-         *
-         * @param string $string recebe número no formato string.
-         * @param string $tipo   recebe número no formato string.
-         *
-         * @return string Retorna o valor correspondente.
-         */
-        public function formatPadrao($string, $tipo = '')
-        {
-            $valor = preg_replace('[^0-9]', '', $string);
-            if (!$tipo) {
-                switch (strlen($valor)) {
-                    case 11:
-                        $tipo = 'fone';
-                        break;
-                    case 8:
-                        $tipo = 'cep';
-                        break;
-                    case 11:
-                        $tipo = 'cpf';
-                        break;
-                    case 14:
-                        $tipo = 'cnpj';
-                        break;
-                }
-            }
-            switch ($tipo) {
-                case 'fone':
-                    $valor = '(' . substr($valor, 0, 2) . ') ' . substr($valor, 2, 4) .
-                        '-' . substr($valor, 6);
-
-                    break;
-                case 'cep':
-                    $valor = substr($valor, 0, 5) . '-' . substr($valor, 5, 3);
-
-                    break;
-                case 'cpf':
-                    $valor = substr($valor, 0, 3) . '.' . substr($valor, 3, 3) .
-                        '.' . substr($valor, 6, 3) . '-' . substr($valor, 9, 2);
-
-                    break;
-                case 'cnpj':
-                    $valor = substr($valor, 0, 2) . '.' . substr($valor, 2, 3) .
-                        '.' . substr($valor, 5, 3) . '/' .
-                        substr($valor, 8, 4) . '-' . substr($valor, 12, 2);
-
-                    break;
-                case 'rg':
-                    $valor = substr($valor, 0, 2) . '.' . substr($valor, 2, 3) .
-                        '.' . substr($valor, 5, 3);
-                    break;
-            }
-
-            return $valor;
-        }
-
-
-        /**
-         * Recebe uma matriz e um indentificador verifica se o indetificador existe
-         * caso exista remove o indentificador e retorna o número ou null caso não exista.
-         *
-         * @param array     $vector recebe o número no formato matriz.
-         * @param string    $type recebe o indentificador.
-         *
-         * @return string   $code1 retorna o resultado final.
-         */
-        public static function getCode($vector, $type)
-        {
-            foreach ($vector as $typeAndCode) {
-                list($type1, $code1) = explode(":", $typeAndCode);
-                if ($type1 === $type) return $code1;
-            }
-            return null;
-        }
-    } // End :) Class
+    }
