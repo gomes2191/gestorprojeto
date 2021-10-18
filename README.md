@@ -34,7 +34,7 @@ A aplicação exige o  [composer.json ](https://getcomposer.org/) instalado.
 Instalação das dependências necessárias para o composer.
 
 ```sh
-sudo apt-get -y install php php-zip php-common php-curl php-cli php-mbstring php-common php-json php-opcache php-readline php-xml php-dev php-gd php-pear php-imagick php-mysql php-pspell php-xsl php-xdebug -y
+sudo apt-get -y install php php-zip php-common php-curl php-cli php-mbstring php-common php-json php-opcache php-readline php-xml php-dev php-gd php-pear php-imagick php-mysql php-pspell php-xsl -y
 ```
 
 Clone da aplicação e Instalação dessa.
