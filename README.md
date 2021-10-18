@@ -19,7 +19,7 @@ Ambas as páginas ainda possuem um filtro de número de registro por página ond
 
 ## Especificações Técnica
 
-O sistema foi construindo com as seguintes tecnologia:
+O sistema foi construindo com as seguintes tecnologias:
 
 - [HTML5, CSS3, PHP, JavaScript, Twitter Bootstrap, jQuery e PHP 7.+, MySQL 8.0]
 
@@ -55,7 +55,25 @@ docker-compose build sw
 
 docker-compose up -d
 ```
-Apos realizar todas essas etapas basta abrir o browser e digitar na url: http://localhost e terá acesso ao sistema.
+![image](https://user-images.githubusercontent.com/4576117/137788518-cf895bcc-1cc4-4035-9c81-a065e53cb188.png)
+
+![image](https://user-images.githubusercontent.com/4576117/137788863-20aec2a3-06e7-4f0e-a429-bf6828764d5d.png)
+
+![image](https://user-images.githubusercontent.com/4576117/137789123-fc0c5a00-6569-43d0-9276-89fad2905fa8.png)
+
+![image](https://user-images.githubusercontent.com/4576117/137789351-0ac8c9a3-31c3-4ba6-a770-fd74481926eb.png)
+
+
+![image](https://user-images.githubusercontent.com/4576117/137789629-b9e2db4a-92df-4a04-bcf6-1b4c521ef381.png)
+
+![image](https://user-images.githubusercontent.com/4576117/137789889-38060338-68aa-46cc-8cf1-582fd89391df.png)
+
+![image](https://user-images.githubusercontent.com/4576117/137790098-d50f8e50-baf2-4121-af5b-08ea33c03fa0.png)
+
+
+
+Apos realizar todas essas etapas basta abrir o browser e digitar na url: http://localhost e terá acesso ao sistema. Lembrando que apos a execução do script de instalação do docker todos os parametros de configuração necessário para que o container rode o sistema será feito de maneira automotizada, porém é necessario que execute a execução dos script.
+
 ## Considerações finais
 
 Diante do projeto proposto, um dos maiores obstáculo foi o tempo, posto que trabalho e tenho pouco tempo disponível.
