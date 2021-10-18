@@ -118,7 +118,6 @@
 
                 return date_format($f_date, $to_format);
             }
-
             return null;
         }
 

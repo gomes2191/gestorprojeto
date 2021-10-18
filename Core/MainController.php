@@ -6,7 +6,7 @@
  * @package OdontoControl
  * @since 0.1
  */
-class MainController extends UserLogin
+class MainController
 {
     /**
      * $db
@@ -68,9 +68,7 @@ class MainController extends UserLogin
         // Parâmetros
         $this->_parameters = $_parameters;
 
-        // Verifica o login
-        $this->check_userlogin();
-    } // __construct
+    }
 
     /**
      * Load model

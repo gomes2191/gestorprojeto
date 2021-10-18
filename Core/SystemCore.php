@@ -1,79 +1,27 @@
 <?php
 
-/**
- * SystemCore - Responsável por gerenciar: Models, Controllers e Views.
- *
- * @category Class
- * @package  SystemCore
- * @author   Francisco <gomes.tisystem@gmail.com>
- * @license  gclinic.com Private
- * @link     www.gclinic.com
- * @since    0.2
- **/
+
 class SystemCore
 {
-    /**
-     * $controlador
-     *
-     * Receberá o valor do controlador (Vindo da URL).
-     * exemplo.com/controlador/
-     *
-     * @access private
-     */
+
     private $controlador;
 
-    /**
-     * $acao
-     *
-     * Receberá o valor da ação (Também vem da URL):
-     * exemplo.com/controlador/acao
-     *
-     * @access private
-     */
     private $acao;
 
-    /**
-     * $_parameters
-     *
-     * Receberá um array dos parâmetros (Também vem da URL):
-     * exemplo.com/controlador/acao/param1/param2/param50
-     *
-     * @access private
-     */
     private $_parameters;
 
-    /**
-     * $not_found
-     *
-     * Caminho da página não encontrada
-     *
-     * @access private
-     */
     private $_notFound = '/includes/404.php';
 
-    /**
-     * Construtor para essa classe
-     *
-     * Obtém os valores do controlador, ação e parâmetros. Configura
-     * o controlado e a ação (método).
-     */
     public function __construct()
     {
-        // Obtém os valores do controlador, ação e parâmetros da URL.
-        // E configura as propriedades da classe.
         $this->getUrlData();
 
-        /**
-         * Verifica se o controlador existe. Caso contrário, adiciona o
-         * controlador padrão (controllers/home-controller.php) e chama o método index().
-         */
         if (!$this->controlador) {
-            // Adiciona o controlador padrão
-            include_once $this->_getFile('RegisterController.php');
 
-            // Cria o objeto do controlador "home-controller.php"
-            // Este controlador deverá ter uma classe chamada HomeController
-            $this->controlador = new RegisterController();
+            // Adiciona o controlador padrão
+            include_once $this->_getFile('ProjectsController.php');
+
+            $this->controlador = new ProjectsController();
 
             // Executa o método index()
             $this->controlador->index();
@@ -96,9 +44,6 @@ class SystemCore
         // Inclui o arquivo do controlador
         include_once $this->_getFile($this->controlador . '.php');
 
-        /* Remove caracteres inválidos do nome do controlador para gerar o nome
-        da classe. Se o arquivo chamar "news-controller.php", a classe deverá
-        se chamar NewsController. */
         $this->controlador = preg_replace('/[^a-zA-Z]/i', '', $this->controlador);
 
 
@@ -137,17 +82,8 @@ class SystemCore
 
         // FIM :)
         return;
-    } // __construct
+    }
 
-    /**
-     * @access: private
-     * @author: Francisco Aparecido - F.A.G.A <gomes.tisystem@gmail.com>
-     * @version: 0.2
-     * @param: string variable
-     * @param: string $controle [required]
-     * </code>
-     * @return: string Retorna uma string com o valor retornado.
-     */
     private function _getFile($controle)
     {
         $encontrado = null;
@@ -166,15 +102,6 @@ class SystemCore
         return $encontrado;
     }
 
-    /**
-     * Obtém parâmetros de $_GET['path']
-     *
-     * Obtém os parâmetros de $_GET['path'] e configura as propriedades
-     * $this->controlador, $this->acao e $this->_parameters
-     *
-     * A URL deverá ter o seguinte formato:
-     * http://www.example.com/controlador/acao/parametro1/parametro2/etc...
-     */
     public function getUrlData()
     {
         // Verifica se o parâmetro path foi enviado
@@ -209,4 +136,4 @@ class SystemCore
             }
         }
     }
-} // End :) Class
+}

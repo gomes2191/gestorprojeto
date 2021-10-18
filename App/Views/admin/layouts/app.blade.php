@@ -51,24 +51,6 @@
 			<script src="{{ Config::HOME_URI }}/public/lib/_js/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 			<!--<script src="{{ Config::HOME_URI }}/public/js/scriptsTop.js"></script>-->
 			<!-- End JS -->
-
-		@elseif ($title == ' Agenda')
-			<script>
-				console.log("Bibliotecas inseridas")
-			</script>
-			<!-- Start agenda css -->
-			<link rel="stylesheet" href="{{ Config::HOME_URI }}/_agenda/css/calendar.css">
-			<!-- End agenda css -->
-
-			<!-- Start JS --><script src="{{ Config::HOME_URI }}/public/lib/_js/moment.min.js"> </script>
-			<link rel="stylesheet" href="{{ Config::HOME_URI }}/public/lib/_css/datetimepicker/jquery.datetimepicker.min.css">
-			<script src="{{ Config::HOME_URI }}/public/lib/_js/datetimepicker/jquery.datetimepicker.full.min.js"></script>
-			<script src="{{ Config::HOME_URI }}/public/js/scriptsTop.js"></script>
-			<script src="{{ Config::HOME_URI }}/_agenda/js/pt-BR.js"></script>
-			<script src="{{ Config::HOME_URI }}/_agenda/js/underscore-min.js"></script>
-			<script src="{{ Config::HOME_URI }}/_agenda/js/calendar.js"></script>
-			<script src="{{ Config::HOME_URI }}/_agenda/js/calendar-param.js"></script>
-			<!-- End JS -->
 		@endif
 	</head>
 	<body data-spy="scroll" data-target="spy-scroll-id">
@@ -90,10 +72,5 @@
 		<!-- <script src="<?= Config::HOME_URI; ?>/public/lib/_js/bootstrap/bootstrap.bundle.min.js"></script> -->
 
 		<!-- ===== Javascript customizado ===== --><script src="{{ Config::HOME_URI }}/public/js/scriptsFooter.js"> </script>
-		@if ( !$pageType and $pageType == 'calendar')
-			<!-- Start JS -->
-			<script src="{{ Config::HOME_URI }}/_agenda/js/calendar-param.js"></script>
-			<!-- End JS -->
-		@endif
 	</body>
 </html>

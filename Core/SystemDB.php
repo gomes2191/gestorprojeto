@@ -1,44 +1,18 @@
 <?php
 
-/**
- * SystemDB - Classe para gerenciamento da Base de dados.
- *
- * @category Class
- * @package  SystemDB
- * @author   Francisco <gomes.tisystem@gmail.com>
- * @license  gclinic.com Private
- * @link     www.gclinic.com
- * @since    0.2
- */
 class SystemDB extends Config
 {
-
-    // Propriedades referente a conexão com a base de dados.
-    private $_dbHost = "localhost", // Host da base de dados
+    private $_dbHost = "localhost",
         $_dbDriver = "mysql",
-        $_dbName, // Nome do banco de dados
+        $_dbName,
         $_tbPrefix,
-        $_dbPassword, // Senha do usuário da base de dados
-        $_dbUser, // Usuário da base de dados
-        $_dbCharset, // Charset da base de dados
-        $_pdo, // Nossa conexão com o BD
-        $_error, // Configura o erro
-        $_showErrors = true; // Mostra todos os erros
+        $_dbPassword,
+        $_dbUser,
+        $_dbCharset,
+        $_pdo,
+        $_error,
+        $_showErrors = true;
 
-    /**
-     * Construtor da classe
-     *
-     * @since 0.1
-     * @access public
-     * @param string $db_host
-     * @param string $db_driver
-     * @param string $db_name
-     * @param string $tb_prefix
-     * @param string $password
-     * @param string $user
-     * @param string $charset
-     * @param string $debug
-     */
     function __construct()
     {
 
@@ -49,18 +23,10 @@ class SystemDB extends Config
         $this->_dbPassword  = defined('Config::DB_PASSWORD') ? Config::DB_PASSWORD : $this->_dbPassword;
         $this->_dbUser      = defined('Config::DB_USER') ? Config::DB_USER : $this->_dbCharset;
         $this->_dbCharset   = defined('Config::DB_CHARSET') ? Config::DB_CHARSET : $this->_dbCharset;
-        //$this->_showErrors  = defined('Config::SHOW_ERRORS') ? Config::SHOW_ERRORS : $this->_showErrors;
 
-        // Efetua a conexão
         $this->connectDb();
-    } // End:) __construct
+    }
 
-
-    /**
-     * Junta os _parameters e tenta efetuar a conexão com o BD.
-     *
-     * @return array
-     */
     final protected function connectDb()
     {
         /* Os detalhes da nossa conexão PDO */
@@ -130,56 +96,33 @@ class SystemDB extends Config
         }
     }
 
-    /**
-     * insert - Insere valores
-     *
-     * Insere os valores e tenta retornar o último id enviado
-     *
-     * @since 0.1
-     * @access public
-     * @param string $table O nome da tabela
-     * @param array ... Ilimitado número de arrays com chaves e valores
-     * @return object|bool Retorna a consulta ou falso
-     */
     public function insert($table)
     {
-        // Configura o array de colunas
         $cols = [];
 
-        // Configura o valor inicial do modelo
         $place_holders = '(';
 
-        // Configura o array de valores
         $values = [];
 
-        // O $j will assegura que colunas serão configuradas apenas uma vez
         $j = 1;
 
-        // Obtém os argumentos enviados
         $data = func_get_args();
 
-        // É preciso enviar pelo menos um array de chaves e valores
         if (!isset($data[1]) || !is_array($data[1])) {
             return false;
         }
 
-        // Faz um laço nos argumentos
         for ($i = 1; $i < count($data); $i++) {
-
-            // Obtém as chaves como colunas e valores como valores
             foreach ($data[$i] as $col => $val) {
 
-                // A primeira volta do laço configura as colunas
                 if ($i === 1) {
                     $cols[] = "`$col`";
                 }
 
                 if ($j <> $i) {
-                    // Configura os divisores
                     $place_holders .= '), (';
                 }
 
-                // Configura os place holders do PDO
                 $place_holders .= '?, ';
 
                 // Configura os valores que vamos enviar
@@ -213,37 +156,13 @@ class SystemDB extends Config
                 return $this->_pdo->lastInsertId();
             }
 
-            // Retorna a consulta
-
         }
 
-        // The end :)
         return false;
     }
 
-    // insert
-
-    /**
-     * Update simples
-     *
-     * Atualiza uma linha da tabela baseada em um campo
-     *
-     * @since 0.1
-     * @access protected
-     * @param string $table Nome da tabela
-     * @param string $where_field WHERE $where_field = $where_field_value
-     * @param string $where_field_value WHERE $where_field = $where_field_value
-     * @param array $values Um array com os novos valores
-     * @return object|bool Retorna a consulta ou falso
-     */
     public function update($table, $where_single = false, $where_field = false, $where_field_value = false, $values)
     {
-        // Você tem que enviar todos os parâmetros
-        /* if (empty($table) || empty($where_field) || empty($where_field_value)) {
-            return;
-        } */
-
-        // Começa a declaração
         $stmt = " UPDATE `$table` SET ";
 
         // Configura o array de valores
@@ -256,111 +175,66 @@ class SystemDB extends Config
             $where = " WHERE `$where_field` = ?";
         }
 
-        // Você precisa enviar um array com valores
         if (!is_array($values)) {
             return false;
         }
 
-        // Configura as colunas a atualizar
         foreach ($values as $column => $value) {
             $set[] = " `$column` = ?";
         }
 
-        // Separa as colunas por vírgula
         $set = implode(', ', $set);
 
-        // Concatena a declaração
         $stmt .= $set . $where;
 
         if ($where_single == false) {
 
-            // Configura o valor do campo que vamos buscar
             $values[] = $where_field_value;
 
-            // Garante apenas números nas chaves do array
             $values = array_values($values);
 
-            // Atualiza
             $update = $this->query($stmt, $values);
         } else {
 
-            // Garante apenas números nas chaves do array
             $values = array_values($values);
 
-            // Atualiza
             $update = $this->query($stmt, $values);
         }
 
-        // Verifica se a consulta está OK
         if ($update) {
-            // Retorna a consulta
             return $update;
         }
 
-        // The end :)
         return false;
-    } // update
+    }
 
-    /**
-     * Delete
-     *
-     * Deleta uma linha da tabela
-     *
-     * @since 0.1
-     * @access protected
-     * @param string $table Nome da tabela
-     * @param string $where_field WHERE $where_field = $where_field_value
-     * @param string $where_field_value WHERE $where_field = $where_field_value
-     * @return object|bool Retorna a consulta ou falso
-     */
     public function delete($table, $where_field, $where_field_value)
     {
-        // Você precisa enviar todos os parâmetros
         if (empty($table) || empty($where_field) || empty($where_field_value)) {
             return;
         }
 
-        // Inicia a declaração
         $stmt = " DELETE FROM `$table` ";
 
-        // Configura a declaração WHERE campo=valor
         $where = " WHERE `$where_field` = ? ";
 
-        // Concatena tudo
         $stmt .= $where;
 
-        // O valor que vamos buscar para apagar
         $values = array($where_field_value);
 
-        // Apaga
         $delete = $this->query($stmt, $values);
 
-        // Verifica se a consulta está OK
         if ($delete) {
-            // Retorna a consulta
             return $delete;
         }
-
-        // The end :)
         return;
-    } // delete
+    }
 
-    // Metodo para pegar o id da ultima inserção na tabela
     public function lastInsertId()
     {
         return $this->_pdo->lastInsertId();
     }
 
-
-    //Método para a consulta na tabela
-    /**
-     * [listar]
-     *
-     * @param  [type] $tabela   string
-     * @param  [type] $coluna   string
-     * @param  [type] $condicao string
-     * @return [type]           array
-     */
     public function select($table, $column, $condition = null)
     {
         (defined('Config::TB_PREFIX')) ? $table = Config::TB_PREFIX . $table : $table;
@@ -373,4 +247,4 @@ class SystemDB extends Config
         }
         return !empty($data) ? $data : false;
     }
-}// Class SystemDB
+}

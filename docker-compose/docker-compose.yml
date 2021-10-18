@@ -1,0 +1,74 @@
+# Criado por: Francisco - gomes.tisystem@gmail.com
+version: "3.5"
+services:
+  # Definições do nginx
+  sw: # Servidor Web (SW)
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    #environment:
+      #SERVICE_NAME: ${APP_SERVER_NAME}
+      #SERVICE_TAGS: dev
+    tty: true
+    ports:
+      - 80:80
+    volumes:
+      - ./${APP_DIRECTORY_PATH}:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+  lp: # Lingugem de Programação (LP)
+    build:
+      args:
+        user: $USER
+        uid: 1000
+        PHP_IMG_VERSION: ${PHP_IMG_VERSION}
+      context: ./
+      dockerfile: Dockerfile
+    image: php:${PHP_VERSION}
+    container_name: php
+    restart: unless-stopped
+    tty: true
+    environment:
+      XDEBUG_CONFIG: "idekey=${APP_IDE} client_host=${APP_CLIENT_IP} client_port=${APP_CLIENT_PORT}"
+      PHP_IDE_CONFIG: "serverName=${APP_SERVER_NAME}"
+      #SERVICE_TAGS: dev
+      #SERVICE_NAME: app
+    working_dir: /var/www
+    volumes:
+      - ./${APP_DIRECTORY_PATH}:/var/www
+      - ./php/conf.d/php-dev.ini:/usr/local/etc/php/conf.d/php-dev.ini
+      - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+    networks:
+      - app-network
+
+  # Definições do banco de dados
+  bd: # Banco de Dados (bd)
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      #SERVICE_NAME: db
+      #SERVICE_TAGS: dev
+    ports:
+      - ${DB_HOST}:${DB_PORT}
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    networks:
+      app-network:
+        aliases:
+          - mysql #Any container connected to test network can access this simply by using mysql as hostname
+
+# Definições de rede;
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
+
+#Corrigi problema de bridge -> docker system prune -a --volumes && docker network prune

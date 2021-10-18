@@ -6,7 +6,6 @@
     {
         public function index()
         {
-
             if (!Config::ABS_PATH) {
                 echo 'Erro: O diretório da aplicação não foi definido.';
             }

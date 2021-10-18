@@ -1,75 +1,22 @@
 <?php
 
-/**
- *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
- *  @Class: MainModel - Modelo base
- *  @Descrição: Essa classe servirá para manter os métodos que poderão ser utilizados em todos os modelos, ou seja, ela o ajuda a manter a reutilização de código sempre ativa.
- *
- *  @Pacote: SystemControl
- *  @Versão: 0.1
- * */
+
 class MainModel
 {
-
-    //public $tb_prefix = TB_PREFIX;
-
-    /**
-     *  @Acesso: public
-     *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Descrição: Armazena os dados passado no formulário via post.
-     * */
     public $form_data;
 
-    /**
-     *  @Acesso: public
-     *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Descrição: Responsavel por armazenar as mensagen de feedback ao usuário.
-     */
     public $form_msg;
 
-    /**
-     *  @Acesso: public
-     *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Descrição: Armazena a mensagem de confirmação ao apagar algum registro
-     * */
     public $form_confirma;
 
-    /**
-     *  @Acesso: public
-     *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Descrição: O objeto da nossa conexão PDO.
-     **/
     public $db;
 
-    /**
-     *  @Acesso: public
-     *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Descrição: O controller que gerou esse modelo
-     * */
     public $controller;
 
-    /**
-     *  @Acesso: public
-     *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Descrição: Parâmetros da URL
-     * */
     public $_parameters;
 
-    /**
-     *  @Acesso: public
-     *  @Autor: F.A.G.A <gomes.tisystem@gmail.com>
-     *  @Descrição: Dados do usuário
-     * */
     public $userdata;
 
-
-    /**
-     *   @Acesso: public
-     *   @Autor: Gomes - F.A.G.A <gomes.tisystem@gmail.com>
-     *   @Versão: 0.1
-     *   @Função: get_table_data()
-     *   @Descrição: Recebe os valores passado na função, $campo, $tabela e $id, efetua a consulta e retorna o resultado.
-     * */
     public function get_table_data($campo, $table, $id)
     {
         #Simplesmente seleciona os dados na base de dados

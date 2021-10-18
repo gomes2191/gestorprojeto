@@ -1,2 +1,0 @@
-composer dump-autoload --optimize
-composer update --lock

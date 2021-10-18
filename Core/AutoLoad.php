@@ -1,89 +1,75 @@
 <?php
 
-// Inicia a sessão
-session_start();
+    // Inicia a sessão
+    session_start();
 
-// Evita que usuários acesse este arquivo diretamente.
-if (!Config::ABS_PATH) {
-    (Config::DEBUG['show']) ? var_dump('Não foi definido o diretório do sistema.') : die('Erro fatal...');
-}
-/**
- * Loader - classe responsável por fazer a carga do
- * sistema e com algumas funções importantes.
- *
- * @category Class
- * @package  Loader
- * @author   F.A.G.A - <gomes.tisystem@gmail.com>
- * @license  gclinic.com Private
- * @link     www.gclinic.com
- * @since    0.2
- */
-class AutoLoad
-{
-    public function __construct()
-    {
-        spl_autoload_register(array($this, 'load'));
-
-        // Carrega o método mostrar erros.
-        //$this->ligaDebug();
-
-        // Carrega o metódo que seta o Time_Zone.
-        //$this->setTimeZone();
-
-        // Carrega o Time_Zone atual caso esteja setado no Config.
-        //$this->showTimeZone();
+    // Evita que usuários acesse este arquivo diretamente.
+    if (!Config::ABS_PATH) {
+        (Config::DEBUG['show']) ? var_dump('Não foi definido o diretório do sistema.') : die('Erro fatal...');
     }
-
-    public static function showTimeZone()
-    {
-        if (Config::TIME_ZONE['show']) {
-            echo "<h6><span class='badge bg-primary'>FUSO HORÁRIO: " . date_default_timezone_get() . "</span></h6>";
-        }
-    }
-
-    public static function statusDebug()
-    {
-        if (Config::DEBUG['display']) {
-            echo "<h6><span class='badge bg-primary'>MODO DEBUG: ativo </span></h6>";
-        }
-    }
-
     /**
-     * Recebe a requisição e verifica se classe existe.
+     * Loader - classe responsável por fazer a carga do
+     * sistema e com algumas funções importantes.
      *
-     * @param string $nomeDaClasse recebe um valor no formato string.
-     *
-     * @return object object Retorna um object com os valores.
+     * @category Class
+     * @package  Loader
+     * @author   F.A.G.A - <gomes.tisystem@gmail.com>
+     * @license  gclinic.com Private
+     * @link     www.gclinic.com
+     * @since    0.2
      */
-    public static function load($nomeDaClasse)
+    class AutoLoad
     {
-        $pastas = ['/Core/', '/interf/'];
+        public function __construct()
+        {
+            spl_autoload_register(array($this, 'load'));
+        }
 
-        //$extension =  spl_autoload_extensions();
-        spl_autoload_extensions('.php');
-
-        foreach ($pastas as $pasta) {
-            $fileParcial = Config::ABS_PATH . $pasta . $nomeDaClasse;
-            /* echo '<pre>';
-            print_r($fileParcial);
-            echo '</pre>'; */
-
-            if ((file_exists($fileParcial . '.php'))) {
-
-                require_once $fileParcial . '.php';
-
-                unset($fileParcial, $pasta, $pastas, $nomeDaClasse);
-
-                return;
+        public static function showTimeZone()
+        {
+            if (Config::TIME_ZONE['show']) {
+                echo "<h6><span class='badge bg-primary'>FUSO HORÁRIO: " . date_default_timezone_get() . "</span></h6>";
             }
         }
 
-        include_once dirname(__DIR__) . '/includes/404.php';
+        public static function statusDebug()
+        {
+            if (Config::DEBUG['display']) {
+                echo "<h6><span class='badge bg-primary'>MODO DEBUG: ativo </span></h6>";
+            }
+        }
 
-        //die('Erro: Classes não encontrada.');
+        /**
+         * Recebe a requisição e verifica se classe existe.
+         *
+         * @param string $nomeDaClasse recebe um valor no formato string.
+         *
+         * @return object object Retorna um object com os valores.
+         */
+        public static function load($nomeDaClasse)
+        {
+            $pastas = ['/Core/'];
 
-        unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
-    } // End autoLoad
+            //$extension =  spl_autoload_extensions();
+            spl_autoload_extensions('.php');
+
+            foreach ($pastas as $pasta) {
+                $fileParcial = Config::ABS_PATH . $pasta . $nomeDaClasse;
+
+                if ((file_exists($fileParcial . '.php'))) {
+
+                    require_once $fileParcial . '.php';
+
+                    unset($fileParcial, $pasta, $pastas, $nomeDaClasse);
+
+                    return;
+                }
+            }
+
+            include_once dirname(__DIR__) . '/includes/404.php';
+
+            unset($fileParcial, $pasta, $nomeDaClasse, $pastas, $nomeDaClasse);
+        }
 }
 
 // Carrega a classe AutoLoad

@@ -1,7 +1,4 @@
 <?php
-
-//require_once('Config.php');
-
 /**
  * Classe responsavel pelo gerenciamento manual
  * de erro do sistema.
@@ -179,8 +176,7 @@ class Erros
 
         error_log($conteudo . "\n", 3, Config::ABS_PATH . '/logs/' . $this->log_notices);
     }
-} // fim da classe:  ControleDeErros
-
+}
 
 // por fim, solicitamos educadamente ao PHP
 // que nos de o controle sobre a gerencia de erros
