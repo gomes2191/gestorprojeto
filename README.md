@@ -73,7 +73,7 @@ docker-compose up -d
 
 
 
-Apos realizar todas essas etapas basta abrir o browser e digitar na url: http://localhost e terá acesso ao sistema. Lembrando que apos a execução do script de instalação do docker todos os parametros de configuração necessário para que o container rode o sistema será feito de maneira automotizada, porém é necessario que execute a execução dos script.
+Apos realizar todas essas etapas basta abrir o browser e digitar na url: http://localhost e terá acesso ao sistema. Lembrando que apos a execução do script de instalação do docker todos os parametros de configuração necessários para que o container rode, o sistema, será feito de maneira automotizada, porém é necessario que seja feita a execução dos scripts.
 
 ## Considerações finais
 
